@@ -17,7 +17,13 @@ set_include_path(implode(PATH_SEPARATOR, array(
 use Symfony\Component\Yaml\Yaml;
 
 // Load configs and add to the app container
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(
+    array(
+        'view' => new Slim\Views\Twig(),
+        'templates.path' => APPLICATION_PATH . '/views'
+    )
+);
+$view = $app->view();
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 $app->container->set('configs', $configs);
 
@@ -32,8 +38,19 @@ $authenticate = function ($app) {
 };
 
 
+$app->notFound(function () use ($app) {
+    $app->render(
+        'partials/404.html.twig'
+    );
+});
+
+
 $app->get("/", $authenticate($app), function () use ($app) {
-    $app->response->setBody('farts');
+    $app->render(
+        'partials/index.html.twig',
+        array(),
+        200
+    );
 });
 
 
