@@ -1,7 +1,33 @@
 {% extends 'layout.html.twig' %}
+{% block head %}
+    {{parent()}}
+    <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+<script type="text/javascript" src="js/views/index.js">
+
+</script>
+{% endblock %}
 {% block body %}
 	{{ parent() }}
-	farts
+    <header>Logo</header>
+	<section id="intro"><h1>intro</h1></section>
+    <section id="visual-art"><h1>art</h1></section>
+    <section id="about"><h1>about</h1></section>
+    <section id="on-the-web"><h1>online</h1></section>
+    <section id="contact"><h1>contact</h1></section>
 {% endblock %}
 

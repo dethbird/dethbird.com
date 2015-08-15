@@ -2,8 +2,13 @@
 <html>
   <head>
     <title>A website</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/site.css">
+    {% block head %}{% endblock %}
   </head>
   <body>
+    <div class="body-content">
 	 {% block body %}{% endblock %}
+    </div>
   </body>
 </html>
