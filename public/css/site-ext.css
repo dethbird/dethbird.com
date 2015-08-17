@@ -50,7 +50,7 @@ section {
     background-image: url("../img/1280/portfolio.background.jpg");
     background-repeat: no-repeat;
     background-color: #010101;
-    min-height: 700px;
+    height: 920px;
     margin-top: 90px;
     margin-bottom: 15px;
     text-align: center;
@@ -74,10 +74,31 @@ section {
     max-height: 640px;
     max-width: auto;
 }
+#about-title {
+    position: absolute;
+    background-image: url("../img/1280/about.title.png");
+    background-repeat: no-repeat;
+    width: 438px;
+    height: 113px;
+    top: 1780px;
+    z-index:1000;
+    margin-left:25px;
+}
 #about {
+    color: white;
     background-image: url("../img/1280/about.background.jpg");
     background-repeat: no-repeat;
     min-height: 675px;
+    margin-top: 100px;
+}
+#about table {
+    margin: 75px 100px 0px 100px;
+    width: 1000px;
+}
+#about table td {
+    padding-right:25px;
+    width: 450px;
+    vertical-align: text-top;
 }
 
 /** Responsive */
