@@ -1,0 +1,110 @@
+/** Default settings for 1280px+ displays */
+body {
+}
+section {
+    border-radius: 50px 0px 50px 50px;
+    margin-bottom: 5px;
+}
+.body-content {
+}
+
+
+.headshot {
+    border-radius: 50px;
+}
+.tagline {
+    float:right;
+}
+#great_button {
+    position: absolute;
+    top: 650px;
+    margin-left: -100px;
+    z-index: 1001;
+}
+#logo {
+    position: absolute;
+    background-image: url("../img/1280/logo.png");
+    background-repeat: no-repeat;
+    width: 1200px;
+    height: 700px;
+    z-index:1000;
+}
+#intro {
+    background-image: url("../img/1280/intro.background.jpg");
+    background-repeat: no-repeat;
+    min-height: 675px;
+    margin-top: 80px;
+}
+
+#portfolio-title {
+    position: absolute;
+    background-image: url("../img/1280/portfolio.title.png");
+    background-repeat: no-repeat;
+    width: 332px;
+    height: 154px;
+    top: 800px;
+    z-index:1000;
+    margin-left:25px;
+}
+#portfolio {
+    background-image: url("../img/1280/portfolio.background.jpg");
+    background-repeat: no-repeat;
+    background-color: #010101;
+    min-height: 700px;
+    margin-top: 90px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+#portfolio-random-button {
+    position: absolute;
+    margin-top: 15px;
+}
+.portfolio-piece {
+    margin: 45px 0px 25px 0px;
+    display:inline-block;
+    color: white;
+    text-align: center;
+}
+.portfolio-piece div.description {
+    font-size: 12px;
+    text-align: left;
+    margin: 20px 100px 0px 100px;
+}
+.portfolio-piece .content img{
+    max-height: 640px;
+    max-width: auto;
+}
+#about {
+    background-image: url("../img/1280/about.background.jpg");
+    background-repeat: no-repeat;
+    min-height: 675px;
+}
+
+/** Responsive */
+@media screen and (min-width:0px) {
+    section {
+    }
+    .body-content {
+    }
+}
+
+@media screen and (min-width:640px) {
+    section {
+    }
+    .body-content {
+    }
+}
+
+@media screen and (min-width:960px) {
+    section {
+    }
+    .body-content {
+    }
+}
+
+@media screen and (min-width:1280px) {
+    section {
+    }
+    .body-content {
+    }
+}

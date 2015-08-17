@@ -21,11 +21,36 @@
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-    <header>Logo</header>
-	<section id="intro"><h1>intro</h1></section>
-    <section id="visual-art"><h1>art</h1></section>
-    <section id="about"><h1>about</h1></section>
-    <section id="on-the-web"><h1>online</h1></section>
+    <header id="logo"></header>
+    <a class="btn btn-success btn-lg" id="great_button">Great!</a>
+    <section id="intro"></section>
+
+    <header id="portfolio-title"></header>
+    <section id="portfolio">
+      <a class="btn btn-primary" id="portfolio-random-button">Random <span class="glyphicon glyphicon-refresh"></span></a><br class="clearfix" />
+      <div class="portfolio-piece">
+        <div class="content"></div>
+        <h1 class="title"></h1>
+        <div class="category-year-medium"></div>
+        <div class="description"></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <table width="100%">
+        <tr>
+          <th>#cartoons</th>
+          <th>#technology</th>
+        </tr>
+        <tr>
+          <td>I make cartoons</td>
+          <td>I work with computers</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="on-the-web"><h1>le cyberweb (i'm jacked in)</h1></section>
+
     <section id="contact"><h1>contact</h1></section>
 {% endblock %}
 
