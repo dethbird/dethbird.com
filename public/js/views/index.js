@@ -184,17 +184,6 @@ var PostView = Backbone.View.extend({
   },
   render: function() {
 
-      // var that = this;
-      // that.$('.portfolio-piece').hide();
-      // var image = new Image();
-      // image.src = this.model.get('content');
-      // this.$('.title').html(this.model.get('title'));
-      // this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
-      // this.$('.description').html(this.model.get('description'));
-      // this.$('.content').html(image);
-      // $(image).load(function() {
-      //   that.$('.portfolio-piece').fadeIn(1200);
-      // });
     var that = this;
     this.$('.random-post').fadeOut(0, function(){
       that.$('.random-post').fadeIn('3000');

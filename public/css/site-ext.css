@@ -168,6 +168,10 @@ a.btn {
     z-index:1000;
     margin-left:25px;
 }
+#info li {
+  margin: 5px 0;
+  font-size:12px;
+}
 
 /** Responsive */
 @media screen and (min-width:0px) {
