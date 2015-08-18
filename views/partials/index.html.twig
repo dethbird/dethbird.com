@@ -12,12 +12,7 @@
     <header id="portfolio-title"></header>
     <section id="portfolio">
       <a class="btn btn-primary" id="portfolio-random-button">Random <span class="glyphicon glyphicon-refresh"></span></a><br class="clearfix" />
-      <div class="portfolio-piece">
-        <div class="content"></div>
-        <h1 class="title"></h1>
-        <div class="category-year-medium"></div>
-        <div class="description"></div>
-      </div>
+      <div class="random-post"></div>
     </section>
 
     <header id="about-title"></header>
@@ -35,13 +30,13 @@
             </ul>
             <p>I am interested in producing creative projects with YOU. This is it. Cartoons are everything. You ever walk away from a fight and not do anything? But when you walk away you imagine an anvil or piano smashing their faces? That's how my mind works! Like a cartoon! And I want to work with YOUUUUU.</p>
             <p>Let's do business.</p>
-            <h1>#creative</h1>
+            <!--<h1>#creative</h1>
             <ul>
               <li>Web design</li>
               <li>Poster/flyer design</li>
               <li>Book covers</li>
               <li>I suck at logos don't ask me</li>
-            </ul>
+            </ul>-->
           </td>
           <td>
             <h1>#technology</h1>
@@ -72,7 +67,7 @@
           <td>
             <a class="btn btn-primary" id="post-random-button">Random <span class="glyphicon glyphicon-refresh"></span></a>
             <br class="clearfix" /><br />
-            <div id="random-post"></div>
+            <div class="random-post"></div>
           </td>
           <td>
             <div class='details'>
@@ -90,13 +85,21 @@
     </section>
 
     <span id="test_tweet"></span>
-
+    <script type="text/template" id="post-portfolio">
+      <div class="post portfolio">
+        <div class="content"><img src="<%-content%>" /></div>
+        <br />
+        <h1><%-title%></h1>
+        <div class="category-year-medium"><%-category%> (<%-year%>) <%-medium%></div>
+        <div class="description"><%-description%></div>
+      </div>
+    </script>
     <script type="text/template" id="post-instagram">
       <div class="post instagram">
         <a href="<%-link%>" target="_blank"><img src="<%-images.standard_resolution.url%>" /></a>
         <br />
-        <p><%-caption.text%></p>
-        <p><a class="btn btn-default btn-sm pull-right" href="<%-link%>" target="_blank"><img src="img/logo-instagram-24.png" /> View</a></p>
+        <div class="description"><%-caption.text%></div>
+        <div class="description"><a class="btn btn-default btn-sm pull-right" href="<%-link%>" target="_blank"><img src="img/logo-instagram-24.png" /> View</a></div>
       </div>
     </script>
     <script type="text/template" id="post-wordpress">

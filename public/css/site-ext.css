@@ -2,13 +2,14 @@
 body {
     margin-bottom: 100px;
     text-shadow: 1px 2px 4px #000;
+    background-color: #000;
 }
 section {
     border-radius: 50px 0px 50px 50px;
     margin-bottom: 5px;
 }
 a {
-    color: #00aeff;
+    color: #f5b20a;
 }
 a.btn {
     text-shadow: none;
@@ -62,26 +63,38 @@ a.btn {
     margin-top: 90px;
     margin-bottom: 15px;
     text-align: center;
-}
-#portfolio-random-button {
-    position: absolute;
-    margin-top: 15px;
-}
-.portfolio-piece {
-    margin: 45px 0px 25px 0px;
-    display:inline-block;
     color: white;
-    text-align: center;
+    padding:25px;
 }
-.portfolio-piece div.description {
-    font-size: 12px;
+#portfolio .post img {
+    margin-top: 15px;
+    max-height: 600px;
+    width: auto;
+    border-radius: 10px;
+}
+#portfolio .post.instagram img {
+    margin-bottom:10px;
+}
+
+#portfolio .post .btn img {
+    margin :0px;
+    border-radius: 2px;
+}
+#portfolio .post.portfolio .category-year-medium,
+#portfolio .post .description {
+    margin: 0px 100px 10px 100px;
+    font-size:12px;
+    display: inline-block;
+    width: 700px;
+}
+#portfolio .post .description {
     text-align: left;
-    margin: 20px 100px 0px 100px;
+    font-size: 13px;
 }
-.portfolio-piece .content img{
-    max-height: 640px;
-    max-width: auto;
+#portfolio .post.instagram .description {
+    width: 640px;
 }
+
 #about-title {
     position: absolute;
     background-image: url("../img/1280/about.title.png");

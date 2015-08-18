@@ -7,20 +7,20 @@ var workMode = 0;
 
 var portfolioItemJson = [
   {
-    "title": "Sauced Octopus",
-    "year": "2008",
-    "medium": "pencil, Painter, Photoshop",
-    "category": "Illustration",
-    "content": "https://farm3.staticflickr.com/2473/3692721420_0cee6cd9d2_b.jpg",
-    "description": "Just an illustration I used to sell prints of."
-  },
-  {
     "title": "Beepo Takes A Pipe To Nowhere",
     "year": "2010",
     "medium": "pencil, Painter, Photoshop",
     "category": "Illustration",
     "content": "https://farm3.staticflickr.com/2439/3663515635_1c89de110c_b.jpg",
     "description": "Beepo is a robot built by Japanese robotics engineers with whatever information they had about Italian stereotypes. Upon his activation they uploaded the occupation \"plumber\" into his main fucking memory.\nIn this world there are no humans around but somehow he always has a pipe to clean out or something to unclog. It's a very septic life. He tends to drink and do a lot of drugs, even on the job.\nBut he also has a stereotypically Italian lust for life, and he sings Opera to all the beautiful women ... robots. Women robots.\nThis piece is concept art for a mini film starring the one and only Beepo Beeparelli"
+  },
+  {
+    "title": "Sauced Octopus",
+    "year": "2008",
+    "medium": "pencil, Painter, Photoshop",
+    "category": "Illustration",
+    "content": "https://farm3.staticflickr.com/2473/3692721420_0cee6cd9d2_b.jpg",
+    "description": "Just an illustration I used to sell prints of."
   },
   {
    "title": "Burger Pope Ad",
@@ -59,10 +59,10 @@ var portfolioItemJson = [
 ];
 
 var instagramPostIds = [
+  '29N7rtRZv1', //squiggles,
   'tcy7cYRZnx', // red robot
   '380qewxZge', //jeb leno
   '3uHYLuRZlb', //conan
-  '29N7rtRZv1', //squiggles,
   'yYZoXQRZkN', //smoking guy
   'vc7IPSRZsn', //more anchovies
 ];
@@ -112,7 +112,15 @@ var PostCollection = Backbone.Collection.extend({
       that.add(model);
     });
     this.trigger('parse');
-    // console.log(that);
+  }
+});
+
+
+var PortfolioCollection = PostCollection.extend({
+  posts: portfolioItemJson,
+  type: 'portfolio',
+  fetch: function() {
+    this.parse(this.posts);
   }
 });
 
@@ -134,16 +142,20 @@ var WordpressCollection = PostCollection.extend({
   type: 'wordpress'
 });
 
+
+var portfolio = new PortfolioCollection();
+// portfolio.add(portfolioItemJson);
 var instagrams = new InstagramCollection();
 var tweets = new TwitterCollection();
 var wpposts = new WordpressCollection();
+
 
 var PostView = Backbone.View.extend({
   events: {
     "click a#post-random-button": "randomPost"
   },
   postCollections: [
-    instagrams, wpposts, tweets
+    wpposts, tweets
   ],
   initialize: function(){
     var that = this;
@@ -168,19 +180,32 @@ var PostView = Backbone.View.extend({
   },
   readyState: function() {
     this.model = this.postCollections[0].first();
-    console.log(this.model.get('data'));
     this.render();
   },
   render: function() {
-    var template;
-    var template = _.template($("#post-" + this.model.get('type')).html());
-    this.$('#random-post').html( template(this.model.get('data'), {escape: false}) );
 
+      // var that = this;
+      // that.$('.portfolio-piece').hide();
+      // var image = new Image();
+      // image.src = this.model.get('content');
+      // this.$('.title').html(this.model.get('title'));
+      // this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
+      // this.$('.description').html(this.model.get('description'));
+      // this.$('.content').html(image);
+      // $(image).load(function() {
+      //   that.$('.portfolio-piece').fadeIn(1200);
+      // });
+    var that = this;
+    this.$('.random-post').fadeOut(0, function(){
+      that.$('.random-post').fadeIn('3000');
+    });
+    var template = _.template($("#post-" + this.model.get('type')).html());
+    this.$('.random-post').html( template(this.model.get('data'), {escape: false}) );
     var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
     if(this.model.get('type')=="instagram" || this.model.get('type')=="wordpress") {
 
-      $('#random-post').each(function(){
+      $('.random-post').each(function(){
 
         var that = $(this);
 
@@ -208,7 +233,7 @@ var PostView = Backbone.View.extend({
     //if this is twitter, render the tweet
     if(this.model.get('type')=="twitter") {
 
-      var tweetDiv = this.$('#random-post .post.twitter .tweet');
+      var tweetDiv = this.$('.random-post .post.twitter .tweet');
 
       twttr.widgets.createTweet(
         this.model.get('data').id,
@@ -224,41 +249,47 @@ var PostView = Backbone.View.extend({
 });
 
 /** Portfolio Collection **/
-var Piece = Backbone.Model.extend({});
-var PortfolioCollection = Backbone.Collection.extend({
-  model: Piece
-});
-var portfolio = new PortfolioCollection();
-portfolio.add(portfolioItemJson);
+
+// var piece = portfolio.first();
+
+// var PortfolioView = Backbone.View.extend({
+//     initialize: function() {
+//       this.render();
+//     },
+//     model: piece,
+//     events: {
+//       "click a#portfolio-random-button": "randomPiece"
+//     },
+//     randomPiece: function() {
+//       this.model = portfolio.models[Math.floor( Math.random() * portfolio.length )];
+//       this.render();
+//     },
+//     render: function() {
+//       var that = this;
+//       that.$('.portfolio-piece').hide();
+//       var image = new Image();
+//       image.src = this.model.get('content');
+//       this.$('.title').html(this.model.get('title'));
+//       this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
+//       this.$('.description').html(this.model.get('description'));
+//       this.$('.content').html(image);
+//       $(image).load(function() {
+//         that.$('.portfolio-piece').fadeIn(1200);
+//       });
+
+//     }
+// });
 
 var piece = portfolio.first();
 
-var PortfolioView = Backbone.View.extend({
-    initialize: function() {
-      this.render();
-    },
-    model: piece,
-    events: {
-      "click a#portfolio-random-button": "randomPiece"
-    },
-    randomPiece: function() {
-      this.model = portfolio.models[Math.floor( Math.random() * portfolio.length )];
-      this.render();
-    },
-    render: function() {
-      var that = this;
-      that.$('.portfolio-piece').hide();
-      var image = new Image();
-      image.src = this.model.get('content');
-      this.$('.title').html(this.model.get('title'));
-      this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
-      this.$('.description').html(this.model.get('description'));
-      this.$('.content').html(image);
-      $(image).load(function() {
-        that.$('.portfolio-piece').fadeIn(1200);
-      });
-
-    }
+var PortfolioView = PostView.extend({
+  events: {
+    "click a#portfolio-random-button": "randomPost"
+  },
+  postCollections: [
+    instagrams,
+    portfolio
+  ]
 });
 
 $(document).ready(function(){
