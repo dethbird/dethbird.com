@@ -53,5 +53,34 @@ $app->get("/", $authenticate($app), function () use ($app) {
     );
 });
 
+$app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
+
+    $client = new Guzzle\Http\Client();
+    $app->response->headers->set('Content-Type', 'application/json');
+    $data = array();
+
+    foreach ($app->request->params('ids') as $id) {
+        if($type=="instagram") {
+            $response = $client->get('https://api.instagram.com/v1/media/shortcode/' . $id . '?client_id=a6c4e37cd91b4020a09a74a40cf836d6')->send();
+            $response = json_decode($response->getBody(true));
+            $data[] = $response->data;
+        } else if( $type=="wordpress" ) {
+            $response = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/posts?p=' . $id)->send();
+            $response = json_decode($response->getBody(true));
+            $response = $response[0];
+
+
+            $mediaResponse = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/media/' . $response->featured_image)->send();
+            $response->featured_image = json_decode($mediaResponse->getBody(true));
+
+            $data[] = $response;
+        }
+    };
+
+    $app->response->setBody(json_encode($data));
+
+});
+
+
 
 $app->run();

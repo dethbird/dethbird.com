@@ -1,22 +1,6 @@
 {% extends 'layout.html.twig' %}
 {% block head %}
     {{parent()}}
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));</script>
     <script type="text/javascript" src="js/views/index.js"></script>
 {% endblock %}
 {% block body %}
@@ -72,8 +56,56 @@
       </table>
     </section>
 
-    <section id="online"><h1>le cyberweb (i'm jacked in)</h1></section>
+    <header id="info-title"></header>
+    <section id="info">
+      <table>
+        <tr>
+          <th><h1>on le cyberweb</h1></th>
+          <th><h1>contact me</h1></th>
+        </tr>
+        <tr>
+          <td>
+            <a class="btn btn-primary" id="post-random-button">Random <span class="glyphicon glyphicon-refresh"></span></a>
+            <br class="clearfix" /><br />
+            <div id="random-post"></div>
+          </td>
+          <td>
+            <div class='details'>
+              <p>I'm located in NYC. Here's how you can find me.</p>
+              <ul>
+                <li>ph. 415.786.8815</li>
+                <li>twitter</li>
+                <li>instagram</li>
+              </ul>
+              <p>Let's do business.</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
 
-    <section id="contact"><h1>contact</h1></section>
+    <span id="test_tweet"></span>
+
+    <script type="text/template" id="post-instagram">
+      <div class="post instagram">
+        <a href="<%-link%>" target="_blank"><img src="<%-images.standard_resolution.url%>" /></a>
+        <br />
+        <p><%-caption.text%></p>
+      </div>
+    </script>
+    <script type="text/template" id="post-wordpress">
+      <div class="post wordpress">
+        <h4><%-title%></h4>
+        <img src="<%-featured_image.media_details.sizes['post-thumbnail'].source_url%>" />
+        <p><%-excerpt.rendered%></p>
+        <a href="<%-link%>" target="_blank"><%-link%></a>
+      </div>
+    </script>
+    <script type="text/template" id="post-twitter">
+      <div class="post twitter">
+        <div class="tweet"></div>
+      </div>
+    </script>
+
 {% endblock %}
 

@@ -1,3 +1,10 @@
+
+/** autolink */
+(function(){var h=[].slice;String.prototype.autoLink=function(){var b,f,d,a,e,g;a=1<=arguments.length?h.call(arguments,0):[];e=/(^|[\s\n]|<br\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;if(!(0<a.length))return this.replace(e,"$1<a href='$2'>$2</a>");d=a[0];f=function(){var c;c=[];for(b in d)g=d[b],"callback"!==b&&c.push(" "+b+"='"+g+"'");return c}().join("");return this.replace(e,function(c,b,a){c=("function"===typeof d.callback?d.callback(a):void 0)||"<a href='"+
+a+"'"+f+">"+a+"</a>";return""+b+c})}}).call(this);
+
+var workMode = 0;
+
 var portfolioItemJson = [
   {
     "title": "Sauced Octopus",
@@ -26,36 +33,30 @@ var portfolioItemJson = [
 ];
 
 var instagramPostIds = [
+  'tcy7cYRZnx', // red robot
   '380qewxZge', //jeb leno
   '3uHYLuRZlb', //conan
   '29N7rtRZv1', //squiggles,
   'yYZoXQRZkN', //smoking guy
-  'vc7IPSRZsn', //more anchovies,
-  'tcy7cYRZnx' // red robot
+  'vc7IPSRZsn', //more anchovies
 ];
 var twitterTweetIds = [
-  175800300060409856,
-  180488009832079361,
-  178887690022952960,
-  164484991852617728,
-  162294669273866240,
-  150083456498536449,
-  141710098417467394,
-  137955781478842368,
-  125270555170582529,
-  118431593693069313,
-  484708370805313536,
-  449610572758515712,
-  431782975639146496,
-  415143393040556032,
-  362323730812243970,
-  346844047786254336,
-  336235368468856832,
-  517053689144430593,
-  240906118694596608,
-  201170247078772737,
-  291645881923559424,
-  317507453195542528
+  "415143393040556032",
+  "175800300060409856",
+  "180488009832079361",
+  "178887690022952960",
+  "137955781478842368",
+  "125270555170582529",
+  "484708370805313536",
+  "449610572758515712",
+  "362323730812243970",
+  "346844047786254336",
+  "336235368468856832",
+  "517053689144430593",
+  "240906118694596608",
+  "201170247078772737",
+  "291645881923559424",
+  "317507453195542528"
 ];
 var wpPostIds = [
   116,
@@ -63,57 +64,201 @@ var wpPostIds = [
   1
 ];
 
+/** Social media collections */
+var Post = Backbone.Model.extend({
+});
 
-
- var Piece = Backbone.Model.extend({});
-  var PortfolioCollection = Backbone.Collection.extend({
-    model: Piece
-  });
-  var portfolio = new PortfolioCollection();
-  portfolio.add(portfolioItemJson);
-
-  var piece = portfolio.first();
-
-  var PortfolioView = Backbone.View.extend({
-      initialize: function() {
-        this.render();
+var PostCollection = Backbone.Collection.extend({
+  model: Post,
+  fetch: function() {
+    var that = this;
+    $.ajax('/posts/' + that.type, {
+      data: {
+        ids: that.postIds
       },
-      model: piece,
-      events: {
-        "click a#portfolio-random-button": "randomPiece"
-      },
-      randomPiece: function() {
-        this.model = portfolio.models[Math.floor( Math.random() * portfolio.length )];
-        this.render();
-      },
-      render: function() {
-        var that = this;
-        that.$('.portfolio-piece').hide();
-        var image = new Image();
-        image.src = this.model.get('content');
-        this.$('.title').html(this.model.get('title'));
-        this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
-        this.$('.description').html(this.model.get('description'));
-        this.$('.content').html(image);
-        $(image).load(function() {
-          that.$('.portfolio-piece').fadeIn(1200);
-        });
-
+      success: function(data){
+        that.parse(data);
       }
-  });
-
-$(window).load(function(){
-    // turn spans with tweet ids into embedded tweets
-    $('span.tweet').each(function(i,e){
-        var e = $(e);
-        twttr.widgets.createTweet(
-          e.data('id'),
-          $('span.tweet[data-id="' + e.data('id') + '"]')[0],
-          {
-            width: 320
-          }
-        );
     });
+  },
+  parse: function(data) {
+    that = this;
+    _.each(data, function(d){
+      var model = new Post({
+        type: that.type,
+        data: _.isObject(d) ? d : {id: d}
+      });
+      that.add(model);
+    });
+    this.trigger('parse');
+    // console.log(that);
+  }
+});
+
+var InstagramCollection = PostCollection.extend({
+  postIds: instagramPostIds,
+  type: 'instagram'
+});
+
+var TwitterCollection = PostCollection.extend({
+  postIds: twitterTweetIds,
+  type: 'twitter',
+  fetch: function() {
+    this.parse(this.postIds);
+  }
+});
+
+var WordpressCollection = PostCollection.extend({
+  postIds: wpPostIds,
+  type: 'wordpress'
+});
+
+var instagrams = new InstagramCollection();
+// instagrams.fetch();
+
+var tweets = new TwitterCollection();
+// tweets.fetch();
+
+var wpposts = new WordpressCollection();
+// wpposts.fetch();
+
+var PostView = Backbone.View.extend({
+  events: {
+    "click a#post-random-button": "randomPost"
+  },
+  postCollections: [
+    wpposts, instagrams, tweets
+  ],
+  initialize: function(){
+    var that = this;
+    var readyCount = 0;
+    _.each(this.postCollections, function(c){
+      c.on('parse', function(){
+        readyCount++;
+        if(readyCount == that.postCollections.length) {
+          that.readyState();
+        }
+      });
+      c.fetch();
+    });
+  },
+  randomPost: function() {
+    // random collection
+    var c = this.postCollections[Math.floor(Math.random() * this.postCollections.length)];
+    // random post
+    this.model = c.models[Math.floor( Math.random() * c.length )];
+    this.render();
+
+  },
+  readyState: function() {
+    this.model = this.postCollections[0].first();
+    this.render();
+  },
+  render: function() {
+    var template;
+    var template = _.template( $("#post-" + this.model.get('type')).html());
+    this.$('#random-post').html( template(this.model.get('data')) );
+
+    var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+
+
+    if(this.model.get('type')=="wordpress") {
+        console.log(this.model.get('data'));
+    }
+
+
+    if(this.model.get('type')=="instagram") {
+
+      $('#random-post').each(function(){
+
+        var that = $(this);
+
+        var hashtag_regexp = /@([a-zA-Z0-9]+)/g;
+          that.html(
+            that.html().replace(
+              hashtag_regexp,
+              '<a target="_blank" href="https://instagram.com/$1">@$1</a>'
+            )
+          );
+
+          var hashtag_regexp = /#([a-zA-Z0-9]+)/g;
+          that.html(
+            that.html().replace(
+              hashtag_regexp,
+              '<a>#$1</a>'
+            )
+          );
+
+          that.html(that.html().autoLink());
+      });
+    }
+
+
+    //if this is twitter, render the tweet
+    if(this.model.get('type')=="twitter") {
+
+      var tweetDiv = this.$('#random-post .post.twitter .tweet');
+
+      twttr.widgets.createTweet(
+        this.model.get('data').id,
+        tweetDiv[0],
+        {
+          width: 400
+        }
+      ).then(function(){
+        // console.log('done');
+      });
+    }
+  }
+});
+
+/** Portfolio Collection **/
+var Piece = Backbone.Model.extend({});
+var PortfolioCollection = Backbone.Collection.extend({
+  model: Piece
+});
+var portfolio = new PortfolioCollection();
+portfolio.add(portfolioItemJson);
+
+var piece = portfolio.first();
+
+var PortfolioView = Backbone.View.extend({
+    initialize: function() {
+      this.render();
+    },
+    model: piece,
+    events: {
+      "click a#portfolio-random-button": "randomPiece"
+    },
+    randomPiece: function() {
+      this.model = portfolio.models[Math.floor( Math.random() * portfolio.length )];
+      this.render();
+    },
+    render: function() {
+      var that = this;
+      that.$('.portfolio-piece').hide();
+      var image = new Image();
+      image.src = this.model.get('content');
+      this.$('.title').html(this.model.get('title'));
+      this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
+      this.$('.description').html(this.model.get('description'));
+      this.$('.content').html(image);
+      $(image).load(function() {
+        that.$('.portfolio-piece').fadeIn(1200);
+      });
+
+    }
+});
+
+$(document).ready(function(){
+
+    if(workMode==1){
+      // work mode
+      $('section').css('background','none');
+      $('header').css('background','none');
+      $('section').css('background-color','#CCC');
+      $('header').css('background-color','#CCC');
+    }
 
     $('#great_button').click(function(){
       alert('Fantastic!');
@@ -122,6 +267,9 @@ $(window).load(function(){
     var portfolioGallery = new PortfolioView({
       el: $('section#portfolio')
     });
-    console.log(portfolioGallery);
+
+    var postviewer = new PostView({
+      el: $('section#info')
+    });
 
 });

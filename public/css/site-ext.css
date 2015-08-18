@@ -1,9 +1,17 @@
 /** Default settings for 1280px+ displays */
 body {
+    margin-bottom: 100px;
+    text-shadow: 1px 2px 4px #000;
 }
 section {
     border-radius: 50px 0px 50px 50px;
     margin-bottom: 5px;
+}
+a {
+    color: #ff0099;
+}
+a.btn {
+    text-shadow: none;
 }
 .body-content {
 }
@@ -40,8 +48,8 @@ section {
     position: absolute;
     background-image: url("../img/1280/portfolio.title.png");
     background-repeat: no-repeat;
-    width: 332px;
-    height: 154px;
+    width: 376px;
+    height: 151px;
     top: 800px;
     z-index:1000;
     margin-left:25px;
@@ -84,21 +92,68 @@ section {
     z-index:1000;
     margin-left:25px;
 }
-#about {
+#about,
+#info {
     color: white;
     background-image: url("../img/1280/about.background.jpg");
     background-repeat: no-repeat;
     min-height: 675px;
     margin-top: 100px;
 }
-#about table {
+#info {
+    color: #fff;
+    background-image: url("../img/1280/info.background.jpg");
+    height:800px;
+}
+#about table,
+#info table {
     margin: 75px 100px 0px 100px;
     width: 1000px;
 }
-#about table td {
+#info table {
+    margin: 25px 50px 0px 50px;
+}
+#about table td,
+#info table td {
     padding-right:25px;
-    width: 450px;
     vertical-align: text-top;
+}
+#info .post,
+#info .details {
+    padding: 25px;
+    /*background-image: url("../img/white.transparent.png");*/
+    border-radius: 25px;
+    width: 450px;
+}
+#info .post {
+    width: 600px;
+}
+#info .post.instagram  {
+    text-align:center;
+}
+#info .post.instagram p  {
+    text-align: left;
+    margin:10px;
+}
+#info .post.instagram img {
+    max-width: 450px;
+    height: auto;
+    display: inline-block;
+    border-radius: 10px;
+}
+#info .post.twitter {
+    height: 500px;
+    overflow: auto;
+}
+#info-title {
+    position: absolute;
+    background-image: url("../img/1280/info.title.png");
+    background-repeat: no-repeat;
+    width: 376px;
+    height: 151px;
+    top: 2575px;
+    z-index:1000;
+    margin-left:25px;
 }
 
 /** Responsive */
@@ -129,3 +184,5 @@ section {
     .body-content {
     }
 }
+
+
