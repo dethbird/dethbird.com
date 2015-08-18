@@ -8,7 +8,7 @@ section {
     margin-bottom: 5px;
 }
 a {
-    color: #ff0099;
+    color: #00aeff;
 }
 a.btn {
     text-shadow: none;
@@ -120,7 +120,7 @@ a.btn {
 }
 #info .post,
 #info .details {
-    padding: 25px;
+    padding: 10px;
     /*background-image: url("../img/white.transparent.png");*/
     border-radius: 25px;
     width: 450px;
@@ -128,14 +128,14 @@ a.btn {
 #info .post {
     width: 600px;
 }
-#info .post.instagram  {
-    text-align:center;
-}
+#info .post.wordpress p,
 #info .post.instagram p  {
+    width:450px;
     text-align: left;
     margin:10px;
 }
-#info .post.instagram img {
+#info .post.instagram img,
+#info .post.wordpress img {
     max-width: 450px;
     height: auto;
     display: inline-block;

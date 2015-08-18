@@ -65,13 +65,13 @@ $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
             $response = json_decode($response->getBody(true));
             $data[] = $response->data;
         } else if( $type=="wordpress" ) {
-            $response = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/posts?p=' . $id)->send();
+            $response = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/posts/' . $id)->send();
             $response = json_decode($response->getBody(true));
-            $response = $response[0];
 
-
-            $mediaResponse = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/media/' . $response->featured_image)->send();
-            $response->featured_image = json_decode($mediaResponse->getBody(true));
+            if($response->featured_image > 0) {
+                $mediaResponse = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/media/' . $response->featured_image)->send();
+                $response->featured_image = json_decode($mediaResponse->getBody(true));
+            }
 
             $data[] = $response;
         }

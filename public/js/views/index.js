@@ -29,7 +29,33 @@ var portfolioItemJson = [
     "category": "Illustration",
     "content": "https://farm2.staticflickr.com/1156/1467947071_28963a1d91_o.jpg",
     "description": "Burger Pope!"
+  },
+  {
+   "title": "Beepo Concept Art",
+    "year": "2009",
+    "medium": "Painter",
+    "category": "Character Design",
+    "content": "https://farm3.staticflickr.com/2533/3996839316_699ee275b7_b.jpg",
+    "description": "Character designs for Beepo Beeparelli"
+  },
+  {
+   "title": "Beepo Doesn't Get Turtles",
+    "year": "2010",
+    "medium": "pencil",
+    "category": "Character Design",
+    "content": "https://farm3.staticflickr.com/2786/4326820558_3db6e6beee_b.jpg",
+    "description": "Character design for Beepo Beeparelli"
+  },
+  {
+   "title": "Uranium 239 Pops",
+    "year": "1997",
+    "medium": "Painter",
+    "category": "Illustration",
+    "content": "https://farm1.staticflickr.com/175/461988892_d37e43bae6_o.jpg",
+    "description": "Character design for Beepo Beeparelli"
   }
+
+
 ];
 
 var instagramPostIds = [
@@ -41,26 +67,21 @@ var instagramPostIds = [
   'vc7IPSRZsn', //more anchovies
 ];
 var twitterTweetIds = [
-  "415143393040556032",
   "175800300060409856",
   "180488009832079361",
   "178887690022952960",
-  "137955781478842368",
   "125270555170582529",
   "484708370805313536",
   "449610572758515712",
-  "362323730812243970",
-  "346844047786254336",
   "336235368468856832",
   "517053689144430593",
   "240906118694596608",
   "201170247078772737",
-  "291645881923559424",
   "317507453195542528"
 ];
 var wpPostIds = [
-  116,
   47,
+  116,
   1
 ];
 
@@ -114,20 +135,15 @@ var WordpressCollection = PostCollection.extend({
 });
 
 var instagrams = new InstagramCollection();
-// instagrams.fetch();
-
 var tweets = new TwitterCollection();
-// tweets.fetch();
-
 var wpposts = new WordpressCollection();
-// wpposts.fetch();
 
 var PostView = Backbone.View.extend({
   events: {
     "click a#post-random-button": "randomPost"
   },
   postCollections: [
-    wpposts, instagrams, tweets
+    instagrams, wpposts, tweets
   ],
   initialize: function(){
     var that = this;
@@ -146,28 +162,23 @@ var PostView = Backbone.View.extend({
     // random collection
     var c = this.postCollections[Math.floor(Math.random() * this.postCollections.length)];
     // random post
-    this.model = c.models[Math.floor( Math.random() * c.length )];
+    this.model = c.models[Math.floor( Math.random() * c.models.length )];
     this.render();
 
   },
   readyState: function() {
     this.model = this.postCollections[0].first();
+    console.log(this.model.get('data'));
     this.render();
   },
   render: function() {
     var template;
-    var template = _.template( $("#post-" + this.model.get('type')).html());
-    this.$('#random-post').html( template(this.model.get('data')) );
+    var template = _.template($("#post-" + this.model.get('type')).html());
+    this.$('#random-post').html( template(this.model.get('data'), {escape: false}) );
 
     var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
-
-    if(this.model.get('type')=="wordpress") {
-        console.log(this.model.get('data'));
-    }
-
-
-    if(this.model.get('type')=="instagram") {
+    if(this.model.get('type')=="instagram" || this.model.get('type')=="wordpress") {
 
       $('#random-post').each(function(){
 
