@@ -65,6 +65,10 @@ var instagramPostIds = [
   '3uHYLuRZlb', //conan
   'yYZoXQRZkN', //smoking guy
   'vc7IPSRZsn', //more anchovies
+  '5db319RZhm', //paul shaffer
+  '5ABC-HRZqR', //road trip
+  '4PCa-pRZmZ', //old pervert
+  '3wvYyjRZpd', //weird sketchbook drawing
 ];
 var twitterTweetIds = [
   "175800300060409856",

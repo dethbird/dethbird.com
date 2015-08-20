@@ -53,6 +53,21 @@ $app->get("/", $authenticate($app), function () use ($app) {
     );
 });
 
+$app->get("/resume", $authenticate($app), function () use ($app) {
+    $resume = Yaml::parse(file_get_contents("../configs/resume.yml"));
+
+    if ($app->request->isAjax()) {
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody(json_encode($resume));
+    } else {
+        $app->render(
+            'partials/resume.html.twig',
+            $resume,
+            200
+        );
+    }
+});
+
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 
     $client = new Guzzle\Http\Client();
