@@ -7,20 +7,20 @@ var workMode = 0;
 
 var portfolioItemJson = [
   {
-    "title": "Beepo Takes A Pipe To Nowhere",
-    "year": "2010",
-    "medium": "pencil, Painter, Photoshop",
-    "category": "Illustration",
-    "content": "https://farm3.staticflickr.com/2439/3663515635_1c89de110c_b.jpg",
-    "description": "Beepo is a robot built by Japanese robotics engineers with whatever information they had about Italian stereotypes. Upon his activation they uploaded the occupation \"plumber\" into his main fucking memory.\nIn this world there are no humans around but somehow he always has a pipe to clean out or something to unclog. It's a very septic life. He tends to drink and do a lot of drugs, even on the job.\nBut he also has a stereotypically Italian lust for life, and he sings Opera to all the beautiful women ... robots. Women robots.\nThis piece is concept art for a mini film starring the one and only Beepo Beeparelli"
-  },
-  {
     "title": "Sauced Octopus",
     "year": "2008",
     "medium": "pencil, Painter, Photoshop",
     "category": "Illustration",
     "content": "https://farm3.staticflickr.com/2473/3692721420_0cee6cd9d2_b.jpg",
     "description": "Just an illustration I used to sell prints of."
+  },
+  {
+    "title": "Beepo Takes A Pipe To Nowhere",
+    "year": "2010",
+    "medium": "pencil, Painter, Photoshop",
+    "category": "Illustration",
+    "content": "https://farm3.staticflickr.com/2439/3663515635_1c89de110c_b.jpg",
+    "description": "Beepo is a robot built by Japanese robotics engineers with whatever information they had about Italian stereotypes. Upon his activation they uploaded the occupation \"plumber\" into his main fucking memory.\nIn this world there are no humans around but somehow he always has a pipe to clean out or something to unclog. It's a very septic life. He tends to drink and do a lot of drugs, even on the job.\nBut he also has a stereotypically Italian lust for life, and he sings Opera to all the beautiful women ... robots. Women robots.\nThis piece is concept art for a mini film starring the one and only Beepo Beeparelli"
   },
   {
    "title": "Burger Pope Ad",
@@ -69,6 +69,18 @@ var instagramPostIds = [
   '5ABC-HRZqR', //road trip
   '4PCa-pRZmZ', //old pervert
   '3wvYyjRZpd', //weird sketchbook drawing
+  'yQ1lEuxZpN', //some lady
+  'yQTZCBRZrf', //faces
+  'u5wbHzRZun', //wikked chef
+  'uR78SDRZtK', //wikked tiger
+  'sYSmxvxZrg', //birdsongs
+  'sXDHZqxZvv', //explode head
+  'rsRCrlRZgo', //tweetstream
+  'rrz7KdRZpy', //mega old lady
+  'rZ9Yb5RZrp', //twtstrm panel
+  'pXWC2IRZj3', //batman
+  'oUPK8VRZmh', //floop the dog
+  'kGPqj1xZhs', //knobby knees
 ];
 var twitterTweetIds = [
   "175800300060409856",
@@ -153,7 +165,7 @@ var instagrams = new InstagramCollection();
 var tweets = new TwitterCollection();
 var wpposts = new WordpressCollection();
 
-
+/** post viewer */
 var PostView = Backbone.View.extend({
   events: {
     "click a#post-random-button": "randomPost"
@@ -241,38 +253,7 @@ var PostView = Backbone.View.extend({
   }
 });
 
-/** Portfolio Collection **/
-
-// var piece = portfolio.first();
-
-// var PortfolioView = Backbone.View.extend({
-//     initialize: function() {
-//       this.render();
-//     },
-//     model: piece,
-//     events: {
-//       "click a#portfolio-random-button": "randomPiece"
-//     },
-//     randomPiece: function() {
-//       this.model = portfolio.models[Math.floor( Math.random() * portfolio.length )];
-//       this.render();
-//     },
-//     render: function() {
-//       var that = this;
-//       that.$('.portfolio-piece').hide();
-//       var image = new Image();
-//       image.src = this.model.get('content');
-//       this.$('.title').html(this.model.get('title'));
-//       this.$('.category-year-medium').html(this.model.get('category') + ' (' + this.model.get('year') + ') ' + this.model.get('medium'));
-//       this.$('.description').html(this.model.get('description'));
-//       this.$('.content').html(image);
-//       $(image).load(function() {
-//         that.$('.portfolio-piece').fadeIn(1200);
-//       });
-
-//     }
-// });
-
+/** Portfolio */
 var piece = portfolio.first();
 
 var PortfolioView = PostView.extend({
@@ -280,8 +261,8 @@ var PortfolioView = PostView.extend({
     "click a#portfolio-random-button": "randomPost"
   },
   postCollections: [
-    instagrams,
-    portfolio
+    portfolio,
+    instagrams
   ]
 });
 

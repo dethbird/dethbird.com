@@ -7,6 +7,7 @@ body {
 section {
     border-radius: 50px 0px 50px 50px;
     margin-bottom: 5px;
+    background-color: #000;
 }
 a {
     color: #f5b20a;
@@ -32,8 +33,6 @@ a.btn {
 }
 #logo {
     position: absolute;
-    background-image: url("../img/1280/logo.png");
-    background-repeat: no-repeat;
     width: 1200px;
     height: 700px;
     z-index:1000;
@@ -189,16 +188,110 @@ a.btn {
 }
 
 @media screen and (min-width:960px) {
-    section {
+    #logo {
+        margin-left:-150px;
+    }
+    #logo img {
+        width: 960px;
+        height: auto;
+    }
+    #great_button {
+        top: 500px;
+    }
+    #intro {
+        background-image: url("../img/900/intro.background.jpg");
+        min-height: 506px;
+    }
+    #portfolio {
+        background-image: url("../img/900/portfolio.background.jpg");
+        min-height: 640px;
+    }
+    #portfolio-title {
+        top: 625px;
+    }
+    #portfolio .post img {
+        max-height: 550px;
+        max-width: 850px;
+    }
+    #about-title {
+        top: 1615px
+    }
+    #about {
+        background-image: url("../img/900/about.background.jpg");
+        min-height: 540px;
+    }
+    #about table,
+    #info table {
+        margin: 50px 0px 0px 25px;
+        width: 850px;
+    }
+    #info-title {
+        top: 2275px;
+    }
+    #info {
+        background-image: url("../img/900/info.background.jpg");
+    }
+    section, header {
+        width: 960px;
     }
     .body-content {
+    }
+    #info .random-post {
+        width: 450px;
     }
 }
 
 @media screen and (min-width:1280px) {
-    section {
+    #logo {
+        margin-left:0px;
+    }
+    #logo img {
+        width: 100%;
+        height: auto;
+    }
+    #great_button {
+        top: 650px;
+    }
+    #intro {
+        background-image: url("../img/1280/intro.background.jpg");
+        min-height: 675px;
+    }
+    #portfolio {
+        background-image: url("../img/1280/portfolio.background.jpg");
+        min-height: 920px;
+    }
+    #portfolio-title {
+        top: 800px;
+    }
+    #portfolio .post img {
+        max-width: 1150px;
+        max-height: 600px;
+    }
+    #about-title {
+        top: 1780px;
+    }
+    #about {
+        background-image: url("../img/1280/about.background.jpg");
+        min-height: 675px;
+    }
+    #about table,
+    #info table {
+        margin: 75px 100px 0px 100px;
+        width: 1000px;
+    }
+    #info-title {
+        top: 2575px;
+    }
+    #info {
+        background-image: url("../img/1280/info.background.jpg");
+    }
+    section, header {
+        width: 1280px;
     }
     .body-content {
+    }
+    #info .random-post {
+        width: 100%;
     }
 }
 
