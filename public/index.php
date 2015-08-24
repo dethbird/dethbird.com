@@ -48,7 +48,7 @@ $app->notFound(function () use ($app) {
 $app->get("/", $authenticate($app), function () use ($app) {
     $app->render(
         'partials/index.html.twig',
-        array(),
+        $app->container->get('configs'),
         200
     );
 });
