@@ -7,6 +7,14 @@ var workMode = 0;
 
 var portfolioItemJson = [
   {
+   "title": "The Dwarves Website",
+    "year": "2006",
+    "medium": "Photoshop, Dreamweaver, Wordpress, PHP, MySQL, HTML, Flash, Javascript, CSS",
+    "category": "Web Development / Design",
+    "content": "https://farm4.staticflickr.com/3060/2852102371_9f5d32ba0e_o.jpg",
+    "description": "Website for the Dwarves http://thedwarves.com\n* Image uploading with automatic resizing\n* \"Gallerain\" Flash/MySQL based image rotator\n* Integrated WordPress blog\n* Presskit Hi-res media uploads"
+  },
+  {
     "title": "Sauced Octopus",
     "year": "2008",
     "medium": "pencil, Painter, Photoshop",
@@ -208,13 +216,15 @@ var PostView = Backbone.View.extend({
     this.$('.random-post').html( template(this.model.get('data'), {escape: false}) );
     var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
-    if(this.model.get('type')=="instagram" || this.model.get('type')=="wordpress") {
+    if(this.model.get('type')=="instagram" || this.model.get('type')=="wordpress"  || this.model.get('type')=="portfolio") {
 
+
+        console.log(this.model.get('type'));
       $('.random-post').each(function(){
 
         var that = $(this);
 
-        var hashtag_regexp = /@([a-zA-Z0-9]+)/g;
+         var hashtag_regexp = /@([a-zA-Z0-9]+)/g;
           that.html(
             that.html().replace(
               hashtag_regexp,
@@ -230,7 +240,11 @@ var PostView = Backbone.View.extend({
             )
           );
 
+          var markdownEl = $($(that).find('.description'));
+          markdownEl.html(markdownConverter.makeHtml(markdownEl.html()));
+
           that.html(that.html().autoLink());
+
       });
     }
 
