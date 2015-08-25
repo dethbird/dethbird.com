@@ -44,6 +44,14 @@ var PortfolioCollection = PostCollection.extend({
   }
 });
 
+// var ComicsCollection = PostCollection.extend({
+//   posts: comicsJson,
+//   type: 'comics',
+//   fetch: function() {
+//     this.parse(this.posts);
+//   }
+// });
+
 var InstagramCollection = PostCollection.extend({
   postIds: instagramPostIds,
   type: 'instagram'
@@ -64,7 +72,7 @@ var WordpressCollection = PostCollection.extend({
 
 
 var portfolio = new PortfolioCollection();
-// portfolio.add(portfolioItemJson);
+// var comics = new ComicsCollection();
 var instagrams = new InstagramCollection();
 var tweets = new TwitterCollection();
 var wpposts = new WordpressCollection();
@@ -103,7 +111,6 @@ var PostView = Backbone.View.extend({
     this.render();
   },
   render: function() {
-
     var that = this;
     this.$('.random-post').fadeOut(0, function(){
       that.$('.random-post').fadeIn('3000');
@@ -114,8 +121,6 @@ var PostView = Backbone.View.extend({
 
     if(this.model.get('type')=="instagram" || this.model.get('type')=="wordpress"  || this.model.get('type')=="portfolio") {
 
-
-        console.log(this.model.get('type'));
       $('.random-post').each(function(){
 
         var that = $(this);
@@ -164,13 +169,12 @@ var PostView = Backbone.View.extend({
 });
 
 /** Portfolio */
-var piece = portfolio.first();
-
 var PortfolioView = PostView.extend({
   events: {
     "click a#portfolio-random-button": "randomPost"
   },
   postCollections: [
+    // comics,
     portfolio,
     instagrams
   ]

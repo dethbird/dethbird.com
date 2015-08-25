@@ -53,6 +53,19 @@ $app->get("/", $authenticate($app), function () use ($app) {
     );
 });
 
+$app->get("/comics/:name", $authenticate($app), function ($name) use ($app) {
+    $configs = $app->container->get('configs');
+    if(!array_key_exists($name, $configs["comics"])){
+        $app->notFound();
+    } else {
+        $app->render(
+            'partials/comics.html.twig',
+            array("comic" => $configs["comics"][$name]),
+            200
+        );
+    }
+});
+
 $app->get("/resume", $authenticate($app), function () use ($app) {
     $resume = Yaml::parse(file_get_contents("../configs/resume.yml"));
 

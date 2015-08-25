@@ -3,6 +3,7 @@
     {{parent()}}
 
     <script type="text/javascript">
+      var comicsJson = {{comics|json_encode|raw}};
       var portfolioItemJson = {{portfolio|json_encode|raw}};
       var instagramPostIds = {{instagrams|json_encode|raw}};
       var twitterTweetIds = {{tweets|json_encode|raw}};
@@ -56,7 +57,7 @@
               <li>WebRTC: Node.js</li>
               <li>Responsive web design</li>
             </ul>
-            <p>I made this god damn website. I work fulltime as a senior engineer, but I enjoy helping people out with my cyberwebbing and create-o abilities. I have worked with non-profits, artists, musicians, educational organizations, and others, in the service of freelance web design and development.</p>
+            <p>I made this god damn <a href="https://github.com/dethbird/rishisatsangi.com.v2.0" target="_blank">website</a>. I work fulltime as a senior engineer, but I enjoy helping people out with my cyberwebbing and create-o abilities. I have worked with non-profits, artists, musicians, educational organizations, and others, in the service of freelance web design and development.</p>
             <p>Let's do business.</p>
           </td>
         </tr>
@@ -99,6 +100,11 @@
         <h1><%-title%></h1>
         <div class="category-year-medium"><%-category%> (<%-year%>) <%-medium%></div>
         <div class="description"><%-description%></div>
+      </div>
+    </script>
+    <script type="text/template" id="post-comics">
+      <div class="post comics">
+        the comic
       </div>
     </script>
     <script type="text/template" id="post-instagram">
