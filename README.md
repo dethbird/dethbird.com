@@ -1,2 +1,2 @@
 # rishisatsangi.com.v2.0
-new website
+A Slim based website with Backbone.js and Twig thrown in

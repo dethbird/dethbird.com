@@ -1,7 +1,11 @@
 {% extends 'layout.html.twig' %}
 {% block head %}
     {{parent()}}
-
+    <meta property="og:url"                content="http://dethbird.com" />
+    <meta property="og:type"               content="profile" />
+    <meta property="og:title"              content="Rishi Satsangi #cartoons #technology" />
+    <meta property="og:description"        content="Outta my way, kid. Ya' bother me. I got cartoons to make." />
+    <meta property="og:image"              content="http://dethbird.com/img/og_image.jpg" />
     <script type="text/javascript">
       var comicsJson = {{comics|json_encode|raw}};
       var portfolioItemJson = {{portfolio|json_encode|raw}};
@@ -124,7 +128,7 @@
     </script>
     <script type="text/template" id="post-wordpress">
       <div class="post wordpress">
-        <h4><%-title.rendered%></h4>
+        <h4><%=title.rendered%></h4>
         <% if (featured_image.media_details) { %>
           <% if (featured_image.media_details.sizes['post-thumbnail']) { %>
             <img src="<%-featured_image.media_details.sizes['post-thumbnail'].source_url%>" />
