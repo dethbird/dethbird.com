@@ -1,3 +1,4 @@
+console.log(comic);
 var ComicView = Backbone.View.extend({
     comic: comic,
     currentPart: 0,
@@ -19,12 +20,14 @@ var ComicView = Backbone.View.extend({
             }
         }
         this.render();
+        ga('send', 'event', 'Comics', 'Next Panel', this.comic.title + ':' + this.currentPart + '-' + this.currentPanel);
     },
     selectPanel: function(e){
         var panel = $(e.target);
         this.currentPanel = panel.data('panel');
         this.currentPart = panel.data('part');
         this.render();
+        ga('send', 'event', 'Comics', 'Select Panel', this.comic.title + ':' + this.currentPart + '-' + this.currentPanel);
     },
     render: function(){
 
@@ -34,7 +37,7 @@ var ComicView = Backbone.View.extend({
         viewer.fadeOut(0, function(){
           viewer.fadeIn('3000');
         });
-        
+
         // deactivate all part headers
         $('header').removeClass('active');
         // deactivate all images
@@ -52,5 +55,10 @@ var ComicView = Backbone.View.extend({
 $(document).ready(function(){
     var comicViewer = new ComicView({
         el: 'body'
+    });
+    $('body a').click(function(e){
+        if ($(e.currentTarget).attr('href')!==undefined) {
+          ga('send', 'event', 'Comics', 'Click Link', $(e.currentTarget).attr('href'));
+        }
     });
 });

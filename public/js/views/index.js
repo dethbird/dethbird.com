@@ -79,6 +79,7 @@ var wpposts = new WordpressCollection();
 
 /** post viewer */
 var PostView = Backbone.View.extend({
+  name: "PostView",
   events: {
     "click a#post-random-button": "randomPost"
   },
@@ -104,7 +105,7 @@ var PostView = Backbone.View.extend({
     // random post
     this.model = c.models[Math.floor( Math.random() * c.models.length )];
     this.render();
-
+    ga('send', 'event', 'Index', this.name + '.RandomPost', 'Click');
   },
   readyState: function() {
     this.model = this.postCollections[0].first();
@@ -165,11 +166,21 @@ var PostView = Backbone.View.extend({
         // console.log('done');
       });
     }
+
+    //track clicks
+    this.$('.random-post a').click(function(e){
+        if ($(e.currentTarget).attr('href')!==undefined) {
+          ga('send', 'event', 'Index', 'Click Link', $(e.currentTarget).attr('href'));
+        }
+    });
+
+
   }
 });
 
 /** Portfolio */
 var PortfolioView = PostView.extend({
+  name: "PortfolioView",
   events: {
     "click a#portfolio-random-button": "randomPost"
   },
@@ -191,6 +202,7 @@ $(document).ready(function(){
     }
 
     $('#great_button').click(function(){
+      ga('send', 'event', 'Index', 'Great Button');
       alert('Fantastic!');
     });
 
@@ -200,6 +212,12 @@ $(document).ready(function(){
 
     var postviewer = new PostView({
       el: $('section#info')
+    });
+
+    $('body a').click(function(e){
+        if ($(e.currentTarget).attr('href')!==undefined) {
+          ga('send', 'event', 'Index', 'Click Link', $(e.currentTarget).attr('href'));
+        }
     });
 
 });
