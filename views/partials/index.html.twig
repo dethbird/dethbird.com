@@ -95,7 +95,14 @@
     <span id="test_tweet"></span>
     <script type="text/template" id="post-portfolio">
       <div class="post portfolio">
-        <div class="content"><img src="<%-content%>" /></div>
+        <div class="content">
+          <% if (type == "embed") { %>
+            <br />
+            <%=content%>
+          <% } else { %>
+            <img src="<%-content%>" />
+          <% }  %>
+        </div>
         <br />
         <h1><%-title%></h1>
         <div class="category-year-medium"><%-category%> (<%-year%>) <%-medium%></div>
