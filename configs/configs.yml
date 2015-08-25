@@ -42,6 +42,7 @@ portfolio:
     year: "2008"
     medium: "pencil, Painter, Photoshop"
     category: "Illustration"
+    type: "image"
     content: "https://farm3.staticflickr.com/2473/3692721420_0cee6cd9d2_b.jpg"
     description: "Just an illustration I used to sell prints of."
   - 
@@ -67,6 +68,7 @@ portfolio:
     year: "2014"
     medium: "Painter"
     category: "Comic"
+    type: "image"
     content: "http://images.rishisatsangi.com/comics/life-in-the-cloud/on-the-scene-part-1/02.jpg"
     description: >
       Twitter and Google have their own superheroes - Tweetstream and Zeitgeist, respectively.
@@ -76,6 +78,7 @@ portfolio:
     year: "2009"
     medium: "Painter"
     category: "Illustration"
+    type: "image"
     content: "https://farm4.staticflickr.com/3419/3918604896_948bb5fb23_b.jpg"
     description: "A masthead for a friend's cooking blog"
   - 
@@ -83,6 +86,7 @@ portfolio:
     year: "2004"
     medium: "Maya, Photoshop, InDesign"
     category: "Print Design"
+    type: "image"
     content: "https://farm4.staticflickr.com/3200/2852136437_6aa93fa9bc_o.jpg"
     description: "CD insert art for artist Audio Van Gogh"
   - 
@@ -90,6 +94,7 @@ portfolio:
     year: "2009"
     medium: "Photography, Illustrator, Photoshop"
     category: "Print Design"
+    type: "image"
     content: "https://farm5.staticflickr.com/4041/4211926998_89a464b489_b.jpg"
     description: "CD case cover for album by John Hruby http://www.iheart.com/artist/john-hruby-288206/"
   - 
@@ -97,6 +102,7 @@ portfolio:
     year: "2011"
     medium: "Painter, Photoshop, Illustrator"
     category: "Print Design"
+    type: "image"
     content: "https://farm8.staticflickr.com/7130/7751591522_8dcca9f7ed_b.jpg"
     description: "A book cover for author Nisha Mathur about an indian woman assimilating in the US."
   - 
@@ -104,6 +110,7 @@ portfolio:
     year: "2006"
     medium: "Photoshop, Dreamweaver, Wordpress, PHP, MySQL, HTML, Flash, Javascript, CSS"
     category: "Web Development / Design"
+    type: "image"
     content: "https://farm4.staticflickr.com/3060/2852102371_9f5d32ba0e_o.jpg"
     description: "Website for the Dwarves http://thedwarves.com\n* Image uploading with automatic resizing\n* \"Gallerain\" Flash/MySQL based image rotator\n* Integrated WordPress blog\n* Presskit Hi-res media uploads"
   - 
@@ -111,6 +118,7 @@ portfolio:
     year: "2010"
     medium: "pencil, Painter, Photoshop"
     category: "Illustration"
+    type: "image"
     content: "https://farm3.staticflickr.com/2439/3663515635_1c89de110c_b.jpg"
     description: "Beepo is a robot built by Japanese robotics engineers with whatever information they had about Italian stereotypes. Upon his activation they uploaded the occupation \"plumber\" into his main fucking memory.\nIn this world there are no humans around but somehow he always has a pipe to clean out or something to unclog. It's a very septic life. He tends to drink and do a lot of drugs, even on the job.\nBut he also has a stereotypically Italian lust for life, and he sings Opera to all the beautiful women ... robots. Women robots.\nThis piece is concept art for a mini film starring the one and only Beepo Beeparelli"
   - 
@@ -118,6 +126,7 @@ portfolio:
     year: "2007"
     medium: "pencil, Painter, Photoshop"
     category: "Illustration"
+    type: "image"
     content: "https://farm2.staticflickr.com/1156/1467947071_28963a1d91_o.jpg"
     description: "Burger Pope!"
   - 
@@ -125,6 +134,7 @@ portfolio:
     year: "2009"
     medium: "Painter"
     category: "Character Design"
+    type: "image"
     content: "https://farm3.staticflickr.com/2533/3996839316_699ee275b7_b.jpg"
     description: "Character designs for Beepo Beeparelli"
   - 
@@ -132,6 +142,7 @@ portfolio:
     year: "2010"
     medium: "pencil"
     category: "Character Design"
+    type: "image"
     content: "https://farm3.staticflickr.com/2786/4326820558_3db6e6beee_b.jpg"
     description: "Character design for Beepo Beeparelli"
   - 
@@ -139,6 +150,7 @@ portfolio:
     year: "1997"
     medium: "Painter"
     category: "Illustration"
+    type: "image"
     content: "https://farm1.staticflickr.com/175/461988892_d37e43bae6_o.jpg"
     description: "Character design for Beepo Beeparelli"
 
