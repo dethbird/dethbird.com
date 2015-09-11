@@ -1,18 +1,24 @@
 <?php
 
-require '../vendor/autoload.php';
-
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
+// ini_set('display_startup_errors',1);
 define("APPLICATION_PATH", __DIR__ . "/..");
 date_default_timezone_set('America/New_York');
 
 // Ensure src/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     APPLICATION_PATH ,
-    APPLICATION_PATH . '/src',
+    APPLICATION_PATH . '/library',
     get_include_path(),
 )));
+
+
+require '../vendor/autoload.php';
+require_once '../library/ExternalData/InstagramData.php';
+require_once '../library/ExternalData/YoutubeData.php';
+require_once '../library/ExternalData/WordpressData.php';
+
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -81,34 +87,22 @@ $app->get("/resume", $authenticate($app), function () use ($app) {
     }
 });
 
+
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 
-    $client = new Guzzle\Http\Client();
     $app->response->headers->set('Content-Type', 'application/json');
-    $data = array();
 
-    foreach ($app->request->params('ids') as $id) {
-        if($type=="instagram") {
-            $response = $client->get('https://api.instagram.com/v1/media/shortcode/' . $id . '?client_id=a6c4e37cd91b4020a09a74a40cf836d6')->send();
-            $response = json_decode($response->getBody(true));
-            $data[] = $response->data;
-        } else if( $type=="wordpress" ) {
-            $response = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/posts/' . $id)->send();
-            $response = json_decode($response->getBody(true));
-
-            if($response->featured_image > 0) {
-                $mediaResponse = $client->get('http://blog.rishisatsangi.com/wp-json/wp/v2/media/' . $response->featured_image)->send();
-                $response->featured_image = json_decode($mediaResponse->getBody(true));
-            }
-
-            $data[] = $response;
-        }
-    };
+    if($type=="instagram") {
+        $instagramData = new InstagramData();
+        $data = $instagramData->getMedia($app->request->params('ids'));
+    } else if($type=="wordpress") {
+        $wordpressData = new WordpressData();
+        $data = $wordpressData->getPosts($app->request->params('ids'));
+    }
 
     $app->response->setBody(json_encode($data));
 
 });
-
 
 
 $app->run();
