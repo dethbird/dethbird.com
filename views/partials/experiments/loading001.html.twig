@@ -25,7 +25,7 @@
       z-index: 1001;
     }
     .dot {
-      background-color: #444;
+      background-color: #ff0099;
       position: absolute;
       z-index: 1000;
       top: 50%;
@@ -87,7 +87,7 @@
                   opacity: 1
                 });
 
-                TweenLite.to(dot, 1.5, {
+                TweenLite.to(dot, 1.2 + Math.random()*0.5, {
                   opacity: 0,
                   y: "+=" + Math.random() * 400 + 400,
                   ease: Power1.easeInOut
