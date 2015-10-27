@@ -1,0 +1,104 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<style>
+    html, body{
+    height: 100%;
+    }
+    body {
+      font-family: "Helvetica", sans;
+      color: #666;
+        background: black;
+      overflow: hidden;
+      text-align: center;
+      height: 100%;
+    }
+    #logo {
+      display: inline-block;
+      position: absolute;
+      background-image: url("http://dev.dethbird.com/img/experiments/a-logo.png");
+      top: 50%;
+      left: 50%;
+      width: 442px;
+      height: 300px;
+      margin-left: -221px;
+      margin-top: -150px;
+      z-index: 1001;
+    }
+    .dot {
+      background-color: #444;
+      position: absolute;
+      z-index: 1000;
+      top: 50%;
+    }
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div id="logo"></div>
+
+
+<script type="text/javascript">
+
+    var LoaderView = Backbone.View.extend({
+        interval: null,
+        timeline: null,
+        maxPixels: 300,
+        initialize: function() {
+
+            this.timeline = new TimelineMax(
+              {
+                repeat: -1
+              }
+            );
+
+            this.timeline.add( TweenMax.to($('#logo'), .25, {
+              scale: [1.2, 1.2],
+              ease: Power1.easeIn
+            }))
+            .add( TweenMax.to($('#logo'), 1, {
+              scale: [1, 1],
+              ease: Elastic.easeOut.config(1, 0.3)
+            }))
+            .call(this.render, null, this, 0);
+
+            for (i = 0; i < this.maxPixels; i++) {
+              var dot = $("<div class='dot'/>");
+              dot.appendTo($('body'))[0];
+              dot.attr('id', "dot" + i);
+            }
+        },
+        render: function() {
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+            var pixelSize = windowWidth / this.maxPixels;
+            var counter = 0;
+            var increase = ((Math.PI * Math.random() * 10) + 8) / this.maxPixels;
+            var pos = Math.random()*4;
+            var waveHeight = Math.random()*3 + 3;
+
+            $.each($('.dot'), function(i,dot){
+
+                TweenLite.set(dot, {
+                  x: i*pixelSize,
+                  y: (Math.sin( counter + pos)/waveHeight) * windowHeight,
+                  width: pixelSize,
+                  height: pixelSize,
+                  opacity: 1
+                });
+
+                TweenLite.to(dot, 1.5, {
+                  opacity: 0,
+                  y: "+=" + Math.random() * 400 + 400,
+                  ease: Power1.easeInOut
+                });
+                counter += increase;
+            });
+        }
+    });
+    var loader = new LoaderView({
+        el: "#logo"
+    });
+
+</script>
+{% endblock %}

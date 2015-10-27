@@ -87,6 +87,18 @@ $app->get("/resume", $authenticate($app), function () use ($app) {
     }
 });
 
+$app->get("/experiments/:name", $authenticate($app), function ($name) use ($app) {
+    $configs = $app->container->get('configs');
+    $app->render(
+        'partials/experiments/'. $name .'.html.twig',
+        array(
+            "configs" => $configs
+        ),
+        200
+    );
+});
+
+
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 
