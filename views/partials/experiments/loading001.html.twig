@@ -46,6 +46,12 @@
         maxPixels: 300,
         initialize: function() {
 
+            for (i = 0; i < this.maxPixels; i++) {
+              var dot = $("<div class='dot'/>");
+              dot.appendTo($('body'))[0];
+              dot.attr('id', "dot" + i);
+            }
+
             this.timeline = new TimelineMax(
               {
                 repeat: -1
@@ -62,11 +68,7 @@
             }))
             .call(this.render, null, this, 0);
 
-            for (i = 0; i < this.maxPixels; i++) {
-              var dot = $("<div class='dot'/>");
-              dot.appendTo($('body'))[0];
-              dot.attr('id', "dot" + i);
-            }
+
         },
         render: function() {
             var windowWidth = $(window).width();
