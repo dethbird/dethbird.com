@@ -1,0 +1,62 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<style>
+    html, body{
+    height: 100%;
+    }
+    body {
+      font-family: "Helvetica", sans;
+      color: #666;
+      background: black;
+      text-align: center;
+      height: 100%;
+    }
+    .parallax-object {
+      position: absolute;
+    }
+    #front {
+      width: 400px;
+      height: 400px;
+      top: 800px;
+      left: 50%;
+      margin-left: -200px;
+      background-color: rgba(0, 0, 128, .3);
+    }
+    #mid {
+      width: 500px;
+      height: 800px;
+      top: 600px;
+      left: 50%;
+      margin-left: -225px;
+      background-color: rgba(128, 0, 0, .3);
+    }
+    #base {
+      width: 1200px;
+      height: 1000px;
+      top: 100px;
+      left: 10px;
+      background-color: rgba(0, 128, 0, .3);
+    }
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+<div class="parallax-object" id="base" data-parallax-object-depth="10">base</div>
+<div class="parallax-object" id="mid" data-parallax-object-depth="3">mid</div>
+<div class="parallax-object" id="front" data-parallax-object-depth="1">front</div>
+<script type="text/javascript">
+  var w = $(window);
+  w.ready(function(){
+    w.scroll(function(){
+      var s = w.scrollTop();
+      $.each($('.parallax-object'), function(i,e){
+        TweenLite.to(e, 1, {
+          transform: 'translateY(-' + s/$(e).data('parallax-object-depth') + 'px)',
+          ease: Power1.easeOut
+        });
+      })
+    });
+  });
+</script>
+{% endblock %}

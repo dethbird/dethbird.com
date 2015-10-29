@@ -92,7 +92,7 @@
                 TweenLite.to(dot, 1.2 + Math.random()*0.5, {
                   opacity: 0,
                   y: "+=" + Math.random() * 400 + 400,
-                  ease: Power1.easeInOut
+                  ease: RoughEase.ease.config({ template: Power0.easeNone, strength: 1.5, points: 20, taper: "none", randomize: true, clamp: false})
                 });
                 counter += increase;
             });

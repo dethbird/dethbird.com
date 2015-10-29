@@ -88,11 +88,15 @@ $app->get("/resume", $authenticate($app), function () use ($app) {
 });
 
 $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app) {
+
+    $experimentConfigs = Yaml::parse(file_get_contents("../configs/experiments.yml"));
+
     $configs = $app->container->get('configs');
     $app->render(
         'partials/experiments/'. $name .'.html.twig',
         array(
-            "configs" => $configs
+            "configs" => $configs,
+            "experimentConfigs" => isset($experimentConfigs[$name]) ? $experimentConfigs[$name] : array()
         ),
         200
     );
