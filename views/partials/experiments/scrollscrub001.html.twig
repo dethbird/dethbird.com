@@ -1,0 +1,118 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<style>
+    html, body{
+    height: 100%;
+    }
+    body {
+      font-family: "Helvetica", sans;
+      color: #666;
+      background: black;
+      text-align: center;
+      height: 100%;
+    }
+    .content-object,
+    .parallax-object {
+      position: absolute;
+    }
+    #content {
+      width: 800px;
+      height: 400px;
+      top: 800px;
+      left: 50%;
+      margin-left: -400px;
+      background-color: rgba(128, 128, 0, .4);
+    }
+    #front {
+      width: 400px;
+      height: 400px;
+      top: 500px;
+      left: 50%;
+      margin-left: -200px;
+      background-color: rgba(0, 0, 128, .3);
+    }
+    #mid {
+      width: 500px;
+      height: 800px;
+      top: 600px;
+      left: 50%;
+      margin-left: -225px;
+      background-color: rgba(128, 0, 0, .3);
+    }
+    #base {
+      top: 0px;
+      left: 0px;
+      width: 400px;
+      height: 400px;
+    }
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+<div class="parallax-object" id="base" data-parallax-object-depth="10"><img src="/img/experiments/background-1920-4320.jpg" /></div>
+<div class="parallax-object" id="mid" data-parallax-object-depth="5">mid</div>
+<div class="parallax-object" id="front" data-parallax-object-depth="3">front</div>
+<div class="parallax-object content-object" id="content" data-parallax-object-depth="1">
+
+</div>
+<script type="text/javascript">
+  var w = $(window);
+
+  var ParallaxView = Backbone.View.extend({
+    parallaxObjects: [],
+    contentObjects: [],
+    initialize: function() {
+      
+      var that = this;
+      that.parallaxObjects = $('.parallax-object');
+      that.contentObjects = $('.content-object');
+
+      $.each(that.parallaxObjects, function(i,e){
+        e = $(e);
+        var pos = e.position();
+        e.data('top-original', pos.top);
+      });
+      $.each(that.contentObjects, function(i,e){
+        e = $(e);
+        e.data('height-original', e.height());
+      });
+
+
+
+      w.scroll($.debounce(16, false, function(e){
+        var s = w.scrollTop();
+        var midHeight = w.height()/2;
+        $.each(that.parallaxObjects, function(i,e){
+          var el = $(e);
+          TweenLite.to(e, 1, {
+            top: el.data('top-original') - s/el.data('parallax-object-depth'),
+            ease: Power1.easeOut
+          });
+        });
+        $.each(that.contentObjects, function(i,e){
+          var el = $(e);
+          var checkTop = el[0].offsetTop - s;
+          var checkBottom = el[0].offsetTop - s + el.height();
+          if (
+            midHeight > checkTop
+            && midHeight < checkBottom
+          ) {
+            console.log(s);
+          }
+        });
+      }));
+    }
+  });
+
+
+
+  w.ready(function(){
+    var parallaxView = new ParallaxView({
+      el: w
+    });
+  });
+</script>
+{% endblock %}
