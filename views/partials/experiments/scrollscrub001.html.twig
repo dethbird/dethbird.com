@@ -9,7 +9,7 @@
       color: #666;
       background: black;
       text-align: center;
-      height: 100%;
+      height: 2500px;
     }
     .content-object,
     .parallax-object {
@@ -19,6 +19,14 @@
       width: 800px;
       height: 400px;
       top: 800px;
+      left: 50%;
+      margin-left: -400px;
+      background-color: rgba(128, 128, 0, .4);
+    }
+    #content2 {
+      width: 800px;
+      height: 400px;
+      top: 1600px;
       left: 50%;
       margin-left: -400px;
       background-color: rgba(128, 128, 0, .4);
@@ -55,11 +63,43 @@
 <div class="parallax-object" id="base" data-parallax-object-depth="10"><img src="/img/experiments/background-1920-4320.jpg" /></div>
 <div class="parallax-object" id="mid" data-parallax-object-depth="5">mid</div>
 <div class="parallax-object" id="front" data-parallax-object-depth="3">front</div>
-<div class="parallax-object content-object" id="content" data-parallax-object-depth="1">
-
-</div>
+<div class="parallax-object content-object" id="content" data-parallax-object-depth="1"></div>
+<div class="parallax-object content-object" id="content2" data-parallax-object-depth="1"></div>
 <script type="text/javascript">
   var w = $(window);
+
+  var contentTimeline = new TimelineMax(
+    {
+      repeat: -1,
+      paused: true
+    }
+  );
+  contentTimeline.add( TweenMax.to($('#content'), .25, {
+    scale: [1.2, 1.2],
+    ease: Power1.easeIn
+  }))
+  .add( TweenMax.to($('#content'), 1, {
+    scale: [1, 1],
+    ease: Elastic.easeOut.config(1, 0.3)
+  }));
+  $('#content').data('timeline', contentTimeline);
+
+  var content2Timeline = new TimelineMax(
+    {
+      repeat: -1,
+      paused: true
+    }
+  );
+  content2Timeline.add( TweenMax.to($('#content2'), .25, {
+    scale: [1.2, 1.2],
+    ease: Power1.easeIn
+  }))
+  .add( TweenMax.to($('#content2'), 1, {
+    scale: [1, 1],
+    ease: Elastic.easeOut.config(1, 0.3)
+  }));
+  $('#content2').data('timeline', content2Timeline);
+
 
   var ParallaxView = Backbone.View.extend({
     parallaxObjects: [],
@@ -70,6 +110,9 @@
       that.parallaxObjects = $('.parallax-object');
       that.contentObjects = $('.content-object');
 
+      /**
+       * store some initial state data
+       */
       $.each(that.parallaxObjects, function(i,e){
         e = $(e);
         var pos = e.position();
@@ -80,11 +123,9 @@
         e.data('height-original', e.height());
       });
 
-
-
-      w.scroll($.debounce(16, false, function(e){
+      w.scroll($.debounce(16, true, function(e){
         var s = w.scrollTop();
-        var midHeight = w.height()/2;
+        var midpointY = w.height()/2 + s;
         $.each(that.parallaxObjects, function(i,e){
           var el = $(e);
           TweenLite.to(e, 1, {
@@ -92,21 +133,30 @@
             ease: Power1.easeOut
           });
         });
+      /**
+       * See if mid-screen is intersecting a content object and play/pause its timeline
+       */
         $.each(that.contentObjects, function(i,e){
+
           var el = $(e);
-          var checkTop = el[0].offsetTop - s;
-          var checkBottom = el[0].offsetTop - s + el.height();
+          var pos = el.position();
+          var checkTop = pos.top;
+          var checkBottom = pos.top + el.height();
           if (
-            midHeight > checkTop
-            && midHeight < checkBottom
+            midpointY > checkTop
+            && midpointY < checkBottom
           ) {
-            console.log(s);
+            if(!el.data('timeline').isActive()){
+              el.data('timeline').play();
+            }
+          } else {
+            el.data('timeline').pause();
           }
         });
       }));
+      w.trigger('scroll');
     }
   });
-
 
 
   w.ready(function(){
