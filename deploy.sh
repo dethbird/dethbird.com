@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Deploying..."
+
 #initial cleanup
 rm -rf vendor
 rm -rf cache
@@ -15,3 +17,9 @@ chmod 777 cache
 
 #cleanup
 rm -rf composer.phar
+
+#npm install
+rm -rf node_modules
+npm install
+
+echo "deploy complete"

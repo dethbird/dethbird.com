@@ -1,4 +1,10 @@
 #!/bin/bash
+FRONTEND_VIEWS=frontend/js/views/*.js
 
-browserify public/js/views/experiments/fountain001.js -o public/build/js/experiments/fountain001.js
-echo "build complete"
+echo "Building frontend"
+for f in $FRONTEND_VIEWS
+do
+    n=`echo $f | sed -r "s/frontend/public/g"`
+    browserify $f -o $n
+    echo $n
+done
