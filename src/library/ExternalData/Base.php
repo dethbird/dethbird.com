@@ -1,6 +1,6 @@
 <?php
 
-require_once(APPLICATION_PATH . "/library/Cache/Manager.php");
+require_once(APPLICATION_PATH . "src/library/Cache/Manager.php");
 
 class DataBase {
 
@@ -9,7 +9,7 @@ class DataBase {
     */
     protected $httpClient;
     protected $cacheManager;
-    
+
     public function __construct()
     {
         $this->cacheManager = new CacheManager();

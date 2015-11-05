@@ -2,9 +2,9 @@
 
 class CacheManager {
 
-    private function filepath($key) 
+    private function filepath($key)
     {
-        return APPLICATION_PATH . "/cache/" . md5($key);
+        return APPLICATION_PATH . "cache/" . md5($key);
     }
 
     public function retrieve($key)

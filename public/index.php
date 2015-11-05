@@ -3,21 +3,22 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 // ini_set('display_startup_errors',1);
-define("APPLICATION_PATH", __DIR__ . "/..");
+define("APPLICATION_PATH", __DIR__ . "/../");
 date_default_timezone_set('America/New_York');
 
 // Ensure src/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     APPLICATION_PATH ,
-    APPLICATION_PATH . '/library',
+    APPLICATION_PATH . 'library',
     get_include_path(),
 )));
 
 
 require '../vendor/autoload.php';
-require_once '../library/ExternalData/InstagramData.php';
-require_once '../library/ExternalData/YoutubeData.php';
-require_once '../library/ExternalData/WordpressData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/YoutubeData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/WordpressData.php';
+require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php';
 
 
 use Symfony\Component\Yaml\Yaml;
@@ -26,10 +27,14 @@ use Symfony\Component\Yaml\Yaml;
 $app = new \Slim\Slim(
     array(
         'view' => new Slim\Views\Twig(),
-        'templates.path' => APPLICATION_PATH . '/views'
+        'templates.path' => APPLICATION_PATH . 'src/views'
     )
 );
 $view = $app->view();
+$view->parserExtensions = array(
+    new \Slim\Views\TwigExtension(),
+    new TemplateHelpers()
+);
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 $app->container->set('configs', $configs);
 
