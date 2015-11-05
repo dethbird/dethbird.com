@@ -1,0 +1,582 @@
+marketing-track-bundles:
+    title: "Marketing Track Bundles"
+    description: |
+        Marketing users can browse auto-genrated bundles of tracks created by the similar-tracks engine.
+    bundles:
+        -
+            name: "Love/Hate Work Bundle"
+            properties:
+                mood: "Bittersweet"
+                theme: "At the Office"
+                bpm: "120 - 180"
+            tracks:
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "109832"
+                    cd: "1"
+                    track_id: "13"
+                    track_name: "If The Ship Comes In"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "48"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/109832/c9e4dbbc05296016d99d767969f62537"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "110342"
+                    cd: "1"
+                    track_id: "12"
+                    track_name: "Old Rivers Run Dry"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "54"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/110342/1a08546a5380bcd6aabfe8c04a4c4c0d"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "110608"
+                    cd: "1"
+                    track_id: "4"
+                    track_name: "Life Is So Fine"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "18"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/110608/1cf18a7f5a9a8a34927b77a8c5c6a433"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "110733"
+                    cd: "1"
+                    track_id: "10"
+                    track_name: "No Need To Shout"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "61"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/110733/bd661f2023eaa25d3e2be5eddc7c1bc6"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "110969"
+                    cd: "1"
+                    track_id: "9"
+                    track_name: "Come Ride The Storm"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "66"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/110969/9dfdc763e46ee3893b080560eab9abf3"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "111073"
+                    cd: "1"
+                    track_id: "6"
+                    track_name: "Remember Me My Old Friend"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "29"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/111073/13649248dfe5b30c0371551d1fbdbc42"
+                - 
+                    upc: "669910790922"
+                    release_name: "I Think It's About Time"
+                    id: "111201"
+                    cd: "1"
+                    track_id: "7"
+                    track_name: "Anglesea"
+                    mood: "Bittersweet"
+                    theme: "At the Office"
+                    danceability: "95"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/669910790922/2/111201/8e8d38fbfbcb78cf3c59cad828360bd3"
+        -
+            name: "Warm Blue Bundle"
+            properties:
+                theme: "Feeling Blue"
+                mood: "Warm"
+                bpm: "120 - 180"
+            tracks:
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879094"
+                    cd: "1"
+                    track_id: "1"
+                    track_name: "Intro"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "69"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879094/677cfcdff07567aa559f691beffd907f"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879095"
+                    cd: "1"
+                    track_id: "2"
+                    track_name: "Sag Mir"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "84"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879095/841f19a674b47997d12b27c18aa06570"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879098"
+                    cd: "1"
+                    track_id: "5"
+                    track_name: "Hey DJ"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "42"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879098/ed5b0447b1f857deab2ec902602e5537"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879101"
+                    cd: "1"
+                    track_id: "8"
+                    track_name: "Danke"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "4"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879101/7d0ffdfdac99dec7977360cd4fadd116"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879102"
+                    cd: "1"
+                    track_id: "9"
+                    track_name: "Lass Sie Stehen"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "92"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879102/98fa8c8aed826b44ed73b204cdbe7948"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879103"
+                    cd: "1"
+                    track_id: "10"
+                    track_name: "Komm Her"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "46"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879103/d9c8d6e8961e021c0ced5c500f822f72"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879104"
+                    cd: "1"
+                    track_id: "11"
+                    track_name: "So Doof"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "53"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879104/2ee82a9f1a7c49091e5ebd6a554ffd10"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879105"
+                    cd: "1"
+                    track_id: "12"
+                    track_name: "Parara"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "30"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879105/10a94093494413635e55a5ccc53a20df"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879106"
+                    cd: "1"
+                    track_id: "13"
+                    track_name: "Mein Prinz"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "89"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879106/0b00f40f3028ae827c2fe2788ab3f1a4"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879107"
+                    cd: "1"
+                    track_id: "14"
+                    track_name: "Was Geht Ab?"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "58"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879107/5a35ab06d3472afea58d8d4abd8f93ea"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879108"
+                    cd: "1"
+                    track_id: "15"
+                    track_name: "Baby Mein"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "23"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879108/0a56460b443bf0ca16bec3e55d154454"
+                - 
+                    upc: "829410266772"
+                    release_name: "Meine Lyrics"
+                    id: "879109"
+                    cd: "1"
+                    track_id: "16"
+                    track_name: "Meine Lyrics"
+                    mood: "Warm"
+                    theme: "Feeling Blue"
+                    danceability: "40"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/829410266772/2/879109/ffdb26c4318f44f464c386e05a255b8f"
+
+        -
+            name: "The Precious 70's Bundle"
+            properties:
+                theme: "70's"
+                mood: "Precious"
+                danceability: "> 90"
+            tracks:
+                - 
+                    upc: "803680975923"
+                    release_name: "Lemonade Electrica"
+                    id: "206511"
+                    cd: "1"
+                    track_id: "7"
+                    track_name: "Ghost Town at 5"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "91"
+                    bpm: 240
+                    stream_url: "http://dc.streams.devorch.com/stream/803680975923/2/206511/49c064e0c91d05350fabf08f843c6ba4"
+                - 
+                    upc: "803680888407"
+                    release_name: "Black Foundation Dub"
+                    id: "215198"
+                    cd: "1"
+                    track_id: "5"
+                    track_name: "Creation Dub"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "91"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/803680888407/2/215198/1636a0f6f4916b39740b77270a343085"
+                - 
+                    upc: "803680888704"
+                    release_name: "The Legendary Skatalites in Dub"
+                    id: "215243"
+                    cd: "1"
+                    track_id: "7"
+                    track_name: "Bottom Dub"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "97"
+                    bpm: 240
+                    stream_url: "http://dc.streams.devorch.com/stream/803680888704/2/215243/91a112fb45af420e21759d87f6795caf"
+                - 
+                    upc: "803680888803"
+                    release_name: "Born in the Sky"
+                    id: "215259"
+                    cd: "1"
+                    track_id: "8"
+                    track_name: "Good Things"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "93"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215259/b46275dcaf2d7f3432793c65ed14f015"
+                - 
+                    upc: "803680888803"
+                    release_name: "Born in the Sky"
+                    id: "215262"
+                    cd: "1"
+                    track_id: "11"
+                    track_name: "Do It Baby"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "91"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215262/e7ffca81e74e21ad8c81283988d3eee6"
+                - 
+                    upc: "803680888803"
+                    release_name: "Born in the Sky"
+                    id: "215267"
+                    cd: "1"
+                    track_id: "16"
+                    track_name: "Bring It On Home"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "94"
+                    bpm: 60
+                    stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215267/9911ae4e10dc817551fc4e256ece603a"
+                - 
+                    upc: "803680889107"
+                    release_name: "Phoenix Dub"
+                    id: "215296"
+                    cd: "1"
+                    track_id: "2"
+                    track_name: "Back Against the Wall"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "97"
+                    bpm: 240
+                    stream_url: "http://dc.streams.devorch.com/stream/803680889107/2/215296/235e39ee00a564412162361b1e2b8fbe"
+                - 
+                    upc: "803680889107"
+                    release_name: "Phoenix Dub"
+                    id: "215305"
+                    cd: "1"
+                    track_id: "11"
+                    track_name: "Own Eyes Version"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "91"
+                    bpm: 180
+                    stream_url: "http://dc.streams.devorch.com/stream/803680889107/2/215305/cf21d212884a05da313d6a62ceb4875d"
+                - 
+                    upc: "803680889206"
+                    release_name: "Sledgehammer Dub (In The Streets of Jamaica)"
+                    id: "215317"
+                    cd: "1"
+                    track_id: "9"
+                    track_name: "Rich and Poor Dub"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "99"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/803680889206/2/215317/7b4bd478dac1162154e033bb9d150b48"
+                - 
+                    upc: "803680889206"
+                    release_name: "Sledgehammer Dub (In The Streets of Jamaica)"
+                    id: "215322"
+                    cd: "1"
+                    track_id: "14"
+                    track_name: "Tenement Yard Version"
+                    mood: "Atmospheric"
+                    theme: "70's"
+                    danceability: "97"
+                    bpm: 120
+                    stream_url: "http://dc.streams.devorch.com/stream/803680889206/2/215322/de127465ae8efa616d569bbd67fbb447"
+
+
+marketing-catalog-search:
+    title: "Marketing Catalog Search"
+    description: |
+        Marketing users can search the public catalog and use the similar-tracks engine to discover related tracks.
+    data:
+        tracks:
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338958"
+                cd: "1"
+                track_id: "1"
+                track_name: "Ancient Dust of Africa"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "99"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338958/d408d187d246ebe7bf3983bfa3c2c63b"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338959"
+                cd: "1"
+                track_id: "2"
+                track_name: "The Gypsy Dance"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "38"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338959/617bf81ddcb308c22aad2f9988ef9587"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338960"
+                cd: "1"
+                track_id: "3"
+                track_name: "A Woman Is Like An Ocean"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "92"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338960/8ae9b7e1ebd39cea1b1f63c9ed5b73e2"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338961"
+                cd: "1"
+                track_id: "4"
+                track_name: "Lady Illusion"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "45"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338961/890d31d737ddd63e08d32efe9b1a539e"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338962"
+                cd: "1"
+                track_id: "5"
+                track_name: "Mabel (Mahogany Eyes)"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "53"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338962/aebddfe17c2308ca7cdaba1417c0c289"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338963"
+                cd: "1"
+                track_id: "6"
+                track_name: "Come Wi Goh Dung Deh"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "27"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338963/7bf82c9d3e665b91d66c356637763bcf"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338964"
+                cd: "1"
+                track_id: "7"
+                track_name: "The Wheel"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "77"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338964/68f474def809412542745506464b10a3"
+            - 
+                upc: "829410314084"
+                release_name: "Ancient Dust"
+                id: "1338965"
+                cd: "1"
+                track_id: "8"
+                track_name: "Bitter Fruit"
+                mood: "Melancholy"
+                theme: "80's"
+                danceability: "4"
+                bpm: true
+                stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338965/ccc76db4b729aa4b9c5ef6fb8b253a8d"
+
+catalog-player:
+    title: "Catalog Player"
+    description: |
+        Continuously play related tracks from the Orchard catalog. Tune your radio by selecting similarity-indexes
+    data:
+        current_track:
+            upc: "829410314084"
+            release_name: "Ancient Dust"
+            id: "1338965"
+            cd: "1"
+            track_id: "8"
+            track_name: "Bitter Fruit"
+            mood: "Melancholy"
+            theme: "80's"
+            danceability: "4"
+            bpm: true
+            stream_url: "http://dc.streams.devorch.com/stream/829410314084/2/1338965/ccc76db4b729aa4b9c5ef6fb8b253a8d"
+        queue:
+            - 
+                upc: "803680975923"
+                release_name: "Lemonade Electrica"
+                id: "206511"
+                cd: "1"
+                track_id: "7"
+                track_name: "Ghost Town at 5"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "91"
+                bpm: 240
+                stream_url: "http://dc.streams.devorch.com/stream/803680975923/2/206511/49c064e0c91d05350fabf08f843c6ba4"
+            - 
+                upc: "803680888407"
+                release_name: "Black Foundation Dub"
+                id: "215198"
+                cd: "1"
+                track_id: "5"
+                track_name: "Creation Dub"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "91"
+                bpm: 180
+                stream_url: "http://dc.streams.devorch.com/stream/803680888407/2/215198/1636a0f6f4916b39740b77270a343085"
+            - 
+                upc: "803680888704"
+                release_name: "The Legendary Skatalites in Dub"
+                id: "215243"
+                cd: "1"
+                track_id: "7"
+                track_name: "Bottom Dub"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "97"
+                bpm: 240
+                stream_url: "http://dc.streams.devorch.com/stream/803680888704/2/215243/91a112fb45af420e21759d87f6795caf"
+            - 
+                upc: "803680888803"
+                release_name: "Born in the Sky"
+                id: "215259"
+                cd: "1"
+                track_id: "8"
+                track_name: "Good Things"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "93"
+                bpm: 180
+                stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215259/b46275dcaf2d7f3432793c65ed14f015"
+            - 
+                upc: "803680888803"
+                release_name: "Born in the Sky"
+                id: "215262"
+                cd: "1"
+                track_id: "11"
+                track_name: "Do It Baby"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "91"
+                bpm: 180
+                stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215262/e7ffca81e74e21ad8c81283988d3eee6"
+            - 
+                upc: "803680888803"
+                release_name: "Born in the Sky"
+                id: "215267"
+                cd: "1"
+                track_id: "16"
+                track_name: "Bring It On Home"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "94"
+                bpm: 60
+                stream_url: "http://dc.streams.devorch.com/stream/803680888803/2/215267/9911ae4e10dc817551fc4e256ece603a"
+            - 
+                upc: "803680889107"
+                release_name: "Phoenix Dub"
+                id: "215296"
+                cd: "1"
+                track_id: "2"
+                track_name: "Back Against the Wall"
+                mood: "Atmospheric"
+                theme: "70's"
+                danceability: "97"
+                bpm: 240
+                stream_url: "http://dc.streams.devorch.com/stream/803680889107/2/215296/235e39ee00a564412162361b1e2b8fbe"

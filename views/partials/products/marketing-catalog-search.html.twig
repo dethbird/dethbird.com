@@ -1,0 +1,78 @@
+{% extends 'layout.html.twig' %}
+{% block head %}
+{% endblock %}
+{% block pageinfo %}
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <h1>{{productConfigs.title}}</h1>
+    <blockquote>{{productConfigs.description}}</blockquote>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="track-name" class="col-sm-2 control-label">Track name</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="track-name" placeholder="Track name" value="Come Wi Goh Dung Deh">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="matches" class="col-sm-2 control-label">Match on</label>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> BPM
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" checked="checked"> Theme
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" checked="checked"> Mood
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> Danceability
+                    </label>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="track-name" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-10">
+                <button class="btn btn-primary btn-lg">Search</button>
+            </div>
+        </div>
+    </form>
+    <hr />
+    {% for track in productConfigs.data.tracks %}
+        <div class="track">
+            <img src="https://images.theorchard.com{{track.upc|image_path_from_upc}}" />
+            <trackname>{{track.track_name}}</trackname><br />
+            <releasename>{{track.release_name}}</releasename><br />
+            <upc><a href="http://oa.theorchard.com/cont_mgmt/view_release.php?upc={{track.upc}}&searchList=release" target="_blank">{{track.upc}}</a></upc><br />
+            <audio controls>
+               <source src="{{track.stream_url}}" type="audio/mpeg">
+            </audio>
+            <table class="table">
+              <tr>
+                <th>Theme</th>
+                <th>Mood</th>
+                <th>BPM</th>
+                <th>Danceability</th>
+              </tr>
+              <tr>
+                <td>{{track.theme}}</td>
+                <td>{{track.mood}}</td>
+                <td>{{track.bpm}}</td>
+                <td>{{track.danceability}}%</td>
+              </tr>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}

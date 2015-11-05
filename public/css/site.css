@@ -1,0 +1,79 @@
+body {
+    padding: 0px 15px 50px 15px;
+    font-family: 'Open Sans', sans-serif;
+}
+blockquote {
+    border: none;
+}
+header {
+    background-color: #aaa;
+    padding: 15px;
+}
+hr {
+    background-color: #fba91a;
+    border: 1px solid #fba91a;
+}
+trackname {
+    font-size: 1.6em;
+}
+releasename {
+    font-weight: bold;
+}
+user {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+div.track {
+    padding: 15px;
+    display: block;
+    vertical-align: top;
+    width: 100%;
+}
+div.track:nth-child(odd) {
+    background: #f6f6f6;
+}
+div.track img {
+    max-width: 120px;
+    height: auto;
+    float: left;
+    margin: 0px 15px 15px 0px;
+    box-shadow: 1px 2px 10px 3px rgba(0,0,0,0.25);
+}
+
+#logo {
+    max-width: 150px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+#user {
+    max-width: 200px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    text-align: right;
+}
+#body-content {
+    margin-top: 100px;
+}
+
+
+@media screen and (min-width:786px) {
+    #logo {
+        max-width: 180px;
+        height: auto;
+    }
+}
+@media screen and (min-width:1200px) {
+    #logo {
+        max-width: 200px;
+        height: auto;
+    }
+}
+@media screen and (min-width:1600px) {
+    #logo {
+        max-width: 200px;
+        height: auto;
+    }
+}

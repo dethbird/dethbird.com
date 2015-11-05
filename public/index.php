@@ -18,6 +18,7 @@ require '../vendor/autoload.php';
 require_once '../library/ExternalData/InstagramData.php';
 require_once '../library/ExternalData/YoutubeData.php';
 require_once '../library/ExternalData/WordpressData.php';
+require_once '../library/View/Extension/TemplateHelpers.php';
 
 
 use Symfony\Component\Yaml\Yaml;
@@ -30,6 +31,10 @@ $app = new \Slim\Slim(
     )
 );
 $view = $app->view();
+$view->parserExtensions = array(
+    new \Slim\Views\TwigExtension(),
+    new TemplateHelpers()
+);
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 $app->container->set('configs', $configs);
 
@@ -55,6 +60,21 @@ $app->get("/", $authenticate($app), function () use ($app) {
     $app->render(
         'partials/index.html.twig',
         $app->container->get('configs'),
+        200
+    );
+});
+
+$app->get("/products/:name", $authenticate($app), function ($name) use ($app) {
+
+    $productConfigs = Yaml::parse(file_get_contents("../configs/products.yml"));
+
+    $configs = $app->container->get('configs');
+    $app->render(
+        'partials/products/'. $name .'.html.twig',
+        array(
+            "configs" => $configs,
+            "productConfigs" => isset($productConfigs[$name]) ? $productConfigs[$name] : array()
+        ),
         200
     );
 });

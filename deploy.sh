@@ -8,8 +8,8 @@ rm -rf cache
 rm -rf composer.lock
 
 #get composer
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+curl -sS https://getcomposer.org/installer | /usr/local/bin/php 
+/usr/local/bin/php composer.phar install
 
 #cache directories
 mkdir cache

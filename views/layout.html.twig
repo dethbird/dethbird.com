@@ -2,14 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>whitelabel website</title>
+    <title>The Orchard similar tracks products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/site.css">
-    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
     {% block head %}{% endblock %}
   </head>
   <body>
+    <img src="/img/logo.png" id="logo" />
+    <div id="user">
+      <user>Styles Marketington</user><br />
+      <a href="/">Logout</a>
+    </div>
     <div class="body-content">
-	 {% block body %}{% endblock %}
+      <div id="body-content">
+        {% block body %}{% endblock %}
+      </div>
     </div>
   </body>
 </html>
