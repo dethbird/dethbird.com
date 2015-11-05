@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% block head %}
+    {{parent()}}
+    <script type="text/javascript" src="js/views/index.js"></script>
+{% endblock %}
+{% block body %}
+	{{ parent() }}
+  <div class="content-block">
+    <h1>Hello</h1>
+  </div>
+  <div class="content-block">
+    <h1>Portfolio</h1>
+  </div>
+  <div class="content-block">
+    <h1>About</h1>
+  </div>
+  <div class="content-block">
+    <h1>Info</h1>
+  </div>
+
+{% endblock %}
+
