@@ -24,7 +24,7 @@
         <div data-section="{{category.id}}" class="section">
             {% if category.id == "instagram" %}
               {% for content in instagramData %}
-                <img src="{{content.images.thumbnail.url}}" class="thumbnail" data-type="instagram" data-id="{{content.id}}"/>
+                <img src="{{content.images.standard_resolution.url}}" class="thumbnail" data-type="instagram" data-id="{{content.id}}"/>
               {% endfor %}
             {% else %}
               {% for content in configs.portfolio.gallery %}
@@ -48,6 +48,12 @@
   <div id="overlay">
     <div class="contents"></div>
   </div>
+
+  <!-- loading div -->
+  <div id="loader">
+    <div id="loader_logo"><h1>Loading...</a></div>
+  </div>
+
   <!-- templates -->
   <script type="text/template" id="portfolio-gallery-template">
     <% if (type=="image") { %>
@@ -66,6 +72,10 @@
     <p><a href="<%-link%>">view on instagram</a></p>
     <%-date%>
   </script>
+{% endblock %}
+
+
+{% block includes %}
   <!-- js includes -->
   <script type="text/javascript" src="js/pages/index.js"></script>
 {% endblock %}

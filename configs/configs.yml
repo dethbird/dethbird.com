@@ -73,6 +73,96 @@ portfolio:
             thumbnail: "https://c1.staticflickr.com/3/2473/3692721420_0cee6cd9d2.jpg"
             description: "Just an illustration I used to sell prints of."
         -
+            title: "Discommunication"
+            year: "2010"
+            medium: "Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/5/4040/4537442530_55219acf71_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/5/4040/4537442530_55219acf71.jpg"
+            description: "Can't ever figure anything out, there are holes in the story."
+        -
+            title: "Late Again"
+            year: "2007"
+            medium: "pencil, Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/2/1416/1433569514_27d34287f5_o.jpg"
+            thumbnail: "https://c2.staticflickr.com/2/1416/1433569514_957f7e790f.jpg"
+            description: "Can't get there on time and don't want to."
+        -
+            title: "a pungent seasonal realization"
+            year: "2007"
+            medium: "pencil, ink, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2213/1871848485_c42eae1fc2_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2213/1871848485_c42eae1fc2.jpg"
+            description: "white knuckling in the white snow"
+        -
+            title: "It's a Mix Tape I Might Eat"
+            year: "2007"
+            medium: "pencil, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/2/1177/954455978_e1b3840227_o.jpg"
+            thumbnail: "https://c2.staticflickr.com/2/1177/954455978_dc9c5788a8.jpg"
+            description: "It says please meatball me."
+        -
+            title: "-+-"
+            year: "2008"
+            medium: "pencil, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3254/2982520659_4cfd90fae8_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3254/2982520659_4cfd90fae8.jpg"
+            description: "burping colors"
+        -
+            title: "room temperature wheels"
+            year: "2009"
+            medium: "pencil, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3480/4003621695_39ea3147ef_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3480/4003621695_39ea3147ef.jpg"
+            description: "a boy's life"
+        -
+            title: "get outta my dreams and into my van"
+            year: "2009"
+            medium: "pencil, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2768/4065908510_73aaac4dcc_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2768/4065908510_73aaac4dcc.jpg"
+            description: "beats van"
+        -
+            title: "Atomic Cigarette"
+            year: "2010"
+            medium: "pencil, Painter, Photoshop"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/5/4026/4537442840_e015dfcb1c_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/5/4026/4537442840_e015dfcb1c.jpg"
+            description: "last cigarette on earth"
+        -
+            title: "the octopus is the dialogue"
+            year: "2008"
+            medium: "Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2107/2488224137_b1d880813b_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2107/2488224137_b1d880813b.jpg"
+            description: "we only exist by communitcating with another"
+        -
+            title: "makin it with bots"
+            year: "2007"
+            medium: "Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/2/1037/1342558150_29469a9419_o.jpg"
+            thumbnail: "https://c2.staticflickr.com/2/1037/1342558150_5924d53037.jpg"
+            description: "creation and destruction with the stroke of a brush"
+        -
             title: "Cute Animals (animatic)"
             year: "2007"
             medium: "pencil, Photoshop, Flash"
@@ -102,7 +192,7 @@ portfolio:
             thumbnail: "https://c2.staticflickr.com/6/5814/22237250364_1932310813.jpg"
             description: >
               Twitter and Google have their own superheroes - Tweetstream and Zeitgeist, respectively.
-              [Check out the comic here](/comics/tweetstream-and-zeitgeist).
+              <a href="/comics/tweetstream-and-zeitgeist" target="_blank">View</a>
         -
             title: "masthead for learning to experiment blog"
             year: "2009"
@@ -202,6 +292,24 @@ portfolio:
             content: "https://farm1.staticflickr.com/175/461988892_d37e43bae6_o.jpg"
             thumbnail: "https://c1.staticflickr.com/1/175/461988892_6569620052.jpg"
             description: "Uranium 239 Glow Pops"
+        -
+            title: "The Power of Buddha Compels You"
+            year: "2011"
+            medium: "Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c2.staticflickr.com/8/7002/6534378995_5b3528bbde_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/8/7002/6534378995_5b3528bbde.jpg"
+            description: "you cannot resist"
+        -
+            title: "The way the sun moves"
+            year: "2002"
+            medium: "3D Studio, Painter"
+            category_id: illustration
+            type: "image"
+            content: "https://c1.staticflickr.com/1/170/461995807_0298112583_o.jpg"
+            thumbnail: "https://c1.staticflickr.com/1/170/461995807_fcbafed3f3.jpg"
+            description: "a road trip"
 
 instagrams:
   - "29N7rtRZv1"
