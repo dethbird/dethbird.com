@@ -92,17 +92,34 @@ $app->get("/resume", $authenticate($app), function () use ($app) {
     }
 });
 
+/**
+ * Experimental pages for proof of concepting
+ */
 $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app) {
 
+    $configs = $app->container->get('configs');
     $experimentConfigs = Yaml::parse(file_get_contents("../configs/experiments.yml"));
+
+    $templateVars = array(
+        "configs" => $configs,
+        "experimentConfigs" => isset($experimentConfigs[$name]) ? $experimentConfigs[$name] : array()
+    );
+
+    if($name=="gallery001") {
+        $instagramData = new InstagramData($configs['instagram']['client_id']);
+        $templateVars['instagramData'] =$instagramData->getRecentMedia($configs['instagram']['user_id'], 60, 1024, array(
+            "art",
+            "drawing",
+            "sketchbook"
+        ));
+        // var_dump($instagramData->getRecentMedia($configs['instagram']['user_id'], 60, 1024));
+        // die();
+    }
 
     $configs = $app->container->get('configs');
     $app->render(
         'pages/experiments/'. $name .'.html.twig',
-        array(
-            "configs" => $configs,
-            "experimentConfigs" => isset($experimentConfigs[$name]) ? $experimentConfigs[$name] : array()
-        ),
+        $templateVars,
         200
     );
 });
