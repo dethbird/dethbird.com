@@ -1,8 +1,18 @@
+a {
+    cursor: pointer;
+    color: #ff0099;
+}
+a:hover {
+    color: #ff6699;
+}
+blockquote {
+    border: none;
+}
 body {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     background-color: #111;
-    color: #555;
+    color: #aaa;
 }
 h1,h2,h3,h5,h5,h6 {
     font-weight: bold;
@@ -10,13 +20,64 @@ h1,h2,h3,h5,h5,h6 {
 }
 .content-block {
     width: 95%;
-    min-height: 450px;
     background-color: #333;
     display: inline-block;
     text-align: left;
     padding: 15px;
     margin: 10px 0px 10px 0px;
 }
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background-color: rgba(0,0,0,0.75);
+    display:none;
+}
+#overlay .contents {
+    padding-top: 25px;
+}
+
+#portfolio-gallery .section {
+    display: none;
+}
+#portfolio-gallery .thumbnail {
+    display: inline-block;
+    border: 1px solid #111;
+    margin: 10px;
+    padding: 0;
+    background: none;
+}
+#portfolio-gallery ul.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#portfolio-gallery ul.menu li {
+    display: inline-block;
+    margin-right: 5px;
+}
+.thumbnail {
+    cursor: pointer;
+}
+@media screen and (min-width:1600px) {
+    #overlay .contents {
+        width: 1000px;
+        left: 50%;
+        display: inline-block;
+    }
+    #overlay .contents img {
+        max-height: 800px;
+        width: auto;
+    }
+    #portfolio-gallery .thumbnail {
+        width: 200px;
+        height: auto;
+    }
+}
+
 
 /**
  * Media Sizes

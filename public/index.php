@@ -57,7 +57,16 @@ $app->notFound(function () use ($app) {
 
 
 $app->get("/", $authenticate($app), function () use ($app) {
+
     $configs = $app->container->get('configs');
+
+    $_gallery = array();
+    foreach($configs['portfolio']['gallery'] as $item) {
+        $item['id'] = md5($item['thumbnail']);
+        $_gallery[] = $item;
+    }
+    $configs['portfolio']['gallery'] = $_gallery;
+
     $instagramData = new InstagramData($configs['instagram']['client_id']);
 
     $templateVars = array(

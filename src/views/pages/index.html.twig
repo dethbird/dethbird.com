@@ -1,41 +1,41 @@
 {% extends 'layout.html.twig' %}
 {% block head %}
     {{parent()}}
+    <script type="text/javascript">
+      var portfolioData = {{configs.portfolio|json_encode|raw}};
+      var instagramData = {{instagramData|json_encode|raw}};
+    </script>
 {% endblock %}
 {% block body %}
 	{{ parent() }}
   <div class="content-block">
-    <h1>Hello, I'm dethbird</h1>
+    <h1>R.Satsangi #cartoons #technology</h1>
     <p>Outta my way kid, ya bother me. I got cartoons to make.</p>
   </div>
   <div class="content-block">
     <h1>Portfolio</h1>
-      <div id="gallery">
-        <ul class="nav nav-tabs" role="tablist">
-            {% for category in configs.portfolio.category %}
-                <li role="presentation"><a href="#{{category.id|raw}}" aria-controls="{{category.id|raw}}" role="tab" data-toggle="tab">{{category.name|raw}}</a></li>
-            {% endfor %}
-        </ul>
-         <!-- Tab panes -->
-          <div class="tab-content">
-            {% for category in configs.portfolio.category %}
-                <div role="tabpanel" class="tab-panel fade" id="{{category.id}}">
-                    {% if category.id == "instagram" %}
-                      farts
-                      {% for content in instagramData %}
-                            <img src="{{content.images.thumbnail.url}}" class="thumbnail"/>
-                      {% endfor %}
-                    {% else %}
-                      {% for content in configs.portfolio.gallery %}
-                          {% if content.category_id==category.id %}
-                              <img src="{{content.thumbnail}}" class="thumbnail"/>
-                          {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                </div>
-            {% endfor %}
-          </div>
-      </div>
+    <div id="portfolio-gallery">
+      <ul class="menu">
+        {% for category in configs.portfolio.category %}
+          <li><a class="section-selector" data-section="{{category.id|raw}}">{{category.name|raw}}</a></li>
+        {% endfor %}
+      </ul>
+      {% for category in configs.portfolio.category %}
+        <div data-section="{{category.id}}" class="section">
+            {% if category.id == "instagram" %}
+              {% for content in instagramData %}
+                <img src="{{content.images.thumbnail.url}}" class="thumbnail" data-type="instagram" data-id="{{content.id}}"/>
+              {% endfor %}
+            {% else %}
+              {% for content in configs.portfolio.gallery %}
+                  {% if content.category_id==category.id %}
+                    <img src="{{content.thumbnail}}" class="thumbnail" data-type="portfolio" data-id="{{content.id}}"/>
+                  {% endif %}
+              {% endfor %}
+            {% endif %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
   <div class="content-block">
     <h1>About</h1>
@@ -43,6 +43,29 @@
   <div class="content-block">
     <h1>Info</h1>
   </div>
+
+  <!-- overlay -->
+  <div id="overlay">
+    <div class="contents"></div>
+  </div>
+  <!-- templates -->
+  <script type="text/template" id="portfolio-gallery-template">
+    <% if (type=="image") { %>
+      <img src="<%-content%>" />
+    <% } else if (type=="embed") { %>
+      <%=content%>
+    <% } %>
+    <h2><%-title%></h2>
+    <blockquote><%=description%></blockquote>
+    <p><%-medium%> (<%-year%>)</p>
+  </script>
+  <script type="text/template" id="instagram-gallery-template">
+    <img src="<%-images.standard_resolution.url%>" />
+    <blockquote><%=caption.text%></blockquote>
+    <p><%-date%> | <%-likes.count%> likes</p>
+    <p><a href="<%-link%>">view on instagram</a></p>
+    <%-date%>
+  </script>
+  <!-- js includes -->
   <script type="text/javascript" src="js/pages/index.js"></script>
 {% endblock %}
-
