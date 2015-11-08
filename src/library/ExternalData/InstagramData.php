@@ -42,7 +42,7 @@ class InstagramData extends DataBase {
      */
     public function getRecentMedia($userId, $count = 6, $tags = array())
     {
-        $cacheKey = md5("instagramRecent:".$userId.$count.$maxwidth);
+        $cacheKey = md5("instagramRecent:".$userId.$count,implode(",", $tags));
         $cache = $this->retrieveCache($cacheKey, 86400);
         if(!$cache) {
 

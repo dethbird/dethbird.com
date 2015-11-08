@@ -57,9 +57,20 @@ $app->notFound(function () use ($app) {
 
 
 $app->get("/", $authenticate($app), function () use ($app) {
+    $configs = $app->container->get('configs');
+    $instagramData = new InstagramData($configs['instagram']['client_id']);
+
+    $templateVars = array(
+        "configs" => $configs,
+        "instagramData" => $instagramData->getRecentMedia($configs['instagram']['user_id'], 60, array(
+            "art",
+            "drawing",
+            "sketchbook"
+        ))
+    );
     $app->render(
         'pages/index.html.twig',
-        $app->container->get('configs'),
+        $templateVars,
         200
     );
 });
@@ -104,16 +115,13 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
         "configs" => $configs,
         "experimentConfigs" => isset($experimentConfigs[$name]) ? $experimentConfigs[$name] : array()
     );
-
     if($name=="gallery001") {
         $instagramData = new InstagramData($configs['instagram']['client_id']);
-        $templateVars['instagramData'] =$instagramData->getRecentMedia($configs['instagram']['user_id'], 60, 1024, array(
+        $templateVars['instagramData'] =$instagramData->getRecentMedia($configs['instagram']['user_id'], 60, array(
             "art",
             "drawing",
             "sketchbook"
         ));
-        // var_dump($instagramData->getRecentMedia($configs['instagram']['user_id'], 60, 1024));
-        // die();
     }
 
     $configs = $app->container->get('configs');

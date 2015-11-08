@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     {{ parent() }}
-    <pre>{{instagramData|print_r}}</pre>
+    <!-- <pre>{{instagramData|print_r}}</pre> -->
     <div id="gallery">
         <ul class="nav nav-tabs" role="tablist">
             {% for category in experimentConfigs.category %}
@@ -17,11 +17,18 @@
           <div class="tab-content">
             {% for category in experimentConfigs.category %}
                 <div role="tabpanel" class="tab-pane fade" id="{{category.id}}">
-                    {% for content in experimentConfigs.gallery %}
-                        {% if content.category_id==category.id %}
-                            <img src="{{content.thumbnail}}" class="thumbnail"/>
-                        {% endif %}
-                    {% endfor %}
+                    {% if category.id == "instagram" %}
+                      farts
+                      {% for content in instagramData %}
+                            <img src="{{content.images.thumbnail.url}}" class="thumbnail"/>
+                      {% endfor %}
+                    {% else %}
+                      {% for content in experimentConfigs.gallery %}
+                          {% if content.category_id==category.id %}
+                              <img src="{{content.thumbnail}}" class="thumbnail"/>
+                          {% endif %}
+                      {% endfor %}
+                    {% endif %}
                 </div>
             {% endfor %}
           </div>

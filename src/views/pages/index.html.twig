@@ -1,15 +1,41 @@
 {% extends 'layout.html.twig' %}
 {% block head %}
     {{parent()}}
-    <script type="text/javascript" src="js/views/index.js"></script>
 {% endblock %}
 {% block body %}
 	{{ parent() }}
   <div class="content-block">
-    <h1>Hello</h1>
+    <h1>Hello, I'm dethbird</h1>
+    <p>Outta my way kid, ya bother me. I got cartoons to make.</p>
   </div>
   <div class="content-block">
     <h1>Portfolio</h1>
+      <div id="gallery">
+        <ul class="nav nav-tabs" role="tablist">
+            {% for category in configs.portfolio.category %}
+                <li role="presentation"><a href="#{{category.id|raw}}" aria-controls="{{category.id|raw}}" role="tab" data-toggle="tab">{{category.name|raw}}</a></li>
+            {% endfor %}
+        </ul>
+         <!-- Tab panes -->
+          <div class="tab-content">
+            {% for category in configs.portfolio.category %}
+                <div role="tabpanel" class="tab-panel fade" id="{{category.id}}">
+                    {% if category.id == "instagram" %}
+                      farts
+                      {% for content in instagramData %}
+                            <img src="{{content.images.thumbnail.url}}" class="thumbnail"/>
+                      {% endfor %}
+                    {% else %}
+                      {% for content in configs.portfolio.gallery %}
+                          {% if content.category_id==category.id %}
+                              <img src="{{content.thumbnail}}" class="thumbnail"/>
+                          {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+          </div>
+      </div>
   </div>
   <div class="content-block">
     <h1>About</h1>
@@ -17,6 +43,6 @@
   <div class="content-block">
     <h1>Info</h1>
   </div>
-
+  <script type="text/javascript" src="js/pages/index.js"></script>
 {% endblock %}
 

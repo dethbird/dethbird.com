@@ -18,6 +18,9 @@ gallery001:
         -
             id: character_design
             name: "Character Design"
+        -
+            id: instagram
+            name: "Instagram"
     gallery:
         -
             title: "Sauced Octopus"

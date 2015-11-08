@@ -33,7 +33,7 @@ fi
 # JAVASCRIPT
 if [[ $jflag = 'true' ]]; then
     echo "Javascript and frontend"
-    FRONTEND_VIEWS=src/frontend/js/views/*.js
+    FRONTEND_VIEWS=src/frontend/js/pages/*.js
     for f in $FRONTEND_VIEWS
     do
         n=`echo $f | sed -r "s/src\/frontend/public/g"`
@@ -46,7 +46,7 @@ if [[ $jflag = 'true' ]]; then
         echo $n
     done
 
-    FRONTEND_VIEWS=src/frontend/js/views/experiments/*.js
+    FRONTEND_VIEWS=src/frontend/js/pages/experiments/*.js
     for f in $FRONTEND_VIEWS
     do
         n=`echo $f | sed -r "s/src\/frontend/public/g"`
