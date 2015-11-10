@@ -1,3 +1,5 @@
+/** BASE ELEMENTS */
+
 a {
     cursor: pointer;
     color: #ff0099;
@@ -5,26 +7,35 @@ a {
 a:hover {
     color: #ff6699;
 }
+a.btn {
+    text-shadow: none;
+}
 blockquote {
     border: none;
 }
 body {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
-    background-color: #111;
-    color: #aaa;
+    background-color: #000;
+    color: #fff;
+    padding-bottom: 50px;
+    text-shadow: 1px 2px 4px #000;
 }
 h1,h2,h3,h5,h5,h6 {
     font-weight: bold;
     margin: 10px 0px 10px 0px;
 }
-.content-block {
+.body-content {
+    position: relative;
     width: 95%;
-    background-color: #333;
+    min-height: 1024px;
     display: inline-block;
     text-align: left;
-    padding: 15px;
-    margin: 10px 0px 10px 0px;
+}
+.content-block {
+    margin: 10px 0px 25px 0px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 #loader {
     position: absolute;
@@ -70,6 +81,7 @@ h1,h2,h3,h5,h5,h6 {
     margin: 10px;
     padding: 0;
     background: none;
+    cursor: pointer;
 }
 #portfolio-gallery ul.menu {
     list-style: none;
@@ -80,10 +92,65 @@ h1,h2,h3,h5,h5,h6 {
     display: inline-block;
     margin-right: 5px;
 }
+#portfolio-gallery a.section-selector.active {
+    font-weight: bold;
+    color: #ff6699;
+}
 .thumbnail {
     cursor: pointer;
 }
+
+
+
 @media screen and (min-width:1600px) {
+
+    /** BASE ELEMENTS */
+    .body-content {
+        width: 1200px;
+    }
+    .content-block table {
+        width: 100%;
+        display: inline-block;
+        padding: 100px 50px 0px 50px;
+    }
+    .content-block table td {
+        padding: 35px;
+        vertical-align: top;
+    }
+    .content-block.intro {
+        background-image: url("/img/layout/1600/intro-background.jpg");
+        height: 600px;
+        margin-top: 35px;
+    }
+    .content-block.portfolio {
+        background-image: url("/img/layout/1600/portfolio-background.jpg");
+        background-repeat: no-repeat;
+        background-position: 0px 60px;
+        margin-top: 90px;
+        padding: 60px 15px 15px 15px;
+        height: 875px;
+    }
+    .content-block.about {
+        background-image: url("/img/layout/1600/about-background.jpg");
+        height: 700px;
+        margin-top: 100px;
+    }
+    .content-block.info {
+        background-image: url("/img/layout/1600/info-background.jpg");
+        height: 800px;
+        margin-top: 115px;
+    }
+    #random-posts {
+        width: 640px;
+    }
+    .random-post {
+        height: auto;
+        display: none;
+    }
+    .random-post img {
+        max-width: 500px;
+        height auto;
+    }
     #overlay .contents {
         width: 1000px;
         left: 50%;
@@ -93,9 +160,78 @@ h1,h2,h3,h5,h5,h6 {
         max-height: 800px;
         width: auto;
     }
-    #portfolio-gallery .thumbnail {
+    #portfolio-gallery .thumbnail.landscape {
         width: 200px;
         height: auto;
+    }
+    #portfolio-gallery .thumbnail.portrait {
+        width: auto;
+        height: 200px;
+    }
+    #portfolio-gallery .portfolio-gallery-sections {
+        height: 800px;
+        overflow: auto;
+    }
+    /** VISUAL ELEMENTS */
+    #intro-shoes {
+        position:absolute;
+        top: 0;
+        right: 10px;
+        background-image: url("/img/layout/1600/intro-shoes.png");
+        width: 362px;
+        height: 560px;
+        background-repeat: no-repeat;
+    }
+        /** VISUAL ELEMENTS */
+    #intro-signature {
+        position:absolute;
+        top: 0;
+        left: -30px;
+        background-image: url("/img/layout/1600/intro-signature.png");
+        width: 845px;
+        height: 360px;
+        background-repeat: no-repeat;
+    }
+    #intro-tagline {
+        position:absolute;
+        top: 328px;
+        right: 134px;
+        background-image: url("/img/layout/1600/intro-tagline.png");
+        width: 344px;
+        height: 265px;
+        background-repeat: no-repeat;
+    }
+    #intro-great-button {
+        position:absolute;
+        top: 555px;
+        left: 555px;
+    }
+    #portfolio-title {
+        background-image: url("/img/layout/1600/portfolio-title.png");
+        background-repeat: no-repeat;
+        position:absolute;
+        top: 675px;
+        left: -25px;
+        width: 303px;
+        height: 91px;
+    }
+    #about-title {
+        background-image: url("/img/layout/1600/about-title.png");
+        background-repeat: no-repeat;
+        position:absolute;
+        top: 1625px;
+        left: -25px;
+        width: 438px;
+        height: 113px;
+    }
+    #info-title {
+        background-image: url("/img/layout/1600/info-title.png");
+        background-repeat: no-repeat;
+        position:absolute;
+        top: 2425px;
+        left: -25px;
+        width: 397px;
+        height: 148px;
     }
 }
 

@@ -4,64 +4,140 @@
     <script type="text/javascript">
       var portfolioData = {{configs.portfolio|json_encode|raw}};
       var instagramData = {{instagramData|json_encode|raw}};
+      var wordpressData = {{wordpressData|json_encode|raw}};
+      var tweetIds = {{tweetIds|json_encode|raw}};
     </script>
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-  <div class="content-block">
-    <h1>R.Satsangi #cartoons #technology</h1>
-    <p>Outta my way kid, ya bother me. I got cartoons to make.</p>
+  <div class="content-block intro">
+    <div id="intro-signature"></div>
+    <div id="intro-shoes"></div>
+    <div id="intro-tagline"></div>
+    <a id="intro-great-button" class="btn btn-success btn-lg">Great!</a>
   </div>
-  <div class="content-block">
-    <h1>Portfolio</h1>
+  <div class="content-block portfolio">
+    <div id="portfolio-title"></div>
     <div id="portfolio-gallery">
       <ul class="menu">
         {% for category in configs.portfolio.category %}
           <li><a class="section-selector" data-section="{{category.id|raw}}">{{category.name|raw}}</a></li>
         {% endfor %}
       </ul>
+      <div class="portfolio-gallery-sections">
       {% for category in configs.portfolio.category %}
         <div data-section="{{category.id}}" class="section">
             {% if category.id == "instagram" %}
               {% for content in instagramData %}
-                <img src="{{content.images.standard_resolution.url}}" class="thumbnail" data-type="instagram" data-id="{{content.id}}"/>
+                <img src="{{content.images.thumbnail.url}}" class="thumbnail {{content.orientation}}" data-type="instagram" data-id="{{content.id}}"/>
               {% endfor %}
             {% else %}
               {% for content in configs.portfolio.gallery %}
                   {% if content.category_id==category.id %}
-                    <img src="{{content.thumbnail}}" class="thumbnail" data-type="portfolio" data-id="{{content.id}}"/>
+                    <img src="{{content.thumbnail}}" class="thumbnail {{content.orientation}}" data-type="portfolio" data-id="{{content.id}}"/>
                   {% endif %}
               {% endfor %}
             {% endif %}
         </div>
       {% endfor %}
+      </div>
     </div>
   </div>
-  <div class="content-block">
-    <h1>About</h1>
+  <div class="content-block about">
+    <div id="about-title"></div>
+    <table>
+      <tr>
+        <td>
+          <h1>#cartoons</h1>
+          <ul>
+            <li>Character design</li>
+            <li>Comedic screenplay writing</li>
+            <li>Storyboarding/pacing</li>
+            <li>Timing to music</li>
+            <li>Keyframing</li>
+          </ul>
+          <p>I am interested in producing creative projects with YOU. This is it. Cartoons are everything. You ever walk away from a fight and not do anything? But when you walk away you imagine an anvil or piano smashing their faces? That's how my mind works! Like a cartoon! And I want to work with YOUUUUU.</p>
+          <p>Let's do business.</p>
+        </td>
+        <td>
+          <h1>#technology</h1>
+          <ul>
+            <li>LAMP Stack PHP/MySQL/Apache</li>
+            <li>API design using RAML (open sourced)</li>
+            <li>Backend: Symfony/Doctrine, Zend, Slim/ActiveRecord</li>
+            <li>Frontend: jQuery/Backbone/Angular</li>
+            <li>AWS: EC2, SWF, Redshift, DynamoDb</li>
+            <li>WebRTC: Node.js</li>
+            <li>Responsive web design</li>
+          </ul>
+          <p>I made this god damn <a href="https://github.com/dethbird/rishisatsangi.com.v2.0" target="_blank">website</a>. I work fulltime as a senior engineer, but I enjoy helping people out with my cyberwebbing and create-o abilities. I have worked with non-profits, artists, musicians, educational organizations, and others, in the service of freelance web design and development.</p>
+          <p>Let's do business.</p>
+        </td>
+      </tr>
+    </table>
   </div>
-  <div class="content-block">
-    <h1>Info</h1>
+  <div class="content-block info">
+    <div id="info-title"></div>
+    <table>
+        <tr>
+          <th><h1>on le cyberweb</h1></th>
+          <th><h1>contact me</h1></th>
+        </tr>
+        <tr>
+          <td>
+            <div id="random-posts">
+              <a class="btn btn-primary" id="random-post-button">Random <span class="glyphicon glyphicon-refresh"></span></a>
+              <br class="clearfix" /><br />
+              {% for post in wordpressData %}
+                <div class="random-post wordpress">
+                  <h4>{{post.title.rendered}}</h4>
+                  {% if post.featured_image.media_details!="" %}
+                    {% if post.featured_image.source_url != "" %}
+                      <img src="{{post.featured_image.source_url}}" />
+                    {% else %}
+                      <img src="{{post.featured_image.media_details.sizes.thumbnail.source_url}}" />
+                    {% endif %}
+                  {% endif %}
+                  <p>{{post.excerpt.rendered|raw}}</p>
+                  <p><a class="btn btn-default btn-sm" href="{{post.link}}" target="_blank"><img src="img/logo-wordpress-24.png" /> View</a></p>
+                  <br class="clearfix" />
+                </div>
+              {% endfor %}
+              {% for id in tweetIds %}
+                <div class="random-post twitter" data-tweet-id="{{id}}">
+                  <div class="tweet" data-tweet-id="{{id}}"></div>
+                </div>
+              {% endfor %}
+            </div>
+          </td>
+          <td>
+            <div class='details'>
+              <p>I'm located in NYC. Here's how you can find me.</p>
+              <ul>
+                <li><a href="tel:415-786-8815" target="_blank" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-phone"></span> 415.786.8815</a></li>
+                <li><a href="/resume" target="_blank" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-file"></span> Résumé</a></li>
+                <li><a href="https://twitter.com/dethbird" target="_blank"><img src="/img/logo-twitter-24.png" /></a> @dethbird</li>
+                <li><a href="https://instagram.com/dethbird" target="_blank"><img src="/img/logo-instagram-24.png" /></a> @dethbird</li>
+              </ul>
+              <p>Let's do business.</p>
+            </div>
+          </td>
+        </tr>
+      </table>
   </div>
 
-  <!-- overlay -->
-  <div id="overlay">
-    <div class="contents"></div>
-  </div>
+{% endblock %}
 
-  <!-- loading div -->
-  <div id="loader">
-    <div id="loader_logo"><h1>Loading...</a></div>
-  </div>
 
-  <!-- templates -->
+{% block includes %}
+    <!-- templates -->
   <script type="text/template" id="portfolio-gallery-template">
     <% if (type=="image") { %>
       <img src="<%-content%>" />
     <% } else if (type=="embed") { %>
       <%=content%>
     <% } %>
-    <h2><%-title%></h2>
+    <h2><%=title%></h2>
     <blockquote><%=description%></blockquote>
     <p><%-medium%> (<%-year%>)</p>
   </script>
@@ -72,10 +148,16 @@
     <p><a href="<%-link%>">view on instagram</a></p>
     <%-date%>
   </script>
-{% endblock %}
 
+  <!-- overlay -->
+  <div id="overlay">
+    <div class="contents"></div>
+  </div>
 
-{% block includes %}
+  <!-- loading div -->
+  <div id="loader">
+    <div id="loader_logo"><h1>Loading...</a></div>
+  </div>
   <!-- js includes -->
   <script type="text/javascript" src="js/pages/index.js"></script>
 {% endblock %}

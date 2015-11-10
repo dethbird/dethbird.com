@@ -60,11 +60,13 @@ var LoaderView = Backbone.View.extend({
         //     });
         // });
 
+        $(that.el).css('margin-top', window.scrollY);
+
 
     },
     render: function() {
-        var windowWidth = $(window).width();
-        var windowHeight = $(window).height();
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
         var pixelSize = windowWidth / this.maxPixels;
         var counter = 0;
         var increase = ((Math.PI * Math.random() * 10) + 8) / this.maxPixels;

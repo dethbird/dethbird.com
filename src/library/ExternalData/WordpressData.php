@@ -22,7 +22,7 @@ class WordpressData extends DataBase {
      */
     public function getPosts($ids)
     {
-        $cacheKey = "wordpressPosts:".implode("|", $ids);
+        $cacheKey = md5("wordpressPosts:".implode("|", $ids));
         $cache = $this->retrieveCache($cacheKey);
 
         if(!$cache) {

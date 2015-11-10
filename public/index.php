@@ -68,6 +68,7 @@ $app->get("/", $authenticate($app), function () use ($app) {
     $configs['portfolio']['gallery'] = $_gallery;
 
     $instagramData = new InstagramData($configs['instagram']['client_id']);
+    $wordpressData = new WordpressData($configs['wordpress']['url']);
 
     $templateVars = array(
         "configs" => $configs,
@@ -75,7 +76,9 @@ $app->get("/", $authenticate($app), function () use ($app) {
             "art",
             "drawing",
             "sketchbook"
-        ))
+        )),
+        "wordpressData" => $wordpressData->getPosts($configs['wordpress']['posts']),
+        "tweetIds" => $configs['twitter']['tweets']
     );
     $app->render(
         'pages/index.html.twig',
