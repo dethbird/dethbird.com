@@ -122,7 +122,6 @@ h1,h2,h3,h5,h5,h6 {
     .content-block.portfolio {
         background-image: url("/img/layout/960/portfolio-background.jpg");
         background-repeat: no-repeat;
-        background-position: 0px 60px;
         margin-top: 90px;
         padding: 60px 15px 15px 15px;
         height: 875px;
@@ -256,7 +255,6 @@ h1,h2,h3,h5,h5,h6 {
     .content-block.portfolio {
         background-image: url("/img/layout/1200/portfolio-background.jpg");
         background-repeat: no-repeat;
-        background-position: 0px 60px;
         margin-top: 90px;
         padding: 60px 15px 15px 15px;
         height: 875px;
@@ -391,7 +389,6 @@ h1,h2,h3,h5,h5,h6 {
     .content-block.portfolio {
         background-image: url("/img/layout/1600/portfolio-background.jpg");
         background-repeat: no-repeat;
-        background-position: 0px 60px;
         margin-top: 90px;
         padding: 60px 15px 15px 15px;
         height: 875px;
@@ -451,8 +448,8 @@ h1,h2,h3,h5,h5,h6 {
         /** VISUAL ELEMENTS */
     #intro-signature {
         position:absolute;
-        top: 0;
-        left: -30px;
+        top: -15px;
+        left: -88px;
         background-image: url("/img/layout/1600/intro-signature.png");
         width: 845px;
         height: 360px;

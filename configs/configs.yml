@@ -45,23 +45,23 @@ portfolio:
             id: illustration
             name: "Illustration"
         -
-            id: animation
-            name: "Animation"
-        -
-            id: comic
-            name: "Comic"
-        -
-            id: print_design
-            name: "Print Design"
-        -
-            id: webdev
-            name: "Web Development / Design"
+            id: drawing
+            name: "Drawing"
         -
             id: character_design
             name: "Character Design"
         -
+            id: comic
+            name: "Comic"
+        -
+            id: animation
+            name: "Animation"
+        -
             id: instagram
             name: "Instagram"
+        -
+            id: web_and_print
+            name: "Web and Print"
     gallery:
         -
             title: "Sauced Octopus"
@@ -221,7 +221,7 @@ portfolio:
             title: "audio van gogh - driving music (cd insert inside)"
             year: "2004"
             medium: "Maya, Photoshop, InDesign"
-            category_id: print_design
+            category_id: web_and_print
             type: "image"
             content: "https://farm4.staticflickr.com/3200/2852136437_6aa93fa9bc_o.jpg"
             thumbnail: "https://c2.staticflickr.com/4/3200/2852136437_c966b31ef3.jpg"
@@ -231,7 +231,7 @@ portfolio:
             title: "CD Album art |  Routine Life by John hRuby"
             year: "2009"
             medium: "Photography, Illustrator, Photoshop"
-            category_id: print_design
+            category_id: web_and_print
             type: "image"
             content: "https://farm5.staticflickr.com/4041/4211926998_89a464b489_b.jpg"
             thumbnail: "https://c1.staticflickr.com/5/4041/4211926998_89a464b489.jpg"
@@ -241,7 +241,7 @@ portfolio:
             title: "My Mango Tango Book Cover"
             year: "2011"
             medium: "Painter, Photoshop, Illustrator"
-            category_id: print_design
+            category_id: web_and_print
             type: "image"
             content: "https://farm8.staticflickr.com/7130/7751591522_8dcca9f7ed_b.jpg"
             thumbnail: "https://c1.staticflickr.com/7/6158/6195612026_391c54cdb4.jpg"
@@ -251,7 +251,7 @@ portfolio:
             title: "The Dwarves Website"
             year: "2006"
             medium: "Photoshop, Dreamweaver, Wordpress, PHP, MySQL, HTML, Flash, Javascript, CSS"
-            category_id: webdev
+            category_id: web_and_print
             type: "image"
             content: "https://farm4.staticflickr.com/3060/2852102371_9f5d32ba0e_o.jpg"
             thumbnail: "https://c2.staticflickr.com/4/3060/2852102371_3d7b5a5971.jpg"
@@ -261,7 +261,7 @@ portfolio:
             title: "Bandbajgayi.com"
             year: "2015"
             medium: "Photoshop, PHP, HTML, Javascript, CSS"
-            category_id: webdev
+            category_id: web_and_print
             type: "image"
             content: "https://farm1.staticflickr.com/689/20249444023_21650c811e_b.jpg"
             thumbnail: "https://c1.staticflickr.com/1/689/20249444023_21650c811e.jpg"
@@ -336,6 +336,216 @@ portfolio:
             content: "https://c1.staticflickr.com/1/170/461995807_0298112583_o.jpg"
             thumbnail: "https://c1.staticflickr.com/1/170/461995807_fcbafed3f3.jpg"
             description: "a road trip"
+            orientation: landscape
+        -
+            title: "Beepo's bad habits"
+            year: "2008"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3138/2793183105_f58cccd447_o.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3138/2793183105_d6200867a4.jpg"
+            description: "Beepo has some bad habits"
+            orientation: portrait
+        -
+            title: "Beepo's job"
+            year: "2010"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c1.staticflickr.com/5/4101/4778951230_677a6f3d37_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/5/4101/4778951230_677a6f3d37.jpg"
+            description: "Beepo hates that he was programmed to be a plumber"
+            orientation: landscape
+        -
+            title: "Beepo takes a pipe to nowhere"
+            year: "2008"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3080/2765795841_32f66a3bbb_o.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3080/2765795841_b98af168fc.jpg"
+            description: "In a chemical induced stupor, Beepo takes a pipe to nowhere"
+            orientation: portrait
+        -
+            title: "Carl Leander"
+            year: "2003"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2025/1552840744_da87602026_o.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2025/1552840744_86e591a333.jpg"
+            description: "he's kind of this doughy vaudevillian concert promoter, and he also owns a brewery"
+            orientation: portrait
+        -
+            title: "Banjo and Backbeat"
+            year: "2003"
+            medium: "Painter"
+            category_id: character_design
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2023/1551974863_e9b7c77fc5_o.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2023/1551974863_2a060a7bd9.jpg"
+            description: "concepts for a anthropomorphic musical team"
+            orientation: portrait
+        -
+            title: "Dethbird"
+            year: "2008"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3123/2887385429_bdfb06781c_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3123/2887385429_bdfb06781c.jpg"
+            description: "this is what Dethbird looks like"
+            orientation: portrait
+        -
+            title: "Katbot"
+            year: "2008"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3390/3272398759_1a7fa786c0_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3390/3272398759_1a7fa786c0.jpg"
+            description: "this is Dethird's arch nemesis"
+            orientation: portrait
+        -
+            title: "Krin and Dethbird"
+            year: "2009"
+            medium: "Pencil"
+            category_id: character_design
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3367/3426068394_2da9c3ac89_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3367/3426068394_2da9c3ac89.jpg"
+            description: "this is Dethird's owner, Krin"
+            orientation: portrait
+        -
+            title: "liquidation"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3349/3507723720_0da3f4f7f3_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3349/3507723720_0da3f4f7f3.jpg"
+            description: "sketchbook"
+            orientation: portrait
+        -
+            title: "quit clowning around"
+            year: "2008"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3046/3097320090_b8ab7bd0d9_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3046/3097320090_b8ab7bd0d9.jpg"
+            description: "figure drawing"
+            orientation: landscape
+        -
+            title: "isaac's head"
+            year: "2008"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3270/3001946047_44f95f0499_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3270/3001946047_44f95f0499.jpg"
+            description: "head study"
+            orientation: portrait
+        -
+            title: "clothing wraparound"
+            year: "2008"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3104/2903395072_72998ff075_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3104/2903395072_72998ff075.jpg"
+            description: "clothing study"
+            orientation: portrait
+        -
+            title: "hands and feet"
+            year: "2008"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2417/2447616073_faec8c4e17_o.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2417/2447616073_c30a1488f0.jpg"
+            description: "hands and feet study"
+            orientation: portrait
+        -
+            title: "figure drawing (melike konur)"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3656/3462932062_62b2768087_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3656/3462932062_62b2768087.jpg"
+            description: "figure drawing"
+            orientation: portrait
+        -
+            title: "figure drawing (shabnam)"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3373/3516227574_7ae78b41e9_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3373/3516227574_7ae78b41e9.jpg"
+            description: "figure drawing"
+            orientation: landscape
+        -
+            title: "figure drawing (shabnam) 2"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3345/3623508474_38f15fcbaf_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3345/3623508474_38f15fcbaf.jpg"
+            description: "figure drawing"
+            orientation: portrait
+        -
+            title: "figure drawing (tailfeathers)"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2704/4111475248_8a3e8e2ddc_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2704/4111475248_8a3e8e2ddc.jpg"
+            description: "figure drawing"
+            orientation: portrait
+        -
+            title: "face"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2803/4121091563_2ab241493c_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2803/4121091563_2ab241493c.jpg"
+            description: "figure drawing"
+            orientation: portrait
+        -
+            title: "worker tree"
+            year: "2009"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c2.staticflickr.com/4/3403/3445595113_73ae723aaf_b.jpg"
+            thumbnail: "https://c2.staticflickr.com/4/3403/3445595113_73ae723aaf.jpg"
+            description: "sketchbook"
+            orientation: landscape
+        -
+            title: "people (guitarists)"
+            year: "2007"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c1.staticflickr.com/1/232/550319601_3b776c26a0_o.jpg"
+            thumbnail: "https://c1.staticflickr.com/1/232/550319601_c9256197de.jpg"
+            description: "sketchbook"
+            orientation: landscape
+        -
+            title: "fossil study"
+            year: "2006"
+            medium: "Pencil"
+            category_id: drawing
+            type: "image"
+            content: "https://c1.staticflickr.com/3/2120/1530136776_593be74239_b.jpg"
+            thumbnail: "https://c1.staticflickr.com/3/2120/1530136776_593be74239.jpg"
+            description: "studying some bones"
             orientation: landscape
 twitter:
   tweets:
