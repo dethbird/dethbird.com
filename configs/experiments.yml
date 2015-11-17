@@ -201,3 +201,47 @@ fountain001:
         BOB
         (to himself)
         Ah carps, why did I engage him.
+comics001:
+    indexes:
+        -
+            id: "annoyed"
+            name: "Annoyed"
+    pages:
+        -
+            content: http://lorempixel.com//400/200/food
+            deltas:
+                bob:
+                    chillin: 100
+                larry:
+                    stupid: 40
+        -
+            content: http://lorempixel.com//400/200/food
+            deltas:
+                bob:
+                    annoyed: 60
+                    angry: 30
+                    chillin: 10
+                larry:
+                    ignorant: 40
+        -
+            content: http://lorempixel.com//400/200/food
+            deltas:
+                bob:
+                    chillin: 0
+                    annoyed: 80
+                larry:
+                    ignorant: 60
+                    oblivious: 100
+                rory:
+                    annoyed: 40
+        -
+            content: http://lorempixel.com//400/200/food
+            deltas:
+                bob:
+                    happy: -40
+                    annoyed: 110
+                larry:
+                    ignorant: 100
+                    oblivious: 100
+                rory:
+                    annoyed: 60

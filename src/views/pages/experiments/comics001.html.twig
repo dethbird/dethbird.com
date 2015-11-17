@@ -1,0 +1,57 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<style>
+  .delta {
+    position: relative;
+    min-height: 32px;
+  }
+  .delta .name,
+  .delta .value,
+  .delta .value-indicator {
+    display: inline-block;
+    position: absolute;
+  }
+  .delta .name {
+    font-size: 0.7em
+  }
+  .delta .value {
+    top: 10px;
+    font-size: 0.9em;
+    opacity: 0.6;
+  }
+  .delta .value-indicator {
+    top: 20px;
+    left: 0px;
+    min-height: 2px;
+    background-color: #ff0099;
+  }
+</style>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div id="comic">
+        <div id="characters"></div>
+    </div>
+{% endblock %}
+{% block includes %}
+  <script typw="text/javascript">
+    var configs = {{configs|json_encode|raw}}
+    var experimentConfigs = {{experimentConfigs|json_encode|raw}}
+  </script>
+
+    <script type="text/template" id="template-character-box">
+        <div data-character-name="<%-name%>" class="character"><h3><%-name%></h3><div class="deltas"></div></div>
+    </script>
+
+    <script type="text/template" id="template-character-delta">
+        <div data-delta-name="<%-name%>" data-delta-value="<%-value%>" data-delta-previous-value="<%-previousValue%>" class="delta">
+          <div class="value-indicator"></div>
+          <div class="name"></div>
+          <div class="value"></div>
+
+        </div>
+    </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+  <script type="text/javascript" src="/js/pages/experiments/comics001.js"></script>
+{% endblock %}
