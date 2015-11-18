@@ -1,0 +1,23 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<style>
+  #great-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+</style>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <button id="great-button" class="btn btn-xl btn-default">Great</button>
+{% endblock %}
+{% block includes %}
+  <script typw="text/javascript">
+    var configs = {{configs|json_encode|raw}};
+    var experimentConfigs = {{experimentConfigs|json_encode|raw}};
+  </script>
+  <script type="text/javascript" src="http://assets.dethbird.com/js/greensock/TweenMax.min.js"></script>
+  <script type="text/javascript" src="http://assets.dethbird.com/js/greensock/plugins/Physics2DPlugin.min.js"></script>
+  <script type="text/javascript" src="/js/pages/experiments/button-animation001.js"></script>
+{% endblock %}

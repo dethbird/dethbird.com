@@ -3,6 +3,7 @@ var PortfolioGalleryCollection = require('../library/collections/PortfolioGaller
 var PortfolioInstagramCollection = require('../library/collections/PortfolioInstagramCollection');
 var LoaderView = require('../library/views/LoaderView');
 var RandomPostView = require('../library/views/RandomPostView');
+var ButtonAnimationView = require('../library/views/animations/ButtonAnimationView');
 
 var loaderView = new LoaderView({
     el: '#loader',
@@ -25,11 +26,11 @@ var portfolioGalleryView = new PortfolioGalleryView({
     instagramModelTemplateId: '#instagram-gallery-template'
 });
 
-$(document).ready(function(){
+var buttonAnimationView = new ButtonAnimationView({
+    el: '#intro-great-button'
+});
 
-    $('#intro-great-button').on('click', function(){
-        alert("Fantastic!");
-    });
+$(document).ready(function(){
 
     // click the first portfolio section
     $($('#portfolio-gallery .section-selector')[0]).trigger('click');
