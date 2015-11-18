@@ -64,20 +64,17 @@ var ComicView = Backbone.View.extend({
                 var html = template(model.attributes, {escape: false});
                 $($(that.el).find('#characters')[0]).append(html);
 
-                model.on('change', function(e){
-                    that.renderDelta(e);
-                });
-
             }
             model.set(deltas);
+            that.renderDeltas(character, deltas, model);
 
         });
     },
-    renderDelta: function(model){
+    renderDeltas: function(character, deltas, model){
         var that = this;
-        var characterBox = $($('#characters .character[data-character-name="' + model.get('name') + '"]')[0]);
+        var characterBox = $($('#characters .character[data-character-name="' + character + '"]')[0]);
 
-        $.each(model.changed, function(i,e){
+        $.each(deltas, function(i,e){
             var delta = characterBox.find('.delta[data-delta-name="' + i + '"]');
             var previousValue = model._previousAttributes[i]==undefined?0:model._previousAttributes[i];
             if(delta.length==0){
@@ -86,16 +83,16 @@ var ComicView = Backbone.View.extend({
                 characterBox.append(html);
                 delta = characterBox.find('.delta[data-delta-name="' + i + '"]');
                 delta.removeClass('disabled');
-                that.animateDelta(delta[0], model);
+                that.animateDelta(delta[0]);
             } else {
                 delta.attr('data-delta-value', e);
                 delta.attr('data-delta-previous-value', previousValue);
                 delta.removeClass('disabled');
-                that.animateDelta(delta[0], model)
+                that.animateDelta(delta[0])
             }
         });
     },
-    animateDelta: function(el, model) {
+    animateDelta: function(el) {
         var that = this;
         el = $(el);
 
