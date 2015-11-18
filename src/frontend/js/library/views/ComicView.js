@@ -47,6 +47,10 @@ var ComicView = Backbone.View.extend({
         var that = this;
         // current page
         var page = this.pageCollection.models[this.currentPage];
+        var template = _.template($('#template-page').html());
+        var html = template(page.attributes, {escape: false});
+        $(this.el).find('#page .display').html(html);
+        $(this.el).find('#page .page-indicator').html('page ' + (this.currentPage+1) + ' of ' + this.pageCollection.length);
 
         $(this.el).find('.delta').addClass('disabled');
 

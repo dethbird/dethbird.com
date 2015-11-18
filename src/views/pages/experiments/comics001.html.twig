@@ -57,7 +57,11 @@
 {% block body %}
     {{ parent() }}
     <div id="comic">
-        <div id="page"></div>
+        <div id="page">
+          <div class="display"></div>
+          <div class="page-indicator"></div>
+          <div class="thumnails"></div>
+        </div>
         <div id="characters"></div>
     </div>
 {% endblock %}

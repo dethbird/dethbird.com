@@ -215,7 +215,7 @@ comics001:
                 larry:
                     stupid: 40
         -
-            content: http://lorempixel.com//400/200/food
+            content: http://lorempixel.com//400/200/sports
             deltas:
                 bob:
                     annoyed: 60
@@ -224,7 +224,7 @@ comics001:
                 larry:
                     ignorant: 40
         -
-            content: http://lorempixel.com//400/200/food
+            content: http://lorempixel.com//400/200/people
             deltas:
                 bob:
                     chillin: 0
@@ -235,7 +235,7 @@ comics001:
                 rory:
                     annoyed: 40
         -
-            content: http://lorempixel.com//400/200/food
+            content: http://lorempixel.com//400/200/city
             deltas:
                 bob:
                     happy: -40
