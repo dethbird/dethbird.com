@@ -243,5 +243,6 @@ comics001:
                 larry:
                     ignorant: 100
                     oblivious: 100
+                    stupid: 50
                 rory:
                     annoyed: 60

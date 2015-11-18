@@ -54,27 +54,28 @@ var ComicView = Backbone.View.extend({
                 if(this.currentPage>this.pageCollection.models.length-1) {
                     this.currentPage = 0;
                 }
+                this.render();
                 break;
             case 37:
                 this.currentPage--;
                 if(this.currentPage<0) {
                     this.currentPage = this.pageCollection.models.length-1;
                 }
+                this.render();
                 break;
         }
-
-
-
-        this.render();
     },
     render: function() {
         var that = this;
         // current page
         var page = this.pageCollection.models[this.currentPage];
 
+        $(this.el).find('.delta').addClass('disabled');
+
         // character deltas
         $.each(page.get('deltas'), function(character,deltas){
             var model = that.characterCollection.findWhere({name: character});
+
             if (model==undefined){
                 model = new Backbone.Model({
                     name: character
@@ -90,9 +91,8 @@ var ComicView = Backbone.View.extend({
                 });
 
             }
-            $.each(deltas, function(i,e){
-                model.set(i,e);
-            });
+            model.set(deltas);
+
         });
     },
     renderDelta: function(model){
@@ -107,10 +107,12 @@ var ComicView = Backbone.View.extend({
                 var html = template({name: i, value: e, previousValue: previousValue}, {escape: false});
                 characterBox.append(html);
                 delta = characterBox.find('.delta[data-delta-name="' + i + '"]');
+                delta.removeClass('disabled');
                 that.animateDelta(delta[0], model);
             } else {
                 delta.attr('data-delta-value', e);
                 delta.attr('data-delta-previous-value', previousValue);
+                delta.removeClass('disabled');
                 that.animateDelta(delta[0], model)
             }
         });
@@ -118,10 +120,23 @@ var ComicView = Backbone.View.extend({
     animateDelta: function(el, model) {
         var that = this;
         el = $(el);
+
         el.find('.name').html(el.attr('data-delta-name'));
-        el.find('.value').html(el.attr('data-delta-value'));
+
+        var value = el.attr('data-delta-value');
+        el.find('.value').html(value);
+
+        var diff =(value - el.attr('data-delta-previous-value'));
+        el.find('.value-diff').html(diff);
+        if(diff > 0) {
+            el.find('.value-diff').addClass('positive');
+        } else {
+            el.find('.value-diff').removeClass('positive');
+        }
+
         TweenLite.to(el.find('.value-indicator'), 2, {
-            width: el.attr('data-delta-value') + 'px',
+            width: Math.abs(value) + 'px',
+            marginLeft: value < 0 ? value : 0,
             ease: Elastic.easeOut.config(1, 0.25)
         });
     }
