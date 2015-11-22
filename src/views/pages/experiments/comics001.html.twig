@@ -4,7 +4,7 @@
   .delta {
     margin-left: 100px;
     position: relative;
-    min-height: 32px;
+    min-height: 48px;
   }
   .delta .name,
   .delta .value,
@@ -14,7 +14,10 @@
     position: absolute;
   }
   .delta .name {
-    font-size: 0.7em
+    top: -2px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: rgba(185, 185, 185, 0.83);
   }
   .delta.disabled .name {
     color: #666;
@@ -22,20 +25,24 @@
   .delta .value,
   .delta .value-diff {
     top: 10px;
-    font-size: 0.9em;
-    opacity: 0.6;
+    font-size: 1.4em;
+    font-weight: bold;
+    opacity: 0.25;
   }
   .delta.disabled .value {
     color: #333;
   }
 
   .delta .value-diff {
-    font-size: 0.7em;
-    left: 25px;
-    color: red;
+    top: 1px;
+    font-size: 0.85em;
+    left: -45px;
+    color: #A94442;
+    text-align: right;
+    width: 40px;
   }
   .delta .value-diff.positive {
-    color: green;
+    color: #00D049;
   }
   .delta .value-diff.positive:before {
     content: "+";
