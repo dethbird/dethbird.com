@@ -1,0 +1,102 @@
+mayhem:
+  # name: Our Quiet Days of Mayhem
+  name: Cartoon Mayhem
+  description: >
+    "Showbiz is a hideous bitch-godess" - Sammy Davis Jr.
+  characters:
+    -
+      name: Ronnie Shazbutt
+      occupation: Bartender
+      description: >
+        Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander. He's a bit like Ronnie Wood mixed with Bugs Bunny.
+    -
+      name: Rory Shazbutt
+      occupation: Comedian
+      description: >
+        He is Bob's cousin. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone. Bob gets it, but that's because they grew up together and thus have some in-jokes that only the 2 of them get.
+    -
+      name: Gary Sonnefeld
+      occupation: Comedian
+      description: >
+        He's blowing up, he's starting to headline. He pops in and does surprise sets which bumps lesser comedians. He belittles comedians, and has pompous slightly outdated views on the state of comedy.
+    -
+      name: Carl Leander
+      occupation: Showhouse Impresario
+      description: >
+        A slavik man who got in showbiz early from his acrobatic parents. Has a twin brother Max Leander who runs a showbiz deli. They both ride tiny motorcycles (like Billy and Benny McCrary of Guiness fame). At their bar and diner, they sell their line of brews such as Carl Leander's Downtown Chunky: Heavy Beef Broth Porter.
+    -
+      name: Don Sandwichbottom aka "[?] Rodney Dangerfield"
+      occupation: Comedian, Odd Jobs
+      description: >
+        This guy probably works harder than everyone. He's got some of that stand-off-ish unlikeability that Jack Roy must have had. He sells jokes out of the trunk of his car in front of the comedy club sometimes, otherwise he's involved in scamming the elderly in various jobs.
+    -
+      name: Emily Sandwichbottom
+      occupation: Comedian, Actress
+      description: >
+        The sister of Don Sandwichbottom. She is attractive and ends up getting commercials more than success as a comedian. Other comedians hit on her but she's a little too smart for them. She and Bob are on and off, we are not sure if they are an item but she does make relationship-related jokes on stage that make you wonder. Or specifically, make Bob wonder.
+    -
+      name: Larry Joe Cody Alouicious
+      occupation: Product Designer, "Comedian"
+      description: >
+        I mean he THINKS he his funny, that's what's important right? He's actually a product designer. All his jokes are like "What if Steve Jobs was in <latest Hollywood Release>?". He tries making fun of Android on stage. He does a lot of blow and drinks while at Zebtron's.
+    -
+      name: Diedre Denkins
+      occupation: Marketing, Comedy
+      description: >
+        She's one of those "I'm one of the guys" female comics. That's not a bad thing -- it's like Sarah Silverman or Amy Schumer. She scores jokes on herself about alcohol consumption and promiscuity a lot. She hangs with Bob and Rory on occassion.
+    -
+      name: Jeb Leno
+      occupation: The UNDISCOVERED Host
+      description: >
+        He started doing a late night talk show out of his garage. It started blowing up and affecting the viewership of the real talk shows. Hilarity ensues.
+        Now this guy from Jersey burbs starts showing up at red carpet events. But he's a good guy. Because of the word "undiscovered" in his tagline, he gets more gigs and tastemaker attention than he probably should.
+      notes: >
+        Too much of a Tom Green situation?
+    # -
+    #   name: ???
+    #   occupation: Producer
+    #   description: >
+    #     A Lorne Michaels type that comes to Zebtron's sometimes to scope out talent.
+  to_cast:
+    - A talent agent or 2
+    - A tv chef star
+  themes:
+    -
+      name: State of Comedy
+      description: >
+        Comedy good and bad. Standup, television, Saturday Night Live. SNL especially politicians vying to get on the show for their own PR benefits.
+    -
+      name: Drugs
+      description: >
+        Societal attitudes toward substance use and abuse. People that traffic stereotypes.
+    -
+      name: State of Pop Culture
+      description: >
+        What passes for popular culture. What people consume without even thinking about it. This aspect is probably about fake shows and ads.
+  inspirations:
+    -
+      name: Silicon Valley (live action tv series)
+      description: >
+        The show's subtle character nuances are what drive the comedy. It's not so much mockery, but played with a realism and commitment to the character by the actors which is what drives the comedy.
+    -
+      name: Tiny Toons / Animaniacs (animated tv series)
+      description: >
+        These 2 animated series' constant allusions to showbiz and Hollywood give a level of self-referential consciousness, and then it uses violent cartoon mayhem to break it up.
+    -
+      name: The Comedians (book)
+      description: >
+        This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
+        The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
+  plots:
+    - Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
+    - Larry does a set about how Android sucks and the crowd doesn't respond do great so he resorts to doing more drugs then going on stage.
+    - Emily does a set about relationships and Bob thinks she is talking about him.
+    - Rory hits on Emily but fails. Then he does a set that is too smart and the audience doesn't respond well, he denegrates them. It's not good. Bob tells him.
+  locations:
+    - Bronson Pinchot's Balki's / showbiz bars
+    - Zebtron's / comedy clubs
+    - The diner
+    - Bob's Apartment
+    - streets / subway
+    - coffee shop
+    - burger join (Paul's)

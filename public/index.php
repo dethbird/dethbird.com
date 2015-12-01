@@ -136,7 +136,6 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
         ));
     }
 
-    $configs = $app->container->get('configs');
     $app->render(
         'pages/experiments/'. $name .'.html.twig',
         $templateVars,
@@ -144,6 +143,24 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
     );
 });
 
+
+/** public / private project wikis **/
+$app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
+
+  $configs = $app->container->get('configs');
+  $projectConfigs = Yaml::parse(file_get_contents("../configs/projects.yml"));
+
+  $templateVars = array(
+      "configs" => $configs,
+      "projectConfigs" => isset($projectConfigs[$name]) ? $projectConfigs[$name] : array()
+  );
+
+  $app->render(
+      'pages/projects/'. $name .'.html.twig',
+      $templateVars,
+      200
+  );
+});
 
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
