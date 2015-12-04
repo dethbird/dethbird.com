@@ -3,24 +3,52 @@
 <script type="text/javascript">
     var configs = {{projectConfigs|json_encode|raw}};
 </script>
-<style>
-  body {
-    background-color: #1C1C1C;
-    color:#777;
-  }
-</style>
 {% endblock %}
 {% block body %}
     {{ parent() }}
     <h1>{{projectConfigs.name}}</h1>
-    <blockquote>{{projectConfigs.description}}</blockquote>
-    <h2>Characters</h2>
-    {% for character in projectConfigs.characters %}
-      <h3>{{character.name}}</h3>
-      <blockquote>{{character.description}}</blockquote>
-    {% endfor %}
-    <h2>Inspirations</h2>
-    <h2>Themes</h2>
+    <description>{{projectConfigs.description}}</description>
+
+    <section>
+      <h1>Inspirations</h1>
+      <description>{{projectConfigs.inspirations.description}}</description>
+      {% for inspiration in projectConfigs.inspirations.items %}
+        <card>
+          <name>{{inspiration.name}}</name><br />
+          <type>{{inspiration.type}}</type>
+          <description>{{inspiration.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h1>Characters</h1>
+      {% for character in projectConfigs.characters %}
+        <card>
+          <name>{{character.name}}</name><br />
+          {% if character.images|length %}
+            {% for image in character.images %}
+              <thumbnail><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></thumbnail>
+            {% endfor %}
+          {% endif %}
+          <occupation>{{character.occupation}}</occupation>
+          <description>{{character.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h1>Locations</h1>
+      <description>{{projectConfigs.locations.description}}</description>
+      {% for location in projectConfigs.locations.items %}
+        <card>
+          <name>{{location.name}}</name><br />
+          <type>{{location.type}}</type>
+          <description>{{location.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
     <!-- JAVASCRIPT -->
     <!-- <script type="text/javascript" src="/js/views/experiments/instagram001.js"></script> -->
 {% endblock %}

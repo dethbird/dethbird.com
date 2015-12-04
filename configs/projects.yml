@@ -5,8 +5,13 @@ mayhem:
     "Showbiz is a hideous bitch-godess" - Sammy Davis Jr.
   characters:
     -
-      name: Ronnie Shazbutt
+      name: Bob Shazbutt
       occupation: Bartender
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674.jpg
+          display: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674_b.jpg
       description: >
         Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander. He's a bit like Ronnie Wood mixed with Bugs Bunny.
     -
@@ -22,6 +27,11 @@ mayhem:
     -
       name: Carl Leander
       occupation: Showhouse Impresario
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/3/2025/1552840744_86e591a333.jpg
+          display: https://c1.staticflickr.com/3/2025/1552840744_da87602026_o.jpg
       description: >
         A slavik man who got in showbiz early from his acrobatic parents. Has a twin brother Max Leander who runs a showbiz deli. They both ride tiny motorcycles (like Billy and Benny McCrary of Guiness fame). At their bar and diner, they sell their line of brews such as Carl Leander's Downtown Chunky: Heavy Beef Broth Porter.
     -
@@ -74,29 +84,75 @@ mayhem:
       description: >
         What passes for popular culture. What people consume without even thinking about it. This aspect is probably about fake shows and ads.
   inspirations:
-    -
-      name: Silicon Valley (live action tv series)
-      description: >
-        The show's subtle character nuances are what drive the comedy. It's not so much mockery, but played with a realism and commitment to the character by the actors which is what drives the comedy.
-    -
-      name: Tiny Toons / Animaniacs (animated tv series)
-      description: >
-        These 2 animated series' constant allusions to showbiz and Hollywood give a level of self-referential consciousness, and then it uses violent cartoon mayhem to break it up.
-    -
-      name: The Comedians (book)
-      description: >
-        This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
-        The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
+    description: >
+      Visual and stylistic inspirational sources
+    items:
+      -
+        name: Silicon Valley
+        type: live action tv series
+        description: >
+          The show's subtle character nuances are what drive the comedy. It's not so much mockery, but played with a realism and commitment to the character by the actors which is what drives the comedy.
+      -
+        name: Tiny Toons / Animaniacs
+        type: animated tv series
+        description: >
+          These 2 animated series' constant allusions to showbiz and Hollywood give a level of self-referential consciousness, and then it uses violent cartoon mayhem to break it up.
+          Article: http://www.justpressplay.net/reviews/10440-animaniacs-volume-4.html
+      -
+        name: Looney Toons
+        type: animated tv series
+        description: >
+          All the showbiz stuff, like this episode: https://en.wikipedia.org/wiki/Show_Biz_Bugs classic Bugs vs Daffy showbiz rivalry
+      -
+        name: The Comedians
+        type: book
+        description: >
+          This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
+          The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
   plots:
     - Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
     - Larry does a set about how Android sucks and the crowd doesn't respond do great so he resorts to doing more drugs then going on stage.
     - Emily does a set about relationships and Bob thinks she is talking about him.
     - Rory hits on Emily but fails. Then he does a set that is too smart and the audience doesn't respond well, he denegrates them. It's not good. Bob tells him.
   locations:
-    - Bronson Pinchot's Balki's / showbiz bars
-    - Zebtron's / comedy clubs
-    - The diner
-    - Bob's Apartment
-    - streets / subway
-    - coffee shop
-    - burger join (Paul's)
+    description: >
+      A weird mix between Vegas, NYC, and LA.
+    items:
+      -
+        name: Bronson Pinchot's Balki's
+        type: showbiz bar
+        description: >
+          A schmaltzy showbiz bar celebrating the career of Bronson Pinchot. It's like a Ukranian wedding hall.
+      -
+        name: Zebtron's
+        type: comedy club
+        description: >
+          This one is owned by Zebtron himself who we see little of but his hand is felt.
+      -
+        name: Max's Diner
+        type: restaurant
+        description: >
+          The caste-system of comedians applies here. Best tables to the top billing.
+      -
+        name: Bob's Apartment
+        type: apartment
+        description: >
+          Bob lives here. A lot of the direct-to-camera dialogue happens here.
+      -
+        name: Village
+        type: neighborhood
+        description: >
+          People watching gold mine.
+      -
+        name: Paul's Da Burger Joint
+        type: restaurant
+        description: >
+          burger joint
+      -
+        name: Superknees
+        type: bar
+        description: >
+          A bouncy castle bar
+  locations_needed:
+    - The "underground" comedy club
+    - The airport

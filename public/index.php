@@ -48,6 +48,17 @@ $authenticate = function ($app) {
     };
 };
 
+$authenticateProject = function ($app) {
+    $pathinfo = explode("/", $app->request->getPathInfo());
+    $projectName = $pathinfo[2];
+    // @todo does logged in user have access to this project?
+    return function () use ($app) {
+        if (false) {
+            $app->halt(403, "Invalid security context");
+        }
+    };
+};
+
 
 $app->notFound(function () use ($app) {
     $app->render(
@@ -145,7 +156,7 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
 
 
 /** public / private project wikis **/
-$app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
+$app->get("/projects/:name", $authenticateProject($app), function ($name) use ($app) {
 
   $configs = $app->container->get('configs');
   $projectConfigs = Yaml::parse(file_get_contents("../configs/projects.yml"));
