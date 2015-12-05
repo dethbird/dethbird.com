@@ -16,17 +16,17 @@
       <description>{{projectConfigs.characters.description}}</description>
 
       <h3>Lead</h3>
-      {% for character in projectConfigs.characters.lead %}
+      {% for character in projectConfigs.characters.list.lead %}
         {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
 
       <h3>Supporting</h3>
-      {% for character in projectConfigs.characters.supporting %}
+      {% for character in projectConfigs.characters.list.supporting %}
         {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
 
       <h3>Other</h3>
-      {% for character in projectConfigs.characters.other %}
+      {% for character in projectConfigs.characters.list.other %}
         {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
 
