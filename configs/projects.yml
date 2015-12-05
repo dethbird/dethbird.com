@@ -2,66 +2,113 @@ mayhem:
   # name: Our Quiet Days of Mayhem
   name: Cartoon Mayhem
   description: >
-    "Showbiz is a hideous bitch-godess" - Sammy Davis Jr.
+    As Comedy Megacorp's grip on media and entertainment continues to tighten, Carl Leander and his rag-tag group of misfits struggle to keep the club open and fight off Comedy Megacorp.
+
+    "Showbiz is a hideous bitch-godess" - George Burns.
   characters:
-    -
-      name: Bob Shazbutt
-      occupation: Bartender
-      images:
-        -
-          orientation: portrait
-          thumbnail: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674.jpg
-          display: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674_b.jpg
-      description: >
-        Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander. He's a bit like Ronnie Wood mixed with Bugs Bunny.
-    -
-      name: Rory Shazbutt
-      occupation: Comedian
-      description: >
-        He is Bob's cousin. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone. Bob gets it, but that's because they grew up together and thus have some in-jokes that only the 2 of them get.
-    -
-      name: Gary Sonnefeld
-      occupation: Comedian
-      description: >
-        He's blowing up, he's starting to headline. He pops in and does surprise sets which bumps lesser comedians. He belittles comedians, and has pompous slightly outdated views on the state of comedy.
-    -
-      name: Carl Leander
-      occupation: Showhouse Impresario
-      images:
-        -
-          orientation: portrait
-          thumbnail: https://c1.staticflickr.com/3/2025/1552840744_86e591a333.jpg
-          display: https://c1.staticflickr.com/3/2025/1552840744_da87602026_o.jpg
-      description: >
-        A slavik man who got in showbiz early from his acrobatic parents. Has a twin brother Max Leander who runs a showbiz deli. They both ride tiny motorcycles (like Billy and Benny McCrary of Guiness fame). At their bar and diner, they sell their line of brews such as Carl Leander's Downtown Chunky: Heavy Beef Broth Porter.
-    -
-      name: Don Sandwichbottom aka "[?] Rodney Dangerfield"
-      occupation: Comedian, Odd Jobs
-      description: >
-        This guy probably works harder than everyone. He's got some of that stand-off-ish unlikeability that Jack Roy must have had. He sells jokes out of the trunk of his car in front of the comedy club sometimes, otherwise he's involved in scamming the elderly in various jobs.
-    -
-      name: Emily Sandwichbottom
-      occupation: Comedian, Actress
-      description: >
-        The sister of Don Sandwichbottom. She is attractive and ends up getting commercials more than success as a comedian. Other comedians hit on her but she's a little too smart for them. She and Bob are on and off, we are not sure if they are an item but she does make relationship-related jokes on stage that make you wonder. Or specifically, make Bob wonder.
-    -
-      name: Larry Joe Cody Alouicious
-      occupation: Product Designer, "Comedian"
-      description: >
-        I mean he THINKS he his funny, that's what's important right? He's actually a product designer. All his jokes are like "What if Steve Jobs was in <latest Hollywood Release>?". He tries making fun of Android on stage. He does a lot of blow and drinks while at Zebtron's.
-    -
-      name: Diedre Denkins
-      occupation: Marketing, Comedy
-      description: >
-        She's one of those "I'm one of the guys" female comics. That's not a bad thing -- it's like Sarah Silverman or Amy Schumer. She scores jokes on herself about alcohol consumption and promiscuity a lot. She hangs with Bob and Rory on occassion.
-    -
-      name: Jeb Leno
-      occupation: The UNDISCOVERED Host
-      description: >
-        He started doing a late night talk show out of his garage. It started blowing up and affecting the viewership of the real talk shows. Hilarity ensues.
-        Now this guy from Jersey burbs starts showing up at red carpet events. But he's a good guy. Because of the word "undiscovered" in his tagline, he gets more gigs and tastemaker attention than he probably should.
-      notes: >
-        Too much of a Tom Green situation?
+    description: >
+      The characters
+    lead:
+      -
+        name: Bob Shazbutt
+        occupation: Bartender
+        images:
+          -
+            orientation: portrait
+            thumbnail: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674.jpg
+            display: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674_b.jpg
+        description: >
+          Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander.
+
+          He's a bit like Ronnie Wood mixed with Bugs Bunny. He's a good 'ol boy at heart. He really tends to Carl Leander, kind of looks up to him as a father.
+      -
+        name: Carl Leander
+        occupation: Showhouse Impresario
+        images:
+          -
+            orientation: portrait
+            thumbnail: https://c2.staticflickr.com/6/5657/23081488240_6ed44d6769.jpg
+            display: https://c2.staticflickr.com/6/5657/23081488240_6ed44d6769_b.jpg
+          -
+            orientation: portrait
+            thumbnail: https://c1.staticflickr.com/3/2025/1552840744_86e591a333.jpg
+            display: https://c1.staticflickr.com/3/2025/1552840744_da87602026_o.jpg
+        description: >
+          A slavik man who got in showbiz early from his acrobatic parents. Has a twin brother Max Leander who runs a showbiz deli. They both ride tiny motorcycles (like Billy and Benny McCrary of Guiness fame). At their bar and diner, they sell their line of brews such as Carl Leander's Downtown Chunky: Heavy Beef Broth Porter.
+
+          He's not a sleazebag like the other impresarios, often to his detriment. The other impresarios sometimes take advantage of him, and Bob has to come in a save the day.
+      -
+        name: Diedre Dukes
+        occupation: Marketing, Comedy
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/6/5797/23512857276_1ece7c1b94.jpg
+            display: https://c2.staticflickr.com/6/5797/23512857276_1ece7c1b94_b.jpg
+        description: >
+          She's one of those "I'm one of the guys" female comics. That's not a bad thing -- it's like Sarah Silverman or Amy Schumer. She scores jokes on herself about alcohol consumption and promiscuity a lot. She hangs with Bob and Rory on occassion.
+    supporting:
+      -
+        name: Rory Shazbutt
+        occupation: Comedian
+        description: >
+          He is Bob's cousin. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone.
+
+          Bob gets it, but that's because they grew up together and thus have some in-jokes that only the 2 of them get.
+      -
+        name: Don Sandwichbottom aka "[?] Rodney Dangerfield"
+        occupation: Comedian, Odd Jobs
+        description: >
+          This guy probably works harder than everyone. He's got some of that stand-off-ish unlikeability that Jack Roy must have had. He sells jokes out of the trunk of his car in front of the comedy club sometimes, otherwise he's involved in scamming the elderly in various jobs.
+      -
+        name: Emily Sandwichbottom
+        occupation: Comedian, Actress
+        description: >
+          The sister of Don Sandwichbottom. She is attractive and ends up getting commercials more than success as a comedian. Other comedians hit on her but she's a little too smart for them. She and Bob are on and off, we are not sure if they are an item but she does make relationship-related jokes on stage that make you wonder. Or specifically, make Bob wonder.
+      -
+        name: Larry Joe Cody Alouicious
+        occupation: Product Designer, "Comedian"
+        description: >
+          I mean he THINKS he his funny, that's what's important right? He's actually a product designer. All his jokes are like "What if Steve Jobs was in <latest Hollywood Release>?". He tries making fun of Android on stage. He does a lot of blow and drinks while at Zebtron's.
+    other:
+      -
+        name: Tweetstream
+        occupation: Superhero
+        images:
+          -
+            orientation: portrait
+            thumbnail: https://c2.staticflickr.com/6/5716/23513600996_2d21c5bb31.jpg
+            display: https://c2.staticflickr.com/6/5716/23513600996_2d21c5bb31_b.jpg
+        description: >
+           Twitter's Superhero
+      -
+        name: Donald Dump
+        occupation: Media Figure / Politician
+        images:
+          -
+            orientation: portrait
+            thumbnail: https://c1.staticflickr.com/1/737/21453873383_c9aac82d60.jpg
+            display: https://c1.staticflickr.com/1/737/21453873383_c9aac82d60_b.jpg
+        description: >
+           Raises Awareness of the Cornerstones of Luxury
+      -
+        name: Gary Sonnefeld
+        occupation: Comedian
+        description: >
+          He's blowing up, he's starting to headline. He pops in and does surprise sets which bumps lesser comedians. He belittles comedians, and has pompous slightly outdated views on the state of comedy.
+      -
+        name: Jeb Leno
+        occupation: The UNDISCOVERED Host
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/6/5335/18840884801_0614ddf5fa.jpg
+            display: https://c2.staticflickr.com/6/5335/18840884801_0614ddf5fa_b.jpg
+        description: >
+          He started doing a late night talk show out of his garage. It started blowing up and affecting the viewership of the real talk shows. Hilarity ensues.
+          Now this guy from Jersey burbs starts showing up at red carpet events. But he's a good guy. Because of the word "undiscovered" in his tagline, he gets more gigs and tastemaker attention than he probably should.
+        notes: >
+          Too much of a Tom Green situation?
     # -
     #   name: ???
     #   occupation: Producer
@@ -139,10 +186,15 @@ mayhem:
         description: >
           Bob lives here. A lot of the direct-to-camera dialogue happens here.
       -
-        name: Village
+        name: Midtown Streets
         type: neighborhood
         description: >
-          People watching gold mine.
+          People watching. Showbiz haunts. Agents, comedians, other showbiz types.
+      -
+        name: Village Streets
+        type: neighborhood
+        description: >
+          Dingy bars, clubs. Party people.
       -
         name: Paul's Da Burger Joint
         type: restaurant
@@ -153,6 +205,11 @@ mayhem:
         type: bar
         description: >
           A bouncy castle bar
+      -
+        name: Two Stool Beaver
+        type: bar
+        description: >
+          Another gag bar
   locations_needed:
     - The "underground" comedy club
     - The airport

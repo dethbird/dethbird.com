@@ -2,6 +2,7 @@ body {
     color: white;
     background-color: #191919;
     padding: 5px;
+    font-family: 'Cousine', ;
 }
 section {
   margin-top: 50px;
@@ -15,16 +16,16 @@ card {
   vertical-align: top;
   word-wrap: break-word;
 }
-thumbnail {
+preview {
   text-align: center;
   display: block;
   background-color: #fff;
 }
-thumbnail img.landscape {
+preview img.landscape {
   max-width: 250px;
   height: auto;
 }
-thumbnail img.portrait {
+preview img.portrait {
   max-height: 250px;
   width: auto;
 }
@@ -32,10 +33,12 @@ name {
   font-weight: bold;
   font-size: 1.5em;
 }
-occupation, type {
+occupation, type, h3 {
   color:rgb(20, 137, 194);
 }
 description {
+  max-width: 1024px;
+  white-space: pre-line;
   padding: 5px 0px 5px 15px;
   display: block;
 }

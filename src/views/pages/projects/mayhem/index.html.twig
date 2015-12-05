@@ -1,0 +1,88 @@
+{% extends 'layout-projects.html.twig' %}
+{% block head %}
+<script type="text/javascript">
+    var configs = {{projectConfigs|json_encode|raw}};
+</script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <h1>{{projectConfigs.name}}</h1>
+    <description>{{projectConfigs.description}}</description>
+
+    <section>
+      <h1>Characters</h1>
+      <description>{{projectConfigs.characters.description}}</description>
+      <h3>Lead</h3>
+      {% for character in projectConfigs.characters.lead %}
+        <card>
+          <name>{{character.name}}</name><br />
+          {% if character.images|length %}
+            {% for image in character.images %}
+              {% if loop.index==1 %}
+                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <occupation>{{character.occupation}}</occupation>
+          <description>{{character.description}}</description>
+        </card>
+      {% endfor %}
+      <h3>Supporting</h3>
+      {% for character in projectConfigs.characters.supporting %}
+        <card>
+          <name>{{character.name}}</name><br />
+          {% if character.images|length %}
+            {% for image in character.images %}
+              {% if loop.index==1 %}
+                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <occupation>{{character.occupation}}</occupation>
+          <description>{{character.description}}</description>
+        </card>
+      {% endfor %}
+      <h3>Other</h3>
+      {% for character in projectConfigs.characters.other %}
+        <card>
+          <name>{{character.name}}</name><br />
+          {% if character.images|length %}
+            {% for image in character.images %}
+              {% if loop.index==1 %}
+                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <occupation>{{character.occupation}}</occupation>
+          <description>{{character.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h1>Locations</h1>
+      <description>{{projectConfigs.locations.description}}</description>
+      {% for location in projectConfigs.locations.items %}
+        <card>
+          <name>{{location.name}}</name><br />
+          <type>{{location.type}}</type>
+          <description>{{location.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h1>Inspirations</h1>
+      <description>{{projectConfigs.inspirations.description}}</description>
+      {% for inspiration in projectConfigs.inspirations.items %}
+        <card>
+          <name>{{inspiration.name}}</name><br />
+          <type>{{inspiration.type}}</type>
+          <description>{{inspiration.description}}</description>
+        </card>
+      {% endfor %}
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <!-- <script type="text/javascript" src="/js/views/experiments/instagram001.js"></script> -->
+{% endblock %}

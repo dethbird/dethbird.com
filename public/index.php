@@ -167,7 +167,7 @@ $app->get("/projects/:name", $authenticateProject($app), function ($name) use ($
   );
 
   $app->render(
-      'pages/projects/'. $name .'.html.twig',
+      'pages/projects/'. $name .'/index.html.twig',
       $templateVars,
       200
   );
