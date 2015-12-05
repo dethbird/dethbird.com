@@ -1,14 +1,11 @@
-# Portfolio Site
-A Slim based website with Backbone.js and Twig thrown in
+# Dethbird's website
+> A Slim based website with Backbone.js and Twig thrown in
 
-##Deploy
--p: PHP
--j: Javacript
--c: Cache
--d: Dev (do not uglifyjs)
+#### Command line PHP deploy
+
 ```bash
 # build all
-sudo bash ./build.sh -pjc
-# build dev
-sudo bash ./build.sh -pjcd
+php build.php js=1 php=1 cache=1
+# build dev (don't uglify js)
+php build.php js=dev php=1 cache=1
 ```

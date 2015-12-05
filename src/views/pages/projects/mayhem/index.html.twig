@@ -1,7 +1,8 @@
 {% extends 'layout-projects.html.twig' %}
 {% block head %}
 <script type="text/javascript">
-    var configs = {{projectConfigs|json_encode|raw}};
+  var configs = {{configs|json_encode|raw}}
+  var projectConfigs = {{projectConfigs|json_encode|raw}}
 </script>
 {% endblock %}
 {% block body %}
@@ -10,53 +11,25 @@
     <description>{{projectConfigs.description}}</description>
 
     <section>
+
       <h1>Characters</h1>
       <description>{{projectConfigs.characters.description}}</description>
+
       <h3>Lead</h3>
       {% for character in projectConfigs.characters.lead %}
-        <card>
-          <name>{{character.name}}</name><br />
-          {% if character.images|length %}
-            {% for image in character.images %}
-              {% if loop.index==1 %}
-                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-          <occupation>{{character.occupation}}</occupation>
-          <description>{{character.description}}</description>
-        </card>
+        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
+
       <h3>Supporting</h3>
       {% for character in projectConfigs.characters.supporting %}
-        <card>
-          <name>{{character.name}}</name><br />
-          {% if character.images|length %}
-            {% for image in character.images %}
-              {% if loop.index==1 %}
-                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-          <occupation>{{character.occupation}}</occupation>
-          <description>{{character.description}}</description>
-        </card>
+        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
+
       <h3>Other</h3>
       {% for character in projectConfigs.characters.other %}
-        <card>
-          <name>{{character.name}}</name><br />
-          {% if character.images|length %}
-            {% for image in character.images %}
-              {% if loop.index==1 %}
-                <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-          <occupation>{{character.occupation}}</occupation>
-          <description>{{character.description}}</description>
-        </card>
+        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
       {% endfor %}
+
     </section>
 
     <section>
@@ -83,6 +56,7 @@
       {% endfor %}
     </section>
 
-    <!-- JAVASCRIPT -->
-    <!-- <script type="text/javascript" src="/js/views/experiments/instagram001.js"></script> -->
+{% endblock %}
+{% block includes %}
+  <script type="text/javascript" src="/js/pages/projects/mayhem/index.js"></script>
 {% endblock %}

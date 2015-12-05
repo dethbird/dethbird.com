@@ -1,0 +1,19 @@
+<card>
+  <name>{{character.name}}</name><br />
+  {% if character.images|length %}
+    {% for image in character.images %}
+      {% if loop.index==1 %}
+        <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
+      {% endif %}
+    {% endfor %}
+    {% if character.images|length > 1 %}
+    <div class="thumbnails">
+      {% for image in character.images %}
+          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></thumbnail>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endif %}
+  <occupation>{{character.occupation}}</occupation>
+  <description>{{character.description}}</description>
+</card>
