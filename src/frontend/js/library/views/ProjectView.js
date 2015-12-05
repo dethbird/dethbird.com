@@ -2,9 +2,8 @@ var CharacterCollection = require('../collections/projects/CharacterCollection')
 var CharacterCardView = require('./CharacterCardView');
 
 var ProjectView = Backbone.View.extend({
-    characterCollection: null, // characters in order of appearance
+    characterCollection: null,
     initialize: function(options) {
-        // variables
         var that = this;
         this.characterCollection = new CharacterCollection();
         $.each(options.configs.characters.list, function(type,characters){
@@ -16,7 +15,6 @@ var ProjectView = Backbone.View.extend({
                 el: '#' + character.get('id'),
                 model: character
             });
-            console.log(card);
           });
         });
         this.render();

@@ -4,4 +4,3 @@ var projectView = new ProjectView({
   el: 'body',
   configs: projectConfigs
 });
-console.log(projectView);
