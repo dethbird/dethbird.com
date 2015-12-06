@@ -5,6 +5,8 @@ ini_set('display_errors', 1);
 // ini_set('display_startup_errors',1);
 define("APPLICATION_PATH", __DIR__ . "/../");
 date_default_timezone_set('America/New_York');
+session_cache_limiter(false);
+session_start();
 
 // Ensure src/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -24,10 +26,15 @@ require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php'
 use Symfony\Component\Yaml\Yaml;
 
 // Load configs and add to the app container
+$configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 $app = new \Slim\Slim(
     array(
         'view' => new Slim\Views\Twig(),
-        'templates.path' => APPLICATION_PATH . 'src/views'
+        'templates.path' => APPLICATION_PATH . 'src/views',
+        'cookies.encrypt' => true,
+        'cookies.secret_key' => $configs['security']['secret'],
+        'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+        'cookies.cipher_mode' => MCRYPT_MODE_CBC
     )
 );
 $view = $app->view();
@@ -35,27 +42,36 @@ $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
     new TemplateHelpers()
 );
-$configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 $app->container->set('configs', $configs);
 
-
-// This is where a persistence layer ACL check would happen on authentication-related HTTP request items
+// Route authentication
 $authenticate = function ($app) {
-    return function () use ($app) {
-        if (false) {
-            $app->halt(403, "Invalid security context");
-        }
-    };
-};
-
-$authenticateProject = function ($app) {
-    $pathinfo = explode("/", $app->request->getPathInfo());
-    $projectName = $pathinfo[2];
     // @todo does logged in user have access to this project?
     return function () use ($app) {
-        if (false) {
-            $app->halt(403, "Invalid security context");
+
+        // store current path in session for smart login
+        $_SESSION['redirectTo'] = $app->request->getPathInfo();
+
+        // check cookie for securityContext
+        $securityContext = json_decode($app->getCookie('securityContext'));
+        // die(var_dump($securityContext));
+        if (!isset($securityContext->login)) {
+          $app->redirect("/login");
         }
+
+        // Check access to project
+        $pathinfo = explode("/", $app->request->getPathInfo());
+        if($pathinfo[1]=="projects") {
+          // die(var_dump($securityContext->projects));
+          $projectName = $pathinfo[2];
+          if($projectName) {
+            if(!in_array($projectName, $securityContext->projects)) {
+              $app->redirect("/projects");
+            }
+          }
+        }
+
+
     };
 };
 
@@ -66,8 +82,47 @@ $app->notFound(function () use ($app) {
     );
 });
 
+$app->get("/login", function () use ($app) {
+  // die(var_dump($_SESSION));
+  $app->render(
+      'pages/login.html.twig',
+      array()
+  );
+});
+$app->post("/login", function () use ($app) {
 
-$app->get("/", $authenticate($app), function () use ($app) {
+  $app->response->headers->set('Content-Type', 'application/json');
+  $users = Yaml::parse(file_get_contents("../configs/users.yml"));
+  $_user = null;
+  foreach($users as $user) {
+    if(
+      $app->request->params('username')==$user['login']
+      && $app->request->params('password')==$user['password']
+    ) {
+      unset($user['password']);
+      $user['redirectTo'] = $_SESSION['redirectTo'];
+      $_user = $user;
+      break;
+    }
+  }
+  if(is_null($_user)){
+    $app->halt(404);
+  } else {
+    $app->setCookie(
+        "securityContext",
+        json_encode($_user),
+        "1 days"
+    );
+    $app->response->setBody(json_encode($_user));
+  }
+});
+
+$app->get("/logout", function () use ($app) {
+  $app->deleteCookie('securityContext');
+  $app->redirect("/");
+});
+
+$app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
 
@@ -98,7 +153,7 @@ $app->get("/", $authenticate($app), function () use ($app) {
     );
 });
 
-$app->get("/comics/:name", $authenticate($app), function ($name) use ($app) {
+$app->get("/comics/:name", function ($name) use ($app) {
     $configs = $app->container->get('configs');
     if(!array_key_exists($name, $configs["comics"])){
         $app->notFound();
@@ -111,7 +166,7 @@ $app->get("/comics/:name", $authenticate($app), function ($name) use ($app) {
     }
 });
 
-$app->get("/resume", $authenticate($app), function () use ($app) {
+$app->get("/resume", function () use ($app) {
     $resume = Yaml::parse(file_get_contents("../configs/resume.yml"));
 
     if ($app->request->isAjax()) {
@@ -156,7 +211,7 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
 
 
 /** public / private project wikis **/
-$app->get("/projects/:name", $authenticateProject($app), function ($name) use ($app) {
+$app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
 
   $configs = $app->container->get('configs');
   $projectConfigs = Yaml::parse(file_get_contents("../configs/projects.yml"));

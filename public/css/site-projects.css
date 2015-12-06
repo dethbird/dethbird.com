@@ -4,6 +4,9 @@ body {
     padding: 5px;
     font-family: 'Cousine', ;
 }
+input {
+  color: #111;
+}
 section {
   margin-top: 50px;
 }

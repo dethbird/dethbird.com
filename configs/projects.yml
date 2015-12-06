@@ -80,6 +80,12 @@ mayhem:
             I mean he THINKS he his funny, that's what's important right? He's actually a product designer. All his jokes are like "What if Steve Jobs was in <latest Hollywood Release>?". He tries making fun of Android on stage. He does a lot of blow and drinks while at Zebtron's.
       other:
         -
+          id: popcorn_and_meatball
+          name: Popcorn and Meatball
+          occupation: Weed Enthusiasts
+          description: >
+            They can be like statler and waldorf in the audience. They completely abuse marijuana in every stereotype worse than Cheech and Chong
+        -
           id: tweetstream
           name: Tweetstream
           occupation: Superhero
@@ -91,6 +97,17 @@ mayhem:
           description: >
              Twitter's Superhero
         -
+          id: zeitgeist
+          name: Zeitgeist
+          occupation: Superhero
+          images:
+            -
+              orientation: landscape
+              thumbnail: https://c1.staticflickr.com/1/573/23255399750_5163fcb160.jpg
+              display: https://c1.staticflickr.com/1/573/23255399750_5163fcb160_b.jpg
+          description: >
+            Google's Superhero
+        -
           id: donald_dump
           name: Donald Dump
           occupation: Media Figure / Politician
@@ -101,6 +118,14 @@ mayhem:
               display: https://c1.staticflickr.com/1/737/21453873383_c9aac82d60_b.jpg
           description: >
              Raises Awareness of the Cornerstones of Luxury
+        -
+          id: senator_radbod
+          name: Senator Tony Radbod
+          occupation: Media Figure / Politician
+          description: >
+            Hunky senator who has women swoon over him
+            Always worried whether he should be tweeting this or not
+            Bad at slang
         -
           id: gary_sonnefeld
           name: Gary Sonnefeld
