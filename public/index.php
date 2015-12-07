@@ -222,7 +222,7 @@ $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
   );
 
   $app->render(
-      'pages/projects/'. $name .'/index.html.twig',
+      'pages/projects/index.html.twig',
       $templateVars,
       200
   );

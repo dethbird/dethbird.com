@@ -14,28 +14,15 @@
 
       <h1>Characters</h1>
       <description>{{projectConfigs.characters.description}}</description>
-
-      <h3>Lead</h3>
-      {% for character in projectConfigs.characters.list.lead %}
-        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
+      {% for character in projectConfigs.characters.list %}
+        {% include "pages/projects/partials/character_card.html.twig" %}
       {% endfor %}
-
-      <h3>Supporting</h3>
-      {% for character in projectConfigs.characters.list.supporting %}
-        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
-      {% endfor %}
-
-      <h3>Other</h3>
-      {% for character in projectConfigs.characters.list.other %}
-        {% include "pages/projects/mayhem/partials/character_card.html.twig" %}
-      {% endfor %}
-
     </section>
 
     <section>
       <h1>Locations</h1>
       <description>{{projectConfigs.locations.description}}</description>
-      {% for location in projectConfigs.locations.items %}
+      {% for location in projectConfigs.locations.list %}
         <card>
           <name>{{location.name}}</name><br />
           <type>{{location.type}}</type>
@@ -47,7 +34,7 @@
     <section>
       <h1>Inspirations</h1>
       <description>{{projectConfigs.inspirations.description}}</description>
-      {% for inspiration in projectConfigs.inspirations.items %}
+      {% for inspiration in projectConfigs.inspirations.list %}
         <card>
           <name>{{inspiration.name}}</name><br />
           <type>{{inspiration.type}}</type>
@@ -58,5 +45,5 @@
 
 {% endblock %}
 {% block includes %}
-  <script type="text/javascript" src="/js/pages/projects/mayhem/index.js"></script>
+  <script type="text/javascript" src="/js/pages/projects/index.js"></script>
 {% endblock %}
