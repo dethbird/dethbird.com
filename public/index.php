@@ -213,12 +213,12 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
 $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
 
   $configs = $app->container->get('configs');
-  $projectConfigs = Yaml::parse(file_get_contents("../configs/projects.yml"));
+  $projectConfigs = Yaml::parse(file_get_contents("../configs/projects/".$name."/index.yml"));
   $templateVars = array(
       "configs" => $configs,
       "securityContext" => json_decode($app->getCookie('securityContext')),
       "currentProject" => $name,
-      "projectConfigs" => isset($projectConfigs[$name]) ? $projectConfigs[$name] : array()
+      "projectConfigs" => $projectConfigs
   );
 
   $app->render(
