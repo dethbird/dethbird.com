@@ -9,7 +9,7 @@
     {% if character.images|length > 1 %}
     <div class="thumbnails">
       {% for image in character.images %}
-          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></thumbnail>
+          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}}" data-image-index="{{loop.index0}}"/></thumbnail>
       {% endfor %}
     </div>
     {% endif %}
