@@ -11,153 +11,34 @@ characters:
     The characters
   list:
     -
-      id: bob_shazbutt
-      name: Bob Shazbutt
+      id: beepo_beeparelli
+      name: Beepo Beeparelli
+      occupation: Plumber
+      role: lead
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/3/2533/3996839316_699ee275b7.jpg
+          display: https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg
+      description: >
+        He was programmed by 1980's Japanese scientists to be an Italian plumber for some fucking reason.
+    -
+      id: coal_train
+      name: Coal Train
       occupation: Bartender
-      role: lead
+      role: supporting
       images:
         -
           orientation: portrait
-          thumbnail: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674.jpg
-          display: https://c1.staticflickr.com/1/624/23108862960_b5cdce3674_b.jpg
-      description: >
-        Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander.
-
-        He's a bit like Ronnie Wood mixed with Bugs Bunny. He's a good 'ol boy at heart. He really tends to Carl Leander, kind of looks up to him as a father.
-    -
-      id: carl_leander
-      name: Carl Leander
-      occupation: Showhouse Impresario
-      role: lead
-      images:
-        -
-          orientation: portrait
-          thumbnail: https://c2.staticflickr.com/6/5657/23081488240_6ed44d6769.jpg
-          display: https://c2.staticflickr.com/6/5657/23081488240_6ed44d6769_b.jpg
-        -
-          orientation: portrait
-          thumbnail: https://c1.staticflickr.com/3/2025/1552840744_86e591a333.jpg
-          display: https://c1.staticflickr.com/3/2025/1552840744_da87602026_o.jpg
-      description: >
-        A slavik man who got in showbiz early from his acrobatic parents. Has a twin brother Max Leander who runs a showbiz deli. They both ride tiny motorcycles (like Billy and Benny McCrary of Guiness fame). At their bar and diner, they sell their line of brews such as Carl Leander's Downtown Chunky: Heavy Beef Broth Porter.
-
-        He's not a sleazebag like the other impresarios, often to his detriment. The other impresarios sometimes take advantage of him, and Bob has to come in a save the day.
-    -
-      id: diedre_dukes
-      name: Diedre Dukes
-      occupation: Marketing, Comedy
-      role: lead
-      images:
+          thumbnail: https://c2.staticflickr.com/6/5707/23456678931_7624c0cc81.jpg
+          display: https://c2.staticflickr.com/6/5707/23456678931_2a1f606357_o.jpg
+          images:
         -
           orientation: landscape
-          thumbnail: https://c2.staticflickr.com/6/5797/23512857276_1ece7c1b94.jpg
-          display: https://c2.staticflickr.com/6/5797/23512857276_1ece7c1b94_b.jpg
+          thumbnail: https://c2.staticflickr.com/6/5769/22912334113_569879bae9.jpg
+          display: https://c2.staticflickr.com/6/5769/22912334113_569879bae9_b.jpg
       description: >
-        She's one of those "I'm one of the guys" female comics. That's not a bad thing -- it's like Sarah Silverman or Amy Schumer. She scores jokes on herself about alcohol consumption and promiscuity a lot. She hangs with Bob and Rory on occassion.
-    -
-      id: rory_shazbutt
-      name: Rory Shazbutt
-      occupation: Comedian
-      role: supporting
-      description: >
-        He is Bob's cousin. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone.
-
-        Bob gets it, but that's because they grew up together and thus have some in-jokes that only the 2 of them get.
-    -
-      id: don_sandwichbottom
-      name: Don Sandwichbottom aka "[?] Rodney Dangerfield"
-      occupation: Comedian, Odd Jobs
-      role: supporting
-      description: >
-        This guy probably works harder than everyone. He's got some of that stand-off-ish unlikeability that Jack Roy must have had. He sells jokes out of the trunk of his car in front of the comedy club sometimes, otherwise he's involved in scamming the elderly in various jobs.
-    -
-      id: emily_sandwichbottom
-      name: Emily Sandwichbottom
-      occupation: Comedian, Actress
-      role: supporting
-      description: >
-        The sister of Don Sandwichbottom. She is attractive and ends up getting commercials more than success as a comedian. Other comedians hit on her but she's a little too smart for them. She and Bob are on and off, we are not sure if they are an item but she does make relationship-related jokes on stage that make you wonder. Or specifically, make Bob wonder.
-    -
-      id: larry_joe
-      name: Larry Joe Cody Alouicious
-      occupation: Product Designer, "Comedian"
-      role: supporting
-      description: >
-        I mean he THINKS he his funny, that's what's important right? He's actually a product designer. All his jokes are like "What if Steve Jobs was in <latest Hollywood Release>?". He tries making fun of Android on stage. He does a lot of blow and drinks while at Zebtron's.
-    -
-      id: popcorn_and_meatball
-      name: Popcorn and Meatball
-      occupation: Weed Enthusiasts
-      role: other
-      description: >
-        They can be like statler and waldorf in the audience. They completely abuse marijuana in every stereotype worse than Cheech and Chong
-    -
-      id: tweetstream
-      name: Tweetstream
-      occupation: Superhero
-      role: other
-      images:
-        -
-          orientation: portrait
-          thumbnail: https://c2.staticflickr.com/6/5716/23513600996_2d21c5bb31.jpg
-          display: https://c2.staticflickr.com/6/5716/23513600996_2d21c5bb31_b.jpg
-      description: >
-         Twitter's Superhero
-    -
-      id: zeitgeist
-      name: Zeitgeist
-      occupation: Superhero
-      role: other
-      images:
-        -
-          orientation: landscape
-          thumbnail: https://c1.staticflickr.com/1/573/23255399750_5163fcb160.jpg
-          display: https://c1.staticflickr.com/1/573/23255399750_5163fcb160_b.jpg
-      description: >
-        Google's Superhero
-    -
-      id: donald_dump
-      name: Donald Dump
-      occupation: Media Figure / Politician
-      role: other
-      images:
-        -
-          orientation: portrait
-          thumbnail: https://c1.staticflickr.com/1/737/21453873383_c9aac82d60.jpg
-          display: https://c1.staticflickr.com/1/737/21453873383_c9aac82d60_b.jpg
-      description: >
-         Raises Awareness of the Cornerstones of Luxury
-    -
-      id: senator_radbod
-      name: Senator Tony Radbod
-      occupation: Media Figure / Politician
-      role: other
-      description: >
-        Hunky senator who has women swoon over him
-        Always worried whether he should be tweeting this or not
-        Bad at slang
-    -
-      id: gary_sonnefeld
-      name: Gary Sonnefeld
-      occupation: Comedian
-      role: other
-      description: >
-        He's blowing up, he's starting to headline. He pops in and does surprise sets which bumps lesser comedians. He belittles comedians, and has pompous slightly outdated views on the state of comedy.
-    -
-      id: jeb_leno
-      name: Jeb Leno
-      occupation: The UNDISCOVERED Host
-      role: other
-      images:
-        -
-          orientation: landscape
-          thumbnail: https://c2.staticflickr.com/6/5335/18840884801_0614ddf5fa.jpg
-          display: https://c2.staticflickr.com/6/5335/18840884801_0614ddf5fa_b.jpg
-      description: >
-        He started doing a late night talk show out of his garage. It started blowing up and affecting the viewership of the real talk shows. Hilarity ensues.
-        Now this guy from Jersey burbs starts showing up at red carpet events. But he's a good guy. Because of the word "undiscovered" in his tagline, he gets more gigs and tastemaker attention than he probably should.
-      notes: >
-        Too much of a Tom Green situation?
+        A decomissioned military robot repurposed as a bartender. His database makes him the perfect advice giver because he can run a query on existing conversations with clientele.
   # -
   #   name: ???
   #   occupation: Producer
@@ -166,114 +47,59 @@ characters:
 to_cast:
   render: true
   list:
-    - A talent agent or 2
-    - A tv chef star
-    - the ghost of Sheky Greene type infamous comic
-    - the ghost of Lenny Brucy who still thinks he is edgy and shocking
+    - A bar buddy
+    - The princess
 themes:
   render: true
   list:
     -
-      name: State of Comedy
+      name: Identity
       description: >
-        Comedy good and bad. Standup, television, Saturday Night Live. SNL especially politicians vying to get on the show for their own PR benefits.
+        Do you have to be what you were programmed to be?
     -
       name: Drugs
       description: >
         Societal attitudes toward substance use and abuse. People that traffic stereotypes.
-    -
-      name: State of Pop Culture
-      description: >
-        What passes for popular culture. What people consume without even thinking about it. This aspect is probably about fake shows and ads.
 inspirations:
   render: true
   description: >
     Visual and stylistic inspirational sources
   list:
     -
-      name: Silicon Valley
-      type: live action tv series
+      name: Mario
+      type: video game
       description: >
-        The show's subtle character nuances are what drive the comedy. It's not so much mockery, but played with a realism and commitment to the character by the actors which is what drives the comedy.
-    -
-      name: Tiny Toons / Animaniacs
-      type: animated tv series
-      description: >
-        These 2 animated series' constant allusions to showbiz and Hollywood give a level of self-referential consciousness, and then it uses violent cartoon mayhem to break it up.
-        Article: http://www.justpressplay.net/reviews/10440-animaniacs-volume-4.html
-    -
-      name: Looney Toons
-      type: animated tv series
-      description: >
-        All the showbiz stuff, like this episode: https://en.wikipedia.org/wiki/Show_Biz_Bugs classic Bugs vs Daffy showbiz rivalry
-    -
-      name: The Comedians
-      type: book
-      description: >
-        This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
-        The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
+        Especially Super Mario 2 with the theatrics and curtains and all.
 plots:
   render: true
   list:
-    - Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
-    - Larry does a set about how Android sucks and the crowd doesn't respond do great so he resorts to doing more drugs then going on stage.
-    - Emily does a set about relationships and Bob thinks she is talking about him.
-    - Rory hits on Emily but fails. Then he does a set that is too smart and the audience doesn't respond well, he denegrates them. It's not good. Bob tells him.
+    - Beepo gets hammered and breaks bricks and collects coins and sings opera one night.
 locations:
   render: true
   description: >
     A weird mix between Vegas, NYC, and LA.
   list:
     -
-      name: Bronson Pinchot's Balki's
-      type: showbiz bar
-      description: >
-        A schmaltzy showbiz bar celebrating the career of Bronson Pinchot. It's like a Ukranian wedding hall.
-    -
-      name: Zebtron's
-      type: comedy club
-      description: >
-        This one is owned by Zebtron himself who we see little of but his hand is felt.
-    -
-      name: Max's Diner
-      type: restaurant
-      description: >
-        The caste-system of comedians applies here. Best tables to the top billing.
-    -
-      name: Bob's Apartment
-      type: apartment
-      description: >
-        Bob lives here. A lot of the direct-to-camera dialogue happens here.
-    -
-      name: Midtown Streets
-      type: neighborhood
-      description: >
-        People watching. Showbiz haunts. Agents, comedians, other showbiz types.
-    -
-      name: Village Streets
-      type: neighborhood
-      description: >
-        Dingy bars, clubs. Party people.
-    -
-      name: Paul's Da Burger Joint
-      type: restaurant
-      description: >
-        burger joint
-    -
-      name: Superknees
+      name: Stankin' Hole
       type: bar
       description: >
-        A bouncy castle bar
+        Local worker class pub
     -
-      name: Two Stool Beaver
-      type: bar
+      name: City Apartments
+      type: apartments
       description: >
-        Another gag bar
+        Random people's apartments around the city
 locations_needed:
   render: true
   list:
-    - The "underground" comedy club
-    - The airport
+    - The abandoned amusement park
+concept_art:
+  render: true
+  list:
+    -
+      orientation: landscape
+      thumbnail: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c.jpg
+      display: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg
 concept_art_ideas:
   render: true
   list:
