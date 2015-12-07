@@ -4,11 +4,18 @@ body {
     padding: 5px;
     font-family: 'Cousine', ;
 }
-input {
+input, select, textarea {
   color: #111;
 }
 section {
   margin-top: 50px;
+}
+securitycontext {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 200px;
+  text-align: right;
 }
 card {
   background-color: #222;

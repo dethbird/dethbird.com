@@ -62,7 +62,6 @@ $authenticate = function ($app) {
         // Check access to project
         $pathinfo = explode("/", $app->request->getPathInfo());
         if($pathinfo[1]=="projects") {
-          // die(var_dump($securityContext->projects));
           $projectName = $pathinfo[2];
           if($projectName) {
             if(!in_array($projectName, $securityContext->projects)) {
@@ -215,9 +214,10 @@ $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
 
   $configs = $app->container->get('configs');
   $projectConfigs = Yaml::parse(file_get_contents("../configs/projects.yml"));
-
   $templateVars = array(
       "configs" => $configs,
+      "securityContext" => json_decode($app->getCookie('securityContext')),
+      "currentProject" => $name,
       "projectConfigs" => isset($projectConfigs[$name]) ? $projectConfigs[$name] : array()
   );
 

@@ -38,6 +38,18 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    {% if securityContext.login %}
+    <securitycontext>
+      {{securityContext.login}}<br />
+      <select id="project">
+        <option>select a project ...</option>
+        {% for project in securityContext.projects %}
+          <option value="{{project}}" {% if currentProject==project %}selected="selected"{% endif %}>{{project}}</option>
+        {% endfor %}
+      </select>
+      <a href="/logout">logout</a><br />
+    </securitycontext>
+    {% endif %}
     <div class="body-content">{% block body %}{% endblock %}</div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>

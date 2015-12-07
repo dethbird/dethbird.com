@@ -17,7 +17,9 @@ var ProjectView = Backbone.View.extend({
             });
           });
         });
-        this.render();
+        $('#project').on('change', function(e){
+          document.location = '/projects/' + $(e.currentTarget).find('option:selected').val();
+        });
     }
 });
 

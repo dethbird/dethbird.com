@@ -154,6 +154,8 @@ mayhem:
   to_cast:
     - A talent agent or 2
     - A tv chef star
+    - the ghost of Sheky Greene type infamous comic
+    - the ghost of Lenny Brucy who still thinks he is edgy and shocking
   themes:
     -
       name: State of Comedy
@@ -250,3 +252,8 @@ mayhem:
   locations_needed:
     - The "underground" comedy club
     - The airport
+  concept_art_ideas:
+    - At the showbiz bar
+    - Selling jokes from the trunk
+    - Street view
+    - Comedy Megacorp offices
