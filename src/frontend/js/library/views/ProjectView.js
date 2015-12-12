@@ -17,6 +17,10 @@ var ProjectView = Backbone.View.extend({
         $('#project').on('change', function(e){
           document.location = '/projects/' + $(e.currentTarget).find('option:selected').val();
         });
+
+        $('body overlay content').click(function(){
+          $('body overlay').hide();
+        })
     }
 });
 

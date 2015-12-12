@@ -7,13 +7,13 @@
   {% if character.images|length %}
     {% for image in character.images %}
       {% if loop.index==1 %}
-        <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
+        <preview><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
       {% endif %}
     {% endfor %}
     {% if character.images|length > 1 %}
     <div class="thumbnails">
       {% for image in character.images %}
-          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}}" data-image-index="{{loop.index0}}"/></thumbnail>
+          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail>
       {% endfor %}
     </div>
     {% endif %}
