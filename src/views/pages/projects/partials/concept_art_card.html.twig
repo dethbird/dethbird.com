@@ -1,17 +1,16 @@
-<card id="{{character.id}}">
+<card id="{{art.id}}">
   <header>
-    <name>{{character.name}}</name>
-    <small>({{character.role}})</small><br />
+    <name>{{art.name}}</name>
   </header>
-  {% if character.images|length %}
-    {% for image in character.images %}
+  {% if art.images|length %}
+    {% for image in art.images %}
       {% if loop.index==1 %}
         <preview><img src="{{image.thumbnail}}" class="{{image.orientation}}"/></preview>
       {% endif %}
     {% endfor %}
-    {% if character.images|length > 1 %}
+    {% if art.images|length > 1 %}
     <div class="thumbnails">
-      {% for image in character.images %}
+      {% for image in art.images %}
           <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}}" data-image-index="{{loop.index0}}"/></thumbnail>
       {% endfor %}
     </div>
@@ -19,6 +18,5 @@
   {% else %}
   <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
   {% endif %}
-  <occupation>{{character.occupation}}</occupation>
-  <description>{{character.description}}</description>
+  <description>{{art.description}}</description>
 </card>

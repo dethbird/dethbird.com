@@ -161,13 +161,32 @@ characters:
   #   occupation: Producer
   #   description: >
   #     A Lorne Michaels type that comes to Zebtron's sometimes to scope out talent.
-to_cast:
+character_ideas:
   render: true
   list:
-    - A talent agent or 2
-    - A tv chef star
-    - the ghost of Sheky Greene type infamous comic
-    - the ghost of Lenny Brucy who still thinks he is edgy and shocking
+    -
+      name: ???
+      occupation: Talent Agent
+      role: supporting
+      description: >
+        He's always hanging around the joint
+    -
+      name: ???
+      occupation: Star TV Chef
+      role: other
+      description: >
+        ???
+    -
+      name: ???
+      occupation: Ghost, Comedian
+      role: other
+      description: >
+        the ghost of Sheky Greene type infamous comic
+    - name: ???
+      occupation: Ghost, Comedian
+      role: other
+      description: >
+        the ghost of Lenny Brucy who still thinks he is edgy and shocking
 themes:
   render: true
   list:
@@ -210,13 +229,24 @@ inspirations:
       description: >
         This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
         The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
-plots:
+possible_plots:
   render: true
   list:
-    - Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
-    - Larry does a set about how Android sucks and the crowd doesn't respond do great so he resorts to doing more drugs then going on stage.
-    - Emily does a set about relationships and Bob thinks she is talking about him.
-    - Rory hits on Emily but fails. Then he does a set that is too smart and the audience doesn't respond well, he denegrates them. It's not good. Bob tells him.
+    -
+      name: ???
+      description: >
+        Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
+    -
+      name: ???
+      description: >
+        Larry does a set about how Android sucks and the crowd doesn't respond do great so he resorts to doing more drugs then going on stage.
+    -
+      name: ???
+      description: >
+        Emily does a set about relationships and Bob thinks she is talking about him.
+    - name: ???
+      description: >
+        Rory hits on Emily but fails. Then he does a set that is too smart and the audience doesn't respond well, he denegrates them. It's not good. Bob tells him.
 locations:
   render: true
   description: >
@@ -267,15 +297,35 @@ locations:
       type: bar
       description: >
         Another gag bar
-locations_needed:
+location_ideas:
   render: true
   list:
-    - The "underground" comedy club
-    - The airport
+    -
+      name: ???
+      type: comedy club
+      description: >
+        The "underground" comedy club
+    -
+      name: ???
+      type: Airport
+      description: >
+        Comedians travel through here and we see inside their heads trying out new airport material but they always talk themselves out of it.
 concept_art_ideas:
   render: true
   list:
-    - At the showbiz bar
-    - Selling jokes from the trunk
-    - Street view
-    - Comedy Megacorp offices
+    -
+      name: At the showbiz bar
+      description: >
+        Bob bartending Carl Leander's showbiz bar
+    -
+      name: Selling jokes from the trunk
+      description: >
+        Don Sandwichbottom selling jokes from his trunk
+    -
+      name: Street view
+      description: >
+        Hangin in the streets a la Hansons Drug Store
+    -
+      name: Comedy Megacorp offices
+      description: >
+        Inside the beast

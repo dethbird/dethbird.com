@@ -2,13 +2,16 @@ body {
     color: white;
     background-color: #191919;
     padding: 5px;
-    font-family: 'Cousine', ;
+    font-family: 'Roboto Mono';
 }
 input, select, textarea {
   color: #111;
 }
 section {
   margin-top: 50px;
+}
+section h1:after {
+  content: ":";
 }
 securitycontext {
   position: absolute;
@@ -29,7 +32,7 @@ card {
 preview {
   text-align: center;
   display: block;
-  background-color: #fff;
+  padding-bottom: 5px;
 }
 thumbnail {
   cursor: pointer;
@@ -37,7 +40,7 @@ thumbnail {
 }
 preview img.landscape,
 thumbnail img.landscape {
-  width: 250px;
+  width: 240px;
   height: auto;
 }
 thumbnail img.landscape {
@@ -45,7 +48,7 @@ thumbnail img.landscape {
 }
 preview img.portrait,
 thumbnail img.portrait {
-  height: 250px;
+  height: 240px;
   width: auto;
 }
 thumbnail img.portrait {
@@ -61,13 +64,16 @@ thumbnail.active {
   box-shadow: 0px 0px 6px 6px rgba(20, 137, 194, 0.8);
 }
 div.thumbnails {
-  margin: 5px 0px 5px 0px;
+  margin: 10px 0px 10px 0px;
 }
 name {
   font-weight: bold;
   font-size: 1.5em;
+  display: inline-block;
+  padding-bottom: 5px;
 }
 occupation, type, h3 {
+  font-weight: bold;
   color:rgb(20, 137, 194);
 }
 description {
@@ -75,4 +81,19 @@ description {
   white-space: pre-line;
   padding: 5px 0px 5px 15px;
   display: block;
+}
+card header {
+  font-size: 0.85em;
+  font-weight: bold;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+card small {
+  color: rgb(36, 167, 215);
+}
+card name {
+  font-size: 1.35em;
+}
+card description {
+  font-size: 0.8em;
 }

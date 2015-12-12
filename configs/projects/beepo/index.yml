@@ -44,11 +44,27 @@ characters:
   #   occupation: Producer
   #   description: >
   #     A Lorne Michaels type that comes to Zebtron's sometimes to scope out talent.
-to_cast:
+character_ideas:
   render: true
   list:
-    - A bar buddy
-    - The princess
+    -
+      name: ???
+      occupation: ???
+      role: supporting
+      descriptiom: >
+        A bar buddy
+    -
+      name: ???
+      occupation: Princess
+      role: lead
+      description: >
+        The princess at the abandoned amusement park.
+    -
+      name: ???
+      occupation: Drug Dealer
+      role: other
+      description: >
+        the futuristic robot guy that sells beepo drugs
 themes:
   render: true
   list:
@@ -97,13 +113,22 @@ concept_art:
   render: true
   list:
     -
-      orientation: landscape
-      thumbnail: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c.jpg
-      display: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg
+      name: Beepo Takes a Pipe to Nowhere
+      description: >
+        Beepo takes a pipe to nowhere
+      images:
+        -
+          orientation: landscape
+          thumbnail: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c.jpg
+          display: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg
 concept_art_ideas:
   render: true
   list:
-    - At the showbiz bar
-    - Selling jokes from the trunk
-    - Street view
-    - Comedy Megacorp offices
+    -
+      name: Night Brickin'
+      description: >
+        Beepo hammered destroying bricks at night
+    -
+      name: Apartments of the City
+      description: >
+        Random apartment interiors in the city

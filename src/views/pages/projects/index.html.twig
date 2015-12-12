@@ -11,13 +11,22 @@
     <description>{{projectConfigs.description}}</description>
 
     <section>
-
       <h1>Characters</h1>
       <description>{{projectConfigs.characters.description}}</description>
       {% for character in projectConfigs.characters.list %}
         {% include "pages/projects/partials/character_card.html.twig" %}
       {% endfor %}
     </section>
+
+    {% if projectConfigs.character_ideas %}
+    <section>
+      <h1>Character Ideas</h1>
+      <description>{{projectConfigs.character_ideas.description}}</description>
+      {% for character in projectConfigs.character_ideas.list %}
+        {% include "pages/projects/partials/character_card.html.twig" %}
+      {% endfor %}
+    </section>
+    {% endif %}
 
     <section>
       <h1>Locations</h1>
@@ -30,6 +39,55 @@
         </card>
       {% endfor %}
     </section>
+
+    {% if projectConfigs.location_ideas %}
+      <section>
+        <h1>Location Ideas</h1>
+        <description>{{projectConfigs.location_ideas.description}}</description>
+        {% for location in projectConfigs.location_ideas.list %}
+          <card>
+            <name>{{location.name}}</name><br />
+            <type>{{location.type}}</type>
+            <description>{{location.description}}</description>
+          </card>
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if projectConfigs.possible_plots %}
+      <section>
+        <h1>Possible Plots</h1>
+        <description>{{projectConfigs.possible_plots.description}}</description>
+        {% for plot in projectConfigs.possible_plots.list %}
+          <card>
+            <header>
+              <name>{{plot.name}}</name>
+            </header>
+            <description>{{plot.description}}</description>
+          </card>
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if projectConfigs.concept_art %}
+      <section>
+        <h1>Concept Art</h1>
+        <description>{{projectConfigs.concept_art.description}}</description>
+        {% for art in projectConfigs.concept_art.list %}
+          {% include "pages/projects/partials/concept_art_card.html.twig" %}
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if projectConfigs.concept_art_ideas %}
+      <section>
+        <h1>Concept Art Ideas</h1>
+        <description>{{projectConfigs.concept_art_ideas.description}}</description>
+        {% for art in projectConfigs.concept_art_ideas.list %}
+          {% include "pages/projects/partials/concept_art_card.html.twig" %}
+        {% endfor %}
+      </section>
+    {% endif %}
 
     <section>
       <h1>Inspirations</h1>
