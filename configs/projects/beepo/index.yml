@@ -115,6 +115,7 @@ concept_art:
   render: true
   list:
     -
+      id: 10001
       name: Beepo Takes a Pipe to Nowhere
       description: |
         Beepo takes a pipe to nowhere
@@ -124,11 +125,13 @@ concept_art:
           thumbnail: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c.jpg
           display: https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg
     -
+      id: 10002
       name: Night Brickin'
       status: idea
       description: |
         Beepo hammered destroying bricks at night
     -
+      id: 10003
       name: Apartments of the City
       status: idea
       description: |

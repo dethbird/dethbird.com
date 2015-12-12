@@ -92,8 +92,8 @@ card small {
 card name {
   font-size: 1.35em;
 }
-card preview {
-  cursor: pointer;
+card preview.overlay-trigger {
+  cursor: zoom-in;
 }
 card description {
   margin: 10px 0px 10px 0px;
@@ -121,6 +121,7 @@ overlay content {
     display: block;
     text-align: center;
     padding: 25px;
+    cursor: zoom-out;
 }
 overlay content img.landscape {
   max-width: 960px;

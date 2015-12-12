@@ -1,4 +1,4 @@
-var CharacterCardView = Backbone.View.extend({
+var CardView = Backbone.View.extend({
     model: null,
     initialize: function(options) {
         var that = this;
@@ -21,7 +21,7 @@ var CharacterCardView = Backbone.View.extend({
         });
 
         // click preview to open full size
-        $(this.el).find('preview').click(function(e){
+        $(this.el).find('preview.overlay-trigger').click(function(e){
           var imageIndex = $(e.target).attr('data-image-index');
           var image = that.model.get('images')[imageIndex];
 
@@ -41,4 +41,4 @@ var CharacterCardView = Backbone.View.extend({
     }
 });
 
-module.exports = CharacterCardView;
+module.exports = CardView;

@@ -347,21 +347,25 @@ concept_art:
   render: true
   list:
     -
+      id: 10001
       name: At the showbiz bar
       status: idea
       description: |
         Bob bartending Carl Leander's showbiz bar
     -
+      id: 10002
       name: Selling jokes from the trunk
       status: idea
       description: |
         Don Sandwichbottom selling jokes from his trunk
     -
+      id: 10003
       name: Street view
       status: idea
       description: |
         Hangin in the streets a la Hansons Drug Store
     -
+      id: 10004
       name: Comedy Megacorp offices
       status: idea
       description: |

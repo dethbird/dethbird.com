@@ -7,7 +7,7 @@
   {% if character.images|length %}
     {% for image in character.images %}
       {% if loop.index==1 %}
-        <preview><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
+        <preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
       {% endif %}
     {% endfor %}
     {% if character.images|length > 1 %}

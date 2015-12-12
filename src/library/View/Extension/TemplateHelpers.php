@@ -6,23 +6,18 @@ class TemplateHelpers extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('resizeImage', array($this, 'resizeImage')),
             new \Twig_SimpleFilter('date_format', array($this, 'date_format')),
             new \Twig_SimpleFilter('print_r', array($this, 'print_r')),
             new \Twig_SimpleFilter('json_encode', array($this, 'json_encode')),
             new \Twig_SimpleFilter('strip_tags', array($this, 'strip_tags')),
-            new \Twig_SimpleFilter('fountain', array($this, 'fountain'))
+            new \Twig_SimpleFilter('fountain', array($this, 'fountain')),
+            new \Twig_SimpleFilter('md5', array($this, 'md5'))
         );
     }
     public function date_format($date, $format = "F j, Y g:i:a")
     {
         // echo $date; die();
         return date($format, strtotime($date));
-    }
-    public function resizeImage($url, $width, $height)
-    {
-        $url = parse_url($url);
-        return $url['scheme'] . "://" . $url['host'] . "/w". $width . "-h" . $height . $url['path'];
     }
     public function print_r($output)
     {
@@ -40,6 +35,10 @@ class TemplateHelpers extends \Twig_Extension
     {
         $parser = new Parser();
         return $parser->parse($output);
+    }
+    public function md5($output)
+    {
+        return md5($output);
     }
     public function getName()
     {
