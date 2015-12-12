@@ -1,0 +1,12 @@
+{% extends 'layout-experiments.html.twig' %}
+{% block head %}
+<script type="text/javascript">
+    var config = {{experimentConfigs|json_encode|raw}};
+</script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {{fountain|fountain['html']['script']|raw}}
+
+    <pre>{{fountain|fountain['tokens']|print_r}}</pre>
+{% endblock %}

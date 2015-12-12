@@ -198,11 +198,15 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
     );
     if($name=="gallery001") {
         $instagramData = new InstagramData($configs['instagram']['client_id']);
-        $templateVars['instagramData'] =$instagramData->getRecentMedia($configs['instagram']['user_id'], 60, array(
+        $templateVars['instagramData'] = $instagramData->getRecentMedia($configs['instagram']['user_id'], 60, array(
             "art",
             "drawing",
             "sketchbook"
         ));
+    }
+
+    if($name=="fountain002") {
+        $templateVars['fountain'] = file_get_contents($experimentConfigs[$name]['fountainfile']);
     }
 
     $app->render(
