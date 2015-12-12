@@ -78,8 +78,6 @@ occupation, type, h3 {
 }
 description {
   max-width: 1024px;
-  white-space: pre-line;
-  padding: 5px 0px 5px 15px;
   display: block;
 }
 card header {
@@ -95,5 +93,14 @@ card name {
   font-size: 1.35em;
 }
 card description {
+  margin: 10px 0px 10px 0px;
   font-size: 0.8em;
+}
+card description img {
+  max-width: 240px;
+  height: auto;
+}
+card description ul {
+  padding-left : 10px;
+  list-style: square;
 }

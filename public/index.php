@@ -22,7 +22,8 @@ require_once APPLICATION_PATH . 'src/library/ExternalData/YoutubeData.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/WordpressData.php';
 require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php';
 
-
+use Aptoma\Twig\Extension\MarkdownExtension;
+use Aptoma\Twig\Extension\MarkdownEngine;
 use Symfony\Component\Yaml\Yaml;
 
 // Load configs and add to the app container
@@ -37,11 +38,14 @@ $app = new \Slim\Slim(
         'cookies.cipher_mode' => MCRYPT_MODE_CBC
     )
 );
+$markdownEngine = new MarkdownEngine\MichelfMarkdownEngine();
 $view = $app->view();
 $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
-    new TemplateHelpers()
+    new TemplateHelpers(),
+    new MarkdownExtension($markdownEngine)
 );
+// $view->addExtension(new MarkdownExtension($markdownEngine));
 $app->container->set('configs', $configs);
 
 // Route authentication

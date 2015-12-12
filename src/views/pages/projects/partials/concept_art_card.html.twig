@@ -1,6 +1,7 @@
-<card id="{{art.id}}">
+<card id="{{art.id}}" class="{% if art.status!="" %}{{art.status}}{% else %}ok{% endif %}">
   <header>
     <name>{{art.name}}</name>
+    {% if art.status!="" %}<span class="label label-success">{{art.status}}</span>{% endif %}
   </header>
   {% if art.images|length %}
     {% for image in art.images %}
@@ -18,5 +19,5 @@
   {% else %}
   <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
   {% endif %}
-  <description>{{art.description}}</description>
+  <description>{{art.description|markdown}}</description>
 </card>
