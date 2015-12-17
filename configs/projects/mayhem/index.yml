@@ -22,6 +22,7 @@ characters:
         Kind of the central protagonist here. He himself is a comic artist, but is friends with a lot of comedians. Has the ability to huck anvils out of thin air. Went to art school but bartends at Zebtron's Comedy Club under owner Carl Leander.
 
         He's a bit like Ronnie Wood mixed with Bugs Bunny. He's a good 'ol boy at heart. He really tends to Carl Leander, kind of looks up to him as a father.
+        > You gotta go low down crazy in order to get really wise
 
         ![](http://a142.idata.over-blog.com/1/59/44/42/pipol/ronnie_wood.jpg)
     -
@@ -44,6 +45,10 @@ characters:
         He's not a sleazebag like the other impresarios, often to his detriment. The other impresarios sometimes take advantage of him, and Bob has to come in a save the day.
 
         ![](http://2.bp.blogspot.com/-cBJadivJQbY/UGnYcfpqWNI/AAAAAAAADlw/1GreBJLP25s/s1600/twins.jpg)
+        ![](http://i0.wp.com/goodsparkgarage.com/wp-content/uploads/2013/09/mcguiretwins_4.jpg)
+        ![](http://dm9afq7zol1mi.cloudfront.net/naija.io/media/uploads/1098/fa3dfbd34d589081147544e9019fc812.jpg)
+        Loosely based on Max Asnas:
+        ![](http://4.bp.blogspot.com/-Wb9FTbLPJvc/ULojzy7AdOI/AAAAAAAAF4g/rbAz3OSDjaI/s1600/1955.gif)
     -
       id: diedre_dukes
       name: Diedre Dukes
@@ -62,9 +67,12 @@ characters:
       occupation: Comedian
       role: supporting
       description: |
-        He is Bob's cousin. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone.
+        He is Bob's younger cousin by at least 12 years. He's been divorced. He has a bit of early Marc Maron syndrome in being a bit cantankerous and not having found that thread of love that comes after some age. He's still an angry young man, very bright. But his comedy is not for everyone.
 
         Bob gets it, but that's because they grew up together and thus have some in-jokes that only the 2 of them get.
+
+        <img src="http://www.styleclicker.net/wp-content/uploads/2010/11/101115-Little-Red-Riding-Hood-Berlin-Rosenthaler-Strasse-12.jpg" class="portrait" />
+        <img src="https://s-media-cache-ak0.pinimg.com/736x/ec/c0/e4/ecc0e42d229c58e963303071daa976cd.jpg" class="portrait" />
     -
       id: don_sandwichbottom
       name: Don Sandwichbottom aka "[?] Rodney Dangerfield"
@@ -79,6 +87,8 @@ characters:
       role: supporting
       description: |
         The sister of Don Sandwichbottom. She is attractive and ends up getting commercials more than success as a comedian. Other comedians hit on her but she's a little too smart for them. She and Bob are on and off, we are not sure if they are an item but she does make relationship-related jokes on stage that make you wonder. Or specifically, make Bob wonder.
+        <img src="http://comedycentral.mtvnimages.com/images/NYCF/2014/ctw_2014_emmy_blotnick_02.jpg?" class="landscape" />
+        <img src="http://33.media.tumblr.com/7ec8cee869e4f6bd56f1d1fb8505095c/tumblr_inline_n6nltodGX51qzp2h5.jpg" class="landscape" />
     -
       id: larry_joe
       name: Larry Joe Cody Alouicious
@@ -204,15 +214,23 @@ themes:
   render: true
   list:
     -
+      name: Sponsorship and art
+      description: |
+        Groucho Marx on the relationship between sponsorship and comedy.﻿ [[youtube](https://www.youtube.com/watch?v=xjUUOyS2j3Q)]
+        <iframe src="https://www.youtube.com/embed/xjUUOyS2j3Q" frameborder="0" allowfullscreen></iframe>
+    -
       name: State of Comedy
+      status: idea
       description: |
         Comedy good and bad. Standup, television, Saturday Night Live. SNL especially politicians vying to get on the show for their own PR benefits.
     -
       name: Drugs
+      status: idea
       description: |
         Societal attitudes toward substance use and abuse. People that traffic stereotypes.
     -
       name: State of Pop Culture
+      status: idea
       description: |
         What passes for popular culture. What people consume without even thinking about it. This aspect is probably about fake shows and ads.
 inspirations:
@@ -237,10 +255,18 @@ inspirations:
       description: |
         All the showbiz stuff, like [this episode](https://en.wikipedia.org/wiki/Show_Biz_Bugs "Show Biz Bugs") classic Bugs vs Daffy showbiz rivalry
     -
+      name: It's Always Sunny
+      type: live action tv series
+      description: |
+        The rag-tag gang of misfits and their weird father-figure.
+    -
       name: The Comedians
       type: book
       description: |
+        by Kliph Nesteroff [[blog](http://classicshowbiz.blogspot.com/)]
+
         This book has so much info about the history of comedy. There are amazing and interesting stories about comedians and their lives. The stuff about all hanging out in the drug store not buying anything but using the payphones to talk to their managers and agents whose offices were just upstairs. This is all at around 50th st and Broadway in 1950's Manhattan, which is the time that should be referenced for visual design. Also other high style product/interior designs from the 1950s.
+
         The stuff about the Marx Brothers riding the rails to get to their gigs across the nation. The rise of fall of entertainment stars with evolving media (radio and television).
     -
       name: Red Meat
@@ -257,6 +283,25 @@ plots:
       status: idea
       description: |
         Bob walks Mega-Old-Lady across the street and is astounded because he only thinks that happens on TV.
+    -
+      name: Charles Brownson in: The Rhythm Bandit
+      type: Short
+      status: idea
+      description: |
+        **synopsis**
+
+        * Charles Brownson is lusting after a lady at a bar
+        * He checks her out, does a little indian eye side-to-side thing
+        * He tries talking to her
+        * She stabs him, breaks glass on him, shoots him, he makes really awful painful sounds. It makes Indian fight sounds. She seriously berates him and belittles him and imasculates him to the point of abuse.
+        * Finally, wounded, he gets out on the dance floor, does something with indian music and tablas and all
+        * she ends up falling for him
+        * heart wipe out
+
+        **elements:**
+
+        * mickey and minnie
+        * pepe le pew
     -
       name: ???
       type: Episode
@@ -301,6 +346,8 @@ locations:
       type: restaurant
       description: |
         The caste-system of comedians applies here. Best tables to the top billing.
+        <img src="http://4.bp.blogspot.com/-Dy9dSsSzPfw/ULoMsD4i-lI/AAAAAAAAF1I/52qfzF5ms68/s1600/sate+hirsch.jpg" class="landscape" />
+        Based on [Stage Deli](http://drewfriedman.blogspot.com/2012/12/farewell-stage-deli.html)
     -
       name: Bob's Apartment
       type: apartment

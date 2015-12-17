@@ -236,6 +236,22 @@ $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
   );
 });
 
+$app->get("/notes/:name", function ($name) use ($app) {
+
+  $configs = $app->container->get('configs');
+  $notesConfigs = Yaml::parse(file_get_contents("../configs/notes/".$name.".yml"));
+  $templateVars = array(
+      "configs" => $configs,
+      "currentNote" => $name,
+      "notesConfigs" => $notesConfigs
+  );
+
+  $app->render(
+      'pages/notes/index.html.twig',
+      $templateVars,
+      200
+  );
+});
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 

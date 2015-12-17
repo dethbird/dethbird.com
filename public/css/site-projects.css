@@ -99,15 +99,27 @@ card description {
   margin: 10px 0px 10px 0px;
   font-size: 0.8em;
 }
+card description iframe,
 card description img {
+  margin-top: 5px;
+}
+card description iframe,
+card description img,
+card description img.landscape {
   max-width: 240px;
   height: auto;
 }
+card description img.portrait {
+  max-height: 240px;
+  width: auto;
+}
 card description ul {
-  padding-left : 10px;
+  padding-left : 15px;
   list-style: square;
 }
-
+card description ul > li {
+  margin-bottom: 8px;
+}
 overlay {
     position: absolute;
     top: 0;
