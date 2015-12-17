@@ -1,0 +1,160 @@
+body {
+    color: white;
+    background-color: #191919;
+    padding: 5px;
+    font-family: 'Roboto Mono';
+    text-align: left;
+}
+.body-content {
+  width: 100%;
+  padding: 10px;
+}
+input, select, textarea {
+  color: #111;
+}
+section {
+  margin-top: 50px;
+}
+section h1:after {
+  content: ":";
+}
+securitycontext {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 200px;
+  text-align: right;
+}
+card {
+  background-color: #222;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: inline-block;
+  width: 270px;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+preview {
+  text-align: center;
+  display: block;
+  padding-bottom: 5px;
+}
+thumbnail {
+  cursor: pointer;
+  display: inline-block;
+}
+preview img.landscape,
+thumbnail img.landscape {
+  width: 240px;
+  height: auto;
+}
+thumbnail img.landscape {
+  width: 60px;
+}
+preview img.portrait,
+thumbnail img.portrait {
+  height: 240px;
+  width: auto;
+}
+thumbnail img.portrait {
+  height: 60px;
+}
+thumbnail img {
+  opacity: 0.5;
+}
+thumbnail.active img, thumbnail img:hover {
+  opacity: 1;
+}
+thumbnail.active {
+  box-shadow: 0px 0px 6px 6px rgba(20, 137, 194, 0.8);
+}
+div.thumbnails {
+  margin: 10px 0px 10px 0px;
+}
+name {
+  font-weight: bold;
+  font-size: 1.5em;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+occupation, type, h3 {
+  font-weight: bold;
+  color:rgb(20, 137, 194);
+}
+description {
+  max-width: 1024px;
+  display: block;
+}
+card header {
+  font-size: 0.85em;
+  font-weight: bold;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+card small {
+  color: rgb(36, 167, 215);
+}
+card name {
+  font-size: 1.35em;
+}
+card preview.overlay-trigger {
+  cursor: zoom-in;
+}
+card description {
+  margin: 10px 0px 10px 0px;
+  font-size: 0.8em;
+}
+card description iframe,
+card description img {
+  margin-top: 5px;
+}
+card description iframe,
+card description img,
+card description img.landscape {
+  max-width: 240px;
+  height: auto;
+}
+card description img.portrait {
+  max-height: 240px;
+  width: auto;
+}
+card description ul {
+  padding-left : 15px;
+  list-style: square;
+}
+card description ul > li {
+  margin-bottom: 8px;
+}
+overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    display:none;
+}
+overlay content {
+    display: block;
+    text-align: center;
+    padding: 25px;
+    cursor: zoom-out;
+}
+overlay content img.landscape {
+  max-width: 960px;
+  height: auto;
+}
+overlay content img.portrait {
+  max-height: 960px;
+  width: auto;
+}
+
+/* Bounce In */
+.hvr-bounce-in {
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
