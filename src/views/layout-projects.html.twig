@@ -42,14 +42,13 @@
   <body>
     {% if securityContext.login %}
     <securitycontext>
-      {{securityContext.login}}<br />
       <select id="project">
         <option>select a project ...</option>
         {% for project in securityContext.projects %}
           <option value="{{project}}" {% if currentProject==project %}selected="selected"{% endif %}>{{project}}</option>
         {% endfor %}
       </select>
-      <a href="/logout">logout</a><br />
+      {{securityContext.login}} <a href="/logout">logout</a><br />
     </securitycontext>
     {% endif %}
     <div class="body-content">{% block body %}{% endblock %}</div>
