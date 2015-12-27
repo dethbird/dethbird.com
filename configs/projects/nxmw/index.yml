@@ -1,0 +1,85 @@
+name: North By Midwest
+description: |
+  A story about a Jackass
+characters:
+  render: true
+  description: |
+    The characters
+  list:
+    -
+      id: jackass
+      name: Jackass
+      occupation: Plumber
+      role: lead
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/6/5755/22569031093_aeb7dbdbe3.jpg
+          display: https://c2.staticflickr.com/6/5755/22569031093_aeb7dbdbe3_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/6/5738/23196101915_c185d909b3.jpg
+          display: https://c2.staticflickr.com/6/5738/23196101915_c185d909b3_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/6/5631/22828141069_76e4885915.jpg
+          display: https://c2.staticflickr.com/6/5631/22828141069_76e4885915_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/763/22569031513_86013833e4.jpg
+          display: https://c1.staticflickr.com/1/763/22569031513_86013833e4_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/626/22569031703_935c0752f9.jpg
+          display: https://c1.staticflickr.com/1/626/22569031703_935c0752f9_b.jpg
+      description: |
+        Jackass is the lead character. He's not dopey, but he is naïve somewhat.
+    -
+      id: fanny
+      name: Fanny
+      occupation: Bartender
+      role: lead
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/757/22567619524_b18acc8320.jpg
+          display: https://c1.staticflickr.com/1/757/22567619524_b18acc8320_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/675/22900306400_6c1e9e7b72.jpg
+          display: https://c1.staticflickr.com/1/675/22900306400_6c1e9e7b72_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c1.staticflickr.com/1/604/23196102435_5936421e7f.jpg
+          display: https://c1.staticflickr.com/1/604/23196102435_5936421e7f_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/6/5755/23170008876_c40bd5638f.jpg
+          display: https://c2.staticflickr.com/6/5755/23170008876_c40bd5638f_b.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3.jpg
+          display: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3_b.jpg
+      description: |
+        She a gold digger
+locations:
+  render: true
+  description: |
+    A weird mix between Vegas, NYC, and LA.
+  list:
+    -
+      name: Stankin' Hole
+      type: bar
+      description: |
+        Local worker class pub
+    -
+      name: Abandoned Amusement Park
+      type: amusement park
+      description: |
+        The abandoned amusement park where the princess lives
+    -
+      name: City Apartments
+      type: apartments
+      status: idea
+      description: |
+        Random people's apartments around the city
