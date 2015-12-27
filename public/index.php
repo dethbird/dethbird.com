@@ -239,11 +239,11 @@ $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
 $app->get("/notes/:name", function ($name) use ($app) {
 
   $configs = $app->container->get('configs');
-  $notesConfigs = Yaml::parse(file_get_contents("../configs/notes/".$name.".yml"));
+  $notesMarkdown = file_get_contents("../configs/notes/".$name.".md");
   $templateVars = array(
       "configs" => $configs,
       "currentNote" => $name,
-      "notesConfigs" => $notesConfigs
+      "notesMarkdown" => $notesMarkdown
   );
 
   $app->render(
