@@ -310,6 +310,11 @@ inspirations:
       type: comic
       description: |
         It is such a weird comic book. Dark humor abound.
+    -
+      name: American Pop
+      type: animated movie
+      description: |
+        It's about showbiz, has a chaotic yet refined look.
 plots:
   render: true
   description: plotline, episode and story arc ideas

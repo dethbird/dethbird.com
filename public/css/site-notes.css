@@ -78,8 +78,8 @@ name {
   padding-bottom: 5px;
 }
 occupation, type, h3 {
-  font-weight: bold;
-  color:rgb(20, 137, 194);
+  /*font-weight: bold;*/
+  /*color:rgb(20, 137, 194);*/
 }
 description {
   max-width: 1024px;
