@@ -1,0 +1,15 @@
+{% extends 'layout-notes.html.twig' %}
+{% block head %}
+<script type="text/javascript">
+  var configs = {{configs|json_encode|raw}}
+  var notesConfigs = {{notesConfigs|json_encode|raw}}
+</script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <h1>{{notesMarkdown|markdown}}</h1>
+
+{% endblock %}
+{% block includes %}
+  <!-- <script type="text/javascript" src="/js/pages/notes/note.js"></script> -->
+{% endblock %}

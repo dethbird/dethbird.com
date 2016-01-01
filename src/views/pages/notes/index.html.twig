@@ -2,14 +2,25 @@
 {% block head %}
 <script type="text/javascript">
   var configs = {{configs|json_encode|raw}}
-  var notesConfigs = {{notesConfigs|json_encode|raw}}
+  var files = {{files|json_encode|raw}}
 </script>
 {% endblock %}
 {% block body %}
     {{ parent() }}
-    <h1>{{notesMarkdown|markdown}}</h1>
+    order by: <a id="btn-sort-by-name">Name</a> | <a id="btn-sort-by-mtime">Mtime</a>
+    <div class="file">
+        <div class="name"><h5>Name</h5></div>
+        <div class="mtime"><h5>Mtime</h5></div>
+    </div>
+    <div id="files"></div>
 
 {% endblock %}
 {% block includes %}
-  <script type="text/javascript" src="/js/pages/notes/index.js"></script>
+    <script type="text/template" id="template-file">
+        <div class="file">
+            <div class="name"><a href="/notes/<%-linkName%>"><%-name%></a></div>
+            <div class="mtime"><%-mtimeDisplay%></div>
+        </div>
+    </script>
+    <script type="text/javascript" src="/js/pages/notes/index.js"></script>
 {% endblock %}

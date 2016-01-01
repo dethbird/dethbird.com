@@ -94,35 +94,35 @@ $app->get("/login", function () use ($app) {
 });
 $app->post("/login", function () use ($app) {
 
-  $app->response->headers->set('Content-Type', 'application/json');
-  $users = Yaml::parse(file_get_contents("../configs/users.yml"));
-  $_user = null;
-  foreach($users as $user) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $users = Yaml::parse(file_get_contents("../configs/users.yml"));
+    $_user = null;
+    foreach($users as $user) {
     if(
-      $app->request->params('username')==$user['login']
-      && $app->request->params('password')==$user['password']
+        $app->request->params('username')==$user['login']
+        && $app->request->params('password')==$user['password']
     ) {
-      unset($user['password']);
-      $user['redirectTo'] = $_SESSION['redirectTo'];
-      $_user = $user;
-      break;
+        unset($user['password']);
+        $user['redirectTo'] = $_SESSION['redirectTo'];
+        $_user = $user;
+        break;
     }
-  }
-  if(is_null($_user)){
-    $app->halt(404);
-  } else {
-    $app->setCookie(
-        "securityContext",
-        json_encode($_user),
-        "1 days"
-    );
-    $app->response->setBody(json_encode($_user));
-  }
+    }
+    if(is_null($_user)){
+        $app->halt(404);
+    } else {
+        $app->setCookie(
+            "securityContext",
+            json_encode($_user),
+            "1 days"
+        );
+        $app->response->setBody(json_encode($_user));
+    }
 });
 
 $app->get("/logout", function () use ($app) {
-  $app->deleteCookie('securityContext');
-  $app->redirect("/");
+    $app->deleteCookie('securityContext');
+    $app->redirect("/");
 });
 
 $app->get("/", function () use ($app) {
@@ -220,37 +220,69 @@ $app->get("/experiments/:name", $authenticate($app), function ($name) use ($app)
 /** public / private project wikis **/
 $app->get("/projects/:name", $authenticate($app), function ($name) use ($app) {
 
-  $configs = $app->container->get('configs');
-  $projectConfigs = Yaml::parse(file_get_contents("../configs/projects/".$name."/index.yml"));
-  $templateVars = array(
-      "configs" => $configs,
-      "securityContext" => json_decode($app->getCookie('securityContext')),
-      "currentProject" => $name,
-      "projectConfigs" => $projectConfigs
-  );
+    $configs = $app->container->get('configs');
+    $projectConfigs = Yaml::parse(file_get_contents("../configs/projects/".$name."/index.yml"));
+    $templateVars = array(
+        "configs" => $configs,
+        "securityContext" => json_decode($app->getCookie('securityContext')),
+        "currentProject" => $name,
+        "projectConfigs" => $projectConfigs
+    );
 
-  $app->render(
-      'pages/projects/index.html.twig',
-      $templateVars,
-      200
-  );
+    $app->render(
+        'pages/projects/index.html.twig',
+        $templateVars,
+        200
+    );
+
+});
+
+
+/** publically acceessible notes */
+$app->get("/notes", function () use ($app) {
+
+    // get directory listing for notes
+    $directory = new \RecursiveDirectoryIterator(APPLICATION_PATH . "/configs/notes");
+    $objects = new RecursiveIteratorIterator($directory);
+    $files = array();
+
+    foreach($objects as $filepath => $fileinfo){
+        // print_r($fileinfo);
+        $file = new stdClass();
+        $file->name = $fileinfo->getFilename();
+        $file->ctime = $fileinfo->getCTime();
+        $file->mtime = $fileinfo->getMTime();
+        $files[] = $file;
+    }
+
+    $configs = $app->container->get('configs');
+    $templateVars = array(
+        "configs" => $configs,
+        "files" => $files
+    );
+
+    $app->render(
+        'pages/notes/index.html.twig',
+        $templateVars,
+        200
+    );
 });
 
 $app->get("/notes/:name", function ($name) use ($app) {
 
-  $configs = $app->container->get('configs');
-  $notesMarkdown = file_get_contents("../configs/notes/".$name.".md");
-  $templateVars = array(
-      "configs" => $configs,
-      "currentNote" => $name,
-      "notesMarkdown" => $notesMarkdown
-  );
+    $configs = $app->container->get('configs');
+    $notesMarkdown = file_get_contents("../configs/notes/".$name.".md");
+    $templateVars = array(
+        "configs" => $configs,
+        "currentNote" => $name,
+        "notesMarkdown" => $notesMarkdown
+    );
 
-  $app->render(
-      'pages/notes/index.html.twig',
-      $templateVars,
-      200
-  );
+    $app->render(
+        'pages/notes/note.html.twig',
+        $templateVars,
+        200
+    );
 });
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
