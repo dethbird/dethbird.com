@@ -29,6 +29,7 @@ if($options['php']!="") {
   shell_exec("curl -sS https://getcomposer.org/installer | php");
   shell_exec("php composer.phar install");
   shell_exec("rm -rf composer.phar");
+  shell_exec("chmod -R 777 configs/*");
 }
 
 // javascript
