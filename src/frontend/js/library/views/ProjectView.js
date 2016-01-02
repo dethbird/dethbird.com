@@ -17,16 +17,17 @@ var ProjectView = Backbone.View.extend({
           });
         });
 
-        this.conceptArtCollection = new Backbone.Collection();
-        $.each(options.configs.concept_art.list, function(i,item){
-          item = new Backbone.Model(item);
-          that.conceptArtCollection.add(item);
-          console.log(item);
-          var card = new CardView({
-              el: '#' + item.get('id'),
-              model: item
+        if(options.configs.concept_art!=undefined) {
+          this.conceptArtCollection = new Backbone.Collection();
+          $.each(options.configs.concept_art.list, function(i,item){
+            item = new Backbone.Model(item);
+            that.conceptArtCollection.add(item);
+            var card = new CardView({
+                el: '#' + item.get('id'),
+                model: item
+            });
           });
-        });
+        }
 
         $('#project').on('change', function(e){
           document.location = '/projects/' + $(e.currentTarget).find('option:selected').val();

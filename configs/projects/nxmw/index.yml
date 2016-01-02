@@ -62,24 +62,3 @@ characters:
           display: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3_b.jpg
       description: |
         She a gold digger
-locations:
-  render: true
-  description: |
-    A weird mix between Vegas, NYC, and LA.
-  list:
-    -
-      name: Stankin' Hole
-      type: bar
-      description: |
-        Local worker class pub
-    -
-      name: Abandoned Amusement Park
-      type: amusement park
-      description: |
-        The abandoned amusement park where the princess lives
-    -
-      name: City Apartments
-      type: apartments
-      status: idea
-      description: |
-        Random people's apartments around the city

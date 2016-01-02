@@ -40,6 +40,7 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <div class="body-content">{% block body %}{% endblock %}</div>
     {% if securityContext.login %}
     <securitycontext>
       <select id="project">
@@ -51,7 +52,6 @@
       {{securityContext.login}} <a href="/logout">logout</a><br />
     </securitycontext>
     {% endif %}
-    <div class="body-content">{% block body %}{% endblock %}</div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>

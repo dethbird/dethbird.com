@@ -18,6 +18,7 @@
       {% endfor %}
     </section>
 
+    {% if projectConfigs.locations %}
     <section>
       <h1>Locations</h1>
       <description>{{projectConfigs.locations.description|markdown}}</description>
@@ -31,6 +32,7 @@
         </card>
       {% endfor %}
     </section>
+    {% endif %}
 
     {% if projectConfigs.concept_art %}
       <section>
@@ -59,17 +61,19 @@
       </section>
     {% endif %}
 
-    <section>
-      <h1>Inspirations</h1>
-      <description>{{projectConfigs.inspirations.description|markdown}}</description>
-      {% for inspiration in projectConfigs.inspirations.list %}
-        <card>
-          <name>{{inspiration.name}}</name><br />
-          <type>{{inspiration.type}}</type>
-          <description>{{inspiration.description|markdown}}</description>
-        </card>
-      {% endfor %}
-    </section>
+    {% if projectConfigs.inspirations %}
+      <section>
+        <h1>Inspirations</h1>
+        <description>{{projectConfigs.inspirations.description|markdown}}</description>
+        {% for inspiration in projectConfigs.inspirations.list %}
+          <card>
+            <name>{{inspiration.name}}</name><br />
+            <type>{{inspiration.type}}</type>
+            <description>{{inspiration.description|markdown}}</description>
+          </card>
+        {% endfor %}
+      </section>
+    {% endif %}
 
     {% if projectConfigs.themes %}
       <section>
