@@ -247,10 +247,9 @@ $app->get("/notes", function () use ($app) {
     $files = array();
 
     foreach($objects as $filepath => $fileinfo){
-        // print_r($fileinfo);
         $file = new stdClass();
         $file->name = $fileinfo->getFilename();
-        $file->ctime = $fileinfo->getCTime();
+        $file->name = $fileinfo->getFilename();
         $file->mtime = $fileinfo->getMTime();
         $files[] = $file;
     }
@@ -258,6 +257,7 @@ $app->get("/notes", function () use ($app) {
     $configs = $app->container->get('configs');
     $templateVars = array(
         "configs" => $configs,
+        "securityContext" => json_decode($app->getCookie('securityContext')),
         "files" => $files
     );
 
@@ -268,14 +268,15 @@ $app->get("/notes", function () use ($app) {
     );
 });
 
-$app->get("/notes/:name", function ($name) use ($app) {
+$app->get("/note/:name", function ($name) use ($app) {
 
     $configs = $app->container->get('configs');
-    $notesMarkdown = file_get_contents("../configs/notes/".$name.".md");
+    $noteMarkdown = file_get_contents("../configs/notes/".$name.".md");
     $templateVars = array(
         "configs" => $configs,
+        "securityContext" => json_decode($app->getCookie('securityContext')),
         "currentNote" => $name,
-        "notesMarkdown" => $notesMarkdown
+        "noteMarkdown" => $noteMarkdown
     );
 
     $app->render(
@@ -284,6 +285,16 @@ $app->get("/notes/:name", function ($name) use ($app) {
         200
     );
 });
+
+$app->post("/note/:name", $authenticate($app), function ($name) use ($app) {
+    $bytes = file_put_contents("../configs/notes/".$name.".md", $app->request->params('content'));
+    $data = new stdClass();
+    $data->bytesWritten = $bytes;
+
+    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->setBody(json_encode($data));
+});
+
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 

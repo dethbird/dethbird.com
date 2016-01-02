@@ -1,15 +1,29 @@
 {% extends 'layout-notes.html.twig' %}
 {% block head %}
 <script type="text/javascript">
-  var configs = {{configs|json_encode|raw}}
-  var notesConfigs = {{notesConfigs|json_encode|raw}}
+  var configs = {{configs|json_encode|raw}};
+  var currentNote = "{{currentNote}}";
+  var noteMarkdown = "{{noteMarkdown|raw|escape('js')}}";
 </script>
 {% endblock %}
 {% block body %}
     {{ parent() }}
-    <h1>{{notesMarkdown|markdown}}</h1>
-
+    <h4>{{currentNote}}.md</h4>
+    <a href="/notes" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+    {% if securityContext.login %}
+      <a class="btn btn-primary btn-xs" id="btn-toggle-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+      <a class="btn btn-success btn-xs hidden" id="btn-save"><span class="glyphicon glyphicon-hdd" aria-hidden="true"></span></a>
+    {% endif %}
+    <div id="note-view">
+      {{noteMarkdown|markdown}}
+    </div>
+    <div id="note-edit" class="hidden">
+      <div id="editor">
+      <textarea v-model="input" debounce="300">{{noteMarkdown|raw}}</textarea>
+      <div v-html="input | marked"></div>
+      </div>
+    </div>
 {% endblock %}
 {% block includes %}
-  <!-- <script type="text/javascript" src="/js/pages/notes/note.js"></script> -->
+  <script type="text/javascript" src="/js/pages/notes/note.js"></script>
 {% endblock %}
