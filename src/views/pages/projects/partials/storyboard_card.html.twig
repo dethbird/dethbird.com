@@ -1,0 +1,19 @@
+<card id="{{board.id}}" class="{% if board.status!="" %}{{board.status}}{% else %}ok{% endif %}">
+  {% if board.images|length %}
+    {% for image in board.images %}
+      {% if loop.index==1 %}
+        <preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
+      {% endif %}
+    {% endfor %}
+    {% if board.images|length > 1 %}
+    <div class="thumbnails">
+      {% for image in board.images %}
+          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% else %}
+  <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
+  {% endif %}
+  <description>{{board.notes|markdown}}</description>
+</card>

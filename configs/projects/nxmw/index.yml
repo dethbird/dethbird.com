@@ -62,3 +62,41 @@ characters:
           display: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3_b.jpg
       description: |
         She a gold digger
+resources: >
+
+  * [Original PDF of the book from Jon](https://drive.google.com/open?id=0B3I1UYm_FEJrajF2d1pSMTM2MzQ)
+
+  * myscriptfont.com for the text
+storyboards:
+  -
+    name: Book 01
+    boards:
+      -
+        id: nxmw-storyboard-01
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1528/23572486563_003da5f7d0.jpg
+            display: https://c2.staticflickr.com/2/1528/23572486563_003da5f7d0_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1445/23831478379_8e42bded7c.jpg
+            display: https://c2.staticflickr.com/2/1445/23831478379_8e42bded7c_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1557/23903697090_fc902c6e57.jpg
+            display: https://c2.staticflickr.com/2/1557/23903697090_fc902c6e57_b.jpg
+      -
+        id: nxmw-storyboard-02
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1445/23831478379_8e42bded7c.jpg
+            display: https://c2.staticflickr.com/2/1445/23831478379_8e42bded7c_b.jpg
+      -
+        id: nxmw-storyboard-03
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1557/23903697090_fc902c6e57.jpg
+            display: https://c2.staticflickr.com/2/1557/23903697090_fc902c6e57_b.jpg

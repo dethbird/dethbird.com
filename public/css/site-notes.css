@@ -5,6 +5,10 @@ body {
     font-family: 'Roboto Mono';
     text-align: left;
 }
+blockquote {
+  font-size: 0.9em;
+  width: 60%;
+}
 .body-content {
   width: 100%;
   padding: 10px;

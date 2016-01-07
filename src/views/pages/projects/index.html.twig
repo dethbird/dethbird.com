@@ -34,12 +34,40 @@
     </section>
     {% endif %}
 
+    {% if projectConfigs.reference_images %}
+      <section>
+        <h1>Reference Images</h1>
+        <description>{{projectConfigs.reference_images.description|markdown}}</description>
+        {% for image in projectConfigs.reference_images.list %}
+          <card>
+            <preview><img src="{{image.url}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
+            {% if image.note %}
+              <description>{{image.note|markdown}}</description>
+            {% endif %}
+          </card>
+        {% endfor %}
+      </section>
+    {% endif %}
+
     {% if projectConfigs.concept_art %}
       <section>
         <h1>Concept Art</h1>
         <description>{{projectConfigs.concept_art.description|markdown}}</description>
         {% for art in projectConfigs.concept_art.list %}
           {% include "pages/projects/partials/concept_art_card.html.twig" %}
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if projectConfigs.storyboards %}
+      <section>
+        <h1>Storyboards</h1>
+        <description>{{projectConfigs.storyboards.description|markdown}}</description>
+        {% for storyboard in projectConfigs.storyboards %}
+          <h3>{{storyboard.name}}</h3>
+          {% for board in storyboard.boards %}
+            {% include "pages/projects/partials/storyboard_card.html.twig" %}
+          {% endfor %}
         {% endfor %}
       </section>
     {% endif %}
@@ -90,6 +118,21 @@
         {% endfor %}
       </section>
     {% endif %}
+
+    {% if projectConfigs.resources %}
+      <section>
+        <h1>Resources</h1>
+        <description>{{projectConfigs.resources|markdown}}</description>
+      </section>
+    {% endif %}
+
+    {% if projectConfigs.research %}
+      <section>
+        <h1>Research</h1>
+        <description>{{projectConfigs.research|markdown}}</description>
+      </section>
+    {% endif %}
+
 
     <overlay>
       <content></content>
