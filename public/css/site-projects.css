@@ -139,11 +139,11 @@ overlay content {
     cursor: zoom-out;
 }
 overlay content img.landscape {
-  max-width: 960px;
+  max-width: 90%;
   height: auto;
 }
 overlay content img.portrait {
-  max-height: 960px;
+  max-height: 90%;
   width: auto;
 }
 

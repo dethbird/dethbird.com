@@ -33,7 +33,6 @@ var ProjectView = Backbone.View.extend({
           $.each(options.configs.storyboards, function(i,storyboard){
               $.each(storyboard.boards, function(i,item){
                 item = new Backbone.Model(item);
-                console.log(item);
                 var card = new CardView({
                     el: '#' + item.get('id'),
                     model: item
