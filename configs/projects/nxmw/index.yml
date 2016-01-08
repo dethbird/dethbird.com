@@ -351,3 +351,14 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1524/24091242722_74beb03ca3.jpg
             display: https://c2.staticflickr.com/2/1524/24091242722_9c330cd661_k.jpg
+reference_images:
+  description: |
+    - Childrens' book illustration styles
+    - Color palletes
+    - Visual Reference Photos
+  list:
+    -
+      orientation: portrait
+      url: http://56.media.tumblr.com/b2da11859252ab18dbf98991382e0db8/tumblr_nzoc1sGG0l1qz9v0to5_1280.jpg
+      note: |
+        muted colors, line work
