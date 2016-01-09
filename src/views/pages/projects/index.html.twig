@@ -35,16 +35,11 @@
     {% endif %}
 
     {% if projectConfigs.reference_images %}
-      <section>
+      <section class="reference_images">
         <h1>Reference Images</h1>
         <description>{{projectConfigs.reference_images.description|markdown}}</description>
         {% for image in projectConfigs.reference_images.list %}
-          <card>
-            <preview><img src="{{image.url}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
-            {% if image.note %}
-              <description>{{image.note|markdown}}</description>
-            {% endif %}
-          </card>
+          {% include "pages/projects/partials/reference_image_card.html.twig" %}
         {% endfor %}
       </section>
     {% endif %}

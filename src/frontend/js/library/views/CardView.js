@@ -5,7 +5,6 @@ var CardView = Backbone.View.extend({
         this.model = options.model;
         // click thumbnails to select preview
         $(this.el).find('thumbnail').click(function(e){
-            console.log(e);
             // active states of thumbnails
             $(that.el).find('thumbnail').removeClass('active');
             $(e.currentTarget).addClass('active');
