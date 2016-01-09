@@ -32,6 +32,9 @@ card {
   vertical-align: top;
   word-wrap: break-word;
 }
+section.storyboards card {
+  width: 550px;
+}
 preview {
   text-align: center;
   display: block;
@@ -49,6 +52,9 @@ thumbnail img.landscape {
 thumbnail img.landscape {
   width: 60px;
 }
+section.storyboards preview img.landscape {
+  width: 500px;
+}
 preview img.portrait,
 thumbnail img.portrait {
   height: 240px;
@@ -56,6 +62,9 @@ thumbnail img.portrait {
 }
 thumbnail img.portrait {
   height: 60px;
+}
+section.storyboards preview img.portrait {
+  height: 500px;
 }
 thumbnail img {
   opacity: 0.5;

@@ -356,9 +356,55 @@ reference_images:
     - Childrens' book illustration styles
     - Color palletes
     - Visual Reference Photos
+    - texture
+    - paper color
   list:
+    -
+      orientation: landscape
+      url: http://rlv.zcache.com/tiger_storybook_cloth_placemat-ra53f2976e5094db8b42766fef5b6f108_2cfku_8byvr_324.jpg
+      note: |
+        looks like illustration from the 1800s but updated to have a comic book style.
+
+        desaturated, contrast lowered. there is no 100% black which is why the tiger's back leg works so well
+    -
+      orientation: landscape
+      url: http://rlv.zcache.com/svc/view?rlvnet=1&realview=113805996568903071&design=095a08fc-149e-4ee5-a30a-4337a18731f4&style=20x14&max_dim=1024&hide=bleed%2Csafe%2CvisibleMask&r=1452344565049
+      note: |
+        see prev
+    -
+      orientation: landscape
+      url: http://rlv.zcache.com/svc/view?rlvnet=1&realview=113381087925757000&design=0a205344-4108-4971-9a58-a2f66b73844f&size=%5B16.0000%2C20.3636%5D&media=value_posterpaper_matte&max_dim=1024&hide=bleed%2Csafe%2CvisibleMask&r=1452344673673
+      note: |
+        see prev.
+    -
+      orientation: portrait
+      url: http://s3images.coroflot.com/user_files/individual_files/182303_i78szb47StIOqE6mbTzVUimtE.jpg
+      note: |
+        line work, color pallete
     -
       orientation: portrait
       url: http://56.media.tumblr.com/b2da11859252ab18dbf98991382e0db8/tumblr_nzoc1sGG0l1qz9v0to5_1280.jpg
       note: |
-        muted colors, line work
+        color pallete, line work
+    -
+      orientation: landscape
+      url: http://www.neatorama.com/wp-content/uploads/2009/11/best-7-600.jpg
+      note: |
+        color pallete
+    -
+      orientation: landscape
+      url: http://paintersoflouisville.com/wp-content/uploads/2013/10/where-the-wild-things-are-illustrations1.jpg
+      note: |
+        line work
+    -
+      orientation: landscape
+      url: http://tutorial9.s3.amazonaws.com/uploads/2009/03/children-bookillustration.jpg
+      note: |
+        commposition, line work. Use of bold black areas.
+    -
+      orientation: landscape
+      url: http://digital-art-gallery.com/oid/22/1000x729_5654_Dino_and_schoolgirl_2d_illustration_book_dinosaur_children_watercolor_trex_picture_image_digital_art.jpg
+      note: |
+        commposition, line work.
+
+        The natural frame created by the watercolor.
