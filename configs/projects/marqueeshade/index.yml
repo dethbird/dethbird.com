@@ -514,24 +514,31 @@ reference_images:
     - 1970s New York
   list:
     -
+      id: reference_image001
       orientation: landscape
       url: http://www.vernissage-museen.de/kuenstler/Kunsthalle_D%C3%BCsseldorf_Pop/werke/02-FancyBox.jpg)
     -
+      id: reference_image002
       orientation: landscape
       url: https://lh3.googleusercontent.com/-bT72dQdRijDKFWKpbEOPd9wsXLs7FNZ5wXR_XKRo2dLSuCEkRZXG87yGCEPpepYDeTxLWnfvpn3Pc2L6M7hFfL4Cl8RubU7ZyEY4WxMcu_CAHg7HSlE_mdjzw
     -
+      id: reference_image003
       orientation: landscape
       url: https://ephemeralnewyork.files.wordpress.com/2012/02/larsentimessquare.jpg
     -
+      id: reference_image004
       orientation: landscape
       url: http://2.bp.blogspot.com/-Iv6q3K-JlAQ/UisH9ZS2wyI/AAAAAAAANBA/cG648R7r_vY/s1600/47th+Street+-+New+York+-+1957+-+photograph+by+Andr%C3%A9+Rob%C3%A9.jpg
     -
+      id: reference_image005
       orientation: landscape
       url: http://www.loc.gov/exhibits/bobhope/images/vc22.jpg
     -
+      id: reference_image006
       orientation: portrait
       url: https://upload.wikimedia.org/wikipedia/commons/7/7e/Kitty_Wells_Johnnie_and_Ruby_Wright_Jack_Anglin_Roy_Acuff_RKO_Palace_New_York_1955.jpg
     -
+      id: reference_image007
       orientation: portrait
       url: http://mashkulture.net/wp-content/uploads/2012/02/frank-oscar-larson-1950s-new-york-street-stories-25.jpg
       note: |
