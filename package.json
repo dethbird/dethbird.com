@@ -3,6 +3,8 @@
     "browserify": "12.*",
     "fountain-js": "0.0.1",
     "jquery": "^2.1.4",
+    "marked": "^0.3.5",
+    "moment": "^2.11.1",
     "timeago": "^1.4.3",
     "uglify-js": "^2.5.0"
   },
