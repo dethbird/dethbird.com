@@ -362,11 +362,19 @@ reference_images:
     -
       id: reference_image001
       orientation: landscape
-      url: http://rlv.zcache.com/tiger_storybook_cloth_placemat-ra53f2976e5094db8b42766fef5b6f108_2cfku_8byvr_324.jpg
+      url: http://rlv.zcache.com/svc/view?rlvnet=1&realview=113443160207323201&design=be63eedf-779d-426a-bb92-b54368293bd8&type=standard_postcard&max_dim=1024&hide=bleed%2Csafe%2CvisibleMask&r=1452348328459
       note: |
         looks like illustration from the 1800s but updated to have a comic book style.
 
         desaturated, contrast lowered. there is no 100% black which is why the tiger's back leg works so well
+
+        [source](http://www.zazzle.com/tiger_alphabet_postcard-239475347601651440)
+    -
+      id: reference_image010
+      orientation: landscape
+      url: http://rlv.zcache.com/svc/view?rlvnet=1&realview=113805996568903071&design=a53f2976-e509-4db8-b427-66fef5b6f108&style=20x14&max_dim=1024&hide=bleed%2Csafe%2CvisibleMask&r=1452348447885
+      note: |
+        better palette than previous one
     -
       id: reference_image002
       orientation: landscape
@@ -375,10 +383,12 @@ reference_images:
         see prev
     -
       id: reference_image003
-      orientation: landscape
+      orientation: portrait
       url: http://rlv.zcache.com/svc/view?rlvnet=1&realview=113381087925757000&design=0a205344-4108-4971-9a58-a2f66b73844f&size=%5B16.0000%2C20.3636%5D&media=value_posterpaper_matte&max_dim=1024&hide=bleed%2Csafe%2CvisibleMask&r=1452344673673
       note: |
         see prev.
+
+        nice texture
     -
       id: reference_image004
       orientation: portrait
@@ -417,3 +427,17 @@ reference_images:
         commposition, line work.
 
         The natural frame created by the watercolor.
+    -
+      id: reference_image011
+      orientation: portrait
+      url: https://s-media-cache-ak0.pinimg.com/736x/91/b2/37/91b237612394a415db044dd355312f0f.jpg
+      note: |
+        Nice color palette. Too realistic, but good colors.
+    -
+      id: reference_image012
+      orientation: landscape
+      url: http://56.media.tumblr.com/0795570a334b26e4f7890f868e0c66b1/tumblr_mou416EDkr1sva8ejo1_500.jpg
+      note: |
+        line work, color palette.
+
+        [source](http://artistsanimals.tumblr.com/post/54186425339/artist-a-weisgerber-book-illustration-from)
