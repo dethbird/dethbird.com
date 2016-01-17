@@ -32,6 +32,12 @@ if($options['php']!="") {
   shell_exec("chmod -R 777 configs/*");
 }
 
+// node
+if($options['node']!="") {
+    shell_exec("rm -rf node_modules");
+    shell_exec("npm install");
+}
+
 // javascript
 if($options['js']!="") {
   echo "js:".$options['js']."\n";
