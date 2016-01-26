@@ -9,7 +9,6 @@ characters:
     -
       id: jackass
       name: Jackass
-      occupation: Plumber
       role: lead
       images:
         -
@@ -37,7 +36,6 @@ characters:
     -
       id: fanny
       name: Fanny
-      occupation: Bartender
       role: lead
       images:
         -
@@ -60,6 +58,21 @@ characters:
           orientation: portrait
           thumbnail: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3.jpg
           display: https://c2.staticflickr.com/6/5655/23196102585_1b82cb21c3_b.jpg
+      description: |
+        She a gold digger
+    -
+      id: chickenbutt
+      name: Chicken Butt
+      role: supporting
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/2/1593/24602904065_5972a741e3_z.jpg
+          display: https://c2.staticflickr.com/2/1593/24602904065_1a5d24fabd_h.jpg
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/2/1504/24602586495_d56cd77d1d_z.jpg
+          display: https://c2.staticflickr.com/2/1504/24602586495_aca90c3e1c_h.jpg
       description: |
         She a gold digger
 resources: >
@@ -132,6 +145,10 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1468/24480574735_203eb000a9.jpg
+            display: https://c2.staticflickr.com/2/1468/24480574735_822004aded_h.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1649/23903696290_296fe980f8.jpg
             display: https://c2.staticflickr.com/2/1649/23903696290_bd4ebe9671_k.jpg
       -
@@ -172,6 +189,10 @@ storyboards:
       -
         id: nxmw-storyboard-15
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1585/24429692702_96a0dff7ac_z.jpg
+            display: https://c2.staticflickr.com/2/1585/24429692702_91192fa1a9_h.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1522/24091246882_116330d561.jpg
@@ -249,6 +270,10 @@ storyboards:
       -
         id: nxmw-storyboard-26
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1521/23871500464_b6761d5ded_z.jpg
+            display: https://c2.staticflickr.com/2/1521/23871500464_66de97766b_h.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1666/24173189516_a20afb8cb1.jpg
@@ -351,6 +376,19 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1524/24091242722_74beb03ca3.jpg
             display: https://c2.staticflickr.com/2/1524/24091242722_9c330cd661_k.jpg
+concept_art:
+  render: true
+  list:
+    -
+      id: 10001
+      name: Weird Dog
+      description: |
+        Working out the look of the pages. Tanned pages with some patina. Organic watercolor background with tight illustration over it.
+      images:
+        -
+          orientation: landscape
+          thumbnail: https://c2.staticflickr.com/2/1554/23911266843_b52a65c2db_z.jpg
+          display: https://c2.staticflickr.com/2/1554/23911266843_4518f3dc55_o.jpg
 reference_images:
   description: |
     - Childrens' book illustration styles
