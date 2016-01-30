@@ -1,0 +1,83 @@
+.body-background {
+  width: 100%;
+  height: 442px;
+  top: -201px;
+  position: absolute;
+  text-align: center;
+}
+.body-content {
+  text-align: center;
+  position: absolute;
+}
+hr.dots {
+  border-bottom: 6px dotted #faca50;
+  max-width: 800px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+card {
+  display: inline-block;
+  width: 600px;
+  margin-right: 10px;
+  vertical-align: top;
+}
+card img {
+  max-width: 550px;
+  height: auto;
+}
+menu {
+  display: inline-block;
+  padding: 0px;
+  min-height: 95px;
+}
+menu ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+menu ul li {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+menu ul li a {
+  color: #faca50;
+}
+menu img.logo {
+  display: inline-block;
+  max-width: 312px;
+  margin-right: 15px;
+}
+menu img.donate {
+  max-width: 90px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.hex {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  vertical-align: middle;
+}
+.hex img {
+  position: absolute;
+  width: 90px;
+  left: 0;
+  top: 0;
+}
+.hex a {
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  left: 0;
+  top: 28px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  color: #f7b651;
+
+}
+.hex a.twoline {
+  top: 16px;
+}

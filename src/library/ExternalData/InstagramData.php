@@ -12,27 +12,6 @@ class InstagramData extends DataBase {
         parent::__construct();
     }
 
-    /**
-     *
-     * @return array() a collection of media objects decoded from the youtube api response
-     */
-    public function getEmbedMedia($shortcodes, $maxwidth = 525)
-    {
-        $cacheKey = md5("instagramShortcodes:" . implode("|", $shortcodes) . $maxwidth);
-        $cache = $this->retrieveCache($cacheKey);
-
-        if(!$cache) {
-            foreach ($shortcodes as $id) {
-                $response = $this->httpClient->get( 'http://api.instagram.com/publicapi/oembed/?url=' . $id . '&maxwidth=' .$maxwidth )->send();
-                $response = json_decode($response->getBody(true));
-                $data[] = $response;
-            }
-            $this->storeCache($cacheKey, $data);
-            return $data;
-        } else {
-            return $cache;
-        }
-    }
 
     /**
      *
@@ -55,19 +34,17 @@ class InstagramData extends DataBase {
                 }
                 $response = $this->httpClient->get( $url )->send();
                 $response = json_decode($response->getBody(true));
-
                 foreach($response->data as $d) {
                     if(count($data) < $count) {
-                        $add = false;
-                        foreach ($tags as $tag) {
-                            if(count($tags) > 0) {
-                                if(in_array($tag, $d->tags)) {
-                                    $data[] = $d;
-                                    break;
-                                }
-                            } else {
-                                $data[] = $d;
+                        if(count($tags) > 0) {
+                            foreach ($tags as $tag) {
+                              if(in_array($tag, $d->tags)) {
+                                  $data[] = $d;
+                                  break;
+                              }
                             }
+                        } else {
+                            $data[] = $d;
                         }
                     } else {
                         break;
@@ -83,5 +60,31 @@ class InstagramData extends DataBase {
 
         return $data;
 
+    }
+
+    /**
+    *
+    * @param $data array of instagram post objects (from media API)
+    * @return array() a collection of media objects decoded from the instagram api response
+    */
+    public function getEmbedMedia($data, $maxwidth = 525)
+    {
+        $shortcodes = array();
+        foreach ($data as $d) {
+          $shortcodes[] = $d->link;
+        }
+        $cacheKey = md5("instagramShortcodes:" . implode("|", $shortcodes) . $maxwidth);
+        $cache = $this->retrieveCache($cacheKey);
+        if(!$cache) {
+            foreach ($shortcodes as $id) {
+                $response = $this->httpClient->get( 'http://api.instagram.com/publicapi/oembed/?url=' . $id . '&maxwidth=' .$maxwidth )->send();
+                $response = json_decode($response->getBody(true));
+                $data[] = $response;
+            }
+            $this->storeCache($cacheKey, $data);
+            return $data;
+        } else {
+            return $cache;
+        }
     }
 }

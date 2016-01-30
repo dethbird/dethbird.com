@@ -4,10 +4,36 @@
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-  whitelabel site
 
+  <h3>Empowering women in need with the tools to create a fulfilling livelihood through the power of beauty</h3>
+  <hr class="dots" />
+  <h1>Fearless Beauty empowers underprivileged women. By providing education and mentorship, we are building communities founded in mindfulness, support, and inclusivity. Fearless women will create a sustainable income for themselves using beauty as a tool to liberate and heal.</h1>
+  <hr class="dots" />
+    {% for post in wordpressPosts %}
+    <card class='wordpress'>
+
+      <title>{{post.title.rendered|raw}}</title>
+      {% if post.featured_image.media_details!="" %}
+        {% if post.featured_image.source_url != "" %}
+          <img src="{{post.featured_image.source_url}}" />
+        {% else %}
+          <img src="{{post.featured_image.media_details.sizes.thumbnail.source_url}}" />
+        {% endif %}
+      {% endif %}
+      <p>{{post.excerpt.rendered|raw}}</p>
+      <p><a class="btn btn-default btn-sm" href="{{post.link}}" target="_blank"><img src="img/logo-wordpress-24.png" /> View</a></p>
+      <br class="clearfix" />
+    </card>
+  {% endfor %}
+  <hr class="dots" />
+
+  {% for instagram in instagramData %}
+    <card class="instagram">
+      {{instagram.html|raw}}<br />
+    </card>
+  {% endfor %}
+  <hr class="dots" />
 {% endblock %}
-
 
 {% block includes %}
   <!-- js includes -->

@@ -50,34 +50,12 @@ $app->container->set('configs', $configs);
 
 // Route authentication
 $authenticate = function ($app) {
-    // @todo does logged in user have access to this project?
     return function () use ($app) {
-
-        // store current path in session for smart login
-        $_SESSION['redirectTo'] = $app->request->getPathInfo();
-
-        // check cookie for securityContext
-        $securityContext = json_decode($app->getCookie('securityContext'));
-        // die(var_dump($securityContext));
-        if (!isset($securityContext->login)) {
-          $app->redirect("/login");
+        if (false) {
+            $app->halt(403, "Invalid security context");
         }
-
-        // Check access to project
-        $pathinfo = explode("/", $app->request->getPathInfo());
-        if($pathinfo[1]=="projects") {
-          $projectName = $pathinfo[2];
-          if($projectName) {
-            if(!in_array($projectName, $securityContext->projects)) {
-              $app->redirect("/projects");
-            }
-          }
-        }
-
-
     };
 };
-
 
 $app->notFound(function () use ($app) {
     $app->render(
@@ -85,58 +63,76 @@ $app->notFound(function () use ($app) {
     );
 });
 
-$app->get("/login", function () use ($app) {
-  // die(var_dump($_SESSION));
-  $app->render(
-      'pages/login.html.twig',
-      array()
-  );
-});
-$app->post("/login", function () use ($app) {
+$app->get("/", $authenticate($app), function () use ($app) {
 
-  $app->response->headers->set('Content-Type', 'application/json');
-  $users = Yaml::parse(file_get_contents("../configs/users.yml"));
-  $_user = null;
-  foreach($users as $user) {
-    if(
-      $app->request->params('username')==$user['login']
-      && $app->request->params('password')==$user['password']
-    ) {
-      unset($user['password']);
-      $user['redirectTo'] = $_SESSION['redirectTo'];
-      $_user = $user;
-      break;
-    }
-  }
-  if(is_null($_user)){
-    $app->halt(404);
-  } else {
-    $app->setCookie(
-        "securityContext",
-        json_encode($_user),
-        "1 days"
-    );
-    $app->response->setBody(json_encode($_user));
-  }
-});
-
-$app->get("/logout", function () use ($app) {
-  $app->deleteCookie('securityContext');
-  $app->redirect("/");
-});
-
-$app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
-    $templateVars = array(
-        "configs" => $configs
-    );
+
+    if($configs['under_construction']==true && $app->request->get('bypass')!="true") {
+        $app->render(
+            'partials/under_construction.html.twig',
+            array(
+                "configs" => $configs,
+                "section" => "under_construction"
+            ),
+            200
+        );
+    } else {
+        $wordpressData = new WordpressData($configs['wordpress_blog']['base_url']);
+        $instagramData = new InstagramData($configs['instagram']['client_id']);
+            // var_dump($wordpressData->getPosts($configs['featured']['blogs']['wordpress'])); die();
+        $app->render(
+            'pages/index.html.twig',
+            array(
+                "configs" => $configs,
+                "section" => "home",
+                "wordpressPosts" => $wordpressData->getPosts($configs['featured']['blogs']['wordpress']),
+                "instagramData" => $instagramData->getEmbedMedia(
+                    $instagramData->getRecentMedia($configs['instagram']['user_id'], 6), 525
+                )
+            ),
+            200
+        );
+    }
+});
+
+$app->get("/about", $authenticate($app), function () use ($app) {
+
+    $configs = $app->container->get('configs');
     $app->render(
-        'pages/index.html.twig',
-        $templateVars,
+        'partials/about.html.twig',
+        array(
+            "configs" => $configs,
+            "section" => "about"
+        ),
         200
     );
 });
 
+$app->get("/contact", $authenticate($app), function () use ($app) {
+
+    $configs = $app->container->get('configs');
+    $app->render(
+        'partials/contact.html.twig',
+        array(
+            "configs" => $configs,
+            "section" => "contact"
+        ),
+        200
+    );
+});
+
+$app->get("/graduates", $authenticate($app), function () use ($app) {
+
+    $configs = $app->container->get('configs');
+    $app->render(
+        'partials/graduates.html.twig',
+        array(
+            "configs" => $configs,
+            "section" => "graduates"
+        ),
+        200
+    );
+});
 
 $app->run();
