@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% block head %}
+    {{parent()}}
+{% endblock %}
+{% block body %}
+	{{ parent() }}
+    <section id="contact">
+      <div class="section-title">
+        <img src="/img/section-title-contact.png" />
+      </div>
+      <h2 class="name">Be bold. Be fearless. Discover the power of beauty.</h2>
+
+      <p>To learn more about Fearless Beauty and to contribute donations or tools for our vocational program, please contact us at <a>info@fearlessbeauty.org</a></p>
+
+    </section>
+  <hr class="dots" />
+{% endblock %}
+
+{% block includes %}
+  <!-- js includes -->
+  <script type="text/javascript" src="js/pages/index.js"></script>
+{% endblock %}
