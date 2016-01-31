@@ -4,34 +4,42 @@
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-
-  <h3>Empowering women in need with the tools to create a fulfilling livelihood through the power of beauty</h3>
+  <div class="rotator-images">
+    <img src="/img/rotator/002.jpg" />
+    <img src="/img/rotator/003.jpg" />
+    <img src="/img/rotator/004.jpg" />
+  </div>
+  <!-- <h3>Empowering women in need with the tools to create a fulfilling livelihood through the power of beauty</h3> -->
+  <img src="/img/tagline-empowering.png" />
+  <img src="/img/btn-donate.png" class="donate hvr-pulse-grow hvr-rotate" title="Donate"/>
   <hr class="dots" />
-  <h1>Fearless Beauty empowers underprivileged women. By providing education and mentorship, we are building communities founded in mindfulness, support, and inclusivity. Fearless women will create a sustainable income for themselves using beauty as a tool to liberate and heal.</h1>
+  <h1 class="mission">Fearless Beauty empowers underprivileged women. By providing education and mentorship, we are building communities founded in mindfulness, support, and inclusivity. Fearless women will create a sustainable income for themselves using beauty as a tool to liberate and heal.</h1>
   <hr class="dots" />
-    {% for post in wordpressPosts %}
-    <card class='wordpress'>
-
-      <title>{{post.title.rendered|raw}}</title>
-      {% if post.featured_image.media_details!="" %}
-        {% if post.featured_image.source_url != "" %}
-          <img src="{{post.featured_image.source_url}}" />
-        {% else %}
-          <img src="{{post.featured_image.media_details.sizes.thumbnail.source_url}}" />
-        {% endif %}
-      {% endif %}
-      <p>{{post.excerpt.rendered|raw}}</p>
-      <p><a class="btn btn-default btn-sm" href="{{post.link}}" target="_blank"><img src="img/logo-wordpress-24.png" /> View</a></p>
-      <br class="clearfix" />
-    </card>
-  {% endfor %}
+    <section>
+      {% for post in wordpressPosts %}
+        <card class='wordpress'>
+          <title>{{post.title.rendered|raw}}</title>
+          {% if post.featured_image.media_details!="" %}
+            {% if post.featured_image.source_url != "" %}
+              <img src="{{post.featured_image.source_url}}" />
+            {% else %}
+              <img src="{{post.featured_image.media_details.sizes.thumbnail.source_url}}" />
+            {% endif %}
+          {% endif %}
+          <p>{{post.excerpt.rendered|raw}}</p>
+          <p><a class="btn btn-default btn-sm" href="{{post.link}}" target="_blank"><img src="img/logo-wordpress-24.png" /> View</a></p>
+          <br class="clearfix" />
+        </card>
+      {% endfor %}
+    </section>
   <hr class="dots" />
-
-  {% for instagram in instagramData %}
-    <card class="instagram">
-      {{instagram.html|raw}}<br />
-    </card>
-  {% endfor %}
+    <section>
+      {% for instagram in instagramData %}
+        <card class="instagram">
+          {{instagram.html|raw}}<br />
+        </card>
+      {% endfor %}
+    </section>
   <hr class="dots" />
 {% endblock %}
 

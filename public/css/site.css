@@ -1,13 +1,58 @@
-.body-background {
+body {
+  text-align: center;
+}
+div[class^="body-background"] {
   width: 100%;
-  height: 442px;
-  top: -201px;
   position: absolute;
   text-align: center;
+  min-height: 768px;
+}
+.body-background {
+  height: 442px;
+  top: -35px;
+}
+.body-background2 img {
+  margin-left: 15px;
+  margin-top: -50px;
+}
+.body-background3 img {
+  margin-left: -11px;
+  margin-top: -279px;
+  max-width: 620px;
 }
 .body-content {
   text-align: center;
   position: absolute;
+  width: 100%;
+}
+.donate {
+  max-width: 150px;
+  height: auto;
+  cursor: pointer;
+}
+.rotator-images {
+  text-align: center;
+  position: relative;
+  height: 435px;
+  display: block;
+  margin-top: 15px;
+}
+.rotator-images img {
+  display: inline-block;
+  position: absolute;
+  width: 700px;
+  height: auto;
+  top:0;
+  left: 50%;
+  margin-left: -350px;
+}
+h1.mission {
+  color: #a3a3a3;
+  font-style: italic;
+  width: 800px;
+  left: 50%;
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
 }
 hr.dots {
   border-bottom: 6px dotted #faca50;
@@ -17,12 +62,13 @@ hr.dots {
 }
 card {
   display: inline-block;
-  width: 600px;
+  width: 320px;
   margin-right: 10px;
   vertical-align: top;
+  text-align: left;
 }
 card img {
-  max-width: 550px;
+  max-width: 300px;
   height: auto;
 }
 menu {
@@ -46,23 +92,27 @@ menu ul li a {
 menu img.logo {
   display: inline-block;
   max-width: 312px;
-  margin-right: 15px;
+  margin-bottom: 15px;
 }
 menu img.donate {
-  max-width: 90px;
-  margin-left: 15px;
+  max-width: 120px;
+  margin: 0;
   cursor: pointer;
+}
+.hexes {
+  padding: 0;
+  margin: 0;
 }
 .hex {
   position: relative;
   display: inline-block;
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   vertical-align: middle;
 }
 .hex img {
   position: absolute;
-  width: 90px;
+  width: 110px;
   left: 0;
   top: 0;
 }
@@ -71,13 +121,14 @@ menu img.donate {
   display: inline-block;
   width: 100%;
   left: 0;
-  top: 28px;
+  top: 0;
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
   color: #f7b651;
 
 }
-.hex a.twoline {
-  top: 16px;
+section {
+  display: inline-block;
+  width: 1200px;
 }
