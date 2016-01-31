@@ -113,7 +113,7 @@ $app->get("/contact", $authenticate($app), function () use ($app) {
 
     $configs = $app->container->get('configs');
     $app->render(
-        'partials/contact.html.twig',
+        'pages/contact.html.twig',
         array(
             "configs" => $configs,
             "section" => "contact"
@@ -126,7 +126,7 @@ $app->get("/graduates", $authenticate($app), function () use ($app) {
 
     $configs = $app->container->get('configs');
     $app->render(
-        'partials/graduates.html.twig',
+        'pages/graduates.html.twig',
         array(
             "configs" => $configs,
             "section" => "graduates"

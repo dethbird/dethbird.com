@@ -85,6 +85,16 @@ card img {
   max-width: 300px;
   height: auto;
 }
+section#graduates card {
+  width: 420px;
+}
+section#graduates card img {
+  width: 260px;
+  margin: 0px 15px 15px 0px;
+}
+section#graduates h2.name {
+  text-align: left;
+}
 menu {
   display: inline-block;
   padding: 0px;
