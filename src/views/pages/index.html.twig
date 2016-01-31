@@ -4,20 +4,27 @@
 {% endblock %}
 {% block body %}
 	{{ parent() }}
-  <div class="rotator-images">
-    <img src="/img/rotator/002.jpg" />
-    <img src="/img/rotator/003.jpg" />
-    <img src="/img/rotator/004.jpg" />
-  </div>
-  <!-- <h3>Empowering women in need with the tools to create a fulfilling livelihood through the power of beauty</h3> -->
-  <img src="/img/tagline-empowering.png" />
-  <img src="/img/btn-donate.png" class="donate hvr-pulse-grow hvr-rotate" title="Donate"/>
+  <section id="rotator">
+    <div class="rotator-images-container">
+      <div class="rotator-images">
+        <img src="/img/rotator/002.jpg" />
+        <img src="/img/rotator/003.jpg" />
+        <img src="/img/rotator/004.jpg" />
+      </div>
+    </div>
+    <!-- <h3>Empowering women in need with the tools to create a fulfilling livelihood through the power of beauty</h3> -->
+    <img src="/img/tagline-empowering.png" class="tagline"/>
+    <img src="/img/btn-donate.png" class="donate hvr-pulse-grow hvr-rotate" title="Donate"/>
+  </section>
   <hr class="dots" />
   <h1 class="mission">Fearless Beauty empowers underprivileged women. By providing education and mentorship, we are building communities founded in mindfulness, support, and inclusivity. Fearless women will create a sustainable income for themselves using beauty as a tool to liberate and heal.</h1>
   <hr class="dots" />
-    <section>
+    <section id="latest">
+      <div class="section-title">
+        <img src="/img/section-title-latest.png">
+      </div>
       {% for post in wordpressPosts %}
-        <card class='wordpress'>
+        <card class='wordpress hvr-bob'>
           <title>{{post.title.rendered|raw}}</title>
           {% if post.featured_image.media_details!="" %}
             {% if post.featured_image.source_url != "" %}
@@ -27,17 +34,24 @@
             {% endif %}
           {% endif %}
           <p>{{post.excerpt.rendered|raw}}</p>
-          <p><a class="btn btn-default btn-sm" href="{{post.link}}" target="_blank"><img src="img/logo-wordpress-24.png" /> View</a></p>
+          <p><a href="{{post.link}}" target="_blank" class="more"><img src="img/btn-more.png" /></a></p>
           <br class="clearfix" />
         </card>
+        {% if loop.index is divisible by(3) %}<br class="clearfix" />{% endif %}
       {% endfor %}
     </section>
   <hr class="dots" />
-    <section>
+    <section id="instagram">
+      <div class="section-title">
+        <img src="/img/section-title-instagram.png"><br />
+      </div>
       {% for instagram in instagramData %}
-        <card class="instagram">
-          {{instagram.html|raw}}<br />
-        </card>
+        {% if instagram.html %}
+          <card class="instagram hvr-bob">
+            {{instagram.html|raw}}<br />
+          </card>
+          {% if loop.index is divisible by(3) %}<br class="clearfix" />{% endif %}
+        {% endif %}
       {% endfor %}
     </section>
   <hr class="dots" />

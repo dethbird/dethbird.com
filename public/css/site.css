@@ -16,9 +16,9 @@ div[class^="body-background"] {
   margin-top: -50px;
 }
 .body-background3 img {
-  margin-left: -11px;
-  margin-top: -279px;
-  max-width: 620px;
+  margin-left: 48px;
+  margin-top: -191px;
+  max-width: 550px;
 }
 .body-content {
   text-align: center;
@@ -30,35 +30,43 @@ div[class^="body-background"] {
   height: auto;
   cursor: pointer;
 }
+.rotator-images-container {
+  position: absolute;
+  left: 50%;
+}
 .rotator-images {
   text-align: center;
   position: relative;
-  height: 435px;
+  height: 365px;
   display: block;
   margin-top: 15px;
 }
 .rotator-images img {
   display: inline-block;
   position: absolute;
-  width: 700px;
+  width: 760px;
   height: auto;
   top:0;
   left: 50%;
-  margin-left: -350px;
+  margin-left: -380px;
 }
 h1.mission {
+  font-size: 2.4em;
   color: #a3a3a3;
   font-style: italic;
+  font-weight: normal;
   width: 800px;
   left: 50%;
   display: inline-block;
   font-family: 'Oswald', sans-serif;
+  margin: 30px 0px 30px 0px;
 }
 hr.dots {
   border-bottom: 6px dotted #faca50;
   max-width: 800px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  left: 50%;
 }
 card {
   display: inline-block;
@@ -128,7 +136,49 @@ menu img.donate {
   color: #f7b651;
 
 }
+.tagline {
+  position: absolute;
+  top: 409px;
+  width: 577px;
+  margin-left: -405px;
+}
 section {
   display: inline-block;
-  width: 1200px;
+  position: relative;
+}
+section#latest {
+  text-align: center;
+}
+section#instagram {
+  text-align: center;
+}
+section#rotator {
+  height: 500px;
+}
+section#rotator .donate {
+  top: 365px;
+  position: absolute;
+  left: 50%;
+  margin-left: 251px;
+}
+.section-title {
+  margin-bottom: 35px;
+}
+.section-title img {
+  height: 36px;
+  width: auto;
+}
+footer {
+  padding: 40px;
+}
+card.hvr-bob {
+  vertical-align: top;
+}
+a.more {
+  float:right;
+  margin-right: 15px;
+}
+a.more img {
+  max-width: 60px;
+  height: auto;
 }
