@@ -1,5 +1,7 @@
 body {
   text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.5em;
 }
 div[class^="body-background"] {
   width: 100%;
@@ -50,7 +52,8 @@ div[class^="body-background"] {
   left: 50%;
   margin-left: -380px;
 }
-h1.mission {
+h1.mission, h2.name {
+  text-align: center;
   font-size: 2.4em;
   color: #a3a3a3;
   font-style: italic;
@@ -60,6 +63,9 @@ h1.mission {
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   margin: 30px 0px 30px 0px;
+}
+h2.name {
+  font-size: 2em;
 }
 hr.dots {
   border-bottom: 6px dotted #faca50;
@@ -145,6 +151,14 @@ menu img.donate {
 section {
   display: inline-block;
   position: relative;
+  max-width: 1024px;
+}
+section#about, section#board p {
+  max-width: 800px;
+  text-align: left;
+}
+section#about img.logo {
+  margin-right: 15px;
 }
 section#latest {
   text-align: center;
@@ -163,6 +177,7 @@ section#rotator .donate {
 }
 .section-title {
   margin-bottom: 35px;
+  text-align: center;
 }
 .section-title img {
   height: 36px;

@@ -100,7 +100,7 @@ $app->get("/about", $authenticate($app), function () use ($app) {
 
     $configs = $app->container->get('configs');
     $app->render(
-        'partials/about.html.twig',
+        'pages/about.html.twig',
         array(
             "configs" => $configs,
             "section" => "about"
