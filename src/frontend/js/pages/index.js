@@ -5,5 +5,4 @@ $(document).ready(function(){
     el: "div.rotator-images",
     duration: 5000
   });
-  console.log(imageRotatorView);
 });

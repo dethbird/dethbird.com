@@ -9,9 +9,12 @@ div[class^="body-background"] {
   text-align: center;
   min-height: 768px;
 }
-.body-background {
-  height: 442px;
-  top: -35px;
+.body-background.honeycombs {
+  top: -50px;
+  overflow: hidden;
+}
+.body-background.honeycombs img {
+  position: absolute;
 }
 .body-background2 img {
   margin-left: 15px;
@@ -190,8 +193,7 @@ section#rotator .donate {
   text-align: center;
 }
 .section-title img {
-  height: 36px;
-  width: auto;
+  transform: scale(0.65, 0.65);
 }
 footer {
   padding: 40px;
