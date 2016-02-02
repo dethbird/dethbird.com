@@ -1,7 +1,6 @@
 var BgGeneratorView = Backbone.View.extend({
     currentIndex: -1,
     initialize: function(options) {
-      console.log(options);
       var that = this;
       that.objectWidth = options.objectWidth;
       that.objectHeight = options.objectHeight;
@@ -24,8 +23,6 @@ var BgGeneratorView = Backbone.View.extend({
       return prob;
     },
     getXProbability: function(xPos, containerWidth) {
-      console.log(xPos);
-      console.log(containerWidth);
       var that = this;
       var width = containerWidth / 2;
       if (xPos > width) {
@@ -40,7 +37,6 @@ var BgGeneratorView = Backbone.View.extend({
           prob = p.probability;
         }
       });
-      console.log(prob);
       return prob;
     },
     render: function() {
@@ -58,7 +54,8 @@ var BgGeneratorView = Backbone.View.extend({
         var img = $('<img src="' + that.objectUris[imgIndex] + '" />');
         $(img).css({
           top: startY,
-          left: startX
+          left: startX,
+          opacity: 0.5
         });
         startX = startX + that.objectWidth + that.paddingHorizontal;
         if (startX > containerWidth) {
@@ -80,9 +77,8 @@ var BgGeneratorView = Backbone.View.extend({
             $(that.el).append(img);
         }
 
-
       }
-
+      TweenMax.staggerTo($(that.el).find('img'), 1, {opacity: 0.9}, 0.02);
     }
 });
 

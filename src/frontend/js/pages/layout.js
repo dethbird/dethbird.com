@@ -9,6 +9,11 @@ $(document).ready(function(){
     offsetAlternateRows: -84,
     objectUris: [
         '/img/hex-bg2.png',
+        '/img/hex-bg2.png',
+        '/img/hex-bg.png',
+        '/img/hex-bg.png',
+        '/img/hex-bg.png',
+        '/img/hex-bg.png',
         '/img/hex-bg.png',
         '/img/hex-bg.png',
         '/img/hex-bg.png',
@@ -48,5 +53,5 @@ $(document).ready(function(){
       }
     ]
   });
-  console.log(bgGeneratorView);
+  // console.log(bgGeneratorView);
 });
