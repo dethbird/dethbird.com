@@ -269,7 +269,7 @@ $app->get("/notes", function () use ($app) {
 });
 
 $app->get("/note/:name", function ($name) use ($app) {
-
+    echo json_encode($_SERVER); die();
     $configs = $app->container->get('configs');
     $noteMarkdown = file_get_contents("../configs/notes/".$name.".md");
     $templateVars = array(
@@ -285,16 +285,17 @@ $app->get("/note/:name", function ($name) use ($app) {
         200
     );
 });
-
-$app->post("/note/:name", $authenticate($app), function ($name) use ($app) {
-    $bytes = file_put_contents("../configs/notes/".$name.".md", $app->request->params('content'));
-    $data = new stdClass();
-    $data->bytesWritten = $bytes;
-
-    $app->response->headers->set('Content-Type', 'application/json');
-    $app->response->setBody(json_encode($data));
-});
-
+//
+// $app->post("/note/:name", $authenticate($app), function ($name) use ($app) {
+//
+//     $bytes = file_put_contents("../configs/notes/".$name.".md", $app->request->params('content'));
+//     $data = new stdClass();
+//     $data->bytesWritten = $bytes;
+//
+//     $app->response->headers->set('Content-Type', 'application/json');
+//     $app->response->setBody(json_encode($data));
+// });
+//
 
 $app->get("/posts/:type", $authenticate($app), function ($type) use ($app) {
 
