@@ -61,6 +61,32 @@ characters:
       description: |
         She a gold digger
     -
+      id: neil
+      name: Neil Wolfhound
+      role: lead
+      images:
+        -
+          orientation: landscape
+          thumbnail: https://c2.staticflickr.com/2/1569/25314140621_a574c8a913_z.jpg
+          display: https://c2.staticflickr.com/2/1569/25314140621_6fe0e02d5f_h.jpg
+        -
+          orientation: landscape
+          thumbnail: https://c2.staticflickr.com/2/1712/24780425733_d5c99f2ce8_z.jpg
+          display: https://c2.staticflickr.com/2/1712/24780425733_3bff67e5ba_h.jpg
+      description: |
+        He is a hound dog.
+    -
+      id: rabbi
+      name: Rabbi
+      role: lead
+      images:
+        -
+          orientation: landscape
+          thumbnail: https://c2.staticflickr.com/2/1560/25380972016_6b37ef4f7e_z.jpg
+          display: https://c2.staticflickr.com/2/1560/25380972016_983f3f869d_h.jpg
+      description: |
+        she's a Cow Rabbi
+    -
       id: chickenbutt
       name: Chicken Butt
       role: supporting
@@ -74,7 +100,7 @@ characters:
           thumbnail: https://c2.staticflickr.com/2/1504/24602586495_d56cd77d1d_z.jpg
           display: https://c2.staticflickr.com/2/1504/24602586495_aca90c3e1c_h.jpg
       description: |
-        She a gold digger
+        Random supporting character
 resources: >
 
   * [Original PDF of the book from Jon](https://drive.google.com/open?id=0B3I1UYm_FEJrajF2d1pSMTM2MzQ)
@@ -87,6 +113,10 @@ storyboards:
       -
         id: nxmw-storyboard-01
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1665/25190865459_42ec399b8d_z.jpg
+            display: https://c2.staticflickr.com/2/1665/25190865459_d97a184251_h.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1528/23572486563_003da5f7d0.jpg
