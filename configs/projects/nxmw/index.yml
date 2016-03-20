@@ -112,18 +112,30 @@ storyboards:
     boards:
       -
         id: nxmw-storyboard-01
+        notes: |
+          cover
         images:
           -
             orientation: portrait
-            thumbnail: https://c2.staticflickr.com/2/1714/25786187901_6efd6bf47a_c.jpg
-            display: https://c2.staticflickr.com/2/1714/25786187901_dc7a15442d_h.jpg
+            thumbnail: https://c2.staticflickr.com/2/1473/25309649683_87c479fa2a_b.jpg
+            display: https://c2.staticflickr.com/2/1473/25309649683_87c479fa2a_b.jpg
           -
             orientation: portrait
             thumbnail: https://c2.staticflickr.com/2/1716/25881124155_0de98c57eb_c.jpg
             display: https://c2.staticflickr.com/2/1716/25881124155_69a435b845_o.jpg
       -
         id: nxmw-storyboard-02
+        notes: |
+          inside cover
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1444/25305663964_023b9c3289_c.jpg
+            display: https://c2.staticflickr.com/2/1444/25305663964_023b9c3289_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1505/25913090905_f00816b98c_c.jpg
+            display: https://c2.staticflickr.com/2/1505/25913090905_f00816b98c_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1473/25580660310_ef72f451a5_c.jpg
@@ -133,29 +145,45 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1605/25843409051_9f429bfee4_c.jpg
+            display: https://c2.staticflickr.com/2/1605/25843409051_9f429bfee4_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1700/25283634003_5d9faa88d2_b.jpg
+            display: https://c2.staticflickr.com/2/1700/25283634003_5d9faa88d2_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1541/25881251765_b47d3925e9_c.jpg
             display: https://c2.staticflickr.com/2/1541/25881251765_0514ca1df2_o.jpg
-      # -
-      #   id: nxmw-storyboard-04
-      #   images:
-      #     -
-      #       orientation: landscape
-      #       thumbnail: https://c2.staticflickr.com/2/1705/23571106444_b6d37fb94b.jpg
-      #       display: https://c2.staticflickr.com/2/1705/23571106444_63a51cac53_k.jpg
-      # -
-      #   id: nxmw-storyboard-05
-      #   images:
-      #     -
-      #       orientation: landscape
-      #       thumbnail: https://c2.staticflickr.com/2/1530/23831477949_e9c1620104.jpg
-      #       display: https://c2.staticflickr.com/2/1530/23831477949_3cd6671847_k.jpg
-      # -
-      #   id: nxmw-storyboard-06
-      #   images:
-      #     -
-      #       orientation: landscape
-      #       thumbnail: https://c2.staticflickr.com/2/1621/23903696560_f0258d08e7.jpg
-      #       display: https://c2.staticflickr.com/2/1621/23903696560_a6b10d82fa_k.jpg
+      -
+        id: nxmw-storyboard-04
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1550/25782195352_472e38e076_c.jpg
+            display: https://c2.staticflickr.com/2/1550/25782195352_472e38e076_b.jpg
+      -
+        id: nxmw-storyboard-05
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1520/25309640893_8e8b8ba646_c.jpg
+            display: https://c2.staticflickr.com/2/1520/25309640893_8e8b8ba646_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1533/25817003901_4cd3272601_c.jpg
+            display: https://c2.staticflickr.com/2/1533/25817003901_4cd3272601_b.jpg
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1681/25274301993_c061073549_c.jpg
+            display: https://c2.staticflickr.com/2/1681/25274301993_4c01a60848_o.jpg
+      -
+        id: nxmw-storyboard-06
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_c.jpg
+            display: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_b.jpg
       # -
       #   id: nxmw-storyboard-07
       #   images:
