@@ -13,6 +13,10 @@ characters:
       images:
         -
           orientation: portrait
+          thumbnail: https://c2.staticflickr.com/2/1466/25906665132_fd019fc525_z.jpg
+          display: https://c2.staticflickr.com/2/1466/25906665132_fd019fc525_b.jpg
+        -
+          orientation: portrait
           thumbnail: https://c2.staticflickr.com/6/5755/22569031093_aeb7dbdbe3.jpg
           display: https://c2.staticflickr.com/6/5755/22569031093_aeb7dbdbe3_b.jpg
         -
