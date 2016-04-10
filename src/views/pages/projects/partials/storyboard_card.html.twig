@@ -1,5 +1,5 @@
 <card id="{{board.id}}" class="{% if board.status!="" %}{{board.status}}{% else %}ok{% endif %}">
-  {{loop.index}}
+  {{loop.index0}}
   {% if board.images|length %}
     {% for image in board.images %}
       {% if loop.index==1 %}

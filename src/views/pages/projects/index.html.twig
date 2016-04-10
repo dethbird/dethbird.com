@@ -62,6 +62,9 @@
           <h3>{{storyboard.name}}</h3>
           {% for board in storyboard.boards %}
             {% include "pages/projects/partials/storyboard_card.html.twig" %}
+            {%if loop.index is divisible by (2) %}
+            <br />
+            {% endif %}
           {% endfor %}
         {% endfor %}
       </section>
