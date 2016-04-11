@@ -633,6 +633,13 @@ storyboards:
             thumbnail: https://c2.staticflickr.com/2/1677/26332813756_7ca4f6a51b_b.jpg
             display: https://c2.staticflickr.com/2/1677/26332813756_7ca4f6a51b_b.jpg
       -
+        id: nxmw-storyboard-66-a
+        images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1634/26332813716_73e578a851_b.jpg
+            display: https://c2.staticflickr.com/2/1634/26332813716_73e578a851_b.jpg
+      -
         id: nxmw-storyboard-66
         images:
           -
