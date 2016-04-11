@@ -107,6 +107,8 @@ characters:
         Random supporting character
 resources: >
 
+  * [changes Apr 10, 2016](https://docs.google.com/document/d/1C_CbhkVf9QpZkiJLQw4HUOhnyR_wd5_uDuTW_y4hisA/edit)
+
   * [Original PDF of the book from Jon](https://drive.google.com/open?id=0B3I1UYm_FEJrajF2d1pSMTM2MzQ)
 
   * myscriptfont.com for the text
@@ -206,7 +208,13 @@ storyboards:
             display: https://c2.staticflickr.com/2/1681/25274301993_4c01a60848_o.jpg
       -
         id: nxmw-storyboard-06
+        notes: |
+          WHINNYBAGO COULEE
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1492/25765743793_7eec0e275f.jpg
+            display: https://c2.staticflickr.com/2/1492/25765743793_7eec0e275f_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1689/25863792921_c9334810af_c.jpg
