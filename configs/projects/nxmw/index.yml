@@ -121,7 +121,7 @@ storyboards:
       -
         id: nxmw-storyboard-00
         notes: |
-          blank
+          ### Blank Page
         images:
           -
             orientation: portrait
@@ -130,7 +130,7 @@ storyboards:
       -
         id: nxmw-storyboard-01
         notes: |
-          cover
+          ### Cover
         images:
           -
             orientation: portrait
@@ -236,6 +236,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1637/25306902624_364d6bb70d_b.jpg
       -
         id: nxmw-storyboard-08
+        notes: |
+          ### Chapter 2
+          [https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit](https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit "Chapter 2")
         images:
           -
             orientation: landscape
@@ -320,6 +323,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1542/25747207243_8597b9f2b5_b.jpg
       -
         id: nxmw-storyboard-20
+        notes: |
+          ### Chapter 3
+          [https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit](https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit)
         images:
           -
             orientation: landscape
@@ -432,6 +438,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1534/25754510263_ac46fa6aa2_b.jpg
       -
         id: nxmw-storyboard-36
+        notes: |
+          ### Chapter 4
+          [https://docs.google.com/document/d/1UK9-RO6WRJjZmhJnke7rTCQm5KdGCaXBRLaZVFWKTDU/edit](https://docs.google.com/document/d/1UK9-RO6WRJjZmhJnke7rTCQm5KdGCaXBRLaZVFWKTDU/edit)
         images:
           -
             orientation: landscape
@@ -509,6 +518,8 @@ storyboards:
             display: https://c2.staticflickr.com/2/1600/26358760605_005358a894_b.jpg
       -
         id: nxmw-storyboard-47
+        notes: |
+
         images:
           -
             orientation: landscape
@@ -516,6 +527,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1620/26292520681_81e2dff0f6_b.jpg
       -
         id: nxmw-storyboard-48
+        notes: |
+          ### Chapter 5
+          [https://docs.google.com/document/d/1as3lV2y36cGyDjCU9iPMGe8LoJMzyR4-CMur91Tv0So/edit](https://docs.google.com/document/d/1as3lV2y36cGyDjCU9iPMGe8LoJMzyR4-CMur91Tv0So/edit)
         images:
           -
             orientation: landscape
@@ -572,6 +586,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1711/25753908944_cb8575d20d_b.jpg
       -
         id: nxmw-storyboard-56
+        notes: |
+          ### Chapter 6
+          [https://docs.google.com/document/d/1XpK-yURIZfI8wzPCuehD3iDg5qqSt3y42vZ7CRIu14Y/edit](https://docs.google.com/document/d/1XpK-yURIZfI8wzPCuehD3iDg5qqSt3y42vZ7CRIu14Y/edit)
         images:
           -
             orientation: landscape
@@ -628,6 +645,9 @@ storyboards:
             display: https://c2.staticflickr.com/2/1537/26358760135_bb9b1287ed_b.jpg
       -
         id: nxmw-storyboard-64
+        notes: |
+          ### Chapter 7
+          [https://docs.google.com/document/d/11v7Gji8zZ6DnbI5bdxoH2HSfxqQR9ZdhbuBW-gEu64M/edit](https://docs.google.com/document/d/11v7Gji8zZ6DnbI5bdxoH2HSfxqQR9ZdhbuBW-gEu64M/edit)
         images:
           -
             orientation: landscape
@@ -641,609 +661,633 @@ storyboards:
             thumbnail: https://c2.staticflickr.com/2/1677/26332813756_7ca4f6a51b_b.jpg
             display: https://c2.staticflickr.com/2/1677/26332813756_7ca4f6a51b_b.jpg
       -
-        id: nxmw-storyboard-66-a
+        id: nxmw-storyboard-66
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1634/26332813716_73e578a851_b.jpg
             display: https://c2.staticflickr.com/2/1634/26332813716_73e578a851_b.jpg
       -
-        id: nxmw-storyboard-66
+        id: nxmw-storyboard-67
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1666/26266377172_cede710d88_b.jpg
             display: https://c2.staticflickr.com/2/1666/26266377172_cede710d88_b.jpg
       -
-        id: nxmw-storyboard-67
+        id: nxmw-storyboard-68
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1571/26266377162_bc2e86022b_b.jpg
             display: https://c2.staticflickr.com/2/1571/26266377162_bc2e86022b_b.jpg
       -
-        id: nxmw-storyboard-68
+        id: nxmw-storyboard-69
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1557/26085887160_06263918e5_b.jpg
             display: https://c2.staticflickr.com/2/1557/26085887160_06263918e5_b.jpg
       -
-        id: nxmw-storyboard-69
+        id: nxmw-storyboard-70
+        notes: |
+          ### Chapter 8
+          [https://docs.google.com/document/d/1YwjhFZKQL0EeMfZqHabkNWBK0vmRkcshKnobFf3ffoA/edit](https://docs.google.com/document/d/1YwjhFZKQL0EeMfZqHabkNWBK0vmRkcshKnobFf3ffoA/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1620/26266377132_a1c55bb38e_b.jpg
             display: https://c2.staticflickr.com/2/1620/26266377132_a1c55bb38e_b.jpg
       -
-        id: nxmw-storyboard-70
+        id: nxmw-storyboard-71
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1636/26085887140_f8cac7c298_b.jpg
             display: https://c2.staticflickr.com/2/1636/26085887140_f8cac7c298_b.jpg
       -
-        id: nxmw-storyboard-71
+        id: nxmw-storyboard-72
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1632/26085887110_7b59aa1308_b.jpg
             display: https://c2.staticflickr.com/2/1632/26085887110_7b59aa1308_b.jpg
       -
-        id: nxmw-storyboard-72
+        id: nxmw-storyboard-73
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1657/25756006953_ee27319460_b.jpg
             display: https://c2.staticflickr.com/2/1657/25756006953_ee27319460_b.jpg
       -
-        id: nxmw-storyboard-73
+        id: nxmw-storyboard-74
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1513/26085887030_7d7daf2908_b.jpg
             display: https://c2.staticflickr.com/2/1513/26085887030_7d7daf2908_b.jpg
       -
-        id: nxmw-storyboard-74
+        id: nxmw-storyboard-75
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1659/25756006903_c04c566666_b.jpg
             display: https://c2.staticflickr.com/2/1659/25756006903_c04c566666_b.jpg
       -
-        id: nxmw-storyboard-75
+        id: nxmw-storyboard-76
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1713/26332813496_b142e126e4_b.jpg
             display: https://c2.staticflickr.com/2/1713/26332813496_b142e126e4_b.jpg
       -
-        id: nxmw-storyboard-76
+        id: nxmw-storyboard-77
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1476/26266377002_3f96eda16c_b.jpg
             display: https://c2.staticflickr.com/2/1476/26266377002_3f96eda16c_b.jpg
       -
-        id: nxmw-storyboard-77
+        id: nxmw-storyboard-78
+        notes: |
+          ### Chapter 9
+          [https://docs.google.com/document/d/1cIxF6UUM94ww7vM4RFC9HGdQcgv08c64T_zh0omg3NY/edit](https://docs.google.com/document/d/1cIxF6UUM94ww7vM4RFC9HGdQcgv08c64T_zh0omg3NY/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1659/25756006823_ed7922e519_b.jpg
             display: https://c2.staticflickr.com/2/1659/25756006823_ed7922e519_b.jpg
       -
-        id: nxmw-storyboard-78
+        id: nxmw-storyboard-79
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1661/26332813456_6487aa029b_b.jpg
             display: https://c2.staticflickr.com/2/1661/26332813456_6487aa029b_b.jpg
       -
-        id: nxmw-storyboard-79
+        id: nxmw-storyboard-80
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1500/25753908334_483306fd9d_b.jpg
             display: https://c2.staticflickr.com/2/1500/25753908334_483306fd9d_b.jpg
       -
-        id: nxmw-storyboard-80
+        id: nxmw-storyboard-81
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1641/26266376932_32e5487dc4_b.jpg
             display: https://c2.staticflickr.com/2/1641/26266376932_32e5487dc4_b.jpg
       -
-        id: nxmw-storyboard-81
+        id: nxmw-storyboard-82
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1578/26358759585_6f94bfd6ba_b.jpg
             display: https://c2.staticflickr.com/2/1578/26358759585_6f94bfd6ba_b.jpg
       -
-        id: nxmw-storyboard-82
+        id: nxmw-storyboard-83
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1708/26292519951_00739098d4_b.jpg
             display: https://c2.staticflickr.com/2/1708/26292519951_00739098d4_b.jpg
       -
-        id: nxmw-storyboard-83
+        id: nxmw-storyboard-84
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1626/26085886800_7a44d7a3e3_b.jpg
             display: https://c2.staticflickr.com/2/1626/26085886800_7a44d7a3e3_b.jpg
       -
-        id: nxmw-storyboard-84
+        id: nxmw-storyboard-85
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1524/26085886750_767e4db9b6_b.jpg
             display: https://c2.staticflickr.com/2/1524/26085886750_767e4db9b6_b.jpg
       -
-        id: nxmw-storyboard-85
+        id: nxmw-storyboard-86
+        notes: |
+          ### Chapter 10
+          [https://docs.google.com/document/d/1fK66mK9MTtYVqehCXAdBDY9PXhrWH3WJqRWBH4MhdCQ/edit](https://docs.google.com/document/d/1fK66mK9MTtYVqehCXAdBDY9PXhrWH3WJqRWBH4MhdCQ/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1589/26266376882_d8415cbace_b.jpg
             display: https://c2.staticflickr.com/2/1589/26266376882_d8415cbace_b.jpg
       -
-        id: nxmw-storyboard-86
+        id: nxmw-storyboard-87
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1631/26085886690_b5bae1176d_b.jpg
             display: https://c2.staticflickr.com/2/1631/26085886690_b5bae1176d_b.jpg
       -
-        id: nxmw-storyboard-87
+        id: nxmw-storyboard-88
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1460/25756006583_4eac2d6fe3_b.jpg
             display: https://c2.staticflickr.com/2/1460/25756006583_4eac2d6fe3_b.jpg
       -
-        id: nxmw-storyboard-88
+        id: nxmw-storyboard-89
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1658/26266376832_0dc680f814_b.jpg
             display: https://c2.staticflickr.com/2/1658/26266376832_0dc680f814_b.jpg
       -
-        id: nxmw-storyboard-89
+        id: nxmw-storyboard-90
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1453/26332813156_5784094951_b.jpg
             display: https://c2.staticflickr.com/2/1453/26332813156_5784094951_b.jpg
       -
-        id: nxmw-storyboard-90
+        id: nxmw-storyboard-91
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1551/26266376762_69a597029d_b.jpg
             display: https://c2.staticflickr.com/2/1551/26266376762_69a597029d_b.jpg
       -
-        id: nxmw-storyboard-91
+        id: nxmw-storyboard-92
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1703/26292519711_7b6707d010_b.jpg
             display: https://c2.staticflickr.com/2/1703/26292519711_7b6707d010_b.jpg
       -
-        id: nxmw-storyboard-92
+        id: nxmw-storyboard-93
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1535/26292519671_28841e3092_b.jpg
             display: https://c2.staticflickr.com/2/1535/26292519671_28841e3092_b.jpg
       -
-        id: nxmw-storyboard-93
+        id: nxmw-storyboard-94
+        notes: |
+          ### Chapter 11
+          [https://docs.google.com/document/d/1TkuyNeYt54ZYhMM44cWHekJJNvkm6Jr8rbiII6d75Ss/edit](https://docs.google.com/document/d/1TkuyNeYt54ZYhMM44cWHekJJNvkm6Jr8rbiII6d75Ss/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1712/26332813036_398e85a6da_b.jpg
             display: https://c2.staticflickr.com/2/1712/26332813036_398e85a6da_b.jpg
       -
-        id: nxmw-storyboard-94
+        id: nxmw-storyboard-95
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1466/26085886510_e93d9fb303_b.jpg
             display: https://c2.staticflickr.com/2/1466/26085886510_e93d9fb303_b.jpg
       -
-        id: nxmw-storyboard-95
+        id: nxmw-storyboard-96
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1678/25756006403_e85f8b80da_b.jpg
             display: https://c2.staticflickr.com/2/1678/25756006403_e85f8b80da_b.jpg
       -
-        id: nxmw-storyboard-96
+        id: nxmw-storyboard-97
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1624/26358759285_44755ee581_b.jpg
             display: https://c2.staticflickr.com/2/1624/26358759285_44755ee581_b.jpg
-      -
-        id: nxmw-storyboard-97
-        images:
-          -
-            orientation: landscape
-            thumbnail: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
-            display: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
       -
         id: nxmw-storyboard-98
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
+            display: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
+      -
+        id: nxmw-storyboard-99
+        images:
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1624/26358759285_44755ee581_b.jpg
             display: https://c2.staticflickr.com/2/1624/26358759285_44755ee581_b.jpg
       -
-        id: nxmw-storyboard-99
+        id: nxmw-storyboard-100
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
             display: https://c2.staticflickr.com/2/1574/25753907964_5af38bd1e6_b.jpg
       -
-        id: nxmw-storyboard-100
+        id: nxmw-storyboard-101
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1712/25753907944_153fec88d6_b.jpg
             display: https://c2.staticflickr.com/2/1712/25753907944_153fec88d6_b.jpg
       -
-        id: nxmw-storyboard-101
+        id: nxmw-storyboard-102
+        notes: |
+          ### Chapter 12
+          [https://docs.google.com/document/d/139j368xsHgapdWYvTSDszIIAV22aDqV4Ph-vzNjBahg/edit](https://docs.google.com/document/d/139j368xsHgapdWYvTSDszIIAV22aDqV4Ph-vzNjBahg/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1575/26266376612_056cab73c0_b.jpg
             display: https://c2.staticflickr.com/2/1575/26266376612_056cab73c0_b.jpg
       -
-        id: nxmw-storyboard-102
+        id: nxmw-storyboard-103
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1648/26332812956_3e71a76b10_b.jpg
             display: https://c2.staticflickr.com/2/1648/26332812956_3e71a76b10_b.jpg
       -
-        id: nxmw-storyboard-103
+        id: nxmw-storyboard-104
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1488/26358759195_f74b5b9858_b.jpg
             display: https://c2.staticflickr.com/2/1488/26358759195_f74b5b9858_b.jpg
       -
-        id: nxmw-storyboard-104
+        id: nxmw-storyboard-105
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1550/26266376512_c1c0c9c29c_b.jpg
             display: https://c2.staticflickr.com/2/1550/26266376512_c1c0c9c29c_b.jpg
       -
-        id: nxmw-storyboard-105
+        id: nxmw-storyboard-106
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1540/25753907824_4817e76eff_b.jpg
             display: https://c2.staticflickr.com/2/1540/25753907824_4817e76eff_b.jpg
       -
-        id: nxmw-storyboard-106
+        id: nxmw-storyboard-107
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1648/26266376432_32ca87f229_b.jpg
             display: https://c2.staticflickr.com/2/1648/26266376432_32ca87f229_b.jpg
       -
-        id: nxmw-storyboard-107
+        id: nxmw-storyboard-108
+        notes: |
+          ### Chapter 13
+          [https://docs.google.com/document/d/1F31QrVaMKdyzM6UaFG9SLcVyk3PCxUcLHsojWK6o0Ec/edit](https://docs.google.com/document/d/1F31QrVaMKdyzM6UaFG9SLcVyk3PCxUcLHsojWK6o0Ec/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1577/25756006113_e77e3dc505_b.jpg
             display: https://c2.staticflickr.com/2/1577/25756006113_e77e3dc505_b.jpg
       -
-        id: nxmw-storyboard-108
+        id: nxmw-storyboard-109
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1594/26332812796_5d41e60df6_b.jpg
             display: https://c2.staticflickr.com/2/1594/26332812796_5d41e60df6_b.jpg
       -
-        id: nxmw-storyboard-109
+        id: nxmw-storyboard-110
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1695/26266376342_d74a6d3908_b.jpg
             display: https://c2.staticflickr.com/2/1695/26266376342_d74a6d3908_b.jpg
       -
-        id: nxmw-storyboard-110
+        id: nxmw-storyboard-111
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1684/26085886160_c6ff8ffc7b_b.jpg
             display: https://c2.staticflickr.com/2/1684/26085886160_c6ff8ffc7b_b.jpg
       -
-        id: nxmw-storyboard-111
+        id: nxmw-storyboard-112
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1547/26358758955_cb8483bd38_b.jpg
             display: https://c2.staticflickr.com/2/1547/26358758955_cb8483bd38_b.jpg
       -
-        id: nxmw-storyboard-112
+        id: nxmw-storyboard-113
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1510/26292519291_98c1889d25_b.jpg
             display: https://c2.staticflickr.com/2/1510/26292519291_98c1889d25_b.jpg
       -
-        id: nxmw-storyboard-113
+        id: nxmw-storyboard-114
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1474/26332812656_1217ea8077_b.jpg
             display: https://c2.staticflickr.com/2/1474/26332812656_1217ea8077_b.jpg
       -
-        id: nxmw-storyboard-114
+        id: nxmw-storyboard-115
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1653/26085886060_1b6958ae9a_b.jpg
             display: https://c2.staticflickr.com/2/1653/26085886060_1b6958ae9a_b.jpg
       -
-        id: nxmw-storyboard-115
+        id: nxmw-storyboard-116
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1472/26292519231_aa69af6c5f_b.jpg
             display: https://c2.staticflickr.com/2/1472/26292519231_aa69af6c5f_b.jpg
       -
-        id: nxmw-storyboard-116
+        id: nxmw-storyboard-117
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1563/25756005823_af70f809f3_b.jpg
             display: https://c2.staticflickr.com/2/1563/25756005823_af70f809f3_b.jpg
       -
-        id: nxmw-storyboard-117
+        id: nxmw-storyboard-118
+        notes: |
+          ### Chapter 14
+          [https://docs.google.com/document/d/109bY-CwiX7DDqAWRhva4YPzOv9xnGccqTXVVJd53L3U/edit](https://docs.google.com/document/d/109bY-CwiX7DDqAWRhva4YPzOv9xnGccqTXVVJd53L3U/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1608/26085886000_61d76524e3_b.jpg
             display: https://c2.staticflickr.com/2/1608/26085886000_61d76524e3_b.jpg
       -
-        id: nxmw-storyboard-118
+        id: nxmw-storyboard-119
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1685/26332812526_e0912c563a_b.jpg
             display: https://c2.staticflickr.com/2/1685/26332812526_e0912c563a_b.jpg
       -
-        id: nxmw-storyboard-119
+        id: nxmw-storyboard-120
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1597/26266376072_1e10e41c9c_b.jpg
             display: https://c2.staticflickr.com/2/1597/26266376072_1e10e41c9c_b.jpg
       -
-        id: nxmw-storyboard-120
+        id: nxmw-storyboard-121
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1648/26292519101_3df841a11a_b.jpg
             display: https://c2.staticflickr.com/2/1648/26292519101_3df841a11a_b.jpg
       -
-        id: nxmw-storyboard-121
+        id: nxmw-storyboard-122
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1717/25753907314_4cc9a589fb_b.jpg
             display: https://c2.staticflickr.com/2/1717/25753907314_4cc9a589fb_b.jpg
       -
-        id: nxmw-storyboard-122
+        id: nxmw-storyboard-123
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1659/26292519051_923f8407b8_b.jpg
             display: https://c2.staticflickr.com/2/1659/26292519051_923f8407b8_b.jpg
       -
-        id: nxmw-storyboard-123
+        id: nxmw-storyboard-124
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1505/26332812416_df77179609_b.jpg
             display: https://c2.staticflickr.com/2/1505/26332812416_df77179609_b.jpg
       -
-        id: nxmw-storyboard-124
+        id: nxmw-storyboard-125
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1651/26358758655_e6a47b9960_b.jpg
             display: https://c2.staticflickr.com/2/1651/26358758655_e6a47b9960_b.jpg
       -
-        id: nxmw-storyboard-125
+        id: nxmw-storyboard-126
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1505/25753907264_7548603a6a_b.jpg
             display: https://c2.staticflickr.com/2/1505/25753907264_7548603a6a_b.jpg
       -
-        id: nxmw-storyboard-126
+        id: nxmw-storyboard-127
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1464/26085885850_3d854485a1_b.jpg
             display: https://c2.staticflickr.com/2/1464/26085885850_3d854485a1_b.jpg
       -
-        id: nxmw-storyboard-127
+        id: nxmw-storyboard-128
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1699/26085885780_5c31efb0f3_b.jpg
             display: https://c2.staticflickr.com/2/1699/26085885780_5c31efb0f3_b.jpg
       -
-        id: nxmw-storyboard-128
+        id: nxmw-storyboard-129
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1613/25756005593_e20c6c25f2_b.jpg
             display: https://c2.staticflickr.com/2/1613/25756005593_e20c6c25f2_b.jpg
       -
-        id: nxmw-storyboard-129
+        id: nxmw-storyboard-130
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1564/26358758585_eb0f0205d3_b.jpg
             display: https://c2.staticflickr.com/2/1564/26358758585_eb0f0205d3_b.jpg
       -
-        id: nxmw-storyboard-130
+        id: nxmw-storyboard-131
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1610/26266375722_f0e3be49aa_b.jpg
             display: https://c2.staticflickr.com/2/1610/26266375722_f0e3be49aa_b.jpg
       -
-        id: nxmw-storyboard-131
+        id: nxmw-storyboard-132
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1660/26085885720_357759987e_b.jpg
             display: https://c2.staticflickr.com/2/1660/26085885720_357759987e_b.jpg
       -
-        id: nxmw-storyboard-132
+        id: nxmw-storyboard-133
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1541/26085885700_4efe56f766_b.jpg
             display: https://c2.staticflickr.com/2/1541/26085885700_4efe56f766_b.jpg
       -
-        id: nxmw-storyboard-133
+        id: nxmw-storyboard-134
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1670/25756005493_10e504f86c_b.jpg
             display: https://c2.staticflickr.com/2/1670/25756005493_10e504f86c_b.jpg
       -
-        id: nxmw-storyboard-134
+        id: nxmw-storyboard-135
+        notes: |
+          ### Chapter 15
+          [https://docs.google.com/document/d/1-UlhZjmGluCsIytZHXPdc7YdkmXl68RcrPW98wt13P8/edit](https://docs.google.com/document/d/1-UlhZjmGluCsIytZHXPdc7YdkmXl68RcrPW98wt13P8/edit)
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1450/26292518831_64b330691e_b.jpg
             display: https://c2.staticflickr.com/2/1450/26292518831_64b330691e_b.jpg
       -
-        id: nxmw-storyboard-135
+        id: nxmw-storyboard-136
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1669/26085885670_167f17c743_b.jpg
             display: https://c2.staticflickr.com/2/1669/26085885670_167f17c743_b.jpg
       -
-        id: nxmw-storyboard-136
+        id: nxmw-storyboard-137
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1462/26358758435_be61b3de73_b.jpg
             display: https://c2.staticflickr.com/2/1462/26358758435_be61b3de73_b.jpg
       -
-        id: nxmw-storyboard-137
+        id: nxmw-storyboard-138
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1709/25756005453_545906a14d_b.jpg
             display: https://c2.staticflickr.com/2/1709/25756005453_545906a14d_b.jpg
       -
-        id: nxmw-storyboard-138
+        id: nxmw-storyboard-139
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1569/26292518771_facdbc9100_b.jpg
             display: https://c2.staticflickr.com/2/1569/26292518771_facdbc9100_b.jpg
       -
-        id: nxmw-storyboard-139
+        id: nxmw-storyboard-140
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1549/25753906944_ff873730e5_b.jpg
             display: https://c2.staticflickr.com/2/1549/25753906944_ff873730e5_b.jpg
       -
-        id: nxmw-storyboard-140
+        id: nxmw-storyboard-141
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1466/25753906864_4994a84943_b.jpg
             display: https://c2.staticflickr.com/2/1466/25753906864_4994a84943_b.jpg
       -
-        id: nxmw-storyboard-141
+        id: nxmw-storyboard-142
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1531/26358758325_d8a1d5006f_b.jpg
             display: https://c2.staticflickr.com/2/1531/26358758325_d8a1d5006f_b.jpg
       -
-        id: nxmw-storyboard-142
+        id: nxmw-storyboard-143
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1503/25753906784_6cda46b56f_b.jpg
             display: https://c2.staticflickr.com/2/1503/25753906784_6cda46b56f_b.jpg
       -
-        id: nxmw-storyboard-143
+        id: nxmw-storyboard-144
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1505/26266375452_a070570b31_b.jpg
             display: https://c2.staticflickr.com/2/1505/26266375452_a070570b31_b.jpg
       -
-        id: nxmw-storyboard-144
+        id: nxmw-storyboard-145
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1544/26358758225_579e67f353_b.jpg
             display: https://c2.staticflickr.com/2/1544/26358758225_579e67f353_b.jpg
       -
-        id: nxmw-storyboard-145
+        id: nxmw-storyboard-146
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1694/26292518491_6b7860161a_b.jpg
             display: https://c2.staticflickr.com/2/1694/26292518491_6b7860161a_b.jpg
       -
-        id: nxmw-storyboard-146
+        id: nxmw-storyboard-147
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1448/26292518431_7c8c723617_b.jpg
             display: https://c2.staticflickr.com/2/1448/26292518431_7c8c723617_b.jpg
       -
-        id: nxmw-storyboard-147
+        id: nxmw-storyboard-148
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1677/25753906614_655c88e9dd_b.jpg
             display: https://c2.staticflickr.com/2/1677/25753906614_655c88e9dd_b.jpg
       -
-        id: nxmw-storyboard-148
+        id: nxmw-storyboard-149
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1555/26085885380_c6607db99d_b.jpg
             display: https://c2.staticflickr.com/2/1555/26085885380_c6607db99d_b.jpg
       -
-        id: nxmw-storyboard-149
+        id: nxmw-storyboard-150
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1639/26292518401_5f0c37a2b5_b.jpg
             display: https://c2.staticflickr.com/2/1639/26292518401_5f0c37a2b5_b.jpg
       -
-        id: nxmw-storyboard-150
+        id: nxmw-storyboard-151
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1657/26332811806_db7d6888f1_b.jpg
             display: https://c2.staticflickr.com/2/1657/26332811806_db7d6888f1_b.jpg
       -
-        id: nxmw-storyboard-151
+        id: nxmw-storyboard-152
         images:
           -
             orientation: landscape

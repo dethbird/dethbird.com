@@ -126,7 +126,7 @@ $app->get("/logout", function () use ($app) {
 });
 
 $app->get("/", function () use ($app) {
-
+    $app->redirect("http://rishisatsangi.com");
     $configs = $app->container->get('configs');
 
     $_gallery = array();
@@ -137,7 +137,7 @@ $app->get("/", function () use ($app) {
     $configs['portfolio']['gallery'] = $_gallery;
 
     $instagramData = new InstagramData($configs['instagram']['client_id']);
-    $wordpressData = new WordpressData($configs['wordpress']['url']);
+    //$wordpressData = new WordpressData($configs['wordpress']['url']);
 
     $templateVars = array(
         "configs" => $configs,
@@ -146,7 +146,7 @@ $app->get("/", function () use ($app) {
             "drawing",
             "sketchbook"
         )),
-        "wordpressData" => $wordpressData->getPosts($configs['wordpress']['posts']),
+        //"wordpressData" => $wordpressData->getPosts($configs['wordpress']['posts']),
         "tweetIds" => $configs['twitter']['tweets']
     );
     $app->render(
