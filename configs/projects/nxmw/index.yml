@@ -81,7 +81,7 @@ characters:
         He is a hound dog.
     -
       id: rabbi
-      name: Rabbi
+      name: Mildred Bovine
       role: lead
       images:
         -
@@ -90,6 +90,19 @@ characters:
           display: https://c2.staticflickr.com/2/1560/25380972016_983f3f869d_h.jpg
       description: |
         she's a Cow Rabbi
+    -
+      id: mama
+      name: Mamma Jenny
+      role: lead
+      images:
+        -
+          orientation: landscape
+          thumbnail: https://c2.staticflickr.com/2/1561/26617006942_bbcf891b4f_z.jpg
+          display: https://c2.staticflickr.com/2/1561/26617006942_bbcf891b4f_b.jpg
+      description: |
+        Mama
+
+        complete with a great mom haircut
     -
       id: chickenbutt
       name: Chicken Butt
@@ -225,6 +238,8 @@ storyboards:
             display: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_b.jpg
       -
         id: nxmw-storyboard-07
+        notes: |
+          Mama should be speaking to young Jackass
         images:
           -
             orientation: landscape
@@ -242,10 +257,16 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1540/26684180556_47725767d9_z.jpg
+            display: https://c2.staticflickr.com/2/1540/26684180556_47725767d9_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_c.jpg
             display: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_b.jpg
       -
         id: nxmw-storyboard-09
+        notes: |
+          p9 - For the illustration, I was thinking of Mama and Jenny by themselves, either alone like in p7 or isolated from other donkeys who are over on the side and off in the distance like in p9 and the 2-pg spread of p12-13.  For the text, please use this:  It was natural in these parts for males to AVOID making EYE CONTACT — foe or friend, prey or predator, we all had a passive-aggressiveness about us.  However, it seemed to me that most of my kin would rather GALLOP up to the top of the ridgeline than walk by us ad have to say HELLO.  Mostly we kept to ourselves, Mama Jenny and me.
         images:
           -
             orientation: landscape
@@ -326,6 +347,8 @@ storyboards:
         notes: |
           ### Chapter 3
           [https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit](https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit)
+
+          I hadn’t really thought about what to put here, but maybe Jackass and the barnyard animals in the background looking longingly towards Fanny who is in p21 to the right
         images:
           -
             orientation: landscape
@@ -368,6 +391,8 @@ storyboards:
             display: https://c2.staticflickr.com/2/1451/26356816655_e559920922_b.jpg
       -
         id: nxmw-storyboard-26
+        notes: |
+          Wyle Turkey won’t be here in barnyard scene, please replace him with Mildred Bovine (who appears again at the end of the story).  Mildred and Russell Chickenbutt can be addressing each other.  Mildred says in response:  He does like those foreign girls (I also tweaked Harry’s line a bit in the attached)
         images:
           -
             orientation: landscape
@@ -375,6 +400,8 @@ storyboards:
             display: https://c2.staticflickr.com/2/1500/26290665621_ab139a8dec_b.jpg
       -
         id: nxmw-storyboard-27
+        notes: |
+          Instead of barnyard animals on the right side , please put in a bunch of deer.  one of them says ‘Oh deer me'
         images:
           -
             orientation: landscape
