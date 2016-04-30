@@ -1,4 +1,4 @@
-<div class="card col-lg-3" id="{{character.id}}" class="{% if character.status!="" %}{{character.status}}{% else %}ok{% endif %}">
+<div class="card col-lg-4" id="{{character.id}}" class="{% if character.status!="" %}{{character.status}}{% else %}ok{% endif %}">
   <div class="card-block">
     <h3 class="card-title">{{character.name}}</h3>
     <small>({{character.role}})</small>
@@ -8,7 +8,7 @@
   {% if character.images|length %}
     {% for image in character.images %}
       {% if loop.index==1 %}
-        <div class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in card-img" data-image-index="0"/></div>
+        <preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in card-img" data-image-index="0"/></preview>
       {% endif %}
     {% endfor %}
     {% if character.images|length > 1 %}
@@ -27,7 +27,7 @@
   <description>{{character.description|markdown}}</description>
 </div>
 </div>
-{% if loop.index is divisible by(4) %}
+{% if loop.index is divisible by(3) %}
 </div>
 <div class="row">
 {% endif %}

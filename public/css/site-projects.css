@@ -5,6 +5,9 @@ body {
 input, select, textarea {
   color: #000;
 }
+preview img, thumbnail img {
+  cursor: pointer;
+}
 .card {
   background-color: #1A1A1A;
   border: 1px solid #333;

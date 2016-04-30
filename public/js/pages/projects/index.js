@@ -130,7 +130,6 @@ var ProjectView = Backbone.View.extend({
         if(options.configs.reference_images!=undefined) {
             $.each(options.configs.reference_images.list, function(i,item){
               item = new Backbone.Model(item);
-              console.log(item);
               var card = new CardViewSingleImage({
                   el: '#' + item.get('id'),
                   model: item
