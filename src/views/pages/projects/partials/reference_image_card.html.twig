@@ -1,4 +1,9 @@
-<card id="{{image.id}}">
+<div class="card col-lg-3" id="{{image.id}}">
   <preview class="overlay-trigger"><img src="{{image.url}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
   <description>{{image.note|markdown}}</description>
-</card>
+</div>
+
+{% if loop.index is divisible by(4) %}
+</div>
+<div class="row">
+{% endif %}

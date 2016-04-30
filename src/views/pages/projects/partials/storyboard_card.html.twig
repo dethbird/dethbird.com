@@ -1,20 +1,29 @@
-<card id="{{board.id}}" class="{% if board.status!="" %}{{board.status}}{% else %}ok{% endif %}">
-  {{loop.index0}}
-  {% if board.images|length %}
-    {% for image in board.images %}
-      {% if loop.index==1 %}
-        <preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
-      {% endif %}
-    {% endfor %}
-    {% if board.images|length > 1 %}
-    <div class="thumbnails">
+<div id="{{board.id}}" class="card col-lg-6 {% if board.status!="" %}{{board.status}}{% else %}ok{% endif %}">
+  <div class="card-block">
+    {% if board.images|length %}
       {% for image in board.images %}
-          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail>
+        {% if loop.index==1 %}
+          <div class="card-img"><preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview></div>
+        {% endif %}
       {% endfor %}
-    </div>
+      {% if board.images|length > 1 %}
+      <br />
+      <div class="row thumbnails">
+        {% for image in board.images %}
+            <div class="col-xs-3"><thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% else %}
+    <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
     {% endif %}
-  {% else %}
-  <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
-  {% endif %}
-  <description>{{board.notes|markdown}}</description>
-</card>
+    <description>{{board.notes|markdown}}</description>
+    <span class="pull-right">{{loop.index0}}</span>
+  </div>
+</div>
+
+
+{% if loop.index is divisible by(2) %}
+</div>
+<div class="row">
+{% endif %}

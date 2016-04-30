@@ -1,0 +1,14 @@
+<div class="card col-lg-3 {% if location.status!="" %}{{location.status}}{% else %}ok{% endif %}">
+  <div class="card-block">
+    <h3 class="card-title">{{location.name}}</h3>
+    {% if location.status!="" %}<span class="label label-success">{{location.status}}</span>{% endif %}
+    <br />
+    <type>{{location.type}}</type>
+    <description>{{location.description|markdown}}</description>
+  </div>
+</div>
+
+{% if loop.index is divisible by(4) %}
+</div>
+<div class="row">
+{% endif %}

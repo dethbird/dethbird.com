@@ -1,25 +1,33 @@
-<card id="{{character.id}}" class="{% if character.status!="" %}{{character.status}}{% else %}ok{% endif %}">
-  <header>
-    <name>{{character.name}}</name>
+<div class="card col-lg-3" id="{{character.id}}" class="{% if character.status!="" %}{{character.status}}{% else %}ok{% endif %}">
+  <div class="card-block">
+    <h3 class="card-title">{{character.name}}</h3>
     <small>({{character.role}})</small>
-    {% if character.status!="" %}<span class="label label-success">{{character.status}}</span>{% endif %}
+  {% if character.status!="" %}
+    <span class="label label-success">{{character.status}}</span>{% endif %}
   </header>
   {% if character.images|length %}
     {% for image in character.images %}
       {% if loop.index==1 %}
-        <preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview>
+        <div class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in card-img" data-image-index="0"/></div>
       {% endif %}
     {% endfor %}
     {% if character.images|length > 1 %}
-    <div class="thumbnails">
+    <div class="thumbnails card-block">
+      <div class="row">
       {% for image in character.images %}
-          <thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail>
+          <div class="col-xs-4"><thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail></div>
       {% endfor %}
+      </div>
     </div>
     {% endif %}
   {% else %}
-  <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
+    <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
   {% endif %}
   <occupation>{{character.occupation}}</occupation> <age>{{character.age}}</age>
   <description>{{character.description|markdown}}</description>
-</card>
+</div>
+</div>
+{% if loop.index is divisible by(4) %}
+</div>
+<div class="row">
+{% endif %}
