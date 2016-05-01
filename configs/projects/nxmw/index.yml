@@ -179,8 +179,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/2/1605/25843409051_9f429bfee4_c.jpg
-            display: https://c2.staticflickr.com/2/1605/25843409051_9f429bfee4_b.jpg
+            thumbnail: https://c2.staticflickr.com/2/1605/25843409051_eab77aa6cb_z.jpg
+            display: https://c2.staticflickr.com/2/1605/25843409051_eab77aa6cb_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1700/25283634003_5d9faa88d2_b.jpg
@@ -194,8 +194,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/2/1529/25844387611_787733d323_c.jpg
-            display: https://c2.staticflickr.com/2/1529/25844387611_787733d323_b.jpg
+            thumbnail: https://c2.staticflickr.com/2/1529/25844387611_dd94073ba0_z.jpg
+            display: https://c2.staticflickr.com/2/1529/25844387611_dd94073ba0_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1550/25782195352_472e38e076_c.jpg
@@ -254,11 +254,13 @@ storyboards:
         notes: |
           ### Chapter 2
           [https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit](https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit "Chapter 2")
+
+          * This panel and the next should be a 2 page spread
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/2/1540/26684180556_47725767d9_z.jpg
-            display: https://c2.staticflickr.com/2/1540/26684180556_47725767d9_b.jpg
+            thumbnail: https://c2.staticflickr.com/2/1540/26684180556_8478eb8ae1_z.jpg
+            display: https://c2.staticflickr.com/2/1540/26684180556_8478eb8ae1_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_c.jpg
@@ -270,11 +272,19 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1609/26478135880_9591fd52a1_z.jpg
+            display: https://c2.staticflickr.com/2/1609/26478135880_9591fd52a1_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_c.jpg
             display: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_b.jpg
       -
         id: nxmw-storyboard-10
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/2/1445/26148696993_40e90c46ee_z.jpg
+            display: https://c2.staticflickr.com/2/1445/26148696993_40e90c46ee_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1518/26282191031_2fbb26bdcf_z.jpg
