@@ -54,6 +54,9 @@ thumbnail.active img {
 .card img {
      width: 100%;
 }
+.card-block {
+  padding: 10px;
+}
 /* Bounce In */
 .hvr-bounce-in {
   -webkit-transition-duration: 0.25s;
@@ -69,4 +72,9 @@ thumbnail.active img {
 .quantifier {
   font-size: 40%;
   vertical-align: middle;
+}
+.page-number {
+  background-color: #313131;
+  font-size: 90%;
+  margin: 5px 0px 5px 0px;
 }
