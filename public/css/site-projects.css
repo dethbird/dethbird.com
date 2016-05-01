@@ -2,14 +2,41 @@ a {
   color: #49ABFF;
 }
 body {
+  font-family: 'Roboto', sans-serif;
   background-color: #222;
   color: #fff;
+}
+description {
+  padding: 5px;
 }
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Patua One', cursive;
 }
 input, select, textarea {
   color: #000;
+}
+overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    display:none;
+}
+overlay content {
+    display: block;
+    text-align: center;
+    padding: 25px;
+    cursor: zoom-out;
+}
+overlay content img.landscape {
+  max-width: 90%;
+  height: auto;
+}
+overlay content img.portrait {
+  max-height: 90%;
+  width: auto;
 }
 preview img, thumbnail img {
   cursor: pointer;
@@ -20,15 +47,24 @@ thumbnail img {
 thumbnail.active img {
   box-shadow: 0px 0px 4px 4px rgba(20, 137, 194, 0.9);
 }
-.active {
-
-}
 .card {
   background-color: #1A1A1A;
   border: 1px solid #333;
 }
 .card img {
      width: 100%;
+}
+/* Bounce In */
+.hvr-bounce-in {
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.label {
+  font-family: 'Roboto', sans-serif;
 }
 .quantifier {
   font-size: 40%;
