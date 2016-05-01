@@ -1,6 +1,12 @@
+a {
+  color: #49ABFF;
+}
 body {
   background-color: #222;
   color: #fff;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Patua One', cursive;
 }
 input, select, textarea {
   color: #000;
@@ -8,10 +14,23 @@ input, select, textarea {
 preview img, thumbnail img {
   cursor: pointer;
 }
+thumbnail img {
+  margin-bottom: 5px;
+}
+thumbnail.active img {
+  box-shadow: 0px 0px 4px 4px rgba(20, 137, 194, 0.9);
+}
+.active {
+
+}
 .card {
   background-color: #1A1A1A;
   border: 1px solid #333;
 }
 .card img {
      width: 100%;
+}
+.quantifier {
+  font-size: 40%;
+  vertical-align: middle;
 }
