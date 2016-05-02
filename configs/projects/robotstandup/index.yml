@@ -1,0 +1,29 @@
+name: Robot Standup
+description: |
+  Starting out from his home planet, we catch some highlights from the robot standup on the Earth leg of his intergalactic summer tour.
+characters:
+  list:
+    -
+      id: robot
+      name: Robot
+      role: lead
+      images:
+        -
+          orientation: portrait
+          thumbnail: https://c2.staticflickr.com/2/1504/26167543903_dc869c2b01_z.jpg
+          display: https://c2.staticflickr.com/2/1504/26167543903_dc869c2b01_b.jpg
+      description: |
+        - formidable heft
+        - complicated relationship with parents who didn't want him to be a standup
+reference_images:
+  description: |
+    - Non humanoid robots
+    - Comedy clubs
+    - Audience members
+  list:
+    -
+      id: reference_image001
+      orientation: landscape
+      url: https://dyn0.media.forbiddenplanet.com/products/2112176.jpg.jpg
+      note: |
+        Daleks obviouly came to mind for the lead character. #nonhumanoidrobot

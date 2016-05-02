@@ -6,6 +6,7 @@
     - beepo
     - marqueeshade
     - nxmw
+    - robotstandup
 -
   login: jon.earp
   email: jon.earp@gmail.com
@@ -27,3 +28,17 @@
   projects:
     - beepo
     - marqueeshade
+-
+  login: schloss
+  email: dave@themeat.org
+  password: P1zzaP4rty!!!
+  projects:
+    - marqueeshade
+    - beepo
+-
+  login: nick.roberts
+  email: dreadwestern@gmail.com
+  password: P1zzaP4rty!!!
+  projects:
+    - marqueeshade
+    - robotstandup
