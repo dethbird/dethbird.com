@@ -38,7 +38,7 @@
     <section>
         <ul>
         {% for skill in skills %}
-            <li><strong>{{skill.type}}:</strong> <span>{{skill.description}}</span></li>
+            <li><strong>{{skill.type}}:</strong> {{skill.description|markdown}}</li>
         {% endfor %}
         </ul>
     </section>
@@ -46,7 +46,7 @@
     <header>
         <h3>Summary</h3>
     </header>
-    <section><p>{{summary}}</p></section>
+    <section>{{summary|markdown}}</section>
 
     <header>
         <h3>Experience</h3>
@@ -59,10 +59,10 @@
             {{job.term}}<br />
             {{job.location}}<br />
             {{job.url}}<br />
-            <blockquote>{{job.description}}</blockquote>
+            <blockquote>{{job.description|markdown}}</blockquote>
             <ul class="indent">
                 {% for detail in job.details %}
-                <li>{{detail}}</li>
+                <li>{{detail|markdown}}</li>
                 {% endfor %}
             </ul>
         {% endfor %}
