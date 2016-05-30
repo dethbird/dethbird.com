@@ -306,8 +306,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7554/27080655200_d700e4ae22.jpg
-            display: https://c2.staticflickr.com/8/7554/27080655200_d700e4ae22_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7554/27080655200_bd43722e00.jpg
+            display: https://c2.staticflickr.com/8/7554/27080655200_bd43722e00_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1509/26348471935_8155fe948f_z.jpg
@@ -317,11 +317,19 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7218/26750189954_588b079f7f.jpg
+            display: https://c2.staticflickr.com/8/7218/26750189954_588b079f7f_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1588/25745783033_c32c2a4efe_z.jpg
             display: https://c2.staticflickr.com/2/1588/25745783033_c32c2a4efe_b.jpg
       -
         id: nxmw-storyboard-13
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7756/27082572940_658547ff3a.jpg
+            display: https://c2.staticflickr.com/8/7756/27082572940_658547ff3a_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1596/26348592895_128d634866_z.jpg
