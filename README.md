@@ -5,7 +5,8 @@
 
 ```bash
 # build all
-php build.php js=1 php=1 cache=1
-# build dev (don't uglify js)
-php build.php js=dev php=1 cache=1
+php build.php js=1 php=1 cache=1 node=1
+
+# build js un-uglified
+php build.php js=dev
 ```
