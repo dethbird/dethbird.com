@@ -205,6 +205,10 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7427/27400038612_c810e30c7b.jpg
+            display: https://c2.staticflickr.com/8/7427/27400038612_c810e30c7b_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1688/25820414692_2297a9133e_c.jpg
             display: https://c2.staticflickr.com/2/1688/25820414692_2297a9133e_b.jpg
           -
@@ -226,6 +230,10 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7260/27221495530_09a399c722.jpg
+            display: https://c2.staticflickr.com/8/7260/27221495530_09a399c722_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1492/25765743793_7eec0e275f.jpg
             display: https://c2.staticflickr.com/2/1492/25765743793_7eec0e275f_b.jpg
           -
@@ -241,6 +249,10 @@ storyboards:
         notes: |
           Mama should be speaking to young Jackass
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7028/27426179291_6cde9eee22.jpg
+            display: https://c2.staticflickr.com/8/7028/27426179291_6cde9eee22_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7290/26743841164_46808e583b.jpg
