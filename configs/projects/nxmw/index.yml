@@ -403,11 +403,19 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7301/27244573970_11e7044c5d.jpg
+            display: https://c2.staticflickr.com/8/7301/27244573970_11e7044c5d_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1543/25745082324_a35b4eb6a4_z.jpg
             display: https://c2.staticflickr.com/2/1543/25745082324_a35b4eb6a4_b.jpg
       -
         id: nxmw-storyboard-19
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7284/27448943641_1ce8f0f47f.jpg
+            display: https://c2.staticflickr.com/8/7284/27448943641_1ce8f0f47f_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1542/25747207243_8597b9f2b5_z.jpg
