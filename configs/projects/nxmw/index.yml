@@ -146,6 +146,11 @@ storyboards:
                 user: jon.earp
                 comment: |
                     I’m wondering about the font — I really like it for the chapter titles, but it gets a little hard to read for me in the headers/footers and dialogue etc.
+            -
+                date: 2016-06-08
+                user: dethbird
+                comment: |
+                    I wasn't sure about it either, especially the pages with a lot of dialogue and context bubbles. Looks a little chicken-scratchy. I'll try something else as I go through the newer panels.
       -
         id: nxmw-storyboard-01
         notes: |
@@ -451,6 +456,7 @@ storyboards:
                 user: jon.earp
                 comment: |
                      need your thoughts on this one — do the captions work going across panels 14-15?  The picture goes across two panels, so I like the idea of the words doing likewise.  However, does it work better if I split the captions into single panels like this?
+
                         - Panel 14 Top (as is, but centered): Then suddenly
                         - Panel 14 Bottom:  my childhood ended
                         - Panel 15 Top:  Mama Jenny died
@@ -477,6 +483,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1620/25746047443_e77aa727af_z.jpg
             display: https://c2.staticflickr.com/2/1620/25746047443_e77aa727af_b.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                     Please change ‘On the day I became a teenager’ to ‘As soon as I was old enough'.  Also in the bottom please change ’I had only made it to the other side of TOWN before ...’ to ‘But I only made it to the other side of TOWN before I ...’.
       -
         id: nxmw-storyboard-17
         images:
