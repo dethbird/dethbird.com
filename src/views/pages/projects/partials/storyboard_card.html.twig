@@ -14,10 +14,30 @@
         {% endfor %}
       </div>
       {% endif %}
+      {% if board.comments|length > 1 %}
+      <br />
+      <div class="row storyboard-comments-container">
+          {% for comment in board.comments %}
+              <div class="col-xs-11 col-xs-offset-1 storyboard-comment">
+                  <div class="comment col-xs-12">
+                      {{comment.comment|markdown}}
+                  </div>
+                  <div class="comment-annotation col-xs-12 pull-right">
+                      <span class="user-login">{{comment.user}}</span>
+                      <span class="timestamp">
+                           {{comment.date|timestamp_date_format}}
+                      </span>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+      {% endif %}
     {% else %}
     <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
     {% endif %}
-    <description>{{board.notes|markdown}}</description>
+    {% if board.notes != "" %}
+        <div class="storyboard-notes">{{board.notes|markdown}}</div>
+    {% endif %}
     <span class="pull-right label label-default page-number">{{loop.index0}}</span>
   </div>
 </div>

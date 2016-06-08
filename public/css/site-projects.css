@@ -93,3 +93,32 @@ thumbnail.active img {
   font-size: 90%;
   margin: 5px 0px 5px 0px;
 }
+.storyboard-comment {
+    background-color: #333;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 10px;
+}
+.storyboard-comment:nth-child(even) {
+    background-color: #252525;
+}
+.storyboard-notes {
+    background-color: #111;
+    margin: 10px 0px 10px 0px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: .85rem;
+}
+.comment {
+    font-size: .85rem;
+}
+.comment-annotation {
+    text-align: right;
+    font-size: .75rem;
+}
+.user-login {
+    color: #49ABFF;
+}
+.timestamp {
+    color: #666;
+}

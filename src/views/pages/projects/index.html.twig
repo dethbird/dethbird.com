@@ -15,6 +15,25 @@
     </div>
 
 
+    {% if projectConfigs.storyboards %}
+    <div class="row storyboards">
+      <div class="col-lg-12">
+        <h1>Storyboards</h1>
+        <description>{{projectConfigs.storyboards.description|markdown}}</description>
+        {% for storyboard in projectConfigs.storyboards %}
+          <div class="row">
+            <h3>{{storyboard.name}}</h3>
+            <div class="row">
+              {% for board in storyboard.boards %}
+                {% include "pages/projects/partials/storyboard_card.html.twig" %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <div class="row">
       <div class="col-lg-12">
         <h1>Characters</h1>
@@ -65,25 +84,6 @@
             {% include "pages/projects/partials/concept_art_card.html.twig" %}
           {% endfor %}
         </div>
-      </div>
-    </div>
-    {% endif %}
-
-    {% if projectConfigs.storyboards %}
-    <div class="row storyboards">
-      <div class="col-lg-12">
-        <h1>Storyboards</h1>
-        <description>{{projectConfigs.storyboards.description|markdown}}</description>
-        {% for storyboard in projectConfigs.storyboards %}
-          <div class="row">
-            <h3>{{storyboard.name}}</h3>
-            <div class="row">
-              {% for board in storyboard.boards %}
-                {% include "pages/projects/partials/storyboard_card.html.twig" %}
-              {% endfor %}
-            </div>
-          </div>
-        {% endfor %}
       </div>
     </div>
     {% endif %}

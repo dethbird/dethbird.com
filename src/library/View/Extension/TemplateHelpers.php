@@ -6,6 +6,8 @@ class TemplateHelpers extends \Twig_Extension
     public function getFilters()
     {
         return array(
+            new \Twig_SimpleFilter('timestamp_date_format',
+                array($this, 'timestamp_date_format')),
             new \Twig_SimpleFilter('date_format', array($this, 'date_format')),
             new \Twig_SimpleFilter('print_r', array($this, 'print_r')),
             new \Twig_SimpleFilter('json_encode', array($this, 'json_encode')),
@@ -14,9 +16,18 @@ class TemplateHelpers extends \Twig_Extension
             new \Twig_SimpleFilter('md5', array($this, 'md5'))
         );
     }
+    /**
+    * @param $timestamp a UNIX time like 1465257600
+    **/
+    public function timestamp_date_format($timestamp, $format = "Y-m-d")
+    {
+        return date($format, $timestamp);
+    }
+    /**
+    * @param $date a date string
+    **/
     public function date_format($date, $format = "F j, Y g:i:a")
     {
-        // echo $date; die();
         return date($format, strtotime($date));
     }
     public function print_r($output)
