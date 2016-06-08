@@ -14,7 +14,7 @@
         {% endfor %}
       </div>
       {% endif %}
-      {% if board.comments|length > 1 %}
+      {% if board.comments|length > 0 %}
       <br />
       <div class="row storyboard-comments-container">
           {% for comment in board.comments %}
