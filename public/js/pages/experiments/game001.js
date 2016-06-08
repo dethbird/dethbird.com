@@ -15958,7 +15958,7 @@ var Crafty = require('../core/core.js');
 
 },{"../core/core.js":8}],45:[function(require,module,exports){
 var Crafty = require('craftyjs');
-var StandupGameView = Backbone.View.extend({
+var ScrollerGamerTestView = Backbone.View.extend({
   crafty: null,
     initialize: function(options) {
         var that = this;
@@ -15968,15 +15968,17 @@ var StandupGameView = Backbone.View.extend({
     }
 });
 
-module.exports = StandupGameView;
+module.exports = ScrollerGamerTestView;
 
 },{"craftyjs":18}],46:[function(require,module,exports){
-var StandupGameView = require('../../library/views/games/StandupGameView');
+var ScrollerGameTestView = require(
+    '../../library/views/games/ScrollerGameTestView'
+);
 
-var standupGameView = new StandupGameView({
+var scrollerGameTestView = new ScrollerGameTestView({
     el: '#game'
 });
 
-console.log(standupGameView);
+console.log(scrollerGameTestView);
 
-},{"../../library/views/games/StandupGameView":45}]},{},[46]);
+},{"../../library/views/games/ScrollerGameTestView":45}]},{},[46]);

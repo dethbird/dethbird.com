@@ -140,6 +140,12 @@ storyboards:
             orientation: portrait
             thumbnail: http://vignette2.wikia.nocookie.net/uncyclopedia/images/4/44/White_square.png/revision/20061003200039
             display: http://vignette2.wikia.nocookie.net/uncyclopedia/images/4/44/White_square.png/revision/20061003200039
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    I’m wondering about the font — I really like it for the chapter titles, but it gets a little hard to read for me in the headers/footers and dialogue etc.
       -
         id: nxmw-storyboard-01
         notes: |
@@ -174,6 +180,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1473/25580660310_ef72f451a5_c.jpg
             display: https://c2.staticflickr.com/2/1473/25580660310_fbeb8bd33f_o.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    I like my loon, can I keep that as my little publishing mark? Can you give him a red eye (loons have red eyes)?  I presume the font will be different here, whatever we decide. Also a quibble: can you please remove the dashes on either side of the words ‘— or animals —‘.
       -
         id: nxmw-storyboard-03
         images:
@@ -223,6 +235,17 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1681/25274301993_c061073549_c.jpg
             display: https://c2.staticflickr.com/2/1681/25274301993_4c01a60848_o.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    Panel 5, and for all chapter title pages - please replace the # with Chapter
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    Also on panel 5, I think JACKASS BURROUGHS! should be in all caps.
       -
         id: nxmw-storyboard-06
         notes: |
@@ -244,6 +267,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_c.jpg
             display: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_b.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    Panel 6 and 7 - can you please make sure the font is the same size for the headers and footer on these pages, otherwise it’s perfect
       -
         id: nxmw-storyboard-07
         notes: |
@@ -269,6 +298,23 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1637/25306902624_364d6bb70d_c.jpg
             display: https://c2.staticflickr.com/2/1637/25306902624_364d6bb70d_b.jpg
+        comments:
+            -
+                date: 2016-05-31
+                user: jon.earp
+                comment: |
+                     I forgot to say that Jackass should have a hat on, at least while he is younger (starting at panel 7).  He leaves the hat behind in panel 61.  Maybe one of those hats with ear flaps, since it's Minnesota-y and of course is inherently hilarious, even more so since it won’t actually cover his ears but just flop down his neck. (reference attached, though it doesn’t need the fur — his hair could stick out the front in similar fashion, though, I suppose).  Make it Viking/Prince purple.
+
+            -
+                date: 2016-06-01
+                user: dethbird
+                comment: |
+                     I think the hat is great and would introduce a pop of color. Given the parchment look, a pop of 1 or 2 colors on each panel would be great. So purple hat +1.
+
+                     I had a few thoughts about his different aged clothing, let me know what you think.
+
+                        - For his teen years I was thinking band-shirt tanktop and ripped jeans.
+                        - And for adult, a football jersey with the number 47. I don't think that's anyone from the Vikings so if you have a better number let me know.
       -
         id: nxmw-storyboard-08
         notes: |
@@ -285,6 +331,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_c.jpg
             display: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_b.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                     I think this looks perfect (except change the # to Chapter)
       -
         id: nxmw-storyboard-09
         notes: |
@@ -306,6 +358,17 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_c.jpg
             display: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_b.jpg
+        comments:
+            -
+                date: 2016-05-31
+                user: jon.earp
+                comment: |
+                    Please add “Even so” to the second speech bubble.  So it should say: Even so, however, it seemed to me that most of my kin would rather…etc
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                    please take out the word ‘however’ in the second bubble.
       -
         id: nxmw-storyboard-10
         images:
@@ -332,6 +395,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1509/26348471935_8155fe948f_z.jpg
             display: https://c2.staticflickr.com/2/1509/26348471935_8155fe948f_b.jpg
+        comments:
+            -
+                date: 2016-05-31
+                user: jon.earp
+                comment: |
+                     They should be closer together, Mama Jenny should be comforting Jackass, not just explaining.  She can be in mostly the same position but with her arm draped around him. Jackass can have the same dumbfounded look (which I love!) but maybe nestled into her slightly.  Her last speech bubble saying “…you’re a hinny” should be a thought bubble, because she doesn’t want Jackass to hear that out loud.
       -
         id: nxmw-storyboard-12
         images:
@@ -354,6 +423,17 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1596/26348592895_128d634866_z.jpg
             display: https://c2.staticflickr.com/2/1596/26348592895_128d634866_b.jpg
+        comments:
+            -
+                date: 2016-05-31
+                user: jon.earp
+                comment: |
+                     I think the reveal doesn’t quite work but I’m not sure why. Maybe it’s just that Jackass needs to be shirtless in this panel (and in panel 12 — could be summer, even though he still wears his hat…or even not, since a donkey stays warm with or without clothes...).   Maybe it can be pulled back a bit so we see more of Mama Jenny, so more of a continuation of where Mama Jenny and Jackass were in panel 12, perhaps Jackass hasn’t turned all the way with his back to us yet, maybe only 3/4 of the way.  Or now the more I look at it, maybe it works fine, but he just needs to be shirtless and the cross can perhaps be thinner and a bit longer. I’ve attached some donkey pics for reference, but the cross doesn’t need to drape all the way across his shoulders or down to his butt like in real life.
+            -
+                date: 2016-06-01
+                user: dethbird
+                comment: |
+                    For the cross reveal, I agree it doesn't work right. I wasn't sure how to show his bare back. Maybe as a kid he just doesn't wear a shirt. No cousins do. As a teen they could start wearing clothes? Maybe they're at the waterin' hole swimming with the other kids when that happens? Then he could be wearing swim trunks and his hat only?
       -
         id: nxmw-storyboard-14
         images:
@@ -365,6 +445,16 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1709/25745924873_f23499332f_z.jpg
             display: https://c2.staticflickr.com/2/1709/25745924873_f23499332f_b.jpg
+        comments:
+            -
+                date: 2016-05-31
+                user: jon.earp
+                comment: |
+                     need your thoughts on this one — do the captions work going across panels 14-15?  The picture goes across two panels, so I like the idea of the words doing likewise.  However, does it work better if I split the captions into single panels like this?
+                        - Panel 14 Top (as is, but centered): Then suddenly
+                        - Panel 14 Bottom:  my childhood ended
+                        - Panel 15 Top:  Mama Jenny died
+                        - Panel 15 Bottom: [nothing]
       -
         id: nxmw-storyboard-15
         images:
@@ -398,6 +488,12 @@ storyboards:
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1646/26075937270_24a18c8649_z.jpg
             display: https://c2.staticflickr.com/2/1646/26075937270_24a18c8649_b.jpg
+        comments:
+            -
+                date: 2016-06-07
+                user: jon.earp
+                comment: |
+                     remove the word “I” (we moved it to the bottom of panel 16).
       -
         id: nxmw-storyboard-18
         images:
