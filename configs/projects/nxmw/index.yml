@@ -369,6 +369,7 @@ storyboards:
                 user: jon.earp
                 comment: |
                     Please add “Even so” to the second speech bubble.  So it should say: Even so, however, it seemed to me that most of my kin would rather…etc
+                status: resolved
             -
                 date: 2016-06-07
                 user: jon.earp
@@ -406,6 +407,7 @@ storyboards:
                 user: jon.earp
                 comment: |
                      They should be closer together, Mama Jenny should be comforting Jackass, not just explaining.  She can be in mostly the same position but with her arm draped around him. Jackass can have the same dumbfounded look (which I love!) but maybe nestled into her slightly.  Her last speech bubble saying “…you’re a hinny” should be a thought bubble, because she doesn’t want Jackass to hear that out loud.
+                status: resolved
       -
         id: nxmw-storyboard-12
         images:
@@ -533,13 +535,17 @@ storyboards:
         notes: |
           ### Chapter 3
           [https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit](https://docs.google.com/document/d/1jv_GRjAteVfsk6bdbvGB51ai19xgUamQOo5amoCmV6A/edit)
-
-          I hadn’t really thought about what to put here, but maybe Jackass and the barnyard animals in the background looking longingly towards Fanny who is in p21 to the right
         images:
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1487/26257661522_6a5fda6b75_z.jpg
             display: https://c2.staticflickr.com/2/1487/26257661522_6a5fda6b75_b.jpg
+        comments:
+            -
+                date: 2016-04-01
+                user: jon.earp
+                comment: |
+                     I hadn’t really thought about what to put here, but maybe Jackass and the barnyard animals in the background looking longingly towards Fanny who is in p21 to the right
       -
         id: nxmw-storyboard-21
         images:

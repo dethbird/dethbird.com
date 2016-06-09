@@ -102,6 +102,12 @@ thumbnail.active img {
 .storyboard-comment:nth-child(even) {
     background-color: #252525;
 }
+.storyboard-comment-status-resolved {
+    opacity: 0.33;
+}
+.storyboard-comment-status-resolved .comment {
+    text-decoration: line-through;
+}
 .storyboard-notes {
     background-color: #111;
     margin: 10px 0px 10px 0px;
