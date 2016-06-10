@@ -222,6 +222,10 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7557/27293876000_daf2b3fcef.jpg
+            display: https://c2.staticflickr.com/8/7557/27293876000_daf2b3fcef_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7368/27510123825_af9a8f4fdc.jpg
             display: https://c2.staticflickr.com/8/7368/27510123825_af9a8f4fdc_b.jpg
           -
@@ -246,16 +250,20 @@ storyboards:
                 user: jon.earp
                 comment: |
                     Panel 5, and for all chapter title pages - please replace the # with Chapter
+                status: resolved
             -
                 date: 2016-06-07
                 user: jon.earp
                 comment: |
                     Also on panel 5, I think JACKASS BURROUGHS! should be in all caps.
+                status: resolved
       -
         id: nxmw-storyboard-06
-        notes: |
-          WHINNYBAGO COULEE
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7697/27295185670_27f65b1e3d.jpg
+            display: https://c2.staticflickr.com/8/7697/27295185670_27f65b1e3d_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7260/27221495530_09a399c722.jpg
@@ -274,15 +282,26 @@ storyboards:
             display: https://c2.staticflickr.com/2/1558/25937783045_8cf7188988_b.jpg
         comments:
             -
+                date: 2016-04-01
+                user: jon.earp
+                comment: |
+                    WHINNYBAGO COULEE
+                status: resolved
+            -
                 date: 2016-06-07
                 user: jon.earp
                 comment: |
                     Panel 6 and 7 - can you please make sure the font is the same size for the headers and footer on these pages, otherwise it’s perfect
+                status: resolved
       -
         id: nxmw-storyboard-07
         notes: |
           Mama should be speaking to young Jackass
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7450/26963426503_c0643bdb45.jpg
+            display: https://c2.staticflickr.com/8/7450/26963426503_c0643bdb45_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7413/27512012885_4fddbb4fd4.jpg
@@ -309,7 +328,7 @@ storyboards:
                 user: jon.earp
                 comment: |
                      I forgot to say that Jackass should have a hat on, at least while he is younger (starting at panel 7).  He leaves the hat behind in panel 61.  Maybe one of those hats with ear flaps, since it's Minnesota-y and of course is inherently hilarious, even more so since it won’t actually cover his ears but just flop down his neck. (reference attached, though it doesn’t need the fur — his hair could stick out the front in similar fashion, though, I suppose).  Make it Viking/Prince purple.
-
+                status: resolved
             -
                 date: 2016-06-01
                 user: dethbird
@@ -338,14 +357,12 @@ storyboards:
             display: https://c2.staticflickr.com/2/1545/25933042576_11e30ae404_b.jpg
         comments:
             -
-                date: 2016-06-07
+                date: 2016-04-01
                 user: jon.earp
                 comment: |
                      I think this looks perfect (except change the # to Chapter)
       -
         id: nxmw-storyboard-09
-        notes: |
-          p9 - For the illustration, I was thinking of Mama and Jenny by themselves, either alone like in p7 or isolated from other donkeys who are over on the side and off in the distance like in p9 and the 2-pg spread of p12-13.  For the text, please use this:  It was natural in these parts for males to AVOID making EYE CONTACT — foe or friend, prey or predator, we all had a passive-aggressiveness about us.  However, it seemed to me that most of my kin would rather GALLOP up to the top of the ridgeline than walk by us ad have to say HELLO.  Mostly we kept to ourselves, Mama Jenny and me.
         images:
           -
             orientation: landscape
@@ -364,6 +381,12 @@ storyboards:
             thumbnail: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_c.jpg
             display: https://c2.staticflickr.com/2/1628/25933104106_c05dce6565_b.jpg
         comments:
+            -
+               date: 2016-04-01
+               user: jon.earp
+               comment: |
+                    p9 - For the illustration, I was thinking of Mama and Jenny by themselves, either alone like in p7 or isolated from other donkeys who are over on the side and off in the distance like in p9 and the 2-pg spread of p12-13.  For the text, please use this:  It was natural in these parts for males to AVOID making EYE CONTACT — foe or friend, prey or predator, we all had a passive-aggressiveness about us.  However, it seemed to me that most of my kin would rather GALLOP up to the top of the ridgeline than walk by us ad have to say HELLO.  Mostly we kept to ourselves, Mama Jenny and me.
+               status: resolved
             -
                 date: 2016-05-31
                 user: jon.earp
