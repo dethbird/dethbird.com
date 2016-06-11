@@ -222,8 +222,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7557/27293876000_daf2b3fcef.jpg
-            display: https://c2.staticflickr.com/8/7557/27293876000_daf2b3fcef_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7404/27506139031_0bff949bf8.jpg
+            display: https://c2.staticflickr.com/8/7404/27506139031_0bff949bf8_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7368/27510123825_af9a8f4fdc.jpg
@@ -262,8 +262,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7697/27295185670_27f65b1e3d.jpg
-            display: https://c2.staticflickr.com/8/7697/27295185670_27f65b1e3d_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7526/27505661541_baed3c9a0c.jpg
+            display: https://c2.staticflickr.com/8/7526/27505661541_baed3c9a0c_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7260/27221495530_09a399c722.jpg
@@ -295,13 +295,11 @@ storyboards:
                 status: resolved
       -
         id: nxmw-storyboard-07
-        notes: |
-          Mama should be speaking to young Jackass
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7450/26963426503_c0643bdb45.jpg
-            display: https://c2.staticflickr.com/8/7450/26963426503_c0643bdb45_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7216/27479336282_20665c9543.jpg
+            display: https://c2.staticflickr.com/8/7216/27479336282_20665c9543_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7413/27512012885_4fddbb4fd4.jpg
@@ -324,6 +322,12 @@ storyboards:
             display: https://c2.staticflickr.com/2/1637/25306902624_364d6bb70d_b.jpg
         comments:
             -
+                date: 2016-04-01
+                user: jon.earp
+                comment: |
+                     Mama should be speaking to young Jackass
+                status: resolved
+            -
                 date: 2016-05-31
                 user: jon.earp
                 comment: |
@@ -344,9 +348,11 @@ storyboards:
         notes: |
           ### Chapter 2
           [https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit](https://docs.google.com/document/d/1lNqepxC58DC-1HGhT1txX7kZ3B6dK0Z8VSILGA1kXNY/edit "Chapter 2")
-
-          * This panel and the next should be a 2 page spread
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7109/27506818481_5c1fa207e0.jpg
+            display: https://c2.staticflickr.com/8/7109/27506818481_5c1fa207e0_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1540/26684180556_8478eb8ae1_z.jpg
@@ -360,10 +366,20 @@ storyboards:
                 date: 2016-04-01
                 user: jon.earp
                 comment: |
+                    This panel and the next should be a 2 page spread
+                status: resolved
+            -
+                date: 2016-04-01
+                user: jon.earp
+                comment: |
                      I think this looks perfect (except change the # to Chapter)
       -
         id: nxmw-storyboard-09
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7477/26995133083_743a67eefd_z.jpg
+            display: https://c2.staticflickr.com/8/7477/26995133083_743a67eefd_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1462/26675747782_cc9c67399a.jpg
@@ -398,9 +414,14 @@ storyboards:
                 user: jon.earp
                 comment: |
                     please take out the word ‘however’ in the second bubble.
+                status: resolved
       -
         id: nxmw-storyboard-10
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7541/27527821901_16d386feaa.jpg
+            display: https://c2.staticflickr.com/8/7541/27527821901_16d386feaa_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/2/1445/26148696993_40e90c46ee_z.jpg
@@ -414,8 +435,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7376/27244036270_91132b18d0.jpg
-            display: https://c2.staticflickr.com/8/7376/27244036270_91132b18d0_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7565/26990467334_1acf410eaf.jpg
+            display: https://c2.staticflickr.com/8/7565/26990467334_1acf410eaf_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7554/27080655200_bd43722e00.jpg
