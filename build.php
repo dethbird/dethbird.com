@@ -32,7 +32,14 @@
     // var_dump($cmd); die();
     // cache
     if($cmd['cache']) {
-        echo $c("Cache clear and setup")
+        echo $c(
+"   ___           _
+  / __\__ _  ___| |__   ___
+ / /  / _` |/ __| '_ \ / _ \
+/ /__| (_| | (__| | | |  __/
+\____/\__,_|\___|_| |_|\___|
+                            "
+            )
             ->white()->bold()->highlight('blue') . PHP_EOL;
         // echo "cache:".$options['cache']."\n";
         $shell->executeCommand('rm', array(
@@ -53,7 +60,14 @@
 
     // php and composer
     if($cmd['php']) {
-        echo $c("PHP / Composer")
+        echo $c(
+"   ___        ___      __    ___
+  / _ \/\  /\/ _ \    / /   / __\___  _ __ ___  _ __   ___  ___  ___ _ __
+ / /_)/ /_/ / /_)/   / /   / /  / _ \| '_ ` _ \| '_ \ / _ \/ __|/ _ \ '__|
+/ ___/ __  / ___/   / /   / /__| (_) | | | | | | |_) | (_) \__ \  __/ |
+\/   \/ /_/\/      /_/    \____/\___/|_| |_| |_| .__/ \___/|___/\___|_|
+                                               |_|                        "
+        )
             ->white()->bold()->highlight('blue') . PHP_EOL;
 
         $shell->executeCommand('rm', array(
@@ -100,7 +114,13 @@
 
     // node
     if($cmd['npm']) {
-        echo $c("Node modules")
+        echo $c(
+"     __          _                            _       _
+  /\ \ \___   __| | ___   _ __ ___   ___   __| |_   _| | ___  ___
+ /  \/ / _ \ / _` |/ _ \ | '_ ` _ \ / _ \ / _` | | | | |/ _ \/ __|
+/ /\  / (_) | (_| |  __/ | | | | | | (_) | (_| | |_| | |  __/\__ \
+\_\ \/ \___/ \__,_|\___| |_| |_| |_|\___/ \__,_|\__,_|_|\___||___/
+                                                                  ")
             ->white()->bold()->highlight('blue') . PHP_EOL;
         $resp = $shell->executeCommand('rm', array(
             "-rf",
@@ -119,7 +139,14 @@
     // javascript
     if($cmd['javascript']) {
 
-        echo $c("Javascript: browserify" . ($cmd['uglify'] ? " & uglify" : null))
+        echo $c(
+"   __                                 _       _
+   \ \  __ ___   ____ _ ___  ___ _ __(_)_ __ | |_
+    \ \/ _` \ \ / / _` / __|/ __| '__| | '_ \| __|
+ /\_/ / (_| |\ V / (_| \__ \ (__| |  | | |_) | |_
+ \___/ \__,_| \_/ \__,_|___/\___|_|  |_| .__/ \__|
+                                       |_|        "
+           )
             ->white()->bold()->highlight('blue') . PHP_EOL;
 
         $frontendFiles = $shell->executeCommand('find', array(
@@ -168,5 +195,12 @@
         }
     }
 
-    echo $c("DONE.")
+    echo $c(
+"    ___  ___    __  __
+   /   \/___\/\ \ \/__\
+  / /\ //  //  \/ /_\
+ / /_// \_// /\  //__
+/___,'\___/\_\ \/\__/
+                       "
+        )
         ->green()->bold() . PHP_EOL;
