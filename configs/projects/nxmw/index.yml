@@ -266,6 +266,10 @@ storyboards:
         images:
           -
             orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7455/27591862491_a497896544.jpg
+            display: https://c2.staticflickr.com/8/7455/27591862491_a497896544_b.jpg
+          -
+            orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7526/27505661541_baed3c9a0c.jpg
             display: https://c2.staticflickr.com/8/7526/27505661541_baed3c9a0c_b.jpg
           -
