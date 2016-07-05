@@ -162,14 +162,20 @@
                 echo $c($outputFile)
                     ->yellow()->bold() . PHP_EOL;
 
-                $browserifyResponse = $shell->executeCommand('browserify', array(
+                $browserifyList = $shell->executeCommand('browserify', array(
                     $file,
                     "-o",
                     $outputFile,
                     "--list"
                 ));
 
-                foreach($browserifyResponse as $builtFrom) {
+                $browserifyResponse = $shell->executeCommand('browserify', array(
+                    $file,
+                    "-o",
+                    $outputFile
+                ));
+
+                foreach($browserifyList as $builtFrom) {
                     echo $c("   " . $builtFrom)
                         ->white() . PHP_EOL;
                 }
@@ -185,7 +191,7 @@
                 // report
                 echo $c(
                     "   browserified from " .
-                    count($browserifyResponse) .
+                    count($browserifyList) .
                     " modules" .
                     ( $cmd['uglify'] ? " and uglified" : null ).
                     ": ".
