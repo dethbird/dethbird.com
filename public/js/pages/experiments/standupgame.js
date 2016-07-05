@@ -1,99 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-
-},{}],2:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],3:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 /**@
@@ -697,7 +602,7 @@ Crafty.c("Twoway", {
     }
 });
 
-},{"../core/core.js":8}],4:[function(require,module,exports){
+},{"../core/core.js":6}],2:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -858,7 +763,7 @@ Crafty.extend({
     }
 });
 
-},{"../core/core.js":8}],5:[function(require,module,exports){
+},{"../core/core.js":6}],3:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -1822,7 +1727,7 @@ Crafty.c("Keyboard", {
 });
 
 
-},{"../core/core.js":8}],6:[function(require,module,exports){
+},{"../core/core.js":6}],4:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -2039,7 +1944,7 @@ Crafty.extend({
         RIGHT: 2
     }
 });
-},{"../core/core.js":8}],7:[function(require,module,exports){
+},{"../core/core.js":6}],5:[function(require,module,exports){
 /**@
  * #Crafty.easing
  * @category Animation
@@ -2158,7 +2063,7 @@ easing.prototype = {
 };
 
 module.exports = easing;
-},{}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var version = require('./version');
 
 /**@
@@ -4137,7 +4042,7 @@ if (typeof define === 'function') { // AMD
 
 module.exports = Crafty;
 
-},{"./version":17}],9:[function(require,module,exports){
+},{"./version":15}],7:[function(require,module,exports){
 (function (process){
 var Crafty = require('./core');
 var document = (typeof window !== "undefined") && window.document;
@@ -4387,7 +4292,7 @@ module.exports = {
 };
 
 }).call(this,require('_process'))
-},{"./core":8,"_process":2}],10:[function(require,module,exports){
+},{"./core":6,"_process":46}],8:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 module.exports = {
@@ -4837,7 +4742,7 @@ module.exports = {
     }
 };
 
-},{"../core/core.js":8}],11:[function(require,module,exports){
+},{"../core/core.js":6}],9:[function(require,module,exports){
 /**@
  * #Model
  * @category Model
@@ -4938,7 +4843,7 @@ module.exports = {
 };
 
 
-},{}],12:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -5109,7 +5014,7 @@ module.exports = {
     }
 };
 
-},{"../core/core.js":8}],13:[function(require,module,exports){
+},{"../core/core.js":6}],11:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 try {
@@ -5227,7 +5132,7 @@ store.remove = function(key) {
 
 module.exports = store;
 
-},{"../core/core.js":8}],14:[function(require,module,exports){
+},{"../core/core.js":6}],12:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -5378,7 +5283,7 @@ Crafty.CraftySystem.prototype = {
 	}
 
 };
-},{"../core/core.js":8}],15:[function(require,module,exports){
+},{"../core/core.js":6}],13:[function(require,module,exports){
 /**@
  * #Delay
  * @category Utilities
@@ -5501,7 +5406,7 @@ module.exports = {
     }
 };
 
-},{}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**@
  * #Tween
  * @category Animation
@@ -5654,9 +5559,9 @@ module.exports = {
   }
 };
 
-},{}],17:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = "0.7.1";
-},{}],18:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var Crafty = require('./core/core');
 
 Crafty.easing = require('./core/animation');
@@ -5710,7 +5615,7 @@ if(window) window.Crafty = Crafty;
 
 module.exports = Crafty;
 
-},{"./controls/controls":3,"./controls/device":4,"./controls/inputs":5,"./controls/keycodes":6,"./core/animation":7,"./core/core":8,"./core/extensions":9,"./core/loader":10,"./core/model":11,"./core/scenes":12,"./core/storage":13,"./core/systems":14,"./core/time":15,"./core/tween":16,"./debug/debug-layer":19,"./debug/logging":20,"./graphics/canvas":22,"./graphics/canvas-layer":21,"./graphics/color":23,"./graphics/dom":26,"./graphics/dom-helper":24,"./graphics/dom-layer":25,"./graphics/drawing":27,"./graphics/gl-textures":28,"./graphics/html":29,"./graphics/image":30,"./graphics/particles":31,"./graphics/sprite":33,"./graphics/sprite-animation":32,"./graphics/text":34,"./graphics/viewport":35,"./graphics/webgl":36,"./isometric/diamond-iso":37,"./isometric/isometric":38,"./sound/sound":39,"./spatial/2d":40,"./spatial/collision":41,"./spatial/math":42,"./spatial/rect-manager":43,"./spatial/spatial-grid":44}],19:[function(require,module,exports){
+},{"./controls/controls":1,"./controls/device":2,"./controls/inputs":3,"./controls/keycodes":4,"./core/animation":5,"./core/core":6,"./core/extensions":7,"./core/loader":8,"./core/model":9,"./core/scenes":10,"./core/storage":11,"./core/systems":12,"./core/time":13,"./core/tween":14,"./debug/debug-layer":17,"./debug/logging":18,"./graphics/canvas":20,"./graphics/canvas-layer":19,"./graphics/color":21,"./graphics/dom":24,"./graphics/dom-helper":22,"./graphics/dom-layer":23,"./graphics/drawing":25,"./graphics/gl-textures":26,"./graphics/html":27,"./graphics/image":28,"./graphics/particles":29,"./graphics/sprite":31,"./graphics/sprite-animation":30,"./graphics/text":32,"./graphics/viewport":33,"./graphics/webgl":34,"./isometric/diamond-iso":35,"./isometric/isometric":36,"./sound/sound":37,"./spatial/2d":38,"./spatial/collision":39,"./spatial/math":40,"./spatial/rect-manager":41,"./spatial/spatial-grid":42}],17:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -6132,7 +6037,7 @@ Crafty.DebugCanvas = {
 
 };
 
-},{"../core/core.js":8}],20:[function(require,module,exports){
+},{"../core/core.js":6}],18:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -6171,7 +6076,7 @@ Crafty.extend({
 		}
 	}
 });
-},{"../core/core.js":8}],21:[function(require,module,exports){
+},{"../core/core.js":6}],19:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -6512,7 +6417,7 @@ Crafty.extend({
 
     }
 });
-},{"../core/core.js":8}],22:[function(require,module,exports){
+},{"../core/core.js":6}],20:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -6667,7 +6572,7 @@ Crafty.c("Canvas", {
     }
 });
 
-},{"../core/core.js":8}],23:[function(require,module,exports){
+},{"../core/core.js":6}],21:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -6923,7 +6828,7 @@ Crafty.c("Color", {
 });
 
 
-},{"../core/core.js":8,"fs":1}],24:[function(require,module,exports){
+},{"../core/core.js":6,"fs":45}],22:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -7026,7 +6931,7 @@ Crafty.extend({
         }
     }
 });
-},{"../core/core.js":8}],25:[function(require,module,exports){
+},{"../core/core.js":6}],23:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -7161,7 +7066,7 @@ Crafty.extend({
 
     }
 });
-},{"../core/core.js":8}],26:[function(require,module,exports){
+},{"../core/core.js":6}],24:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -7456,7 +7361,7 @@ Crafty.c("DOM", {
     }
 });
 
-},{"../core/core.js":8}],27:[function(require,module,exports){
+},{"../core/core.js":6}],25:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 Crafty.extend({
@@ -7503,7 +7408,7 @@ Crafty.extend({
     }
 });
 
-},{"../core/core.js":8}],28:[function(require,module,exports){
+},{"../core/core.js":6}],26:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 // An object for wrangling textures
@@ -7686,7 +7591,7 @@ TextureWrapper.prototype = {
         gl.uniform2f(gl.getUniformLocation(shader, dimension_name), this.width, this.height);
 	}
 };
-},{"../core/core.js":8}],29:[function(require,module,exports){
+},{"../core/core.js":6}],27:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -7771,7 +7676,7 @@ Crafty.c("HTML", {
         return this;
     }
 });
-},{"../core/core.js":8}],30:[function(require,module,exports){
+},{"../core/core.js":6}],28:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -7913,7 +7818,7 @@ Crafty.c("Image", {
     }
 });
 
-},{"../core/core.js":8,"fs":1}],31:[function(require,module,exports){
+},{"../core/core.js":6,"fs":45}],29:[function(require,module,exports){
 var Crafty = require('../core/core.js'),    
     document = window.document;
 
@@ -8299,7 +8204,7 @@ Crafty.c("Particles", {
     }
 });
 
-},{"../core/core.js":8}],32:[function(require,module,exports){
+},{"../core/core.js":6}],30:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -8777,7 +8682,7 @@ Crafty.c("SpriteAnimation", {
 	}
 });
 
-},{"../core/core.js":8}],33:[function(require,module,exports){
+},{"../core/core.js":6}],31:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -9108,7 +9013,7 @@ Crafty.c("Sprite", {
     }
 });
 
-},{"../core/core.js":8,"fs":1}],34:[function(require,module,exports){
+},{"../core/core.js":6,"fs":45}],32:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -9378,7 +9283,7 @@ Crafty.c("Text", {
     }
 
 });
-},{"../core/core.js":8}],35:[function(require,module,exports){
+},{"../core/core.js":6}],33:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -10167,7 +10072,7 @@ Crafty.extend({
     }
 });
 
-},{"../core/core.js":8}],36:[function(require,module,exports){
+},{"../core/core.js":6}],34:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -10764,7 +10669,7 @@ Crafty.extend({
 
     }
 });
-},{"../core/core.js":8}],37:[function(require,module,exports){
+},{"../core/core.js":6}],35:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -10973,7 +10878,7 @@ Crafty.extend({
 
 });
 
-},{"../core/core.js":8}],38:[function(require,module,exports){
+},{"../core/core.js":6}],36:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -11164,7 +11069,7 @@ Crafty.extend({
     }
 });
 
-},{"../core/core.js":8}],39:[function(require,module,exports){
+},{"../core/core.js":6}],37:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
 
@@ -11718,7 +11623,7 @@ Crafty.extend({
     }
 });
 
-},{"../core/core.js":8}],40:[function(require,module,exports){
+},{"../core/core.js":6}],38:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     HashMap = require('./spatial-grid.js');
 
@@ -13640,7 +13545,7 @@ Crafty.matrix.prototype = {
     }
 };
 
-},{"../core/core.js":8,"./spatial-grid.js":44}],41:[function(require,module,exports){
+},{"../core/core.js":6,"./spatial-grid.js":42}],39:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     DEG_TO_RAD = Math.PI / 180;
 
@@ -14332,7 +14237,7 @@ Crafty.c("Collision", {
     }
 });
 
-},{"../core/core.js":8}],42:[function(require,module,exports){
+},{"../core/core.js":6}],40:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -15430,7 +15335,7 @@ Crafty.math.Matrix2D = (function () {
 
     return Matrix2D;
 })();
-},{"../core/core.js":8}],43:[function(require,module,exports){
+},{"../core/core.js":6}],41:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -15590,7 +15495,7 @@ Crafty.extend({
 
 });
 
-},{"../core/core.js":8}],44:[function(require,module,exports){
+},{"../core/core.js":6}],42:[function(require,module,exports){
 var Crafty = require('../core/core.js');
 
 
@@ -15956,7 +15861,7 @@ var Crafty = require('../core/core.js');
 
     module.exports = HashMap;
 
-},{"../core/core.js":8}],45:[function(require,module,exports){
+},{"../core/core.js":6}],43:[function(require,module,exports){
 var Crafty = require('craftyjs');
 var StandupGameView = Backbone.View.extend({
   crafty: null,
@@ -15970,7 +15875,7 @@ var StandupGameView = Backbone.View.extend({
 
 module.exports = StandupGameView;
 
-},{"craftyjs":18}],46:[function(require,module,exports){
+},{"craftyjs":16}],44:[function(require,module,exports){
 var StandupGameView = require('../../library/views/games/StandupGameView');
 
 var standupGameView = new StandupGameView({
@@ -15979,4 +15884,127 @@ var standupGameView = new StandupGameView({
 
 console.log(standupGameView);
 
-},{"../../library/views/games/StandupGameView":45}]},{},[46]);
+},{"../../library/views/games/StandupGameView":43}],45:[function(require,module,exports){
+
+},{}],46:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+(function () {
+  try {
+    cachedSetTimeout = setTimeout;
+  } catch (e) {
+    cachedSetTimeout = function () {
+      throw new Error('setTimeout is not defined');
+    }
+  }
+  try {
+    cachedClearTimeout = clearTimeout;
+  } catch (e) {
+    cachedClearTimeout = function () {
+      throw new Error('clearTimeout is not defined');
+    }
+  }
+} ())
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = cachedSetTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    cachedClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        cachedSetTimeout(drainQueue, 0);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}]},{},[44]);

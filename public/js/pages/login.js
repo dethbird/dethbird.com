@@ -45,6 +45,4 @@ var loginView = new LoginView({
     el: '#loginForm'
 });
 
-console.log(loginView);
-
 },{"../library/views/LoginView":1}]},{},[2]);
