@@ -103,7 +103,7 @@ $app->post("/login", function () use ($app) {
         && $app->request->params('password')==$user['password']
     ) {
         unset($user['password']);
-        $user['redirectTo'] = $_SESSION['redirectTo'];
+        $user['redirectTo'] = isset($_SESSION['redirectTo']) ? $_SESSION['redirectTo'] : "/";
         $_user = $user;
         break;
     }
