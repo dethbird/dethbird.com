@@ -547,8 +547,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7426/28037322981_4a7ecd2df3.jpg
-            display: https://c2.staticflickr.com/8/7426/28037322981_4a7ecd2df3_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7522/27959459860_5aa338a703.jpg
+            display: https://c2.staticflickr.com/8/7522/27959459860_5aa338a703_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7522/27323059211_e574ccc680.jpg
@@ -561,6 +561,7 @@ storyboards:
             -
                 date: 2016-06-07
                 user: jon.earp
+                status: resolved
                 comment: |
                      Please change ‘On the day I became a teenager’ to ‘As soon as I was old enough'.  Also in the bottom please change ’I had only made it to the other side of TOWN before ...’ to ‘But I only made it to the other side of TOWN before I ...’.
       -
@@ -568,8 +569,8 @@ storyboards:
         images:
           -
             orientation: landscape
-            thumbnail: https://c2.staticflickr.com/8/7437/27834490640_79c8e28ce1.jpg
-            display: https://c2.staticflickr.com/8/7437/27834490640_79c8e28ce1_b.jpg
+            thumbnail: https://c2.staticflickr.com/8/7432/27624837534_8346088dc3.jpg
+            display: https://c2.staticflickr.com/8/7432/27624837534_8346088dc3_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7449/26787180004_249d188a36.jpg
@@ -582,6 +583,7 @@ storyboards:
             -
                 date: 2016-06-07
                 user: jon.earp
+                status: resolved
                 comment: |
                      remove the word “I” (we moved it to the bottom of panel 16).
       -
@@ -636,6 +638,10 @@ storyboards:
       -
         id: nxmw-storyboard-22
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c1.staticflickr.com/9/8741/28240308325_195eb6efbb.jpg
+            display: https://c1.staticflickr.com/9/8741/28240308325_195eb6efbb_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7691/27279557761_f81df26fdd.jpg

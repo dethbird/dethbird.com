@@ -10,6 +10,10 @@
         ->boolean()
         ->aka('cache')
         ->describedAs('Clear cache and reset permissions of cache directory');
+    $cmd->option('configs')
+        ->boolean()
+        ->aka('configs')
+        ->describedAs('Publish configs from .env');
     $cmd->option('p')
         ->boolean()
         ->aka('php')
@@ -55,6 +59,54 @@
         ));
 
         echo $c("Cache setup complete.")
+            ->green()->bold() . PHP_EOL;
+    }
+
+    if($cmd['configs']) {
+        echo $c(
+"   ___             __ _
+  / __\___  _ __  / _(_) __ _ ___
+ / /  / _ \| '_ \| |_| |/ _` / __|
+/ /__| (_) | | | |  _| | (_| \__ \
+\____/\___/|_| |_|_| |_|\__, |___/
+                        |___/     "
+            )
+            ->white()->bold()->highlight('blue') . PHP_EOL;
+
+
+        $shadows = $shell->executeCommand('find', array(
+            "configs",
+            "-name",
+            "*.shadow*"
+        ));
+
+        foreach($shadows as $shadowFilePath) {
+            $configFilePath = str_replace(".shadow", "", $shadowFilePath);
+            echo $c($shadowFilePath.' -> '.$configFilePath)
+              ->yellow() . PHP_EOL;
+            $resp = $shell->executeCommand('cp', array(
+                $shadowFilePath,
+                $configFilePath
+            ));
+            foreach ($dotenv as $k => $v) {
+                $v = trim($v);
+                if($v!=""){
+                    try {
+                        $resp = $shell->executeCommand('sed', array(
+                            "-i",
+                            "'s/:".$k."$/".addcslashes($v, "/")."/g'",
+                            $configFilePath
+                        ));
+                    } catch (Exception $e) {
+                        var_dump($e);
+                        var_dump(addcslashes($v, "/"));
+                        exit();
+                    }
+                }
+            }
+        }
+
+        echo $c("Configs published.")
             ->green()->bold() . PHP_EOL;
     }
 
