@@ -586,6 +586,11 @@ storyboards:
                 status: resolved
                 comment: |
                      remove the word “I” (we moved it to the bottom of panel 16).
+            -
+                date: 2016-07-13
+                user: jon.earp
+                comment: |
+                    Nancy (the goat) needs to be a bit more feminine, she’s a young teenager so perhaps some tits and a sundress, and no beard.  Oh, and she needs a cloven hoof. I love Patty’s expression.  I think her dialogue should be reversed, though — isn’t it funnier if she asks if he is her new daddy before introducing herself?
       -
         id: nxmw-storyboard-18
         images:
@@ -627,6 +632,10 @@ storyboards:
       -
         id: nxmw-storyboard-21
         images:
+          -
+            orientation: landscape
+            thumbnail: https://c2.staticflickr.com/8/7593/28020997350_8b8654a4b2.jpg
+            display: https://c2.staticflickr.com/8/7593/28020997350_8b8654a4b2_b.jpg
           -
             orientation: landscape
             thumbnail: https://c2.staticflickr.com/8/7703/27074539650_dda1fc1d21.jpg
