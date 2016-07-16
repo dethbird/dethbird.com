@@ -125,6 +125,7 @@ overlay content {
 }
 .thumbnail {
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .thumbnail.active img {
   box-shadow: 0px 0px 4px 4px rgba(20, 137, 194, 0.9);
