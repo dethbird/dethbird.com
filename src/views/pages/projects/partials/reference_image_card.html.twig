@@ -1,12 +1,11 @@
 <div class="card col-lg-3" id="{{image.id}}">
-  <div class="card-block">
-    <preview class="overlay-trigger"><img src="{{image.content}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
-    {{image.name}}<br />
-    <description>{{image.description|markdown}}</description>
+    <div class="card-block">
+        <img src="{{image.content}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/>
+        {{image.name}}<br />
+        <blockquote>{{image.description|markdown}}</blockquote>
   </div>
 </div>
 
 {% if loop.index is divisible by(4) %}
-</div>
-<div class="row">
+<div class="row"></div>
 {% endif %}

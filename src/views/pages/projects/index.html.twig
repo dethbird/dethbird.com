@@ -1,8 +1,8 @@
 {% extends 'layout-projects.html.twig' %}
 {% block head %}
 <script type="text/javascript">
-  var configs = {{configs|json_encode|raw}}
-  var project = {{project|json_encode|raw}}
+    var configs = {{configs|json_encode|raw}}
+    var project = {{project|json_encode|raw}}
 </script>
 {% endblock %}
 {% block body %}
@@ -42,52 +42,42 @@
     </div>
 
 
-    {% if project.locations %}
-    <div class="row">
-      <div class="col-lg-12">
+    <div class="row container-fluid">
         <h1>Locations</h1>
-        <blockquote>{{project.locations.description|markdown}}</blockquote>
         <div class="row">
           {% for location in project.locations %}
             {% include "pages/projects/partials/location_card.html.twig" %}
           {% endfor %}
         </div>
-      </div>
     </div>
-    {% endif %}
 
-    <div class="row">
-      <div class="col-lg-12">
+
+    <div class="row container-fluid">
         <h1>Reference Images</h1>
         <div class="row">
           {% for image in project.reference_images %}
             {% include "pages/projects/partials/reference_image_card.html.twig" %}
           {% endfor %}
         </div>
-      </div>
     </div>
 
-    {% if project.concept_art %}
-    <div class="row">
-      <div class="col-lg-12">
+
+    <div class="row container-fluid">
         <h1>Concept Art</h1>
-        <description>{{project.concept_art.description|markdown}}</description>
         <div class="row">
           {% for art in project.concept_art %}
             {% include "pages/projects/partials/concept_art_card.html.twig" %}
           {% endfor %}
         </div>
-      </div>
     </div>
-    {% endif %}
-
-
 
 
     <overlay>
-      <content></content>
+        <content></content>
     </overlay>
+
 {% endblock %}
+
 {% block includes %}
-  <script type="text/javascript" src="/js/pages/projects/index.js"></script>
+    <script type="text/javascript" src="/js/pages/projects/index.js"></script>
 {% endblock %}
