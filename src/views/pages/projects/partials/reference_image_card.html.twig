@@ -1,7 +1,8 @@
 <div class="card col-lg-3" id="{{image.id}}">
   <div class="card-block">
-    <preview class="overlay-trigger"><img src="{{image.url}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
-    <description>{{image.note|markdown}}</description>
+    <preview class="overlay-trigger"><img src="{{image.content}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></preview>
+    {{image.name}}<br />
+    <description>{{image.description|markdown}}</description>
   </div>
 </div>
 

@@ -1,16 +1,16 @@
 <div id="{{panel.id}}" class="card col-lg-6">
   <div class="card-block">
-    {% if panel.images|length %}
-      {% for image in panel.images %}
+    {% if panel.revisions|length %}
+      {% for revision in panel.revisions %}
         {% if loop.index==1 %}
-          <div class="card-img"><preview class="overlay-trigger"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="0"/></preview></div>
+          <div class="card-img"><preview class="overlay-trigger"><img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in" data-image-index="0"/></preview></div>
         {% endif %}
       {% endfor %}
-      {% if panel.images|length > 1 %}
+      {% if panel.revisions|length > 1 %}
       <br />
       <div class="row thumbnails">
-        {% for image in panel.images %}
-            <div class="col-xs-3"><thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{image.thumbnail}}" class="{{image.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail></div>
+        {% for revision in panel.revisions %}
+            <div class="col-xs-3"><thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail></div>
         {% endfor %}
       </div>
       {% endif %}
@@ -18,14 +18,14 @@
       <br />
       <div class="row storypanel-comments-container">
           {% for comment in panel.comments %}
-              <div class="col-xs-11 col-xs-offset-1 storypanel-comment  {% if comment.status != "" %}storypanel-comment-status-{{comment.status}}{% endif %}">
+              <div class="col-xs-11 col-xs-offset-1 storyboard-comment  storyboard-comment-status-{{comment.status}}">
                   <div class="comment col-xs-12">
                       {{comment.comment|markdown}}
                   </div>
                   <div class="comment-annotation col-xs-12 pull-right">
-                      <span class="user-login">{{comment.user}}</span>
+                      <span class="user-login">{{comment.username}}</span>
                       <span class="timestamp">
-                           {{comment.date|timestamp_date_format}}
+                           {{comment.date_added}}
                       </span>
                   </div>
               </div>

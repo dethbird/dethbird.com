@@ -2,57 +2,57 @@
 {% block head %}
 <script type="text/javascript">
   var configs = {{configs|json_encode|raw}}
-  var projectConfigs = {{projectConfigs|json_encode|raw}}
+  var project = {{project|json_encode|raw}}
 </script>
 {% endblock %}
 {% block body %}
     {{ parent() }}
     <div class="row">
       <div class="col-lg-12">
-        <h4 class="display-4 section-title">{{projectConfigs.name}}</h4>
-        <blockquote>{{projectConfigs.description|markdown}}</blockquote>
+        <h4 class="display-4 section-title">{{project.name}}</h4>
+        <blockquote>{{project.description|markdown}}</blockquote>
       </div>
     </div>
 
 
-    {% if projectConfigs.storyboards %}
+
     <div class="row storyboards">
       <div class="col-lg-12">
         <h1>Storyboards</h1>
-        <description>{{projectConfigs.storyboards.description|markdown}}</description>
-        {% for storyboard in projectConfigs.storyboards %}
+        <description>{{project.storyboards.description|markdown}}</description>
+        {% for storyboard in project.storyboards %}
           <div class="row">
             <h3>{{storyboard.name}}</h3>
+            <blockquote>{{storyboard.description}}</blockquote>
             <div class="row">
-              {% for board in storyboard.boards %}
-                {% include "pages/projects/partials/storyboard_card.html.twig" %}
-              {% endfor %}
+                {% for panel in storyboard.panels %}
+                  {% include "pages/projects/partials/storyboard_panel_card.html.twig" %}
+                {% endfor %}
             </div>
           </div>
         {% endfor %}
       </div>
     </div>
-    {% endif %}
 
     <div class="row">
       <div class="col-lg-12">
         <h1>Characters</h1>
-        <blockquote>{{projectConfigs.characters.description|markdown}}</blockquote>
+        <blockquote>{{project.characters.description|markdown}}</blockquote>
         <div class="row">
-            {% for character in projectConfigs.characters.list %}
+            {% for character in project.characters %}
               {% include "pages/projects/partials/character_card.html.twig" %}
             {% endfor %}
         </div>
       </div>
     </div>
 
-    {% if projectConfigs.locations %}
+    {% if project.locations %}
     <div class="row">
       <div class="col-lg-12">
         <h1>Locations</h1>
-        <blockquote>{{projectConfigs.locations.description|markdown}}</blockquote>
+        <blockquote>{{project.locations.description|markdown}}</blockquote>
         <div class="row">
-          {% for location in projectConfigs.locations.list %}
+          {% for location in project.locations %}
             {% include "pages/projects/partials/location_card.html.twig" %}
           {% endfor %}
         </div>
@@ -60,27 +60,24 @@
     </div>
     {% endif %}
 
-    {% if projectConfigs.reference_images %}
     <div class="row">
       <div class="col-lg-12">
         <h1>Reference Images</h1>
-        <description>{{projectConfigs.reference_images.description|markdown}}</description>
         <div class="row">
-          {% for image in projectConfigs.reference_images.list %}
+          {% for image in project.reference_images %}
             {% include "pages/projects/partials/reference_image_card.html.twig" %}
           {% endfor %}
         </div>
       </div>
     </div>
-    {% endif %}
 
-    {% if projectConfigs.concept_art %}
+    {% if project.concept_art %}
     <div class="row">
       <div class="col-lg-12">
         <h1>Concept Art</h1>
-        <description>{{projectConfigs.concept_art.description|markdown}}</description>
+        <description>{{project.concept_art.description|markdown}}</description>
         <div class="row">
-          {% for art in projectConfigs.concept_art.list %}
+          {% for art in project.concept_art %}
             {% include "pages/projects/partials/concept_art_card.html.twig" %}
           {% endfor %}
         </div>
@@ -88,66 +85,7 @@
     </div>
     {% endif %}
 
-    {% if projectConfigs.plots %}
-      <section>
-        <h1>Plots</h1>
-        <description>{{projectConfigs.plots.description|markdown}}</description>
-        {% for plot in projectConfigs.plots.list %}
-          <card class="{% if plot.status!="" %}{{plot.status}}{% else %}ok{% endif %}">
-            <header>
-              <name>{{plot.name}}</name>
-              {% if plot.status!="" %}<span class="label label-success">{{plot.status}}</span>{% endif %}
-            </header>
-            <type>{{plot.type}}</type>
-            <description>{{plot.description|markdown}}</description>
-          </card>
-        {% endfor %}
-      </section>
-    {% endif %}
 
-    {% if projectConfigs.inspirations %}
-      <section>
-        <h1>Inspirations</h1>
-        <description>{{projectConfigs.inspirations.description|markdown}}</description>
-        {% for inspiration in projectConfigs.inspirations.list %}
-          <card>
-            <name>{{inspiration.name}}</name><br />
-            <type>{{inspiration.type}}</type>
-            <description>{{inspiration.description|markdown}}</description>
-          </card>
-        {% endfor %}
-      </section>
-    {% endif %}
-
-    {% if projectConfigs.themes %}
-      <section>
-        <h1>Themes</h1>
-        <description>{{projectConfigs.themes.description|markdown}}</description>
-        {% for item in projectConfigs.themes.list %}
-          <card class="{% if item.status!="" %}{{item.status}}{% else %}ok{% endif %}">
-            <header>
-              <name>{{item.name}}</name>
-              {% if item.status!="" %}<span class="label label-success">{{item.status}}</span>{% endif %}
-            </header>
-            <description>{{item.description|markdown}}</description>
-          </card>
-        {% endfor %}
-      </section>
-    {% endif %}
-
-    {% if projectConfigs.resources %}
-      <section>
-        <h1>Resources</h1>
-        <description>{{projectConfigs.resources|markdown}}</description>
-      </section>
-    {% endif %}
-
-    {% if projectConfigs.research %}
-      <section>
-        <h1>Research</h1>
-        <description>{{projectConfigs.research|markdown}}</description>
-      </section>
-    {% endif %}
 
 
     <overlay>

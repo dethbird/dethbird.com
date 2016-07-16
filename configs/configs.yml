@@ -3,6 +3,9 @@ security:
 instagram:
   client_id: "a6c4e37cd91b4020a09a74a40cf836d6"
   user_id: 31264453
+workstation:
+  api_url: http://workstation-dev.explosioncorp.com/api
+  auth_token: UoPAnc8oUhX180k9dQ8Zyg321L2P4D50
 comics:
   tweetstream-and-zeitgeist:
     title: "Tweetstream and Zeitgeist in: On the Scene!"
