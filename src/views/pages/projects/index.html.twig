@@ -7,7 +7,8 @@
 {% endblock %}
 {% block body %}
     {{ parent() }}
-    <div class="row">
+
+    <div class="row container-fluid">
       <div class="col-lg-12">
         <h4 class="display-4 section-title">{{project.name}}</h4>
         <blockquote>{{project.description|markdown}}</blockquote>
@@ -15,36 +16,31 @@
     </div>
 
 
-
-    <div class="row storyboards">
-      <div class="col-lg-12">
+    <div class="row container-fluid">
         <h1>Storyboards</h1>
-        <description>{{project.storyboards.description|markdown}}</description>
         {% for storyboard in project.storyboards %}
-          <div class="row">
+        <div class="row">
             <h3>{{storyboard.name}}</h3>
             <blockquote>{{storyboard.description}}</blockquote>
             <div class="row">
-                {% for panel in storyboard.panels %}
-                  {% include "pages/projects/partials/storyboard_panel_card.html.twig" %}
-                {% endfor %}
+            {% for panel in storyboard.panels %}
+                {% include "pages/projects/partials/storyboard_panel_card.html.twig" %}
+            {% endfor %}
             </div>
-          </div>
+        </div>
         {% endfor %}
-      </div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-12">
+
+    <div class="row container-fluid">
         <h1>Characters</h1>
-        <blockquote>{{project.characters.description|markdown}}</blockquote>
         <div class="row">
             {% for character in project.characters %}
               {% include "pages/projects/partials/character_card.html.twig" %}
             {% endfor %}
         </div>
-      </div>
     </div>
+
 
     {% if project.locations %}
     <div class="row">

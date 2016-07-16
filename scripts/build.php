@@ -1,12 +1,17 @@
 <?php
 
-    require_once 'vendor/autoload.php';
+    define("APPLICATION_PATH", __DIR__ . "/../");
+    date_default_timezone_set('America/New_York');
+    require_once APPLICATION_PATH . 'vendor/autoload.php';
     use Colors\Color;
+    use MeadSteve\Console\Shells\BasicShell;
     use Commando\Command;
+    use josegonzalez\Dotenv\Loader;
+    use Symfony\Component\Yaml\Yaml;
 
-    $cmd = new Commando\Command();
+    $cmd = new Command();
     $cmd->beepOnError();
-    $cmd->option('c')
+    $cmd->option('cache')
         ->boolean()
         ->aka('cache')
         ->describedAs('Clear cache and reset permissions of cache directory');
@@ -14,27 +19,31 @@
         ->boolean()
         ->aka('configs')
         ->describedAs('Publish configs from .env');
-    $cmd->option('p')
+    $cmd->option('php')
         ->boolean()
         ->aka('php')
         ->describedAs('PHP/Composer install');
-    $cmd->option('n')
+    $cmd->option('npm')
         ->boolean()
         ->aka('npm')
         ->describedAs('Install node modules from package.json');
-    $cmd->option('j')
+    $cmd->option('js')
         ->boolean()
         ->aka('javascript')
         ->describedAs('Broswerify and minify the js');
-    $cmd->option('u')
+    $cmd->option('ugly')
         ->boolean()
         ->aka('uglify')
         ->describedAs('Uglify the compiled js (leave empty in dev)');
+    $cmd->option('js-page')
+        ->aka('javascript-page')
+        ->describedAs('File in "src/frontend/js/pages/<page>.js" to build');
     $c = new Color();
-    $shell = new MeadSteve\Console\Shells\BasicShell();
+    $dotenv = (new Loader('.env'))
+              ->parse()
+              ->toArray();
+    $shell = new BasicShell();
 
-    // var_dump($cmd); die();
-    // cache
     if($cmd['cache']) {
         echo $c(
 "   ___           _
@@ -45,13 +54,19 @@
                             "
             )
             ->white()->bold()->highlight('blue') . PHP_EOL;
-        // echo "cache:".$options['cache']."\n";
+
         $shell->executeCommand('rm', array(
             "-rf",
             "cache"
         ));
         $shell->executeCommand('mkdir', array(
             "cache"
+        ));
+        $shell->executeCommand('mkdir', array(
+            "cache/gdrive"
+        ));
+        $shell->executeCommand('mkdir', array(
+            "cache/gdrive/thumbnails"
         ));
         $shell->executeCommand('chmod', array(
             "777",
@@ -146,14 +161,17 @@
             "|",
             "php"
         ));
-        // var_dump($resp);
-        // shell_exec("rm -rf composer.phar");
+
         $resp = $shell->executeCommand('rm', array(
             "-rf",
             "composer.phar"
         ));
 
-        // shell_exec("chmod -R 777 configs/*");
+        $resp = $shell->executeCommand('rm', array(
+            "-rf",
+            "composer.lock"
+        ));
+
         $resp = $shell->executeCommand('chmod', array(
             "-R",
             "777",
@@ -201,11 +219,15 @@
            )
             ->white()->bold()->highlight('blue') . PHP_EOL;
 
-        $frontendFiles = $shell->executeCommand('find', array(
-            "src/frontend/js/pages/",
-            "-name",
-            "'*.js'"
-        ));
+        if($cmd['js-page']){
+            $frontendFiles = ["src/frontend/js/pages/" . $cmd['js-page'] . ".js"];
+        } else {
+            $frontendFiles = $shell->executeCommand('find', array(
+                "src/frontend/js/pages/",
+                "-name",
+                "'*.js'"
+            ));
+        }
 
         foreach($frontendFiles as $file){
             if($file) {

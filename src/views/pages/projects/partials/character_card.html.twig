@@ -1,36 +1,28 @@
 <div class="card col-lg-4" id="{{character.id}}">
     <div class="card-block">
         <h3 class="card-title">{{character.name}}</h3>
-    {% if character.revisions|length %}
-        {% for revision in character.revisions %}
-            {% if loop.index==1 %}
-                <preview class="overlay-trigger">
-                    <img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in card-img" data-revision-index="0"/>
-                </preview>
-            {% endif %}
-        {% endfor %}
-        {% if character.revisions|length > 1 %}
-        <div class="thumbnails card-block">
-            <div class="row">
+        {% if character.revisions|length %}
             {% for revision in character.revisions %}
-                <div class="col-xs-4">
-                    <thumbnail class="{%if loop.index==1%}active{%endif%}">
-                        <img src="{{revision.content}}" class="hvr-bounce-in" data-revision-index="{{loop.index0}}"/>
-                    </thumbnail>
-                </div>
+                {% if loop.index==1 %}
+                    <img src="{{revision.content}}" class="display {{revision.orientation}} hvr-bounce-in card-img" data-revision-index="0"/>
+                {% endif %}
             {% endfor %}
-            </div>
-        </div>
+            {% if character.revisions|length > 1 %}
+                <div class="row thumbnails container-fluid">
+                {% for revision in character.revisions %}
+                    <div class="col-xs-4 thumbnail {%if loop.index==1%}active{%endif%}">
+                        <img src="{{revision.content}}" class="hvr-bounce-in" data-revision-index="{{loop.index0}}"/>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+            <img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/>
         {% endif %}
-    {% else %}
-    <preview>
-        <img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/>
-    </preview>
-    {% endif %}
-    <blockquote>{{character.description|markdown}}</blockquote>
-  </div>
+        <blockquote>{{character.description|markdown}}</blockquote>
+    </div>
 </div>
+
 {% if loop.index is divisible by(3) %}
-</div>
-<div class="row">
+<div class="row"></div>
 {% endif %}

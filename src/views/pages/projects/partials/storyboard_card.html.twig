@@ -18,7 +18,7 @@
       <br />
       <div class="row storypanel-comments-container">
           {% for comment in panel.comments %}
-              <div class="col-xs-11 col-xs-offset-1 storypanel-comment  {% if comment.status != "" %}storypanel-comment-status-{{comment.status}}{% endif %}">
+              <div class="col-xs-12 storypanel-comment  {% if comment.status != "" %}storypanel-comment-status-{{comment.status}}{% endif %}">
                   <div class="comment col-xs-12">
                       {{comment.comment|markdown}}
                   </div>

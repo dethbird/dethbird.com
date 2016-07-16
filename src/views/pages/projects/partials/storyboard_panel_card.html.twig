@@ -1,49 +1,47 @@
 <div id="{{panel.id}}" class="card col-lg-6">
-  <div class="card-block">
-    {% if panel.revisions|length %}
-      {% for revision in panel.revisions %}
-        {% if loop.index==1 %}
-          <div class="card-img"><preview class="overlay-trigger"><img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in" data-image-index="0"/></preview></div>
-        {% endif %}
-      {% endfor %}
-      {% if panel.revisions|length > 1 %}
-      <br />
-      <div class="row thumbnails">
+    <div class="card-block">
+    {% if panel.revisions|length > 0 %}
         {% for revision in panel.revisions %}
-            <div class="col-xs-3"><thumbnail class="{%if loop.index==1%}active{%endif%}"><img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/></thumbnail></div>
+            {% if loop.index==1 %}
+                <div class="card-img">
+                    <img src="{{revision.content}}" class="display {{revision.orientation}} hvr-bounce-in" data-image-index="0"/>
+                </div>
+            {% endif %}
         {% endfor %}
-      </div>
-      {% endif %}
-      {% if panel.comments|length > 0 %}
-      <br />
-      <div class="row storypanel-comments-container">
-          {% for comment in panel.comments %}
-              <div class="col-xs-11 col-xs-offset-1 storyboard-comment  storyboard-comment-status-{{comment.status}}">
-                  <div class="comment col-xs-12">
-                      {{comment.comment|markdown}}
-                  </div>
-                  <div class="comment-annotation col-xs-12 pull-right">
-                      <span class="user-login">{{comment.username}}</span>
-                      <span class="timestamp">
-                           {{comment.date_added}}
-                      </span>
-                  </div>
-              </div>
-          {% endfor %}
-      </div>
-      {% endif %}
-    {% else %}
-    <preview><img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/></preview>
-    {% endif %}
-    {% if panel.notes != "" %}
-        <div class="storypanel-notes">{{panel.notes|markdown}}</div>
-    {% endif %}
-    <span class="pull-right label label-default page-number">{{loop.index0}}</span>
-  </div>
-</div>
+        {% if panel.revisions|length > 1 %}
+            <div class="row thumbnails">
+            {% for revision in panel.revisions %}
+                <div class="col-xs-3">
+                    <div class="thumbnail {%if loop.index==1%}active{%endif%}">
+                        <img src="{{revision.content}}" class="{{revision.orientation}} hvr-bounce-in" data-image-index="{{loop.index0}}"/>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
 
+        <div class="row comments">
+        {% for comment in panel.comments %}
+            <div class="col-xs-12 comment-container comment-status-{{comment.status}}">
+                <div class="comment col-xs-12">{{comment.comment|markdown}}</div>
+                <div class="comment-annotation col-xs-12 pull-right">
+                    <span class="user-login">{{comment.username}}</span>
+                    <span class="timestamp">{{comment.date_added}}</span>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="card-img">
+            <img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/>
+        </div>
+    {% endif %}
+    <blockquote>{{panel.description|markdown}}</blockquote>
+    <span class="pull-right label label-default page-number">{{loop.index0}}</span>
+    </div>
+</div>
 
 {% if loop.index is divisible by(2) %}
-</div>
-<div class="row">
+<div class="row"></div>
 {% endif %}

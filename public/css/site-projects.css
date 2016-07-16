@@ -21,8 +21,30 @@ body {
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-description {
-  padding: 5px;
+.comments {
+    margin: 10px 0px 10px 0px;
+}
+.comment {
+    font-size: .85rem;
+}
+.comment-annotation {
+    text-align: right;
+    font-size: .75rem;
+}
+.comment-container {
+    background-color: #333;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 10px;
+}
+.comment-container:nth-child(even) {
+    background-color: #252525;
+}
+.comment-status-resolved {
+    opacity: 0.33;
+}
+.comment-status-resolved .comment {
+    text-decoration: line-through;
 }
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Patua One', cursive;
@@ -45,22 +67,13 @@ overlay content {
     padding: 25px;
     cursor: zoom-out;
 }
-overlay content img.landscape {
-  max-width: 90%;
+.landscape {
+  max-width: 100%;
   height: auto;
 }
-overlay content img.portrait {
-  max-height: 90%;
+.portrait {
+  max-height: 100%;
   width: auto;
-}
-preview img, thumbnail img {
-  cursor: pointer;
-}
-thumbnail img {
-  margin-bottom: 5px;
-}
-thumbnail.active img {
-  box-shadow: 0px 0px 4px 4px rgba(20, 137, 194, 0.9);
 }
 .card {
   background-color: #1A1A1A;
@@ -93,21 +106,6 @@ thumbnail.active img {
   font-size: 90%;
   margin: 5px 0px 5px 0px;
 }
-.storyboard-comment {
-    background-color: #333;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    padding: 10px;
-}
-.storyboard-comment:nth-child(even) {
-    background-color: #252525;
-}
-.storyboard-comment-status-resolved {
-    opacity: 0.33;
-}
-.storyboard-comment-status-resolved .comment {
-    text-decoration: line-through;
-}
 .storyboard-notes {
     background-color: #111;
     margin: 10px 0px 10px 0px;
@@ -115,16 +113,19 @@ thumbnail.active img {
     padding: 10px;
     font-size: .85rem;
 }
-.comment {
-    font-size: .85rem;
-}
-.comment-annotation {
-    text-align: right;
-    font-size: .75rem;
-}
 .user-login {
     color: #49ABFF;
 }
 .timestamp {
     color: #666;
+}
+
+.thumbnails {
+    margin: 10px 0px 10px 0px;
+}
+.thumbnail {
+    margin-bottom: 10px;
+}
+.thumbnail.active img {
+  box-shadow: 0px 0px 4px 4px rgba(20, 137, 194, 0.9);
 }
