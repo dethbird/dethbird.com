@@ -37,7 +37,8 @@
             <img src="https://c2.staticflickr.com/6/5007/5281085898_65f815ac08.jpg" class="landscape"/>
         </div>
     {% endif %}
-    <blockquote>{{panel.description|markdown}}</blockquote>
+    {% set parsedFountain = panel.script|fountain %}
+    <div class="col-xs-12 fountain">{{parsedFountain.html.script|raw}}</div>
     <span class="pull-right label label-default page-number">{{loop.index0}}</span>
     </div>
 </div>
