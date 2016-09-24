@@ -1,12 +1,82 @@
 # Dethbird's website
-> A Slim based website with Backbone.js and Twig thrown in
+> it's my fucking website
 
-#### Command line PHP deploy
+## Deploy
+
+### clone from GIT
+```bash
+git clone git@github.com:dethbird/dethbird.com.git
+cd dethbird.com
+```
+
+### Initialize
+#### Composer install base required libs for the build script to function:
 
 ```bash
-# build all
-php build.php js=1 php=1 cache=1 node=1
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
+```
 
-# build js un-uglified
-php build.php js=dev
+#### Copy .env from .env.shadow and edit values
+```bash
+cp .env.shadow .env
+vim .env
+```
+
+### Build script
+
+#### Help
+
+```bash
+php scripts/build.php --help
+```
+
+displays help:
+
+```bash
+
+--cache/--cache
+     Clear cache and reset permissions of cache directory
+
+
+--configs/--configs
+     Publish configs from .env
+
+
+--help
+     Show the help page for this command.
+
+
+--js/--javascript
+     Broswerify and minify the js
+
+
+--npm/--npm
+     Install node modules from package.json
+
+
+--php/--php
+     PHP/Composer install
+
+
+--ugly/--uglify
+     Uglify the compiled js (leave empty in dev)
+
+```
+
+#### build
+
+##### build production:
+All the options for the first time build.
+```bash
+php scripts/build.php --cache --configs --npm --js --php --ugly
+```
+
+### Permissions
+
+```bash
+chmod 755 dethbird.com
+cd dethbird.com
+chmod 755 public/
+chmod 644 public/index.php public/.htaccess
 ```
