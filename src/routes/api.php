@@ -1,6 +1,6 @@
 <?php
 
-# api
+# api local login
 $app->post('/api/login', function () use ($app) {
 
     $configs = $app->container->get('configs');
@@ -28,6 +28,42 @@ $app->post('/api/login', function () use ($app) {
             $app->response->setBody(json_encode($result[0]));
         }
     }
+});
+
+# remote login
+$app->post('/api/authorize', function () use ($app) {
+
+    $configs = $app->container->get('configs');
+
+    $data = json_decode($app->request->getBody());
+
+    // var_dump($app->request->getBody()); die();
+    // var_dump($data); die();
+
+    if($data) {
+
+        $user = User::find_by_username_and_password(
+            $data->username,
+            md5($data->password)
+        );
+
+        if(!$user) {
+            $app->halt(404);
+        }
+
+        // var_dump($user->to_json([
+        //     'exclude'=>['password', 'email', 'date_added', 'date_updated']
+        // ])); die();
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody($user->to_json([
+            'except'=>['password', 'app_user', 'notifications', 'date_added', 'date_updated']
+        ]));
+    } else {
+        $app->halt(400);
+    }
+
 });
 
 $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
