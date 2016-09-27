@@ -116,15 +116,14 @@ $authorizeByHeaders = function ($app) {
             if ($authToken == "") {
                 $app->halt(400);
             } else {
-                $configs = $app->container->get('configs');
-                $db = $app->container->get('db');
-                $result = $db->fetchOne(
-                    $configs['sql']['users']['get_by_auth_token'],
-                    [
-                        'auth_token' => $authToken
-                    ]
-                );
-                $_SESSION['securityContext'] = (object) $result;
+
+                $user = User::find_by_auth_token($authToken);
+
+                if(!$user) {
+                    $app->halt(404);
+                } else {
+                    $_SESSION['securityContext'] = json_decode($user->to_json());
+                }
             }
         }
     };

@@ -270,8 +270,18 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
 
+        # user's projects
         $projects = Project::find_all_by_user_id($securityContext->id, [
             'order' => 'sort_order']);
+
+        # projects user belongs to
+        $projectUsers = ProjectUser::find_all_by_project_user_id($securityContext->id);
+        if (count($projectUsers) > 0) {
+            foreach($projectUsers as $pu){
+                $project = Project::find_by_id($pu->project_id);
+                $projects[] = $project;
+            }
+        }
 
         $_projects = [];
         foreach ($projects as $i=>$project) {
@@ -1133,5 +1143,5 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $app->response->headers->set('Content-Type', 'application/json');
         $app->response->setBody(json_encode($result));
     });
-    
+
 });
