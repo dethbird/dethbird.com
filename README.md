@@ -43,12 +43,20 @@ displays help:
      Publish configs from .env
 
 
+--css/--css
+     Build .css files from .less
+
+
 --help
      Show the help page for this command.
 
 
 --js/--javascript
      Broswerify and minify the js
+
+
+--js-page/--javascript-page <argument>
+     File in "src/frontend/js/pages/<page>.js" to build
 
 
 --npm/--npm

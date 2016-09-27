@@ -4,30 +4,38 @@
 $app->post('/api/login', function () use ($app) {
 
     $configs = $app->container->get('configs');
-    $db = $app->container->get('db');
 
-    $result = $db->fetchAll(
-        $configs['sql']['users']['select_by_username_and_password'],
-        [
-            'username' => $app->request->params('username'),
-            'password' => md5($app->request->params('password'))
-        ]
+    $user = User::find_by_username_and_password(
+        $app->request->params('username'),
+        md5($app->request->params('password'))
     );
 
-    $app->response->setStatus(404);
-    if (isset($result[0])) {
-        if ($result[0]['username'] == $app->request->params('username')){
-            $app->response->setStatus(200);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $_SESSION['securityContext'] = (object) $result[0];
-            if (isset($_SESSION['redirectTo'])) {
-                $result[0]['redirectTo'] = $_SESSION['redirectTo'];
-            } else {
-                $result[0]['redirectTo'] = '/likedrop';
-            }
-            $app->response->setBody(json_encode($result[0]));
-        }
+    if(!$user) {
+        $app->halt(404);
     }
+
+    $model = json_decode(
+        $user->to_json([
+            'except'=>[
+                'password',
+                'app_user',
+                'notifications',
+                'date_added',
+                'date_updated']
+    ]));
+
+    $_SESSION['securityContext'] = $model;
+
+    if (isset($_SESSION['redirectTo'])) {
+        $model->redirectTo = $_SESSION['redirectTo'];
+    } else {
+        $model->redirectTo = '/projects';
+    }
+
+    $app->response->setStatus(200);
+    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->setBody(json_encode($model));
+
 });
 
 # remote login
@@ -36,9 +44,6 @@ $app->post('/api/authorize', function () use ($app) {
     $configs = $app->container->get('configs');
 
     $data = json_decode($app->request->getBody());
-
-    // var_dump($app->request->getBody()); die();
-    // var_dump($data); die();
 
     if($data) {
 
@@ -50,10 +55,6 @@ $app->post('/api/authorize', function () use ($app) {
         if(!$user) {
             $app->halt(404);
         }
-
-        // var_dump($user->to_json([
-        //     'exclude'=>['password', 'email', 'date_added', 'date_updated']
-        // ])); die();
 
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
@@ -1132,92 +1133,5 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $app->response->headers->set('Content-Type', 'application/json');
         $app->response->setBody(json_encode($result));
     });
-
-
-    # create panel comment
-    $app->post('/project_storyboard_panel_comment', function () use ($app) {
-
-        $configs = $app->container->get('configs');
-        $securityContext = $_SESSION['securityContext'];
-        $db = $app->container->get('db');
-        $projectService = new Projects($db, $configs, $securityContext);
-
-        # validate
-        $validator = new Validator();
-        $validation_response = $validator->validate(
-            (object) $app->request->params(),
-            APPLICATION_PATH . "configs/validation_schemas/project_storyboard_panel_comment.json");
-
-        if (is_array($validation_response)) {
-            $app->response->setStatus(400);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($validation_response));
-        } else {
-            $comment = $projectService->createProjectStoryboardPanelComment($app->request->params());
-
-            $app->response->setStatus(201);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($comment));
-        }
-
-    });
-
-    # create script
-    $app->post('/script', function () use ($app) {
-
-        $configs = $app->container->get('configs');
-        $securityContext = $_SESSION['securityContext'];
-        $db = $app->container->get('db');
-        $scriptService = new Scripts($db, $configs, $securityContext);
-
-        # validate
-        $validator = new Validator();
-        $validation_response = $validator->validate(
-            (object) $app->request->params(),
-            APPLICATION_PATH . "configs/validation_schemas/script.json");
-
-        if (is_array($validation_response)) {
-            $app->response->setStatus(400);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($validation_response));
-        } else {
-            $script = $scriptService->create($app->request->params());
-
-            $app->response->setStatus(201);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($script));
-        }
-
-    });
-
-
-    # update script
-    $app->put('/script/:id', function ($id) use ($app) {
-
-        $configs = $app->container->get('configs');
-        $securityContext = $_SESSION['securityContext'];
-        $db = $app->container->get('db');
-        $scriptService = new Scripts($db, $configs, $securityContext);
-        $id = (int) $id;
-
-        # validate
-        $validator = new Validator();
-        $validation_response = $validator->validate(
-            (object) $app->request->params(),
-            APPLICATION_PATH . "configs/validation_schemas/script.json");
-
-        if (is_array($validation_response)) {
-            $app->response->setStatus(400);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($validation_response));
-        } else {
-
-            $script = $scriptService->update($id, $app->request->params());
-
-            $app->response->setStatus(200);
-            $app->response->headers->set('Content-Type', 'application/json');
-            $app->response->setBody(json_encode($script));
-        }
-
-    });
+    
 });

@@ -15,6 +15,10 @@
         ->boolean()
         ->aka('cache')
         ->describedAs('Clear cache and reset permissions of cache directory');
+    $cmd->option('css')
+        ->boolean()
+        ->aka('css')
+        ->describedAs('Build .css files from .less');
     $cmd->option('configs')
         ->boolean()
         ->aka('configs')
@@ -107,9 +111,11 @@
                 $v = trim($v);
                 if($v!=""){
                     try {
+                        echo $c("sed -i 's/:".$k."/".addcslashes($v, "/")."/g' ".$configFilePath)
+                          ->white() . PHP_EOL;
                         $resp = $shell->executeCommand('sed', array(
                             "-i",
-                            "'s/:".$k."$/".addcslashes($v, "/")."/g'",
+                            "'s/:".$k."/".addcslashes($v, "/")."/g'",
                             $configFilePath
                         ));
                     } catch (Exception $e) {
@@ -278,6 +284,39 @@
                     ( $cmd['uglify'] ? " and uglified" : null ).
                     ": ".
                     round(filesize($outputFile)/1024, 2) . " Kb.")
+                    ->green()->bold() . PHP_EOL;
+            }
+        }
+    }
+
+    // css
+    if($cmd['css']) {
+        echo $c(
+"_________
+\_   ___ \  ______ ______
+/    \  \/ /  ___//  ___/
+\     \____\___ \ \___ \
+ \______  /____  >____  >
+        \/     \/     \/ "
+           )
+            ->white()->bold()->highlight('blue') . PHP_EOL;
+        $frontendFiles = $shell->executeCommand('find', array(
+            "src/frontend/css/",
+            "-name",
+            "'*.less'"
+        ));
+        foreach($frontendFiles as $file){
+            if($file) {
+                $outputFile = str_replace("src/frontend", "public", $file);
+                $outputFile = str_replace(".less", ".css", $outputFile);
+                $result = $shell->executeCommand('lessc', array(
+                    $file,
+                    $outputFile,
+                    "--verbose"
+                ));
+                echo $c($outputFile)
+                    ->yellow()->bold() . PHP_EOL;
+                echo $c("CSS built.")
                     ->green()->bold() . PHP_EOL;
             }
         }
