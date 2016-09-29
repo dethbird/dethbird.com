@@ -41913,6 +41913,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var StoryboardPanelEdit = _react2.default.createClass({
     displayName: 'StoryboardPanelEdit',
     componentDidMount: function componentDidMount() {
+        $.ajaxSetup({
+            beforeSend: function () {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.'
+                });
+            }.bind(this)
+        });
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
@@ -42025,6 +42033,11 @@ var StoryboardPanelEdit = _react2.default.createClass({
     render: function render() {
         var that = this;
         if (this.state) {
+
+            if (!this.state.panel) {
+                return _react2.default.createElement(_spinner.Spinner, null);
+            }
+
             var panelRevisionNodes = this.state.panel.revisions.map(function (revision, i) {
                 var props = {};
                 props.src = revision.content;
@@ -42679,6 +42692,7 @@ var Storyboard = _react2.default.createClass({
         _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/storyboard/' + this.props.params.storyboardId + '/panel/' + panel_id);
     },
     render: function render() {
+        var _this = this;
 
         if (this.state) {
             var storyboard = this.state.storyboard;
@@ -42755,24 +42769,32 @@ var Storyboard = _react2.default.createClass({
                         )
                     )
                 ),
-                _react2.default.createElement(
-                    _sectionHeader.SectionHeader,
-                    null,
-                    'Script'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'StoryboardPanelsContainer' },
-                    _react2.default.createElement(
-                        _card.Card,
-                        null,
-                        _react2.default.createElement(
-                            _cardBlock.CardBlock,
+                function () {
+                    if (_this.state.storyboard.script) {
+                        return _react2.default.createElement(
+                            _sectionHeader.SectionHeader,
                             null,
-                            _react2.default.createElement(_fountain.Fountain, { source: this.state.storyboard.script })
-                        )
-                    )
-                ),
+                            'Script'
+                        );
+                    }
+                }(),
+                function () {
+                    if (_this.state.storyboard.script) {
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'StoryboardPanelsContainer' },
+                            _react2.default.createElement(
+                                _card.Card,
+                                null,
+                                _react2.default.createElement(
+                                    _cardBlock.CardBlock,
+                                    null,
+                                    _react2.default.createElement(_fountain.Fountain, { source: _this.state.storyboard.script })
+                                )
+                            )
+                        );
+                    }
+                }(),
                 _react2.default.createElement(
                     _sectionHeader.SectionHeader,
                     null,

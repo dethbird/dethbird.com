@@ -91,15 +91,26 @@ const Storyboard = React.createClass({
                             </div>
                         </Card>
                     </div>
-
-                    <SectionHeader>Script</SectionHeader>
-                    <div className="StoryboardPanelsContainer">
-                        <Card>
-                            <CardBlock>
-                                <Fountain source={ this.state.storyboard.script } />
-                            </CardBlock>
-                        </Card>
-                    </div>
+                    {(() => {
+                        if (this.state.storyboard.script) {
+                            return (
+                                <SectionHeader>Script</SectionHeader>
+                            )
+                        }
+                    })()}
+                    {(() => {
+                        if (this.state.storyboard.script) {
+                            return (
+                                <div className="StoryboardPanelsContainer">
+                                    <Card>
+                                        <CardBlock>
+                                            <Fountain source={ this.state.storyboard.script } />
+                                        </CardBlock>
+                                    </Card>
+                                </div>
+                            )
+                        }
+                    })()}
 
                     <SectionHeader>{ this.state.storyboard.panels.length } Panel(s)</SectionHeader>
                     <div className="StoryboardPanelsContainer">

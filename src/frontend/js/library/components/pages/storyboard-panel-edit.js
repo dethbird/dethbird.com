@@ -21,6 +21,14 @@ import { Spinner } from "../ui/spinner"
 
 const StoryboardPanelEdit = React.createClass({
     componentDidMount() {
+        $.ajaxSetup({
+            beforeSend: function() {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.',
+                })
+            }.bind(this)
+        });
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
@@ -139,6 +147,13 @@ const StoryboardPanelEdit = React.createClass({
     render() {
         let that = this
         if (this.state){
+
+            if (!this.state.panel) {
+                return (
+                    <Spinner />
+                );
+            }
+
             let panelRevisionNodes = this.state.panel.revisions.map(function(revision, i) {
                 let props = {};
                 props.src = revision.content
