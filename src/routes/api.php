@@ -188,6 +188,16 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $id, $securityContext->id);
 
         if(!$model) {
+            $pu = ProjectUser::find_by_project_id_and_project_user_id(
+                $id, $securityContext->id);
+            if(!$pu) {
+                $app->halt(404);
+            } else {
+                $model = Project::find_by_id($pu->project_id);
+            }
+        }
+
+        if(!$model) {
             $app->halt(404);
         } else {
             $app->response->setStatus(200);
@@ -229,17 +239,12 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
     # update project
     $app->put('/project/:id', function ($id) use ($app) {
-
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
         $id = (int) $id;
 
         $model = Project::find_by_id_and_user_id(
             $id, $securityContext->id);
-
-        if(!$model) {
-            $app->halt(404);
-        }
 
         foreach($app->request->params() as $key=>$value) {
             $model->$key = $value;
