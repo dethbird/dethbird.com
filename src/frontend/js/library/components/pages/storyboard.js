@@ -81,7 +81,25 @@ const Storyboard = React.createClass({
                               isOpen={ that.state.panelModals[panel.id] }
                               onRequestClose = { that.closePanelModal.bind(that, panel.id)}
                               shouldCloseOnOverlayClick={ true }
-                        ><PanelModal panel={ panel }></PanelModal>
+                              style={{
+                                  overlay: {
+                                      backgroundColor : 'rgba(0, 0, 0, 0.75)'
+                                  },
+                                  content: {
+                                      padding: 0,
+                                      background: 'none',
+                                      border: 'none',
+                                      top: '10px',
+                                      bottom: '10px',
+                                      right: '10px',
+                                      left: '10px'
+                                  }
+                              }}
+                        >
+                            <PanelModal
+                                panel={ panel }
+                                handleClickClose={ that.closePanelModal }
+                            ></PanelModal>
                         </Modal>
                         <Card>
                             <h4 className="card-header">{ panel.name }</h4>
@@ -90,10 +108,10 @@ const Storyboard = React.createClass({
                             </div>
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
-                                    <Count count={ panel.comments.length } /> Comments
+                                    <Count count={ panel.revisions.length } /> Revisions
                                 </li>
                                 <li className="list-group-item">
-                                    <Count count={ panel.revisions.length } /> Revisions
+                                    <Count count={ panel.comments.length } /> Comments
                                 </li>
                             </ul>
                             <CardBlock>

@@ -44715,9 +44715,26 @@ var Storyboard = _react2.default.createClass({
                         {
                             isOpen: that.state.panelModals[panel.id],
                             onRequestClose: that.closePanelModal.bind(that, panel.id),
-                            shouldCloseOnOverlayClick: true
+                            shouldCloseOnOverlayClick: true,
+                            style: {
+                                overlay: {
+                                    backgroundColor: 'rgba(0, 0, 0, 0.75)'
+                                },
+                                content: {
+                                    padding: 0,
+                                    background: 'none',
+                                    border: 'none',
+                                    top: '10px',
+                                    bottom: '10px',
+                                    right: '10px',
+                                    left: '10px'
+                                }
+                            }
                         },
-                        _react2.default.createElement(_panelModal.PanelModal, { panel: panel })
+                        _react2.default.createElement(_panelModal.PanelModal, {
+                            panel: panel,
+                            handleClickClose: that.closePanelModal
+                        })
                     ),
                     _react2.default.createElement(
                         _card.Card,
@@ -44738,14 +44755,14 @@ var Storyboard = _react2.default.createClass({
                             _react2.default.createElement(
                                 'li',
                                 { className: 'list-group-item' },
-                                _react2.default.createElement(_count.Count, { count: panel.comments.length }),
-                                ' Comments'
+                                _react2.default.createElement(_count.Count, { count: panel.revisions.length }),
+                                ' Revisions'
                             ),
                             _react2.default.createElement(
                                 'li',
                                 { className: 'list-group-item' },
-                                _react2.default.createElement(_count.Count, { count: panel.revisions.length }),
-                                ' Revisions'
+                                _react2.default.createElement(_count.Count, { count: panel.comments.length }),
+                                ' Comments'
                             )
                         ),
                         _react2.default.createElement(
@@ -44861,9 +44878,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactTimeago = require('react-timeago');
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
 var _card = require('../../ui/card');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _cardComment = require('../../ui/card-comment');
 
 var _count = require('../../ui/count');
 
@@ -44881,9 +44904,13 @@ var PanelModal = _react2.default.createClass({
 
     propTypes: {
         panel: _react2.default.PropTypes.object.isRequired,
+        handleClickClose: _react2.default.PropTypes.func.isRequired,
         className: _react2.default.PropTypes.string
     },
-
+    handleClose: function handleClose(panel_id) {
+        console.log(panel_id);
+        this.props.handleClickClose(panel_id);
+    },
     render: function render() {
         var props = {};
         if (this.props.panel.revisions.length > 0) props.src = this.props.panel.revisions[0].content;
@@ -44906,30 +44933,55 @@ var PanelModal = _react2.default.createClass({
             );
         });
 
+        var panelCommentNodes = this.props.panel.comments.map(function (comment) {
+            return _react2.default.createElement(_cardComment.CardComment, { comment: comment, link: '#',
+                key: comment.id });
+        });
+
         return _react2.default.createElement(
-            _card.Card,
-            {
-                className: 'storyboard-panel'
-            },
-            _react2.default.createElement(
-                'h3',
-                { className: 'card-header' },
-                this.props.panel.name
-            ),
+            'div',
+            null,
             _react2.default.createElement(
                 'div',
                 { className: 'text-align-center' },
-                _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                _react2.default.createElement(
+                    'a',
+                    { className: 'btn btn-secondary',
+                        onClick: this.handleClose.bind(this, this.props.panel.id)
+                    },
+                    'Close'
+                )
             ),
             _react2.default.createElement(
-                _cardBlock.CardBlock,
-                null,
-                _react2.default.createElement(_fountain.Fountain, { source: this.props.panel.script })
-            ),
-            _react2.default.createElement(
-                'div',
-                null,
-                panelRevisionNodes
+                _card.Card,
+                {
+                    className: 'storyboard-panel'
+                },
+                _react2.default.createElement(
+                    'h3',
+                    { className: 'card-header' },
+                    this.props.panel.name
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'text-align-center' },
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                ),
+                _react2.default.createElement(
+                    _cardBlock.CardBlock,
+                    null,
+                    _react2.default.createElement(_fountain.Fountain, { source: this.props.panel.script })
+                ),
+                _react2.default.createElement(
+                    _cardBlock.CardBlock,
+                    null,
+                    panelRevisionNodes
+                ),
+                _react2.default.createElement(
+                    _cardBlock.CardBlock,
+                    null,
+                    panelCommentNodes
+                )
             )
         );
     }
@@ -44937,7 +44989,7 @@ var PanelModal = _react2.default.createClass({
 
 module.exports.PanelModal = PanelModal;
 
-},{"../../ui/card":345,"../../ui/card-block":341,"../../ui/count":347,"../../ui/description":348,"../../ui/fountain":350,"../../ui/image-panel-revision":351,"classnames":1,"react":287}],339:[function(require,module,exports){
+},{"../../ui/card":345,"../../ui/card-block":341,"../../ui/card-comment":343,"../../ui/count":347,"../../ui/description":348,"../../ui/fountain":350,"../../ui/image-panel-revision":351,"classnames":1,"react":287,"react-timeago":144}],339:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');

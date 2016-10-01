@@ -324,8 +324,6 @@ body {
   opacity: 0.9;
   background-color: #eeeeee;
   color: #818a91;
-}
-.comment.resolved blockquote {
   text-decoration: line-through;
 }
 .container {
