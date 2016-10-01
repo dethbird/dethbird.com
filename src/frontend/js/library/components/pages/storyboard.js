@@ -1,13 +1,17 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
+import TimeAgo from 'react-timeago'
 
 import { Card } from "../ui/card"
 import { CardClickable } from "../ui/card-clickable"
 import { CardBlock } from "../ui/card-block"
+import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
+import { PanelModal } from "./storyboard/panel-modal"
 import { SectionHeader } from "../ui/section-header"
 import {
     StoryboardBreadcrumb
@@ -17,6 +21,7 @@ import { Spinner } from "../ui/spinner"
 
 const Storyboard = React.createClass({
     componentDidMount() {
+        var that = this
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
@@ -25,9 +30,16 @@ const Storyboard = React.createClass({
                 let storyboard = _.findWhere(data.storyboards, {
                     'id': parseInt(this.props.params.storyboardId)
                 });
+
+                let panelModals = [];
+                storyboard.panels.map(function(panel){
+                    panelModals[panel.id] = false
+                });
+
                 this.setState({
                     project: data,
-                    storyboard: storyboard
+                    storyboard,
+                    panelModals
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -35,12 +47,19 @@ const Storyboard = React.createClass({
             }.bind(this)
         });
     },
-    handleClick(panel_id) {
-        browserHistory.push(
-            '/project/' + this.props.params.projectId
-            + '/storyboard/' + this.props.params.storyboardId
-            + '/panel/' + panel_id
-        )
+    closePanelModal(panel_id) {
+        let panelModals = this.state.panelModals
+        panelModals[panel_id] = false
+        this.setState({
+            panelModals
+        })
+    },
+    handleClickPanel(panel_id) {
+        let panelModals = this.state.panelModals
+        panelModals[panel_id] = true
+        this.setState({
+            panelModals
+        })
     },
     render() {
 
@@ -54,18 +73,41 @@ const Storyboard = React.createClass({
                 if (panel.revisions.length > 0)
                     props.src = panel.revisions[0].content
                 return (
-                    <CardClickable
-                        className="col-lg-4"
+                    <div
                         key={ panel.id }
-                        onClick={ that.handleClick.bind(that, panel.id) }
+                        className="col-lg-4"
                     >
-                        <h4 className="card-header">{ panel.name }</h4>
-                        <ImagePanelRevision { ...props } ></ImagePanelRevision>
-                        <CardBlock>
-                            <div>{ panel.comments.length } comment(s)</div>
-                            <div>{ panel.revisions.length } revision(s)</div>
-                        </CardBlock>
-                    </CardClickable>
+                        <Modal
+                              isOpen={ that.state.panelModals[panel.id] }
+                              onRequestClose = { that.closePanelModal.bind(that, panel.id)}
+                              shouldCloseOnOverlayClick={ true }
+                        ><PanelModal panel={ panel }></PanelModal>
+                        </Modal>
+                        <Card>
+                            <h4 className="card-header">{ panel.name }</h4>
+                            <div onClick={ that.handleClickPanel.bind(that, panel.id) }>
+                                <ImagePanelRevision { ...props }></ImagePanelRevision>
+                            </div>
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">
+                                    <Count count={ panel.comments.length } /> Comments
+                                </li>
+                                <li className="list-group-item">
+                                    <Count count={ panel.revisions.length } /> Revisions
+                                </li>
+                            </ul>
+                            <CardBlock>
+                                <Link to={
+                                        '/project/' + that.props.params.projectId
+                                        + '/storyboard/' + that.props.params.storyboardId
+                                        + '/panel/' + panel.id + '/edit'
+                                    }><TimeAgo
+                                        date={ panel.date_updated }
+                                    />
+                                </Link>
+                            </CardBlock>
+                        </Card>
+                    </div>
                 );
             });
 
