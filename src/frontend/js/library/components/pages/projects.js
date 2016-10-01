@@ -8,9 +8,6 @@ import {
 import { Spinner } from "../ui/spinner"
 
 const Projects = React.createClass({
-    handleClick(project_id) {
-        browserHistory.push('/project/' + project_id);
-    },
     componentDidMount() {
         $.ajax({
             url: '/api/projects',
@@ -31,7 +28,6 @@ const Projects = React.createClass({
                 return (
                     <Project
                         className="col-lg-6"
-                        handleClick={ that.handleClick.bind(that, project.id) }
                         project={ project }
                         key={ project.id }
                     >

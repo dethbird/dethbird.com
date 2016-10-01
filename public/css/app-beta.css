@@ -331,6 +331,10 @@ body {
 .container {
   position: relative;
 }
+h1 {
+  color: #58A3C9;
+  font-weight: bold;
+}
 .fountain {
   font-family: 'Ubuntu Mono', monospace;
 }

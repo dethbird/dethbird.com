@@ -18,7 +18,14 @@ import { Spinner } from "../ui/spinner"
 
 const ProjectEdit = React.createClass({
     componentDidMount() {
-        console.log(this.props.params.projectId);
+        $.ajaxSetup({
+            beforeSend: function() {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.',
+                })
+            }.bind(this)
+        });
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
@@ -101,7 +108,11 @@ const ProjectEdit = React.createClass({
     render() {
         let that = this
         if (this.state){
-            console.log(this.state)
+            if (!this.state.project) {
+                return (
+                    <Spinner />
+                )
+            }
             return (
                 <div>
                     <ProjectBreadcrumb { ...this.state } />
