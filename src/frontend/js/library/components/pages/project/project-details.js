@@ -19,7 +19,9 @@ const ProjectDetails = React.createClass({
               <Card>
                   <CardBlock>
                       <h3 className="card-title">{ this.props.project.name }</h3>
-                      <ImagePanelRevision { ...{src: this.props.project.content }} />
+                      <div className="text-align-center">
+                            <ImagePanelRevision { ...{src: this.props.project.content }} />
+                      </div>
                       <Description source={ this.props.project.description }></Description>
                   </CardBlock>
               </Card>

@@ -42518,11 +42518,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
 
 var _cardClickable = require('../../ui/card-clickable');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _count = require('../../ui/count');
+
+var _imagePanelRevision = require('../../ui/image-panel-revision');
 
 var _sectionHeader = require('../../ui/section-header');
 
@@ -42531,31 +42541,91 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectCharacters = _react2.default.createClass({
     displayName: 'ProjectCharacters',
 
+    getInitialState: function getInitialState() {
+        return {
+            showContent: false
+        };
+    },
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
-    handleClick: function handleClick(project_id) {
-        _reactRouter.browserHistory.push('/project/' + project_id + '/characters');
+    handleClickList: function handleClickList() {
+        var showContent = !this.state.showContent;
+        this.setState({
+            showContent: showContent
+        });
     },
 
     render: function render() {
+        var characterNodes = void 0;
+        var listButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+
+        if (this.state.showContent) {
+            listButtonClassName = (0, _classnames2.default)([listButtonClassName, 'active']);
+            characterNodes = this.props.project.characters.map(function (character) {
+                var src = void 0;
+                if (character.revisions.length) src = character.revisions[0].content;
+
+                return _react2.default.createElement(
+                    _card.Card,
+                    { className: 'col-xs-3', key: character.id },
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        character.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
+                );
+            });
+        }
+
         return _react2.default.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'clearfix well' },
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                'Characters'
+                'div',
+                { className: 'pull-left' },
+                _react2.default.createElement(
+                    _sectionHeader.SectionHeader,
+                    null,
+                    _react2.default.createElement(_count.Count, { count: this.props.project.characters.length }),
+                    '  Characters'
+                )
             ),
             _react2.default.createElement(
-                _cardClickable.CardClickable,
-                { onClick: this.handleClick.bind(this, this.props.project.id) },
+                'ul',
+                { className: 'nav nav-pills pull-right' },
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
-                    null,
-                    this.props.project.characters.length,
-                    ' character(s)'
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        {
+                            to: '/project/' + this.props.project.id + '/characters',
+                            className: 'btn btn-secondary'
+                        },
+                        'View'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            onClick: this.handleClickList,
+                            className: listButtonClassName
+                        },
+                        'List'
+                    )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'clearfix' },
+                characterNodes
             )
         );
     }
@@ -42563,7 +42633,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/section-header":353,"react":288,"react-router":133}],322:[function(require,module,exports){
+},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],322:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42661,7 +42731,11 @@ var ProjectDetails = _react2.default.createClass({
                         { className: "card-title" },
                         this.props.project.name
                     ),
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content }),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "text-align-center" },
+                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content })
+                    ),
                     _react2.default.createElement(_description.Description, { source: this.props.project.description })
                 )
             )

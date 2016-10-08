@@ -322,6 +322,9 @@ body {
 .col-xs-4:nth-child(3n+1) {
   clear: both;
 }
+.col-xs-3:nth-child(4n+1) {
+  clear: both;
+}
 .card img {
   max-width: 100%;
   height: auto;
@@ -355,6 +358,10 @@ h1 {
 }
 .security-context a {
   color: #000;
+}
+section.well {
+  padding: 10px;
+  background-color: #1C688E;
 }
 .text-align-center {
   text-align: center;
