@@ -155,14 +155,12 @@ const StoryboardPanelEdit = React.createClass({
             }
 
             let panelRevisionNodes = this.state.panel.revisions.map(function(revision, i) {
-                let props = {};
-                props.src = revision.content
                 return (
                     <SortableItem
                         key={ revision.id }
                         className="card col-xs-4"
                     >
-                        <ImagePanelRevision { ...props } ></ImagePanelRevision>
+                        <ImagePanelRevision { ...{ src: revision.content } } ></ImagePanelRevision>
                     </SortableItem>
                 );
             });

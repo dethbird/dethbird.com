@@ -2,6 +2,8 @@
 
 @baseBlue: #2075A0;
 @lighterBlue: #58A3C9;
+@darkerBlue: #1C688E;
+
 @cardBackgroundColor: #fff;
 @cardBackgroundColorHover: @cardBackgroundColor - #111;
 @cardHeaderBackgroundColor: #f5f5f5;
@@ -14,8 +16,16 @@ blockquote {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   background-color: @baseBlue;
+}
+
+.breadcrumb {
+    background-color: @darkerBlue;
+    color: @lighterBlue + 222;
+    a {
+        color: @lighterBlue;
+    }
 }
 
 .card.clickable {
@@ -29,10 +39,13 @@ body {
     }
 }
 
-.card.col-lg-6:nth-child(2n+1) {
+.col-lg-6:nth-child(2n+1) {
     clear:both;
 }
-.card.col-xs-4:nth-child(3n+1) {
+.col-lg-4:nth-child(3n+1) {
+    clear:both;
+}
+.col-xs-4:nth-child(3n+1) {
     clear:both;
 }
 
@@ -69,6 +82,13 @@ h1 {
 .section-header {
     color: @cardBorderColor;
     font-weight: bold;
+}
+
+.security-context {
+    color: @lighterBlue;
+    a {
+        color: #000;
+    }
 }
 
 .text-align-center {

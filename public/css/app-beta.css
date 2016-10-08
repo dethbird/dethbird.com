@@ -293,8 +293,15 @@ blockquote {
   padding: 15px;
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   background-color: #2075A0;
+}
+.breadcrumb {
+  background-color: #1C688E;
+  color: #ffffff;
+}
+.breadcrumb a {
+  color: #58A3C9;
 }
 .card.clickable {
   cursor: pointer;
@@ -306,10 +313,13 @@ body {
 .card.clickable:hover .card-footer {
   background-color: #e4e4e4;
 }
-.card.col-lg-6:nth-child(2n+1) {
+.col-lg-6:nth-child(2n+1) {
   clear: both;
 }
-.card.col-xs-4:nth-child(3n+1) {
+.col-lg-4:nth-child(3n+1) {
+  clear: both;
+}
+.col-xs-4:nth-child(3n+1) {
   clear: both;
 }
 .card img {
@@ -339,6 +349,12 @@ h1 {
 .section-header {
   color: #e5e5e5;
   font-weight: bold;
+}
+.security-context {
+  color: #58A3C9;
+}
+.security-context a {
+  color: #000;
 }
 .text-align-center {
   text-align: center;

@@ -21,16 +21,22 @@ import { Spinner } from "../ui/spinner"
 
 const StoryboardEdit = React.createClass({
     componentDidMount() {
+        $.ajaxSetup({
+            beforeSend: function() {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.',
+                })
+            }.bind(this)
+        });
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
             cache: false,
             success: function(data) {
-
                 let storyboard = _.findWhere(data.storyboards, {
-                    'id': this.props.params.storyboardId
+                    'id': parseInt(this.props.params.storyboardId)
                 });
-
                 let changedFields = null
                 let submitUrl = '/api/project_storyboard/'
                     + this.props.params.storyboardId
@@ -139,6 +145,11 @@ const StoryboardEdit = React.createClass({
     render() {
         let that = this
         if (this.state){
+            if(!this.state.storyboard) {
+                return (
+                    <Spinner />
+                )
+            }
             let panelNodes = this.state.storyboard.panels.map(function(panel, i) {
                 let props = {};
                 if (panel.revisions.length)
@@ -149,7 +160,8 @@ const StoryboardEdit = React.createClass({
                         key={ panel.id }
                         className="card col-xs-4"
                     >
-                        <ImagePanelRevision { ...props } ></ImagePanelRevision>
+                        <h4 className="card-header">{ panel.name }</h4>
+                        <ImagePanelRevision { ... { src: props.src } } ></ImagePanelRevision>
                     </SortableItem>
                 );
             });

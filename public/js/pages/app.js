@@ -43305,16 +43305,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var StoryboardEdit = _react2.default.createClass({
     displayName: 'StoryboardEdit',
     componentDidMount: function componentDidMount() {
+        $.ajaxSetup({
+            beforeSend: function () {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.'
+                });
+            }.bind(this)
+        });
         $.ajax({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
             cache: false,
             success: function (data) {
-
                 var storyboard = _.findWhere(data.storyboards, {
-                    'id': this.props.params.storyboardId
+                    'id': parseInt(this.props.params.storyboardId)
                 });
-
                 var changedFields = null;
                 var submitUrl = '/api/project_storyboard/' + this.props.params.storyboardId;
                 var submitMethod = 'PUT';
@@ -43416,6 +43422,9 @@ var StoryboardEdit = _react2.default.createClass({
     render: function render() {
         var that = this;
         if (this.state) {
+            if (!this.state.storyboard) {
+                return _react2.default.createElement(_spinner.Spinner, null);
+            }
             var panelNodes = this.state.storyboard.panels.map(function (panel, i) {
                 var props = {};
                 if (panel.revisions.length) props.src = panel.revisions[0].content;
@@ -43426,7 +43435,12 @@ var StoryboardEdit = _react2.default.createClass({
                         key: panel.id,
                         className: 'card col-xs-4'
                     },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                    _react2.default.createElement(
+                        'h4',
+                        { className: 'card-header' },
+                        panel.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: props.src })
                 );
             });
 
@@ -43997,15 +44011,13 @@ var StoryboardPanelEdit = _react2.default.createClass({
             }
 
             var panelRevisionNodes = this.state.panel.revisions.map(function (revision, i) {
-                var props = {};
-                props.src = revision.content;
                 return _react2.default.createElement(
                     _reactSortableComponent.SortableItem,
                     {
                         key: revision.id,
                         className: 'card col-xs-4'
                     },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: revision.content })
                 );
             });
 
@@ -44755,6 +44767,11 @@ var Storyboard = _react2.default.createClass({
                             _react2.default.createElement(
                                 'li',
                                 { className: 'list-group-item' },
+                                _react2.default.createElement(_fountain.Fountain, { source: panel.script })
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                { className: 'list-group-item' },
                                 _react2.default.createElement(_count.Count, { count: panel.revisions.length }),
                                 ' Revisions'
                             ),
@@ -44847,17 +44864,26 @@ var Storyboard = _react2.default.createClass({
                     ' Panel(s)'
                 ),
                 _react2.default.createElement(
+                    'ul',
+                    { className: 'nav nav-pills' },
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'nav-item' },
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            {
+                                className: 'btn btn-success',
+                                to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/add'
+                            },
+                            'Add'
+                        )
+                    )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
                     'div',
                     { className: 'StoryboardPanelsContainer' },
-                    storyboardPanelNodes,
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        {
-                            className: 'btn btn-success',
-                            to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/add'
-                        },
-                        'Add'
-                    )
+                    storyboardPanelNodes
                 )
             );
         }

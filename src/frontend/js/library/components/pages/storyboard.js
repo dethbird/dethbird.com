@@ -108,6 +108,9 @@ const Storyboard = React.createClass({
                             </div>
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
+                                    <Fountain source={ panel.script} />
+                                </li>
+                                <li className="list-group-item">
                                     <Count count={ panel.revisions.length } /> Revisions
                                 </li>
                                 <li className="list-group-item">
@@ -173,16 +176,21 @@ const Storyboard = React.createClass({
                     })()}
 
                     <SectionHeader>{ this.state.storyboard.panels.length } Panel(s)</SectionHeader>
+                    <ul className="nav nav-pills">
+                        <li className="nav-item">
+                            <Link
+                                className="btn btn-success"
+                                to={
+                                    '/project/' + that.props.params.projectId
+                                    + '/storyboard/' + that.props.params.storyboardId
+                                    + '/panel/add'
+                                }
+                            >Add</Link>
+                        </li>
+                    </ul>
+                    <br />
                     <div className="StoryboardPanelsContainer">
                         { storyboardPanelNodes }
-                        <Link
-                            className="btn btn-success"
-                            to={
-                                '/project/' + that.props.params.projectId
-                                + '/storyboard/' + that.props.params.storyboardId
-                                + '/panel/add'
-                            }
-                        >Add</Link>
                     </div>
                 </div>
             );
