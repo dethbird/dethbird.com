@@ -121,7 +121,7 @@ const Storyboard = React.createClass({
                                 <Link to={
                                         '/project/' + that.props.params.projectId
                                         + '/storyboard/' + that.props.params.storyboardId
-                                        + '/panel/' + panel.id + '/edit'
+                                        + '/panel/' + panel.id
                                     }><TimeAgo
                                         date={ panel.date_updated }
                                     />
