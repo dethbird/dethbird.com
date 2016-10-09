@@ -8,6 +8,7 @@ import {
     CharacterBreadcrumb
 } from "./character/character-breadcrumb"
 import { Description } from "../ui/description"
+import { ImagePanelRevision } from "../ui/image-panel-revision"
 import { SectionHeader } from "../ui/section-header"
 import { Spinner } from "../ui/spinner"
 
@@ -61,7 +62,7 @@ const Character = React.createClass({
                         onClick={ that.handleClick.bind(that, revision.id) }
                     >
                         <CardBlock className="text-align-center">
-                            <img className="card-img-top" src={ revision.content } />
+                            <ImagePanelRevision src={ revision.content } />
                         </CardBlock>
                     </CardClickable>
                 );
@@ -79,7 +80,7 @@ const Character = React.createClass({
                             <h3 className="card-header">{ this.state.character.name }</h3>
                             <CardBlock>
                                 <div className="text-align-center">
-                                    <img className="card-img-top" src={ src } />
+                                    <ImagePanelRevision src={ src } />
                                 </div>
                             </CardBlock>
                             <CardBlock>

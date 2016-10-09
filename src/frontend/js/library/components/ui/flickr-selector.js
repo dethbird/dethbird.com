@@ -5,22 +5,33 @@ import { Card } from "../ui/card"
 import { CardBlock } from "../ui/card-block"
 import { CardClickable } from "../ui/card-clickable"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
+import { Spinner } from "../ui/spinner"
 
 const FlickrSelector = React.createClass({
+    getInitialState: function() {
+        return {
+            status: 'init'
+        };
+    },
     propTypes: {
         onClick: React.PropTypes.func.isRequired
     },
-
     handleClickOpen: function() {
         event.preventDefault()
-        var that = this
+        const that = this
         $.ajax({
             dataType: 'json',
             cache: false,
             method: 'GET',
             url: '/api/external-content-source/flickr',
+            beforeSend: function() {
+                that.setState({
+                    status: 'loading'
+                })
+            },
             success: function(data) {
-                this.setState({
+                that.setState({
+                    status: 'fetched',
                     images: data
                 })
             }.bind(this),
@@ -34,10 +45,16 @@ const FlickrSelector = React.createClass({
         this.props.onClick(event)
     },
     render: function() {
-        let that = this;
-        if (this.state) {
+        const that = this;
+        if (this.state.status != 'init') {
 
-            let flickrImageNodes = this.state.images.map(function(image) {
+            if(this.state.status=='loading') {
+                return (
+                    <Spinner />
+                );
+            }
+
+            const flickrImageNodes = this.state.images.map(function(image) {
                 return (
                     <Card
                         className="col-lg-4"

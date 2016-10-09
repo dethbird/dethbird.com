@@ -39530,6 +39530,8 @@ var _characterBreadcrumb = require('./character/character-breadcrumb');
 
 var _description = require('../ui/description');
 
+var _imagePanelRevision = require('../ui/image-panel-revision');
+
 var _sectionHeader = require('../ui/section-header');
 
 var _spinner = require('../ui/spinner');
@@ -39585,7 +39587,7 @@ var Character = _react2.default.createClass({
                     _react2.default.createElement(
                         _cardBlock.CardBlock,
                         { className: 'text-align-center' },
-                        _react2.default.createElement('img', { className: 'card-img-top', src: revision.content })
+                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: revision.content })
                     )
                 );
             });
@@ -39614,7 +39616,7 @@ var Character = _react2.default.createClass({
                             _react2.default.createElement(
                                 'div',
                                 { className: 'text-align-center' },
-                                _react2.default.createElement('img', { className: 'card-img-top', src: src })
+                                _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src })
                             )
                         ),
                         _react2.default.createElement(
@@ -39660,7 +39662,7 @@ var Character = _react2.default.createClass({
 
 module.exports.Character = Character;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/section-header":353,"../ui/spinner":354,"./character/character-breadcrumb":297,"react":288,"react-router":133}],297:[function(require,module,exports){
+},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./character/character-breadcrumb":297,"react":288,"react-router":133}],297:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40792,6 +40794,8 @@ module.exports.ProjectCharactersEdit = ProjectCharactersEdit;
 },{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/spinner":354,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133,"react-sortable-component":144}],304:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -40802,7 +40806,11 @@ var _cardClickable = require('../ui/card-clickable');
 
 var _cardBlock = require('../ui/card-block');
 
+var _count = require('../ui/count');
+
 var _description = require('../ui/description');
+
+var _imagePanelRevision = require('../ui/image-panel-revision');
 
 var _projectCharactersBreadcrumb = require('./project-characters/project-characters-breadcrumb');
 
@@ -40829,84 +40837,91 @@ var ProjectCharacters = _react2.default.createClass({
         _reactRouter.browserHistory.push('/project/' + project_id + '/character/' + character_id);
     },
     render: function render() {
+        var _this = this;
+
         if (this.state) {
-            var that = this;
-            var characterNodes = this.state.project.characters.map(function (character) {
-                var src = void 0;
-                if (character.revisions.length) {
-                    src = character.revisions[0].content;
-                }
-                return _react2.default.createElement(
-                    _cardClickable.CardClickable,
-                    {
-                        className: 'col-lg-6',
-                        key: character.id,
-                        onClick: that.handleClick.bind(that, that.state.project.id, character.id)
-                    },
-                    _react2.default.createElement(
-                        'h3',
-                        { className: 'card-header' },
-                        character.name
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'text-align-center' },
-                        _react2.default.createElement('img', { className: 'card-img-top', src: src })
-                    ),
-                    _react2.default.createElement(
-                        _cardBlock.CardBlock,
-                        null,
+            var _ret = function () {
+                var that = _this;
+                var characterNodes = _this.state.project.characters.map(function (character) {
+                    var src = void 0;
+                    if (character.revisions.length) src = character.revisions[0].content;
+
+                    return _react2.default.createElement(
+                        _cardClickable.CardClickable,
+                        {
+                            className: 'col-lg-6',
+                            key: character.id,
+                            onClick: that.handleClick.bind(that, that.state.project.id, character.id)
+                        },
+                        _react2.default.createElement(
+                            'h3',
+                            { className: 'card-header' },
+                            character.name
+                        ),
                         _react2.default.createElement(
                             'div',
+                            { className: 'text-align-center' },
+                            _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src })
+                        ),
+                        _react2.default.createElement(
+                            _cardBlock.CardBlock,
                             null,
-                            _react2.default.createElement(_description.Description, { source: character.description }),
+                            _react2.default.createElement(_description.Description, { source: character.description })
+                        ),
+                        _react2.default.createElement(
+                            'ul',
+                            { className: 'list-group list-group-flush' },
                             _react2.default.createElement(
-                                'span',
-                                null,
-                                character.revisions.length,
-                                ' revision(s)'
+                                'li',
+                                { className: 'list-group-item' },
+                                _react2.default.createElement(_count.Count, { count: character.revisions.length }),
+                                ' Revisions'
                             )
                         )
-                    )
-                );
-            });
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_projectCharactersBreadcrumb.ProjectCharactersBreadcrumb, { project: this.state.project }),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'nav nav-pills' },
-                    _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item' },
+                    );
+                });
+                return {
+                    v: _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_projectCharactersBreadcrumb.ProjectCharactersBreadcrumb, { project: _this.state.project }),
                         _react2.default.createElement(
-                            _reactRouter.Link,
-                            {
-                                className: 'nav-link btn btn-info',
-                                to: '/project/' + this.state.project.id + '/characters/edit' },
-                            'Reorder'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item' },
+                            'ul',
+                            { className: 'nav nav-pills' },
+                            _react2.default.createElement(
+                                'li',
+                                { className: 'nav-item' },
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    {
+                                        className: 'nav-link btn btn-info',
+                                        to: '/project/' + _this.state.project.id + '/characters/edit' },
+                                    'Reorder'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                { className: 'nav-item' },
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    {
+                                        className: 'nav-link btn btn-success',
+                                        to: '/project/' + _this.state.project.id + '/character/add' },
+                                    'Add'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement('br', null),
                         _react2.default.createElement(
-                            _reactRouter.Link,
-                            {
-                                className: 'nav-link btn btn-success',
-                                to: '/project/' + this.state.project.id + '/character/add' },
-                            'Add'
+                            'div',
+                            { className: 'projectCharactersList' },
+                            characterNodes
                         )
                     )
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'projectCharactersList' },
-                    characterNodes
-                )
-            );
+                };
+            }();
+
+            if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
         }
         return _react2.default.createElement(_spinner.Spinner, null);
     }
@@ -40914,7 +40929,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/spinner":354,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133}],305:[function(require,module,exports){
+},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/count":348,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133}],305:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41114,6 +41129,8 @@ var _cardClickable = require('../ui/card-clickable');
 
 var _cardBlock = require('../ui/card-block');
 
+var _count = require('../ui/count');
+
 var _description = require('../ui/description');
 
 var _imagePanelRevision = require('../ui/image-panel-revision');
@@ -41166,16 +41183,16 @@ var ProjectConceptArt = _react2.default.createClass({
                     _react2.default.createElement(
                         _cardBlock.CardBlock,
                         null,
+                        _react2.default.createElement(_description.Description, { source: concept_art.description })
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'list-group list-group-flush' },
                         _react2.default.createElement(
-                            'div',
-                            null,
-                            _react2.default.createElement(_description.Description, { source: concept_art.description }),
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                concept_art.revisions.length,
-                                ' revision(s)'
-                            )
+                            'li',
+                            { className: 'list-group-item' },
+                            _react2.default.createElement(_count.Count, { count: concept_art.revisions.length }),
+                            ' Revisions'
                         )
                     )
                 );
@@ -41224,7 +41241,7 @@ var ProjectConceptArt = _react2.default.createClass({
 
 module.exports.ProjectConceptArt = ProjectConceptArt;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133}],308:[function(require,module,exports){
+},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/count":348,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133}],308:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45958,6 +45975,8 @@ var _imagePanelRevision = require('../ui/image-panel-revision');
 
 var _flickrSelector = require('../ui/flickr-selector');
 
+var _spinner = require('../ui/spinner');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ContentEdit = _react2.default.createClass({
@@ -45989,7 +46008,11 @@ var ContentEdit = _react2.default.createClass({
                 _react2.default.createElement(
                     _cardBlock.CardBlock,
                     null,
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.value })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'text-align-center' },
+                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.value })
+                    )
                 ),
                 _react2.default.createElement(
                     _cardBlock.CardBlock,
@@ -46016,7 +46039,7 @@ var ContentEdit = _react2.default.createClass({
 
 module.exports.ContentEdit = ContentEdit;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/flickr-selector":350,"../ui/image-panel-revision":352,"classnames":1,"react":288}],348:[function(require,module,exports){
+},{"../ui/card":346,"../ui/card-block":342,"../ui/flickr-selector":350,"../ui/image-panel-revision":352,"../ui/spinner":354,"classnames":1,"react":288}],348:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -46113,15 +46136,21 @@ var _cardClickable = require('../ui/card-clickable');
 
 var _imagePanelRevision = require('../ui/image-panel-revision');
 
+var _spinner = require('../ui/spinner');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FlickrSelector = _react2.default.createClass({
     displayName: 'FlickrSelector',
 
+    getInitialState: function getInitialState() {
+        return {
+            status: 'init'
+        };
+    },
     propTypes: {
         onClick: _react2.default.PropTypes.func.isRequired
     },
-
     handleClickOpen: function handleClickOpen() {
         event.preventDefault();
         var that = this;
@@ -46130,8 +46159,14 @@ var FlickrSelector = _react2.default.createClass({
             cache: false,
             method: 'GET',
             url: '/api/external-content-source/flickr',
+            beforeSend: function beforeSend() {
+                that.setState({
+                    status: 'loading'
+                });
+            },
             success: function (data) {
-                this.setState({
+                that.setState({
+                    status: 'fetched',
                     images: data
                 });
             }.bind(this),
@@ -46146,7 +46181,11 @@ var FlickrSelector = _react2.default.createClass({
     },
     render: function render() {
         var that = this;
-        if (this.state) {
+        if (this.state.status != 'init') {
+
+            if (this.state.status == 'loading') {
+                return _react2.default.createElement(_spinner.Spinner, null);
+            }
 
             var flickrImageNodes = this.state.images.map(function (image) {
                 return _react2.default.createElement(
@@ -46191,7 +46230,7 @@ var FlickrSelector = _react2.default.createClass({
 
 module.exports.FlickrSelector = FlickrSelector;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/image-panel-revision":352,"classnames":1,"react":288}],351:[function(require,module,exports){
+},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/image-panel-revision":352,"../ui/spinner":354,"classnames":1,"react":288}],351:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');

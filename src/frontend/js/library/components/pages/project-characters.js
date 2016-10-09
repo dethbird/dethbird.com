@@ -3,7 +3,9 @@ import { browserHistory, Link } from 'react-router'
 
 import { CardClickable } from '../ui/card-clickable'
 import { CardBlock } from '../ui/card-block'
+import { Count } from '../ui/count'
 import { Description } from '../ui/description'
+import { ImagePanelRevision } from '../ui/image-panel-revision'
 import {
     ProjectCharactersBreadcrumb
 } from './project-characters/project-characters-breadcrumb'
@@ -30,12 +32,12 @@ const ProjectCharacters = React.createClass({
     },
     render() {
         if (this.state) {
-            var that = this;
-            var characterNodes = this.state.project.characters.map(function(character) {
+            const that = this;
+            const characterNodes = this.state.project.characters.map(function(character) {
                 let src;
-                if (character.revisions.length) {
+                if (character.revisions.length)
                     src = character.revisions[0].content;
-                }
+
                 return (
                     <CardClickable
                         className="col-lg-6"
@@ -50,14 +52,16 @@ const ProjectCharacters = React.createClass({
                     >
                         <h3 className="card-header">{ character.name }</h3>
                         <div className="text-align-center">
-                            <img className="card-img-top" src={ src } />
+                            <ImagePanelRevision src={ src } />
                         </div>
                         <CardBlock>
-                            <div>
-                                <Description source={ character.description }></Description>
-                                <span>{ character.revisions.length } revision(s)</span>
-                            </div>
+                            <Description source={ character.description }></Description>
                         </CardBlock>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">
+                                <Count count={ character.revisions.length } /> Revisions
+                            </li>
+                        </ul>
                     </CardClickable>
                 );
             });

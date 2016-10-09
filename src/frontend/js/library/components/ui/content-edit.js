@@ -5,6 +5,7 @@ import { Card } from "../ui/card"
 import { CardBlock } from "../ui/card-block"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
 import { FlickrSelector } from "../ui/flickr-selector"
+import { Spinner } from "../ui/spinner"
 
 const ContentEdit = React.createClass({
 
@@ -28,7 +29,9 @@ const ContentEdit = React.createClass({
             <div className={ className }>
                 <Card>
                     <CardBlock>
-                        <ImagePanelRevision src={ this.props.value } />
+                        <div className="text-align-center">
+                            <ImagePanelRevision src={ this.props.value } />
+                        </div>
                     </CardBlock>
                     <CardBlock>
                         <input

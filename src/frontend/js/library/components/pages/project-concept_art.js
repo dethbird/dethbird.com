@@ -3,6 +3,7 @@ import { browserHistory, Link } from 'react-router'
 
 import { CardClickable } from "../ui/card-clickable"
 import { CardBlock } from "../ui/card-block"
+import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
 import {
@@ -52,11 +53,13 @@ const ProjectConceptArt = React.createClass({
                         <h3 className="card-header">{ concept_art.name }</h3>
                         <ImagePanelRevision { ...{ src: src }} />
                         <CardBlock>
-                            <div>
-                                <Description source={ concept_art.description }></Description>
-                                <span>{ concept_art.revisions.length } revision(s)</span>
-                            </div>
+                            <Description source={ concept_art.description }></Description>
                         </CardBlock>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">
+                                <Count count={ concept_art.revisions.length } /> Revisions
+                            </li>
+                        </ul>
                     </CardClickable>
                 );
             });
