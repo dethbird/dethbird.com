@@ -25,7 +25,15 @@ const ProjectLocations = React.createClass({
             showContent
         });
     },
+    handleClickItem(id) {
+        browserHistory.push(
+            '/project/' + this.props.project.id
+            + '/location/' + id
+            + '/edit'
+        )
+    },
     render: function() {
+        const that = this;
         let locationNodes;
         let showButtonClassName = classNames(['btn', 'btn-secondary']);
         let showButtonCopy = 'Show';
@@ -37,12 +45,16 @@ const ProjectLocations = React.createClass({
                 const src = location.content;
 
                 return (
-                    <Card className="col-xs-3" key={ location.id }>
+                    <CardClickable
+                        className="col-xs-3"
+                        key={ location.id }
+                        onClick={ that.handleClickItem.bind(that, location.id) }
+                    >
                         <strong>{ location.name }</strong>
                         <ImagePanelRevision src={ src } />
                         <br />
                         <br />
-                    </Card>
+                    </CardClickable>
                 );
             });
         }

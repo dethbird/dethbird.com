@@ -25,7 +25,14 @@ const ProjectConceptArts = React.createClass({
             showContent
         });
     },
+    handleClickItem(id) {
+        browserHistory.push(
+            '/project/' + this.props.project.id
+            + '/concept_art/' + id
+        )
+    },
     render: function() {
+        const that = this;
         let concept_artNodes;
         let showButtonClassName = classNames(['btn', 'btn-secondary']);
         let showButtonCopy = 'Show';
@@ -39,12 +46,16 @@ const ProjectConceptArts = React.createClass({
                     src = concept_art.revisions[0].content;
 
                 return (
-                    <Card className="col-xs-3" key={ concept_art.id }>
+                    <CardClickable
+                        className="col-xs-3"
+                        key={ concept_art.id }
+                        onClick={ that.handleClickItem.bind(that, concept_art.id) }
+                    >
                         <strong>{ concept_art.name }</strong>
                         <ImagePanelRevision src={ src } />
                         <br />
                         <br />
-                    </Card>
+                    </CardClickable>
                 );
             });
         }

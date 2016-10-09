@@ -25,7 +25,14 @@ const ProjectStoryboards = React.createClass({
             showContent
         });
     },
+    handleClickItem(id) {
+        browserHistory.push(
+            '/project/' + this.props.project.id
+            + '/storyboard/' + id
+        )
+    },
     render: function() {
+        const that = this;
         let storyboardNodes;
         let showButtonClassName = classNames(['btn', 'btn-secondary']);
         let showButtonCopy = 'Show';
@@ -36,12 +43,16 @@ const ProjectStoryboards = React.createClass({
             storyboardNodes = this.props.project.storyboards.map(function(storyboard){
                 const src = storyboard.content;
                 return (
-                    <Card className="col-xs-3" key={ storyboard.id }>
+                    <CardClickable
+                        className="col-xs-3"
+                        key={ storyboard.id }
+                        onClick={ that.handleClickItem.bind(that, storyboard.id) }
+                    >
                         <strong>{ storyboard.name }</strong>
                         <ImagePanelRevision src={ src } />
                         <br />
                         <br />
-                    </Card>
+                    </CardClickable>
                 );
             });
         }

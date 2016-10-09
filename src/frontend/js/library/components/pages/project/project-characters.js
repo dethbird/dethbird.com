@@ -25,7 +25,14 @@ const ProjectCharacters = React.createClass({
             showContent
         });
     },
+    handleClickItem(id) {
+        browserHistory.push(
+            '/project/' + this.props.project.id
+            + '/character/' + id
+        )
+    },
     render: function() {
+        const that = this;
         let characterNodes;
         let showButtonClassName = classNames(['btn', 'btn-secondary']);
         let showButtonCopy = 'Show';
@@ -39,12 +46,16 @@ const ProjectCharacters = React.createClass({
                     src = character.revisions[0].content;
 
                 return (
-                    <Card className="col-xs-3" key={ character.id }>
+                    <CardClickable
+                        className="col-xs-3"
+                        key={ character.id }
+                        onClick={ that.handleClickItem.bind(that, character.id) }
+                    >
                         <strong>{ character.name }</strong>
                         <ImagePanelRevision src={ src } />
                         <br />
                         <br />
-                    </Card>
+                    </CardClickable>
                 );
             });
         }

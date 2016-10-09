@@ -25,7 +25,15 @@ const ProjectReferenceImages = React.createClass({
             showContent
         });
     },
+    handleClickItem(id) {
+        browserHistory.push(
+            '/project/' + this.props.project.id
+            + '/reference_image/' + id
+            + '/edit'
+        )
+    },
     render: function() {
+        const that = this;
         let reference_imageNodes;
         let showButtonClassName = classNames(['btn', 'btn-secondary']);
         let showButtonCopy = 'Show';
@@ -37,12 +45,16 @@ const ProjectReferenceImages = React.createClass({
                 const src = reference_image.content;
 
                 return (
-                    <Card className="col-xs-3" key={ reference_image.id }>
+                    <CardClickable
+                        className="col-xs-3"
+                        key={ reference_image.id }
+                        onClick={ that.handleClickItem.bind(that, reference_image.id) }
+                    >
                         <strong>{ reference_image.name }</strong>
                         <ImagePanelRevision src={ src } />
                         <br />
                         <br />
-                    </Card>
+                    </CardClickable>
                 );
             });
         }

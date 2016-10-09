@@ -42555,8 +42555,12 @@ var ProjectCharacters = _react2.default.createClass({
             showContent: showContent
         });
     },
+    handleClickItem: function handleClickItem(id) {
+        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/character/' + id);
+    },
 
     render: function render() {
+        var that = this;
         var characterNodes = void 0;
         var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
         var showButtonCopy = 'Show';
@@ -42569,8 +42573,12 @@ var ProjectCharacters = _react2.default.createClass({
                 if (character.revisions.length) src = character.revisions[0].content;
 
                 return _react2.default.createElement(
-                    _card.Card,
-                    { className: 'col-xs-3', key: character.id },
+                    _cardClickable.CardClickable,
+                    {
+                        className: 'col-xs-3',
+                        key: character.id,
+                        onClick: that.handleClickItem.bind(that, character.id)
+                    },
                     _react2.default.createElement(
                         'strong',
                         null,
@@ -42679,8 +42687,12 @@ var ProjectConceptArts = _react2.default.createClass({
             showContent: showContent
         });
     },
+    handleClickItem: function handleClickItem(id) {
+        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/concept_art/' + id);
+    },
 
     render: function render() {
+        var that = this;
         var concept_artNodes = void 0;
         var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
         var showButtonCopy = 'Show';
@@ -42693,8 +42705,12 @@ var ProjectConceptArts = _react2.default.createClass({
                 if (concept_art.revisions.length) src = concept_art.revisions[0].content;
 
                 return _react2.default.createElement(
-                    _card.Card,
-                    { className: 'col-xs-3', key: concept_art.id },
+                    _cardClickable.CardClickable,
+                    {
+                        className: 'col-xs-3',
+                        key: concept_art.id,
+                        onClick: that.handleClickItem.bind(that, concept_art.id)
+                    },
                     _react2.default.createElement(
                         'strong',
                         null,
@@ -42863,8 +42879,12 @@ var ProjectLocations = _react2.default.createClass({
             showContent: showContent
         });
     },
+    handleClickItem: function handleClickItem(id) {
+        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/location/' + id + '/edit');
+    },
 
     render: function render() {
+        var that = this;
         var locationNodes = void 0;
         var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
         var showButtonCopy = 'Show';
@@ -42876,8 +42896,12 @@ var ProjectLocations = _react2.default.createClass({
                 var src = location.content;
 
                 return _react2.default.createElement(
-                    _card.Card,
-                    { className: 'col-xs-3', key: location.id },
+                    _cardClickable.CardClickable,
+                    {
+                        className: 'col-xs-3',
+                        key: location.id,
+                        onClick: that.handleClickItem.bind(that, location.id)
+                    },
                     _react2.default.createElement(
                         'strong',
                         null,
@@ -42986,8 +43010,12 @@ var ProjectReferenceImages = _react2.default.createClass({
             showContent: showContent
         });
     },
+    handleClickItem: function handleClickItem(id) {
+        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/reference_image/' + id + '/edit');
+    },
 
     render: function render() {
+        var that = this;
         var reference_imageNodes = void 0;
         var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
         var showButtonCopy = 'Show';
@@ -42999,8 +43027,12 @@ var ProjectReferenceImages = _react2.default.createClass({
                 var src = reference_image.content;
 
                 return _react2.default.createElement(
-                    _card.Card,
-                    { className: 'col-xs-3', key: reference_image.id },
+                    _cardClickable.CardClickable,
+                    {
+                        className: 'col-xs-3',
+                        key: reference_image.id,
+                        onClick: that.handleClickItem.bind(that, reference_image.id)
+                    },
                     _react2.default.createElement(
                         'strong',
                         null,
@@ -43109,8 +43141,12 @@ var ProjectStoryboards = _react2.default.createClass({
             showContent: showContent
         });
     },
+    handleClickItem: function handleClickItem(id) {
+        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/storyboard/' + id);
+    },
 
     render: function render() {
+        var that = this;
         var storyboardNodes = void 0;
         var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
         var showButtonCopy = 'Show';
@@ -43121,8 +43157,12 @@ var ProjectStoryboards = _react2.default.createClass({
             storyboardNodes = this.props.project.storyboards.map(function (storyboard) {
                 var src = storyboard.content;
                 return _react2.default.createElement(
-                    _card.Card,
-                    { className: 'col-xs-3', key: storyboard.id },
+                    _cardClickable.CardClickable,
+                    {
+                        className: 'col-xs-3',
+                        key: storyboard.id,
+                        onClick: that.handleClickItem.bind(that, storyboard.id)
+                    },
                     _react2.default.createElement(
                         'strong',
                         null,

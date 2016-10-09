@@ -303,6 +303,9 @@ body {
 .breadcrumb a {
   color: #58A3C9;
 }
+.btn.btn-secondary.active {
+  background-color: #cfcfcf;
+}
 .card.clickable {
   cursor: pointer;
 }
