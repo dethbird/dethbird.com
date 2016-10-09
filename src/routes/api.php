@@ -884,6 +884,28 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
     });
 
+    # get scripts
+    $app->get('/project_scripts', function () use ($app) {
+
+        $configs = $app->container->get('configs');
+        $securityContext = $_SESSION['securityContext'];
+
+        # user's scripts
+        $scripts = ProjectScript::find_all_by_user_id($securityContext->id, [
+            'order' => 'name ASC']);
+
+        $_scripts = [];
+        foreach ($scripts as $i=>$script) {
+            $_scripts[] = json_decode($script->to_json());
+        }
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody(json_encode($_scripts));
+
+    });
+
+
     # create storyboard
     $app->post('/project_storyboard', function () use ($app) {
 

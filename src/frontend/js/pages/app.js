@@ -25,6 +25,7 @@ import { ProjectStoryboardsEdit } from '../library/components/pages/project-stor
 import { Projects } from '../library/components/pages/projects'
 import { ProjectsEdit } from '../library/components/pages/projects-edit'
 import { ReferenceImageEdit } from '../library/components/pages/reference_image-edit'
+import { Scripts } from '../library/components/pages/scripts'
 import { Storyboard } from '../library/components/pages/storyboard'
 import { StoryboardEdit } from '../library/components/pages/storyboard-edit'
 import { StoryboardPanel } from '../library/components/pages/storyboard-panel'
@@ -46,48 +47,49 @@ if (lastRequestUri) {
 
 render((
     <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Projects}/>
-            <Route path="projects" component={Projects}/>
-            <Route path="projects/edit" component={ProjectsEdit}/>
-            <Route path="project/add" component={ProjectEdit}/>
-            <Route path="project/:projectId" component={Project}/>
-            <Route path="project/:projectId/edit" component={ProjectEdit}/>
-            <Route path="project/:projectId/characters" component={ProjectCharacters}/>
-            <Route path="project/:projectId/characters/edit" component={ProjectCharactersEdit}/>
-            <Route path="project/:projectId/character/add" component={CharacterEdit}/>
-            <Route path="project/:projectId/character/:characterId" component={Character}/>
-            <Route path="project/:projectId/character/:characterId/edit" component={CharacterEdit}/>
-            <Route path="project/:projectId/character/:characterId/revision/add" component={CharacterRevisionEdit}/>
-            <Route path="project/:projectId/character/:characterId/revision/:revisionId/edit" component={CharacterRevisionEdit}/>
-            <Route path="project/:projectId/concept_art" component={ProjectConceptArt}/>
-            <Route path="project/:projectId/concept_art/edit" component={ProjectConceptArtEdit}/>
-            <Route path="project/:projectId/concept_art/add" component={ConceptArtEdit}/>
-            <Route path="project/:projectId/concept_art/:conceptArtId" component={ConceptArt}/>
-            <Route path="project/:projectId/concept_art/:conceptArtId/edit" component={ConceptArtEdit}/>
-            <Route path="project/:projectId/concept_art/:conceptArtId/revision/add" component={ConceptArtRevisionEdit}/>
-            <Route path="project/:projectId/concept_art/:conceptArtId/revision/:revisionId/edit" component={ConceptArtRevisionEdit}/>
-            <Route path="project/:projectId/locations" component={ProjectLocations}/>
-            <Route path="project/:projectId/locations/edit" component={ProjectLocationsEdit}/>
-            <Route path="project/:projectId/location/add" component={LocationEdit}/>
-            <Route path="project/:projectId/location/:locationId/edit" component={LocationEdit}/>
-            <Route path="project/:projectId/reference_images" component={ProjectReferenceImages}/>
-            <Route path="project/:projectId/reference_images/edit" component={ProjectReferenceImagesEdit}/>
-            <Route path="project/:projectId/reference_image/add" component={ReferenceImageEdit}/>
-            <Route path="project/:projectId/reference_image/:referenceImageId/edit" component={ReferenceImageEdit}/>
-            <Route path="project/:projectId/storyboards" component={ProjectStoryboards}/>
-            <Route path="project/:projectId/storyboards/edit" component={ProjectStoryboardsEdit}/>
-            <Route path="project/:projectId/storyboard/add" component={StoryboardEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId" component={Storyboard}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/edit" component={StoryboardEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/add" component={StoryboardPanelEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId" component={StoryboardPanel}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/edit" component={StoryboardPanelEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/add" component={StoryboardPanelCommentEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/:commentId/edit" component={StoryboardPanelCommentEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add" component={StoryboardPanelRevisionEdit}/>
-            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit" component={StoryboardPanelRevisionEdit}/>
-            <Route path="*" component={Projects}/>
+        <Route path="/" component={ App}>
+            <IndexRoute component={ Projects} />
+            <Route path="projects" component={ Projects} />
+            <Route path="projects/edit" component={ ProjectsEdit} />
+            <Route path="project/add" component={ ProjectEdit} />
+            <Route path="project/:projectId" component={ Project} />
+            <Route path="project/:projectId/edit" component={ ProjectEdit} />
+            <Route path="project/:projectId/characters" component={ ProjectCharacters} />
+            <Route path="project/:projectId/characters/edit" component={ ProjectCharactersEdit} />
+            <Route path="project/:projectId/character/add" component={ CharacterEdit} />
+            <Route path="project/:projectId/character/:characterId" component={ Character} />
+            <Route path="project/:projectId/character/:characterId/edit" component={ CharacterEdit} />
+            <Route path="project/:projectId/character/:characterId/revision/add" component={ CharacterRevisionEdit} />
+            <Route path="project/:projectId/character/:characterId/revision/:revisionId/edit" component={ CharacterRevisionEdit} />
+            <Route path="project/:projectId/concept_art" component={ ProjectConceptArt} />
+            <Route path="project/:projectId/concept_art/edit" component={ ProjectConceptArtEdit} />
+            <Route path="project/:projectId/concept_art/add" component={ ConceptArtEdit} />
+            <Route path="project/:projectId/concept_art/:conceptArtId" component={ ConceptArt} />
+            <Route path="project/:projectId/concept_art/:conceptArtId/edit" component={ ConceptArtEdit} />
+            <Route path="project/:projectId/concept_art/:conceptArtId/revision/add" component={ ConceptArtRevisionEdit} />
+            <Route path="project/:projectId/concept_art/:conceptArtId/revision/:revisionId/edit" component={ ConceptArtRevisionEdit} />
+            <Route path="project/:projectId/locations" component={ ProjectLocations} />
+            <Route path="project/:projectId/locations/edit" component={ ProjectLocationsEdit} />
+            <Route path="project/:projectId/location/add" component={ LocationEdit} />
+            <Route path="project/:projectId/location/:locationId/edit" component={ LocationEdit} />
+            <Route path="project/:projectId/reference_images" component={ ProjectReferenceImages} />
+            <Route path="project/:projectId/reference_images/edit" component={ ProjectReferenceImagesEdit} />
+            <Route path="project/:projectId/reference_image/add" component={ ReferenceImageEdit} />
+            <Route path="project/:projectId/reference_image/:referenceImageId/edit" component={ ReferenceImageEdit} />
+            <Route path="project/:projectId/storyboards" component={ ProjectStoryboards} />
+            <Route path="project/:projectId/storyboards/edit" component={ ProjectStoryboardsEdit} />
+            <Route path="project/:projectId/storyboard/add" component={ StoryboardEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId" component={ Storyboard} />
+            <Route path="project/:projectId/storyboard/:storyboardId/edit" component={ StoryboardEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/add" component={ StoryboardPanelEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId" component={ StoryboardPanel} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/edit" component={ StoryboardPanelEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/add" component={ StoryboardPanelCommentEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/:commentId/edit" component={ StoryboardPanelCommentEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add" component={ StoryboardPanelRevisionEdit} />
+            <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit" component={ StoryboardPanelRevisionEdit} />
+            <Route path="scripts" component={ Scripts } />
+            <Route path="*" component={ Projects} />
         </Route>
     </Router>
 ), document.getElementById('mount'))

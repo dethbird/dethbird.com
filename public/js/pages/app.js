@@ -39292,7 +39292,7 @@ var CharacterEdit = _react2.default.createClass({
 
 module.exports.CharacterEdit = CharacterEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./character/character-breadcrumb":297,"react":288,"react-router":133,"react-sortable-component":144}],295:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./character/character-breadcrumb":297,"react":288,"react-router":133,"react-sortable-component":144}],295:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -39511,7 +39511,7 @@ var CharacterRevisionEdit = _react2.default.createClass({
 
 module.exports.CharacterRevisionEdit = CharacterRevisionEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./character/character-breadcrumb":297,"react":288,"react-router":133}],296:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./character/character-breadcrumb":297,"react":288,"react-router":133}],296:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -39662,7 +39662,7 @@ var Character = _react2.default.createClass({
 
 module.exports.Character = Character;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./character/character-breadcrumb":297,"react":288,"react-router":133}],297:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./character/character-breadcrumb":297,"react":288,"react-router":133}],297:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -39994,7 +39994,7 @@ var ConceptArtEdit = _react2.default.createClass({
 
 module.exports.ConceptArtEdit = ConceptArtEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133,"react-sortable-component":144}],299:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133,"react-sortable-component":144}],299:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40213,7 +40213,7 @@ var ConceptArtRevisionEdit = _react2.default.createClass({
 
 module.exports.ConceptArtRevisionEdit = ConceptArtRevisionEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133}],300:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133}],300:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40371,7 +40371,7 @@ var ConceptArt = _react2.default.createClass({
 
 module.exports.ConceptArt = ConceptArt;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133}],301:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./concept_art/concept_art-breadcrumb":301,"react":288,"react-router":133}],301:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40657,7 +40657,7 @@ var LocationEdit = _react2.default.createClass({
 
 module.exports.LocationEdit = LocationEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133}],303:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133}],303:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40791,7 +40791,7 @@ var ProjectCharactersEdit = _react2.default.createClass({
 
 module.exports.ProjectCharactersEdit = ProjectCharactersEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/spinner":354,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133,"react-sortable-component":144}],304:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/spinner":357,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133,"react-sortable-component":144}],304:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -40929,7 +40929,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/count":348,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133}],305:[function(require,module,exports){
+},{"../ui/card-block":345,"../ui/card-clickable":346,"../ui/count":351,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-characters/project-characters-breadcrumb":305,"react":288,"react-router":133}],305:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41116,7 +41116,7 @@ var ProjectConceptArtEdit = _react2.default.createClass({
 
 module.exports.ProjectConceptArtEdit = ProjectConceptArtEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133,"react-sortable-component":144}],307:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133,"react-sortable-component":144}],307:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41241,7 +41241,7 @@ var ProjectConceptArt = _react2.default.createClass({
 
 module.exports.ProjectConceptArt = ProjectConceptArt;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/count":348,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133}],308:[function(require,module,exports){
+},{"../ui/card-block":345,"../ui/card-clickable":346,"../ui/count":351,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-concept_art/project-concept_art-breadcrumb":308,"react":288,"react-router":133}],308:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41517,7 +41517,7 @@ var ProjectEdit = _react2.default.createClass({
 
 module.exports.ProjectEdit = ProjectEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./project/project-breadcrumb":320,"react":288,"react-router":133}],310:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./project/project-breadcrumb":320,"react":288,"react-router":133}],310:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41652,7 +41652,7 @@ var ProjectLocationsEdit = _react2.default.createClass({
 
 module.exports.ProjectLocationsEdit = ProjectLocationsEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133,"react-sortable-component":144}],311:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133,"react-sortable-component":144}],311:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41761,7 +41761,7 @@ var ProjectLocations = _react2.default.createClass({
 
 module.exports.ProjectLocations = ProjectLocations;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133}],312:[function(require,module,exports){
+},{"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-locations/project-locations-breadcrumb":312,"react":288,"react-router":133}],312:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41942,7 +41942,7 @@ var ProjectReferenceImagesEdit = _react2.default.createClass({
 
 module.exports.ProjectReferenceImagesEdit = ProjectReferenceImagesEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133,"react-sortable-component":144}],314:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133,"react-sortable-component":144}],314:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42054,7 +42054,7 @@ var ProjectReferenceImages = _react2.default.createClass({
 
 module.exports.ProjectReferenceImages = ProjectReferenceImages;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/spinner":354,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133}],315:[function(require,module,exports){
+},{"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/spinner":357,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133}],315:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42242,7 +42242,7 @@ var ProjectStoryboardsEdit = _react2.default.createClass({
 
 module.exports.ProjectStoryboardsEdit = ProjectStoryboardsEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./project-storyboards/project-storyboards-breadcrumb":318,"react":288,"react-router":133,"react-sortable-component":144}],317:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./project-storyboards/project-storyboards-breadcrumb":318,"react":288,"react-router":133,"react-sortable-component":144}],317:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42353,7 +42353,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
 module.exports.ProjectStoryboards = ProjectStoryboards;
 
-},{"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/spinner":354,"./project-storyboards/project-storyboards-breadcrumb":318,"react":288,"react-router":133}],318:[function(require,module,exports){
+},{"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/spinner":357,"./project-storyboards/project-storyboards-breadcrumb":318,"react":288,"react-router":133}],318:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42486,7 +42486,7 @@ var Project = _react2.default.createClass({
 
 module.exports.Project = Project;
 
-},{"../ui/section-header":353,"../ui/spinner":354,"./project/project-breadcrumb":320,"./project/project-characters":321,"./project/project-concept_arts":322,"./project/project-details":323,"./project/project-locations":324,"./project/project-reference_images":325,"./project/project-storyboards":326,"react":288,"react-router":133}],320:[function(require,module,exports){
+},{"../ui/section-header":356,"../ui/spinner":357,"./project/project-breadcrumb":320,"./project/project-characters":321,"./project/project-concept_arts":322,"./project/project-details":323,"./project/project-locations":324,"./project/project-reference_images":325,"./project/project-storyboards":326,"react":288,"react-router":133}],320:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42660,7 +42660,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],322:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-clickable":346,"../../ui/count":351,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],322:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42792,7 +42792,7 @@ var ProjectConceptArts = _react2.default.createClass({
 
 module.exports.ProjectConceptArts = ProjectConceptArts;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],323:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-clickable":346,"../../ui/count":351,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],323:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -42847,7 +42847,7 @@ var ProjectDetails = _react2.default.createClass({
 
 module.exports.ProjectDetails = ProjectDetails;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/description":349,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"react":288}],324:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/description":352,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"react":288}],324:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -42978,7 +42978,7 @@ var ProjectLocations = _react2.default.createClass({
 
 module.exports.ProjectLocations = ProjectLocations;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],325:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-clickable":346,"../../ui/count":351,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],325:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -43109,7 +43109,7 @@ var ProjectReferenceImages = _react2.default.createClass({
 
 module.exports.ProjectReferenceImages = ProjectReferenceImages;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],326:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-clickable":346,"../../ui/count":351,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],326:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -43239,7 +43239,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
 module.exports.ProjectStoryboards = ProjectStoryboards;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],327:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-clickable":346,"../../ui/count":351,"../../ui/image-panel-revision":355,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],327:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -43371,7 +43371,7 @@ var ProjectsEdit = _react2.default.createClass({
 
 module.exports.ProjectsEdit = ProjectsEdit;
 
-},{"../ui/alert":341,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/spinner":354,"./projects/projects-breadcrumb":330,"react":288,"react-router":133,"react-sortable-component":144}],328:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/spinner":357,"./projects/projects-breadcrumb":330,"react":288,"react-router":133,"react-sortable-component":144}],328:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -43458,7 +43458,7 @@ var Projects = _react2.default.createClass({
 
 module.exports.Projects = Projects;
 
-},{"../ui/spinner":354,"./projects/project":329,"./projects/projects-breadcrumb":330,"react":288,"react-router":133}],329:[function(require,module,exports){
+},{"../ui/spinner":357,"./projects/project":329,"./projects/projects-breadcrumb":330,"react":288,"react-router":133}],329:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -43612,7 +43612,7 @@ var Project = _react2.default.createClass({
 
 module.exports.Project = Project;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/count":348,"../../ui/description":349,"../../ui/image-panel-revision":352,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],330:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/count":351,"../../ui/description":352,"../../ui/image-panel-revision":355,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],330:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -43863,7 +43863,194 @@ var ReferenceImageEdit = _react2.default.createClass({
 
 module.exports.ReferenceImageEdit = ReferenceImageEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133}],332:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./project-reference_images/project-reference_images-breadcrumb":315,"react":288,"react-router":133}],332:[function(require,module,exports){
+'use strict';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _script = require('./scripts/script');
+
+var _scriptsBreadcrumb = require('./scripts/scripts-breadcrumb');
+
+var _spinner = require('../ui/spinner');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Scripts = _react2.default.createClass({
+    displayName: 'Scripts',
+    componentDidMount: function componentDidMount() {
+        $.ajax({
+            url: '/api/project_scripts',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                this.setState({ scripts: data });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log(xhr);
+            }.bind(this)
+        });
+    },
+    render: function render() {
+        var that = this;
+        if (this.state) {
+            var scriptNodes = this.state.scripts.map(function (script) {
+                return _react2.default.createElement(_script.Script, {
+                    script: script,
+                    key: script.id
+                });
+            });
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_scriptsBreadcrumb.ScriptsBreadcrumb, { script: this.state.script }),
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'nav nav-pills' },
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'nav-item' },
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            {
+                                className: 'nav-link btn btn-success',
+                                to: '/script/add' },
+                            'Add'
+                        )
+                    )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'scriptsList' },
+                    scriptNodes
+                )
+            );
+        }
+        return _react2.default.createElement(_spinner.Spinner, null);
+    }
+});
+
+module.exports.Scripts = Scripts;
+
+},{"../ui/spinner":357,"./scripts/script":333,"./scripts/scripts-breadcrumb":334,"react":288,"react-router":133}],333:[function(require,module,exports){
+'use strict';
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
+
+var _cardBlock = require('../../ui/card-block');
+
+var _description = require('../../ui/description');
+
+var _sectionHeader = require('../../ui/section-header');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Script = _react2.default.createClass({
+    displayName: 'Script',
+
+    propTypes: {
+        script: _react2.default.PropTypes.object.isRequired,
+        className: _react2.default.PropTypes.string
+    },
+
+    render: function render() {
+        var that = this;
+        var className = (0, _classnames2.default)([this.props.className, 'script']);
+
+        return _react2.default.createElement(
+            _card.Card,
+            {
+                className: className,
+                key: this.props.script.id
+            },
+            _react2.default.createElement(
+                'section',
+                { className: 'clearfix card-block' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'pull-left col-xs-6' },
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        this.props.script.name
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'pull-right' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'btn-group' },
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            {
+                                to: '/script/' + this.props.script.id,
+                                className: 'btn btn-secondary'
+                            },
+                            'View'
+                        ),
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            {
+                                to: '/script/' + this.props.script.id + '/edit',
+                                className: 'btn btn-info'
+                            },
+                            'Edit'
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports.Script = Script;
+
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/description":352,"../../ui/section-header":356,"classnames":1,"react":288,"react-router":133}],334:[function(require,module,exports){
+"use strict";
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ScriptsBreadcrumb = _react2.default.createClass({
+    displayName: "ScriptsBreadcrumb",
+
+
+    render: function render() {
+        return _react2.default.createElement(
+            "ol",
+            { className: "breadcrumb" },
+            _react2.default.createElement(
+                "li",
+                { className: "breadcrumb-item" },
+                "Scripts"
+            )
+        );
+    }
+});
+
+module.exports.ScriptsBreadcrumb = ScriptsBreadcrumb;
+
+},{"react":288}],335:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -44170,7 +44357,7 @@ var StoryboardEdit = _react2.default.createClass({
 
 module.exports.StoryboardEdit = StoryboardEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard/storyboard-breadcrumb":340,"react":288,"react-router":133,"react-sortable-component":144}],333:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard/storyboard-breadcrumb":343,"react":288,"react-router":133,"react-sortable-component":144}],336:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -44445,7 +44632,7 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
 
 module.exports.StoryboardPanelCommentEdit = StoryboardPanelCommentEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"moment":87,"react":288,"react-datepicker":92,"react-router":133}],334:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard-panel/storyboard-panel-breadcrumb":340,"moment":87,"react":288,"react-datepicker":92,"react-router":133}],337:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -44723,7 +44910,7 @@ var StoryboardPanelEdit = _react2.default.createClass({
 
 module.exports.StoryboardPanelEdit = StoryboardPanelEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"react":288,"react-router":133,"react-sortable-component":144}],335:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard-panel/storyboard-panel-breadcrumb":340,"react":288,"react-router":133,"react-sortable-component":144}],338:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -44957,7 +45144,7 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
 
 module.exports.StoryboardPanelRevisionEdit = StoryboardPanelRevisionEdit;
 
-},{"../ui/alert":341,"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/content-edit":347,"../ui/description":349,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"react":288,"react-router":133}],336:[function(require,module,exports){
+},{"../ui/alert":344,"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/content-edit":350,"../ui/description":352,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard-panel/storyboard-panel-breadcrumb":340,"react":288,"react-router":133}],339:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -45169,7 +45356,7 @@ var StoryboardPanel = _react2.default.createClass({
 
 module.exports.StoryboardPanel = StoryboardPanel;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/card-comment":344,"../ui/card-storyboard-panel":345,"../ui/count":348,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"classnames":1,"react":288,"react-router":133}],337:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/card-comment":347,"../ui/card-storyboard-panel":348,"../ui/count":351,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard-panel/storyboard-panel-breadcrumb":340,"classnames":1,"react":288,"react-router":133}],340:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45250,7 +45437,7 @@ var StoryboardPanelBreadcrumb = _react2.default.createClass({
 
 module.exports.StoryboardPanelBreadcrumb = StoryboardPanelBreadcrumb;
 
-},{"react":288,"react-router":133}],338:[function(require,module,exports){
+},{"react":288,"react-router":133}],341:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45509,7 +45696,7 @@ var Storyboard = _react2.default.createClass({
 
 module.exports.Storyboard = Storyboard;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/count":348,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard/panel-modal":339,"./storyboard/storyboard-breadcrumb":340,"react":288,"react-markdown":94,"react-modal":101,"react-router":133,"react-timeago":145}],339:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/count":351,"../ui/description":352,"../ui/fountain":354,"../ui/image-panel-revision":355,"../ui/section-header":356,"../ui/spinner":357,"./storyboard/panel-modal":342,"./storyboard/storyboard-breadcrumb":343,"react":288,"react-markdown":94,"react-modal":101,"react-router":133,"react-timeago":145}],342:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -45631,7 +45818,7 @@ var PanelModal = _react2.default.createClass({
 
 module.exports.PanelModal = PanelModal;
 
-},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-comment":344,"../../ui/count":348,"../../ui/description":349,"../../ui/fountain":351,"../../ui/image-panel-revision":352,"classnames":1,"react":288,"react-timeago":145}],340:[function(require,module,exports){
+},{"../../ui/card":349,"../../ui/card-block":345,"../../ui/card-comment":347,"../../ui/count":351,"../../ui/description":352,"../../ui/fountain":354,"../../ui/image-panel-revision":355,"classnames":1,"react":288,"react-timeago":145}],343:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45694,7 +45881,7 @@ var StoryboardBreadcrumb = _react2.default.createClass({
 
 module.exports.StoryboardBreadcrumb = StoryboardBreadcrumb;
 
-},{"react":288,"react-router":133}],341:[function(require,module,exports){
+},{"react":288,"react-router":133}],344:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45731,7 +45918,7 @@ var Alert = _react2.default.createClass({
 
 module.exports.Alert = Alert;
 
-},{"classnames":1,"react":288}],342:[function(require,module,exports){
+},{"classnames":1,"react":288}],345:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45764,7 +45951,7 @@ var CardBlock = _react2.default.createClass({
 
 module.exports.CardBlock = CardBlock;
 
-},{"classnames":1,"react":288}],343:[function(require,module,exports){
+},{"classnames":1,"react":288}],346:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45803,7 +45990,7 @@ var CardClickable = _react2.default.createClass({
 
 module.exports.CardClickable = CardClickable;
 
-},{"classnames":1,"react":288}],344:[function(require,module,exports){
+},{"classnames":1,"react":288}],347:[function(require,module,exports){
 'use strict';
 
 var _reactRouter = require('react-router');
@@ -45871,7 +46058,7 @@ var CardComment = _react2.default.createClass({
 
 module.exports.CardComment = CardComment;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/description":349,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],345:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/description":352,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],348:[function(require,module,exports){
 'use strict';
 
 var _reactRouter = require('react-router');
@@ -45939,7 +46126,7 @@ var CardStoryboardPanel = _react2.default.createClass({
 
 module.exports.CardStoryboardPanel = CardStoryboardPanel;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/fountain":351,"../ui/image-panel-revision":352,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],346:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/fountain":354,"../ui/image-panel-revision":355,"classnames":1,"react":288,"react-router":133,"react-timeago":145}],349:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -45973,7 +46160,7 @@ var Card = _react2.default.createClass({
 
 module.exports.Card = Card;
 
-},{"classnames":1,"react":288}],347:[function(require,module,exports){
+},{"classnames":1,"react":288}],350:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -46056,7 +46243,7 @@ var ContentEdit = _react2.default.createClass({
 
 module.exports.ContentEdit = ContentEdit;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/flickr-selector":350,"../ui/image-panel-revision":352,"../ui/spinner":354,"classnames":1,"react":288}],348:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/flickr-selector":353,"../ui/image-panel-revision":355,"../ui/spinner":357,"classnames":1,"react":288}],351:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -46096,7 +46283,7 @@ var Count = _react2.default.createClass({
 
 module.exports.Count = Count;
 
-},{"classnames":1,"react":288}],349:[function(require,module,exports){
+},{"classnames":1,"react":288}],352:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -46134,7 +46321,7 @@ var Description = _react2.default.createClass({
 
 module.exports.Description = Description;
 
-},{"classnames":1,"react":288,"react-markdown":94}],350:[function(require,module,exports){
+},{"classnames":1,"react":288,"react-markdown":94}],353:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -46249,7 +46436,7 @@ var FlickrSelector = _react2.default.createClass({
 
 module.exports.FlickrSelector = FlickrSelector;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/image-panel-revision":352,"../ui/spinner":354,"classnames":1,"react":288}],351:[function(require,module,exports){
+},{"../ui/card":349,"../ui/card-block":345,"../ui/card-clickable":346,"../ui/image-panel-revision":355,"../ui/spinner":357,"classnames":1,"react":288}],354:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -46294,7 +46481,7 @@ var Fountain = _react2.default.createClass({
 
 module.exports.Fountain = Fountain;
 
-},{"classnames":1,"fountain-js":50,"react":288}],352:[function(require,module,exports){
+},{"classnames":1,"fountain-js":50,"react":288}],355:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -46331,7 +46518,7 @@ var ImagePanelRevision = _react2.default.createClass({
 
 module.exports.ImagePanelRevision = ImagePanelRevision;
 
-},{"classnames":1,"react":288}],353:[function(require,module,exports){
+},{"classnames":1,"react":288}],356:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -46365,7 +46552,7 @@ var SectionHeader = _react2.default.createClass({
 
 module.exports.SectionHeader = SectionHeader;
 
-},{"classnames":1,"react":288}],354:[function(require,module,exports){
+},{"classnames":1,"react":288}],357:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -46401,7 +46588,7 @@ var Spinner = _react2.default.createClass({
 
 module.exports.Spinner = Spinner;
 
-},{"react":288}],355:[function(require,module,exports){
+},{"react":288}],358:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -46457,6 +46644,8 @@ var _projects = require('../library/components/pages/projects');
 var _projectsEdit = require('../library/components/pages/projects-edit');
 
 var _reference_imageEdit = require('../library/components/pages/reference_image-edit');
+
+var _scripts = require('../library/components/pages/scripts');
 
 var _storyboard = require('../library/components/pages/storyboard');
 
@@ -46533,8 +46722,9 @@ if (lastRequestUri) {
         _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/:commentId/edit', component: _storyboardPanelCommentEdit.StoryboardPanelCommentEdit }),
         _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add', component: _storyboardPanelRevisionEdit.StoryboardPanelRevisionEdit }),
         _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit', component: _storyboardPanelRevisionEdit.StoryboardPanelRevisionEdit }),
+        _react2.default.createElement(_reactRouter.Route, { path: 'scripts', component: _scripts.Scripts }),
         _react2.default.createElement(_reactRouter.Route, { path: '*', component: _projects.Projects })
     )
 ), document.getElementById('mount'));
 
-},{"../library/components/app":293,"../library/components/pages/character":296,"../library/components/pages/character-edit":294,"../library/components/pages/character-revision-edit":295,"../library/components/pages/concept_art":300,"../library/components/pages/concept_art-edit":298,"../library/components/pages/concept_art-revision-edit":299,"../library/components/pages/location-edit":302,"../library/components/pages/project":319,"../library/components/pages/project-characters":304,"../library/components/pages/project-characters-edit":303,"../library/components/pages/project-concept_art":307,"../library/components/pages/project-concept_art-edit":306,"../library/components/pages/project-edit":309,"../library/components/pages/project-locations":311,"../library/components/pages/project-locations-edit":310,"../library/components/pages/project-reference_images":314,"../library/components/pages/project-reference_images-edit":313,"../library/components/pages/project-storyboards":317,"../library/components/pages/project-storyboards-edit":316,"../library/components/pages/projects":328,"../library/components/pages/projects-edit":327,"../library/components/pages/reference_image-edit":331,"../library/components/pages/storyboard":338,"../library/components/pages/storyboard-edit":332,"../library/components/pages/storyboard-panel":336,"../library/components/pages/storyboard-panel-comment-edit":333,"../library/components/pages/storyboard-panel-edit":334,"../library/components/pages/storyboard-panel-revision-edit":335,"react":288,"react-dom":93,"react-router":133}]},{},[355]);
+},{"../library/components/app":293,"../library/components/pages/character":296,"../library/components/pages/character-edit":294,"../library/components/pages/character-revision-edit":295,"../library/components/pages/concept_art":300,"../library/components/pages/concept_art-edit":298,"../library/components/pages/concept_art-revision-edit":299,"../library/components/pages/location-edit":302,"../library/components/pages/project":319,"../library/components/pages/project-characters":304,"../library/components/pages/project-characters-edit":303,"../library/components/pages/project-concept_art":307,"../library/components/pages/project-concept_art-edit":306,"../library/components/pages/project-edit":309,"../library/components/pages/project-locations":311,"../library/components/pages/project-locations-edit":310,"../library/components/pages/project-reference_images":314,"../library/components/pages/project-reference_images-edit":313,"../library/components/pages/project-storyboards":317,"../library/components/pages/project-storyboards-edit":316,"../library/components/pages/projects":328,"../library/components/pages/projects-edit":327,"../library/components/pages/reference_image-edit":331,"../library/components/pages/scripts":332,"../library/components/pages/storyboard":341,"../library/components/pages/storyboard-edit":335,"../library/components/pages/storyboard-panel":339,"../library/components/pages/storyboard-panel-comment-edit":336,"../library/components/pages/storyboard-panel-edit":337,"../library/components/pages/storyboard-panel-revision-edit":338,"react":288,"react-dom":93,"react-router":133}]},{},[358]);
