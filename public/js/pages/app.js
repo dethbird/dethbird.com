@@ -45329,7 +45329,7 @@ var Storyboard = _react2.default.createClass({
 
 
             var that = this;
-            var storyboardPanelNodes = this.state.storyboard.panels.map(function (panel) {
+            var storyboardPanelNodes = this.state.storyboard.panels.map(function (panel, i) {
 
                 var props = {};
                 if (panel.revisions.length > 0) props.src = panel.revisions[0].content;
@@ -45382,6 +45382,15 @@ var Storyboard = _react2.default.createClass({
                                 _react2.default.createElement(_reactTimeago2.default, {
                                     date: panel.date_updated
                                 })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'pull-right' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'tag tag-default' },
+                                    i + 1
+                                )
                             )
                         )
                     )

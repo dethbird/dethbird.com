@@ -277,7 +277,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
         # user's projects
         $projects = Project::find_all_by_user_id($securityContext->id, [
-            'order' => 'sort_order']);
+            'order' => 'name ASC']);
 
         # projects user belongs to
         $projectUsers = ProjectUser::find_all_by_project_user_id($securityContext->id);

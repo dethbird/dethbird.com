@@ -54,7 +54,7 @@ const Storyboard = React.createClass({
             const { storyboard } = this.state
 
             var that = this;
-            var storyboardPanelNodes = this.state.storyboard.panels.map(function(panel) {
+            var storyboardPanelNodes = this.state.storyboard.panels.map(function(panel, i) {
 
                 let props = {};
                 if (panel.revisions.length > 0)
@@ -89,6 +89,10 @@ const Storyboard = React.createClass({
                                         date={ panel.date_updated }
                                     />
                                 </Link>
+
+                                <div className="pull-right">
+                                    <span className="tag tag-default">{ i + 1 }</span>
+                                </div>
                             </CardBlock>
                         </Card>
                     </div>
