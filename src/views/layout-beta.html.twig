@@ -43,17 +43,24 @@
         <div class="footer">
             <div class="card-block security-context">
                 {% if securityContext.username %}
+                    <div class="pull-left">
+                        <div class="btn-group">
+                            <a href="/projects" title="Projects" class="btn btn-success">Projects</a>
+                            <a href="/scripts" title="Scripts" class="btn btn-success">Scripts</a>
+                            <a href="/inspiration" title="Inspiration" class="btn btn-success">Inspiration</a>
+                        </div>
+                    </div>
                     <div class="pull-right">
                         <div class="btn-group">
                             <span class="muted">{{securityContext.username}}</span>
                         </div>
                         <div class="btn-group">
-                            <a href="/logout" title="Logout" class="btn btn-secondary btn-sm">Logout</a>
+                            <a href="/logout" title="Logout" class="btn btn-secondary">Logout</a>
                         </div>
                     </div>
                 {% elseif section != "login" %}
                     <div class="col-xs-12 pull-right">
-                        <a href="/login" title="Login" class="btn btn-success btn-sm">Login</a>
+                        <a href="/login" title="Login" class="btn btn-success btn">Login</a>
                     </div>
                 {% endif %}
             </div>

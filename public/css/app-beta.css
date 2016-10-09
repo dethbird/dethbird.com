@@ -306,6 +306,9 @@ body {
 .btn.btn-secondary.active {
   background-color: #cfcfcf;
 }
+.htn.btn-success {
+  color: #fff;
+}
 .card.clickable {
   cursor: pointer;
 }
@@ -385,9 +388,6 @@ h1 {
 }
 .security-context {
   color: #58A3C9;
-}
-.security-context a {
-  color: #000;
 }
 section.well {
   padding: 10px;
