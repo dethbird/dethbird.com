@@ -31,15 +31,9 @@ const Storyboard = React.createClass({
                     'id': parseInt(this.props.params.storyboardId)
                 });
 
-                let panelModals = [];
-                storyboard.panels.map(function(panel){
-                    panelModals[panel.id] = false
-                });
-
                 this.setState({
                     project: data,
-                    storyboard,
-                    panelModals
+                    storyboard
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -47,19 +41,12 @@ const Storyboard = React.createClass({
             }.bind(this)
         });
     },
-    closePanelModal(panel_id) {
-        let panelModals = this.state.panelModals
-        panelModals[panel_id] = false
-        this.setState({
-            panelModals
-        })
-    },
     handleClickPanel(panel_id) {
-        let panelModals = this.state.panelModals
-        panelModals[panel_id] = true
-        this.setState({
-            panelModals
-        })
+        browserHistory.push(
+            '/projects' + this.state.project.id
+            + '/storyboard/' + this.state.storyboard.id
+            + '/panel/' + panel_id
+        )
     },
     render() {
 
@@ -77,30 +64,6 @@ const Storyboard = React.createClass({
                         key={ panel.id }
                         className="col-lg-4"
                     >
-                        <Modal
-                              isOpen={ that.state.panelModals[panel.id] }
-                              onRequestClose = { that.closePanelModal.bind(that, panel.id)}
-                              shouldCloseOnOverlayClick={ true }
-                              style={{
-                                  overlay: {
-                                      backgroundColor : 'rgba(0, 0, 0, 0.75)'
-                                  },
-                                  content: {
-                                      padding: 0,
-                                      background: 'none',
-                                      border: 'none',
-                                      top: '10px',
-                                      bottom: '10px',
-                                      right: '10px',
-                                      left: '10px'
-                                  }
-                              }}
-                        >
-                            <PanelModal
-                                panel={ panel }
-                                handleClickClose={ that.closePanelModal }
-                            ></PanelModal>
-                        </Modal>
                         <Card>
                             <h4 className="card-header">{ panel.name }</h4>
                             <div onClick={ that.handleClickPanel.bind(that, panel.id) }>
@@ -139,21 +102,30 @@ const Storyboard = React.createClass({
                         storyboard={ this.state.storyboard }
                     >
                     </StoryboardBreadcrumb>
+
+                    <ul className="nav nav-pills">
+                        <li className="nav-item">
+                            <Link
+                                to={
+                                    '/project/' + this.props.params.projectId
+                                    + '/storyboard/' + this.props.params.storyboardId
+                                    + '/edit'
+                                }
+                                className="btn btn-info"
+                            >Edit</Link>
+                        </li>
+                    </ul>
+                    <br />
+
                     <div className="StoryboardDetailsContainer">
                         <Card>
                             <h3 className="card-header">{ this.state.storyboard.name }</h3>
                             <CardBlock>
                                 <Description source ={ this.state.storyboard.description } />
                             </CardBlock>
-                            <div className='card-footer text-muted clearfix'>
-                                <Link to={
-                                    '/project/' + this.props.params.projectId
-                                    + '/storyboard/' + this.props.params.storyboardId
-                                    + '/edit'
-                                }>Edit</Link>
-                            </div>
                         </Card>
                     </div>
+
                     {(() => {
                         if (this.state.storyboard.script) {
                             return (
@@ -161,6 +133,7 @@ const Storyboard = React.createClass({
                             )
                         }
                     })()}
+
                     {(() => {
                         if (this.state.storyboard.script) {
                             return (
@@ -175,20 +148,25 @@ const Storyboard = React.createClass({
                         }
                     })()}
 
-                    <SectionHeader>{ this.state.storyboard.panels.length } Panel(s)</SectionHeader>
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="btn btn-success"
-                                to={
-                                    '/project/' + that.props.params.projectId
-                                    + '/storyboard/' + that.props.params.storyboardId
-                                    + '/panel/add'
-                                }
-                            >Add</Link>
-                        </li>
-                    </ul>
-                    <br />
+                    <section className="clearfix well">
+                        <div className="pull-left">
+                            <SectionHeader><Count count={ this.state.storyboard.panels.length } /> Panels</SectionHeader>
+                        </div>
+                        <ul className="pull-right nav nav-pills">
+                            <li className="nav-item">
+                                <Link
+                                    className="btn btn-success"
+                                    to={
+                                        '/project/' + that.props.params.projectId
+                                        + '/storyboard/' + that.props.params.storyboardId
+                                        + '/panel/add'
+                                    }
+                                >Add</Link>
+                            </li>
+                        </ul>
+                        <br className="clearfix" />
+                    </section>
+
                     <div className="StoryboardPanelsContainer">
                         { storyboardPanelNodes }
                     </div>

@@ -293,7 +293,7 @@ blockquote {
   padding: 15px;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Hind Vadodara', sans-serif;
   background-color: #2075A0;
 }
 .breadcrumb {
@@ -362,7 +362,7 @@ h1 {
   max-height: 640px;
 }
 #mount {
-  min-height: 500px;
+  min-height: 250px;
 }
 .section-header {
   color: #e5e5e5;
@@ -378,6 +378,7 @@ section.well {
   padding: 10px;
   background-color: #1C688E;
   margin-bottom: 10px;
+  clear: both;
 }
 .text-align-center {
   text-align: center;

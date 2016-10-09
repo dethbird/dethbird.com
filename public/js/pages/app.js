@@ -45268,15 +45268,9 @@ var Storyboard = _react2.default.createClass({
                     'id': parseInt(this.props.params.storyboardId)
                 });
 
-                var panelModals = [];
-                storyboard.panels.map(function (panel) {
-                    panelModals[panel.id] = false;
-                });
-
                 this.setState({
                     project: data,
-                    storyboard: storyboard,
-                    panelModals: panelModals
+                    storyboard: storyboard
                 });
             }.bind(this),
             error: function (xhr, status, err) {
@@ -45284,19 +45278,8 @@ var Storyboard = _react2.default.createClass({
             }.bind(this)
         });
     },
-    closePanelModal: function closePanelModal(panel_id) {
-        var panelModals = this.state.panelModals;
-        panelModals[panel_id] = false;
-        this.setState({
-            panelModals: panelModals
-        });
-    },
     handleClickPanel: function handleClickPanel(panel_id) {
-        var panelModals = this.state.panelModals;
-        panelModals[panel_id] = true;
-        this.setState({
-            panelModals: panelModals
-        });
+        _reactRouter.browserHistory.push('/projects' + this.state.project.id + '/storyboard/' + this.state.storyboard.id + '/panel/' + panel_id);
     },
     render: function render() {
         var _this = this;
@@ -45316,32 +45299,6 @@ var Storyboard = _react2.default.createClass({
                         key: panel.id,
                         className: 'col-lg-4'
                     },
-                    _react2.default.createElement(
-                        _reactModal2.default,
-                        {
-                            isOpen: that.state.panelModals[panel.id],
-                            onRequestClose: that.closePanelModal.bind(that, panel.id),
-                            shouldCloseOnOverlayClick: true,
-                            style: {
-                                overlay: {
-                                    backgroundColor: 'rgba(0, 0, 0, 0.75)'
-                                },
-                                content: {
-                                    padding: 0,
-                                    background: 'none',
-                                    border: 'none',
-                                    top: '10px',
-                                    bottom: '10px',
-                                    right: '10px',
-                                    left: '10px'
-                                }
-                            }
-                        },
-                        _react2.default.createElement(_panelModal.PanelModal, {
-                            panel: panel,
-                            handleClickClose: that.closePanelModal
-                        })
-                    ),
                     _react2.default.createElement(
                         _card.Card,
                         null,
@@ -45399,6 +45356,23 @@ var Storyboard = _react2.default.createClass({
                     storyboard: this.state.storyboard
                 }),
                 _react2.default.createElement(
+                    'ul',
+                    { className: 'nav nav-pills' },
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'nav-item' },
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            {
+                                to: '/project/' + this.props.params.projectId + '/storyboard/' + this.props.params.storyboardId + '/edit',
+                                className: 'btn btn-info'
+                            },
+                            'Edit'
+                        )
+                    )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
                     'div',
                     { className: 'StoryboardDetailsContainer' },
                     _react2.default.createElement(
@@ -45413,15 +45387,6 @@ var Storyboard = _react2.default.createClass({
                             _cardBlock.CardBlock,
                             null,
                             _react2.default.createElement(_description.Description, { source: this.state.storyboard.description })
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'card-footer text-muted clearfix' },
-                            _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/project/' + this.props.params.projectId + '/storyboard/' + this.props.params.storyboardId + '/edit' },
-                                'Edit'
-                            )
                         )
                     )
                 ),
@@ -45452,28 +45417,36 @@ var Storyboard = _react2.default.createClass({
                     }
                 }(),
                 _react2.default.createElement(
-                    _sectionHeader.SectionHeader,
-                    null,
-                    this.state.storyboard.panels.length,
-                    ' Panel(s)'
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'nav nav-pills' },
+                    'section',
+                    { className: 'clearfix well' },
                     _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item' },
+                        'div',
+                        { className: 'pull-left' },
                         _react2.default.createElement(
-                            _reactRouter.Link,
-                            {
-                                className: 'btn btn-success',
-                                to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/add'
-                            },
-                            'Add'
+                            _sectionHeader.SectionHeader,
+                            null,
+                            _react2.default.createElement(_count.Count, { count: this.state.storyboard.panels.length }),
+                            ' Panels'
                         )
-                    )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'pull-right nav nav-pills' },
+                        _react2.default.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                {
+                                    className: 'btn btn-success',
+                                    to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/add'
+                                },
+                                'Add'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement('br', { className: 'clearfix' })
                 ),
-                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'div',
                     { className: 'StoryboardPanelsContainer' },
