@@ -348,10 +348,6 @@ body {
 .container {
   position: relative;
 }
-h1 {
-  color: #58A3C9;
-  font-weight: bold;
-}
 .footer {
   padding: 10px;
   background-color: #144A66;
@@ -362,6 +358,11 @@ h1 {
   padding: 10px;
   font-family: 'IM Fell English', serif;
 }
+.fountain h1 {
+  color: #000;
+  font-size: 2.3em;
+  margin-bottom: 2.0rem;
+}
 .fountain h2 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -370,11 +371,34 @@ h1 {
 .fountain h4 {
   font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.1rem;
   margin-top: 0.5rem;
 }
 .fountain p {
   font-size: 1.02rem;
+  margin-left: 50px;
+}
+.fountain p.credit,
+.fountain p.credit,
+.fountain p.authors,
+.fountain p.source,
+.fountain p.draft-date {
+  margin-bottom: 0.8rem;
+}
+.fountain p.credit {
+  font-weight: bold;
+  margin-bottom: -0.1rem;
+}
+.fountain .dialogue h4 {
+  left: 50%;
+  margin-left: 50px;
+}
+.fountain .dialogue p {
+  margin-left: 0px;
+}
+h1 {
+  color: #58A3C9;
+  font-weight: bold;
 }
 .image-panel-revision {
   max-height: 640px;

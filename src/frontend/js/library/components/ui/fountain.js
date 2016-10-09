@@ -14,6 +14,7 @@ const Fountain = React.createClass({
         let className = classNames([this.props.className, 'fountain'])
 
         let script = { __html: '<div></div>' }
+        
         if (this.props.source) {
             script = {
                 __html: fountainJs.parse(

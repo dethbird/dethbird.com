@@ -884,6 +884,25 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
     });
 
+    # get script
+    $app->get('/project_script/:id', function ($id) use ($app) {
+
+        $configs = $app->container->get('configs');
+        $securityContext = $_SESSION['securityContext'];
+        $id = (int) $id;
+
+        $model = ProjectScript::find_by_id_and_user_id(
+            $id, $securityContext->id);
+
+        if(!$model) {
+            $app->halt(404);
+        } else {
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody($model->to_json());
+        }
+    });
+
     # get scripts
     $app->get('/project_scripts', function () use ($app) {
 

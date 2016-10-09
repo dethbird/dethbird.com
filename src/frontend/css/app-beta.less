@@ -82,11 +82,6 @@ body {
     position: relative;
 }
 
-h1 {
-    color: @lighterBlue;
-    font-weight: bold;
-}
-
 .footer {
     padding: 10px;
     background-color: @darkestBlue;
@@ -97,6 +92,11 @@ h1 {
 .fountain {
     padding: 10px;
     font-family: 'IM Fell English', serif;
+    h1 {
+        color: #000;
+        font-size: 2.3em;
+        margin-bottom: 2.0rem;
+    }
     h2 {
         font-size: 1.8rem;
         font-weight: bold;
@@ -105,13 +105,37 @@ h1 {
     h4 {
         font-size: 1.25rem;
         font-weight: bold;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.1rem;
         margin-top: 0.5rem;
     }
     p {
         font-size: 1.02rem;
+        margin-left: 50px;
+    }
+    p.credit, p.credit, p.authors, p.source, p.draft-date {
+        margin-bottom: 0.8rem;
+    }
+    p.credit {
+        font-weight: bold;
+        margin-bottom: -0.1rem;
+    }
+    .dialogue {
+        h4 {
+            left: 50%;
+            margin-left: 50px;
+        }
+        p {
+            margin-left: 0px;
+        }
     }
 }
+
+
+h1 {
+    color: @lighterBlue;
+    font-weight: bold;
+}
+
 
 .image-panel-revision {
     max-height: 640px;
