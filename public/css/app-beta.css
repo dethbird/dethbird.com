@@ -297,7 +297,7 @@ body {
   background-color: #2075A0;
 }
 .breadcrumb {
-  background-color: #1C688E;
+  background-color: #144A66;
   color: #ffffff;
 }
 .breadcrumb a {
@@ -349,8 +349,20 @@ h1 {
   color: #58A3C9;
   font-weight: bold;
 }
+.footer {
+  padding: 10px;
+  background-color: #144A66;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
 .fountain {
   font-family: 'Ubuntu Mono', monospace;
+}
+.image-panel-revision {
+  max-height: 640px;
+}
+#mount {
+  min-height: 500px;
 }
 .section-header {
   color: #e5e5e5;

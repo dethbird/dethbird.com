@@ -42823,11 +42823,6 @@ var ProjectDetails = _react2.default.createClass({
             "div",
             null,
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                "Details:"
-            ),
-            _react2.default.createElement(
                 _card.Card,
                 null,
                 _react2.default.createElement(

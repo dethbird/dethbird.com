@@ -3,6 +3,7 @@
 @baseBlue: #2075A0;
 @lighterBlue: #58A3C9;
 @darkerBlue: #1C688E;
+@darkestBlue: #144A66;
 
 @cardBackgroundColor: #fff;
 @cardBackgroundColorHover: @cardBackgroundColor - #111;
@@ -21,7 +22,7 @@ body {
 }
 
 .breadcrumb {
-    background-color: @darkerBlue;
+    background-color: @darkestBlue;
     color: @lighterBlue + 222;
     a {
         color: @lighterBlue;
@@ -82,8 +83,23 @@ h1 {
     font-weight: bold;
 }
 
+.footer {
+    padding: 10px;
+    background-color: @darkestBlue;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
 .fountain {
     font-family: 'Ubuntu Mono', monospace;
+}
+
+.image-panel-revision {
+    max-height: 640px;
+}
+
+#mount {
+    min-height: 500px;
 }
 
 .section-header {

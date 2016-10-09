@@ -15,7 +15,6 @@ const ProjectDetails = React.createClass({
     render: function() {
       return (
           <div>
-              <SectionHeader>Details:</SectionHeader>
               <Card>
                   <h3 className="card-header">{ this.props.project.name }</h3>
                   <div className="text-align-center">

@@ -31,28 +31,33 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="img/favicon//ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
-        
+
         {% block head %}{% endblock %}
     </head>
 <body>
-    <div class="card-block security-context">
-        {% if securityContext.username %}
-            <div class="pull-right">
-                <div class="btn-group">
-                    <span class="muted">{{securityContext.username}}</span>
-                </div>
-                <div class="btn-group">
-                    <a href="/logout" title="Logout" class="btn btn-secondary btn-sm">Logout</a>
-                </div>
-            </div>
-        {% elseif section != "login" %}
-            <div class="col-xs-12 pull-right">
-                <a href="/login" title="Login" class="btn btn-success btn-sm">Login</a>
-            </div>
-        {% endif %}
-    </div>
+
     <div class="mount-point">
         {% block content %}{% endblock %}
+    </div>
+    <div class="container">
+        <div class="footer">
+            <div class="card-block security-context">
+                {% if securityContext.username %}
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <span class="muted">{{securityContext.username}}</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="/logout" title="Logout" class="btn btn-secondary btn-sm">Logout</a>
+                        </div>
+                    </div>
+                {% elseif section != "login" %}
+                    <div class="col-xs-12 pull-right">
+                        <a href="/login" title="Login" class="btn btn-success btn-sm">Login</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
