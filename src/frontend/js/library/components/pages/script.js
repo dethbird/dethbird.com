@@ -31,7 +31,7 @@ const Script = React.createClass({
             let script = this.state.script;
             return (
                 <div className="scriptPage">
-                    <ScriptBreadcrumb script={ script } />
+                    <ScriptBreadcrumb script={ this.state.script } />
 
                     <ul className="nav nav-pills">
                         <li className="nav-item">

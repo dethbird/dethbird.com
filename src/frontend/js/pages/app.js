@@ -26,7 +26,7 @@ import { Projects } from '../library/components/pages/projects'
 import { ProjectsEdit } from '../library/components/pages/projects-edit'
 import { ReferenceImageEdit } from '../library/components/pages/reference_image-edit'
 import { Script } from '../library/components/pages/script'
-// import { ScriptEdit } from '../library/components/pages/script-edit'
+import { ScriptEdit } from '../library/components/pages/script-edit'
 import { Scripts } from '../library/components/pages/scripts'
 import { Storyboard } from '../library/components/pages/storyboard'
 import { StoryboardEdit } from '../library/components/pages/storyboard-edit'
@@ -92,6 +92,8 @@ render((
             <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit" component={ StoryboardPanelRevisionEdit} />
             <Route path="scripts" component={ Scripts } />
             <Route path="script/:scriptId" component={ Script } />
+            <Route path="script/add" component={ ScriptEdit } />
+            <Route path="script/:scriptId/edit" component={ ScriptEdit } />
             <Route path="*" component={ Projects} />
         </Route>
     </Router>
