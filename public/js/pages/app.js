@@ -42558,10 +42558,12 @@ var ProjectCharacters = _react2.default.createClass({
 
     render: function render() {
         var characterNodes = void 0;
-        var listButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonCopy = 'Show';
 
         if (this.state.showContent) {
-            listButtonClassName = (0, _classnames2.default)([listButtonClassName, 'active']);
+            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
+            showButtonCopy = 'Hide';
             characterNodes = this.props.project.characters.map(function (character) {
                 var src = void 0;
                 if (character.revisions.length) src = character.revisions[0].content;
@@ -42601,24 +42603,24 @@ var ProjectCharacters = _react2.default.createClass({
                     'li',
                     { className: 'nav-item' },
                     _react2.default.createElement(
-                        _reactRouter.Link,
+                        'button',
                         {
-                            to: '/project/' + this.props.project.id + '/characters',
-                            className: 'btn btn-secondary'
+                            onClick: this.handleClickList,
+                            className: showButtonClassName
                         },
-                        'View'
+                        showButtonCopy
                     )
                 ),
                 _react2.default.createElement(
                     'li',
                     { className: 'nav-item' },
                     _react2.default.createElement(
-                        'button',
+                        _reactRouter.Link,
                         {
-                            onClick: this.handleClickList,
-                            className: listButtonClassName
+                            to: '/project/' + this.props.project.id + '/characters',
+                            className: 'btn btn-secondary'
                         },
-                        'List'
+                        'View'
                     )
                 )
             ),
@@ -42640,11 +42642,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
 
 var _cardClickable = require('../../ui/card-clickable');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _count = require('../../ui/count');
+
+var _imagePanelRevision = require('../../ui/image-panel-revision');
 
 var _sectionHeader = require('../../ui/section-header');
 
@@ -42653,31 +42665,93 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectConceptArts = _react2.default.createClass({
     displayName: 'ProjectConceptArts',
 
+    getInitialState: function getInitialState() {
+        return {
+            showContent: false
+        };
+    },
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
-    handleClick: function handleClick(project_id) {
-        _reactRouter.browserHistory.push('/project/' + project_id + '/concept_art');
+    handleClickList: function handleClickList() {
+        var showContent = !this.state.showContent;
+        this.setState({
+            showContent: showContent
+        });
     },
 
     render: function render() {
+        var concept_artNodes = void 0;
+        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonCopy = 'Show';
+
+        if (this.state.showContent) {
+            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
+            showButtonCopy = 'Hide';
+            concept_artNodes = this.props.project.concept_art.map(function (concept_art) {
+                var src = void 0;
+                if (concept_art.revisions.length) src = concept_art.revisions[0].content;
+
+                return _react2.default.createElement(
+                    _card.Card,
+                    { className: 'col-xs-3', key: concept_art.id },
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        concept_art.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
+                );
+            });
+        }
+
         return _react2.default.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'clearfix well' },
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                'Concept Art'
+                'div',
+                { className: 'pull-left' },
+                _react2.default.createElement(
+                    _sectionHeader.SectionHeader,
+                    null,
+                    _react2.default.createElement(_count.Count, { count: this.props.project.concept_art.length }),
+                    '  Concept Arts'
+                )
             ),
             _react2.default.createElement(
-                _cardClickable.CardClickable,
-                { onClick: this.handleClick.bind(this, this.props.project.id) },
+                'ul',
+                { className: 'nav nav-pills pull-right' },
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
-                    null,
-                    this.props.project.concept_art.length,
-                    ' concept art(s)'
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            onClick: this.handleClickList,
+                            className: showButtonClassName
+                        },
+                        showButtonCopy
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        {
+                            to: '/project/' + this.props.project.id + '/concept_art',
+                            className: 'btn btn-secondary'
+                        },
+                        'View'
+                    )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'clearfix' },
+                concept_artNodes
             )
         );
     }
@@ -42685,7 +42759,7 @@ var ProjectConceptArts = _react2.default.createClass({
 
 module.exports.ProjectConceptArts = ProjectConceptArts;
 
-},{"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/section-header":353,"react":288,"react-router":133}],323:[function(require,module,exports){
+},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],323:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -42724,18 +42798,18 @@ var ProjectDetails = _react2.default.createClass({
                 _card.Card,
                 null,
                 _react2.default.createElement(
+                    "h3",
+                    { className: "card-header" },
+                    this.props.project.name
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "text-align-center" },
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content })
+                ),
+                _react2.default.createElement(
                     _cardBlock.CardBlock,
                     null,
-                    _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
-                        this.props.project.name
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "text-align-center" },
-                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content })
-                    ),
                     _react2.default.createElement(_description.Description, { source: this.props.project.description })
                 )
             )
@@ -42752,11 +42826,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
 
 var _cardClickable = require('../../ui/card-clickable');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _count = require('../../ui/count');
+
+var _imagePanelRevision = require('../../ui/image-panel-revision');
 
 var _sectionHeader = require('../../ui/section-header');
 
@@ -42765,31 +42849,92 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectLocations = _react2.default.createClass({
     displayName: 'ProjectLocations',
 
+    getInitialState: function getInitialState() {
+        return {
+            showContent: false
+        };
+    },
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
-    handleClick: function handleClick(project_id) {
-        _reactRouter.browserHistory.push('/project/' + project_id + '/locations');
+    handleClickList: function handleClickList() {
+        var showContent = !this.state.showContent;
+        this.setState({
+            showContent: showContent
+        });
     },
 
     render: function render() {
+        var locationNodes = void 0;
+        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonCopy = 'Show';
+
+        if (this.state.showContent) {
+            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
+            showButtonCopy = 'Hide';
+            locationNodes = this.props.project.locations.map(function (location) {
+                var src = location.content;
+
+                return _react2.default.createElement(
+                    _card.Card,
+                    { className: 'col-xs-3', key: location.id },
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        location.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
+                );
+            });
+        }
+
         return _react2.default.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'clearfix well' },
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                'Locations'
+                'div',
+                { className: 'pull-left' },
+                _react2.default.createElement(
+                    _sectionHeader.SectionHeader,
+                    null,
+                    _react2.default.createElement(_count.Count, { count: this.props.project.locations.length }),
+                    '  Locations'
+                )
             ),
             _react2.default.createElement(
-                _cardClickable.CardClickable,
-                { onClick: this.handleClick.bind(this, this.props.project.id) },
+                'ul',
+                { className: 'nav nav-pills pull-right' },
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
-                    null,
-                    this.props.project.locations.length,
-                    ' location(s)'
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            onClick: this.handleClickList,
+                            className: showButtonClassName
+                        },
+                        showButtonCopy
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        {
+                            to: '/project/' + this.props.project.id + '/locations',
+                            className: 'btn btn-secondary'
+                        },
+                        'View'
+                    )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'clearfix' },
+                locationNodes
             )
         );
     }
@@ -42797,18 +42942,28 @@ var ProjectLocations = _react2.default.createClass({
 
 module.exports.ProjectLocations = ProjectLocations;
 
-},{"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/section-header":353,"react":288,"react-router":133}],325:[function(require,module,exports){
+},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],325:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
 
 var _cardClickable = require('../../ui/card-clickable');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _count = require('../../ui/count');
+
+var _imagePanelRevision = require('../../ui/image-panel-revision');
 
 var _sectionHeader = require('../../ui/section-header');
 
@@ -42817,31 +42972,92 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectReferenceImages = _react2.default.createClass({
     displayName: 'ProjectReferenceImages',
 
+    getInitialState: function getInitialState() {
+        return {
+            showContent: false
+        };
+    },
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
-    handleClick: function handleClick(project_id) {
-        _reactRouter.browserHistory.push('/project/' + project_id + '/reference_images');
+    handleClickList: function handleClickList() {
+        var showContent = !this.state.showContent;
+        this.setState({
+            showContent: showContent
+        });
     },
 
     render: function render() {
+        var reference_imageNodes = void 0;
+        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonCopy = 'Show';
+
+        if (this.state.showContent) {
+            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
+            showButtonCopy = 'Hide';
+            reference_imageNodes = this.props.project.reference_images.map(function (reference_image) {
+                var src = reference_image.content;
+
+                return _react2.default.createElement(
+                    _card.Card,
+                    { className: 'col-xs-3', key: reference_image.id },
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        reference_image.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
+                );
+            });
+        }
+
         return _react2.default.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'clearfix well' },
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                'Reference Images'
+                'div',
+                { className: 'pull-left' },
+                _react2.default.createElement(
+                    _sectionHeader.SectionHeader,
+                    null,
+                    _react2.default.createElement(_count.Count, { count: this.props.project.reference_images.length }),
+                    '  Reference Images'
+                )
             ),
             _react2.default.createElement(
-                _cardClickable.CardClickable,
-                { onClick: this.handleClick.bind(this, this.props.project.id) },
+                'ul',
+                { className: 'nav nav-pills pull-right' },
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
-                    null,
-                    this.props.project.reference_images.length,
-                    ' character(s)'
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            onClick: this.handleClickList,
+                            className: showButtonClassName
+                        },
+                        showButtonCopy
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        {
+                            to: '/project/' + this.props.project.id + '/reference_images',
+                            className: 'btn btn-secondary'
+                        },
+                        'View'
+                    )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'clearfix' },
+                reference_imageNodes
             )
         );
     }
@@ -42849,18 +43065,28 @@ var ProjectReferenceImages = _react2.default.createClass({
 
 module.exports.ProjectReferenceImages = ProjectReferenceImages;
 
-},{"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/section-header":353,"react":288,"react-router":133}],326:[function(require,module,exports){
+},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],326:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactRouter = require('react-router');
+
+var _card = require('../../ui/card');
 
 var _cardClickable = require('../../ui/card-clickable');
 
 var _cardBlock = require('../../ui/card-block');
+
+var _count = require('../../ui/count');
+
+var _imagePanelRevision = require('../../ui/image-panel-revision');
 
 var _sectionHeader = require('../../ui/section-header');
 
@@ -42869,31 +43095,91 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectStoryboards = _react2.default.createClass({
     displayName: 'ProjectStoryboards',
 
+    getInitialState: function getInitialState() {
+        return {
+            showContent: false
+        };
+    },
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
-    handleClick: function handleClick(project_id) {
-        _reactRouter.browserHistory.push('/project/' + project_id + '/storyboards');
+    handleClickList: function handleClickList() {
+        var showContent = !this.state.showContent;
+        this.setState({
+            showContent: showContent
+        });
     },
 
     render: function render() {
+        var storyboardNodes = void 0;
+        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
+        var showButtonCopy = 'Show';
+
+        if (this.state.showContent) {
+            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
+            showButtonCopy = 'Hide';
+            storyboardNodes = this.props.project.storyboards.map(function (storyboard) {
+                var src = storyboard.content;
+                return _react2.default.createElement(
+                    _card.Card,
+                    { className: 'col-xs-3', key: storyboard.id },
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        storyboard.name
+                    ),
+                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
+                );
+            });
+        }
+
         return _react2.default.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'clearfix well' },
             _react2.default.createElement(
-                _sectionHeader.SectionHeader,
-                null,
-                'Storyboards'
+                'div',
+                { className: 'pull-left' },
+                _react2.default.createElement(
+                    _sectionHeader.SectionHeader,
+                    null,
+                    _react2.default.createElement(_count.Count, { count: this.props.project.storyboards.length }),
+                    '  Storyboards'
+                )
             ),
             _react2.default.createElement(
-                _cardClickable.CardClickable,
-                { onClick: this.handleClick.bind(this, this.props.project.id) },
+                'ul',
+                { className: 'nav nav-pills pull-right' },
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
-                    null,
-                    this.props.project.storyboards.length,
-                    ' storyboard(s)'
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            onClick: this.handleClickList,
+                            className: showButtonClassName
+                        },
+                        showButtonCopy
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        {
+                            to: '/project/' + this.props.project.id + '/storyboards',
+                            className: 'btn btn-secondary'
+                        },
+                        'View'
+                    )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'clearfix' },
+                storyboardNodes
             )
         );
     }
@@ -42901,7 +43187,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
 module.exports.ProjectStoryboards = ProjectStoryboards;
 
-},{"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/section-header":353,"react":288,"react-router":133}],327:[function(require,module,exports){
+},{"../../ui/card":346,"../../ui/card-block":342,"../../ui/card-clickable":343,"../../ui/count":348,"../../ui/image-panel-revision":352,"../../ui/section-header":353,"classnames":1,"react":288,"react-router":133}],327:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');

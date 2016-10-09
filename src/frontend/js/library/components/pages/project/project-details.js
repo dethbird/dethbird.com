@@ -17,11 +17,11 @@ const ProjectDetails = React.createClass({
           <div>
               <SectionHeader>Details:</SectionHeader>
               <Card>
+                  <h3 className="card-header">{ this.props.project.name }</h3>
+                  <div className="text-align-center">
+                      <ImagePanelRevision { ...{src: this.props.project.content }} />
+                  </div>
                   <CardBlock>
-                      <h3 className="card-title">{ this.props.project.name }</h3>
-                      <div className="text-align-center">
-                            <ImagePanelRevision { ...{src: this.props.project.content }} />
-                      </div>
                       <Description source={ this.props.project.description }></Description>
                   </CardBlock>
               </Card>

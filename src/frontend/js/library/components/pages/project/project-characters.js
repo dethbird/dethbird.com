@@ -27,10 +27,12 @@ const ProjectCharacters = React.createClass({
     },
     render: function() {
         let characterNodes;
-        let listButtonClassName = classNames(['btn', 'btn-secondary']);
+        let showButtonClassName = classNames(['btn', 'btn-secondary']);
+        let showButtonCopy = 'Show';
 
         if (this.state.showContent) {
-            listButtonClassName = classNames([listButtonClassName, 'active'])
+            showButtonClassName = classNames([showButtonClassName, 'active'])
+            showButtonCopy = 'Hide';
             characterNodes = this.props.project.characters.map(function(character){
                 let src;
                 if(character.revisions.length)
@@ -54,16 +56,16 @@ const ProjectCharacters = React.createClass({
                 </div>
                 <ul className="nav nav-pills pull-right">
                     <li className="nav-item">
+                        <button
+                            onClick={ this.handleClickList }
+                            className={ showButtonClassName }
+                        >{ showButtonCopy }</button>
+                    </li>
+                    <li className="nav-item">
                         <Link
                             to={ '/project/' + this.props.project.id + '/characters' }
                             className='btn btn-secondary'
                         >View</Link>
-                    </li>
-                    <li className="nav-item">
-                        <button
-                            onClick={ this.handleClickList }
-                            className={ listButtonClassName }
-                        >List</button>
                     </li>
                 </ul>
                 <div className="clearfix">

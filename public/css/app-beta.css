@@ -362,6 +362,7 @@ h1 {
 section.well {
   padding: 10px;
   background-color: #1C688E;
+  margin-bottom: 10px;
 }
 .text-align-center {
   text-align: center;
