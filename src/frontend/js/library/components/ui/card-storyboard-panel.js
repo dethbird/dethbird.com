@@ -27,9 +27,9 @@ const CardStoryboardPanel = React.createClass({
                 className='storyboard-panel'
             >
                 <h3 className='card-header'>{ this.props.panel.name }</h3>
-                <CardBlock>
+                <div className="text-align-center">
                     <ImagePanelRevision { ...props } />
-                </CardBlock>
+                </div>
                 <CardBlock>
                     <Fountain source={ this.props.panel.script }></Fountain>
                 </CardBlock>

@@ -44982,6 +44982,8 @@ var _cardBlock = require('../ui/card-block');
 
 var _cardStoryboardPanel = require('../ui/card-storyboard-panel');
 
+var _count = require('../ui/count');
+
 var _description = require('../ui/description');
 
 var _fountain = require('../ui/fountain');
@@ -45037,7 +45039,11 @@ var StoryboardPanel = _react2.default.createClass({
                         key: revision.id,
                         onClick: that.handleClickRevision.bind(that, revision.id)
                     },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'text-align-center' },
+                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                    ),
                     _react2.default.createElement(
                         _cardBlock.CardBlock,
                         null,
@@ -45084,42 +45090,76 @@ var StoryboardPanel = _react2.default.createClass({
                     })
                 ),
                 _react2.default.createElement(
-                    _sectionHeader.SectionHeader,
-                    null,
-                    this.state.panel.revisions.length,
-                    ' Revision(s)'
+                    'section',
+                    { className: 'clearfix well' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'pull-left' },
+                        _react2.default.createElement(
+                            _sectionHeader.SectionHeader,
+                            null,
+                            _react2.default.createElement(_count.Count, { count: this.state.panel.revisions.length }),
+                            ' Revisions'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'pull-right nav nav-pills' },
+                        _react2.default.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                {
+                                    className: 'btn btn-success',
+                                    to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/' + that.props.params.panelId + '/revision/add'
+                                },
+                                'Add'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement('br', { className: 'clearfix' })
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'clearfix PanelRevisionsContainer' },
-                    panelRevisionNodes,
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        {
-                            className: 'btn btn-success',
-                            to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/' + that.props.params.panelId + '/revision/add'
-                        },
-                        'Add'
-                    )
+                    panelRevisionNodes
                 ),
                 _react2.default.createElement(
-                    _sectionHeader.SectionHeader,
-                    null,
-                    this.state.panel.comments.length,
-                    ' Comment(s)'
+                    'section',
+                    { className: 'clearfix well' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'pull-left' },
+                        _react2.default.createElement(
+                            _sectionHeader.SectionHeader,
+                            null,
+                            _react2.default.createElement(_count.Count, { count: this.state.panel.comments.length }),
+                            ' Comments'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'pull-right nav nav-pills' },
+                        _react2.default.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                {
+                                    className: 'btn btn-success',
+                                    to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/' + that.props.params.panelId + '/comment/add'
+                                },
+                                'Add'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement('br', { className: 'clearfix' })
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'clearfix PanelCommentsContainer' },
-                    panelCommentNodes,
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        {
-                            className: 'btn btn-success',
-                            to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/' + that.props.params.panelId + '/comment/add'
-                        },
-                        'Add'
-                    )
+                    panelCommentNodes
                 )
             );
         }
@@ -45129,7 +45169,7 @@ var StoryboardPanel = _react2.default.createClass({
 
 module.exports.StoryboardPanel = StoryboardPanel;
 
-},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/card-comment":344,"../ui/card-storyboard-panel":345,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"classnames":1,"react":288,"react-router":133}],337:[function(require,module,exports){
+},{"../ui/card":346,"../ui/card-block":342,"../ui/card-clickable":343,"../ui/card-comment":344,"../ui/card-storyboard-panel":345,"../ui/count":348,"../ui/description":349,"../ui/fountain":351,"../ui/image-panel-revision":352,"../ui/section-header":353,"../ui/spinner":354,"./storyboard-panel/storyboard-panel-breadcrumb":337,"classnames":1,"react":288,"react-router":133}],337:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45279,7 +45319,7 @@ var Storyboard = _react2.default.createClass({
         });
     },
     handleClickPanel: function handleClickPanel(panel_id) {
-        _reactRouter.browserHistory.push('/projects' + this.state.project.id + '/storyboard/' + this.state.storyboard.id + '/panel/' + panel_id);
+        _reactRouter.browserHistory.push('/project/' + this.state.project.id + '/storyboard/' + this.state.storyboard.id + '/panel/' + panel_id);
     },
     render: function render() {
         var _this = this;
@@ -45875,8 +45915,8 @@ var CardStoryboardPanel = _react2.default.createClass({
                 this.props.panel.name
             ),
             _react2.default.createElement(
-                _cardBlock.CardBlock,
-                null,
+                'div',
+                { className: 'text-align-center' },
                 _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
             ),
             _react2.default.createElement(
@@ -46144,7 +46184,9 @@ var FlickrSelector = _react2.default.createClass({
         });
     },
     handleClickSelect: function handleClickSelect(event) {
-        this.state = null;
+        this.setState({
+            status: 'init'
+        });
         this.props.onClick(event);
     },
     render: function render() {

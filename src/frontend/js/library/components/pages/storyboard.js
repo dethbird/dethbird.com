@@ -43,7 +43,7 @@ const Storyboard = React.createClass({
     },
     handleClickPanel(panel_id) {
         browserHistory.push(
-            '/projects' + this.state.project.id
+            '/project/' + this.state.project.id
             + '/storyboard/' + this.state.storyboard.id
             + '/panel/' + panel_id
         )

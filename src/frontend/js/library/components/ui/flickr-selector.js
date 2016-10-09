@@ -41,8 +41,10 @@ const FlickrSelector = React.createClass({
         });
     },
     handleClickSelect: function(event) {
-        this.state = null;
-        this.props.onClick(event)
+        this.setState({
+            status: 'init'
+        });
+        this.props.onClick(event);
     },
     render: function() {
         const that = this;

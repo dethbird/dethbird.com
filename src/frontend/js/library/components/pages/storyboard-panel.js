@@ -8,6 +8,7 @@ import { CardClickable } from "../ui/card-clickable"
 import { CardComment } from "../ui/card-comment"
 import { CardBlock } from "../ui/card-block"
 import { CardStoryboardPanel } from "../ui/card-storyboard-panel"
+import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
@@ -64,7 +65,9 @@ const StoryboardPanel = React.createClass({
                         key={ revision.id }
                         onClick={ that.handleClickRevision.bind(that, revision.id) }
                     >
-                        <ImagePanelRevision { ...props } ></ImagePanelRevision>
+                        <div className="text-align-center">
+                            <ImagePanelRevision { ...props } ></ImagePanelRevision>
+                        </div>
                         <CardBlock>
                             <Description source={ revision.description } />
                         </CardBlock>
@@ -115,32 +118,52 @@ const StoryboardPanel = React.createClass({
                         ></CardStoryboardPanel>
                     </div>
 
-                    <SectionHeader>{ this.state.panel.revisions.length } Revision(s)</SectionHeader>
+                    <section className="clearfix well">
+                        <div className="pull-left">
+                            <SectionHeader><Count count={ this.state.panel.revisions.length } /> Revisions</SectionHeader>
+                        </div>
+                        <ul className="pull-right nav nav-pills">
+                            <li className="nav-item">
+                                <Link
+                                    className="btn btn-success"
+                                    to={
+                                        '/project/' + that.props.params.projectId
+                                        + '/storyboard/' + that.props.params.storyboardId
+                                        + '/panel/' + that.props.params.panelId
+                                        + '/revision/add'
+                                    }
+                                >Add</Link>
+                            </li>
+                        </ul>
+                        <br className="clearfix" />
+                    </section>
+
                     <div className="clearfix PanelRevisionsContainer">
                         { panelRevisionNodes }
-                        <Link
-                            className="btn btn-success"
-                            to={
-                                '/project/' + that.props.params.projectId
-                                + '/storyboard/' + that.props.params.storyboardId
-                                + '/panel/' + that.props.params.panelId
-                                + '/revision/add'
-                            }
-                        >Add</Link>
                     </div>
 
-                    <SectionHeader>{ this.state.panel.comments.length } Comment(s)</SectionHeader>
+                    <section className="clearfix well">
+                        <div className="pull-left">
+                            <SectionHeader><Count count={ this.state.panel.comments.length } /> Comments</SectionHeader>
+                        </div>
+                        <ul className="pull-right nav nav-pills">
+                            <li className="nav-item">
+                                <Link
+                                    className="btn btn-success"
+                                    to={
+                                        '/project/' + that.props.params.projectId
+                                        + '/storyboard/' + that.props.params.storyboardId
+                                        + '/panel/' + that.props.params.panelId
+                                        + '/comment/add'
+                                    }
+                                >Add</Link>
+                            </li>
+                        </ul>
+                        <br className="clearfix" />
+                    </section>
+
                     <div className="clearfix PanelCommentsContainer">
                         { panelCommentNodes }
-                        <Link
-                            className="btn btn-success"
-                            to={
-                                '/project/' + that.props.params.projectId
-                                + '/storyboard/' + that.props.params.storyboardId
-                                + '/panel/' + that.props.params.panelId
-                                + '/comment/add'
-                            }
-                        >Add</Link>
                     </div>
                 </div>
             );
