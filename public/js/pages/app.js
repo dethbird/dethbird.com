@@ -44214,7 +44214,7 @@ var ScriptBreadcrumb = _react2.default.createClass({
                 { className: 'breadcrumb-item' },
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/' },
+                    { to: '/scripts' },
                     'Scripts'
                 )
             ),
@@ -47151,8 +47151,8 @@ if (lastRequestUri) {
         _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add', component: _storyboardPanelRevisionEdit.StoryboardPanelRevisionEdit }),
         _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit', component: _storyboardPanelRevisionEdit.StoryboardPanelRevisionEdit }),
         _react2.default.createElement(_reactRouter.Route, { path: 'scripts', component: _scripts.Scripts }),
-        _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId', component: _script.Script }),
         _react2.default.createElement(_reactRouter.Route, { path: 'script/add', component: _scriptEdit.ScriptEdit }),
+        _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId', component: _script.Script }),
         _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId/edit', component: _scriptEdit.ScriptEdit }),
         _react2.default.createElement(_reactRouter.Route, { path: '*', component: _projects.Projects })
     )

@@ -91,8 +91,8 @@ render((
             <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add" component={ StoryboardPanelRevisionEdit} />
             <Route path="project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit" component={ StoryboardPanelRevisionEdit} />
             <Route path="scripts" component={ Scripts } />
-            <Route path="script/:scriptId" component={ Script } />
             <Route path="script/add" component={ ScriptEdit } />
+            <Route path="script/:scriptId" component={ Script } />
             <Route path="script/:scriptId/edit" component={ ScriptEdit } />
             <Route path="*" component={ Projects} />
         </Route>

@@ -1,13 +1,15 @@
 {
 	"$schema": "http://json-schema.org/draft-03/schema",
 	"properties": {
-		"title": {
+		"name": {
 			"required": true,
 		    "type": "string"
 		},
 		"script": {
-			"required": true,
-			"type": "string"
+			"type": ["string", "null", "integer"]
+		},
+		"description": {
+			"type": ["string", "null", "integer"]
 		}
 	}
 }

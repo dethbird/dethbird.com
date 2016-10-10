@@ -925,6 +925,69 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
     });
 
 
+    # create script
+    $app->post('/project_script', function () use ($app) {
+
+        $configs = $app->container->get('configs');
+        $securityContext = $_SESSION['securityContext'];
+
+        $model = new ProjectScript($app->request->params());
+        $model->user_id = $securityContext->id;
+
+        # validate
+        $validator = new Validator();
+        $validation_response = $validator->validate(
+            json_decode($model->to_json()),
+            APPLICATION_PATH . "configs/validation_schemas/script.json");
+
+        if (is_array($validation_response)) {
+            $app->response->setStatus(400);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode($validation_response));
+        } else {
+
+            $model->save();
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody($model->to_json());
+        }
+
+    });
+
+
+    # update script
+    $app->put('/project_script/:id', function ($id) use ($app) {
+        $configs = $app->container->get('configs');
+        $securityContext = $_SESSION['securityContext'];
+        $id = (int) $id;
+
+        $model = ProjectScript::find_by_id_and_user_id(
+            $id, $securityContext->id);
+
+        foreach($app->request->params() as $key=>$value) {
+            $model->$key = $value;
+        }
+
+        # validate
+        $validator = new Validator();
+        $validation_response = $validator->validate(
+            json_decode($model->to_json()),
+            APPLICATION_PATH . "configs/validation_schemas/script.json");
+
+        if (is_array($validation_response)) {
+            $app->response->setStatus(400);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode($validation_response));
+        } else {
+            $model->save();
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody($model->to_json());
+        }
+
+    });
+
+
     # create storyboard
     $app->post('/project_storyboard', function () use ($app) {
 

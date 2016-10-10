@@ -10,7 +10,7 @@ const ScriptBreadcrumb = React.createClass({
     render: function() {
         return (
             <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to="/">Scripts</Link></li>
+                <li className="breadcrumb-item"><Link to="/scripts">Scripts</Link></li>
                 <li className="breadcrumb-item">{ this.props.script.name }</li>
             </ol>
         );
