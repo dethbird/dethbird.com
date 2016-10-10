@@ -76,7 +76,6 @@ const ScriptEdit = React.createClass({
         browserHistory.push(
             '/project/' + this.props.params.projectId
             + '/script/' + this.props.params.scriptId
-            + '/script/' + this.props.params.scriptId
         )
     },
     handleClickSubmit(event) {
@@ -92,7 +91,7 @@ const ScriptEdit = React.createClass({
                 this.setState({
                     formState: 'success',
                     formMessage: 'Success.',
-                    submitUrl:'/api/project_script_script/'
+                    submitUrl:'/api/project_script/'
                         + data.id,
                     submitMethod: 'PUT',
                     script: data

@@ -43949,7 +43949,7 @@ var ScriptEdit = _react2.default.createClass({
     },
     handleClickCancel: function handleClickCancel(event) {
         event.preventDefault();
-        _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/script/' + this.props.params.scriptId + '/script/' + this.props.params.scriptId);
+        _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/script/' + this.props.params.scriptId);
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
@@ -43964,7 +43964,7 @@ var ScriptEdit = _react2.default.createClass({
                 this.setState({
                     formState: 'success',
                     formMessage: 'Success.',
-                    submitUrl: '/api/project_script_script/' + data.id,
+                    submitUrl: '/api/project_script/' + data.id,
                     submitMethod: 'PUT',
                     script: data
                 });
