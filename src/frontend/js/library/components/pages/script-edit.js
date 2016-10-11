@@ -4,6 +4,7 @@ import {
     SortableItem
 } from 'react-sortable-component'
 import { browserHistory } from 'react-router'
+import Textarea from 'react-textarea-autosize'
 
 import { Alert } from "../ui/alert"
 import { Card } from "../ui/card"
@@ -132,10 +133,11 @@ const ScriptEdit = React.createClass({
 
                         <SectionHeader>description:</SectionHeader>
                         <div className="form-group">
-                            <textarea
+                            <Textarea
                                 className="form-control"
                                 id="description"
-                                rows="3"
+                                minRows={3}
+                                maxRows={6}
                                 value={ this.state.script.description || '' }
                                 onChange= { this.handleFieldChange }
                             />
@@ -150,10 +152,11 @@ const ScriptEdit = React.createClass({
 
                         <SectionHeader>script:</SectionHeader>
                         <div className="form-group">
-                            <textarea
+                            <Textarea
                                 className="form-control"
                                 id="script"
-                                rows="3"
+                                minRows={3}
+                                style={ {maxHeight: 640} }
                                 value={ this.state.script.script || '' }
                                 onChange= { this.handleFieldChange }
                             />
