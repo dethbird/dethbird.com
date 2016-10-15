@@ -44526,7 +44526,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Script = _react2.default.createClass({
     displayName: 'Script',
     componentDidMount: function componentDidMount() {
-        console.log(this.props);
         $.ajax({
             url: '/api/project_script/' + this.props.params.scriptId,
             dataType: 'json',
@@ -45169,6 +45168,12 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
             cache: false,
+            beforeSend: function () {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.'
+                });
+            }.bind(this),
             success: function (data) {
 
                 var storyboard = _.findWhere(data.storyboards, {
@@ -45254,6 +45259,12 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
             dataType: 'json',
             cache: false,
             method: that.state.submitMethod,
+            beforeSend: function () {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.'
+                });
+            }.bind(this),
             success: function (data) {
                 this.setState({
                     formState: 'success',
@@ -45274,6 +45285,11 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
     render: function render() {
         var that = this;
         if (this.state) {
+
+            if (!this.state.comment) {
+                return _react2.default.createElement(_spinner.Spinner, null);
+            }
+
             var userOptionsNodes = this.state.project.users.map(function (user) {
                 return _react2.default.createElement(
                     'option',

@@ -22,6 +22,12 @@ const StoryboardPanelCommentEdit = React.createClass({
             url: '/api/project/' + this.props.params.projectId,
             dataType: 'json',
             cache: false,
+            beforeSend: function() {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.',
+                })
+            }.bind(this),
             success: function(data) {
 
                 let storyboard = _.findWhere(data.storyboards, {
@@ -113,6 +119,12 @@ const StoryboardPanelCommentEdit = React.createClass({
             dataType: 'json',
             cache: false,
             method: that.state.submitMethod,
+            beforeSend: function() {
+                this.setState({
+                    formState: 'info',
+                    formMessage: 'Working.',
+                })
+            }.bind(this),
             success: function(data) {
                 this.setState({
                     formState: 'success',
@@ -133,6 +145,13 @@ const StoryboardPanelCommentEdit = React.createClass({
     render() {
         let that = this
         if (this.state){
+
+            if (!this.state.comment) {
+                return (
+                    <Spinner />
+                );
+            }
+
             let userOptionsNodes = this.state.project.users.map(function(user) {
                 return (
                     <option value={ user.id } key={ user.id }>{ user.username }</option>

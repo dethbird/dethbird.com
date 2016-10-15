@@ -12,7 +12,6 @@ import { Spinner } from "../ui/spinner"
 
 const Script = React.createClass({
     componentDidMount() {
-        console.log(this.props);
         $.ajax({
             url: '/api/project_script/' + this.props.params.scriptId,
             dataType: 'json',
