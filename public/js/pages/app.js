@@ -45944,7 +45944,13 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactModal = require('react-modal');
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
 var _reactRouter = require('react-router');
+
+var _alert = require('../ui/alert');
 
 var _card = require('../ui/card');
 
@@ -45988,14 +45994,58 @@ var StoryboardPanel = _react2.default.createClass({
                 });
 
                 this.setState({
+                    formStatus: null,
+                    formMessage: null,
                     project: data,
                     storyboard: storyboard,
-                    panel: panel
+                    panel: panel,
+                    showDeleteModal: false
                 });
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
+        });
+    },
+    handleClickDelete: function handleClickDelete() {
+        this.setState({
+            showDeleteModal: !this.state.showDeleteModal
+        });
+    },
+    handleClickDeleteConfirm: function handleClickDeleteConfirm() {
+        event.preventDefault();
+        var that = this;
+        $.ajax({
+            cache: false,
+            method: 'DELETE',
+            url: '/api/project_storyboard_panel/' + that.state.panel.id,
+            beforeSend: function () {
+                this.setState({
+                    formStatus: 'info',
+                    formMessage: 'Working.',
+                    showDeleteModal: false
+                });
+            }.bind(this),
+            success: function (data) {
+                this.setState({
+                    formStatus: 'success',
+                    formMessage: 'Success.'
+                });
+                setTimeout(function () {
+                    _reactRouter.browserHistory.push('/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId);
+                }, 2000);
+            }.bind(this),
+            error: function (xhr, status, err) {
+                this.setState({
+                    formStatus: 'danger',
+                    formMessage: 'Error: ' + xhr.responseText
+                });
+            }.bind(this)
+        });
+    },
+    handleClickCloseModal: function handleClickCloseModal() {
+        this.setState({
+            showDeleteModal: false
         });
     },
     handleClickRevision: function handleClickRevision(revision_id) {
@@ -46040,6 +46090,10 @@ var StoryboardPanel = _react2.default.createClass({
                 'div',
                 null,
                 _react2.default.createElement(_storyboardPanelBreadcrumb.StoryboardPanelBreadcrumb, this.state),
+                _react2.default.createElement(_alert.Alert, {
+                    status: this.state.formStatus,
+                    message: this.state.formMessage
+                }),
                 _react2.default.createElement(
                     'ul',
                     { className: 'nav nav-pills' },
@@ -46052,6 +46106,47 @@ var StoryboardPanel = _react2.default.createClass({
                                 className: 'nav-link btn btn-info',
                                 to: '/project/' + that.props.params.projectId + '/storyboard/' + that.props.params.storyboardId + '/panel/' + that.props.params.panelId + '/edit' },
                             'Edit'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'nav-item' },
+                        _react2.default.createElement(
+                            'a',
+                            { onClick: this.handleClickDelete, className: 'btn btn-secondary' },
+                            'Delete'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactModal2.default,
+                    {
+                        isOpen: this.state.showDeleteModal,
+                        shouldCloseOnOverlayClick: true
+                    },
+                    _react2.default.createElement(
+                        _cardBlock.CardBlock,
+                        null,
+                        'Really delete?'
+                    ),
+                    _react2.default.createElement(
+                        _cardBlock.CardBlock,
+                        { className: 'btn-group' },
+                        _react2.default.createElement(
+                            'a',
+                            {
+                                className: 'btn btn-danger',
+                                onClick: this.handleClickDeleteConfirm
+                            },
+                            'Delete'
+                        ),
+                        _react2.default.createElement(
+                            'a',
+                            {
+                                className: 'btn btn-secondary',
+                                onClick: this.handleClickCloseModal
+                            },
+                            'Cancel'
                         )
                     )
                 ),
@@ -46145,7 +46240,7 @@ var StoryboardPanel = _react2.default.createClass({
 
 module.exports.StoryboardPanel = StoryboardPanel;
 
-},{"../ui/card":354,"../ui/card-block":350,"../ui/card-clickable":351,"../ui/card-comment":352,"../ui/card-storyboard-panel":353,"../ui/count":356,"../ui/description":357,"../ui/fountain":360,"../ui/image-panel-revision":361,"../ui/section-header":362,"../ui/spinner":363,"./storyboard-panel/storyboard-panel-breadcrumb":345,"classnames":1,"react":290,"react-router":133}],345:[function(require,module,exports){
+},{"../ui/alert":349,"../ui/card":354,"../ui/card-block":350,"../ui/card-clickable":351,"../ui/card-comment":352,"../ui/card-storyboard-panel":353,"../ui/count":356,"../ui/description":357,"../ui/fountain":360,"../ui/image-panel-revision":361,"../ui/section-header":362,"../ui/spinner":363,"./storyboard-panel/storyboard-panel-breadcrumb":345,"classnames":1,"react":290,"react-modal":101,"react-router":133}],345:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');

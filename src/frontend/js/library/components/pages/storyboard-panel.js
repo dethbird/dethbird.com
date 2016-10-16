@@ -1,7 +1,9 @@
 import classNames from 'classnames'
 import React from 'react'
+import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
 
+import { Alert } from "../ui/alert"
 import { Card } from "../ui/card"
 import { SectionHeader } from "../ui/section-header"
 import { CardClickable } from "../ui/card-clickable"
@@ -33,14 +35,62 @@ const StoryboardPanel = React.createClass({
                 });
 
                 this.setState({
+                    formStatus: null,
+                    formMessage: null,
                     project: data,
                     storyboard: storyboard,
-                    panel: panel
+                    panel: panel,
+                    showDeleteModal: false
                 });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
+        });
+    },
+    handleClickDelete() {
+        this.setState({
+            showDeleteModal: !this.state.showDeleteModal
+        });
+    },
+    handleClickDeleteConfirm() {
+        event.preventDefault()
+        var that = this
+        $.ajax({
+            cache: false,
+            method: 'DELETE',
+            url: '/api/project_storyboard_panel/'
+                + that.state.panel.id,
+            beforeSend: function() {
+                this.setState({
+                    formStatus: 'info',
+                    formMessage: 'Working.',
+                    showDeleteModal: false
+                })
+            }.bind(this),
+            success: function(data) {
+                this.setState({
+                    formStatus: 'success',
+                    formMessage: 'Success.'
+                });
+                setTimeout(function(){
+                    browserHistory.push(
+                        '/project/' + that.props.params.projectId
+                        + '/storyboard/' + that.props.params.storyboardId
+                    );
+                }, 2000);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                this.setState({
+                    formStatus: 'danger',
+                    formMessage: 'Error: ' + xhr.responseText
+                })
+            }.bind(this)
+        });
+    },
+    handleClickCloseModal() {
+        this.setState({
+            showDeleteModal: false
         });
     },
     handleClickRevision(revision_id) {
@@ -96,6 +146,11 @@ const StoryboardPanel = React.createClass({
                 <div>
                     <StoryboardPanelBreadcrumb { ...this.state } />
 
+                    <Alert
+                        status={ this.state.formStatus }
+                        message={ this.state.formMessage }
+                    />
+
                     <ul className="nav nav-pills">
                         <li className="nav-item">
                             <Link
@@ -107,7 +162,30 @@ const StoryboardPanel = React.createClass({
                                     + '/edit'
                                 }>Edit</Link>
                         </li>
+                        <li className="nav-item">
+                            <a onClick={ this.handleClickDelete } className='btn btn-secondary'>Delete</a>
+                        </li>
                     </ul>
+
+                    <Modal
+                        isOpen={ this.state.showDeleteModal }
+                        shouldCloseOnOverlayClick={ true }
+                    >
+                        <CardBlock>
+                            Really delete?
+                        </CardBlock>
+                        <CardBlock className='btn-group'>
+                            <a
+                                className='btn btn-danger'
+                                onClick={ this.handleClickDeleteConfirm }
+                            >Delete</a>
+                            <a
+                                className='btn btn-secondary'
+                                onClick={ this.handleClickCloseModal }
+                            >Cancel</a>
+                        </CardBlock>
+
+                    </Modal>
                     <br />
 
                     <div className="StoryboardPanelDetailsContainer">

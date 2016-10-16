@@ -1143,6 +1143,26 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
     });
 
+    # delete storyboard panel
+    $app->delete('/project_storyboard_panel/:id', function ($id) use ($app) {
+
+        $configs = $app->container->get('configs');
+        $securityContext = $_SESSION['securityContext'];
+        $id = (int) $id;
+
+        $model = ProjectStoryboardPanel::find_by_id_and_user_id(
+            $id, $securityContext->id);
+
+        if(!$model) {
+            $app->halt(404);
+        }
+
+        $model->delete();
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody($model->to_json());
+
+    });
 
 	# order project storyboard panels
 	$app->post('/project_storyboard_panel_order', function () use ($app) {
