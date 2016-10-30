@@ -2,8 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { IndexRoute, Router, Route, browserHistory } from 'react-router'
 
-import { App } from '../library/components/app'
-import { Login } from '../library/components/pages/login'
+import { App } from '../components/app'
+import { Login } from '../components/pages/login'
 
 
 const NoMatch = React.createClass({
