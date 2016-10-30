@@ -65,7 +65,7 @@ const Storyboard = React.createClass({
                         className="col-lg-4"
                     >
                         <Card>
-                            <h4 className="card-header">{ panel.name }</h4>
+                            <h4 className="card-header">Panel { i + 1 }</h4>
                             <div onClick={ that.handleClickPanel.bind(that, panel.id) }>
                                 <ImagePanelRevision { ...props }></ImagePanelRevision>
                             </div>

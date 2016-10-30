@@ -45138,6 +45138,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _reactTextareaAutosize = require('react-textarea-autosize');
+
+var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
+
 var _alert = require('../ui/alert');
 
 var _card = require('../ui/card');
@@ -45160,6 +45164,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
+
 
 var StoryboardPanelCommentEdit = _react2.default.createClass({
     displayName: 'StoryboardPanelCommentEdit',
@@ -45332,10 +45337,11 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
                     _react2.default.createElement(
                         'div',
                         { className: 'form-group' },
-                        _react2.default.createElement('textarea', {
+                        _react2.default.createElement(_reactTextareaAutosize2.default, {
                             className: 'form-control',
                             id: 'comment',
-                            rows: '3',
+                            minRows: 3,
+                            style: { maxHeight: 640 },
                             value: this.state.comment.comment || '',
                             onChange: this.handleFieldChange
                         }),
@@ -45421,7 +45427,7 @@ var StoryboardPanelCommentEdit = _react2.default.createClass({
 
 module.exports.StoryboardPanelCommentEdit = StoryboardPanelCommentEdit;
 
-},{"../ui/alert":349,"../ui/card":354,"../ui/card-block":350,"../ui/card-clickable":351,"../ui/description":357,"../ui/image-panel-revision":361,"../ui/section-header":362,"../ui/spinner":363,"./storyboard-panel/storyboard-panel-breadcrumb":345,"moment":87,"react":290,"react-datepicker":92,"react-router":133}],342:[function(require,module,exports){
+},{"../ui/alert":349,"../ui/card":354,"../ui/card-block":350,"../ui/card-clickable":351,"../ui/description":357,"../ui/image-panel-revision":361,"../ui/section-header":362,"../ui/spinner":363,"./storyboard-panel/storyboard-panel-breadcrumb":345,"moment":87,"react":290,"react-datepicker":92,"react-router":133,"react-textarea-autosize":145}],342:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -46416,7 +46422,8 @@ var Storyboard = _react2.default.createClass({
                         _react2.default.createElement(
                             'h4',
                             { className: 'card-header' },
-                            panel.name
+                            'Panel ',
+                            i + 1
                         ),
                         _react2.default.createElement(
                             'div',

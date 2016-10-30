@@ -2,6 +2,7 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
+import Textarea from 'react-textarea-autosize';
 
 import { Alert } from "../ui/alert"
 import { Card } from "../ui/card"
@@ -178,10 +179,11 @@ const StoryboardPanelCommentEdit = React.createClass({
 
                         <SectionHeader>comment:</SectionHeader>
                         <div className="form-group">
-                            <textarea
+                            <Textarea
                                 className="form-control"
                                 id="comment"
-                                rows="3"
+                                minRows={3}
+                                style={ {maxHeight: 640} }
                                 value={ this.state.comment.comment || '' }
                                 onChange= { this.handleFieldChange }
                             />
