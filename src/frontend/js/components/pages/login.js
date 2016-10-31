@@ -2,6 +2,11 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
+import TextField from 'material-ui/TextField';
+import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 import {
     UI_STATE_REQUESTING,
     UI_STATE_ERROR,
@@ -9,8 +14,6 @@ import {
 } from '../../constants/ui-state';
 
 import { Alert } from '../ui/alert'
-import { Card } from '../ui/card'
-import { CardBlock } from '../ui/card-block'
 import { SectionHeader } from '../ui/section-header'
 import { Spinner } from '../ui/spinner'
 import { loginAttempt } from  '../../actions/login'
@@ -57,46 +60,32 @@ const Login = React.createClass({
         if (this.state){
             return (
                 <div>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
+                    <h1>Sign in, Honcho</h1>
+                    <TextField
+                        hintText="Username"
+                        floatingLabelText="Enter your username"
+                        floatingLabelFixed={ true }
+                        id='username'
+                        value={ this.state.model.username || '' }
+                        onChange= { this.handleFieldChange }
                     />
-                    <form>
-                        <h1>Sign In, Honcho</h1>
-                        <SectionHeader>username:</SectionHeader>
-                        <div className='form-group'>
-                            <input
-                                type='text'
-                                className='form-control'
-                                id='username'
-                                placeholder='Username'
-                                value={ this.state.model.username || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>password:</SectionHeader>
-                        <div className='form-group'>
-                            <input
-                                type='password'
-                                className='form-control'
-                                id='password'
-                                rows='3'
-                                value={ this.state.model.password || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <div className='form-group text-align-center'>
-                            <button
-                                className='btn btn-success'
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Login</button>
-                        </div>
-
-
-                    </form>
+                    <br />
+                    <TextField
+                        hintText="Password"
+                        floatingLabelText="Enter your password"
+                        floatingLabelFixed={ true }
+                        id='password'
+                        type="password"
+                        value={ this.state.model.password || '' }
+                        onChange= { this.handleFieldChange }
+                    />
+                    <br />
+                    <RaisedButton
+                        primary={true}
+                        label="Login"
+                        onTouchTap={ that.handleClickSubmit }
+                        disabled={ !that.state.changedFields }
+                    />
                 </div>
             );
         }

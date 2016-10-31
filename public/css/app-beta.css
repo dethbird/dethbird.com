@@ -294,14 +294,14 @@ blockquote {
 }
 body {
   font-family: 'Hind Vadodara', sans-serif;
-  background-color: #2075A0;
+  background-color: #1565C0;
 }
 .breadcrumb {
-  background-color: #144A66;
+  background-color: #0D47A1;
   color: #ffffff;
 }
 .breadcrumb a {
-  color: #58A3C9;
+  color: #2196F3;
 }
 .btn.btn-secondary.active {
   background-color: #cfcfcf;
@@ -351,7 +351,7 @@ body {
 }
 .footer {
   padding: 10px;
-  background-color: #144A66;
+  background-color: #0D47A1;
   margin-bottom: 10px;
   border-radius: 10px;
 }
@@ -398,7 +398,7 @@ body {
   margin-left: 0px;
 }
 h1 {
-  color: #58A3C9;
+  color: #2196F3;
   font-weight: bold;
 }
 .image-panel-revision {
@@ -412,11 +412,11 @@ h1 {
   font-weight: bold;
 }
 .security-context {
-  color: #58A3C9;
+  color: #2196F3;
 }
 section.well {
   padding: 10px;
-  background-color: #1C688E;
+  background-color: #1565C0;
   margin-bottom: 10px;
   clear: both;
 }
@@ -446,7 +446,7 @@ section.well {
   position: absolute;
   width: 3px;
   height: 0;
-  background-color: #58A3C9;
+  background-color: #2196F3;
   bottom: 0;
 }
 #cssload-loader li:nth-child(1) {
