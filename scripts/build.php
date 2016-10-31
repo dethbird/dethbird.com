@@ -247,7 +247,7 @@
                     "-o",
                     $outputFile,
                     "-t",
-                    "[ babelify --presets [ es2015 react ] ]",
+                    "[ babelify --presets [ es2015 react stage-2 ] ]",
                     "--list"
                 ));
 
@@ -257,7 +257,7 @@
                         "-o",
                         $outputFile,
                         "-t",
-                        "[ babelify --presets [ es2015 react ] ]"
+                        "[ babelify --presets [ es2015 react stage-2 ] ]"
                     ));
                 } catch (Exception $e) {
                     print_r($e); die();

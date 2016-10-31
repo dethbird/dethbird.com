@@ -39229,9 +39229,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = _react2.default.createClass({
     displayName: 'App',
 
-    propTypes: {
-        children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.element, _react2.default.PropTypes.array]).isRequired
-    },
 
     render: function render() {
         return _react2.default.createElement(
@@ -41013,7 +41010,7 @@ module.exports.ProjectCharactersEdit = ProjectCharactersEdit;
 },{"../ui/alert":348,"../ui/card-block":349,"../ui/card-clickable":350,"../ui/description":356,"../ui/spinner":362,"./project-characters/project-characters-breadcrumb":306,"react":289,"react-router":132,"react-sortable-component":143}],305:[function(require,module,exports){
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = require('react');
 

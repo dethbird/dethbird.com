@@ -1,14 +1,26 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { CardBlock } from "../ui/card-block"
-import { SectionHeader } from "../ui/section-header"
-import { Spinner } from "../ui/spinner"
+import {
+    UI_STATE_REQUESTING,
+    UI_STATE_ERROR,
+    UI_STATE_SUCCESS,
+} from '../../constants/ui-state';
+
+import { Alert } from '../ui/alert'
+import { Card } from '../ui/card'
+import { CardBlock } from '../ui/card-block'
+import { SectionHeader } from '../ui/section-header'
+import { Spinner } from '../ui/spinner'
+import { loginAttempt } from  '../../actions/login'
 
 
 const Login = React.createClass({
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.ui_state==UI_STATE_SUCCESS)
+            document.location = '/projects';
+    },
     getInitialState() {
         return ({
             model: {},
@@ -30,38 +42,18 @@ const Login = React.createClass({
         })
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: 'POST',
-            url: '/api/login',
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this),
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    model: data
-                })
-                document.location = data.redirectTo
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+
+        const { dispatch } = this.props;
+        const { changedFields } = this.state;
+
+        dispatch(loginAttempt(
+            changedFields.username,
+            changedFields.password
+        ));
     },
     render() {
-        let that = this
+        let that = this;
         if (this.state){
             return (
                 <div>
@@ -72,32 +64,32 @@ const Login = React.createClass({
                     <form>
                         <h1>Sign In, Honcho</h1>
                         <SectionHeader>username:</SectionHeader>
-                        <div className="form-group">
+                        <div className='form-group'>
                             <input
-                                type="text"
-                                className="form-control"
-                                id="username"
-                                placeholder="Username"
-                                value={ this.state.model.username }
+                                type='text'
+                                className='form-control'
+                                id='username'
+                                placeholder='Username'
+                                value={ this.state.model.username || '' }
                                 onChange= { this.handleFieldChange }
                             />
                         </div>
 
                         <SectionHeader>password:</SectionHeader>
-                        <div className="form-group">
+                        <div className='form-group'>
                             <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                rows="3"
+                                type='password'
+                                className='form-control'
+                                id='password'
+                                rows='3'
                                 value={ this.state.model.password || '' }
                                 onChange= { this.handleFieldChange }
                             />
                         </div>
 
-                        <div className="form-group text-align-center">
+                        <div className='form-group text-align-center'>
                             <button
-                                className="btn btn-success"
+                                className='btn btn-success'
                                 onClick={ that.handleClickSubmit }
                                 disabled={ !that.state.changedFields }
                             >Login</button>
@@ -112,6 +104,12 @@ const Login = React.createClass({
             <Spinner />
         )
     }
-})
+});
 
-module.exports.Login = Login
+const mapStateToProps = (state) => {
+    return {
+        ui_state: state.login.ui_state
+    }
+}
+
+export default connect(mapStateToProps)(Login);
