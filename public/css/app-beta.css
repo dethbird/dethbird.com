@@ -296,12 +296,8 @@ body {
   font-family: 'Hind Vadodara', sans-serif;
   background-color: #1565C0;
 }
-.breadcrumb {
-  background-color: #0D47A1;
-  color: #ffffff;
-}
-.breadcrumb a {
-  color: #2196F3;
+button {
+  margin: 12px;
 }
 .btn.btn-secondary.active {
   background-color: #cfcfcf;
@@ -319,6 +315,12 @@ body {
 .card.clickable:hover .card-header,
 .card.clickable:hover .card-footer {
   background-color: #e4e4e4;
+}
+@media screen and (min-width: 992px) {
+  .col-lg-6 {
+    width: 48%;
+    margin: 5px;
+  }
 }
 .col-lg-6:nth-child(2n+1) {
   clear: both;
@@ -339,15 +341,13 @@ body {
 [class^=col-lg] {
   padding-left: 0;
   padding-right: 0;
+  display: inline-block;
 }
 .comment.resolved {
   opacity: 0.9;
   background-color: #eeeeee;
   color: #818a91;
   text-decoration: line-through;
-}
-.container {
-  position: relative;
 }
 .footer {
   padding: 10px;
@@ -402,7 +402,7 @@ h1 {
   font-weight: bold;
 }
 .image-panel-revision {
-  max-height: 640px;
+  max-width: 100%;
 }
 #mount {
   min-height: 250px;

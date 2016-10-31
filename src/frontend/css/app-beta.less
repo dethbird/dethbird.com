@@ -21,12 +21,8 @@ body {
   background-color: @darkerBlue;
 }
 
-.breadcrumb {
-    background-color: @darkestBlue;
-    color: @lighterBlue + 222;
-    a {
-        color: @lighterBlue;
-    }
+button {
+    margin: 12px;
 }
 
 .btn.btn-secondary.active {
@@ -48,7 +44,12 @@ body {
         }
     }
 }
-
+.col-lg-6 {
+    @media screen and (min-width: 992px) {
+        width: 48%;
+        margin: 5px;
+    }
+}
 .col-lg-6:nth-child(2n+1) {
     clear:both;
 }
@@ -70,6 +71,7 @@ body {
 [class^=col-lg] {
     padding-left: 0;
     padding-right: 0;
+    display: inline-block;
 }
 
 .comment.resolved {
@@ -77,10 +79,6 @@ body {
     background-color: @cardBackgroundColorHover;
     color: @muted;
     text-decoration: line-through;
-}
-
-.container {
-    position: relative;
 }
 
 .footer {
@@ -139,7 +137,8 @@ h1 {
 
 
 .image-panel-revision {
-    max-height: 640px;
+    max-width: 100%;
+    height: auto;
 }
 
 #mount {

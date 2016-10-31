@@ -24,7 +24,7 @@ const App = React.createClass({
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <AppBar title="StoryStation" />
-                    <Paper zDepth={1} className="container" style={ { textAlign: 'center', padding: '15px' } }>
+                    <Paper zDepth={1} className="container-fluid" style={ { textAlign: 'center', padding: '15px' } }>
                         {this.props.children}
                     </Paper>
                 </div>

@@ -3,7 +3,10 @@ import React from 'react'
 import { Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 
-import { Card } from "../../ui/card"
+import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
+
+
+// import { Card } from "../../ui/card"
 import { CardBlock } from "../../ui/card-block"
 import { Count } from "../../ui/count"
 import { Description } from "../../ui/description"

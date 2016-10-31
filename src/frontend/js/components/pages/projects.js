@@ -1,11 +1,18 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentSort from 'material-ui/svg-icons/content/sort'
 
 import { Project } from "./projects/project"
 import {
     ProjectsBreadcrumb
 } from './projects/projects-breadcrumb'
 import { Spinner } from "../ui/spinner"
+
+const buttonStyle = {
+    margin: '5px'
+};
 
 const Projects = React.createClass({
     componentDidMount() {
@@ -37,24 +44,26 @@ const Projects = React.createClass({
 
             return (
                 <div>
-                    <ProjectsBreadcrumb project={ this.state.project } />
+                    <ProjectsBreadcrumb />
 
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link btn btn-info"
-                                to={
-                                    '/projects/edit'
-                                }>Reorder</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link btn btn-success"
-                                to={
-                                    '/project/add'
-                                }>Add</Link>
-                        </li>
-                    </ul>
+                    <div className="text-align-right">
+                        <FloatingActionButton
+                            onTouchTap={() => browserHistory.push('/project/add')}
+                            title="Add"
+                            style={ buttonStyle }
+                        >
+                            <ContentAdd />
+                        </FloatingActionButton>
+
+                        <FloatingActionButton
+                            onTouchTap={() => browserHistory.push('/project/edit')}
+                            title="Reorder"
+                            style={ buttonStyle }
+                        >
+                            <ContentSort />
+                        </FloatingActionButton>
+                    </div>
+
                     <br />
 
                     <div className="projectsList">
