@@ -1,11 +1,9 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-
 import TextField from 'material-ui/TextField';
 import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-
 
 import {
     UI_STATE_REQUESTING,
@@ -13,34 +11,27 @@ import {
     UI_STATE_SUCCESS,
 } from '../../constants/ui-state';
 
-import { Alert } from '../ui/alert'
-import { SectionHeader } from '../ui/section-header'
-import { Spinner } from '../ui/spinner'
+import UiState from '../ui/ui-state'
+
 import { loginAttempt } from  '../../actions/login'
 
 
 const Login = React.createClass({
     componentWillReceiveProps(nextProps) {
         if (nextProps.ui_state==UI_STATE_SUCCESS)
-            document.location = '/projects';
+            window.location.href = '/projects';
     },
     getInitialState() {
         return ({
-            model: {},
-            formState: null,
-            formMessage: null,
             changedFields: {}
         });
     },
     handleFieldChange(event) {
-        let model = this.state.model;
         let changedFields = this.state.changedFields;
 
-        model[event.target.id] = event.target.value
         changedFields[event.target.id] = event.target.value
 
         this.setState({
-            model: model,
             changedFields: changedFields
         })
     },
@@ -56,42 +47,39 @@ const Login = React.createClass({
         ));
     },
     render() {
-        let that = this;
-        if (this.state){
-            return (
-                <div>
-                    <h1>Sign in, Honcho</h1>
-                    <TextField
-                        hintText="Username"
-                        floatingLabelText="Enter your username"
-                        floatingLabelFixed={ true }
-                        id='username'
-                        value={ this.state.model.username || '' }
-                        onChange= { this.handleFieldChange }
-                    />
-                    <br />
-                    <TextField
-                        hintText="Password"
-                        floatingLabelText="Enter your password"
-                        floatingLabelFixed={ true }
-                        id='password'
-                        type="password"
-                        value={ this.state.model.password || '' }
-                        onChange= { this.handleFieldChange }
-                    />
-                    <br />
-                    <RaisedButton
-                        primary={true}
-                        label="Login"
-                        onTouchTap={ that.handleClickSubmit }
-                        disabled={ !that.state.changedFields }
-                    />
-                </div>
-            );
-        }
+        const { ui_state } = this.props;
+
         return (
-            <Spinner />
-        )
+            <div>
+                <UiState state={ ui_state } />
+                <h1>Sign in, Honcho</h1>
+                <TextField
+                    hintText="Username"
+                    floatingLabelText="Enter your username"
+                    floatingLabelFixed={ true }
+                    id='username'
+                    value={ this.state.changedFields.username || '' }
+                    onChange= { this.handleFieldChange }
+                />
+                <br />
+                <TextField
+                    hintText="Password"
+                    floatingLabelText="Enter your password"
+                    floatingLabelFixed={ true }
+                    id='password'
+                    type="password"
+                    value={ this.state.changedFields.password || '' }
+                    onChange= { this.handleFieldChange }
+                />
+                <br />
+                <RaisedButton
+                    primary={true}
+                    label="Login"
+                    onTouchTap={ this.handleClickSubmit }
+                    disabled={ !this.state.changedFields }
+                />
+            </div>
+        );
     }
 });
 
