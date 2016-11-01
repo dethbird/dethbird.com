@@ -1,12 +1,16 @@
 import classNames from 'classnames';
 import React from 'react'
-import { Link } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 
-import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
+import ActionAssessment from 'material-ui/svg-icons/action/assessment';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {List, ListItem} from 'material-ui/List';
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ActionHome from 'material-ui/svg-icons/action/assessment';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-
-// import { Card } from "../../ui/card"
+import { buttonStyle } from '../../../constants/styles'
 import { CardBlock } from "../../ui/card-block"
 import { Count } from "../../ui/count"
 import { Description } from "../../ui/description"
@@ -23,77 +27,87 @@ const Project = React.createClass({
         let that = this
         let className = classNames([this.props.className, 'project'])
 
-        let storyboardNodes = this.props.project.storyboards.map(function(storyboard) {
-            return (
-                <Link
-                  className="dropdown-item"
-                  key={ storyboard.id }
-                  to={
-                    '/project/' + that.props.project.id
-                    + '/storyboard/' + storyboard.id
-                  }
-                >
-                  { storyboard.name }
-                </Link>
-            );
-        });
-
         return (
             <Card
                 className={ className }
                 key={ this.props.project.id }
             >
-                <h3 className="card-header">{ this.props.project.name }</h3>
-                <Link to={
-                    '/project/' + that.props.project.id
-                }
-                >
-                    <ImagePanelRevision { ...{ src: this.props.project.content }} />
-                </Link>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                        <Link
-                            className="dropdown-toggle"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                        <Count count={ that.props.project.storyboards.length } /> Storyboards
+                <CardHeader
+                    actAsExpander={true}
+                    showExpandableButton={true}
+                ><h5>{ this.props.project.name }</h5>
+                </CardHeader>
+                <CardText expandable={true}>
+                    <CardMedia>
+                        <Link to={
+                            '/project/' + that.props.project.id
+                        }
+                        >
+                            <ImagePanelRevision { ...{ src: this.props.project.content }} />
                         </Link>
-                        <div className="dropdown-menu">
-                            { storyboardNodes }
-                        </div>
-                    </li>
+                    </CardMedia>
 
-                    <li className="list-group-item"><Link to={
-                            '/project/' + that.props.project.id
-                            + '/characters'
-                        }
-                        ><Count count={ that.props.project.characters.length } /> Characters</Link></li>
-                    <li className="list-group-item"><Link to={
-                            '/project/' + that.props.project.id
-                            + '/concept_art'
-                        }
-                        ><Count count={ that.props.project.concept_art.length } /> Concept Art</Link></li>
-                    <li className="list-group-item"><Link to={
-                            '/project/' + that.props.project.id
-                            + '/reference_images'
-                        }
-                        ><Count count={ that.props.project.reference_images.length } /> Reference Images</Link></li>
-                    <li className="list-group-item"><Link to={
-                            '/project/' + that.props.project.id
-                            + '/locations'
-                        }
-                        ><Count count={ that.props.project.locations.length } /> Locations</Link></li>
-                </ul>
-                <CardBlock>
-                    <Link to={
-                            '/project/' + that.props.project.id
-                            + '/edit'
-                        }><TimeAgo
-                            date={ this.props.project.date_updated }
-                        />
-                    </Link>
-                </CardBlock>
+                    <List>
+                        <ListItem
+                            onTouchTap={
+                                () => { browserHistory.push('/project/' + this.props.project.id + '/storyboards')}
+                            }
+                        >
+                            <Count count={ that.props.project.storyboards.length } /> Storyboards
+                        </ListItem>
+                        <ListItem
+                            onTouchTap={
+                                () => { browserHistory.push('/project/' + this.props.project.id + '/characters')}
+                            }
+                        >
+                            <Count count={ that.props.project.characters.length } /> Characters
+                        </ListItem>
+                        <ListItem
+                            onTouchTap={
+                                () => { browserHistory.push('/project/' + this.props.project.id + '/concept_art')}
+                            }
+                        >
+                            <Count count={ that.props.project.concept_art.length } /> Concept Art
+                        </ListItem>
+                        <ListItem
+                            onTouchTap={
+                                () => { browserHistory.push('/project/' + this.props.project.id + '/reference_images')}
+                            }
+                        >
+                            <Count count={ that.props.project.concept_art.length } /> Reference Images
+                        </ListItem>
+                        <ListItem
+                            onTouchTap={
+                                () => { browserHistory.push('/project/' + this.props.project.id + '/locations')}
+                            }
+                        >
+                            <Count count={ that.props.project.concept_art.length } /> Locations
+                        </ListItem>
+                    </List>
+
+                </CardText>
+
+                <div className="text-align-left container">
+                    <FloatingActionButton
+                        onTouchTap={() => browserHistory.push('/project/' + this.props.project.id )}
+                        title="View"
+                        style={ buttonStyle }
+                        mini={ true }
+                        zDepth={ 1 }
+                    >
+                        <ActionAssessment />
+                    </FloatingActionButton>
+
+                    <FloatingActionButton
+                        onTouchTap={() => browserHistory.push('/project/' + this.props.project.id + '/edit')}
+                        title="Edit"
+                        style={ buttonStyle }
+                        mini={ true }
+                        zDepth={ 1 }
+                    >
+                        <EditorModeEdit />
+                    </FloatingActionButton>
+                </div>
             </Card>
         );
     }

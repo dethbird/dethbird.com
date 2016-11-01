@@ -299,6 +299,12 @@ body {
 button {
   margin: 12px;
 }
+[type=reset],
+[type=submit],
+button,
+html [type=button] {
+  -webkit-appearance: inherit !important;
+}
 .btn.btn-secondary.active {
   background-color: #cfcfcf;
 }
@@ -316,10 +322,19 @@ button {
 .card.clickable:hover .card-footer {
   background-color: #e4e4e4;
 }
+[class^=col-lg] {
+  padding-left: 0;
+  padding-right: 0;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+}
+.col-lg-6 {
+  margin: 5px;
+}
 @media screen and (min-width: 992px) {
   .col-lg-6 {
-    width: 48%;
-    margin: 5px;
+    width: 49.4%;
   }
 }
 .col-lg-6:nth-child(2n+1) {
@@ -337,11 +352,6 @@ button {
 .card img {
   max-width: 100%;
   height: auto;
-}
-[class^=col-lg] {
-  padding-left: 0;
-  padding-right: 0;
-  display: inline-block;
 }
 .comment.resolved {
   opacity: 0.9;
@@ -403,6 +413,7 @@ h1 {
 }
 .image-panel-revision {
   max-width: 100%;
+  height: auto;
 }
 #mount {
   min-height: 250px;

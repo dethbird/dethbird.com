@@ -44946,7 +44946,7 @@ var App = _react2.default.createClass({
                 _react2.default.createElement(_AppBar2.default, { title: 'StoryStation' }),
                 _react2.default.createElement(
                     _Paper2.default,
-                    { zDepth: 1, className: 'container', style: { textAlign: 'center', padding: '15px' } },
+                    { zDepth: 1, className: 'container-fluid', style: { textAlign: 'center', padding: '15px' } },
                     this.props.children
                 )
             )

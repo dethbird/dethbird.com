@@ -1,18 +1,16 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentSort from 'material-ui/svg-icons/content/sort'
 
+import { buttonStyle } from '../../constants/styles'
 import { Project } from "./projects/project"
 import {
     ProjectsBreadcrumb
 } from './projects/projects-breadcrumb'
 import { Spinner } from "../ui/spinner"
 
-const buttonStyle = {
-    margin: '5px'
-};
 
 const Projects = React.createClass({
     componentDidMount() {
