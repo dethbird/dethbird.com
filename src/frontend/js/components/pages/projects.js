@@ -1,5 +1,6 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
+import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentSort from 'material-ui/svg-icons/content/sort'
@@ -11,25 +12,29 @@ import {
 } from './projects/projects-breadcrumb'
 import { Spinner } from "../ui/spinner"
 
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_REQUESTING,
+    UI_STATE_ERROR,
+    UI_STATE_SUCCESS,
+} from '../../constants/ui-state';
+
+import UiState from '../ui/ui-state'
+
+import { getProjects } from  '../../actions/projects'
+
 
 const Projects = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/projects',
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({projects: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(getProjects());
     },
     render() {
-        let that = this
-        if (this.state) {
-            let projectNodes = this.state.projects.map(function(project) {
+
+        const { ui_state, projects } = this.props
+        
+        if (ui_state == UI_STATE_SUCCESS) {
+            let projectNodes =  projects.map(function(project) {
                 return (
                     <Project
                         className="col-lg-6"
@@ -42,6 +47,7 @@ const Projects = React.createClass({
 
             return (
                 <div>
+
                     <ProjectsBreadcrumb />
 
                     <div className="text-align-right">
@@ -71,9 +77,17 @@ const Projects = React.createClass({
             )
         }
         return (
-            <Spinner />
-        )
+            <UiState state={ ui_state } />
+        );
     }
 })
 
-module.exports.Projects = Projects
+const mapStateToProps = (state) => {
+    const { ui_state, projects } = state.projects;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        projects: projects
+    }
+}
+
+export default connect(mapStateToProps)(Projects);

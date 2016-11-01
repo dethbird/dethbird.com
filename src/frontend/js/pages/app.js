@@ -23,7 +23,7 @@ import { ProjectReferenceImages } from '../components/pages/project-reference_im
 import { ProjectReferenceImagesEdit } from '../components/pages/project-reference_images-edit'
 import { ProjectStoryboards } from '../components/pages/project-storyboards'
 import { ProjectStoryboardsEdit } from '../components/pages/project-storyboards-edit'
-import { Projects } from '../components/pages/projects'
+import Projects from '../components/pages/projects'
 import { ProjectsEdit } from '../components/pages/projects-edit'
 import { ReferenceImageEdit } from '../components/pages/reference_image-edit'
 import { Script } from '../components/pages/script'

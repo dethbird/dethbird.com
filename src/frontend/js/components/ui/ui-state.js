@@ -1,8 +1,10 @@
 import React from 'react'
 import LinearProgress from 'material-ui/LinearProgress'
 import Snackbar from 'material-ui/Snackbar'
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { pink500, lightGreen500 } from 'material-ui/styles/colors';
 import {
+    UI_STATE_INITIALIZING,
     UI_STATE_REQUESTING,
     UI_STATE_ERROR,
     UI_STATE_SUCCESS,
@@ -35,6 +37,14 @@ const UiState = React.createClass({
             return null;
 
         switch (state) {
+            case UI_STATE_INITIALIZING:
+                return (
+                    <RefreshIndicator
+                      size={40}
+                      top={0}
+                      status="loading"
+                    />
+                )
             case UI_STATE_REQUESTING:
                 return (
                     <LinearProgress mode="indeterminate" />

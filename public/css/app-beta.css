@@ -334,7 +334,7 @@ html [type=button] {
 }
 @media screen and (min-width: 992px) {
   .col-lg-6 {
-    width: 49.4%;
+    width: 48.6%;
   }
 }
 .col-lg-6:nth-child(2n+1) {
