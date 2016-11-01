@@ -59452,29 +59452,23 @@ var Project = _react2.default.createClass({
     },
 
     render: function render() {
-        var _this = this;
-
         var that = this;
+        var project = this.props.project;
+
         var className = (0, _classnames2.default)([this.props.className, 'project']);
 
         return _react2.default.createElement(
             _Card.Card,
             {
                 className: className,
-                key: this.props.project.id
+                key: project.id
             },
-            _react2.default.createElement(
-                _Card.CardHeader,
-                {
-                    actAsExpander: true,
-                    showExpandableButton: true
-                },
-                _react2.default.createElement(
-                    'h5',
-                    null,
-                    this.props.project.name
-                )
-            ),
+            _react2.default.createElement(_Card.CardHeader, {
+                avatar: project.content,
+                actAsExpander: true,
+                showExpandableButton: true,
+                title: project.name
+            }),
             _react2.default.createElement(
                 _Card.CardText,
                 { expandable: true },
@@ -59483,9 +59477,9 @@ var Project = _react2.default.createClass({
                     null,
                     _react2.default.createElement(
                         _reactRouter.Link,
-                        { to: '/project/' + that.props.project.id
+                        { to: '/project/' + project.id
                         },
-                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content })
+                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: project.content })
                     )
                 ),
                 _react2.default.createElement(
@@ -59495,7 +59489,7 @@ var Project = _react2.default.createClass({
                         _List.ListItem,
                         {
                             onTouchTap: function onTouchTap() {
-                                _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/storyboards');
+                                _reactRouter.browserHistory.push('/project/' + project.id + '/storyboards');
                             }
                         },
                         _react2.default.createElement(_count.Count, { count: that.props.project.storyboards.length }),
@@ -59505,7 +59499,7 @@ var Project = _react2.default.createClass({
                         _List.ListItem,
                         {
                             onTouchTap: function onTouchTap() {
-                                _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/characters');
+                                _reactRouter.browserHistory.push('/project/' + project.id + '/characters');
                             }
                         },
                         _react2.default.createElement(_count.Count, { count: that.props.project.characters.length }),
@@ -59515,7 +59509,7 @@ var Project = _react2.default.createClass({
                         _List.ListItem,
                         {
                             onTouchTap: function onTouchTap() {
-                                _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/concept_art');
+                                _reactRouter.browserHistory.push('/project/' + project.id + '/concept_art');
                             }
                         },
                         _react2.default.createElement(_count.Count, { count: that.props.project.concept_art.length }),
@@ -59525,7 +59519,7 @@ var Project = _react2.default.createClass({
                         _List.ListItem,
                         {
                             onTouchTap: function onTouchTap() {
-                                _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/reference_images');
+                                _reactRouter.browserHistory.push('/project/' + project.id + '/reference_images');
                             }
                         },
                         _react2.default.createElement(_count.Count, { count: that.props.project.concept_art.length }),
@@ -59535,7 +59529,7 @@ var Project = _react2.default.createClass({
                         _List.ListItem,
                         {
                             onTouchTap: function onTouchTap() {
-                                _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/locations');
+                                _reactRouter.browserHistory.push('/project/' + project.id + '/locations');
                             }
                         },
                         _react2.default.createElement(_count.Count, { count: that.props.project.concept_art.length }),
@@ -59544,13 +59538,13 @@ var Project = _react2.default.createClass({
                 )
             ),
             _react2.default.createElement(
-                'div',
-                { className: 'text-align-left container' },
+                _Card.CardActions,
+                null,
                 _react2.default.createElement(
                     _FloatingActionButton2.default,
                     {
                         onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + _this.props.project.id);
+                            return _reactRouter.browserHistory.push('/project/' + project.id);
                         },
                         title: 'View',
                         style: _styles.buttonStyle,
@@ -59563,7 +59557,7 @@ var Project = _react2.default.createClass({
                     _FloatingActionButton2.default,
                     {
                         onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + _this.props.project.id + '/edit');
+                            return _reactRouter.browserHistory.push('/project/' + project.id + '/edit');
                         },
                         title: 'Edit',
                         style: _styles.buttonStyle,

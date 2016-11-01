@@ -25,60 +25,62 @@ const Project = React.createClass({
 
     render: function() {
         let that = this
+        const { project } = this.props
         let className = classNames([this.props.className, 'project'])
 
         return (
             <Card
                 className={ className }
-                key={ this.props.project.id }
+                key={ project.id }
             >
                 <CardHeader
+                    avatar={ project.content }
                     actAsExpander={true}
                     showExpandableButton={true}
-                ><h5>{ this.props.project.name }</h5>
-                </CardHeader>
+                    title={ project.name }
+                />
                 <CardText expandable={true}>
                     <CardMedia>
                         <Link to={
-                            '/project/' + that.props.project.id
+                            '/project/' + project.id
                         }
                         >
-                            <ImagePanelRevision { ...{ src: this.props.project.content }} />
+                            <ImagePanelRevision { ...{ src: project.content }} />
                         </Link>
                     </CardMedia>
 
                     <List>
                         <ListItem
                             onTouchTap={
-                                () => { browserHistory.push('/project/' + this.props.project.id + '/storyboards')}
+                                () => { browserHistory.push('/project/' + project.id + '/storyboards')}
                             }
                         >
                             <Count count={ that.props.project.storyboards.length } /> Storyboards
                         </ListItem>
                         <ListItem
                             onTouchTap={
-                                () => { browserHistory.push('/project/' + this.props.project.id + '/characters')}
+                                () => { browserHistory.push('/project/' + project.id + '/characters')}
                             }
                         >
                             <Count count={ that.props.project.characters.length } /> Characters
                         </ListItem>
                         <ListItem
                             onTouchTap={
-                                () => { browserHistory.push('/project/' + this.props.project.id + '/concept_art')}
+                                () => { browserHistory.push('/project/' + project.id + '/concept_art')}
                             }
                         >
                             <Count count={ that.props.project.concept_art.length } /> Concept Art
                         </ListItem>
                         <ListItem
                             onTouchTap={
-                                () => { browserHistory.push('/project/' + this.props.project.id + '/reference_images')}
+                                () => { browserHistory.push('/project/' + project.id + '/reference_images')}
                             }
                         >
                             <Count count={ that.props.project.concept_art.length } /> Reference Images
                         </ListItem>
                         <ListItem
                             onTouchTap={
-                                () => { browserHistory.push('/project/' + this.props.project.id + '/locations')}
+                                () => { browserHistory.push('/project/' + project.id + '/locations')}
                             }
                         >
                             <Count count={ that.props.project.concept_art.length } /> Locations
@@ -87,9 +89,9 @@ const Project = React.createClass({
 
                 </CardText>
 
-                <div className="text-align-left container">
+                <CardActions>
                     <FloatingActionButton
-                        onTouchTap={() => browserHistory.push('/project/' + this.props.project.id )}
+                        onTouchTap={() => browserHistory.push('/project/' + project.id )}
                         title="View"
                         style={ buttonStyle }
                         mini={ true }
@@ -99,7 +101,7 @@ const Project = React.createClass({
                     </FloatingActionButton>
 
                     <FloatingActionButton
-                        onTouchTap={() => browserHistory.push('/project/' + this.props.project.id + '/edit')}
+                        onTouchTap={() => browserHistory.push('/project/' + project.id + '/edit')}
                         title="Edit"
                         style={ buttonStyle }
                         mini={ true }
@@ -107,7 +109,7 @@ const Project = React.createClass({
                     >
                         <EditorModeEdit />
                     </FloatingActionButton>
-                </div>
+                </CardActions>
             </Card>
         );
     }
