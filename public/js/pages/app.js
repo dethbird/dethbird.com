@@ -63368,7 +63368,8 @@ var Project = _react2.default.createClass({
                 avatar: project.content,
                 actAsExpander: true,
                 showExpandableButton: true,
-                title: project.name
+                title: project.name,
+                titleStyle: { fontSize: '18px' }
             }),
             _react2.default.createElement(
                 _Card.CardText,
@@ -67056,7 +67057,7 @@ var UiState = _react2.default.createClass({
 
 
         if (!shouldRender) return null;
-        console.log(state);
+
         switch (state) {
             case _uiState.UI_STATE_INITIALIZING:
                 return _react2.default.createElement(_RefreshIndicator2.default, {

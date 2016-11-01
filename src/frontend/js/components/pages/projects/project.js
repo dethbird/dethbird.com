@@ -38,6 +38,7 @@ const Project = React.createClass({
                     actAsExpander={true}
                     showExpandableButton={true}
                     title={ project.name }
+                    titleStyle={ {fontSize: '18px'} }
                 />
                 <CardText expandable={true}>
                     <CardMedia>
