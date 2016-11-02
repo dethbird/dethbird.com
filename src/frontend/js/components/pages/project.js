@@ -1,6 +1,11 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
+import { connect } from 'react-redux'
 
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+
+import { buttonStyle } from '../../constants/styles'
 import { ProjectBreadcrumb } from "./project/project-breadcrumb"
 import { ProjectCharacters } from "./project/project-characters"
 import { ProjectConceptArts } from "./project/project-concept_arts"
@@ -9,42 +14,42 @@ import { ProjectLocations } from "./project/project-locations"
 import { ProjectReferenceImages } from "./project/project-reference_images"
 import { ProjectStoryboards } from "./project/project-storyboards"
 import { SectionHeader } from "../ui/section-header"
-import { Spinner } from "../ui/spinner"
+
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import UiState from '../ui/ui-state'
+
+import { getProject } from  '../../actions/project'
 
 
 const Project = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({project: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId } = this.props.params;
+
+        dispatch(getProject(projectId));
     },
     render() {
-        let that = this;
-        if(this.state) {
-            let project = this.state.project;
+        const { ui_state, project } = this.props;
+        const { projectId } = this.props.params;
+
+        if (ui_state == UI_STATE_COMPLETE) {
             return (
                 <div className="projectPage">
                     <ProjectBreadcrumb project={ project } />
 
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link btn btn-info"
-                                to={
-                                    '/project/' + that.props.params.projectId
-                                    + '/edit'
-                                }>Edit</Link>
-                        </li>
-                    </ul>
-                    <br />
+                    <div className="text-align-right">
+                        <FloatingActionButton
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/edit')}
+                            title="Edit"
+                            style={ buttonStyle }
+                        >
+                            <EditorModeEdit />
+                        </FloatingActionButton>
+                    </div>
 
                     <ProjectDetails project={ project } />
                     <ProjectCharacters project={ project } />
@@ -56,9 +61,17 @@ const Project = React.createClass({
             )
         }
         return (
-            <Spinner />
-        )
+            <UiState state={ ui_state } />
+        );
     }
 })
 
-module.exports.Project = Project
+const mapStateToProps = (state) => {
+    const { ui_state, project } = state.project;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        project: project
+    }
+}
+
+export default connect(mapStateToProps)(Project);

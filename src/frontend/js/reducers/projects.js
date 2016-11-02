@@ -6,7 +6,7 @@ import {
 import {
     UI_STATE_REQUESTING,
     UI_STATE_ERROR,
-    UI_STATE_SUCCESS,
+    UI_STATE_COMPLETE,
 } from '../constants/ui-state';
 
 
@@ -23,7 +23,7 @@ const projects = (state = {}, action) => {
             }
         case GET_PROJECTS_SUCCESS:
             return {
-                ui_state: UI_STATE_SUCCESS,
+                ui_state: UI_STATE_COMPLETE,
                 projects: action.projects
             }
         default:

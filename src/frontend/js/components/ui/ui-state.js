@@ -8,6 +8,7 @@ import {
     UI_STATE_REQUESTING,
     UI_STATE_ERROR,
     UI_STATE_SUCCESS,
+    UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
 
 const UiState = React.createClass({
@@ -67,6 +68,7 @@ const UiState = React.createClass({
                         contentStyle={ { color: lightGreen500 }}
                     />
                 )
+            case UI_STATE_COMPLETE:
             default:
                 return null;
         }

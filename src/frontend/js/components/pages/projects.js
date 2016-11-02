@@ -14,9 +14,7 @@ import { Spinner } from "../ui/spinner"
 
 import {
     UI_STATE_INITIALIZING,
-    UI_STATE_REQUESTING,
-    UI_STATE_ERROR,
-    UI_STATE_SUCCESS,
+    UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
 
 import UiState from '../ui/ui-state'
@@ -32,8 +30,8 @@ const Projects = React.createClass({
     render() {
 
         const { ui_state, projects } = this.props
-        
-        if (ui_state == UI_STATE_SUCCESS) {
+
+        if (ui_state == UI_STATE_COMPLETE) {
             let projectNodes =  projects.map(function(project) {
                 return (
                     <Project

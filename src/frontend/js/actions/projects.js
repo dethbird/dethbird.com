@@ -20,7 +20,7 @@ const getProjectsSuccess = (projects) => {
 
 const getProjectsError = () => {
     return {
-        type: GET_PROJECTS_SUCCESS
+        type: GET_PROJECTS_ERROR
     }
 }
 

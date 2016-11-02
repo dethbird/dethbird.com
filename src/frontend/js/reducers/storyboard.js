@@ -1,7 +1,7 @@
 import {
-    GET_PROJECT_REQUEST,
-    GET_PROJECT_ERROR,
-    GET_PROJECT_SUCCESS,
+    GET_STORYBOARD_REQUEST,
+    GET_STORYBOARD_ERROR,
+    GET_STORYBOARD_SUCCESS,
 } from '../constants/actions';
 import {
     UI_STATE_REQUESTING,
@@ -10,25 +10,25 @@ import {
 } from '../constants/ui-state';
 
 
-const project = (state = {}, action) => {
-
+const storyboard = (state = {}, action) => {
     switch (action.type) {
-        case GET_PROJECT_REQUEST:
+        case GET_STORYBOARD_REQUEST:
             return {
                 ui_state: UI_STATE_REQUESTING
             }
-        case GET_PROJECT_ERROR:
+        case GET_STORYBOARD_ERROR:
             return {
                 ui_state: UI_STATE_ERROR
             }
-        case GET_PROJECT_SUCCESS:
+        case GET_STORYBOARD_SUCCESS:
             return {
                 ui_state: UI_STATE_COMPLETE,
-                project: action.project
+                project: action.project,
+                storyboard: action.storyboard
             }
         default:
             return {};
     }
 }
 
-export default project;
+export default storyboard;

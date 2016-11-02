@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
+import { connect } from 'react-redux'
 
 import { Card } from "../ui/card"
 import { CardClickable } from "../ui/card-clickable"
@@ -16,45 +17,31 @@ import { SectionHeader } from "../ui/section-header"
 import {
     StoryboardBreadcrumb
 } from "./storyboard/storyboard-breadcrumb"
-import { Spinner } from "../ui/spinner"
+
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import UiState from '../ui/ui-state'
+
+import { getStoryboard } from  '../../actions/storyboard'
 
 
 const Storyboard = React.createClass({
-    componentDidMount() {
-        var that = this
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                let storyboard = _.findWhere(data.storyboards, {
-                    'id': parseInt(this.props.params.storyboardId)
-                });
-
-                this.setState({
-                    project: data,
-                    storyboard
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    },
-    handleClickPanel(panel_id) {
-        browserHistory.push(
-            '/project/' + this.state.project.id
-            + '/storyboard/' + this.state.storyboard.id
-            + '/panel/' + panel_id
-        )
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, storyboardId } = this.props.params;
+        dispatch(getStoryboard(projectId, storyboardId));
     },
     render() {
 
-        if (this.state) {
-            const { storyboard } = this.state
+        const { ui_state, project, storyboard } = this.props;
+        const { projectId, storyboardId } = this.props.params;
 
-            var that = this;
-            var storyboardPanelNodes = this.state.storyboard.panels.map(function(panel, i) {
+        if (ui_state == UI_STATE_COMPLETE) {
+
+            var storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
 
                 let props = {};
                 if (panel.revisions.length > 0)
@@ -66,7 +53,9 @@ const Storyboard = React.createClass({
                     >
                         <Card>
                             <h4 className="card-header">Panel { i + 1 }</h4>
-                            <div onClick={ that.handleClickPanel.bind(that, panel.id) }>
+                            <div onClick={ () => browserHistory.push(
+                                    '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
+                            >
                                 <ImagePanelRevision { ...props }></ImagePanelRevision>
                             </div>
                             <ul className="list-group list-group-flush">
@@ -82,8 +71,8 @@ const Storyboard = React.createClass({
                             </ul>
                             <CardBlock>
                                 <Link to={
-                                        '/project/' + that.props.params.projectId
-                                        + '/storyboard/' + that.props.params.storyboardId
+                                        '/project/' + projectId
+                                        + '/storyboard/' + storyboardId
                                         + '/panel/' + panel.id
                                     }><TimeAgo
                                         date={ panel.date_updated }
@@ -102,8 +91,8 @@ const Storyboard = React.createClass({
             return (
                 <div>
                     <StoryboardBreadcrumb
-                        project={ this.state.project }
-                        storyboard={ this.state.storyboard }
+                        project={ project }
+                        storyboard={ storyboard }
                     >
                     </StoryboardBreadcrumb>
 
@@ -111,8 +100,8 @@ const Storyboard = React.createClass({
                         <li className="nav-item">
                             <Link
                                 to={
-                                    '/project/' + this.props.params.projectId
-                                    + '/storyboard/' + this.props.params.storyboardId
+                                    '/project/' + projectId
+                                    + '/storyboard/' + storyboardId
                                     + '/edit'
                                 }
                                 className="btn btn-info"
@@ -123,15 +112,15 @@ const Storyboard = React.createClass({
 
                     <div className="StoryboardDetailsContainer">
                         <Card>
-                            <h3 className="card-header">{ this.state.storyboard.name }</h3>
+                            <h3 className="card-header">{ storyboard.name }</h3>
                             <CardBlock>
-                                <Description source ={ this.state.storyboard.description } />
+                                <Description source ={ storyboard.description } />
                             </CardBlock>
                         </Card>
                     </div>
 
                     {(() => {
-                        if (this.state.storyboard.script) {
+                        if (storyboard.script) {
                             return (
                                 <SectionHeader>Script</SectionHeader>
                             )
@@ -139,12 +128,12 @@ const Storyboard = React.createClass({
                     })()}
 
                     {(() => {
-                        if (this.state.storyboard.script) {
+                        if (storyboard.script) {
                             return (
                                 <div className="StoryboardPanelsContainer">
                                     <Card>
                                         <CardBlock>
-                                            <Fountain source={ this.state.storyboard.script } />
+                                            <Fountain source={ storyboard.script } />
                                         </CardBlock>
                                     </Card>
                                 </div>
@@ -154,15 +143,15 @@ const Storyboard = React.createClass({
 
                     <section className="clearfix well">
                         <div className="pull-left">
-                            <SectionHeader><Count count={ this.state.storyboard.panels.length } /> Panels</SectionHeader>
+                            <SectionHeader><Count count={ storyboard.panels.length } /> Panels</SectionHeader>
                         </div>
                         <ul className="pull-right nav nav-pills">
                             <li className="nav-item">
                                 <Link
                                     className="btn btn-success"
                                     to={
-                                        '/project/' + that.props.params.projectId
-                                        + '/storyboard/' + that.props.params.storyboardId
+                                        '/project/' + projectId
+                                        + '/storyboard/' + storyboardId
                                         + '/panel/add'
                                     }
                                 >Add</Link>
@@ -179,9 +168,18 @@ const Storyboard = React.createClass({
 
         }
         return (
-            <Spinner />
-        )
+            <UiState state={ ui_state } />
+        );
     }
 })
 
-module.exports.Storyboard = Storyboard
+const mapStateToProps = (state) => {
+    const { ui_state, project, storyboard } = state.storyboard;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        project,
+        storyboard
+    }
+}
+
+export default connect(mapStateToProps)(Storyboard);
