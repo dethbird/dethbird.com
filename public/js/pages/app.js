@@ -66240,7 +66240,7 @@ var Storyboard = _react2.default.createClass({
                                 onTouchTap: function onTouchTap() {
                                     return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add');
                                 },
-                                title: 'Edit',
+                                title: 'Add',
                                 style: _styles.buttonStyle,
                                 secondary: true
                             },
@@ -67139,31 +67139,16 @@ var UiState = _react2.default.createClass({
     displayName: 'UiState',
 
 
-    getInitialState: function getInitialState() {
-        return {
-            shouldRender: false
-        };
-    },
-
     propTypes: {
         uiState: _react2.default.PropTypes.string,
         message: _react2.default.PropTypes.string
-    },
-
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        this.setState({
-            shouldRender: nextProps.state !== this.props.state
-        });
     },
 
     render: function render() {
         var _props = this.props,
             state = _props.state,
             message = _props.message;
-        var shouldRender = this.state.shouldRender;
 
-
-        if (!shouldRender) return null;
 
         switch (state) {
             case _uiState.UI_STATE_INITIALIZING:

@@ -13,29 +13,13 @@ import {
 
 const UiState = React.createClass({
 
-    getInitialState: function() {
-        return {
-            shouldRender: false
-        }
-    },
-
     propTypes: {
         uiState: React.PropTypes.string,
         message: React.PropTypes.string
     },
 
-    componentWillReceiveProps: function(nextProps) {
-        this.setState({
-            shouldRender: nextProps.state !== this.props.state
-        });
-    },
-
     render: function() {
         const { state, message } = this.props;
-        const { shouldRender } = this.state;
-
-        if(!shouldRender)
-            return null;
 
         switch (state) {
             case UI_STATE_INITIALIZING:
