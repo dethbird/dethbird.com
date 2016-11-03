@@ -3,11 +3,11 @@ import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 
-import ActionAssessment from 'material-ui/svg-icons/action/assessment';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
-import FloatingActionButton from 'material-ui/FloatingActionButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionHome from 'material-ui/svg-icons/action/assessment';
+import ActionAssessment from 'material-ui/svg-icons/action/assessment';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { buttonStyle } from '../../../constants/styles'

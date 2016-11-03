@@ -5,14 +5,22 @@ import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux'
 
-import { Card } from "../ui/card"
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ActionHome from 'material-ui/svg-icons/action/assessment';
+import ActionAssessment from 'material-ui/svg-icons/action/assessment';
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+import {List, ListItem} from 'material-ui/List';
+
+import { buttonStyle, cardHeaderStyle } from '../../constants/styles'
 import { CardClickable } from "../ui/card-clickable"
 import { CardBlock } from "../ui/card-block"
 import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"
 import { ImagePanelRevision } from "../ui/image-panel-revision"
-import { PanelModal } from "./storyboard/panel-modal"
 import { SectionHeader } from "../ui/section-header"
 import {
     StoryboardBreadcrumb
@@ -47,44 +55,53 @@ const Storyboard = React.createClass({
                 if (panel.revisions.length > 0)
                     props.src = panel.revisions[0].content
                 return (
-                    <div
+                    <Card
                         key={ panel.id }
                         className="col-lg-4"
                     >
-                        <Card>
-                            <h4 className="card-header">Panel { i + 1 }</h4>
-                            <div onClick={ () => browserHistory.push(
-                                    '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
-                            >
-                                <ImagePanelRevision { ...props }></ImagePanelRevision>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">
-                                    <Fountain source={ panel.script} />
-                                </li>
-                                <li className="list-group-item">
+                        <CardTitle
+                            title={ `Panel ${ i + 1 }` }
+                            titleStyle={ cardHeaderStyle }
+                        />
+                        <div onClick={ () => browserHistory.push(
+                            '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
+                        >
+                            <ImagePanelRevision { ...props }></ImagePanelRevision>
+                        </div>
+                        <CardMedia>
+                            <Fountain source={ panel.script} />
+                            <List>
+                                <ListItem>
                                     <Count count={ panel.revisions.length } /> Revisions
-                                </li>
-                                <li className="list-group-item">
+                                </ListItem>
+                                <ListItem>
                                     <Count count={ panel.comments.length } /> Comments
-                                </li>
-                            </ul>
-                            <CardBlock>
-                                <Link to={
-                                        '/project/' + projectId
-                                        + '/storyboard/' + storyboardId
-                                        + '/panel/' + panel.id
-                                    }><TimeAgo
-                                        date={ panel.date_updated }
-                                    />
-                                </Link>
+                                </ListItem>
+                            </List>
+                        </CardMedia>
 
-                                <div className="pull-right">
-                                    <span className="tag tag-default">{ i + 1 }</span>
-                                </div>
-                            </CardBlock>
-                        </Card>
-                    </div>
+                        <CardActions className="pull-right">
+                            <FloatingActionButton
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id )}
+                                title="View"
+                                style={ buttonStyle }
+                                mini={ true }
+                                zDepth={ 1 }
+                            >
+                                <ActionAssessment />
+                            </FloatingActionButton>
+
+                            <FloatingActionButton
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit')}
+                                title="Edit"
+                                style={ buttonStyle }
+                                mini={ true }
+                                zDepth={ 1 }
+                            >
+                                <EditorModeEdit />
+                            </FloatingActionButton>
+                        </CardActions>
+                    </Card>
                 );
             });
 
@@ -96,69 +113,42 @@ const Storyboard = React.createClass({
                     >
                     </StoryboardBreadcrumb>
 
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                to={
-                                    '/project/' + projectId
-                                    + '/storyboard/' + storyboardId
-                                    + '/edit'
-                                }
-                                className="btn btn-info"
-                            >Edit</Link>
-                        </li>
-                    </ul>
-                    <br />
-
-                    <div className="StoryboardDetailsContainer">
-                        <Card>
-                            <h3 className="card-header">{ storyboard.name }</h3>
-                            <CardBlock>
-                                <Description source ={ storyboard.description } />
-                            </CardBlock>
-                        </Card>
-                    </div>
-
-                    {(() => {
-                        if (storyboard.script) {
-                            return (
-                                <SectionHeader>Script</SectionHeader>
-                            )
-                        }
-                    })()}
-
-                    {(() => {
-                        if (storyboard.script) {
-                            return (
-                                <div className="StoryboardPanelsContainer">
-                                    <Card>
-                                        <CardBlock>
-                                            <Fountain source={ storyboard.script } />
-                                        </CardBlock>
-                                    </Card>
-                                </div>
-                            )
-                        }
-                    })()}
-
-                    <section className="clearfix well">
+                    <CardActions className="clearfix">
                         <div className="pull-left">
-                            <SectionHeader><Count count={ storyboard.panels.length } /> Panels</SectionHeader>
+                            <h1>{ storyboard.name }</h1>
+                            <Description source ={ storyboard.description } />
+                            <Fountain source={ storyboard.script } />
                         </div>
-                        <ul className="pull-right nav nav-pills">
-                            <li className="nav-item">
-                                <Link
-                                    className="btn btn-success"
-                                    to={
-                                        '/project/' + projectId
-                                        + '/storyboard/' + storyboardId
-                                        + '/panel/add'
-                                    }
-                                >Add</Link>
-                            </li>
-                        </ul>
-                        <br className="clearfix" />
-                    </section>
+                        <div className="pull-right">
+                            <FloatingActionButton
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
+                                title="Edit"
+                                style={ buttonStyle }
+                            >
+                                <EditorModeEdit />
+                            </FloatingActionButton>
+                        </div>
+                    </CardActions>
+
+                    <div className="clearfix" />
+
+                    <CardActions className="clearfix">
+                        <div className="pull-left">
+                            <h3><Count count={ storyboard.panels.length } /> Panels</h3>
+                        </div>
+                        <div className="pull-right">
+                            <FloatingActionButton
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
+                                title="Add"
+                                style={ buttonStyle }
+                                secondary={ true }
+                            >
+                                <ContentAdd />
+                            </FloatingActionButton>
+                        </div>
+                    </CardActions>
+
+                    <div className="clearfix" />
 
                     <div className="StoryboardPanelsContainer">
                         { storyboardPanelNodes }

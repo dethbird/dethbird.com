@@ -14,21 +14,21 @@ const Fountain = React.createClass({
         let className = classNames([this.props.className, 'fountain'])
 
         let script = { __html: '<div></div>' }
-        
+
         if (this.props.source) {
             script = {
                 __html: fountainJs.parse(
                     this.props.source).script_html
             }
+            return (
+                <div
+                    className={ className }
+                    dangerouslySetInnerHTML={ script }
+                >
+                </div>
+            );
         }
-
-        return (
-            <div
-                className={ className }
-                dangerouslySetInnerHTML={ script }
-            >
-            </div>
-        );
+        return null;
     }
 })
 

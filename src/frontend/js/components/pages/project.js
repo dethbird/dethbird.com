@@ -2,7 +2,7 @@ import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 
-import FloatingActionButton from 'material-ui/FloatingActionButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { buttonStyle } from '../../constants/styles'
