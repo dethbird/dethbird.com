@@ -2,6 +2,8 @@ import React from 'react'
 
 import classNames from 'classnames';
 
+import { Card } from "../ui/card"
+
 const CardClickable = React.createClass({
     propTypes: {
         children: React.PropTypes.oneOfType([
@@ -14,15 +16,17 @@ const CardClickable = React.createClass({
 
     render: function() {
 
-        let className = classNames([this.props.className, 'card', 'clickable'])
+        const { children, onClick, className } = this.props;
 
         return (
-            <div
-                className={ className }
-                onClick={ this.props.onClick }
-            >
-                { this.props.children }
-            </div>
+            <Card className={ className }>
+                <div
+                    className="clickable"
+                    onClick={ onClick }
+                >
+                    { children }
+                </div>
+            </Card>
         );
     }
 })

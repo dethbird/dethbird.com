@@ -1,22 +1,21 @@
 import classNames from 'classnames';
 import React from 'react'
 
+import { Card as MaterialCard } from 'material-ui/Card';
+
 const Card = React.createClass({
 
     propTypes: {
-        children: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.array
-        ]).isRequired,
         className: React.PropTypes.string
     },
 
     render: function() {
-        let className = classNames([this.props.className, 'card'])
+        const { children } = this.props;
+
         return (
-            <div className={ className }>
+            <MaterialCard className={ classNames([this.props.className, 'card']) }>
                 { this.props.children }
-            </div>
+            </MaterialCard>
         );
     }
 })

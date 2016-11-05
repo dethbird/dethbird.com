@@ -312,16 +312,6 @@ html [type=button] {
 .btn-danger {
   color: #fff !important;
 }
-.card.clickable {
-  cursor: pointer;
-}
-.card.clickable:hover {
-  background-color: #eeeeee;
-}
-.card.clickable:hover .card-header,
-.card.clickable:hover .card-footer {
-  background-color: #e4e4e4;
-}
 [class^=col-lg] {
   padding-left: 0;
   padding-right: 0;
@@ -331,6 +321,14 @@ html [type=button] {
 @media screen and (max-width: 992px) {
   [class^=col-lg] {
     width: 100%;
+  }
+}
+.col-lg-3 {
+  margin: 5px;
+}
+@media screen and (min-width: 992px) {
+  .col-lg-3 {
+    width: 24%;
   }
 }
 @media screen and (max-width: 991px) {
@@ -368,11 +366,17 @@ html [type=button] {
   max-width: 100%;
   height: auto;
 }
-.comment.resolved {
-  opacity: 0.9;
-  background-color: #eeeeee;
+.comment {
+  text-align: left;
+}
+.comment-comment.resolved {
+  opacity: 0.8;
   color: #818a91;
   text-decoration: line-through;
+}
+.comment-user {
+  font-weight: bold;
+  margin-right: 5px;
 }
 .footer {
   padding: 10px;
@@ -422,6 +426,12 @@ html [type=button] {
 .fountain .dialogue p {
   margin-left: 0px;
 }
+.header-page {
+  text-align: left;
+}
+.header-page-title {
+  font-size: 2.6rem;
+}
 h1 {
   color: #2196F3;
   font-weight: bold;
@@ -432,6 +442,12 @@ h1 {
 }
 #mount {
   min-height: 250px;
+}
+.section {
+  margin: 15px 0px 15px 0px;
+}
+.section-title {
+  font-size: 2rem;
 }
 .section-header {
   color: #e5e5e5;
@@ -445,6 +461,9 @@ section.well {
   background-color: #1565C0;
   margin-bottom: 10px;
   clear: both;
+}
+.tag {
+  margin: 5px;
 }
 .text-align-center {
   text-align: center;

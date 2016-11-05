@@ -1,10 +1,13 @@
-import { Link } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import classNames from 'classnames';
 import React from 'react'
 import TimeAgo from 'react-timeago'
 
 import { Card } from "../ui/card"
-import { CardBlock } from "../ui/card-block"
+import { CardActionsButton } from "../ui/card-actions-button"
+
+import { CardActions, CardText } from 'material-ui/Card';
+
 import { Description } from "../ui/description"
 
 const CardComment = React.createClass({
@@ -14,21 +17,28 @@ const CardComment = React.createClass({
         link: React.PropTypes.string.isRequired
     },
 
+    handleClick: function(link) {
+        browserHistory.push(link);
+    },
+
     render: function() {
-        let className = classNames(['comment', this.props.comment.status])
+        const { comment, link } = this.props;
+        console.log(link);
         return (
             <Card
-                className={ className }
+                className={ classNames(['comment', comment.status]) }
             >
-                <CardBlock>
-                    <strong>{ this.props.comment.user.username }:</strong><br />
-                    <Description source={ this.props.comment.comment } />
-                </CardBlock>
-                <div className="card-footer text-muted clearfix">
-                    <Link to={ this.props.link }>
-                        <TimeAgo date={ this.props.comment.date_added } />
-                    </Link>
-                </div>
+                <CardText>
+                    <Description source={ comment.comment } className={ classNames(['comment-comment', comment.status]) }/>
+                    <span className="comment-user">{ comment.user.username }</span>
+                    <span className="comment-date"><TimeAgo date={ comment.date_added } /></span>
+                </CardText>
+                <CardActions className="comment-actions text-align-right">
+                    <CardActionsButton
+                        title="Edit"
+                        onTouchTap={ this.handleClick.bind(this, link) }
+                    />
+                </CardActions>
             </Card>
         );
     }

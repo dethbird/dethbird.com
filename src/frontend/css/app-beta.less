@@ -38,18 +38,6 @@ button {
     color: #fff !important;
 }
 
-.card.clickable {
-    cursor: pointer;
-    &:hover {
-        background-color: @cardBackgroundColorHover;
-
-        .card-header, .card-footer {
-            background-color: @cardHeaderBackgroundColorHover;
-        }
-    }
-}
-
-
 [class^=col-lg] {
     padding-left: 0;
     padding-right: 0;
@@ -57,6 +45,12 @@ button {
     text-align: left;
     @media screen and (max-width: 992px) {
         width: 100%;
+    }
+}
+.col-lg-3 {
+    margin: 5px;
+    @media screen and (min-width: 992px) {
+        width: 24%;
     }
 }
 .col-lg-4 {
@@ -92,12 +86,20 @@ button {
     height: auto;
 }
 
+.comment {
+    text-align: left;
+}
 
-.comment.resolved {
-    opacity: 0.9;
-    background-color: @cardBackgroundColorHover;
-    color: @muted;
-    text-decoration: line-through;
+.comment {
+    &-comment.resolved {
+        opacity: 0.8;;
+        color: @muted;
+        text-decoration: line-through;
+    }
+    &-user {
+        font-weight: bold;
+        margin-right: 5px;
+    }
 }
 
 .footer {
@@ -148,6 +150,12 @@ button {
     }
 }
 
+.header-page {
+    text-align: left;
+    &-title {
+        font-size: 2.6rem;
+    }
+}
 
 h1 {
     color: @lighterBlue;
@@ -164,6 +172,13 @@ h1 {
     min-height: 250px;
 }
 
+.section {
+    margin: 15px 0px 15px 0px;
+    &-title {
+        font-size: 2rem;
+    }
+}
+
 .section-header {
     color: @cardBorderColor;
     font-weight: bold;
@@ -178,6 +193,10 @@ section.well {
     background-color: @darkerBlue;
     margin-bottom: 10px;
     clear: both;
+}
+
+.tag {
+    margin: 5px;
 }
 
 .text-align-center {

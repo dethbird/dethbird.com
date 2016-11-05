@@ -5,15 +5,18 @@ import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 
 import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
 import { CardClickable } from "../ui/card-clickable"
+import { SectionHeader } from "../ui/section-header"
 import { CardComment } from "../ui/card-comment"
 import { CardBlock } from "../ui/card-block"
-import { CardStoryboardPanel } from "../ui/card-storyboard-panel"
 import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
+import { Image } from "../ui/image"
+import { Section } from "../ui/section"
+import { SectionButton } from "../ui/section-button"
 import {
     StoryboardPanelBreadcrumb
 } from "./storyboard-panel/storyboard-panel-breadcrumb"
@@ -34,38 +37,10 @@ const StoryboardPanel = React.createClass({
         }
     },
     componentWillMount() {
-        console.log('mounted');
         const { dispatch } = this.props;
         const { projectId, storyboardId, panelId } = this.props.params;
         dispatch(getStoryboardPanel(projectId, storyboardId, panelId));
     },
-    // componentDidMount() {
-    //     $.ajax({
-    //         url: '/api/project/' + this.props.params.projectId,
-    //         dataType: 'json',
-    //         cache: false,
-    //         success: function(data) {
-    //             let storyboard = _.findWhere(data.storyboards, {
-    //                 'id': parseInt(this.props.params.storyboardId)
-    //             });
-    //             let panel = _.findWhere(storyboard.panels, {
-    //                 'id': parseInt(this.props.params.panelId)
-    //             });
-    //
-    //             this.setState({
-    //                 formStatus: null,
-    //                 formMessage: null,
-    //                 project: data,
-    //                 storyboard: storyboard,
-    //                 panel: panel,
-    //                 showDeleteModal: false
-    //             });
-    //         }.bind(this),
-    //         error: function(xhr, status, err) {
-    //             console.error(this.props.url, status, err.toString());
-    //         }.bind(this)
-    //     });
-    // },
     handleClickDelete() {
         const { showDeleteModal } = this.state;
         this.setState({
@@ -124,13 +99,10 @@ const StoryboardPanel = React.createClass({
         const { projectId, storyboardId, panelId } = this.props.params;
         const { showDeleteModal } = this.state;
 
-
         let panelRevisionNodes = panel.revisions.map(function(revision) {
-            let props = {};
-                props.src = revision.content
             return (
                 <CardClickable
-                    className="col-lg-4"
+                    className="col-lg-3 clickable"
                     key={ revision.id }
                     onClick={ () => browserHistory.push( '/project/'
                         + projectId + '/storyboard/'
@@ -141,7 +113,7 @@ const StoryboardPanel = React.createClass({
                     ) }
                 >
                     <div className="text-align-center">
-                        <ImagePanelRevision { ...props } ></ImagePanelRevision>
+                        <Image src={ revision.content } />
                     </div>
                     <CardBlock>
                         <Description source={ revision.description } />
@@ -167,26 +139,28 @@ const StoryboardPanel = React.createClass({
             );
         });
 
+        const mainImage = (panel) => {
+            if (panel.revisions.length)
+                return panel.revisions[0].content
+            return null;
+        }
+
         return (
             <div>
                 <UiState state={ ui_state } />
+
                 <StoryboardPanelBreadcrumb { ...this.props } />
 
-                <ul className="nav nav-pills">
-                    <li className="nav-item">
-                        <Link
-                            className="nav-link btn btn-info"
-                            to={
-                                '/project/' + projectId
-                                + '/storyboard/' + storyboardId
-                                + '/panel/' + panelId
-                                + '/edit'
-                            }>Edit</Link>
-                    </li>
-                    <li className="nav-item">
-                        <a onClick={ this.handleClickDelete } className='btn btn-secondary'>Delete</a>
-                    </li>
-                </ul>
+                <HeaderPage title={ panel.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit' )}
+                        title="Edit"
+                    />
+                    <HeaderPageButton
+                        onTouchTap={ this.handleClickDelete }
+                        title="Delete"
+                    />
+                </HeaderPage>
 
                 <Modal
                     isOpen={ showDeleteModal }
@@ -210,56 +184,36 @@ const StoryboardPanel = React.createClass({
                 <br />
 
                 <div className="StoryboardPanelDetailsContainer">
-                    <CardStoryboardPanel
-                        projectId={ projectId }
-                        storyboardId={ storyboardId }
-                        panel={ panel }
-                    ></CardStoryboardPanel>
+                    <Image src={ mainImage(panel) } />
                 </div>
 
-                <section className="clearfix well">
-                    <div className="pull-left">
-                        <SectionHeader><Count count={ panel.revisions.length } /> Revisions</SectionHeader>
-                    </div>
-                    <ul className="pull-right nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="btn btn-success"
-                                to={
-                                    '/project/' + projectId
-                                    + '/storyboard/' + storyboardId
-                                    + '/panel/' + panelId
-                                    + '/revision/add'
-                                }
-                            >Add</Link>
-                        </li>
-                    </ul>
-                    <br className="clearfix" />
-                </section>
+                <Section title="Revisions" count={ panel.revisions.length }>
+                    <SectionButton
+                        onTouchTap={() => browserHistory.push(
+                            '/project/' + projectId
+                            + '/storyboard/' + storyboardId
+                            + '/panel/' + panelId
+                            + '/revision/add' )
+                        }
+                        title="Add"
+                    />
+                </Section>
 
                 <div className="clearfix PanelRevisionsContainer">
                     { panelRevisionNodes }
                 </div>
 
-                <section className="clearfix well">
-                    <div className="pull-left">
-                        <SectionHeader><Count count={ panel.comments.length } /> Comments</SectionHeader>
-                    </div>
-                    <ul className="pull-right nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="btn btn-success"
-                                to={
-                                    '/project/' + projectId
-                                    + '/storyboard/' + storyboardId
-                                    + '/panel/' + panelId
-                                    + '/comment/add'
-                                }
-                            >Add</Link>
-                        </li>
-                    </ul>
-                    <br className="clearfix" />
-                </section>
+                <Section title="Comments" count={ panel.comments.length }>
+                    <SectionButton
+                        onTouchTap={() => browserHistory.push(
+                            '/project/' + projectId
+                            + '/storyboard/' + storyboardId
+                            + '/panel/' + panelId
+                            + '/comment/add' )
+                        }
+                        title="Add"
+                    />
+                </Section>
 
                 <div className="clearfix PanelCommentsContainer">
                     { panelCommentNodes }
