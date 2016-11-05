@@ -66098,22 +66098,6 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _reactRedux = require('react-redux');
 
-var _FloatingActionButton = require('material-ui/FloatingActionButton');
-
-var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
-
-var _assessment = require('material-ui/svg-icons/action/assessment');
-
-var _assessment2 = _interopRequireDefault(_assessment);
-
-var _add = require('material-ui/svg-icons/content/add');
-
-var _add2 = _interopRequireDefault(_add);
-
-var _modeEdit = require('material-ui/svg-icons/editor/mode-edit');
-
-var _modeEdit2 = _interopRequireDefault(_modeEdit);
-
 var _Card = require('material-ui/Card');
 
 var _Divider = require('material-ui/Divider');
@@ -66126,6 +66110,8 @@ var _styles = require('../../constants/styles');
 
 var _cardClickable = require('../ui/card-clickable');
 
+var _cardActionsButton = require('../ui/card-actions-button');
+
 var _cardBlock = require('../ui/card-block');
 
 var _count = require('../ui/count');
@@ -66134,9 +66120,15 @@ var _description = require('../ui/description');
 
 var _fountain = require('../ui/fountain');
 
-var _imagePanelRevision = require('../ui/image-panel-revision');
+var _headerPage = require('../ui/header-page');
 
-var _sectionHeader = require('../ui/section-header');
+var _headerPageButton = require('../ui/header-page-button');
+
+var _image = require('../ui/image');
+
+var _section = require('../ui/section');
+
+var _sectionButton = require('../ui/section-button');
 
 var _storyboardBreadcrumb = require('./storyboard/storyboard-breadcrumb');
 
@@ -66163,8 +66155,16 @@ var Storyboard = _react2.default.createClass({
     render: function render() {
         var _props = this.props,
             ui_state = _props.ui_state,
-            project = _props.project,
             storyboard = _props.storyboard;
+
+        if (!storyboard) return _react2.default.createElement(_uiState3.default, { state: ui_state });
+        return this.renderBody();
+    },
+    renderBody: function renderBody() {
+        var _props2 = this.props,
+            ui_state = _props2.ui_state,
+            project = _props2.project,
+            storyboard = _props2.storyboard;
         var _props$params2 = this.props.params,
             projectId = _props$params2.projectId,
             storyboardId = _props$params2.storyboardId;
@@ -66174,8 +66174,8 @@ var Storyboard = _react2.default.createClass({
 
             var storyboardPanelNodes = storyboard.panels.map(function (panel, i) {
 
-                var props = {};
-                if (panel.revisions.length > 0) props.src = panel.revisions[0].content;
+                var src = null;
+                if (panel.revisions.length > 0) src = panel.revisions[0].content;
                 return _react2.default.createElement(
                     _Card.Card,
                     {
@@ -66192,7 +66192,7 @@ var Storyboard = _react2.default.createClass({
                                 return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id);
                             }
                         },
-                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
+                        _react2.default.createElement(_image.Image, { src: src })
                     ),
                     _react2.default.createElement(
                         _Card.CardMedia,
@@ -66217,33 +66217,19 @@ var Storyboard = _react2.default.createClass({
                     ),
                     _react2.default.createElement(
                         _Card.CardActions,
-                        { className: 'pull-right' },
-                        _react2.default.createElement(
-                            _FloatingActionButton2.default,
-                            {
-                                onTouchTap: function onTouchTap() {
-                                    return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id);
-                                },
-                                title: 'View',
-                                style: _styles.buttonStyle,
-                                mini: true,
-                                zDepth: 1
-                            },
-                            _react2.default.createElement(_assessment2.default, null)
-                        ),
-                        _react2.default.createElement(
-                            _FloatingActionButton2.default,
-                            {
-                                onTouchTap: function onTouchTap() {
-                                    return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit');
-                                },
-                                title: 'Edit',
-                                style: _styles.buttonStyle,
-                                mini: true,
-                                zDepth: 1
-                            },
-                            _react2.default.createElement(_modeEdit2.default, null)
-                        )
+                        { className: 'text-align-right' },
+                        _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                            title: 'View',
+                            onTouchTap: function onTouchTap() {
+                                return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id);
+                            }
+                        }),
+                        _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                            title: 'Edit',
+                            onTouchTap: function onTouchTap() {
+                                return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit');
+                            }
+                        })
                     )
                 );
             });
@@ -66255,66 +66241,26 @@ var Storyboard = _react2.default.createClass({
                     project: project,
                     storyboard: storyboard
                 }),
+                _react2.default.createElement(_uiState3.default, { state: ui_state }),
                 _react2.default.createElement(
-                    _Card.CardActions,
-                    { className: 'clearfix' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'pull-left' },
-                        _react2.default.createElement(
-                            'h1',
-                            null,
-                            storyboard.name
-                        ),
-                        _react2.default.createElement(_description.Description, { source: storyboard.description }),
-                        _react2.default.createElement(_fountain.Fountain, { source: storyboard.script })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'pull-right' },
-                        _react2.default.createElement(
-                            _FloatingActionButton2.default,
-                            {
-                                onTouchTap: function onTouchTap() {
-                                    return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit');
-                                },
-                                title: 'Edit',
-                                style: _styles.buttonStyle
-                            },
-                            _react2.default.createElement(_modeEdit2.default, null)
-                        )
-                    )
+                    _headerPage.HeaderPage,
+                    { title: storyboard.name },
+                    _react2.default.createElement(_headerPageButton.HeaderPageButton, {
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit');
+                        },
+                        title: 'Edit'
+                    })
                 ),
-                _react2.default.createElement('div', { className: 'clearfix' }),
                 _react2.default.createElement(
-                    _Card.CardActions,
-                    { className: 'clearfix' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'pull-left' },
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            _react2.default.createElement(_count.Count, { count: storyboard.panels.length }),
-                            ' Panels'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'pull-right' },
-                        _react2.default.createElement(
-                            _FloatingActionButton2.default,
-                            {
-                                onTouchTap: function onTouchTap() {
-                                    return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add');
-                                },
-                                title: 'Add',
-                                style: _styles.buttonStyle,
-                                secondary: true
-                            },
-                            _react2.default.createElement(_add2.default, null)
-                        )
-                    )
+                    _section.Section,
+                    { title: 'Panels', count: storyboard.panels.length },
+                    _react2.default.createElement(_sectionButton.SectionButton, {
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add');
+                        },
+                        title: 'Add'
+                    })
                 ),
                 _react2.default.createElement('div', { className: 'clearfix' }),
                 _react2.default.createElement(
@@ -66324,7 +66270,6 @@ var Storyboard = _react2.default.createClass({
                 )
             );
         }
-        return _react2.default.createElement(_uiState3.default, { state: ui_state });
     }
 });
 
@@ -66343,7 +66288,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Storyboard);
 
-},{"../../actions/storyboard":574,"../../constants/styles":650,"../../constants/ui-state":651,"../ui/card-block":630,"../ui/card-clickable":631,"../ui/count":635,"../ui/description":636,"../ui/fountain":639,"../ui/image-panel-revision":642,"../ui/section-header":645,"../ui/ui-state":648,"./storyboard/storyboard-breadcrumb":627,"material-ui/Card":246,"material-ui/Divider":248,"material-ui/FloatingActionButton":253,"material-ui/List":263,"material-ui/svg-icons/action/assessment":292,"material-ui/svg-icons/content/add":294,"material-ui/svg-icons/editor/mode-edit":296,"react":539,"react-markdown":326,"react-modal":333,"react-redux":338,"react-router":372,"react-timeago":392}],627:[function(require,module,exports){
+},{"../../actions/storyboard":574,"../../constants/styles":650,"../../constants/ui-state":651,"../ui/card-actions-button":629,"../ui/card-block":630,"../ui/card-clickable":631,"../ui/count":635,"../ui/description":636,"../ui/fountain":639,"../ui/header-page":641,"../ui/header-page-button":640,"../ui/image":643,"../ui/section":646,"../ui/section-button":644,"../ui/ui-state":648,"./storyboard/storyboard-breadcrumb":627,"material-ui/Card":246,"material-ui/Divider":248,"material-ui/List":263,"react":539,"react-markdown":326,"react-modal":333,"react-redux":338,"react-router":372,"react-timeago":392}],627:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');

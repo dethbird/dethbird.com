@@ -5,23 +5,22 @@ import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux'
 
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ActionHome from 'material-ui/svg-icons/action/assessment';
-import ActionAssessment from 'material-ui/svg-icons/action/assessment';
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 
-import { buttonStyle, cardHeaderStyle } from '../../constants/styles'
+import { cardHeaderStyle } from '../../constants/styles'
 import { CardClickable } from "../ui/card-clickable"
+import { CardActionsButton } from "../ui/card-actions-button"
 import { CardBlock } from "../ui/card-block"
 import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
-import { SectionHeader } from "../ui/section-header"
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
+import { Image } from "../ui/image"
+import { Section } from "../ui/section"
+import { SectionButton } from "../ui/section-button"
 import {
     StoryboardBreadcrumb
 } from "./storyboard/storyboard-breadcrumb"
@@ -43,6 +42,12 @@ const Storyboard = React.createClass({
         dispatch(getStoryboard(projectId, storyboardId));
     },
     render() {
+        const { ui_state, storyboard } = this.props;
+        if (!storyboard)
+            return <UiState state={ ui_state } />
+        return this.renderBody();
+    },
+    renderBody() {
 
         const { ui_state, project, storyboard } = this.props;
         const { projectId, storyboardId } = this.props.params;
@@ -51,9 +56,9 @@ const Storyboard = React.createClass({
 
             var storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
 
-                let props = {};
+                let src = null;
                 if (panel.revisions.length > 0)
-                    props.src = panel.revisions[0].content
+                    src = panel.revisions[0].content
                 return (
                     <Card
                         key={ panel.id }
@@ -66,7 +71,7 @@ const Storyboard = React.createClass({
                         <div onClick={ () => browserHistory.push(
                             '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
                         >
-                            <ImagePanelRevision { ...props }></ImagePanelRevision>
+                            <Image src={ src } />
                         </div>
                         <CardMedia>
                             <Fountain source={ panel.script} />
@@ -80,26 +85,15 @@ const Storyboard = React.createClass({
                             </List>
                         </CardMedia>
 
-                        <CardActions className="pull-right">
-                            <FloatingActionButton
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id )}
+                        <CardActions className="text-align-right">
+                            <CardActionsButton
                                 title="View"
-                                style={ buttonStyle }
-                                mini={ true }
-                                zDepth={ 1 }
-                            >
-                                <ActionAssessment />
-                            </FloatingActionButton>
-
-                            <FloatingActionButton
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit')}
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id )}
+                            />
+                            <CardActionsButton
                                 title="Edit"
-                                style={ buttonStyle }
-                                mini={ true }
-                                zDepth={ 1 }
-                            >
-                                <EditorModeEdit />
-                            </FloatingActionButton>
+                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit')}
+                            />
                         </CardActions>
                     </Card>
                 );
@@ -110,43 +104,23 @@ const Storyboard = React.createClass({
                     <StoryboardBreadcrumb
                         project={ project }
                         storyboard={ storyboard }
-                    >
-                    </StoryboardBreadcrumb>
+                    />
 
-                    <CardActions className="clearfix">
-                        <div className="pull-left">
-                            <h1>{ storyboard.name }</h1>
-                            <Description source ={ storyboard.description } />
-                            <Fountain source={ storyboard.script } />
-                        </div>
-                        <div className="pull-right">
-                            <FloatingActionButton
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
-                                title="Edit"
-                                style={ buttonStyle }
-                            >
-                                <EditorModeEdit />
-                            </FloatingActionButton>
-                        </div>
-                    </CardActions>
+                    <UiState state={ ui_state } />
 
-                    <div className="clearfix" />
+                    <HeaderPage title={ storyboard.name }>
+                        <HeaderPageButton
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
+                            title="Edit"
+                        />
+                    </HeaderPage>
 
-                    <CardActions className="clearfix">
-                        <div className="pull-left">
-                            <h3><Count count={ storyboard.panels.length } /> Panels</h3>
-                        </div>
-                        <div className="pull-right">
-                            <FloatingActionButton
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
-                                title="Add"
-                                style={ buttonStyle }
-                                secondary={ true }
-                            >
-                                <ContentAdd />
-                            </FloatingActionButton>
-                        </div>
-                    </CardActions>
+                    <Section title="Panels" count={ storyboard.panels.length }>
+                        <SectionButton
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
+                            title="Add"
+                        />
+                    </Section>
 
                     <div className="clearfix" />
 
@@ -157,9 +131,6 @@ const Storyboard = React.createClass({
             );
 
         }
-        return (
-            <UiState state={ ui_state } />
-        );
     }
 })
 
