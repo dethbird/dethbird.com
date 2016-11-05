@@ -23,13 +23,6 @@ const UiState = React.createClass({
 
         switch (state) {
             case UI_STATE_INITIALIZING:
-                return (
-                    <RefreshIndicator
-                      size={40}
-                      top={0}
-                      status="loading"
-                    />
-                )
             case UI_STATE_REQUESTING:
                 return (
                     <LinearProgress mode="indeterminate" />
