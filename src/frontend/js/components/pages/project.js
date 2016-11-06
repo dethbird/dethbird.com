@@ -14,13 +14,12 @@ import { ProjectLocations } from "./project/project-locations"
 import { ProjectReferenceImages } from "./project/project-reference_images"
 import { ProjectStoryboards } from "./project/project-storyboards"
 import { SectionHeader } from "../ui/section-header"
+import UiState from '../ui/ui-state'
 
 import {
     UI_STATE_INITIALIZING,
     UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
-
-import UiState from '../ui/ui-state'
 
 import { getProject } from  '../../actions/project'
 

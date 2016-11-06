@@ -441,6 +441,10 @@ h1 {
   max-width: 100%;
   height: auto;
 }
+.input-text,
+.input-description {
+  width: 60% !important;
+}
 #mount {
   min-height: 250px;
 }
