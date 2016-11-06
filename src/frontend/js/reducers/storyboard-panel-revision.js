@@ -8,6 +8,7 @@ import {
     PUT_STORYBOARD_PANEL_REVISION_REQUEST,
     PUT_STORYBOARD_PANEL_REVISION_ERROR,
     PUT_STORYBOARD_PANEL_REVISION_SUCCESS,
+    RESET_STORYBOARD_PANEL_REVISION,
 } from '../constants/actions';
 import {
     UI_STATE_REQUESTING,
@@ -33,7 +34,11 @@ const storyboardPanelRevision = (state = {}, action) => {
         case PUT_STORYBOARD_PANEL_REVISION_ERROR:
             return {
                 ui_state: UI_STATE_ERROR,
-                errors: action.errors ? action.errors : {}
+                errors: action.errors ? action.errors : {},
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel,
+                revision: action.revision ? action.revision : {}
             }
         case GET_STORYBOARD_PANEL_REVISION_SUCCESS:
             return {
@@ -48,6 +53,15 @@ const storyboardPanelRevision = (state = {}, action) => {
         case PUT_STORYBOARD_PANEL_REVISION_SUCCESS:
             return {
                 ui_state: UI_STATE_SUCCESS,
+                form_mode: action.form_mode,
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel,
+                revision: action.revision
+            }
+        case RESET_STORYBOARD_PANEL_REVISION:
+            return {
+                ui_state: UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
                 project: action.project,
                 storyboard: action.storyboard,

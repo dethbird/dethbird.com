@@ -23,7 +23,8 @@ import {
 import {
     getStoryboardPanelRevision,
     postStoryboardPanelRevision,
-    putStoryboardPanelRevision
+    putStoryboardPanelRevision,
+    resetStoryboardPanelRevision
 } from  '../../actions/storyboard-panel-revision'
 
 const StoryboardPanelRevisionEdit = React.createClass({
@@ -72,12 +73,14 @@ const StoryboardPanelRevisionEdit = React.createClass({
         })
     },
     handleFieldChange(event) {
+        const { dispatch, project, storyboard, panel, revision, form_mode } = this.props;
         const { changedFields } = this.state;
         let newChangedFields = changedFields;
         newChangedFields[event.target.id] = event.target.value;
         this.setState( {
             changedFields: newChangedFields
         });
+        dispatch(resetStoryboardPanelRevision( project, storyboard, panel, revision, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault();
@@ -91,7 +94,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
         event.preventDefault();
         const { dispatch, form_mode, project, storyboard, panel, revision } = this.props;
         const { changedFields } = this.state;
-
         if(form_mode == FORM_MODE_ADD)
             dispatch(postStoryboardPanelRevision(project, storyboard, panel, changedFields));
 
@@ -101,7 +103,15 @@ const StoryboardPanelRevisionEdit = React.createClass({
     },
     render() {
         const { changedFields } = this.state;
-        const { ui_state, project, storyboard, panel, revision, form_mode } = this.props;
+        const { ui_state, project, storyboard, panel, revision, form_mode, errors } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
+        }
 
         return (
             <div>
@@ -115,6 +125,7 @@ const StoryboardPanelRevisionEdit = React.createClass({
                         id="content"
                         value={ changedFields.content || '' }
                         handleFieldChange={ this.handleFieldChange }
+                        errorText={ getErrorForId('content') }
                     />
 
                     <InputDescription
@@ -122,6 +133,7 @@ const StoryboardPanelRevisionEdit = React.createClass({
                         id="description"
                         value={ changedFields.description || '' }
                         onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
                     />
                     <br />
 
@@ -136,14 +148,15 @@ const StoryboardPanelRevisionEdit = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-    const { ui_state, project, storyboard, panel, revision, form_mode } = state.storyboardPanelRevision;
+    const { ui_state, project, storyboard, panel, revision, form_mode, errors } = state.storyboardPanelRevision;
     return {
         ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
         form_mode,
         project,
         storyboard,
         panel,
-        revision
+        revision,
+        errors
     }
 }
 

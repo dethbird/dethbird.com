@@ -13,7 +13,8 @@ const ContentEdit = React.createClass({
     propTypes: {
         handleFieldChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
-        id: React.PropTypes.string
+        id: React.PropTypes.string,
+        errorText: React.PropTypes.string
     },
     handleClickSelect: function(value) {
         const { id } = this.props;
@@ -26,7 +27,7 @@ const ContentEdit = React.createClass({
         });
     },
     render: function() {
-        const { id, value, handleFieldChange } = this.props;
+        const { id, value, handleFieldChange, errorText } = this.props;
         return (
             <div className="content">
                 <Image src={ value } />
@@ -36,6 +37,7 @@ const ContentEdit = React.createClass({
                     id={ id }
                     value={ value || '' }
                     onChange= { handleFieldChange }
+                    errorText={ errorText }
                 />
                 <br />
                 <div>

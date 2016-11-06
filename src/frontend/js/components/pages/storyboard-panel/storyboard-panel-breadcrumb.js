@@ -13,7 +13,7 @@ const StoryboardPanelBreadcrumb = React.createClass({
     render: function() {
         const { project, storyboard, panel } = this.props;
         if (!project) {
-            return <ol className="breadcrumb" />;
+            return <ol className="breadcrumb"><li className="breadcrumb-item"></li></ol>;
         }
         return (
             <ol className="breadcrumb">

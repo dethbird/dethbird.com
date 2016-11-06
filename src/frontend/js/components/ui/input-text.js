@@ -9,12 +9,14 @@ const InputText = React.createClass({
         label: React.PropTypes.string.isRequired,
         id: React.PropTypes.string.isRequired,
         value: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        errorText: React.PropTypes.string
+
     },
 
     render: function() {
 
-        const { label, id, value, onChange } = this.props;
+        const { label, id, value, onChange, errorText } = this.props;
 
         return (
 
@@ -25,6 +27,7 @@ const InputText = React.createClass({
                 value={ value || '' }
                 onChange= { onChange }
                 className='input-text'
+                errorText={ errorText }
             />
         );
     }
