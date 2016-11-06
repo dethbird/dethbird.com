@@ -1,44 +1,31 @@
 import classNames from 'classnames';
 import React from 'react'
+import { connect } from 'react-redux'
 
-import { Card } from "../ui/card"
-import { CardBlock } from "../ui/card-block"
-import { CardClickable } from "../ui/card-clickable"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
-import { Spinner } from "../ui/spinner"
+import RaisedButton from 'material-ui/RaisedButton';
+import ActionPermMedia from 'material-ui/svg-icons/action/perm-media'
+
+import { Card } from '../ui/card'
+import { CardBlock } from '../ui/card-block'
+import { CardClickable } from '../ui/card-clickable'
+import { ImagePanelRevision } from '../ui/image-panel-revision'
+import { Spinner } from '../ui/spinner'
+import UiState from '../ui/ui-state'
+
+import {
+    FLICKR_SELECTOR_STATE_INITIALIZING,
+    FLICKR_SELECTOR_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import { getFlickrs } from  '../../actions/flickr-selector'
 
 const FlickrSelector = React.createClass({
-    getInitialState: function() {
-        return {
-            status: 'init'
-        };
-    },
     propTypes: {
         onClick: React.PropTypes.func.isRequired
     },
     handleClickOpen: function() {
-        event.preventDefault()
-        const that = this
-        $.ajax({
-            dataType: 'json',
-            cache: false,
-            method: 'GET',
-            url: '/api/external-content-source/flickr',
-            beforeSend: function() {
-                that.setState({
-                    status: 'loading'
-                })
-            },
-            success: function(data) {
-                that.setState({
-                    status: 'fetched',
-                    images: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(xhr)
-            }.bind(this)
-        });
+        const { dispatch } = this.props;
+        dispatch(getFlickrs());
     },
     handleClickSelect: function(event) {
         this.setState({
@@ -47,25 +34,21 @@ const FlickrSelector = React.createClass({
         this.props.onClick(event);
     },
     render: function() {
-        const that = this;
-        if (this.state.status != 'init') {
+        const { flickr_selector_state, flickrs } = this.props;
+        const handleClickSelect = this.handleClickSelect;
 
-            if(this.state.status=='loading') {
-                return (
-                    <Spinner />
-                );
-            }
+        if (flickrs) {
 
-            const flickrImageNodes = this.state.images.map(function(image) {
+            const flickrImageNodes = flickrs.map(function(image) {
                 return (
                     <Card
-                        className="col-lg-4"
+                        className="col-lg-3"
                         key={ image.id }
                     >
                         <CardBlock>
                             <img
                                 src={ image.url_l }
-                                onClick={ that.handleClickSelect }
+                                onClick={ handleClickSelect }
                             />
                         </CardBlock>
                     </Card>
@@ -74,21 +57,31 @@ const FlickrSelector = React.createClass({
 
             return (
                 <div>
+                    <UiState state={ flickr_selector_state } />
                     { flickrImageNodes }
                 </div>
             )
         }
 
-        let className = classNames([this.props.className, 'flickr-selector'])
         return (
-            <div className={ className }>
-                <a
-                    className="btn btn-secondary"
+            <div className='flickr-selector'>
+                <UiState state={ flickr_selector_state } />
+                <RaisedButton
+                    label="Select from Flickr"
                     onClick={ this.handleClickOpen }
-                >Select From Flickr</a>
+                    icon={<ActionPermMedia />}
+                />
             </div>
-        )
+        );
     }
 })
 
-module.exports.FlickrSelector = FlickrSelector
+const mapStateToProps = (state) => {
+    const { flickr_selector_state, flickrs } = state.flickrSelector;
+    return {
+        flickr_selector_state: flickr_selector_state ? flickr_selector_state : FLICKR_SELECTOR_STATE_COMPLETE,
+        flickrs
+    }
+}
+
+export default connect(mapStateToProps)(FlickrSelector);

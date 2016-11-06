@@ -30,7 +30,7 @@ const storyboardPanelRevision = (state = {}, action) => {
                 revision: action.revision
             }
         default:
-            return {};
+            return state;
     }
 }
 

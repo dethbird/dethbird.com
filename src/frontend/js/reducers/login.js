@@ -11,7 +11,7 @@ import {
 
 
 const login = (state = {}, action) => {
-    
+
     switch (action.type) {
         case LOGIN_ATTEMPT:
             return {
@@ -26,7 +26,7 @@ const login = (state = {}, action) => {
                 ui_state: UI_STATE_SUCCESS
             }
         default:
-            return {};
+            return state;
     }
 }
 

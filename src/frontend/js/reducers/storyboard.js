@@ -27,7 +27,7 @@ const storyboard = (state = {}, action) => {
                 storyboard: action.storyboard
             }
         default:
-            return {};
+            return state;
     }
 }
 

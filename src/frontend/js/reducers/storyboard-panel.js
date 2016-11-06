@@ -29,7 +29,7 @@ const storyboardPanel = (state = {}, action) => {
                 panel: action.panel
             }
         default:
-            return {};
+            return state;
     }
 }
 

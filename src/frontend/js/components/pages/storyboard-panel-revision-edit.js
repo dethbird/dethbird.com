@@ -160,6 +160,7 @@ const StoryboardPanelRevisionEdit = React.createClass({
     },
     render() {
         const { ui_state, project } = this.props;
+        console.log('project', project);
         if (!project)
             return <UiState state={ ui_state } />
         return this.renderBody();

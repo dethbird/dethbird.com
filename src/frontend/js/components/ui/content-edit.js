@@ -5,7 +5,7 @@ import { Card } from "../ui/card"
 import { CardBlock } from "../ui/card-block"
 import { Image } from "../ui/image"
 import InputText from "../ui/input-text"
-import { FlickrSelector } from "../ui/flickr-selector"
+import FlickrSelector from "../ui/flickr-selector"
 import { Spinner } from "../ui/spinner"
 
 const ContentEdit = React.createClass({

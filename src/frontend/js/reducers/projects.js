@@ -27,7 +27,7 @@ const projects = (state = {}, action) => {
                 projects: action.projects
             }
         default:
-            return {};
+            return state;
     }
 }
 
