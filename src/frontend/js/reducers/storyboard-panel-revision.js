@@ -22,6 +22,7 @@ import {
 
 
 const storyboardPanelRevision = (state = {}, action) => {
+
     switch (action.type) {
         case GET_STORYBOARD_PANEL_REVISION_REQUEST:
         case POST_STORYBOARD_PANEL_REVISION_REQUEST:
@@ -35,6 +36,7 @@ const storyboardPanelRevision = (state = {}, action) => {
             return {
                 ui_state: UI_STATE_ERROR,
                 errors: action.errors ? action.errors : {},
+                form_mode: action.form_mode,
                 project: action.project,
                 storyboard: action.storyboard,
                 panel: action.panel,

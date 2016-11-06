@@ -68694,9 +68694,14 @@ var getStoryboardPanelRevision = exports.getStoryboardPanelRevision = function g
 };
 
 /** POST */
-var postStoryboardPanelRevisionInit = function postStoryboardPanelRevisionInit() {
+var postStoryboardPanelRevisionInit = function postStoryboardPanelRevisionInit(project, storyboard, panel, revision) {
     return {
-        type: _actions.POST_STORYBOARD_PANEL_REVISION_REQUEST
+        type: _actions.POST_STORYBOARD_PANEL_REVISION_REQUEST,
+        project: project,
+        storyboard: storyboard,
+        panel: panel,
+        revision: revision,
+        form_mode: _form.FORM_MODE_ADD
     };
 };
 
@@ -68711,12 +68716,13 @@ var postStoryboardPanelRevisionSuccess = function postStoryboardPanelRevisionSuc
     };
 };
 
-var postStoryboardPanelRevisionError = function postStoryboardPanelRevisionError(project, storyboard, panel, errors) {
+var postStoryboardPanelRevisionError = function postStoryboardPanelRevisionError(project, storyboard, panel, revision, errors) {
     return {
         type: _actions.POST_STORYBOARD_PANEL_REVISION_ERROR,
         project: project,
         storyboard: storyboard,
         panel: panel,
+        revision: revision,
         errors: errors,
         form_mode: _form.FORM_MODE_ADD
     };
@@ -68731,15 +68737,20 @@ var postStoryboardPanelRevision = exports.postStoryboardPanelRevision = function
                 dispatch(postStoryboardPanelRevisionSuccess(project, storyboard, panel, revision));
             }
 
-            if (!res.ok) dispatch(postStoryboardPanelRevisionError(project, storyboard, panel, res.body));
+            if (!res.ok) dispatch(postStoryboardPanelRevisionError(project, storyboard, panel, fields, res.body));
         });
     };
 };
 
 /** PUT */
-var putStoryboardPanelRevisionInit = function putStoryboardPanelRevisionInit() {
+var putStoryboardPanelRevisionInit = function putStoryboardPanelRevisionInit(project, storyboard, panel, revision) {
     return {
-        type: _actions.PUT_STORYBOARD_PANEL_REVISION_REQUEST
+        type: _actions.PUT_STORYBOARD_PANEL_REVISION_REQUEST,
+        project: project,
+        storyboard: storyboard,
+        panel: panel,
+        revision: revision,
+        form_mode: _form.FORM_MODE_EDIT
     };
 };
 
@@ -68768,14 +68779,14 @@ var putStoryboardPanelRevisionError = function putStoryboardPanelRevisionError(p
 
 var putStoryboardPanelRevision = exports.putStoryboardPanelRevision = function putStoryboardPanelRevision(project, storyboard, panel, revision, fields) {
     return function (dispatch) {
-        dispatch(putStoryboardPanelRevisionInit());
+        dispatch(putStoryboardPanelRevisionInit(project, storyboard, panel, revision));
         _superagent2.default.put('/api/project_storyboard_panel_revision/' + revision.id).send(_extends({}, fields, { panel_id: panel.id })).end(function (err, res) {
             if (res.ok) {
                 var r = res.body;
                 dispatch(putStoryboardPanelRevisionSuccess(project, storyboard, panel, r));
             }
 
-            if (!res.ok) dispatch(putStoryboardPanelRevisionError(project, storyboard, panel, fields, res.body));
+            if (!res.ok) dispatch(putStoryboardPanelRevisionError(project, storyboard, panel, _extends({}, fields, { id: revision.id }), res.body));
         });
     };
 };
@@ -75284,6 +75295,10 @@ var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
 
+var _Card = require('material-ui/Card');
+
+var _card = require('../ui/card');
+
 var _buttonsForm = require('../ui/buttons-form');
 
 var _contentEdit = require('../ui/content-edit');
@@ -75407,10 +75422,6 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
             return null;
         };
 
-        if (!project) {
-            return _react2.default.createElement(_uiState2.default, { state: ui_state });
-        }
-
         return _react2.default.createElement(
             'div',
             null,
@@ -75432,7 +75443,15 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
                     onChange: this.handleFieldChange,
                     errorText: getErrorForId('description')
                 }),
-                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    _card.Card,
+                    { className: 'input-card' },
+                    _react2.default.createElement(
+                        _Card.CardText,
+                        null,
+                        _react2.default.createElement(_description.Description, { source: changedFields.description })
+                    )
+                ),
                 _react2.default.createElement(_buttonsForm.ButtonsForm, {
                     handleClickCancel: this.handleClickCancel,
                     handleClickSubmit: this.handleClickSubmit
@@ -75465,7 +75484,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelRevisionEdit);
 
-},{"../../actions/storyboard-panel-revision":625,"../../constants/form":706,"../../constants/ui-state":708,"../ui/buttons-form":682,"../ui/content-edit":688,"../ui/description":690,"../ui/input-description":698,"../ui/section":702,"../ui/ui-state":704,"./storyboard-panel/storyboard-panel-breadcrumb":678,"react":589,"react-redux":388,"react-router":422}],677:[function(require,module,exports){
+},{"../../actions/storyboard-panel-revision":625,"../../constants/form":706,"../../constants/ui-state":708,"../ui/buttons-form":682,"../ui/card":687,"../ui/content-edit":688,"../ui/description":690,"../ui/input-description":698,"../ui/section":702,"../ui/ui-state":704,"./storyboard-panel/storyboard-panel-breadcrumb":678,"material-ui/Card":248,"react":589,"react-redux":388,"react-router":422}],677:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78084,6 +78103,7 @@ var storyboardPanelRevision = function storyboardPanelRevision() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
+
     switch (action.type) {
         case _actions.GET_STORYBOARD_PANEL_REVISION_REQUEST:
         case _actions.POST_STORYBOARD_PANEL_REVISION_REQUEST:
@@ -78097,6 +78117,7 @@ var storyboardPanelRevision = function storyboardPanelRevision() {
             return {
                 ui_state: _uiState.UI_STATE_ERROR,
                 errors: action.errors ? action.errors : {},
+                form_mode: action.form_mode,
                 project: action.project,
                 storyboard: action.storyboard,
                 panel: action.panel,

@@ -1,7 +1,9 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
+import { Card } from '../ui/card'
 import { ButtonsForm } from '../ui/buttons-form'
 import { ContentEdit } from '../ui/content-edit'
 import { Description } from '../ui/description'
@@ -112,10 +114,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
             return null;
         }
 
-        if(!project) {
-            return <UiState state={ ui_state } />
-        }
-
         return (
             <div>
                 <StoryboardPanelBreadcrumb { ...this.props }></StoryboardPanelBreadcrumb>
@@ -138,7 +136,12 @@ const StoryboardPanelRevisionEdit = React.createClass({
                         onChange= { this.handleFieldChange }
                         errorText={ getErrorForId('description') }
                     />
-                    <br />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
 
                     <ButtonsForm
                         handleClickCancel={ this.handleClickCancel }
