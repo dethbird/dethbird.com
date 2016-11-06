@@ -8,7 +8,6 @@ import { HeaderPageButton } from "../ui/header-page-button"
 import {
     ProjectsBreadcrumb
 } from './projects/projects-breadcrumb'
-import { Spinner } from "../ui/spinner"
 import UiState from '../ui/ui-state'
 
 import {
