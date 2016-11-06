@@ -61189,7 +61189,7 @@ var getProjects = exports.getProjects = function getProjects() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getStoryboardPanelRevision = undefined;
+exports.putStoryboardPanelRevision = exports.postStoryboardPanelRevision = exports.getStoryboardPanelRevision = undefined;
 
 var _superagent = require('superagent');
 
@@ -61200,11 +61200,6 @@ var _actions = require('../constants/actions');
 var _form = require('../constants/form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var defaultRevision = {
-    content: '',
-    description: ''
-};
 
 var getStoryboardPanelRevisionInit = function getStoryboardPanelRevisionInit() {
     return {
@@ -61245,10 +61240,82 @@ var getStoryboardPanelRevision = exports.getStoryboardPanelRevision = function g
             });
             var form_mode = revision ? _form.FORM_MODE_EDIT : _form.FORM_MODE_ADD;
 
-            dispatch(getStoryboardPanelRevisionSuccess(project, storyboard, panel, revision ? revision : defaultRevision, form_mode));
+            dispatch(getStoryboardPanelRevisionSuccess(project, storyboard, panel, revision, form_mode));
         }).catch(function (error) {
             console.log(error);
             dispatch(getStoryboardPanelRevisionError());
+        });
+    };
+};
+
+var postStoryboardPanelRevisionInit = function postStoryboardPanelRevisionInit() {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_REVISION_REQUEST
+    };
+};
+
+var postStoryboardPanelRevisionSuccess = function postStoryboardPanelRevisionSuccess(project, storyboard, panel, revision, form_mode) {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_REVISION_SUCCESS,
+        project: project,
+        storyboard: storyboard,
+        panel: panel,
+        revision: revision,
+        form_mode: form_mode
+    };
+};
+
+var postStoryboardPanelRevisionError = function postStoryboardPanelRevisionError() {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_REVISION_ERROR
+    };
+};
+
+var postStoryboardPanelRevision = exports.postStoryboardPanelRevision = function postStoryboardPanelRevision(projectId, storyboardId, panelId, fields) {
+    return function (dispatch) {
+        dispatch(postStoryboardPanelRevisionInit());
+        _superagent2.default.post('/api/project_storyboard_panel_revision/' + fields.id).send(fields).then(function (res) {
+            var revision = res.body;
+            dispatch(getStoryboardPanelRevision((projectId, storyboardId, panelId, revision.id)));
+        }).catch(function (error) {
+            console.log(error);
+            dispatch(postStoryboardPanelRevisionError());
+        });
+    };
+};
+
+var putStoryboardPanelRevisionInit = function putStoryboardPanelRevisionInit() {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_REVISION_REQUEST
+    };
+};
+
+var putStoryboardPanelRevisionSuccess = function putStoryboardPanelRevisionSuccess(project, storyboard, panel, revision, form_mode) {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_REVISION_SUCCESS,
+        project: project,
+        storyboard: storyboard,
+        panel: panel,
+        revision: revision,
+        form_mode: form_mode
+    };
+};
+
+var putStoryboardPanelRevisionError = function putStoryboardPanelRevisionError() {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_REVISION_ERROR
+    };
+};
+
+var putStoryboardPanelRevision = exports.putStoryboardPanelRevision = function putStoryboardPanelRevision(projectId, storyboardId, panelId, revisionId, fields) {
+    return function (dispatch) {
+        dispatch(putStoryboardPanelRevisionInit());
+        _superagent2.default.put('/api/project_storyboard_panel_revision/' + revisionId).send(fields).then(function (res) {
+            var revision = res.body;
+            dispatch(getStoryboardPanelRevision(projectId, storyboardId, panelId, revisionId));
+        }).catch(function (error) {
+            console.log(error);
+            dispatch(putStoryboardPanelRevisionError());
         });
     };
 };
@@ -67780,6 +67847,8 @@ var _uiState = require('../ui/ui-state');
 
 var _uiState2 = _interopRequireDefault(_uiState);
 
+var _form = require('../../constants/form');
+
 var _uiState3 = require('../../constants/ui-state');
 
 var _storyboardPanelRevision = require('../../actions/storyboard-panel-revision');
@@ -67795,6 +67864,19 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
                 description: null
             }
         };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        var revision = this.props.revision;
+
+        if (revision == undefined && nextProps.revision) {
+            this.setState({
+                changedFields: {
+                    panel_id: nextProps.revision.panel_id,
+                    content: nextProps.revision.content,
+                    description: nextProps.revision.description
+                }
+            });
+        }
     },
     componentWillMount: function componentWillMount() {
         var dispatch = this.props.dispatch;
@@ -67832,34 +67914,25 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
-        var that = this;
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function (data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl: '/api/project_storyboard_panel_revision/' + data.id,
-                    submitMethod: 'PUT',
-                    revision: data
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                });
-            }.bind(this)
-        });
+        var _props = this.props,
+            dispatch = _props.dispatch,
+            form_mode = _props.form_mode;
+        var _props$params2 = this.props.params,
+            projectId = _props$params2.projectId,
+            storyboardId = _props$params2.storyboardId,
+            panelId = _props$params2.panelId,
+            revisionId = _props$params2.revisionId;
+        var changedFields = this.state.changedFields;
+
+
+        if (form_mode == _form.FORM_MODE_ADD) dispatch((0, _storyboardPanelRevision.postStoryboardPanelRevision)(projectId, storyboardId, panelId, changedFields));
+
+        if (form_mode == _form.FORM_MODE_EDIT) dispatch((0, _storyboardPanelRevision.putStoryboardPanelRevision)(projectId, storyboardId, panelId, revisionId, changedFields));
     },
     render: function render() {
-        var _props = this.props,
-            ui_state = _props.ui_state,
-            project = _props.project;
+        var _props2 = this.props,
+            ui_state = _props2.ui_state,
+            project = _props2.project;
 
 
         if (!project) return _react2.default.createElement(_uiState2.default, { state: ui_state });
@@ -67867,18 +67940,18 @@ var StoryboardPanelRevisionEdit = _react2.default.createClass({
     },
     renderBody: function renderBody() {
         var changedFields = this.state.changedFields;
-        var _props2 = this.props,
-            ui_state = _props2.ui_state,
-            project = _props2.project,
-            storyboard = _props2.storyboard,
-            panel = _props2.panel,
-            revision = _props2.revision,
-            form_mode = _props2.form_mode;
-        var _props$params2 = this.props.params,
-            projectId = _props$params2.projectId,
-            storyboardId = _props$params2.storyboardId,
-            panelId = _props$params2.panelId,
-            revisionId = _props$params2.revisionId;
+        var _props3 = this.props,
+            ui_state = _props3.ui_state,
+            project = _props3.project,
+            storyboard = _props3.storyboard,
+            panel = _props3.panel,
+            revision = _props3.revision,
+            form_mode = _props3.form_mode;
+        var _props$params3 = this.props.params,
+            projectId = _props$params3.projectId,
+            storyboardId = _props$params3.storyboardId,
+            panelId = _props$params3.panelId,
+            revisionId = _props$params3.revisionId;
 
 
         return _react2.default.createElement(
@@ -67931,7 +68004,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelRevisionEdit);
 
-},{"../../actions/storyboard-panel-revision":588,"../../constants/ui-state":671,"../ui/buttons-form":645,"../ui/content-edit":651,"../ui/description":653,"../ui/input-description":661,"../ui/section":665,"../ui/ui-state":667,"./storyboard-panel/storyboard-panel-breadcrumb":641,"react":553,"react-redux":352,"react-router":386}],640:[function(require,module,exports){
+},{"../../actions/storyboard-panel-revision":588,"../../constants/form":669,"../../constants/ui-state":671,"../ui/buttons-form":645,"../ui/content-edit":651,"../ui/description":653,"../ui/input-description":661,"../ui/section":665,"../ui/ui-state":667,"./storyboard-panel/storyboard-panel-breadcrumb":641,"react":553,"react-redux":352,"react-router":386}],640:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69964,10 +70037,15 @@ var GET_STORYBOARD_PANEL_REQUEST = exports.GET_STORYBOARD_PANEL_REQUEST = 'GET_S
 var GET_STORYBOARD_PANEL_ERROR = exports.GET_STORYBOARD_PANEL_ERROR = 'GET_STORYBOARD_PANEL_ERROR';
 var GET_STORYBOARD_PANEL_SUCCESS = exports.GET_STORYBOARD_PANEL_SUCCESS = 'GET_STORYBOARD_PANEL_SUCCESS';
 
-var GET_STORYBOARD_PANEL_REVISION_FIELD_CHANGE = exports.GET_STORYBOARD_PANEL_REVISION_FIELD_CHANGE = 'GET_STORYBOARD_PANEL_REVISION_FIELD_CHANGE';
 var GET_STORYBOARD_PANEL_REVISION_REQUEST = exports.GET_STORYBOARD_PANEL_REVISION_REQUEST = 'GET_STORYBOARD_PANEL_REVISION_REQUEST';
 var GET_STORYBOARD_PANEL_REVISION_ERROR = exports.GET_STORYBOARD_PANEL_REVISION_ERROR = 'GET_STORYBOARD_PANEL_REVISION_ERROR';
 var GET_STORYBOARD_PANEL_REVISION_SUCCESS = exports.GET_STORYBOARD_PANEL_REVISION_SUCCESS = 'GET_STORYBOARD_PANEL_REVISION_SUCCESS';
+var POST_STORYBOARD_PANEL_REVISION_REQUEST = exports.POST_STORYBOARD_PANEL_REVISION_REQUEST = 'POST_STORYBOARD_PANEL_REVISION_REQUEST';
+var POST_STORYBOARD_PANEL_REVISION_ERROR = exports.POST_STORYBOARD_PANEL_REVISION_ERROR = 'POST_STORYBOARD_PANEL_REVISION_ERROR';
+var POST_STORYBOARD_PANEL_REVISION_SUCCESS = exports.POST_STORYBOARD_PANEL_REVISION_SUCCESS = 'POST_STORYBOARD_PANEL_REVISION_SUCCESS';
+var PUT_STORYBOARD_PANEL_REVISION_REQUEST = exports.PUT_STORYBOARD_PANEL_REVISION_REQUEST = 'PUT_STORYBOARD_PANEL_REVISION_REQUEST';
+var PUT_STORYBOARD_PANEL_REVISION_ERROR = exports.PUT_STORYBOARD_PANEL_REVISION_ERROR = 'PUT_STORYBOARD_PANEL_REVISION_ERROR';
+var PUT_STORYBOARD_PANEL_REVISION_SUCCESS = exports.PUT_STORYBOARD_PANEL_REVISION_SUCCESS = 'PUT_STORYBOARD_PANEL_REVISION_SUCCESS';
 
 },{}],669:[function(require,module,exports){
 'use strict';
@@ -70416,14 +70494,20 @@ var storyboardPanelRevision = function storyboardPanelRevision() {
 
     switch (action.type) {
         case _actions.GET_STORYBOARD_PANEL_REVISION_REQUEST:
+        case _actions.POST_STORYBOARD_PANEL_REVISION_REQUEST:
+        case _actions.PUT_STORYBOARD_PANEL_REVISION_REQUEST:
             return {
                 ui_state: _uiState.UI_STATE_REQUESTING
             };
         case _actions.GET_STORYBOARD_PANEL_REVISION_ERROR:
+        case _actions.POST_STORYBOARD_PANEL_REVISION_ERROR:
+        case _actions.PUT_STORYBOARD_PANEL_REVISION_ERROR:
             return {
                 ui_state: _uiState.UI_STATE_ERROR
             };
         case _actions.GET_STORYBOARD_PANEL_REVISION_SUCCESS:
+        case _actions.POST_STORYBOARD_PANEL_REVISION_SUCCESS:
+        case _actions.PUT_STORYBOARD_PANEL_REVISION_SUCCESS:
             return {
                 ui_state: _uiState.UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
@@ -70431,10 +70515,6 @@ var storyboardPanelRevision = function storyboardPanelRevision() {
                 storyboard: action.storyboard,
                 panel: action.panel,
                 revision: action.revision
-            };
-        case _actions.GET_STORYBOARD_PANEL_REVISION_SUCCESS:
-            return {
-                changedFields: action.changedFields
             };
         default:
             return state;

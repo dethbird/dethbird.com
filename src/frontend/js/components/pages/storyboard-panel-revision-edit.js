@@ -11,13 +11,20 @@ import {
     StoryboardPanelBreadcrumb
 } from './storyboard-panel/storyboard-panel-breadcrumb'
 import UiState from '../ui/ui-state'
-
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
 import {
     UI_STATE_INITIALIZING,
     UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
 
-import { getStoryboardPanelRevision } from  '../../actions/storyboard-panel-revision'
+import {
+    getStoryboardPanelRevision,
+    postStoryboardPanelRevision,
+    putStoryboardPanelRevision
+} from  '../../actions/storyboard-panel-revision'
 
 const StoryboardPanelRevisionEdit = React.createClass({
     getInitialState() {
@@ -26,6 +33,18 @@ const StoryboardPanelRevisionEdit = React.createClass({
                 content: null,
                 description: null
             }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { revision } = this.props;
+        if( revision==undefined && nextProps.revision){
+            this.setState({
+                changedFields: {
+                    panel_id: nextProps.revision.panel_id,
+                    content: nextProps.revision.content,
+                    description: nextProps.revision.description
+                }
+            });
         }
     },
     componentWillMount() {
@@ -62,39 +81,30 @@ const StoryboardPanelRevisionEdit = React.createClass({
         });
     },
     handleClickCancel(event) {
-        event.preventDefault()
+        event.preventDefault();
         browserHistory.push(
             '/project/' + this.props.params.projectId
             + '/storyboard/' + this.props.params.storyboardId
             + '/panel/' + this.props.params.panelId
-        )
+        );
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_storyboard_panel_revision/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    revision: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode } = this.props;
+        const {
+            projectId,
+            storyboardId,
+            panelId,
+            revisionId
+        } = this.props.params;
+        const { changedFields } = this.state;
+
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postStoryboardPanelRevision(projectId, storyboardId, panelId, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putStoryboardPanelRevision(projectId, storyboardId, panelId, revisionId, changedFields));
+
     },
     render() {
         const { ui_state, project } = this.props;

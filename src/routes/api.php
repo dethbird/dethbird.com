@@ -1218,18 +1218,19 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
     # update storyboard panel revision
     $app->put('/project_storyboard_panel_revision/:id', function ($id) use ($app) {
 
+
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
         $id = (int) $id;
 
         $model = ProjectStoryboardPanelRevision::find_by_id_and_user_id(
             $id, $securityContext->id);
-
         if(!$model) {
             $app->halt(404);
         }
 
-        foreach($app->request->params() as $key=>$value) {
+        $params = json_decode($app->request->getBody());
+        foreach($params as $key=>$value) {
             $model->$key = $value;
         }
 
