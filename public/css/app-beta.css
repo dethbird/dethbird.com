@@ -436,7 +436,6 @@ html [type=button] {
   font-size: 2.6rem;
 }
 h1 {
-  color: #4A7CE0;
   font-weight: bold;
 }
 .image,
@@ -445,13 +444,20 @@ h1 {
   height: auto;
 }
 .input-text,
-.input-description {
+.input-date,
+.input-description,
+.input-card,
+.input-select {
   width: 60% !important;
   text-align: left;
+  display: inline-block;
 }
 @media screen and (max-width: 992px) {
   .input-text,
-  .input-description {
+  .input-date,
+  .input-description,
+  .input-card,
+  .input-select {
     width: 80% !important;
   }
 }

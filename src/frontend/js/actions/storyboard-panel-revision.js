@@ -93,7 +93,8 @@ const postStoryboardPanelRevisionError = ( project, storyboard, panel, errors) =
         project,
         storyboard,
         panel,
-        errors
+        errors,
+        form_mode: FORM_MODE_ADD
     }
 }
 

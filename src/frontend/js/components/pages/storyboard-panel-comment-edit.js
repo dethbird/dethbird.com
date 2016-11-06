@@ -1,106 +1,114 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-var DatePicker = require('react-datepicker');
+import { connect } from 'react-redux'
 var moment = require('moment');
 import Textarea from 'react-textarea-autosize';
 
-import { Alert } from "../ui/alert"
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import { CardActions, CardText } from 'material-ui/Card';
+import DatePicker from 'material-ui/DatePicker';
+
+import { ButtonsForm } from '../ui/buttons-form'
 import { Card } from "../ui/card"
 import { SectionHeader } from "../ui/section-header"
 import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
 import { Description } from "../ui/description"
+import InputDescription from '../ui/input-description'
 import { ImagePanelRevision } from "../ui/image-panel-revision"
 import {
     StoryboardPanelBreadcrumb
 } from "./storyboard-panel/storyboard-panel-breadcrumb"
-import { Spinner } from "../ui/spinner"
 
+import UiState from '../ui/ui-state'
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getStoryboardPanelComment,
+    postStoryboardPanelComment,
+    putStoryboardPanelComment,
+    resetStoryboardPanelComment
+} from  '../../actions/storyboard-panel-comment'
 
 const StoryboardPanelCommentEdit = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this),
-            success: function(data) {
-
-                let storyboard = _.findWhere(data.storyboards, {
-                    'id': parseInt(this.props.params.storyboardId)
-                });
-                let panel = _.findWhere(storyboard.panels, {
-                    'id': parseInt(this.props.params.panelId)
-                });
-                let comment = _.findWhere(panel.comments, {
-                    'id': parseInt(this.props.params.commentId)
-                });
-
-                let changedFields = null
-                let submitUrl = '/api/comment/' + this.props.params.commentId
-                let submitMethod = 'PUT'
-
-
-                if (!comment) {
-                    comment = {
-                        comment: ''
-                    };
-                    submitUrl = '/api/comment'
-                    submitMethod = 'POST'
-
-                    let user = data.users[0]
-
-                    changedFields = {
-                        entity_id: this.props.params.panelId,
-                        entity_table_name: 'project_storyboard_panels',
-                        date_added: moment().format('YYYY-MM-DD'),
-                        user_id: user.id,
-                        'status': 'new'
-                    }
-                }
-
-                this.setState({
-                    project: data,
-                    storyboard: storyboard,
-                    panel: panel,
-                    comment: comment,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+    getInitialState() {
+        return {
+            changedFields: {
+                user_id: null,
+                comment: null,
+                date_added: moment().format('YYYY-MM-DD'),
+                status: null
+            }
+        }
     },
-    handleDateFieldChange(field, moment) {
+    componentWillReceiveProps(nextProps) {
+        const { comment } = this.props;
+        if( comment==undefined && nextProps.comment){
+            this.setState({
+                changedFields: {
+                    user_id: nextProps.comment.user_id,
+                    comment: nextProps.comment.comment,
+                    date_added: nextProps.comment.date_added,
+                    status: nextProps.comment.status
+                }
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const {
+            projectId,
+            storyboardId,
+            panelId,
+            commentId
+        } = this.props.params;
+
+        dispatch(getStoryboardPanelComment(
+            projectId,
+            storyboardId,
+            panelId,
+            commentId));
+    },
+    handleDateAddedFieldChange(event, date) {
         this.handleFieldChange({
             target: {
-                id: field,
-                value: moment.format("YYYY-MM-DD")
+                id: 'date_added',
+                value: moment(date).format("YYYY-MM-DD")
+            }
+        });
+    },
+    handleUserFieldChange(event, key, payload) {
+        this.handleFieldChange({
+            target: {
+                id: 'user_id',
+                value: payload
+            }
+        });
+    },
+    handleStatusFieldChange(event, key, payload) {
+        this.handleFieldChange({
+            target: {
+                id: 'status',
+                value: payload
             }
         });
     },
     handleFieldChange(event) {
-        let comment = this.state.comment;
-        let changedFields = this.state.changedFields || {};
-
-        comment[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            comment: comment,
-            changedFields: changedFields
-        })
+        const { dispatch, project, storyboard, panel, comment, form_mode } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetStoryboardPanelComment( project, storyboard, panel, comment, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault()
@@ -111,132 +119,114 @@ const StoryboardPanelCommentEdit = React.createClass({
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
 
-        $.ajax({
-            url: that.state.submitUrl,
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: that.state.submitMethod,
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this),
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    comment: data,
-                    submitUrl: '/api/comment/' + data.id,
-                    submitMethod:'PUT'
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, storyboard, panel, comment } = this.props;
+        const { changedFields } = this.state;
+
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postStoryboardPanelComment(project, storyboard, panel, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putStoryboardPanelComment( project, storyboard, panel, comment, changedFields));
     },
     render() {
-        let that = this
-        if (this.state){
+        const { changedFields } = this.state;
+        const { ui_state, project, storyboard, panel, comment, form_mode, errors } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
+        }
 
-            if (!this.state.comment) {
+        let userOptionsNodes = null;
+        if (project)
+            userOptionsNodes = project.users.map(function(user) {
                 return (
-                    <Spinner />
-                );
-            }
-
-            let userOptionsNodes = this.state.project.users.map(function(user) {
-                return (
-                    <option value={ user.id } key={ user.id }>{ user.username }</option>
+                    <MenuItem value={ user.id } key={ user.id } primaryText={ user.username } />
                 );
             });
-
-            return (
-                <div>
-                    <StoryboardPanelBreadcrumb { ...this.state }></StoryboardPanelBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-                        <SectionHeader>user:</SectionHeader>
-                        <select
-                            id="user_id"
-                            className="form-control"
-                            value={ this.state.comment.user_id }
-                            onChange={ that.handleFieldChange }
-                        >
-                            { userOptionsNodes }
-                        </select>
-
-                        <SectionHeader>comment:</SectionHeader>
-                        <div className="form-group">
-                            <Textarea
-                                className="form-control"
-                                id="comment"
-                                minRows={3}
-                                style={ {maxHeight: 640} }
-                                value={ this.state.comment.comment || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.comment.comment } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <SectionHeader>date:</SectionHeader>
-                        <div className="form-group">
-                            <DatePicker
-                                selected={ moment(that.state.comment.date_added) }
-                                onChange={ this.handleDateFieldChange.bind(this, 'date_added') }
-                                dateFormat="YYYY-MM-DD"
-                                id="date_added"
-                                className="form-control"
-                            />
-                        </div>
-
-                        <SectionHeader>status:</SectionHeader>
-                        <select
-                            id="status"
-                            className="form-control"
-                            value={ this.state.comment.status }
-                            onChange={ that.handleFieldChange }
-                        >
-                            <option value="new">New</option>
-                            <option value="resolved">Resolved</option>
-                        </select>
-
-                        <br />
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-                    </form>
-                </div>
-            );
-        }
         return (
-            <Spinner />
-        )
+            <div>
+                <StoryboardPanelBreadcrumb { ...this.props }></StoryboardPanelBreadcrumb>
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <SelectField
+                        floatingLabelText="User"
+                        value={ changedFields.user_id }
+                        onChange={ this.handleUserFieldChange }
+                        id="user_id"
+                        errorText={ getErrorForId('user_id') }
+                        className="input-select"
+                    >
+                        { userOptionsNodes }
+                    </SelectField>
+
+                    <InputDescription
+                        label="Comment"
+                        id="comment"
+                        value={ changedFields.comment || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('comment') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.comment }  />
+                        </CardText>
+                    </Card>
+
+
+                    <DatePicker
+                        value={ changedFields.date_added ? new Date(changedFields.date_added) : new Date() }
+                        hintText="Date"
+                        onChange={ this.handleDateAddedFieldChange }
+                        id="date_added"
+                        errorText={ getErrorForId('date_added') }
+                        className='input-date'
+                        autoOk={ true }
+                    />
+
+                    <SelectField
+                        floatingLabelText="Status"
+                        value={ changedFields.status }
+                        onChange={ this.handleStatusFieldChange }
+                        id="status"
+                        errorText={ getErrorForId('status') }
+                        className="input-select"
+                    >
+                        <MenuItem value="new" primaryText="New" />
+                        <MenuItem value="resolved" primaryText="Resolved" />
+                    </SelectField>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.StoryboardPanelCommentEdit = StoryboardPanelCommentEdit
+const mapStateToProps = (state) => {
+    const { ui_state, project, storyboard, panel, comment, form_mode, errors } = state.storyboardPanelComment;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        project,
+        storyboard,
+        panel,
+        comment,
+        errors
+    }
+}
+
+export default connect(mapStateToProps)(StoryboardPanelCommentEdit);

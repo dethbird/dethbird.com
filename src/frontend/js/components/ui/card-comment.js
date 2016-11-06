@@ -23,7 +23,7 @@ const CardComment = React.createClass({
 
     render: function() {
         const { comment, link } = this.props;
-        console.log(link);
+
         return (
             <Card
                 className={ classNames(['comment', comment.status]) }

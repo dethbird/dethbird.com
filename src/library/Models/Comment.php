@@ -20,10 +20,12 @@ class Comment extends ActiveRecord\Model
 
     public function to_json(array $options=array()) {
         $model = json_decode(parent::to_json($options));
-        $user = User::find_by_id($model->user_id);
-        $model->user = json_decode($user->to_json([
-            'except' => ['auth_token', 'password', 'app_user', 'notifications']
-        ]));
+        if ($model->user_id) {
+            $user = User::find_by_id($model->user_id);
+            $model->user = json_decode($user->to_json([
+                'except' => ['auth_token', 'password', 'app_user', 'notifications']
+            ]));
+        }
         return json_encode($model);
     }
 }

@@ -41,7 +41,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
         if( revision==undefined && nextProps.revision){
             this.setState({
                 changedFields: {
-                    panel_id: nextProps.revision.panel_id,
                     content: nextProps.revision.content,
                     description: nextProps.revision.description
                 }
@@ -111,6 +110,10 @@ const StoryboardPanelRevisionEdit = React.createClass({
             if(error)
                 return error.message
             return null;
+        }
+
+        if(!project) {
+            return <UiState state={ ui_state } />
         }
 
         return (

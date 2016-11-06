@@ -78,16 +78,17 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         /**
          * @todo use a different column to store the commenting user id
          */
-        $model = new Comment($app->request->params());
+        $model = new Comment(json_decode($app->request->getBody(), true));
+
         $object = json_decode($model->to_json());
         unset($object->user);
-        // print_r($object); die();
+
         # validate
         $validator = new Validator();
         $validation_response = $validator->validate(
             $object,
             APPLICATION_PATH . "configs/validation_schemas/comment.json");
-
+        // var_dump($validation_response); exit();
         if (is_array($validation_response)) {
             $app->response->setStatus(400);
             $app->response->headers->set('Content-Type', 'application/json');
@@ -118,8 +119,8 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         if(!$model) {
             $app->halt(404);
         }
-
-        foreach($app->request->params() as $key=>$value) {
+        $params = json_decode($app->request->getBody(), true);
+        foreach($params as $key=>$value) {
             $model->$key = $value;
         }
         $object = json_decode($model->to_json());

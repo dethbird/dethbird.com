@@ -162,10 +162,8 @@ button {
 }
 
 h1 {
-    color: @lighterBlue;
     font-weight: bold;
 }
-
 
 .image,
 .image-panel-revision {
@@ -174,9 +172,13 @@ h1 {
 }
 
 .input-text,
-.input-description {
+.input-date,
+.input-description,
+.input-card,
+.input-select {
     width: 60% !important;
     text-align: left;
+    display: inline-block;
     @media screen and (max-width: 992px) {
         width: 80% !important;
     }

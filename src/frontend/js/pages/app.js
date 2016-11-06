@@ -33,7 +33,7 @@ import Storyboard from '../components/pages/storyboard'
 import { StoryboardEdit } from '../components/pages/storyboard-edit'
 import StoryboardPanel from '../components/pages/storyboard-panel'
 import { StoryboardPanelEdit } from '../components/pages/storyboard-panel-edit'
-import { StoryboardPanelCommentEdit } from '../components/pages/storyboard-panel-comment-edit'
+import StoryboardPanelCommentEdit from '../components/pages/storyboard-panel-comment-edit'
 import StoryboardPanelRevisionEdit from '../components/pages/storyboard-panel-revision-edit'
 import store from '../store/store';
 

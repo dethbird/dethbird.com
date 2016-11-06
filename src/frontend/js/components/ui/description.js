@@ -11,14 +11,13 @@ const Description = React.createClass({
     },
 
     render: function() {
-        const { source } = this.props;
-        const className = classNames([this.props.className, 'description'])
+        const { source, className } = this.props;
 
         if (source)
             return (
                 <ReactMarkdown
-                    className={ className }
-                    source={ this.props.source || '' }
+                    className={ classNames([className, 'description']) }
+                    source={ source || '' }
                 >
                 </ReactMarkdown>
             );
