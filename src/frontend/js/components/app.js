@@ -1,19 +1,21 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {blue700, blue800, pink600} from 'material-ui/styles/colors';
+import {indigo700, indigo800, indigoA700 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
+import {fade} from 'material-ui/utils/colorManipulator';
 
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
+    fontFamily: 'Hind Vadodara',
     palette: {
-        primary1Color: blue700,
-        primary2Color: blue800,
-        accent1Color: pink600,
-        pickerHeaderColor: blue800,
+        primary1Color: '#304FAD',
+        primary2Color: '#31469E',
+        accent1Color: '#4A7CE0',
+        pickerHeaderColor: '#304FAD',
     },
 });
 

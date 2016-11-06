@@ -61666,16 +61666,19 @@ var _Paper = require('material-ui/Paper');
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
+var _colorManipulator = require('material-ui/utils/colorManipulator');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactTapEventPlugin2.default)();
 
 var muiTheme = (0, _getMuiTheme2.default)({
+    fontFamily: 'Hind Vadodara',
     palette: {
-        primary1Color: _colors.blue700,
-        primary2Color: _colors.blue800,
-        accent1Color: _colors.pink600,
-        pickerHeaderColor: _colors.blue800
+        primary1Color: '#304FAD',
+        primary2Color: '#31469E',
+        accent1Color: '#4A7CE0',
+        pickerHeaderColor: '#304FAD'
     }
 });
 
@@ -61703,7 +61706,7 @@ var App = _react2.default.createClass({
 
 module.exports.App = App;
 
-},{"material-ui/AppBar":237,"material-ui/Paper":270,"material-ui/styles/MuiThemeProvider":296,"material-ui/styles/colors":298,"material-ui/styles/getMuiTheme":299,"react":554,"react-tap-event-plugin":404}],593:[function(require,module,exports){
+},{"material-ui/AppBar":237,"material-ui/Paper":270,"material-ui/styles/MuiThemeProvider":296,"material-ui/styles/colors":298,"material-ui/styles/getMuiTheme":299,"material-ui/utils/colorManipulator":320,"react":554,"react-tap-event-plugin":404}],593:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -68240,7 +68243,11 @@ var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
 
+var _Card = require('material-ui/Card');
+
 var _card = require('../ui/card');
+
+var _cardActionsButton = require('../ui/card-actions-button');
 
 var _cardClickable = require('../ui/card-clickable');
 
@@ -68361,13 +68368,10 @@ var StoryboardPanel = _react2.default.createClass({
 
         var panelRevisionNodes = panel.revisions.map(function (revision) {
             return _react2.default.createElement(
-                _cardClickable.CardClickable,
+                _card.Card,
                 {
-                    className: 'col-lg-3 clickable',
-                    key: revision.id,
-                    onClick: function onClick() {
-                        return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panelId + '/revision/' + revision.id + '/edit');
-                    }
+                    className: 'col-lg-3',
+                    key: revision.id
                 },
                 _react2.default.createElement(
                     'div',
@@ -68375,9 +68379,19 @@ var StoryboardPanel = _react2.default.createClass({
                     _react2.default.createElement(_image.Image, { src: revision.content })
                 ),
                 _react2.default.createElement(
-                    _cardBlock.CardBlock,
+                    _Card.CardText,
                     null,
                     _react2.default.createElement(_description.Description, { source: revision.description })
+                ),
+                _react2.default.createElement(
+                    _Card.CardActions,
+                    { className: 'text-align-right' },
+                    _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                        title: 'Edit',
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panelId + '/revision/' + revision.id + '/edit');
+                        }
+                    })
                 )
             );
         });
@@ -68503,7 +68517,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanel);
 
-},{"../../actions/storyboard-panel":590,"../../constants/ui-state":672,"../ui/card":651,"../ui/card-block":648,"../ui/card-clickable":649,"../ui/card-comment":650,"../ui/count":653,"../ui/description":654,"../ui/fountain":657,"../ui/header-page":659,"../ui/header-page-button":658,"../ui/image":661,"../ui/section":666,"../ui/section-button":664,"../ui/section-header":665,"../ui/ui-state":668,"./storyboard-panel/storyboard-panel-breadcrumb":642,"classnames":116,"react":554,"react-modal":348,"react-redux":353,"react-router":387}],642:[function(require,module,exports){
+},{"../../actions/storyboard-panel":590,"../../constants/ui-state":672,"../ui/card":651,"../ui/card-actions-button":647,"../ui/card-block":648,"../ui/card-clickable":649,"../ui/card-comment":650,"../ui/count":653,"../ui/description":654,"../ui/fountain":657,"../ui/header-page":659,"../ui/header-page-button":658,"../ui/image":661,"../ui/section":666,"../ui/section-button":664,"../ui/section-header":665,"../ui/ui-state":668,"./storyboard-panel/storyboard-panel-breadcrumb":642,"classnames":116,"material-ui/Card":247,"react":554,"react-modal":348,"react-redux":353,"react-router":387}],642:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');

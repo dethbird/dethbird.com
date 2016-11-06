@@ -4,7 +4,10 @@ import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 
+import { CardActions, CardText } from 'material-ui/Card';
+
 import { Card } from "../ui/card"
+import { CardActionsButton } from "../ui/card-actions-button"
 import { CardClickable } from "../ui/card-clickable"
 import { SectionHeader } from "../ui/section-header"
 import { CardComment } from "../ui/card-comment"
@@ -101,24 +104,30 @@ const StoryboardPanel = React.createClass({
 
         let panelRevisionNodes = panel.revisions.map(function(revision) {
             return (
-                <CardClickable
-                    className="col-lg-3 clickable"
+                <Card
+                    className="col-lg-3"
                     key={ revision.id }
-                    onClick={ () => browserHistory.push( '/project/'
-                        + projectId + '/storyboard/'
-                        + storyboardId + '/panel/'
-                        + panelId
-                        + '/revision/' + revision.id
-                        + '/edit'
-                    ) }
                 >
                     <div className="text-align-center">
                         <Image src={ revision.content } />
                     </div>
-                    <CardBlock>
+                    <CardText>
                         <Description source={ revision.description } />
-                    </CardBlock>
-                </CardClickable>
+                    </CardText>
+
+                    <CardActions className='text-align-right'>
+                        <CardActionsButton
+                            title="Edit"
+                            onTouchTap={ () => browserHistory.push( '/project/'
+                                + projectId + '/storyboard/'
+                                + storyboardId + '/panel/'
+                                + panelId
+                                + '/revision/' + revision.id
+                                + '/edit'
+                            ) }
+                        />
+                    </CardActions>
+                </Card>
             );
         });
 

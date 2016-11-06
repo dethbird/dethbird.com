@@ -24,7 +24,7 @@
   },
   "scripts": {
     "deploy": "php scripts/build.php --cache --php --configs --npm --javascript",
-    "build-js": "php scripts/build.php --js --js-page app",
+    "build-js": "php scripts/build.php --js --js-page app --css",
     "watch": "npm-watch"
   },
   "devDependencies": {

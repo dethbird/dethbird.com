@@ -1,9 +1,10 @@
 @import (less) '../../../node_modules/react-datepicker/dist/react-datepicker.css';
 
-@baseBlue: #1976D2;
-@lighterBlue: #2196F3;
-@darkerBlue: #1565C0;
+@baseBlue: #304FAD;
+@lighterBlue: #4A7CE0;
+@darkerBlue: #304FAD;
 @darkestBlue: #0D47A1;
+@info: #B245D1;
 
 @cardBackgroundColor: #fff;
 @cardBackgroundColorHover: @cardBackgroundColor - #111;
@@ -72,6 +73,9 @@ button {
     clear:both;
 }
 .col-lg-4:nth-child(3n+1) {
+    clear:both;
+}
+.col-lg-3:nth-child(4n+1) {
     clear:both;
 }
 .col-xs-4:nth-child(3n+1) {
@@ -202,6 +206,10 @@ section.well {
 
 .tag {
     margin: 5px;
+}
+
+.tag-info {
+    background-color: @info;
 }
 
 .text-align-center {
