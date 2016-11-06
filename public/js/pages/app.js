@@ -68789,7 +68789,7 @@ var getFlickrs = exports.getFlickrs = function getFlickrs() {
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],624:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],624:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68835,7 +68835,7 @@ var getProject = exports.getProject = function getProject(projectId) {
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],625:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],625:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68881,7 +68881,53 @@ var getProjects = exports.getProjects = function getProjects() {
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],626:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],626:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getScript = undefined;
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _actions = require('../constants/actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getScriptInit = function getScriptInit() {
+    return {
+        type: _actions.GET_SCRIPT_REQUEST
+    };
+};
+
+var getScriptSuccess = function getScriptSuccess(script) {
+    return {
+        type: _actions.GET_SCRIPT_SUCCESS,
+        script: script
+    };
+};
+
+var getScriptError = function getScriptError() {
+    return {
+        type: _actions.GET_SCRIPT_ERROR
+    };
+};
+
+var getScript = exports.getScript = function getScript(scriptId) {
+    return function (dispatch) {
+        dispatch(getScriptInit());
+        _superagent2.default.get('/api/project_script/' + scriptId).then(function (res) {
+            return dispatch(getScriptSuccess(res.body));
+        }).catch(function () {
+            return dispatch(getScriptError());
+        });
+    };
+};
+
+},{"../constants/actions":709,"superagent":614}],627:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -68927,7 +68973,7 @@ var getScripts = exports.getScripts = function getScripts() {
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],627:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],628:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69102,7 +69148,7 @@ var resetStoryboardPanelComment = exports.resetStoryboardPanelComment = function
     };
 };
 
-},{"../constants/actions":708,"../constants/form":709,"superagent":614}],628:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/form":710,"superagent":614}],629:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69279,7 +69325,7 @@ var resetStoryboardPanelRevision = exports.resetStoryboardPanelRevision = functi
     };
 };
 
-},{"../constants/actions":708,"../constants/form":709,"superagent":614}],629:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/form":710,"superagent":614}],630:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69335,7 +69381,7 @@ var getStoryboardPanel = exports.getStoryboardPanel = function getStoryboardPane
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],630:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],631:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -69386,7 +69432,7 @@ var getStoryboard = exports.getStoryboard = function getStoryboard(projectId, st
     };
 };
 
-},{"../constants/actions":708,"superagent":614}],631:[function(require,module,exports){
+},{"../constants/actions":709,"superagent":614}],632:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -69496,7 +69542,7 @@ var App = _react2.default.createClass({
 
 module.exports.App = App;
 
-},{"material-ui/AppBar":238,"material-ui/IconButton":278,"material-ui/IconMenu":280,"material-ui/MenuItem":291,"material-ui/Paper":293,"material-ui/styles/MuiThemeProvider":331,"material-ui/styles/colors":333,"material-ui/styles/getMuiTheme":334,"material-ui/svg-icons/navigation/menu":354,"material-ui/utils/colorManipulator":359,"react":591,"react-router":424,"react-tap-event-plugin":441}],632:[function(require,module,exports){
+},{"material-ui/AppBar":238,"material-ui/IconButton":278,"material-ui/IconMenu":280,"material-ui/MenuItem":291,"material-ui/Paper":293,"material-ui/styles/MuiThemeProvider":331,"material-ui/styles/colors":333,"material-ui/styles/getMuiTheme":334,"material-ui/svg-icons/navigation/menu":354,"material-ui/utils/colorManipulator":359,"react":591,"react-router":424,"react-tap-event-plugin":441}],633:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -69763,7 +69809,7 @@ var CharacterEdit = _react2.default.createClass({
 
 module.exports.CharacterEdit = CharacterEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./character/character-breadcrumb":635,"react":591,"react-router":424,"react-sortable-component":435}],633:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./character/character-breadcrumb":636,"react":591,"react-router":424,"react-sortable-component":435}],634:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -69982,7 +70028,7 @@ var CharacterRevisionEdit = _react2.default.createClass({
 
 module.exports.CharacterRevisionEdit = CharacterRevisionEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/content-edit":691,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./character/character-breadcrumb":635,"react":591,"react-router":424}],634:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/content-edit":692,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./character/character-breadcrumb":636,"react":591,"react-router":424}],635:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70133,7 +70179,7 @@ var Character = _react2.default.createClass({
 
 module.exports.Character = Character;
 
-},{"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./character/character-breadcrumb":635,"react":591,"react-router":424}],635:[function(require,module,exports){
+},{"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./character/character-breadcrumb":636,"react":591,"react-router":424}],636:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70196,7 +70242,7 @@ var CharacterBreadcrumb = _react2.default.createClass({
 
 module.exports.CharacterBreadcrumb = CharacterBreadcrumb;
 
-},{"react":591,"react-router":424}],636:[function(require,module,exports){
+},{"react":591,"react-router":424}],637:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70465,7 +70511,7 @@ var ConceptArtEdit = _react2.default.createClass({
 
 module.exports.ConceptArtEdit = ConceptArtEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./concept_art/concept_art-breadcrumb":639,"react":591,"react-router":424,"react-sortable-component":435}],637:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./concept_art/concept_art-breadcrumb":640,"react":591,"react-router":424,"react-sortable-component":435}],638:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70684,7 +70730,7 @@ var ConceptArtRevisionEdit = _react2.default.createClass({
 
 module.exports.ConceptArtRevisionEdit = ConceptArtRevisionEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/content-edit":691,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./concept_art/concept_art-breadcrumb":639,"react":591,"react-router":424}],638:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/content-edit":692,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./concept_art/concept_art-breadcrumb":640,"react":591,"react-router":424}],639:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70842,7 +70888,7 @@ var ConceptArt = _react2.default.createClass({
 
 module.exports.ConceptArt = ConceptArt;
 
-},{"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./concept_art/concept_art-breadcrumb":639,"react":591,"react-router":424}],639:[function(require,module,exports){
+},{"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./concept_art/concept_art-breadcrumb":640,"react":591,"react-router":424}],640:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70905,7 +70951,7 @@ var ConceptArtBreadcrumb = _react2.default.createClass({
 
 module.exports.ConceptArtBreadcrumb = ConceptArtBreadcrumb;
 
-},{"react":591,"react-router":424}],640:[function(require,module,exports){
+},{"react":591,"react-router":424}],641:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71128,7 +71174,7 @@ var LocationEdit = _react2.default.createClass({
 
 module.exports.LocationEdit = LocationEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/content-edit":691,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./project-locations/project-locations-breadcrumb":650,"react":591,"react-router":424}],641:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/content-edit":692,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./project-locations/project-locations-breadcrumb":651,"react":591,"react-router":424}],642:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71262,7 +71308,7 @@ var ProjectCharactersEdit = _react2.default.createClass({
 
 module.exports.ProjectCharactersEdit = ProjectCharactersEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/spinner":706,"./project-characters/project-characters-breadcrumb":643,"react":591,"react-router":424,"react-sortable-component":435}],642:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/spinner":707,"./project-characters/project-characters-breadcrumb":644,"react":591,"react-router":424,"react-sortable-component":435}],643:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -71400,7 +71446,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../ui/card-block":687,"../ui/card-clickable":688,"../ui/count":692,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-characters/project-characters-breadcrumb":643,"react":591,"react-router":424}],643:[function(require,module,exports){
+},{"../ui/card-block":688,"../ui/card-clickable":689,"../ui/count":693,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-characters/project-characters-breadcrumb":644,"react":591,"react-router":424}],644:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71451,7 +71497,7 @@ var ProjectCharactersBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectCharactersBreadcrumb = ProjectCharactersBreadcrumb;
 
-},{"react":591,"react-router":424}],644:[function(require,module,exports){
+},{"react":591,"react-router":424}],645:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71587,7 +71633,7 @@ var ProjectConceptArtEdit = _react2.default.createClass({
 
 module.exports.ProjectConceptArtEdit = ProjectConceptArtEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-concept_art/project-concept_art-breadcrumb":646,"react":591,"react-router":424,"react-sortable-component":435}],645:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-concept_art/project-concept_art-breadcrumb":647,"react":591,"react-router":424,"react-sortable-component":435}],646:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71712,7 +71758,7 @@ var ProjectConceptArt = _react2.default.createClass({
 
 module.exports.ProjectConceptArt = ProjectConceptArt;
 
-},{"../ui/card-block":687,"../ui/card-clickable":688,"../ui/count":692,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-concept_art/project-concept_art-breadcrumb":646,"react":591,"react-router":424}],646:[function(require,module,exports){
+},{"../ui/card-block":688,"../ui/card-clickable":689,"../ui/count":693,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-concept_art/project-concept_art-breadcrumb":647,"react":591,"react-router":424}],647:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71763,7 +71809,7 @@ var ProjectConceptArtBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectConceptArtBreadcrumb = ProjectConceptArtBreadcrumb;
 
-},{"react":591,"react-router":424}],647:[function(require,module,exports){
+},{"react":591,"react-router":424}],648:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71988,7 +72034,7 @@ var ProjectEdit = _react2.default.createClass({
 
 module.exports.ProjectEdit = ProjectEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/content-edit":691,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./project/project-breadcrumb":658,"react":591,"react-router":424}],648:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/content-edit":692,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./project/project-breadcrumb":659,"react":591,"react-router":424}],649:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72123,7 +72169,7 @@ var ProjectLocationsEdit = _react2.default.createClass({
 
 module.exports.ProjectLocationsEdit = ProjectLocationsEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-locations/project-locations-breadcrumb":650,"react":591,"react-router":424,"react-sortable-component":435}],649:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-locations/project-locations-breadcrumb":651,"react":591,"react-router":424,"react-sortable-component":435}],650:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72232,7 +72278,7 @@ var ProjectLocations = _react2.default.createClass({
 
 module.exports.ProjectLocations = ProjectLocations;
 
-},{"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-locations/project-locations-breadcrumb":650,"react":591,"react-router":424}],650:[function(require,module,exports){
+},{"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-locations/project-locations-breadcrumb":651,"react":591,"react-router":424}],651:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72283,7 +72329,7 @@ var ProjectLocationsBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectLocationsBreadcrumb = ProjectLocationsBreadcrumb;
 
-},{"react":591,"react-router":424}],651:[function(require,module,exports){
+},{"react":591,"react-router":424}],652:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72413,7 +72459,7 @@ var ProjectReferenceImagesEdit = _react2.default.createClass({
 
 module.exports.ProjectReferenceImagesEdit = ProjectReferenceImagesEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-reference_images/project-reference_images-breadcrumb":653,"react":591,"react-router":424,"react-sortable-component":435}],652:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-reference_images/project-reference_images-breadcrumb":654,"react":591,"react-router":424,"react-sortable-component":435}],653:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72525,7 +72571,7 @@ var ProjectReferenceImages = _react2.default.createClass({
 
 module.exports.ProjectReferenceImages = ProjectReferenceImages;
 
-},{"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/spinner":706,"./project-reference_images/project-reference_images-breadcrumb":653,"react":591,"react-router":424}],653:[function(require,module,exports){
+},{"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/spinner":707,"./project-reference_images/project-reference_images-breadcrumb":654,"react":591,"react-router":424}],654:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72576,7 +72622,7 @@ var ProjectReferenceImagesBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectReferenceImagesBreadcrumb = ProjectReferenceImagesBreadcrumb;
 
-},{"react":591,"react-router":424}],654:[function(require,module,exports){
+},{"react":591,"react-router":424}],655:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72713,7 +72759,7 @@ var ProjectStoryboardsEdit = _react2.default.createClass({
 
 module.exports.ProjectStoryboardsEdit = ProjectStoryboardsEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./project-storyboards/project-storyboards-breadcrumb":656,"react":591,"react-router":424,"react-sortable-component":435}],655:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./project-storyboards/project-storyboards-breadcrumb":657,"react":591,"react-router":424,"react-sortable-component":435}],656:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72824,7 +72870,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
 module.exports.ProjectStoryboards = ProjectStoryboards;
 
-},{"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/spinner":706,"./project-storyboards/project-storyboards-breadcrumb":656,"react":591,"react-router":424}],656:[function(require,module,exports){
+},{"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/spinner":707,"./project-storyboards/project-storyboards-breadcrumb":657,"react":591,"react-router":424}],657:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72875,7 +72921,7 @@ var ProjectStoryboardsBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectStoryboardsBreadcrumb = ProjectStoryboardsBreadcrumb;
 
-},{"react":591,"react-router":424}],657:[function(require,module,exports){
+},{"react":591,"react-router":424}],658:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -72987,7 +73033,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Project);
 
-},{"../../actions/project":624,"../../constants/styles":710,"../../constants/ui-state":711,"../ui/section-header":704,"../ui/ui-state":707,"./project/project-breadcrumb":658,"./project/project-characters":659,"./project/project-concept_arts":660,"./project/project-details":661,"./project/project-locations":662,"./project/project-reference_images":663,"./project/project-storyboards":664,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/editor/mode-edit":345,"react":591,"react-redux":390,"react-router":424}],658:[function(require,module,exports){
+},{"../../actions/project":624,"../../constants/styles":711,"../../constants/ui-state":712,"../ui/section-header":705,"../ui/ui-state":708,"./project/project-breadcrumb":659,"./project/project-characters":660,"./project/project-concept_arts":661,"./project/project-details":662,"./project/project-locations":663,"./project/project-reference_images":664,"./project/project-storyboards":665,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/editor/mode-edit":345,"react":591,"react-redux":390,"react-router":424}],659:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73029,7 +73075,7 @@ var ProjectBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectBreadcrumb = ProjectBreadcrumb;
 
-},{"react":591,"react-router":424}],659:[function(require,module,exports){
+},{"react":591,"react-router":424}],660:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73161,7 +73207,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/card-clickable":688,"../../ui/count":692,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"classnames":116,"react":591,"react-router":424}],660:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/card-clickable":689,"../../ui/count":693,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"classnames":116,"react":591,"react-router":424}],661:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73293,7 +73339,7 @@ var ProjectConceptArts = _react2.default.createClass({
 
 module.exports.ProjectConceptArts = ProjectConceptArts;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/card-clickable":688,"../../ui/count":692,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"classnames":116,"react":591,"react-router":424}],661:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/card-clickable":689,"../../ui/count":693,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"classnames":116,"react":591,"react-router":424}],662:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -73348,7 +73394,7 @@ var ProjectDetails = _react2.default.createClass({
 
 module.exports.ProjectDetails = ProjectDetails;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/description":693,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"react":591}],662:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/description":694,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"react":591}],663:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73479,7 +73525,7 @@ var ProjectLocations = _react2.default.createClass({
 
 module.exports.ProjectLocations = ProjectLocations;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/card-clickable":688,"../../ui/count":692,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"classnames":116,"react":591,"react-router":424}],663:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/card-clickable":689,"../../ui/count":693,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"classnames":116,"react":591,"react-router":424}],664:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73610,7 +73656,7 @@ var ProjectReferenceImages = _react2.default.createClass({
 
 module.exports.ProjectReferenceImages = ProjectReferenceImages;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/card-clickable":688,"../../ui/count":692,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"classnames":116,"react":591,"react-router":424}],664:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/card-clickable":689,"../../ui/count":693,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"classnames":116,"react":591,"react-router":424}],665:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73740,7 +73786,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
 module.exports.ProjectStoryboards = ProjectStoryboards;
 
-},{"../../ui/card":690,"../../ui/card-block":687,"../../ui/card-clickable":688,"../../ui/count":692,"../../ui/image-panel-revision":699,"../../ui/section-header":704,"classnames":116,"react":591,"react-router":424}],665:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-block":688,"../../ui/card-clickable":689,"../../ui/count":693,"../../ui/image-panel-revision":700,"../../ui/section-header":705,"classnames":116,"react":591,"react-router":424}],666:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73872,7 +73918,7 @@ var ProjectsEdit = _react2.default.createClass({
 
 module.exports.ProjectsEdit = ProjectsEdit;
 
-},{"../ui/alert":684,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/spinner":706,"./projects/projects-breadcrumb":668,"react":591,"react-router":424,"react-sortable-component":435}],666:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/spinner":707,"./projects/projects-breadcrumb":669,"react":591,"react-router":424,"react-sortable-component":435}],667:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -73977,7 +74023,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Projects);
 
-},{"../../actions/projects":625,"../../constants/ui-state":711,"../ui/header-page":698,"../ui/header-page-button":697,"../ui/ui-state":707,"./projects/project":667,"./projects/projects-breadcrumb":668,"react":591,"react-redux":390,"react-router":424}],667:[function(require,module,exports){
+},{"../../actions/projects":625,"../../constants/ui-state":712,"../ui/header-page":699,"../ui/header-page-button":698,"../ui/ui-state":708,"./projects/project":668,"./projects/projects-breadcrumb":669,"react":591,"react-redux":390,"react-router":424}],668:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -74123,7 +74169,7 @@ var Project = _react2.default.createClass({
 
 module.exports.Project = Project;
 
-},{"../../ui/card-actions-button":686,"../../ui/card-block":687,"../../ui/count":692,"../../ui/description":693,"../../ui/image":700,"classnames":116,"material-ui/Card":248,"material-ui/List":286,"react":591,"react-router":424}],668:[function(require,module,exports){
+},{"../../ui/card-actions-button":687,"../../ui/card-block":688,"../../ui/count":693,"../../ui/description":694,"../../ui/image":701,"classnames":116,"material-ui/Card":248,"material-ui/List":286,"react":591,"react-router":424}],669:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -74151,7 +74197,7 @@ var ProjectsBreadcrumb = _react2.default.createClass({
 
 module.exports.ProjectsBreadcrumb = ProjectsBreadcrumb;
 
-},{"react":591}],669:[function(require,module,exports){
+},{"react":591}],670:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -74374,7 +74420,7 @@ var ReferenceImageEdit = _react2.default.createClass({
 
 module.exports.ReferenceImageEdit = ReferenceImageEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/content-edit":691,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./project-reference_images/project-reference_images-breadcrumb":653,"react":591,"react-router":424}],670:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/content-edit":692,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./project-reference_images/project-reference_images-breadcrumb":654,"react":591,"react-router":424}],671:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -74608,14 +74654,22 @@ var ScriptEdit = _react2.default.createClass({
 
 module.exports.ScriptEdit = ScriptEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/fountain-full":695,"../ui/section-header":704,"../ui/spinner":706,"./script/script-breadcrumb":672,"react":591,"react-router":424,"react-sortable-component":435,"react-textarea-autosize":442}],671:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/fountain-full":696,"../ui/section-header":705,"../ui/spinner":707,"./script/script-breadcrumb":673,"react":591,"react-router":424,"react-sortable-component":435,"react-textarea-autosize":442}],672:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
+
+var _reactRedux = require('react-redux');
+
+var _Card = require('material-ui/Card');
 
 var _scriptBreadcrumb = require('./script/script-breadcrumb');
 
@@ -74627,83 +74681,92 @@ var _description = require('../ui/description');
 
 var _fountainFull = require('../ui/fountain-full');
 
+var _headerPage = require('../ui/header-page');
+
+var _headerPageButton = require('../ui/header-page-button');
+
 var _sectionHeader = require('../ui/section-header');
 
-var _spinner = require('../ui/spinner');
+var _uiState = require('../ui/ui-state');
+
+var _uiState2 = _interopRequireDefault(_uiState);
+
+var _uiState3 = require('../../constants/ui-state');
+
+var _script = require('../../actions/script');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Script = _react2.default.createClass({
     displayName: 'Script',
-    componentDidMount: function componentDidMount() {
-        $.ajax({
-            url: '/api/project_script/' + this.props.params.scriptId,
-            dataType: 'json',
-            cache: false,
-            success: function (data) {
-                this.setState({ script: data });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.log(xhr);
-            }.bind(this)
-        });
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+        var scriptId = this.props.params.scriptId;
+
+        dispatch((0, _script.getScript)(scriptId));
     },
     render: function render() {
-        var that = this;
-        if (this.state) {
-            var script = this.state.script;
-            return _react2.default.createElement(
-                'div',
-                { className: 'scriptPage' },
-                _react2.default.createElement(_scriptBreadcrumb.ScriptBreadcrumb, { script: this.state.script }),
+        var _props = this.props,
+            ui_state = _props.ui_state,
+            script = _props.script,
+            className = _props.className;
+
+
+        if (!script) return _react2.default.createElement(_uiState2.default, { state: ui_state });
+
+        return _react2.default.createElement(
+            'div',
+            { className: 'scriptPage' },
+            _react2.default.createElement(_scriptBreadcrumb.ScriptBreadcrumb, { script: this.props }),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                _headerPage.HeaderPage,
+                { title: script.name },
+                _react2.default.createElement(_headerPageButton.HeaderPageButton, {
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/script/' + script.id + '/edit');
+                    },
+                    title: 'Edit'
+                })
+            ),
+            _react2.default.createElement(
+                _card.Card,
+                { className: 'input-card' },
+                _react2.default.createElement(_Card.CardTitle, { title: 'Description' }),
                 _react2.default.createElement(
-                    'ul',
-                    { className: 'nav nav-pills' },
-                    _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item' },
-                        _react2.default.createElement(
-                            _reactRouter.Link,
-                            {
-                                className: 'nav-link btn btn-info',
-                                to: '/script/' + that.props.params.scriptId + '/edit' },
-                            'Edit'
-                        )
-                    )
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'h1',
+                    _Card.CardText,
                     null,
-                    this.state.script.name
-                ),
-                _react2.default.createElement(
-                    _card.Card,
-                    null,
-                    _react2.default.createElement(
-                        _cardBlock.CardBlock,
-                        null,
-                        _react2.default.createElement(_description.Description, { source: this.state.script.description })
-                    )
-                ),
-                _react2.default.createElement(
-                    _card.Card,
-                    null,
-                    _react2.default.createElement(
-                        _cardBlock.CardBlock,
-                        null,
-                        _react2.default.createElement(_fountainFull.FountainFull, { source: this.state.script.script })
-                    )
+                    _react2.default.createElement(_description.Description, { source: script.description })
                 )
-            );
-        }
-        return _react2.default.createElement(_spinner.Spinner, null);
+            ),
+            _react2.default.createElement(
+                _card.Card,
+                { className: 'input-card' },
+                _react2.default.createElement(_Card.CardTitle, { title: 'Script' }),
+                _react2.default.createElement(
+                    _Card.CardText,
+                    null,
+                    _react2.default.createElement(_fountainFull.FountainFull, { source: script.script })
+                )
+            )
+        );
     }
 });
 
-module.exports.Script = Script;
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$script = state.script,
+        ui_state = _state$script.ui_state,
+        script = _state$script.script;
 
-},{"../ui/card":690,"../ui/card-block":687,"../ui/description":693,"../ui/fountain-full":695,"../ui/section-header":704,"../ui/spinner":706,"./script/script-breadcrumb":672,"react":591,"react-router":424}],672:[function(require,module,exports){
+    return {
+        ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
+        script: script
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Script);
+
+},{"../../actions/script":626,"../../constants/ui-state":712,"../ui/card":691,"../ui/card-block":688,"../ui/description":694,"../ui/fountain-full":696,"../ui/header-page":699,"../ui/header-page-button":698,"../ui/section-header":705,"../ui/ui-state":708,"./script/script-breadcrumb":673,"material-ui/Card":248,"react":591,"react-redux":390,"react-router":424}],673:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -74745,7 +74808,7 @@ var ScriptBreadcrumb = _react2.default.createClass({
 
 module.exports.ScriptBreadcrumb = ScriptBreadcrumb;
 
-},{"react":591,"react-router":424}],673:[function(require,module,exports){
+},{"react":591,"react-router":424}],674:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -74838,7 +74901,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Scripts);
 
-},{"../../actions/scripts":626,"../../constants/ui-state":711,"../ui/header-page":698,"../ui/header-page-button":697,"../ui/ui-state":707,"./scripts/script":674,"./scripts/scripts-breadcrumb":675,"react":591,"react-redux":390,"react-router":424}],674:[function(require,module,exports){
+},{"../../actions/scripts":627,"../../constants/ui-state":712,"../ui/header-page":699,"../ui/header-page-button":698,"../ui/ui-state":708,"./scripts/script":675,"./scripts/scripts-breadcrumb":676,"react":591,"react-redux":390,"react-router":424}],675:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -74916,7 +74979,7 @@ var Script = _react2.default.createClass({
 
 module.exports.Script = Script;
 
-},{"../../ui/card":690,"../../ui/card-actions-button":686,"../../ui/card-block":687,"../../ui/description":693,"classnames":116,"material-ui/Card":248,"react":591,"react-router":424}],675:[function(require,module,exports){
+},{"../../ui/card":691,"../../ui/card-actions-button":687,"../../ui/card-block":688,"../../ui/description":694,"classnames":116,"material-ui/Card":248,"react":591,"react-router":424}],676:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -74944,7 +75007,7 @@ var ScriptsBreadcrumb = _react2.default.createClass({
 
 module.exports.ScriptsBreadcrumb = ScriptsBreadcrumb;
 
-},{"react":591}],676:[function(require,module,exports){
+},{"react":591}],677:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -75251,7 +75314,7 @@ var StoryboardEdit = _react2.default.createClass({
 
 module.exports.StoryboardEdit = StoryboardEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./storyboard/storyboard-breadcrumb":683,"react":591,"react-router":424,"react-sortable-component":435}],677:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/description":694,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./storyboard/storyboard-breadcrumb":684,"react":591,"react-router":424,"react-sortable-component":435}],678:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -75529,7 +75592,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelCommentEdit);
 
-},{"../../actions/storyboard-panel-comment":627,"../../constants/form":709,"../../constants/ui-state":711,"../ui/buttons-form":685,"../ui/card":690,"../ui/card-clickable":688,"../ui/description":693,"../ui/image-panel-revision":699,"../ui/input-description":701,"../ui/section-header":704,"../ui/ui-state":707,"./storyboard-panel/storyboard-panel-breadcrumb":681,"material-ui/Card":248,"material-ui/DatePicker":260,"material-ui/MenuItem":291,"material-ui/SelectField":302,"moment":367,"react":591,"react-redux":390,"react-router":424,"react-textarea-autosize":442}],678:[function(require,module,exports){
+},{"../../actions/storyboard-panel-comment":628,"../../constants/form":710,"../../constants/ui-state":712,"../ui/buttons-form":686,"../ui/card":691,"../ui/card-clickable":689,"../ui/description":694,"../ui/image-panel-revision":700,"../ui/input-description":702,"../ui/section-header":705,"../ui/ui-state":708,"./storyboard-panel/storyboard-panel-breadcrumb":682,"material-ui/Card":248,"material-ui/DatePicker":260,"material-ui/MenuItem":291,"material-ui/SelectField":302,"moment":367,"react":591,"react-redux":390,"react-router":424,"react-textarea-autosize":442}],679:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -75807,7 +75870,7 @@ var StoryboardPanelEdit = _react2.default.createClass({
 
 module.exports.StoryboardPanelEdit = StoryboardPanelEdit;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./storyboard-panel/storyboard-panel-breadcrumb":681,"react":591,"react-router":424,"react-sortable-component":435}],679:[function(require,module,exports){
+},{"../ui/alert":685,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/fountain":697,"../ui/image-panel-revision":700,"../ui/section-header":705,"../ui/spinner":707,"./storyboard-panel/storyboard-panel-breadcrumb":682,"react":591,"react-router":424,"react-sortable-component":435}],680:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -76011,7 +76074,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelRevisionEdit);
 
-},{"../../actions/storyboard-panel-revision":628,"../../constants/form":709,"../../constants/ui-state":711,"../ui/buttons-form":685,"../ui/card":690,"../ui/content-edit":691,"../ui/description":693,"../ui/input-description":701,"../ui/section":705,"../ui/ui-state":707,"./storyboard-panel/storyboard-panel-breadcrumb":681,"material-ui/Card":248,"react":591,"react-redux":390,"react-router":424}],680:[function(require,module,exports){
+},{"../../actions/storyboard-panel-revision":629,"../../constants/form":710,"../../constants/ui-state":712,"../ui/buttons-form":686,"../ui/card":691,"../ui/content-edit":692,"../ui/description":694,"../ui/input-description":702,"../ui/section":706,"../ui/ui-state":708,"./storyboard-panel/storyboard-panel-breadcrumb":682,"material-ui/Card":248,"react":591,"react-redux":390,"react-router":424}],681:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -76308,7 +76371,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanel);
 
-},{"../../actions/storyboard-panel":629,"../../constants/ui-state":711,"../ui/card":690,"../ui/card-actions-button":686,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/card-comment":689,"../ui/count":692,"../ui/description":693,"../ui/fountain":696,"../ui/header-page":698,"../ui/header-page-button":697,"../ui/image":700,"../ui/section":705,"../ui/section-button":703,"../ui/section-header":704,"../ui/ui-state":707,"./storyboard-panel/storyboard-panel-breadcrumb":681,"classnames":116,"material-ui/Card":248,"react":591,"react-modal":386,"react-redux":390,"react-router":424}],681:[function(require,module,exports){
+},{"../../actions/storyboard-panel":630,"../../constants/ui-state":712,"../ui/card":691,"../ui/card-actions-button":687,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/card-comment":690,"../ui/count":693,"../ui/description":694,"../ui/fountain":697,"../ui/header-page":699,"../ui/header-page-button":698,"../ui/image":701,"../ui/section":706,"../ui/section-button":704,"../ui/section-header":705,"../ui/ui-state":708,"./storyboard-panel/storyboard-panel-breadcrumb":682,"classnames":116,"material-ui/Card":248,"react":591,"react-modal":386,"react-redux":390,"react-router":424}],682:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76401,7 +76464,7 @@ var StoryboardPanelBreadcrumb = _react2.default.createClass({
 
 module.exports.StoryboardPanelBreadcrumb = StoryboardPanelBreadcrumb;
 
-},{"react":591,"react-router":424}],682:[function(require,module,exports){
+},{"react":591,"react-router":424}],683:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -76618,7 +76681,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Storyboard);
 
-},{"../../actions/storyboard":630,"../../constants/styles":710,"../../constants/ui-state":711,"../ui/card-actions-button":686,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/count":692,"../ui/description":693,"../ui/fountain":696,"../ui/header-page":698,"../ui/header-page-button":697,"../ui/image":700,"../ui/section":705,"../ui/section-button":703,"../ui/ui-state":707,"./storyboard/storyboard-breadcrumb":683,"material-ui/Card":248,"material-ui/Divider":264,"material-ui/List":286,"react":591,"react-markdown":379,"react-modal":386,"react-redux":390,"react-router":424,"react-timeago":444}],683:[function(require,module,exports){
+},{"../../actions/storyboard":631,"../../constants/styles":711,"../../constants/ui-state":712,"../ui/card-actions-button":687,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/count":693,"../ui/description":694,"../ui/fountain":697,"../ui/header-page":699,"../ui/header-page-button":698,"../ui/image":701,"../ui/section":706,"../ui/section-button":704,"../ui/ui-state":708,"./storyboard/storyboard-breadcrumb":684,"material-ui/Card":248,"material-ui/Divider":264,"material-ui/List":286,"react":591,"react-markdown":379,"react-modal":386,"react-redux":390,"react-router":424,"react-timeago":444}],684:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76681,7 +76744,7 @@ var StoryboardBreadcrumb = _react2.default.createClass({
 
 module.exports.StoryboardBreadcrumb = StoryboardBreadcrumb;
 
-},{"react":591,"react-router":424}],684:[function(require,module,exports){
+},{"react":591,"react-router":424}],685:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76718,7 +76781,7 @@ var Alert = _react2.default.createClass({
 
 module.exports.Alert = Alert;
 
-},{"classnames":116,"react":591}],685:[function(require,module,exports){
+},{"classnames":116,"react":591}],686:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76768,7 +76831,7 @@ var ButtonsForm = _react2.default.createClass({
 
 module.exports.ButtonsForm = ButtonsForm;
 
-},{"../../constants/styles":710,"material-ui/RaisedButton":298,"react":591}],686:[function(require,module,exports){
+},{"../../constants/styles":711,"material-ui/RaisedButton":298,"react":591}],687:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76846,7 +76909,7 @@ var CardActionsButton = _react2.default.createClass({
 
 module.exports.CardActionsButton = CardActionsButton;
 
-},{"../../constants/styles":710,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],687:[function(require,module,exports){
+},{"../../constants/styles":711,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],688:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76879,7 +76942,7 @@ var CardBlock = _react2.default.createClass({
 
 module.exports.CardBlock = CardBlock;
 
-},{"classnames":116,"react":591}],688:[function(require,module,exports){
+},{"classnames":116,"react":591}],689:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76927,7 +76990,7 @@ var CardClickable = _react2.default.createClass({
 
 module.exports.CardClickable = CardClickable;
 
-},{"../ui/card":690,"classnames":116,"react":591}],689:[function(require,module,exports){
+},{"../ui/card":691,"classnames":116,"react":591}],690:[function(require,module,exports){
 'use strict';
 
 var _reactRouter = require('react-router');
@@ -77007,7 +77070,7 @@ var CardComment = _react2.default.createClass({
 
 module.exports.CardComment = CardComment;
 
-},{"../ui/card":690,"../ui/card-actions-button":686,"../ui/description":693,"classnames":116,"material-ui/Card":248,"react":591,"react-router":424,"react-timeago":444}],690:[function(require,module,exports){
+},{"../ui/card":691,"../ui/card-actions-button":687,"../ui/description":694,"classnames":116,"material-ui/Card":248,"react":591,"react-router":424,"react-timeago":444}],691:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -77044,7 +77107,7 @@ var Card = _react2.default.createClass({
 
 module.exports.Card = Card;
 
-},{"classnames":116,"material-ui/Card":248,"react":591}],691:[function(require,module,exports){
+},{"classnames":116,"material-ui/Card":248,"react":591}],692:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -77127,7 +77190,7 @@ var ContentEdit = _react2.default.createClass({
 
 module.exports.ContentEdit = ContentEdit;
 
-},{"../ui/card":690,"../ui/card-block":687,"../ui/flickr-selector":694,"../ui/image":700,"../ui/input-text":702,"../ui/spinner":706,"classnames":116,"react":591}],692:[function(require,module,exports){
+},{"../ui/card":691,"../ui/card-block":688,"../ui/flickr-selector":695,"../ui/image":701,"../ui/input-text":703,"../ui/spinner":707,"classnames":116,"react":591}],693:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -77167,7 +77230,7 @@ var Count = _react2.default.createClass({
 
 module.exports.Count = Count;
 
-},{"classnames":116,"react":591}],693:[function(require,module,exports){
+},{"classnames":116,"react":591}],694:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77209,7 +77272,7 @@ var Description = _react2.default.createClass({
 
 module.exports.Description = Description;
 
-},{"classnames":116,"react":591,"react-markdown":379}],694:[function(require,module,exports){
+},{"classnames":116,"react":591,"react-markdown":379}],695:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -77359,7 +77422,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(FlickrSelector);
 
-},{"../../actions/flickr-selector":623,"../../constants/ui-state":711,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/image-panel-revision":699,"../ui/spinner":706,"../ui/ui-state":707,"classnames":116,"material-ui/GridList":276,"material-ui/IconButton":278,"material-ui/RaisedButton":298,"material-ui/Subheader":307,"material-ui/svg-icons/action/perm-media":341,"material-ui/svg-icons/content/add-circle":342,"react":591,"react-redux":390}],695:[function(require,module,exports){
+},{"../../actions/flickr-selector":623,"../../constants/ui-state":712,"../ui/card":691,"../ui/card-block":688,"../ui/card-clickable":689,"../ui/image-panel-revision":700,"../ui/spinner":707,"../ui/ui-state":708,"classnames":116,"material-ui/GridList":276,"material-ui/IconButton":278,"material-ui/RaisedButton":298,"material-ui/Subheader":307,"material-ui/svg-icons/action/perm-media":341,"material-ui/svg-icons/content/add-circle":342,"react":591,"react-redux":390}],696:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -77416,7 +77479,7 @@ var FountainFull = _react2.default.createClass({
 
 module.exports.FountainFull = FountainFull;
 
-},{"classnames":116,"fountain-js":166,"react":591}],696:[function(require,module,exports){
+},{"classnames":116,"fountain-js":166,"react":591}],697:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -77462,7 +77525,7 @@ var Fountain = _react2.default.createClass({
 
 module.exports.Fountain = Fountain;
 
-},{"classnames":116,"fountain-js":166,"react":591}],697:[function(require,module,exports){
+},{"classnames":116,"fountain-js":166,"react":591}],698:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77544,7 +77607,7 @@ var HeaderPageButton = _react2.default.createClass({
 
 module.exports.HeaderPageButton = HeaderPageButton;
 
-},{"../../constants/styles":710,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/content/sort":344,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],698:[function(require,module,exports){
+},{"../../constants/styles":711,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/content/sort":344,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],699:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -77586,7 +77649,7 @@ var HeaderPage = _react2.default.createClass({
 
 module.exports.HeaderPage = HeaderPage;
 
-},{"react":591}],699:[function(require,module,exports){
+},{"react":591}],700:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77623,7 +77686,7 @@ var ImagePanelRevision = _react2.default.createClass({
 
 module.exports.ImagePanelRevision = ImagePanelRevision;
 
-},{"classnames":116,"react":591}],700:[function(require,module,exports){
+},{"classnames":116,"react":591}],701:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77660,7 +77723,7 @@ var Image = _react2.default.createClass({
 
 module.exports.Image = Image;
 
-},{"classnames":116,"react":591}],701:[function(require,module,exports){
+},{"classnames":116,"react":591}],702:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -77718,7 +77781,7 @@ var InputDescription = _react2.default.createClass({
 
 exports.default = InputDescription;
 
-},{"classnames":116,"material-ui/TextField":315,"react":591}],702:[function(require,module,exports){
+},{"classnames":116,"material-ui/TextField":315,"react":591}],703:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -77775,7 +77838,7 @@ var InputText = _react2.default.createClass({
 
 exports.default = InputText;
 
-},{"classnames":116,"material-ui/TextField":315,"react":591}],703:[function(require,module,exports){
+},{"classnames":116,"material-ui/TextField":315,"react":591}],704:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77852,7 +77915,7 @@ var SectionButton = _react2.default.createClass({
 
 module.exports.SectionButton = SectionButton;
 
-},{"../../constants/styles":710,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],704:[function(require,module,exports){
+},{"../../constants/styles":711,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/action/assessment":339,"material-ui/svg-icons/action/delete":340,"material-ui/svg-icons/content/add":343,"material-ui/svg-icons/editor/mode-edit":345,"react":591}],705:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77886,7 +77949,7 @@ var SectionHeader = _react2.default.createClass({
 
 module.exports.SectionHeader = SectionHeader;
 
-},{"classnames":116,"react":591}],705:[function(require,module,exports){
+},{"classnames":116,"react":591}],706:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -77940,7 +78003,7 @@ var Section = _react2.default.createClass({
 
 module.exports.Section = Section;
 
-},{"../ui/count":692,"react":591}],706:[function(require,module,exports){
+},{"../ui/count":693,"react":591}],707:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -77976,7 +78039,7 @@ var Spinner = _react2.default.createClass({
 
 module.exports.Spinner = Spinner;
 
-},{"react":591}],707:[function(require,module,exports){
+},{"react":591}],708:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78047,7 +78110,7 @@ var UiState = _react2.default.createClass({
 
 exports.default = UiState;
 
-},{"../../constants/ui-state":711,"material-ui/LinearProgress":282,"material-ui/RefreshIndicator":300,"material-ui/Snackbar":305,"material-ui/styles/colors":333,"react":591}],708:[function(require,module,exports){
+},{"../../constants/ui-state":712,"material-ui/LinearProgress":282,"material-ui/RefreshIndicator":300,"material-ui/Snackbar":305,"material-ui/styles/colors":333,"react":591}],709:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78100,11 +78163,15 @@ var PUT_STORYBOARD_PANEL_REVISION_ERROR = exports.PUT_STORYBOARD_PANEL_REVISION_
 var PUT_STORYBOARD_PANEL_REVISION_SUCCESS = exports.PUT_STORYBOARD_PANEL_REVISION_SUCCESS = 'PUT_STORYBOARD_PANEL_REVISION_SUCCESS';
 var RESET_STORYBOARD_PANEL_REVISION = exports.RESET_STORYBOARD_PANEL_REVISION = 'RESET_STORYBOARD_PANEL_REVISION';
 
+var GET_SCRIPT_REQUEST = exports.GET_SCRIPT_REQUEST = 'GET_SCRIPT_REQUEST';
+var GET_SCRIPT_ERROR = exports.GET_SCRIPT_ERROR = 'GET_SCRIPT_ERROR';
+var GET_SCRIPT_SUCCESS = exports.GET_SCRIPT_SUCCESS = 'GET_SCRIPT_SUCCESS';
+
 var GET_SCRIPTS_REQUEST = exports.GET_SCRIPTS_REQUEST = 'GET_SCRIPTS_REQUEST';
 var GET_SCRIPTS_ERROR = exports.GET_SCRIPTS_ERROR = 'GET_SCRIPTS_ERROR';
 var GET_SCRIPTS_SUCCESS = exports.GET_SCRIPTS_SUCCESS = 'GET_SCRIPTS_SUCCESS';
 
-},{}],709:[function(require,module,exports){
+},{}],710:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78113,7 +78180,7 @@ Object.defineProperty(exports, "__esModule", {
 var FORM_MODE_ADD = exports.FORM_MODE_ADD = 'FORM_MODE_ADD';
 var FORM_MODE_EDIT = exports.FORM_MODE_EDIT = 'FORM_MODE_EDIT';
 
-},{}],710:[function(require,module,exports){
+},{}],711:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78127,7 +78194,7 @@ var cardHeaderStyle = exports.cardHeaderStyle = {
     fontSize: '18px'
 };
 
-},{}],711:[function(require,module,exports){
+},{}],712:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78145,7 +78212,7 @@ var FLICKR_SELECTOR_STATE_ERROR = exports.FLICKR_SELECTOR_STATE_ERROR = 'ERROR';
 var FLICKR_SELECTOR_STATE_SUCCESS = exports.FLICKR_SELECTOR_STATE_SUCCESS = 'SUCCESS';
 var FLICKR_SELECTOR_STATE_COMPLETE = exports.FLICKR_SELECTOR_STATE_COMPLETE = 'COMPLETE';
 
-},{}],712:[function(require,module,exports){
+},{}],713:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -78209,6 +78276,8 @@ var _projectsEdit = require('../components/pages/projects-edit');
 var _reference_imageEdit = require('../components/pages/reference_image-edit');
 
 var _script = require('../components/pages/script');
+
+var _script2 = _interopRequireDefault(_script);
 
 var _scriptEdit = require('../components/pages/script-edit');
 
@@ -78308,14 +78377,14 @@ if (lastRequestUri) {
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/:revisionId/edit', component: _storyboardPanelRevisionEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'scripts', component: _scripts2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'script/add', component: _scriptEdit.ScriptEdit }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId', component: _script.Script }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId', component: _script2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'script/:scriptId/edit', component: _scriptEdit.ScriptEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: '*', component: _projects2.default })
         )
     )
 ), document.getElementById('mount'));
 
-},{"../components/app":631,"../components/pages/character":634,"../components/pages/character-edit":632,"../components/pages/character-revision-edit":633,"../components/pages/concept_art":638,"../components/pages/concept_art-edit":636,"../components/pages/concept_art-revision-edit":637,"../components/pages/location-edit":640,"../components/pages/project":657,"../components/pages/project-characters":642,"../components/pages/project-characters-edit":641,"../components/pages/project-concept_art":645,"../components/pages/project-concept_art-edit":644,"../components/pages/project-edit":647,"../components/pages/project-locations":649,"../components/pages/project-locations-edit":648,"../components/pages/project-reference_images":652,"../components/pages/project-reference_images-edit":651,"../components/pages/project-storyboards":655,"../components/pages/project-storyboards-edit":654,"../components/pages/projects":666,"../components/pages/projects-edit":665,"../components/pages/reference_image-edit":669,"../components/pages/script":671,"../components/pages/script-edit":670,"../components/pages/scripts":673,"../components/pages/storyboard":682,"../components/pages/storyboard-edit":676,"../components/pages/storyboard-panel":680,"../components/pages/storyboard-panel-comment-edit":677,"../components/pages/storyboard-panel-edit":678,"../components/pages/storyboard-panel-revision-edit":679,"../store/store":723,"react":591,"react-dom":375,"react-redux":390,"react-router":424}],713:[function(require,module,exports){
+},{"../components/app":632,"../components/pages/character":635,"../components/pages/character-edit":633,"../components/pages/character-revision-edit":634,"../components/pages/concept_art":639,"../components/pages/concept_art-edit":637,"../components/pages/concept_art-revision-edit":638,"../components/pages/location-edit":641,"../components/pages/project":658,"../components/pages/project-characters":643,"../components/pages/project-characters-edit":642,"../components/pages/project-concept_art":646,"../components/pages/project-concept_art-edit":645,"../components/pages/project-edit":648,"../components/pages/project-locations":650,"../components/pages/project-locations-edit":649,"../components/pages/project-reference_images":653,"../components/pages/project-reference_images-edit":652,"../components/pages/project-storyboards":656,"../components/pages/project-storyboards-edit":655,"../components/pages/projects":667,"../components/pages/projects-edit":666,"../components/pages/reference_image-edit":670,"../components/pages/script":672,"../components/pages/script-edit":671,"../components/pages/scripts":674,"../components/pages/storyboard":683,"../components/pages/storyboard-edit":677,"../components/pages/storyboard-panel":681,"../components/pages/storyboard-panel-comment-edit":678,"../components/pages/storyboard-panel-edit":679,"../components/pages/storyboard-panel-revision-edit":680,"../store/store":725,"react":591,"react-dom":375,"react-redux":390,"react-router":424}],714:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78356,7 +78425,7 @@ var flickrSelector = function flickrSelector() {
 
 exports.default = flickrSelector;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],714:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],715:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78396,6 +78465,15 @@ Object.defineProperty(exports, 'projects', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_projects).default;
+  }
+});
+
+var _script = require('./script');
+
+Object.defineProperty(exports, 'script', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_script).default;
   }
 });
 
@@ -78446,7 +78524,7 @@ Object.defineProperty(exports, 'storyboardPanelRevision', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./flickr-selector":713,"./login":715,"./project":716,"./projects":717,"./scripts":718,"./storyboard":722,"./storyboard-panel":721,"./storyboard-panel-comment":719,"./storyboard-panel-revision":720}],715:[function(require,module,exports){
+},{"./flickr-selector":714,"./login":716,"./project":717,"./projects":718,"./script":719,"./scripts":720,"./storyboard":724,"./storyboard-panel":723,"./storyboard-panel-comment":721,"./storyboard-panel-revision":722}],716:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78482,7 +78560,7 @@ var login = function login() {
 
 exports.default = login;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],716:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],717:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78519,7 +78597,7 @@ var project = function project() {
 
 exports.default = project;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],717:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],718:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78556,7 +78634,44 @@ var projects = function projects() {
 
 exports.default = projects;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],718:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],719:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = require('../constants/actions');
+
+var _uiState = require('../constants/ui-state');
+
+var script = function script() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case _actions.GET_SCRIPT_REQUEST:
+            return {
+                ui_state: _uiState.UI_STATE_REQUESTING
+            };
+        case _actions.GET_SCRIPT_ERROR:
+            return {
+                ui_state: _uiState.UI_STATE_ERROR
+            };
+        case _actions.GET_SCRIPT_SUCCESS:
+            return {
+                ui_state: _uiState.UI_STATE_COMPLETE,
+                script: action.script
+            };
+        default:
+            return state;
+    }
+};
+
+exports.default = script;
+
+},{"../constants/actions":709,"../constants/ui-state":712}],720:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78593,7 +78708,7 @@ var scripts = function scripts() {
 
 exports.default = scripts;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],719:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],721:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78665,7 +78780,7 @@ var storyboardPanelComment = function storyboardPanelComment() {
 
 exports.default = storyboardPanelComment;
 
-},{"../constants/actions":708,"../constants/form":709,"../constants/ui-state":711}],720:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/form":710,"../constants/ui-state":712}],722:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78737,7 +78852,7 @@ var storyboardPanelRevision = function storyboardPanelRevision() {
 
 exports.default = storyboardPanelRevision;
 
-},{"../constants/actions":708,"../constants/form":709,"../constants/ui-state":711}],721:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/form":710,"../constants/ui-state":712}],723:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78776,7 +78891,7 @@ var storyboardPanel = function storyboardPanel() {
 
 exports.default = storyboardPanel;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],722:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],724:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78813,7 +78928,7 @@ var storyboard = function storyboard() {
 
 exports.default = storyboard;
 
-},{"../constants/actions":708,"../constants/ui-state":711}],723:[function(require,module,exports){
+},{"../constants/actions":709,"../constants/ui-state":712}],725:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -78846,4 +78961,4 @@ var createNewStore = exports.createNewStore = function createNewStore() {
 
 exports.default = createNewStore();
 
-},{"../reducers":714,"redux":609,"redux-thunk":603}]},{},[712]);
+},{"../reducers":715,"redux":609,"redux-thunk":603}]},{},[713]);

@@ -26,7 +26,7 @@ import { ProjectStoryboardsEdit } from '../components/pages/project-storyboards-
 import Projects from '../components/pages/projects'
 import { ProjectsEdit } from '../components/pages/projects-edit'
 import { ReferenceImageEdit } from '../components/pages/reference_image-edit'
-import { Script } from '../components/pages/script'
+import Script from '../components/pages/script'
 import { ScriptEdit } from '../components/pages/script-edit'
 import Scripts from '../components/pages/scripts'
 import Storyboard from '../components/pages/storyboard'

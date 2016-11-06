@@ -1,68 +1,76 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
+import { connect } from 'react-redux'
+import {CardActions, CardHeader, CardText, CardTitle} from 'material-ui/Card';
 
-import { ScriptBreadcrumb } from "./script/script-breadcrumb"
-import { Card } from "../ui/card"
-import { CardBlock } from "../ui/card-block"
-import { Description } from "../ui/description"
-import { FountainFull } from "../ui/fountain-full"
-import { SectionHeader } from "../ui/section-header"
-import { Spinner } from "../ui/spinner"
+import { ScriptBreadcrumb } from './script/script-breadcrumb'
+import { Card } from '../ui/card'
+import { CardBlock } from '../ui/card-block'
+import { Description } from '../ui/description'
+import { FountainFull } from '../ui/fountain-full'
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
+import { SectionHeader } from '../ui/section-header'
+import UiState from '../ui/ui-state'
+
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+import { getScript } from  '../../actions/script'
 
 
 const Script = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project_script/' + this.props.params.scriptId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({script: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(xhr);
-            }.bind(this)
-        });
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { scriptId } = this.props.params;
+        dispatch(getScript(scriptId));
     },
     render() {
-        let that = this;
-        if(this.state) {
-            let script = this.state.script;
-            return (
-                <div className="scriptPage">
-                    <ScriptBreadcrumb script={ this.state.script } />
+        const { ui_state, script, className } = this.props;
 
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link btn btn-info"
-                                to={
-                                    '/script/' + that.props.params.scriptId
-                                    + '/edit'
-                                }>Edit</Link>
-                        </li>
-                    </ul>
-                    <br />
-                    <h1>{ this.state.script.name }</h1>
-                    <Card>
-                        <CardBlock>
-                            <Description source={ this.state.script.description } />
-                        </CardBlock>
-                    </Card>
+        if(!script)
+            return <UiState state={ ui_state } />
 
-                    <Card>
-                        <CardBlock>
-                            <FountainFull source={ this.state.script.script } />
-                        </CardBlock>
-                    </Card>
-
-                </div>
-            )
-        }
         return (
-            <Spinner />
+            <div className="scriptPage">
+
+                <ScriptBreadcrumb script={ this.props } />
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title={ script.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/script/' + script.id + '/edit')}
+                        title="Edit"
+                    />
+                </HeaderPage>
+
+                <Card className='input-card'>
+                    <CardTitle title="Description"/>
+                    <CardText>
+                        <Description source={ script.description }  />
+                    </CardText>
+                </Card>
+
+                <Card className='input-card'>
+                    <CardTitle title="Script"/>
+                    <CardText>
+                        <FountainFull source={ script.script } />
+                    </CardText>
+                </Card>
+
+            </div>
         )
     }
 })
 
-module.exports.Script = Script
+const mapStateToProps = (state) => {
+    const { ui_state, script } = state.script;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        script: script
+    }
+}
+
+export default connect(mapStateToProps)(Script);
