@@ -3,6 +3,7 @@ import {
     GET_STORYBOARD_PANEL_REVISION_REQUEST,
     GET_STORYBOARD_PANEL_REVISION_ERROR,
     GET_STORYBOARD_PANEL_REVISION_SUCCESS,
+    GET_STORYBOARD_PANEL_REVISION_FIELD_CHANGE,
 } from '../constants/actions';
 import {
     FORM_MODE_ADD,
@@ -37,6 +38,7 @@ const getStoryboardPanelRevisionError = () => {
     }
 }
 
+
 export const getStoryboardPanelRevision = (projectId, storyboardId, panelId, revisionId) =>
     dispatch => {
         dispatch(getStoryboardPanelRevisionInit());
@@ -62,6 +64,7 @@ export const getStoryboardPanelRevision = (projectId, storyboardId, panelId, rev
                     form_mode));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(getStoryboardPanelRevisionError())
             });
     };

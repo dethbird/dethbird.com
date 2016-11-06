@@ -2,13 +2,9 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Card } from '../ui/card'
-import { SectionHeader } from '../ui/section-header'
-import { CardClickable } from '../ui/card-clickable'
-import { CardBlock } from '../ui/card-block'
+import { ButtonsForm } from '../ui/buttons-form'
 import { ContentEdit } from '../ui/content-edit'
 import { Description } from '../ui/description'
-import { ImagePanelRevision } from '../ui/image-panel-revision'
 import InputDescription from '../ui/input-description'
 import { Section } from '../ui/section'
 import {
@@ -26,7 +22,10 @@ import { getStoryboardPanelRevision } from  '../../actions/storyboard-panel-revi
 const StoryboardPanelRevisionEdit = React.createClass({
     getInitialState() {
         return {
-            changedFields: {}
+            changedFields: {
+                content: null,
+                description: null
+            }
         }
     },
     componentWillMount() {
@@ -44,67 +43,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
             panelId,
             revisionId));
     },
-    // componentDidMount() {
-    //     $.ajaxSetup({
-    //         beforeSend: function() {
-    //             this.setState({
-    //                 formState: 'info',
-    //                 formMessage: 'Working.',
-    //             })
-    //         }.bind(this)
-    //     });
-    //     $.ajax({
-    //         url: '/api/project/' + this.props.params.projectId,
-    //         dataType: 'json',
-    //         cache: false,
-    //         success: function(data) {
-    //
-    //             let storyboard = _.findWhere(data.storyboards, {
-    //                 'id': parseInt(this.props.params.storyboardId)
-    //             });
-    //             let panel = _.findWhere(storyboard.panels, {
-    //                 'id': parseInt(this.props.params.panelId)
-    //             });
-    //             let revision = _.findWhere(panel.revisions, {
-    //                 'id': parseInt(this.props.params.revisionId)
-    //             });
-    //
-    //             let changedFields = null
-    //             let submitUrl = '/api/project_storyboard_panel_revision/'
-    //                 + this.props.params.revisionId
-    //             let submitMethod = 'PUT'
-    //
-    //             if (!revision) {
-    //                 revision = {
-    //                     name: '',
-    //                     content: '',
-    //                     description: ''
-    //                 };
-    //                 submitUrl = '/api/project_storyboard_panel_revision'
-    //                 submitMethod = 'POST'
-    //
-    //                 changedFields = {
-    //                     panel_id: this.props.params.panelId
-    //                 }
-    //             }
-    //
-    //             this.setState({
-    //                 project: data,
-    //                 storyboard: storyboard,
-    //                 panel: panel,
-    //                 revision: revision,
-    //                 formState: null,
-    //                 formMessage: null,
-    //                 submitUrl: submitUrl,
-    //                 submitMethod: submitMethod,
-    //                 changedFields: changedFields
-    //             });
-    //         }.bind(this),
-    //         error: function(xhr, status, err) {
-    //             console.error(this.props.url, status, err.toString());
-    //         }.bind(this)
-    //     });
-    // },
     handleContentSelection(event) {
         event.preventDefault()
         this.handleFieldChange({
@@ -115,13 +53,13 @@ const StoryboardPanelRevisionEdit = React.createClass({
         })
     },
     handleFieldChange(event) {
-        let changedFields = this.state.changedFields || {};
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        changedFields[event.target.id] = event.target.value
-        console.log(changedFields);
-        this.setState({
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
     },
     handleClickCancel(event) {
         event.preventDefault()
@@ -160,12 +98,13 @@ const StoryboardPanelRevisionEdit = React.createClass({
     },
     render() {
         const { ui_state, project } = this.props;
-        console.log('project', project);
+
         if (!project)
             return <UiState state={ ui_state } />
         return this.renderBody();
     },
     renderBody() {
+        const { changedFields } = this.state;
         const { ui_state, project, storyboard, panel, revision, form_mode } = this.props;
         const {
             projectId,
@@ -173,8 +112,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
             panelId,
             revisionId
         } = this.props.params;
-
-        const { changedFields } = this.state;
 
         return (
             <div>
@@ -198,17 +135,10 @@ const StoryboardPanelRevisionEdit = React.createClass({
                     />
                     <br />
 
-                    <div className="form-group text-align-center">
-                        <button
-                            className="btn btn-secondary"
-                            onClick={ this.handleClickCancel }
-                        >Cancel</button>
-                        <button
-                            className="btn btn-success"
-                            onClick={ this.handleClickSubmit }
-                            disabled={ !changedFields }
-                        >Save</button>
-                    </div>
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
                 </form>
             </div>
         );

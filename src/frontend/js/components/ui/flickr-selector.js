@@ -2,6 +2,11 @@ import classNames from 'classnames';
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import Subheader from 'material-ui/Subheader';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionPermMedia from 'material-ui/svg-icons/action/perm-media'
 
@@ -17,7 +22,7 @@ import {
     FLICKR_SELECTOR_STATE_COMPLETE,
 } from '../../constants/ui-state';
 
-import { getFlickrs } from  '../../actions/flickr-selector'
+import { getFlickrs, resetFlickrs } from  '../../actions/flickr-selector'
 
 const FlickrSelector = React.createClass({
     propTypes: {
@@ -27,38 +32,41 @@ const FlickrSelector = React.createClass({
         const { dispatch } = this.props;
         dispatch(getFlickrs());
     },
-    handleClickSelect: function(event) {
-        this.setState({
-            status: 'init'
-        });
-        this.props.onClick(event);
+    handleClickSelect: function(url) {
+        const { dispatch } = this.props;
+        this.props.onClick(url);
+        dispatch(resetFlickrs());
     },
     render: function() {
         const { flickr_selector_state, flickrs } = this.props;
-        const handleClickSelect = this.handleClickSelect;
+        const that = this;
 
         if (flickrs) {
 
             const flickrImageNodes = flickrs.map(function(image) {
                 return (
-                    <Card
-                        className="col-lg-3"
+                    <GridTile
                         key={ image.id }
+                        title={ image.title }
+                        actionIcon={<IconButton onClick={ that.handleClickSelect.bind(that, image.url_l ) }><ContentAddCircle color="white" /></IconButton>}
                     >
-                        <CardBlock>
-                            <img
-                                src={ image.url_l }
-                                onClick={ handleClickSelect }
-                            />
-                        </CardBlock>
-                    </Card>
+                        <img
+                            src={ image.url_l }
+                        />
+                    </GridTile>
                 );
             });
 
             return (
                 <div>
                     <UiState state={ flickr_selector_state } />
-                    { flickrImageNodes }
+                        <GridList
+                            cols={ 4 }
+                            cellHeight= { 350 }
+                        >
+                            <Subheader>Select a FLickr image:</Subheader>
+                            { flickrImageNodes }
+                        </GridList>
                 </div>
             )
         }
@@ -70,6 +78,7 @@ const FlickrSelector = React.createClass({
                     label="Select from Flickr"
                     onClick={ this.handleClickOpen }
                     icon={<ActionPermMedia />}
+                    secondary={ true }
                 />
             </div>
         );

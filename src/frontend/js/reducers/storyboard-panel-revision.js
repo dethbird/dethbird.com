@@ -29,6 +29,10 @@ const storyboardPanelRevision = (state = {}, action) => {
                 panel: action.panel,
                 revision: action.revision
             }
+        case GET_STORYBOARD_PANEL_REVISION_SUCCESS:
+            return {
+                changedFields: action.changedFields
+            }
         default:
             return state;
     }

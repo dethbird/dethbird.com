@@ -15,11 +15,13 @@ const ContentEdit = React.createClass({
         value: React.PropTypes.string,
         id: React.PropTypes.string
     },
-    handleClickSelect: function(event) {
+    handleClickSelect: function(value) {
+        const { id } = this.props;
+
         this.props.handleFieldChange({
             target: {
-                id: this.props.id,
-                value: event.target.src
+                id,
+                value
             }
         });
     },

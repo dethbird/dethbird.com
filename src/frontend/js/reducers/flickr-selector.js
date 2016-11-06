@@ -1,4 +1,5 @@
 import {
+    GET_FLICKRS_RESET,
     GET_FLICKRS_REQUEST,
     GET_FLICKRS_ERROR,
     GET_FLICKRS_SUCCESS,
@@ -24,6 +25,11 @@ const flickrSelector = (state = {}, action) => {
             return {
                 flickr_selector_state: FLICKR_SELECTOR_STATE_COMPLETE,
                 flickrs: action.flickrs
+            }
+        case GET_FLICKRS_RESET:
+            return {
+                flickr_selector_state: FLICKR_SELECTOR_STATE_COMPLETE,
+                flickrs: undefined
             }
         default:
             return state;

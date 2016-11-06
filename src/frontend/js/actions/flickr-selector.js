@@ -1,5 +1,6 @@
 import request from 'superagent';
 import {
+    GET_FLICKRS_RESET,
     GET_FLICKRS_REQUEST,
     GET_FLICKRS_ERROR,
     GET_FLICKRS_SUCCESS,
@@ -23,6 +24,13 @@ const getFlickrsError = () => {
         type: GET_FLICKRS_ERROR
     }
 }
+
+export const resetFlickrs = () => {
+    return {
+        type: GET_FLICKRS_RESET
+    }
+}
+
 
 export const getFlickrs = () =>
     dispatch => {
