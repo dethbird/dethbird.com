@@ -284,14 +284,7 @@
 
     // css
     if($cmd['css']) {
-        echo $c(
-"_________
-\_   ___ \  ______ ______
-/    \  \/ /  ___//  ___/
-\     \____\___ \ \___ \
- \______  /____  >____  >
-        \/     \/     \/ "
-           )
+        echo $c("CSS")
             ->white()->bold()->highlight('blue') . PHP_EOL;
         $frontendFiles = $shell->executeCommand('find', array(
             "src/frontend/css/",
