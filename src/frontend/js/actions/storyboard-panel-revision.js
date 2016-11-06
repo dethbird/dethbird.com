@@ -75,35 +75,37 @@ const postStoryboardPanelRevisionInit = () => {
     }
 }
 
-const postStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision, form_mode) => {
+const postStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision) => {
     return {
         type: POST_STORYBOARD_PANEL_REVISION_SUCCESS,
         project,
         storyboard,
         panel,
         revision,
-        form_mode
+        form_mode: FORM_MODE_EDIT
     }
 }
 
-const postStoryboardPanelRevisionError = () => {
+const postStoryboardPanelRevisionError = (errors) => {
     return {
-        type: POST_STORYBOARD_PANEL_REVISION_ERROR
+        type: POST_STORYBOARD_PANEL_REVISION_ERROR,
+        errors
     }
 }
 
-export const postStoryboardPanelRevision = (projectId, storyboardId, panelId, fields) =>
+export const postStoryboardPanelRevision = ( project, storyboard, panel, fields) =>
     dispatch => {
         dispatch(postStoryboardPanelRevisionInit());
-        request.post('/api/project_storyboard_panel_revision/' + fields.id)
-            .send(fields)
-            .then((res) => {
-                const revision = res.body;
-                dispatch(getStoryboardPanelRevision((projectId, storyboardId, panelId, revision.id)));
-            })
-            .catch((error) => {
-                console.log(error);
-                dispatch(postStoryboardPanelRevisionError())
+        request.post('/api/project_storyboard_panel_revision')
+            .send({ ...fields, panel_id: panel.id })
+            .end((err, res) => {
+                if(res.ok) {
+                    const revision = res.body;
+                    dispatch(postStoryboardPanelRevisionSuccess(project, storyboard, panel, revision));
+                }
+
+                if(!res.ok)
+                    dispatch(postStoryboardPanelRevisionError(res.body))
             });
     };
 
@@ -113,14 +115,14 @@ const putStoryboardPanelRevisionInit = () => {
     }
 }
 
-const putStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision, form_mode) => {
+const putStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision) => {
     return {
         type: PUT_STORYBOARD_PANEL_REVISION_SUCCESS,
         project,
         storyboard,
         panel,
         revision,
-        form_mode
+        form_mode: FORM_MODE_EDIT
     }
 }
 
@@ -130,14 +132,14 @@ const putStoryboardPanelRevisionError = () => {
     }
 }
 
-export const putStoryboardPanelRevision = (projectId, storyboardId, panelId, revisionId, fields) =>
+export const putStoryboardPanelRevision = (project, storyboard, panel, revision, fields) =>
     dispatch => {
         dispatch(putStoryboardPanelRevisionInit());
-        request.put('/api/project_storyboard_panel_revision/' + revisionId)
-            .send(fields)
+        request.put('/api/project_storyboard_panel_revision/' + revision.id)
+            .send({ ...fields, panel_id: panel.id })
             .then((res) => {
-                const revision = res.body;
-                dispatch(getStoryboardPanelRevision(projectId, storyboardId, panelId, revisionId));
+                const r = res.body;
+                dispatch(putStoryboardPanelRevisionSuccess(project, storyboard, panel, r));
             })
             .catch((error) => {
                 console.log(error);

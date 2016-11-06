@@ -74,7 +74,6 @@ const StoryboardPanelRevisionEdit = React.createClass({
     handleFieldChange(event) {
         const { changedFields } = this.state;
         let newChangedFields = changedFields;
-
         newChangedFields[event.target.id] = event.target.value;
         this.setState( {
             changedFields: newChangedFields
@@ -90,38 +89,19 @@ const StoryboardPanelRevisionEdit = React.createClass({
     },
     handleClickSubmit(event) {
         event.preventDefault();
-        const { dispatch, form_mode } = this.props;
-        const {
-            projectId,
-            storyboardId,
-            panelId,
-            revisionId
-        } = this.props.params;
+        const { dispatch, form_mode, project, storyboard, panel, revision } = this.props;
         const { changedFields } = this.state;
 
         if(form_mode == FORM_MODE_ADD)
-            dispatch(postStoryboardPanelRevision(projectId, storyboardId, panelId, changedFields));
+            dispatch(postStoryboardPanelRevision(project, storyboard, panel, changedFields));
 
         if(form_mode == FORM_MODE_EDIT)
-            dispatch(putStoryboardPanelRevision(projectId, storyboardId, panelId, revisionId, changedFields));
+            dispatch(putStoryboardPanelRevision( project, storyboard, panel, revision, changedFields));
 
     },
     render() {
-        const { ui_state, project } = this.props;
-
-        if (!project)
-            return <UiState state={ ui_state } />
-        return this.renderBody();
-    },
-    renderBody() {
         const { changedFields } = this.state;
         const { ui_state, project, storyboard, panel, revision, form_mode } = this.props;
-        const {
-            projectId,
-            storyboardId,
-            panelId,
-            revisionId
-        } = this.props.params;
 
         return (
             <div>

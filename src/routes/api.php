@@ -1192,7 +1192,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
 
-        $model = new ProjectStoryboardPanelRevision($app->request->params());
+        $model = new ProjectStoryboardPanelRevision(json_decode($app->request->getBody(), true));
         $model->user_id = $securityContext->id;
 
         # validate

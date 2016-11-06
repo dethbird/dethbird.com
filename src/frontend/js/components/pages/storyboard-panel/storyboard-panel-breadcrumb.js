@@ -5,24 +5,28 @@ import { Link } from 'react-router'
 const StoryboardPanelBreadcrumb = React.createClass({
 
     propTypes: {
-        project: React.PropTypes.object.isRequired,
-        storyboard: React.PropTypes.object.isRequired,
+        project: React.PropTypes.object,
+        storyboard: React.PropTypes.object,
         panel: React.PropTypes.object
     },
 
     render: function() {
+        const { project, storyboard, panel } = this.props;
+        if (!project) {
+            return <ol className="breadcrumb" />;
+        }
         return (
             <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to="/">Projects</Link></li>
                 <li className="breadcrumb-item">
-                    <Link to={ '/project/' + this.props.project.id }>
-                        { this.props.project.name }
+                    <Link to={ '/project/' + project.id }>
+                        { project.name }
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
                     <Link
                         to={
-                            '/project/' + this.props.project.id
+                            '/project/' + project.id
                             + '/storyboards'
                         }
                     >
@@ -32,18 +36,18 @@ const StoryboardPanelBreadcrumb = React.createClass({
                 <li className="breadcrumb-item">
                     <Link
                         to={
-                            '/project/' + this.props.project.id
-                            + '/storyboard/' + this.props.storyboard.id
+                            '/project/' + project.id
+                            + '/storyboard/' + storyboard.id
                         }
                     >
-                        { this.props.storyboard.name }
+                        { storyboard.name }
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
                     Panels
                 </li>
                 <li className="breadcrumb-item">
-                    { this.props.panel ? this.props.panel.name : 'Add' }
+                    { panel ? panel.name : 'Add' }
                 </li>
             </ol>
         );
