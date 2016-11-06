@@ -1,20 +1,15 @@
 import classNames from 'classnames';
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
-import TimeAgo from 'react-timeago'
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ActionHome from 'material-ui/svg-icons/action/assessment';
-import ActionAssessment from 'material-ui/svg-icons/action/assessment';
-import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-import { buttonStyle } from '../../../constants/styles'
+import { CardActionsButton } from "../../ui/card-actions-button"
 import { CardBlock } from "../../ui/card-block"
 import { Count } from "../../ui/count"
 import { Description } from "../../ui/description"
-import { ImagePanelRevision } from "../../ui/image-panel-revision"
+import { Image } from "../../ui/image"
 
 
 const Project = React.createClass({
@@ -46,7 +41,7 @@ const Project = React.createClass({
                             '/project/' + project.id
                         }
                         >
-                            <ImagePanelRevision { ...{ src: project.content }} />
+                            <Image src={ project.content } />
                         </Link>
                     </CardMedia>
 
@@ -90,26 +85,15 @@ const Project = React.createClass({
 
                 </CardText>
 
-                <CardActions>
-                    <FloatingActionButton
-                        onTouchTap={() => browserHistory.push('/project/' + project.id )}
+                <CardActions className="text-align-right">
+                    <CardActionsButton
                         title="View"
-                        style={ buttonStyle }
-                        mini={ true }
-                        zDepth={ 1 }
-                    >
-                        <ActionAssessment />
-                    </FloatingActionButton>
-
-                    <FloatingActionButton
-                        onTouchTap={() => browserHistory.push('/project/' + project.id + '/edit')}
+                        onTouchTap={() => browserHistory.push('/project/' + project.id )}
+                    />
+                    <CardActionsButton
                         title="Edit"
-                        style={ buttonStyle }
-                        mini={ true }
-                        zDepth={ 1 }
-                    >
-                        <EditorModeEdit />
-                    </FloatingActionButton>
+                        onTouchTap={() => browserHistory.push('/project/' + project.id + '/edit')}
+                    />
                 </CardActions>
             </Card>
         );

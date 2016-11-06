@@ -1,23 +1,21 @@
 import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import ContentSort from 'material-ui/svg-icons/content/sort'
 
-import { buttonStyle } from '../../constants/styles'
 import { Project } from "./projects/project"
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
 import {
     ProjectsBreadcrumb
 } from './projects/projects-breadcrumb'
 import { Spinner } from "../ui/spinner"
+import UiState from '../ui/ui-state'
 
 import {
     UI_STATE_INITIALIZING,
     UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
 
-import UiState from '../ui/ui-state'
 
 import { getProjects } from  '../../actions/projects'
 
@@ -28,55 +26,49 @@ const Projects = React.createClass({
         dispatch(getProjects());
     },
     render() {
+        const { ui_state, projects } = this.props;
+        if (!projects)
+            return <UiState state={ ui_state } />
+        return this.renderBody();
+    },
+    renderBody() {
 
         const { ui_state, projects } = this.props
 
-        if (ui_state == UI_STATE_COMPLETE) {
-            let projectNodes =  projects.map(function(project) {
-                return (
-                    <Project
-                        className="col-lg-6"
-                        project={ project }
-                        key={ project.id }
-                    >
-                    </Project>
-                );
-            });
-
+        let projectNodes =  projects.map(function(project) {
             return (
-                <div>
+                <Project
+                    className="col-lg-6"
+                    project={ project }
+                    key={ project.id }
+                >
+                </Project>
+            );
+        });
 
-                    <ProjectsBreadcrumb />
-
-                    <div className="text-align-right">
-                        <FloatingActionButton
-                            onTouchTap={() => browserHistory.push('/project/add')}
-                            title="Add"
-                            style={ buttonStyle }
-                        >
-                            <ContentAdd />
-                        </FloatingActionButton>
-
-                        <FloatingActionButton
-                            onTouchTap={() => browserHistory.push('/project/edit')}
-                            title="Reorder"
-                            style={ buttonStyle }
-                        >
-                            <ContentSort />
-                        </FloatingActionButton>
-                    </div>
-
-                    <br />
-
-                    <div className="projectsList">
-                        { projectNodes }
-                    </div>
-                </div>
-            )
-        }
         return (
-            <UiState state={ ui_state } />
-        );
+            <div>
+
+                <ProjectsBreadcrumb />
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title="Projects">
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/add')}
+                        title="Add"
+                    />
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/edit')}
+                        title="Reorder"
+                    />
+                </HeaderPage>
+
+                <div className="projectsList">
+                    { projectNodes }
+                </div>
+            </div>
+        )
     }
 })
 

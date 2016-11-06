@@ -4,6 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionHome from 'material-ui/svg-icons/action/assessment';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ActionAssessment from 'material-ui/svg-icons/action/assessment';
+import ContentSort from 'material-ui/svg-icons/content/sort'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
@@ -32,6 +33,10 @@ const HeaderPageButton = React.createClass({
                 case 'Delete':
                     return (
                         <ActionDelete />
+                    )
+                case 'Reorder':
+                    return (
+                        <ContentSort />
                     )
                 case 'View':
                     return (

@@ -63495,31 +63495,21 @@ var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
 
-var _FloatingActionButton = require('material-ui/FloatingActionButton');
-
-var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
-
-var _add = require('material-ui/svg-icons/content/add');
-
-var _add2 = _interopRequireDefault(_add);
-
-var _sort = require('material-ui/svg-icons/content/sort');
-
-var _sort2 = _interopRequireDefault(_sort);
-
-var _styles = require('../../constants/styles');
-
 var _project = require('./projects/project');
+
+var _headerPage = require('../ui/header-page');
+
+var _headerPageButton = require('../ui/header-page-button');
 
 var _projectsBreadcrumb = require('./projects/projects-breadcrumb');
 
 var _spinner = require('../ui/spinner');
 
-var _uiState = require('../../constants/ui-state');
+var _uiState = require('../ui/ui-state');
 
-var _uiState2 = require('../ui/ui-state');
+var _uiState2 = _interopRequireDefault(_uiState);
 
-var _uiState3 = _interopRequireDefault(_uiState2);
+var _uiState3 = require('../../constants/ui-state');
 
 var _projects = require('../../actions/projects');
 
@@ -63537,55 +63527,50 @@ var Projects = _react2.default.createClass({
             ui_state = _props.ui_state,
             projects = _props.projects;
 
+        if (!projects) return _react2.default.createElement(_uiState2.default, { state: ui_state });
+        return this.renderBody();
+    },
+    renderBody: function renderBody() {
+        var _props2 = this.props,
+            ui_state = _props2.ui_state,
+            projects = _props2.projects;
 
-        if (ui_state == _uiState.UI_STATE_COMPLETE) {
-            var projectNodes = projects.map(function (project) {
-                return _react2.default.createElement(_project.Project, {
-                    className: 'col-lg-6',
-                    project: project,
-                    key: project.id
-                });
+
+        var projectNodes = projects.map(function (project) {
+            return _react2.default.createElement(_project.Project, {
+                className: 'col-lg-6',
+                project: project,
+                key: project.id
             });
+        });
 
-            return _react2.default.createElement(
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_projectsBreadcrumb.ProjectsBreadcrumb, null),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                _headerPage.HeaderPage,
+                { title: 'Projects' },
+                _react2.default.createElement(_headerPageButton.HeaderPageButton, {
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/project/add');
+                    },
+                    title: 'Add'
+                }),
+                _react2.default.createElement(_headerPageButton.HeaderPageButton, {
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/project/edit');
+                    },
+                    title: 'Reorder'
+                })
+            ),
+            _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement(_projectsBreadcrumb.ProjectsBreadcrumb, null),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'text-align-right' },
-                    _react2.default.createElement(
-                        _FloatingActionButton2.default,
-                        {
-                            onTouchTap: function onTouchTap() {
-                                return _reactRouter.browserHistory.push('/project/add');
-                            },
-                            title: 'Add',
-                            style: _styles.buttonStyle
-                        },
-                        _react2.default.createElement(_add2.default, null)
-                    ),
-                    _react2.default.createElement(
-                        _FloatingActionButton2.default,
-                        {
-                            onTouchTap: function onTouchTap() {
-                                return _reactRouter.browserHistory.push('/project/edit');
-                            },
-                            title: 'Reorder',
-                            style: _styles.buttonStyle
-                        },
-                        _react2.default.createElement(_sort2.default, null)
-                    )
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'projectsList' },
-                    projectNodes
-                )
-            );
-        }
-        return _react2.default.createElement(_uiState3.default, { state: ui_state });
+                { className: 'projectsList' },
+                projectNodes
+            )
+        );
     }
 });
 
@@ -63595,14 +63580,14 @@ var mapStateToProps = function mapStateToProps(state) {
         projects = _state$projects.projects;
 
     return {
-        ui_state: ui_state ? ui_state : _uiState.UI_STATE_INITIALIZING,
+        ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
         projects: projects
     };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Projects);
 
-},{"../../actions/projects":572,"../../constants/styles":650,"../../constants/ui-state":651,"../ui/spinner":647,"../ui/ui-state":648,"./projects/project":611,"./projects/projects-breadcrumb":612,"material-ui/FloatingActionButton":253,"material-ui/svg-icons/content/add":294,"material-ui/svg-icons/content/sort":295,"react":539,"react-redux":338,"react-router":372}],611:[function(require,module,exports){
+},{"../../actions/projects":572,"../../constants/ui-state":651,"../ui/header-page":641,"../ui/header-page-button":640,"../ui/spinner":647,"../ui/ui-state":648,"./projects/project":611,"./projects/projects-breadcrumb":612,"react":539,"react-redux":338,"react-router":372}],611:[function(require,module,exports){
 'use strict';
 
 var _classnames = require('classnames');
@@ -63615,27 +63600,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactTimeago = require('react-timeago');
-
-var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
-
 var _Card = require('material-ui/Card');
 
 var _List = require('material-ui/List');
 
-var _FloatingActionButton = require('material-ui/FloatingActionButton');
-
-var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
-
-var _assessment = require('material-ui/svg-icons/action/assessment');
-
-var _assessment2 = _interopRequireDefault(_assessment);
-
-var _modeEdit = require('material-ui/svg-icons/editor/mode-edit');
-
-var _modeEdit2 = _interopRequireDefault(_modeEdit);
-
-var _styles = require('../../../constants/styles');
+var _cardActionsButton = require('../../ui/card-actions-button');
 
 var _cardBlock = require('../../ui/card-block');
 
@@ -63643,7 +63612,7 @@ var _count = require('../../ui/count');
 
 var _description = require('../../ui/description');
 
-var _imagePanelRevision = require('../../ui/image-panel-revision');
+var _image = require('../../ui/image');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63684,7 +63653,7 @@ var Project = _react2.default.createClass({
                         _reactRouter.Link,
                         { to: '/project/' + project.id
                         },
-                        _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: project.content })
+                        _react2.default.createElement(_image.Image, { src: project.content })
                     )
                 ),
                 _react2.default.createElement(
@@ -63744,33 +63713,19 @@ var Project = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _Card.CardActions,
-                null,
-                _react2.default.createElement(
-                    _FloatingActionButton2.default,
-                    {
-                        onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + project.id);
-                        },
-                        title: 'View',
-                        style: _styles.buttonStyle,
-                        mini: true,
-                        zDepth: 1
-                    },
-                    _react2.default.createElement(_assessment2.default, null)
-                ),
-                _react2.default.createElement(
-                    _FloatingActionButton2.default,
-                    {
-                        onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + project.id + '/edit');
-                        },
-                        title: 'Edit',
-                        style: _styles.buttonStyle,
-                        mini: true,
-                        zDepth: 1
-                    },
-                    _react2.default.createElement(_modeEdit2.default, null)
-                )
+                { className: 'text-align-right' },
+                _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                    title: 'View',
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/project/' + project.id);
+                    }
+                }),
+                _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                    title: 'Edit',
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/project/' + project.id + '/edit');
+                    }
+                })
             )
         );
     }
@@ -63778,7 +63733,7 @@ var Project = _react2.default.createClass({
 
 module.exports.Project = Project;
 
-},{"../../../constants/styles":650,"../../ui/card-block":630,"../../ui/count":635,"../../ui/description":636,"../../ui/image-panel-revision":642,"classnames":115,"material-ui/Card":246,"material-ui/FloatingActionButton":253,"material-ui/List":263,"material-ui/svg-icons/action/assessment":292,"material-ui/svg-icons/editor/mode-edit":296,"react":539,"react-router":372,"react-timeago":392}],612:[function(require,module,exports){
+},{"../../ui/card-actions-button":629,"../../ui/card-block":630,"../../ui/count":635,"../../ui/description":636,"../../ui/image":643,"classnames":115,"material-ui/Card":246,"material-ui/List":263,"react":539,"react-router":372}],612:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
@@ -67065,6 +67020,10 @@ var _delete = require('material-ui/svg-icons/action/delete');
 
 var _delete2 = _interopRequireDefault(_delete);
 
+var _sort = require('material-ui/svg-icons/content/sort');
+
+var _sort2 = _interopRequireDefault(_sort);
+
 var _add = require('material-ui/svg-icons/content/add');
 
 var _add2 = _interopRequireDefault(_add);
@@ -67101,6 +67060,8 @@ var HeaderPageButton = _react2.default.createClass({
                     return _react2.default.createElement(_modeEdit2.default, null);
                 case 'Delete':
                     return _react2.default.createElement(_delete2.default, null);
+                case 'Reorder':
+                    return _react2.default.createElement(_sort2.default, null);
                 case 'View':
                     return _react2.default.createElement(_assessment2.default, null);
                 default:
@@ -67122,7 +67083,7 @@ var HeaderPageButton = _react2.default.createClass({
 
 module.exports.HeaderPageButton = HeaderPageButton;
 
-},{"../../constants/styles":650,"material-ui/FloatingActionButton":253,"material-ui/svg-icons/action/assessment":292,"material-ui/svg-icons/action/delete":293,"material-ui/svg-icons/content/add":294,"material-ui/svg-icons/editor/mode-edit":296,"react":539}],641:[function(require,module,exports){
+},{"../../constants/styles":650,"material-ui/FloatingActionButton":253,"material-ui/svg-icons/action/assessment":292,"material-ui/svg-icons/action/delete":293,"material-ui/svg-icons/content/add":294,"material-ui/svg-icons/content/sort":295,"material-ui/svg-icons/editor/mode-edit":296,"react":539}],641:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");
