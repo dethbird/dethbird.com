@@ -1,15 +1,13 @@
 import React from 'react'
 import classNames from 'classnames'
 import { browserHistory, Link } from 'react-router'
-
 import {CardActions, CardTitle, CardMedia, CardText} from 'material-ui/Card';
 
-
-import { Card } from "../../ui/card"
-import { CardActionsButton } from "../../ui/card-actions-button"
-import { CardClickable } from "../../ui/card-clickable"
-import { Count } from "../../ui/count"
-import { Image } from "../../ui/image"
+import { Card } from '../../ui/card'
+import { CardActionsButton } from '../../ui/card-actions-button'
+import { CardClickable } from '../../ui/card-clickable'
+import { Count } from '../../ui/count'
+import { Image } from '../../ui/image'
 
 
 const ProjectCharacters = React.createClass({
@@ -64,7 +62,7 @@ const ProjectCharacters = React.createClass({
                 <CardActions className="clearfix text-align-right">
                     <CardActionsButton
                         title="View"
-                        onTouchTap={() => browserHistory.push(`/projects/${project.id}/characters`)}
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/characters`)}
                     />
                 </CardActions>
             </Card>

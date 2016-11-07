@@ -1,85 +1,65 @@
 import React from 'react'
 import classNames from 'classnames'
 import { browserHistory, Link } from 'react-router'
+import {CardActions, CardTitle, CardMedia, CardText} from 'material-ui/Card';
 
-import { Card } from "../../ui/card"
-import { CardClickable } from "../../ui/card-clickable"
-import { CardBlock } from "../../ui/card-block"
-import { Count } from "../../ui/count"
-import { ImagePanelRevision } from "../../ui/image-panel-revision"
-import { SectionHeader } from "../../ui/section-header"
-
+import { Card } from '../../ui/card'
+import { CardActionsButton } from '../../ui/card-actions-button'
+import { CardClickable } from '../../ui/card-clickable'
+import { Count } from '../../ui/count'
+import { Image } from '../../ui/image'
 
 const ProjectStoryboards = React.createClass({
-    getInitialState: function() {
-        return {
-            showContent: false
-        };
-    },
-    propTypes: {
-      project: React.PropTypes.object.isRequired
-    },
-    handleClickList() {
-        const showContent = !this.state.showContent;
-        this.setState({
-            showContent
-        });
-    },
-    handleClickItem(id) {
-        browserHistory.push(
-            '/project/' + this.props.project.id
-            + '/storyboard/' + id
-        )
-    },
-    render: function() {
-        const that = this;
-        let storyboardNodes;
-        let showButtonClassName = classNames(['btn', 'btn-secondary']);
-        let showButtonCopy = 'Show';
 
-        if (this.state.showContent) {
-            showButtonClassName = classNames([showButtonClassName, 'active'])
-            showButtonCopy = 'Hide';
-            storyboardNodes = this.props.project.storyboards.map(function(storyboard){
-                const src = storyboard.content;
-                return (
-                    <CardClickable
-                        className="col-xs-3"
-                        key={ storyboard.id }
-                        onClick={ that.handleClickItem.bind(that, storyboard.id) }
-                    >
-                        <strong>{ storyboard.name }</strong>
-                        <ImagePanelRevision src={ src } />
-                        <br />
-                        <br />
-                    </CardClickable>
-                );
-            });
-        }
+    render: function() {
+        const { project } = this.props;
+
+        if (!project)
+            return null;
+
+        let nodes = project.storyboards.map(function(storyboard){
+
+            return (
+                <Card
+                    className="col-xs-3"
+                    key={ storyboard.id }
+                >
+                    <span>{ storyboard.name }</span>
+                    <Image src={ storyboard.content } />
+                    <CardActions className="clearfix text-align-right">
+                        <CardActionsButton
+                            title="View"
+                            onTouchTap={() => browserHistory.push(`/project/${project.id}/storyboard/${storyboard.id}`)}
+                            secondary={ true }
+                        />
+                        <CardActionsButton
+                            title="Edit"
+                            onTouchTap={() => browserHistory.push(`/project/${project.id}/storyboard/${storyboard.id}/edit`)}
+                            secondary={ true }
+                        />
+                    </CardActions>
+            </Card>
+            );
+        });
 
         return (
-            <section className="clearfix well">
-                <div className="pull-left">
-                    <SectionHeader><Count count={ this.props.project.storyboards.length } />  Storyboards</SectionHeader>
-                </div>
-                <ul className="nav nav-pills pull-right">
-                    <li className="nav-item">
-                        <button
-                            onClick={ this.handleClickList }
-                            className={ showButtonClassName }
-                        >{ showButtonCopy }</button>
-                    </li>
-                    <li className="nav-item">
-                        <Link
-                            to={ '/project/' + this.props.project.id + '/storyboards' }
-                            className='btn btn-secondary'
-                        >View</Link>
-                    </li>
-                </ul>
-                <div className="clearfix">
-                    { storyboardNodes }
-                </div>
-            </section>
+            <Card className='card-display'>
+                <CardTitle
+                    actAsExpander={ true }
+                    showExpandableButton={ true }
+                >
+                    <Count count={ project.storyboards.length } /><span className='section-header'>Storyboards</span>
+                </CardTitle>
+                <CardMedia expandable={ true } className="clearfix">
+                    { nodes }
+                </CardMedia>
+                <CardActions className="clearfix text-align-right">
+                    <CardActionsButton
+                        title="View"
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/storyboards`)}
+                    />
+                </CardActions>
+            </Card>
         );
     }
 })
