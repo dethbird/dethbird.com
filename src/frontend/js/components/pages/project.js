@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-import { buttonStyle } from '../../constants/styles'
+import { HeaderPage } from '../ui/header-page'
+import { HeaderPageButton } from '../ui/header-page-button'
 import { ProjectBreadcrumb } from "./project/project-breadcrumb"
 import { ProjectCharacters } from "./project/project-characters"
 import { ProjectConceptArts } from "./project/project-concept_arts"
@@ -23,7 +24,6 @@ import {
 
 import { getProject } from  '../../actions/project'
 
-
 const Project = React.createClass({
     componentWillMount() {
         const { dispatch } = this.props;
@@ -35,33 +35,31 @@ const Project = React.createClass({
         const { ui_state, project } = this.props;
         const { projectId } = this.props.params;
 
-        if (ui_state == UI_STATE_COMPLETE) {
-            return (
-                <div className="projectPage">
-                    <ProjectBreadcrumb project={ project } />
+        if(!project)
+            return <UiState state={ ui_state } />
 
-                    <div className="text-align-right">
-                        <FloatingActionButton
-                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/edit')}
-                            title="Edit"
-                            style={ buttonStyle }
-                        >
-                            <EditorModeEdit />
-                        </FloatingActionButton>
-                    </div>
-
-                    <ProjectDetails project={ project } />
-                    <ProjectCharacters project={ project } />
-                    <ProjectStoryboards project={ project } />
-                    <ProjectConceptArts project={ project } />
-                    <ProjectReferenceImages project={ project } />
-                    <ProjectLocations project={ project } />
-                </div>
-            )
-        }
         return (
-            <UiState state={ ui_state } />
-        );
+            <div className="projectPage">
+
+                <ProjectBreadcrumb project={ project } />
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title={ project.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/edit')}
+                        title="Edit"
+                    />
+                </HeaderPage>
+
+                <ProjectDetails project={ project } />
+                <ProjectCharacters project={ project } />
+                <ProjectStoryboards project={ project } />
+                <ProjectConceptArts project={ project } />
+                <ProjectReferenceImages project={ project } />
+                <ProjectLocations project={ project } />
+            </div>
+        )
     }
 })
 

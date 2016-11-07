@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { CardActions, CardText } from 'material-ui/Card';
+
 import { Card } from "../../ui/card"
 import { CardBlock } from "../../ui/card-block"
 import { Description } from "../../ui/description"
-import { ImagePanelRevision } from "../../ui/image-panel-revision"
+import { Image } from "../../ui/image"
 import { SectionHeader } from "../../ui/section-header"
 
 
@@ -13,19 +15,18 @@ const ProjectDetails = React.createClass({
     },
 
     render: function() {
-      return (
-          <div>
-              <Card>
-                  <h3 className="card-header">{ this.props.project.name }</h3>
-                  <div className="text-align-center">
-                      <ImagePanelRevision { ...{src: this.props.project.content }} />
-                  </div>
-                  <CardBlock>
-                      <Description source={ this.props.project.description }></Description>
-                  </CardBlock>
-              </Card>
-          </div>
-      );
+        const { project } = this.props;
+        return (
+            <div>
+                <Image src={ project.content } />
+                <br />
+                <Card className='card-display'>
+                    <CardText>
+                        <Description source={ project.description }></Description>
+                    </CardText>
+                </Card>
+            </div>
+        );
     }
 })
 

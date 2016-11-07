@@ -2,9 +2,9 @@ import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Project } from "./projects/project"
-import { HeaderPage } from "../ui/header-page"
-import { HeaderPageButton } from "../ui/header-page-button"
+import { Project } from './projects/project'
+import { HeaderPage } from '../ui/header-page'
+import { HeaderPageButton } from '../ui/header-page-button'
 import {
     ProjectsBreadcrumb
 } from './projects/projects-breadcrumb'

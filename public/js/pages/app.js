@@ -72640,7 +72640,9 @@ var _modeEdit = require('material-ui/svg-icons/editor/mode-edit');
 
 var _modeEdit2 = _interopRequireDefault(_modeEdit);
 
-var _styles = require('../../constants/styles');
+var _headerPage = require('../ui/header-page');
+
+var _headerPageButton = require('../ui/header-page-button');
 
 var _projectBreadcrumb = require('./project/project-breadcrumb');
 
@@ -72684,35 +72686,30 @@ var Project = _react2.default.createClass({
         var projectId = this.props.params.projectId;
 
 
-        if (ui_state == _uiState3.UI_STATE_COMPLETE) {
-            return _react2.default.createElement(
-                'div',
-                { className: 'projectPage' },
-                _react2.default.createElement(_projectBreadcrumb.ProjectBreadcrumb, { project: project }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'text-align-right' },
-                    _react2.default.createElement(
-                        _FloatingActionButton2.default,
-                        {
-                            onTouchTap: function onTouchTap() {
-                                return _reactRouter.browserHistory.push('/project/' + projectId + '/edit');
-                            },
-                            title: 'Edit',
-                            style: _styles.buttonStyle
-                        },
-                        _react2.default.createElement(_modeEdit2.default, null)
-                    )
-                ),
-                _react2.default.createElement(_projectDetails.ProjectDetails, { project: project }),
-                _react2.default.createElement(_projectCharacters.ProjectCharacters, { project: project }),
-                _react2.default.createElement(_projectStoryboards.ProjectStoryboards, { project: project }),
-                _react2.default.createElement(_projectConcept_arts.ProjectConceptArts, { project: project }),
-                _react2.default.createElement(_projectReference_images.ProjectReferenceImages, { project: project }),
-                _react2.default.createElement(_projectLocations.ProjectLocations, { project: project })
-            );
-        }
-        return _react2.default.createElement(_uiState2.default, { state: ui_state });
+        if (!project) return _react2.default.createElement(_uiState2.default, { state: ui_state });
+
+        return _react2.default.createElement(
+            'div',
+            { className: 'projectPage' },
+            _react2.default.createElement(_projectBreadcrumb.ProjectBreadcrumb, { project: project }),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                _headerPage.HeaderPage,
+                { title: project.name },
+                _react2.default.createElement(_headerPageButton.HeaderPageButton, {
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/project/' + projectId + '/edit');
+                    },
+                    title: 'Edit'
+                })
+            ),
+            _react2.default.createElement(_projectDetails.ProjectDetails, { project: project }),
+            _react2.default.createElement(_projectCharacters.ProjectCharacters, { project: project }),
+            _react2.default.createElement(_projectStoryboards.ProjectStoryboards, { project: project }),
+            _react2.default.createElement(_projectConcept_arts.ProjectConceptArts, { project: project }),
+            _react2.default.createElement(_projectReference_images.ProjectReferenceImages, { project: project }),
+            _react2.default.createElement(_projectLocations.ProjectLocations, { project: project })
+        );
     }
 });
 
@@ -72729,7 +72726,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Project);
 
-},{"../../actions/project":622,"../../constants/styles":709,"../../constants/ui-state":710,"../ui/section-header":703,"../ui/ui-state":706,"./project/project-breadcrumb":657,"./project/project-characters":658,"./project/project-concept_arts":659,"./project/project-details":660,"./project/project-locations":661,"./project/project-reference_images":662,"./project/project-storyboards":663,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/editor/mode-edit":345,"react":589,"react-redux":390,"react-router":424}],657:[function(require,module,exports){
+},{"../../actions/project":622,"../../constants/ui-state":710,"../ui/header-page":697,"../ui/header-page-button":696,"../ui/section-header":703,"../ui/ui-state":706,"./project/project-breadcrumb":657,"./project/project-characters":658,"./project/project-concept_arts":659,"./project/project-details":660,"./project/project-locations":661,"./project/project-reference_images":662,"./project/project-storyboards":663,"material-ui/FloatingActionButton":271,"material-ui/svg-icons/editor/mode-edit":345,"react":589,"react-redux":390,"react-router":424}],657:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -72744,10 +72741,17 @@ var ProjectBreadcrumb = _react2.default.createClass({
     displayName: 'ProjectBreadcrumb',
 
     propTypes: {
-        project: _react2.default.PropTypes.object.isRequired
+        project: _react2.default.PropTypes.object
     },
 
     render: function render() {
+        var project = this.props.project;
+
+        if (!project) return _react2.default.createElement(
+            'ol',
+            { className: 'breadcrumb' },
+            _react2.default.createElement('li', { className: 'breadcrumb-item' })
+        );
         return _react2.default.createElement(
             'ol',
             { className: 'breadcrumb' },
@@ -72756,14 +72760,14 @@ var ProjectBreadcrumb = _react2.default.createClass({
                 { className: 'breadcrumb-item' },
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/' },
+                    { to: '/projects' },
                     'Projects'
                 )
             ),
             _react2.default.createElement(
                 'li',
                 { className: 'breadcrumb-item' },
-                this.props.project.name
+                project.name
             )
         );
     }
@@ -72784,118 +72788,99 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactRouter = require('react-router');
 
+var _Card = require('material-ui/Card');
+
 var _card = require('../../ui/card');
+
+var _cardActionsButton = require('../../ui/card-actions-button');
 
 var _cardClickable = require('../../ui/card-clickable');
 
-var _cardBlock = require('../../ui/card-block');
-
 var _count = require('../../ui/count');
 
-var _imagePanelRevision = require('../../ui/image-panel-revision');
-
-var _sectionHeader = require('../../ui/section-header');
+var _image = require('../../ui/image');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ProjectCharacters = _react2.default.createClass({
     displayName: 'ProjectCharacters',
 
-    getInitialState: function getInitialState() {
-        return {
-            showContent: false
-        };
-    },
     propTypes: {
-        project: _react2.default.PropTypes.object.isRequired
+        project: _react2.default.PropTypes.object
     },
-    handleClickList: function handleClickList() {
-        var showContent = !this.state.showContent;
-        this.setState({
-            showContent: showContent
-        });
-    },
-    handleClickItem: function handleClickItem(id) {
-        _reactRouter.browserHistory.push('/project/' + this.props.project.id + '/character/' + id);
-    },
-
     render: function render() {
-        var that = this;
-        var characterNodes = void 0;
-        var showButtonClassName = (0, _classnames2.default)(['btn', 'btn-secondary']);
-        var showButtonCopy = 'Show';
+        var project = this.props.project;
 
-        if (this.state.showContent) {
-            showButtonClassName = (0, _classnames2.default)([showButtonClassName, 'active']);
-            showButtonCopy = 'Hide';
-            characterNodes = this.props.project.characters.map(function (character) {
-                var src = void 0;
-                if (character.revisions.length) src = character.revisions[0].content;
 
-                return _react2.default.createElement(
-                    _cardClickable.CardClickable,
-                    {
-                        className: 'col-xs-3',
-                        key: character.id,
-                        onClick: that.handleClickItem.bind(that, character.id)
-                    },
-                    _react2.default.createElement(
-                        'strong',
-                        null,
-                        character.name
-                    ),
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: src }),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement('br', null)
-                );
-            });
-        }
+        if (!project) return null;
+
+        var characterNodes = project.characters.map(function (character) {
+            var src = void 0;
+            if (character.revisions.length) src = character.revisions[0].content;
+
+            return _react2.default.createElement(
+                _card.Card,
+                {
+                    className: 'col-xs-3',
+                    key: character.id
+                },
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    character.name
+                ),
+                _react2.default.createElement(_image.Image, { src: src }),
+                _react2.default.createElement(
+                    _Card.CardActions,
+                    { className: 'clearfix text-align-right' },
+                    _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                        title: 'View',
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + project.id + '/character/' + character.id);
+                        },
+                        secondary: true
+                    }),
+                    _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                        title: 'Edit',
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + project.id + '/character/' + character.id + '/edit');
+                        },
+                        secondary: true
+                    })
+                )
+            );
+        });
 
         return _react2.default.createElement(
-            'section',
-            { className: 'clearfix well' },
+            _card.Card,
+            { className: 'card-display' },
             _react2.default.createElement(
-                'div',
-                { className: 'pull-left' },
+                _Card.CardTitle,
+                {
+                    actAsExpander: true,
+                    showExpandableButton: true
+                },
+                _react2.default.createElement(_count.Count, { count: project.characters.length }),
                 _react2.default.createElement(
-                    _sectionHeader.SectionHeader,
-                    null,
-                    _react2.default.createElement(_count.Count, { count: this.props.project.characters.length }),
-                    '  Characters'
+                    'span',
+                    { className: 'section-header' },
+                    'Characters'
                 )
             ),
             _react2.default.createElement(
-                'ul',
-                { className: 'nav nav-pills pull-right' },
-                _react2.default.createElement(
-                    'li',
-                    { className: 'nav-item' },
-                    _react2.default.createElement(
-                        'button',
-                        {
-                            onClick: this.handleClickList,
-                            className: showButtonClassName
-                        },
-                        showButtonCopy
-                    )
-                ),
-                _react2.default.createElement(
-                    'li',
-                    { className: 'nav-item' },
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        {
-                            to: '/project/' + this.props.project.id + '/characters',
-                            className: 'btn btn-secondary'
-                        },
-                        'View'
-                    )
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'clearfix' },
+                _Card.CardMedia,
+                { expandable: true, className: 'clearfix' },
                 characterNodes
+            ),
+            _react2.default.createElement(
+                _Card.CardActions,
+                { className: 'clearfix text-align-right' },
+                _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                    title: 'View',
+                    onTouchTap: function onTouchTap() {
+                        return _reactRouter.browserHistory.push('/projects/' + project.id + '/characters');
+                    }
+                })
             )
         );
     }
@@ -72903,7 +72888,7 @@ var ProjectCharacters = _react2.default.createClass({
 
 module.exports.ProjectCharacters = ProjectCharacters;
 
-},{"../../ui/card":689,"../../ui/card-block":686,"../../ui/card-clickable":687,"../../ui/count":691,"../../ui/image-panel-revision":698,"../../ui/section-header":703,"classnames":116,"react":589,"react-router":424}],659:[function(require,module,exports){
+},{"../../ui/card":689,"../../ui/card-actions-button":685,"../../ui/card-clickable":687,"../../ui/count":691,"../../ui/image":699,"classnames":116,"material-ui/Card":248,"react":589,"react-router":424}],659:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -73036,52 +73021,48 @@ var ProjectConceptArts = _react2.default.createClass({
 module.exports.ProjectConceptArts = ProjectConceptArts;
 
 },{"../../ui/card":689,"../../ui/card-block":686,"../../ui/card-clickable":687,"../../ui/count":691,"../../ui/image-panel-revision":698,"../../ui/section-header":703,"classnames":116,"react":589,"react-router":424}],660:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _card = require("../../ui/card");
+var _Card = require('material-ui/Card');
 
-var _cardBlock = require("../../ui/card-block");
+var _card = require('../../ui/card');
 
-var _description = require("../../ui/description");
+var _cardBlock = require('../../ui/card-block');
 
-var _imagePanelRevision = require("../../ui/image-panel-revision");
+var _description = require('../../ui/description');
 
-var _sectionHeader = require("../../ui/section-header");
+var _image = require('../../ui/image');
+
+var _sectionHeader = require('../../ui/section-header');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ProjectDetails = _react2.default.createClass({
-    displayName: "ProjectDetails",
+    displayName: 'ProjectDetails',
 
     propTypes: {
         project: _react2.default.PropTypes.object.isRequired
     },
 
     render: function render() {
+        var project = this.props.project;
+
         return _react2.default.createElement(
-            "div",
+            'div',
             null,
+            _react2.default.createElement(_image.Image, { src: project.content }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
                 _card.Card,
-                null,
+                { className: 'card-display' },
                 _react2.default.createElement(
-                    "h3",
-                    { className: "card-header" },
-                    this.props.project.name
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "text-align-center" },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: this.props.project.content })
-                ),
-                _react2.default.createElement(
-                    _cardBlock.CardBlock,
+                    _Card.CardText,
                     null,
-                    _react2.default.createElement(_description.Description, { source: this.props.project.description })
+                    _react2.default.createElement(_description.Description, { source: project.description })
                 )
             )
         );
@@ -73090,7 +73071,7 @@ var ProjectDetails = _react2.default.createClass({
 
 module.exports.ProjectDetails = ProjectDetails;
 
-},{"../../ui/card":689,"../../ui/card-block":686,"../../ui/description":692,"../../ui/image-panel-revision":698,"../../ui/section-header":703,"react":589}],661:[function(require,module,exports){
+},{"../../ui/card":689,"../../ui/card-block":686,"../../ui/description":692,"../../ui/image":699,"../../ui/section-header":703,"material-ui/Card":248,"react":589}],661:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -76546,13 +76527,15 @@ var CardActionsButton = _react2.default.createClass({
 
     propTypes: {
         title: _react2.default.PropTypes.string,
-        onTouchTap: _react2.default.PropTypes.func
+        onTouchTap: _react2.default.PropTypes.func,
+        secondary: _react2.default.PropTypes.bool
     },
 
     render: function render() {
         var _props = this.props,
             title = _props.title,
             onTouchTap = _props.onTouchTap,
+            secondary = _props.secondary,
             children = _props.children;
 
 
@@ -76578,7 +76561,8 @@ var CardActionsButton = _react2.default.createClass({
                 title: title,
                 style: _styles.buttonStyle,
                 mini: true,
-                zDepth: 1
+                zDepth: 1,
+                secondary: secondary
             },
             renderIcon(title)
         );

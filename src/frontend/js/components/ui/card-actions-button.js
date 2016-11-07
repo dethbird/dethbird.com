@@ -13,11 +13,12 @@ const CardActionsButton = React.createClass({
 
     propTypes: {
         title: React.PropTypes.string,
-        onTouchTap: React.PropTypes.func
+        onTouchTap: React.PropTypes.func,
+        secondary: React.PropTypes.bool
     },
 
     render: function() {
-        const { title, onTouchTap, children } = this.props;
+        const { title, onTouchTap, secondary, children } = this.props;
 
         const renderIcon = (title) => {
             switch (title) {
@@ -49,6 +50,7 @@ const CardActionsButton = React.createClass({
                 style={ buttonStyle }
                 mini={ true }
                 zDepth={ 1 }
+                secondary={ secondary }
             >
                 { renderIcon(title) }
             </FloatingActionButton>
