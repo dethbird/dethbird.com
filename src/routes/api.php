@@ -932,7 +932,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
 
-        $model = new ProjectScript($app->request->params());
+        $model = new ProjectScript(json_decode($app->request->getBody(), true));
         $model->user_id = $securityContext->id;
 
         # validate
@@ -965,7 +965,8 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $model = ProjectScript::find_by_id_and_user_id(
             $id, $securityContext->id);
 
-        foreach($app->request->params() as $key=>$value) {
+        $params = json_decode($app->request->getBody(), true);
+        foreach($params as $key=>$value) {
             $model->$key = $value;
         }
 

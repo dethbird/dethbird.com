@@ -2,7 +2,6 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 var moment = require('moment');
-import Textarea from 'react-textarea-autosize';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';

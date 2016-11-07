@@ -4,73 +4,74 @@ import {
     SortableItem
 } from 'react-sortable-component'
 import { browserHistory } from 'react-router'
-import Textarea from 'react-textarea-autosize'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
-import { Description } from "../ui/description"
-import { FountainFull } from "../ui/fountain-full"
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { Description } from '../ui/description'
+import InputDescription from '../ui/input-description'
+import { FountainFull } from '../ui/fountain-full'
 import {
     ScriptBreadcrumb
-} from "./script/script-breadcrumb"
-import { Spinner } from "../ui/spinner"
+} from './script/script-breadcrumb'
 
+import UiState from '../ui/ui-state'
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getScript,
+    postScript,
+    putScript,
+    resetScript
+} from  '../../actions/script'
 
 const ScriptEdit = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project_script/' + this.props.params.scriptId,
-            dataType: 'json',
-            cache: false,
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                    script: {}
-                })
-            }.bind(this),
-            success: function(data) {
+    getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                description: null,
+                script: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { script } = this.props;
+        if( script==undefined && nextProps.script){
+            this.setState({
+                changedFields: {
+                    name: nextProps.script.name,
+                    description: nextProps.script.description,
+                    script: nextProps.script.script
+                }
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { scriptId } = this.props.params;
 
-                const submitUrl = '/api/project_script/'
-                    + this.props.params.scriptId;
-                const submitMethod = 'PUT';
-
-                this.setState({
-                    script: data,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-
-                const submitUrl = '/api/project_script'
-                const submitMethod = 'POST'
-                this.setState({
-                    script: {},
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod
-                });
-            }.bind(this)
-        });
+        dispatch(getScript(scriptId));
     },
     handleFieldChange(event) {
-        let script = this.state.script;
-        let changedFields = this.state.changedFields || {};
-
-        script[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            script: script,
-            changedFields: changedFields
-        })
+        const { dispatch, form_mode, script } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetScript( script, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault()
@@ -80,113 +81,91 @@ const ScriptEdit = React.createClass({
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_script/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    script: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, script } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postScript(changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putScript( script, changedFields));
     },
     render() {
-        let that = this
-        if (this.state){
-
-            return (
-                <div>
-                    <ScriptBreadcrumb { ...this.state }></ScriptBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.script.name || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <Textarea
-                                className="form-control"
-                                id="description"
-                                minRows={3}
-                                maxRows={6}
-                                value={ this.state.script.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.script.description } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-
-                        <SectionHeader>script:</SectionHeader>
-                        <div className="form-group">
-                            <Textarea
-                                className="form-control"
-                                id="script"
-                                minRows={3}
-                                style={ {maxHeight: 640} }
-                                value={ this.state.script.script || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <FountainFull source={ this.state.script.script } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-                    </form>
-                </div>
-            );
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, script } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
         }
+
         return (
-            <Spinner />
-        )
+            <div>
+
+                <ScriptBreadcrumb { ...this.props }></ScriptBreadcrumb>
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+                    <InputDescription
+                        label="Script"
+                        id="script"
+                        value={ changedFields.script || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('script') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <FountainFull source={ changedFields.script }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.ScriptEdit = ScriptEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, script } = state.script;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        script
+    }
+}
+
+export default connect(mapStateToProps)(ScriptEdit);
