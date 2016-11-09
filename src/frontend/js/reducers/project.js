@@ -22,7 +22,7 @@ import {
 
 
 const project = (state = {}, action) => {
-    console.log(action);
+
     switch (action.type) {
         case GET_PROJECT_REQUEST:
         case POST_PROJECT_REQUEST:

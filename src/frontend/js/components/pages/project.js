@@ -46,7 +46,7 @@ const Project = React.createClass({
 
                 <UiState state={ ui_state } />
 
-                <HeaderPage title={ project.name }>
+                <HeaderPage title={ project.name } subtitle={ project.slugline } >
                     <HeaderPageButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/edit')}
                         title="Edit"
