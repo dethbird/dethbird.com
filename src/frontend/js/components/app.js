@@ -15,14 +15,23 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 injectTapEventPlugin();
 
+const palette = {
+    primary1Color: '#27213C',
+    primary2Color: '#31469E',
+    accent1Color: '#4A7CE0',
+    pickerHeaderColor: '#304FAD'
+}
+
+
 const muiTheme = getMuiTheme({
     fontFamily: 'Hind Vadodara',
-    palette: {
-        primary1Color: '#304FAD',
-        primary2Color: '#31469E',
-        accent1Color: '#4A7CE0',
-        pickerHeaderColor: '#304FAD',
+    appBar: {
+        color: palette.primary1Color
     },
+    floatingActionButton: {
+      color: '#A33B20',
+      secondaryColor: '#830A48'
+    }
 });
 
 const App = React.createClass({

@@ -49396,13 +49396,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _reactTapEventPlugin2.default)();
 
+var palette = {
+    primary1Color: '#27213C',
+    primary2Color: '#31469E',
+    accent1Color: '#4A7CE0',
+    pickerHeaderColor: '#304FAD'
+};
+
 var muiTheme = (0, _getMuiTheme2.default)({
     fontFamily: 'Hind Vadodara',
-    palette: {
-        primary1Color: '#304FAD',
-        primary2Color: '#31469E',
-        accent1Color: '#4A7CE0',
-        pickerHeaderColor: '#304FAD'
+    appBar: {
+        color: palette.primary1Color
+    },
+    floatingActionButton: {
+        color: '#A33B20',
+        secondaryColor: '#830A48'
     }
 });
 

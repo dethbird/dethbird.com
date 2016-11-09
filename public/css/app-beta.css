@@ -294,7 +294,7 @@ blockquote {
 }
 body {
   font-family: 'Hind Vadodara', sans-serif;
-  background-color: #304FAD;
+  background-color: #26202b;
 }
 button {
   margin: 12px;
@@ -491,22 +491,22 @@ h1 {
   font-size: 2rem;
 }
 .section-header {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 .security-context {
-  color: #4A7CE0;
+  color: #29235e;
 }
 section.well {
   padding: 10px;
-  background-color: #304FAD;
+  background-color: #26202b;
   margin-bottom: 10px;
   clear: both;
 }
 .tag {
-  margin: 5px;
+  margin-right: 5px;
 }
 .tag-info {
-  background-color: #B245D1;
+  background-color: #55ACEE;
 }
 .text-align-center {
   text-align: center;
@@ -534,7 +534,7 @@ section.well {
   position: absolute;
   width: 3px;
   height: 0;
-  background-color: #4A7CE0;
+  background-color: #29235e;
   bottom: 0;
 }
 #cssload-loader li:nth-child(1) {

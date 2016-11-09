@@ -227,7 +227,6 @@
                 "'*.js'"
             ));
         }
-
         foreach($frontendFiles as $file){
             if($file) {
                 $outputFile = str_replace("src/frontend", "public", $file);
@@ -235,25 +234,30 @@
                 echo $c($outputFile)
                     ->yellow()->bold() . PHP_EOL;
 
-                $browserifyList = $shell->executeCommand('browserify', array(
+                $command = [
                     $file,
                     "-o",
                     $outputFile,
                     "-t",
-                    "[ babelify --presets [ es2015 react stage-2 ] ]",
-                    "--list"
-                ));
+                    "[ babelify --presets [ es2015 react stage-2 ] ]"
+                ];
 
                 try {
-                    $browserifyResponse = $shell->executeCommand('browserify', array(
-                        $file,
-                        "-o",
-                        $outputFile,
-                        "-t",
-                        "[ babelify --presets [ es2015 react stage-2 ] ]"
-                    ));
+                    $browserifyList = $shell->executeCommand('browserify', array_merge($command, ["--list"]));
                 } catch (Exception $e) {
-                    print_r($e); die();
+                    echo $c(print_r($e->getMessage(), true))->dark() . PHP_EOL;
+                    echo $c('EXCEPTION')->red()->bold() . PHP_EOL;
+                    echo $c('browserify '  . implode(' ', $command))->yellow()->bold() . PHP_EOL;
+                    exit();
+                }
+
+                try {
+                    $browserifyResponse = $shell->executeCommand('browserify', $command);
+                } catch (Exception $e) {
+                    echo $c(print_r($e->getMessage(), true))->dark() . PHP_EOL;
+                    echo $c('EXCEPTION')->red()->bold() . PHP_EOL;
+                    echo $c('browserify '  . implode(' ', $command))->yellow()->bold() . PHP_EOL;
+                    exit();
                 }
 
                 foreach($browserifyList as $builtFrom) {
