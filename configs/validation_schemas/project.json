@@ -5,6 +5,9 @@
 			"required": true,
 		    "type": "string"
 		},
+        "slugline": {
+		    "type": "string"
+		},
 		"content": {
 			"type": ["string", "null", "integer"]
 		},

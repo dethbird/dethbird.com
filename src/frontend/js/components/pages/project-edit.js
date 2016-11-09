@@ -1,76 +1,75 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { Description } from '../ui/description'
+import InputDescription from '../ui/input-description'
 import { ContentEdit } from "../ui/content-edit"
-import { Description } from "../ui/description"
-import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
 import {
     ProjectBreadcrumb
 } from "./project/project-breadcrumb"
-import { Spinner } from "../ui/spinner"
+import UiState from '../ui/ui-state'
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getProject,
+    postProject,
+    putProject,
+    resetProject
+} from  '../../actions/project'
 
 
 const ProjectEdit = React.createClass({
-    componentDidMount() {
-        $.ajaxSetup({
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this)
-        });
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let submitUrl = '/api/project/'
-                    + this.props.params.projectId
-                let submitMethod = 'PUT'
-                let project = data
-
-                this.setState({
-                    project: data,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-
-                let submitUrl = '/api/project'
-                let submitMethod = 'POST'
-
-                this.setState({
-                    project: {'name': ''},
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod
-                });
-            }.bind(this)
-        });
+    getInitialState() {
+        return {
+            changedFields: {
+                content: null,
+                name: null,
+                slugline: null,
+                description: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { project } = this.props;
+        if( project==undefined && nextProps.project){
+            this.setState({
+                changedFields: {
+                    content: nextProps.project.content,
+                    name: nextProps.project.name,
+                    slugline: nextProps.project.slugline,
+                    description: nextProps.project.description
+                }
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId } = this.props.params;
+        dispatch(getProject(projectId));
     },
     handleFieldChange(event) {
-        let project = this.state.project;
-        let changedFields = this.state.changedFields || {};
+        const { dispatch, form_mode, project } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        project[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            project: project,
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetProject( project, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault()
@@ -79,110 +78,91 @@ const ProjectEdit = React.createClass({
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    project: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postProject(changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putProject( project, changedFields));
     },
     render() {
-        let that = this
-        if (this.state){
-            if (!this.state.project) {
-                return (
-                    <Spinner />
-                )
-            }
-            return (
-                <div>
-                    <ProjectBreadcrumb { ...this.state } />
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, project } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
+        };
 
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-
-                        <SectionHeader>content:</SectionHeader>
-                        <div className="form-group">
-                            <ContentEdit
-                                type="text"
-                                id="content"
-                                placeholder="Image Url"
-                                value={ this.state.project.content || '' }
-                                handleFieldChange={ this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.project.name }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                value={ this.state.project.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.project.description } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-
-                    </form>
-                </div>
-            );
-        }
         return (
-            <Spinner />
-        )
+            <div>
+                <ProjectBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <ContentEdit
+                        id="content"
+                        value={ changedFields.content || '' }
+                        handleFieldChange={ this.handleFieldChange }
+                        errorText={ getErrorForId('content') }
+                    />
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputText
+                        label="Slugline"
+                        id="slugline"
+                        value={ changedFields.slugline || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('slugline') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.ProjectEdit = ProjectEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, project } = state.project;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        project
+    }
+}
+
+export default connect(mapStateToProps)(ProjectEdit);

@@ -5,6 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 
+import { cardHeaderStyle } from "../../../constants/styles"
 import { CardActionsButton } from "../../ui/card-actions-button"
 import { CardBlock } from "../../ui/card-block"
 import { Count } from "../../ui/count"
@@ -33,7 +34,8 @@ const Project = React.createClass({
                     actAsExpander={true}
                     showExpandableButton={true}
                     title={ project.name }
-                    titleStyle={ {fontSize: '18px'} }
+                    titleStyle={ cardHeaderStyle }
+                    subtitle={ project.slugline }
                 />
                 <CardText expandable={true}>
                     <CardMedia>

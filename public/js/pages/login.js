@@ -49652,6 +49652,13 @@ var GET_FLICKRS_SUCCESS = exports.GET_FLICKRS_SUCCESS = 'GET_FLICKRS_SUCCESS';
 var GET_PROJECT_REQUEST = exports.GET_PROJECT_REQUEST = 'GET_PROJECT_REQUEST';
 var GET_PROJECT_ERROR = exports.GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
 var GET_PROJECT_SUCCESS = exports.GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS';
+var POST_PROJECT_REQUEST = exports.POST_PROJECT_REQUEST = 'POST_PROJECT_REQUEST';
+var POST_PROJECT_ERROR = exports.POST_PROJECT_ERROR = 'POST_PROJECT_ERROR';
+var POST_PROJECT_SUCCESS = exports.POST_PROJECT_SUCCESS = 'POST_PROJECT_SUCCESS';
+var PUT_PROJECT_REQUEST = exports.PUT_PROJECT_REQUEST = 'PUT_PROJECT_REQUEST';
+var PUT_PROJECT_ERROR = exports.PUT_PROJECT_ERROR = 'PUT_PROJECT_ERROR';
+var PUT_PROJECT_SUCCESS = exports.PUT_PROJECT_SUCCESS = 'PUT_PROJECT_SUCCESS';
+var RESET_PROJECT = exports.RESET_PROJECT = 'RESET_PROJECT';
 
 var GET_PROJECTS_REQUEST = exports.GET_PROJECTS_REQUEST = 'GET_PROJECTS_REQUEST';
 var GET_PROJECTS_ERROR = exports.GET_PROJECTS_ERROR = 'GET_PROJECTS_ERROR';
@@ -49968,23 +49975,46 @@ var _actions = require('../constants/actions');
 
 var _uiState = require('../constants/ui-state');
 
+var _form = require('../constants/form');
+
 var project = function project() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
-
+    console.log(action);
     switch (action.type) {
         case _actions.GET_PROJECT_REQUEST:
+        case _actions.POST_PROJECT_REQUEST:
+        case _actions.PUT_PROJECT_REQUEST:
             return {
                 ui_state: _uiState.UI_STATE_REQUESTING
             };
         case _actions.GET_PROJECT_ERROR:
+        case _actions.POST_PROJECT_ERROR:
+        case _actions.PUT_PROJECT_ERROR:
             return {
-                ui_state: _uiState.UI_STATE_ERROR
+                ui_state: _uiState.UI_STATE_ERROR,
+                errors: action.errors ? action.errors : {},
+                form_mode: action.form_mode,
+                project: action.project ? action.project : {}
             };
         case _actions.GET_PROJECT_SUCCESS:
             return {
                 ui_state: _uiState.UI_STATE_COMPLETE,
+                form_mode: action.form_mode,
+                project: action.project
+            };
+        case _actions.POST_PROJECT_SUCCESS:
+        case _actions.PUT_PROJECT_SUCCESS:
+            return {
+                ui_state: _uiState.UI_STATE_SUCCESS,
+                form_mode: action.form_mode,
+                project: action.project
+            };
+        case _actions.RESET_PROJECT:
+            return {
+                ui_state: _uiState.UI_STATE_COMPLETE,
+                form_mode: action.form_mode,
                 project: action.project
             };
         default:
@@ -49994,7 +50024,7 @@ var project = function project() {
 
 exports.default = project;
 
-},{"../constants/actions":529,"../constants/ui-state":531}],537:[function(require,module,exports){
+},{"../constants/actions":529,"../constants/form":530,"../constants/ui-state":531}],537:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
