@@ -59,19 +59,19 @@ const ScriptEdit = React.createClass({
     },
     componentWillMount() {
         const { dispatch } = this.props;
-        const { scriptId } = this.props.params;
-
-        dispatch(getScript(scriptId));
+        const { projectId, scriptId } = this.props.params;
+        dispatch(getScript(projectId, scriptId));
     },
     handleFieldChange(event) {
-        const { dispatch, form_mode, script } = this.props;
+        const { dispatch, form_mode, project, script } = this.props;
         const { changedFields } = this.state;
         let newChangedFields = changedFields;
+
         newChangedFields[event.target.id] = event.target.value;
         this.setState( {
             changedFields: newChangedFields
         });
-        dispatch(resetScript( script, form_mode ));
+        dispatch(resetScript( project, script, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault()
@@ -82,17 +82,17 @@ const ScriptEdit = React.createClass({
     },
     handleClickSubmit(event) {
         event.preventDefault();
-        const { dispatch, form_mode, script } = this.props;
+        const { dispatch, form_mode, project, script } = this.props;
         const { changedFields } = this.state;
         if(form_mode == FORM_MODE_ADD)
-            dispatch(postScript(changedFields));
+            dispatch(postScript(project, changedFields));
 
         if(form_mode == FORM_MODE_EDIT)
-            dispatch(putScript( script, changedFields));
+            dispatch(putScript( project, script, changedFields));
     },
     render() {
         const { changedFields } = this.state;
-        const { ui_state, form_mode, errors, script } = this.props;
+        const { ui_state, form_mode, errors, project, script } = this.props;
         const getErrorForId = (id) => {
             const error = _.findWhere(errors, {
                 'property': id
@@ -159,11 +159,12 @@ const ScriptEdit = React.createClass({
 })
 
 const mapStateToProps = (state) => {
-    const { ui_state, form_mode, errors, script } = state.script;
+    const { ui_state, form_mode, errors, project, script } = state.script;
     return {
         ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
         form_mode,
         errors,
+        project,
         script
     }
 }

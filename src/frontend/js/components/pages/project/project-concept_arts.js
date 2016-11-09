@@ -60,8 +60,12 @@ const ProjectConceptArts = React.createClass({
                 </CardMedia>
                 <CardActions className="clearfix text-align-right">
                     <CardActionsButton
-                        title="View"
-                        onTouchTap={() => browserHistory.push(`/project/${project.id}/concept_art`)}
+                        title="Add"
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/concept_art/add`)}
+                    />
+                    <CardActionsButton
+                        title="Reorder"
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/concept_art/edit`)}
                     />
                 </CardActions>
             </Card>

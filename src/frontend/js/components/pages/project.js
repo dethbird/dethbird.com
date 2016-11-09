@@ -14,6 +14,7 @@ import { ProjectDetails } from "./project/project-details"
 import { ProjectLocations } from "./project/project-locations"
 import { ProjectReferenceImages } from "./project/project-reference_images"
 import { ProjectStoryboards } from "./project/project-storyboards"
+import { ProjectScripts } from "./project/project-scripts"
 import { SectionHeader } from "../ui/section-header"
 import UiState from '../ui/ui-state'
 
@@ -58,6 +59,7 @@ const Project = React.createClass({
                 <ProjectConceptArts project={ project } />
                 <ProjectReferenceImages project={ project } />
                 <ProjectLocations project={ project } />
+                <ProjectScripts project={ project } />
             </div>
         )
     }

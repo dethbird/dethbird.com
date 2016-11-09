@@ -10,7 +10,7 @@ import { Count } from '../../ui/count'
 import { Image } from '../../ui/image'
 
 
-const ProjectReferenceImages = React.createClass({
+const ProjectScripts = React.createClass({
     propTypes: {
       project: React.PropTypes.object.isRequired
     },
@@ -20,24 +20,23 @@ const ProjectReferenceImages = React.createClass({
         if (!project)
             return null;
 
-        let nodes = project.reference_images.map(function(reference_image){
+        let nodes = project.scripts.map(function(script){
 
             return (
                 <Card
                     className="col-xs-3"
-                    key={ reference_image.id }
+                    key={ script.id }
                 >
-                    <span>{ reference_image.name }</span>
-                    <Image src={ reference_image.content } />
+                    <span>{ script.name }</span>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"
-                            onTouchTap={() => browserHistory.push(`/project/${project.id}/reference_image/${reference_image.id}`)}
+                            onTouchTap={() => browserHistory.push(`/project/${project.id}/script/${script.id}`)}
                             secondary={ true }
                         />
                         <CardActionsButton
                             title="Edit"
-                            onTouchTap={() => browserHistory.push(`/project/${project.id}/reference_image/${reference_image.id}/edit`)}
+                            onTouchTap={() => browserHistory.push(`/project/${project.id}/script/${script.id}/edit`)}
                             secondary={ true }
                         />
                     </CardActions>
@@ -51,7 +50,7 @@ const ProjectReferenceImages = React.createClass({
                     actAsExpander={ true }
                     showExpandableButton={ true }
                 >
-                    <Count count={ project.reference_images.length } /><span className='section-header'>Reference Images</span>
+                    <Count count={ project.scripts.length } /><span className='section-header'>Scripts</span>
                 </CardTitle>
                 <CardMedia expandable={ true } className="clearfix">
                     { nodes }
@@ -60,11 +59,11 @@ const ProjectReferenceImages = React.createClass({
                 <CardActions className="clearfix text-align-right">
                     <CardActionsButton
                         title="Add"
-                        onTouchTap={() => browserHistory.push(`/project/${project.id}/reference_image/add`)}
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/script/add`)}
                     />
                     <CardActionsButton
                         title="Reorder"
-                        onTouchTap={() => browserHistory.push(`/project/${project.id}/reference_image/edit`)}
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/script/edit`)}
                     />
                 </CardActions>
             </Card>
@@ -72,4 +71,4 @@ const ProjectReferenceImages = React.createClass({
     }
 })
 
-module.exports.ProjectReferenceImages = ProjectReferenceImages
+module.exports.ProjectScripts = ProjectScripts

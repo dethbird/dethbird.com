@@ -46,40 +46,23 @@ const Project = React.createClass({
                     </CardMedia>
 
                     <List>
-                        <ListItem
-                            onTouchTap={
-                                () => { browserHistory.push('/project/' + project.id + '/storyboards')}
-                            }
-                        >
+                        <ListItem>
                             <Count count={ that.props.project.storyboards.length } /> Storyboards
                         </ListItem>
-                        <ListItem
-                            onTouchTap={
-                                () => { browserHistory.push('/project/' + project.id + '/characters')}
-                            }
-                        >
+                        <ListItem>
                             <Count count={ that.props.project.characters.length } /> Characters
                         </ListItem>
-                        <ListItem
-                            onTouchTap={
-                                () => { browserHistory.push('/project/' + project.id + '/concept_art')}
-                            }
-                        >
+                        <ListItem>
                             <Count count={ that.props.project.concept_art.length } /> Concept Art
                         </ListItem>
-                        <ListItem
-                            onTouchTap={
-                                () => { browserHistory.push('/project/' + project.id + '/reference_images')}
-                            }
-                        >
-                            <Count count={ that.props.project.concept_art.length } /> Reference Images
+                        <ListItem>
+                            <Count count={ that.props.project.reference_images.length } /> Reference Images
                         </ListItem>
-                        <ListItem
-                            onTouchTap={
-                                () => { browserHistory.push('/project/' + project.id + '/locations')}
-                            }
-                        >
-                            <Count count={ that.props.project.concept_art.length } /> Locations
+                        <ListItem>
+                            <Count count={ that.props.project.locations.length } /> Locations
+                        </ListItem>
+                        <ListItem>
+                            <Count count={ that.props.project.scripts.length } /> Scripts
                         </ListItem>
                     </List>
 

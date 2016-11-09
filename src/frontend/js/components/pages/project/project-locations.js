@@ -56,10 +56,15 @@ const ProjectLocations = React.createClass({
                 <CardMedia expandable={ true } className="clearfix">
                     { nodes }
                 </CardMedia>
+
                 <CardActions className="clearfix text-align-right">
                     <CardActionsButton
-                        title="View"
-                        onTouchTap={() => browserHistory.push(`/project/${project.id}/location`)}
+                        title="Add"
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/location/add`)}
+                    />
+                    <CardActionsButton
+                        title="Reorder"
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/location/edit`)}
                     />
                 </CardActions>
             </Card>

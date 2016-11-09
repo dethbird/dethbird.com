@@ -23,6 +23,7 @@ class Project extends ActiveRecord\Model
         $model->concept_art = [];
         $model->reference_images = [];
         $model->locations = [];
+        $model->scripts = [];
         $model->users = [];
 
         # characters
@@ -73,6 +74,16 @@ class Project extends ActiveRecord\Model
 
         foreach ($_locations as $_location) {
             $model->locations[] = json_decode($_location->to_json());
+        }
+
+        # scripts
+        $_scripts = ProjectScript::find_all_by_project_id(
+            $model->id, [
+                'order' => 'sort_order'
+            ]);
+
+        foreach ($_scripts as $_script) {
+            $model->scripts[] = json_decode($_script->to_json());
         }
 
         # project users

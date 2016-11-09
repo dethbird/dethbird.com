@@ -31,36 +31,36 @@ const script = (state = {}, action) => {
                 ui_state: UI_STATE_REQUESTING
             }
         case GET_SCRIPT_ERROR:
-            return {
-                ui_state: UI_STATE_COMPLETE
-            }
         case POST_SCRIPT_ERROR:
         case PUT_SCRIPT_ERROR:
             return {
                 ui_state: UI_STATE_ERROR,
                 errors: action.errors ? action.errors : {},
                 form_mode: action.form_mode,
-                script: action.script ? action.script : {},
+                project: action.project,
+                script: action.script ? action.script : {}
             }
         case GET_SCRIPT_SUCCESS:
             return {
                 ui_state: UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
-                script: action.script
+                project: action.project,
+                script: action.script,
             }
         case POST_SCRIPT_SUCCESS:
         case PUT_SCRIPT_SUCCESS:
             return {
                 ui_state: UI_STATE_SUCCESS,
                 form_mode: action.form_mode,
+                project: action.project,
                 script: action.script
             }
         case RESET_SCRIPT:
             return {
                 ui_state: UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
-                script: action.script
-            }
+                project: action.project,
+                script: action.script,            }
         default:
             return state;
     }

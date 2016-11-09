@@ -36,8 +36,7 @@ const App = React.createClass({
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="Projects" onTouchTap={ () => browserHistory.push('/projects')}/>
-                    <MenuItem primaryText="Scripts" onTouchTap={ () => browserHistory.push('/scripts')}/>
+                    <MenuItem primaryText="Logout" onTouchTap={ () => { window.location = '/logout' } }/>
             </IconMenu>
         );
         return (

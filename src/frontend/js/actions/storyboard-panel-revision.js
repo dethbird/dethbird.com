@@ -73,34 +73,34 @@ export const getStoryboardPanelRevision = (projectId, storyboardId, panelId, rev
 const postStoryboardPanelRevisionInit = (project, storyboard, panel, revision) => {
     return {
         type: POST_STORYBOARD_PANEL_REVISION_REQUEST,
+        form_mode: FORM_MODE_ADD,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode: FORM_MODE_ADD
+        revision
     }
 }
 
 const postStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision) => {
     return {
         type: POST_STORYBOARD_PANEL_REVISION_SUCCESS,
+        form_mode: FORM_MODE_EDIT,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode: FORM_MODE_EDIT
+        revision
     }
 }
 
 const postStoryboardPanelRevisionError = ( project, storyboard, panel, revision, errors) => {
     return {
         type: POST_STORYBOARD_PANEL_REVISION_ERROR,
+        errors,
+        form_mode: FORM_MODE_ADD,
         project,
         storyboard,
         panel,
-        revision,
-        errors,
-        form_mode: FORM_MODE_ADD
+        revision
     }
 }
 
@@ -124,34 +124,34 @@ export const postStoryboardPanelRevision = ( project, storyboard, panel, fields)
 const putStoryboardPanelRevisionInit = (project, storyboard, panel, revision) => {
     return {
         type: PUT_STORYBOARD_PANEL_REVISION_REQUEST,
+        form_mode: FORM_MODE_EDIT,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode: FORM_MODE_EDIT
+        revision
     }
 }
 
 const putStoryboardPanelRevisionSuccess = (project, storyboard, panel, revision) => {
     return {
         type: PUT_STORYBOARD_PANEL_REVISION_SUCCESS,
+        form_mode: FORM_MODE_EDIT,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode: FORM_MODE_EDIT
+        revision
     }
 }
 
 const putStoryboardPanelRevisionError = (project, storyboard, panel, revision, errors) => {
     return {
         type: PUT_STORYBOARD_PANEL_REVISION_ERROR,
+        errors,
+        form_mode: FORM_MODE_EDIT,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode: FORM_MODE_EDIT,
-        errors
+        revision
     }
 }
 
@@ -175,10 +175,10 @@ export const putStoryboardPanelRevision = (project, storyboard, panel, revision,
 export const resetStoryboardPanelRevision = (project, storyboard, panel, revision, form_mode) => {
     return {
         type: RESET_STORYBOARD_PANEL_REVISION,
+        form_mode,
         project,
         storyboard,
         panel,
-        revision,
-        form_mode
+        revision
     }
 }

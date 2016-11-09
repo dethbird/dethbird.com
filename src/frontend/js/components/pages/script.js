@@ -23,11 +23,11 @@ import { getScript } from  '../../actions/script'
 const Script = React.createClass({
     componentWillMount() {
         const { dispatch } = this.props;
-        const { scriptId } = this.props.params;
-        dispatch(getScript(scriptId));
+        const { projectId, scriptId } = this.props.params;
+        dispatch(getScript(projectId, scriptId));
     },
     render() {
-        const { ui_state, script, className } = this.props;
+        const { ui_state, project, script, className } = this.props;
 
         if(!script)
             return <UiState state={ ui_state } />
@@ -35,13 +35,13 @@ const Script = React.createClass({
         return (
             <div className="scriptPage">
 
-                <ScriptBreadcrumb script={ this.props } />
+                <ScriptBreadcrumb { ...this.props } />
 
                 <UiState state={ ui_state } />
 
                 <HeaderPage title={ script.name }>
                     <HeaderPageButton
-                        onTouchTap={() => browserHistory.push('/script/' + script.id + '/edit')}
+                        onTouchTap={() => browserHistory.push(`/project/${project.id}/script/${script.id}/edit`)}
                         title="Edit"
                     />
                 </HeaderPage>
@@ -66,10 +66,11 @@ const Script = React.createClass({
 })
 
 const mapStateToProps = (state) => {
-    const { ui_state, script } = state.script;
+    const { ui_state, script, project } = state.script;
     return {
         ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
-        script: script
+        project,
+        script
     }
 }
 
