@@ -16,21 +16,39 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 injectTapEventPlugin();
 
 const palette = {
-    primary1Color: '#27213C',
-    primary2Color: '#31469E',
-    accent1Color: '#4A7CE0',
-    pickerHeaderColor: '#304FAD'
+    baseColor: '#2F2137',
+    baseButtonColor: '#722F85',
+    primaryColor: '#0449A3',
+    secondaryColor: '#A3038C'
 }
-
 
 const muiTheme = getMuiTheme({
     fontFamily: 'Hind Vadodara',
     appBar: {
-        color: palette.primary1Color
+        color: palette.baseColor
     },
     floatingActionButton: {
-      color: '#A33B20',
-      secondaryColor: '#830A48'
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    flatButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    floatingActionButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    raisedButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    ripple: {
+        color: 'rgba(0,0,0,0.25)'
     }
 });
 

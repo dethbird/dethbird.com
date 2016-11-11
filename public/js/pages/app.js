@@ -69194,6 +69194,8 @@ var getStoryboard = exports.getStoryboard = function getStoryboard(projectId, st
 },{"../constants/actions":705,"superagent":621}],635:[function(require,module,exports){
 'use strict';
 
+var _getMuiTheme;
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -69210,9 +69212,9 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _colors = require('material-ui/styles/colors');
 
-var _getMuiTheme = require('material-ui/styles/getMuiTheme');
+var _getMuiTheme2 = require('material-ui/styles/getMuiTheme');
 
-var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+var _getMuiTheme3 = _interopRequireDefault(_getMuiTheme2);
 
 var _AppBar = require('material-ui/AppBar');
 
@@ -69242,25 +69244,43 @@ var _menu2 = _interopRequireDefault(_menu);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 (0, _reactTapEventPlugin2.default)();
 
 var palette = {
-    primary1Color: '#27213C',
-    primary2Color: '#31469E',
-    accent1Color: '#4A7CE0',
-    pickerHeaderColor: '#304FAD'
+    baseColor: '#2F2137',
+    baseButtonColor: '#722F85',
+    primaryColor: '#0449A3',
+    secondaryColor: '#A3038C'
 };
 
-var muiTheme = (0, _getMuiTheme2.default)({
+var muiTheme = (0, _getMuiTheme3.default)((_getMuiTheme = {
     fontFamily: 'Hind Vadodara',
     appBar: {
-        color: palette.primary1Color
+        color: palette.baseColor
     },
     floatingActionButton: {
-        color: '#A33B20',
-        secondaryColor: '#830A48'
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    flatButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
     }
-});
+}, _defineProperty(_getMuiTheme, 'floatingActionButton', {
+    color: palette.baseButtonColor,
+    primaryColor: palette.primaryColor,
+    secondaryColor: palette.secondaryColor
+}), _defineProperty(_getMuiTheme, 'raisedButton', {
+    color: palette.baseButtonColor,
+    primaryColor: palette.primaryColor,
+    secondaryColor: palette.secondaryColor
+}), _defineProperty(_getMuiTheme, 'ripple', {
+    color: 'rgba(0,0,0,0.25)'
+}), _getMuiTheme));
 
 var App = _react2.default.createClass({
     displayName: 'App',
@@ -76580,7 +76600,8 @@ var HeaderPageButton = _react2.default.createClass({
             {
                 onTouchTap: onTouchTap,
                 title: title,
-                style: _styles.buttonStyle
+                style: _styles.buttonStyle,
+                primary: true
             },
             renderIcon(title)
         );

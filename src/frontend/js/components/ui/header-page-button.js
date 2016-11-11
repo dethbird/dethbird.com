@@ -52,6 +52,7 @@ const HeaderPageButton = React.createClass({
                 onTouchTap={ onTouchTap }
                 title={ title }
                 style={ buttonStyle }
+                primary={ true }
             >
                 { renderIcon(title) }
             </FloatingActionButton>
