@@ -1,4 +1,5 @@
 export { default as character } from './character';
+export { default as characterRevision } from './character-revision';
 export { default as conceptArt } from './concept_art';
 export { default as conceptArtRevision } from './concept_art-revision';
 export { default as flickrSelector } from './flickr-selector';

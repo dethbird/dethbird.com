@@ -486,7 +486,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $app->halt(404);
         }
 
-        $params = json_decode($app->request-getBody(), true);
+        $params = json_decode($app->request->getBody(), true);
         foreach($params as $key=>$value) {
             $model->$key = $value;
         }
