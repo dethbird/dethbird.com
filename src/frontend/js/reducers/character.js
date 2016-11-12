@@ -73,7 +73,8 @@ const character = (state = {}, action) => {
                 ui_state: UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
                 project: action.project,
-                character: action.character,            }
+                character: action.character,
+            }
         default:
             return state;
     }

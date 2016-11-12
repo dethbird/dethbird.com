@@ -69469,7 +69469,9 @@ var resetStoryboardPanelRevision = exports.resetStoryboardPanelRevision = functi
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getStoryboardPanel = undefined;
+exports.resetStoryboardPanel = exports.reorderStoryboardPanelRevisions = exports.putStoryboardPanel = exports.postStoryboardPanel = exports.getStoryboardPanel = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _superagent = require('superagent');
 
@@ -69477,17 +69479,21 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _actions = require('../constants/actions');
 
+var _form = require('../constants/form');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/** GET */
 var getStoryboardPanelInit = function getStoryboardPanelInit() {
     return {
         type: _actions.GET_STORYBOARD_PANEL_REQUEST
     };
 };
 
-var getStoryboardPanelSuccess = function getStoryboardPanelSuccess(project, storyboard, panel) {
+var getStoryboardPanelSuccess = function getStoryboardPanelSuccess(project, storyboard, panel, form_mode) {
     return {
         type: _actions.GET_STORYBOARD_PANEL_SUCCESS,
+        form_mode: form_mode,
         project: project,
         storyboard: storyboard,
         panel: panel
@@ -69496,7 +69502,8 @@ var getStoryboardPanelSuccess = function getStoryboardPanelSuccess(project, stor
 
 var getStoryboardPanelError = function getStoryboardPanelError() {
     return {
-        type: _actions.GET_STORYBOARD_PANEL_ERROR
+        type: _actions.GET_STORYBOARD_PANEL_SUCCESS,
+        form_mode: _form.FORM_MODE_ADD
     };
 };
 
@@ -69511,7 +69518,8 @@ var getStoryboardPanel = exports.getStoryboardPanel = function getStoryboardPane
             var panel = _.findWhere(storyboard.panels, {
                 'id': parseInt(panelId)
             });
-            dispatch(getStoryboardPanelSuccess(project, storyboard, panel));
+            var form_mode = panel ? _form.FORM_MODE_EDIT : _form.FORM_MODE_ADD;
+            dispatch(getStoryboardPanelSuccess(project, storyboard, panel, form_mode));
         }).catch(function (error) {
             console.log(error);
             dispatch(getStoryboardPanelError());
@@ -69519,7 +69527,154 @@ var getStoryboardPanel = exports.getStoryboardPanel = function getStoryboardPane
     };
 };
 
-},{"../constants/actions":707,"superagent":622}],636:[function(require,module,exports){
+/** POST */
+var postStoryboardPanelInit = function postStoryboardPanelInit(project, storyboard, panel) {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_REQUEST,
+        form_mode: _form.FORM_MODE_ADD,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var postStoryboardPanelSuccess = function postStoryboardPanelSuccess(project, storyboard, panel) {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_SUCCESS,
+        form_mode: _form.FORM_MODE_EDIT,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var postStoryboardPanelError = function postStoryboardPanelError(project, storyboard, panel, errors) {
+    return {
+        type: _actions.POST_STORYBOARD_PANEL_ERROR,
+        errors: errors,
+        form_mode: _form.FORM_MODE_ADD,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var postStoryboardPanel = exports.postStoryboardPanel = function postStoryboardPanel(project, storyboard, fields) {
+    return function (dispatch) {
+        dispatch(postStoryboardPanelInit());
+        _superagent2.default.post('/api/project_storyboard_panel').send(_extends({}, fields, { storyboard_id: storyboard.id })).end(function (err, res) {
+            if (res.ok) {
+                var panel = res.body;
+                dispatch(postStoryboardPanelSuccess(project, storyboard, panel));
+            }
+            if (!res.ok) dispatch(postStoryboardPanelError(project, storyboard, fields, res.body));
+        });
+    };
+};
+
+/** PUT */
+var putStoryboardPanelInit = function putStoryboardPanelInit(project, storyboard, panel) {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_REQUEST,
+        form_mode: _form.FORM_MODE_EDIT,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var putStoryboardPanelSuccess = function putStoryboardPanelSuccess(project, storyboard, panel) {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_SUCCESS,
+        form_mode: _form.FORM_MODE_EDIT,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var putStoryboardPanelError = function putStoryboardPanelError(project, storyboard, panel, errors) {
+    return {
+        type: _actions.PUT_STORYBOARD_PANEL_ERROR,
+        form_mode: _form.FORM_MODE_EDIT,
+        errors: errors,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var putStoryboardPanel = exports.putStoryboardPanel = function putStoryboardPanel(project, storyboard, panel, fields) {
+    return function (dispatch) {
+        dispatch(putStoryboardPanelInit());
+        _superagent2.default.put('/api/project_storyboard_panel/' + panel.id).send(fields).end(function (err, res) {
+            if (res.ok) {
+                var r = res.body;
+                dispatch(putStoryboardPanelSuccess(project, storyboard, r));
+            }
+
+            if (!res.ok) dispatch(putStoryboardPanelError(project, storyboard, _extends({}, fields, { id: panel.id, revisions: panel.revisions }), res.body));
+        });
+    };
+};
+
+/** REORDER */
+var reorderStoryboardPanelRevisionsInit = function reorderStoryboardPanelRevisionsInit(project, storyboard, panel, form_mode) {
+    return {
+        type: _actions.REORDER_STORYBOARD_PANEL_REVISIONS_REQUEST,
+        form_mode: form_mode,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var reorderStoryboardPanelRevisionsSuccess = function reorderStoryboardPanelRevisionsSuccess(project, storyboard, panel, form_mode) {
+    return {
+        type: _actions.REORDER_STORYBOARD_PANEL_REVISIONS_SUCCESS,
+        form_mode: form_mode,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var reorderStoryboardPanelRevisionsError = function reorderStoryboardPanelRevisionsError(project, storyboard, panel, form_mode, errors) {
+    return {
+        type: _actions.REORDER_STORYBOARD_PANEL_REVISIONS_ERROR,
+        form_mode: form_mode,
+        errors: errors,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+var reorderStoryboardPanelRevisions = exports.reorderStoryboardPanelRevisions = function reorderStoryboardPanelRevisions(project, storyboard, panel, form_mode, items) {
+    return function (dispatch) {
+        dispatch(reorderStoryboardPanelRevisionsInit(project, storyboard, panel, form_mode));
+        _superagent2.default.post('/api/project_storyboard_panel_revision_order').send({ items: items }).end(function (err, res) {
+            if (res.ok) {
+                dispatch(reorderStoryboardPanelRevisionsSuccess(project, storyboard, panel, form_mode));
+            }
+
+            if (!res.ok) dispatch(reorderStoryboardPanelRevisionsError(project, storyboard, panel, form_mode, res.body));
+        });
+    };
+};
+
+/** RESET */
+var resetStoryboardPanel = exports.resetStoryboardPanel = function resetStoryboardPanel(project, storyboard, panel, form_mode) {
+    return {
+        type: _actions.RESET_STORYBOARD_PANEL,
+        form_mode: form_mode,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
+
+},{"../constants/actions":707,"../constants/form":708,"superagent":622}],636:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -74995,6 +75150,10 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelComme
 },{"../../actions/storyboard-panel-comment":633,"../../constants/form":708,"../../constants/ui-state":710,"../ui/buttons-form":684,"../ui/card":689,"../ui/card-clickable":687,"../ui/description":692,"../ui/image-panel-revision":698,"../ui/input-description":700,"../ui/section-header":703,"../ui/ui-state":706,"./storyboard-panel/storyboard-panel-breadcrumb":680,"material-ui/Card":254,"material-ui/DatePicker":266,"material-ui/MenuItem":297,"material-ui/SelectField":308,"moment":374,"react":596,"react-redux":397,"react-router":431}],677:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -75003,274 +75162,249 @@ var _reactSortableComponent = require('react-sortable-component');
 
 var _reactRouter = require('react-router');
 
-var _alert = require('../ui/alert');
+var _reactRedux = require('react-redux');
+
+var _Card = require('material-ui/Card');
+
+var _inputText = require('../ui/input-text');
+
+var _inputText2 = _interopRequireDefault(_inputText);
 
 var _card = require('../ui/card');
 
-var _sectionHeader = require('../ui/section-header');
+var _buttonsForm = require('../ui/buttons-form');
 
-var _cardClickable = require('../ui/card-clickable');
+var _fountainFull = require('../ui/fountain-full');
 
-var _cardBlock = require('../ui/card-block');
+var _image = require('../ui/image');
 
-var _fountain = require('../ui/fountain');
+var _inputDescription = require('../ui/input-description');
 
-var _imagePanelRevision = require('../ui/image-panel-revision');
+var _inputDescription2 = _interopRequireDefault(_inputDescription);
+
+var _section = require('../ui/section');
+
+var _uiState = require('../ui/ui-state');
+
+var _uiState2 = _interopRequireDefault(_uiState);
 
 var _storyboardPanelBreadcrumb = require('./storyboard-panel/storyboard-panel-breadcrumb');
 
-var _spinner = require('../ui/spinner');
+var _form = require('../../constants/form');
+
+var _uiState3 = require('../../constants/ui-state');
+
+var _storyboardPanel = require('../../actions/storyboard-panel');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var StoryboardPanelEdit = _react2.default.createClass({
     displayName: 'StoryboardPanelEdit',
-    componentDidMount: function componentDidMount() {
-        $.ajaxSetup({
-            beforeSend: function () {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.'
-                });
-            }.bind(this)
-        });
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function (data) {
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                script: null
+            }
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        var panel = this.props.panel;
 
-                var storyboard = _.findWhere(data.storyboards, {
-                    'id': parseInt(this.props.params.storyboardId)
-                });
-                var panel = _.findWhere(storyboard.panels, {
-                    'id': parseInt(this.props.params.panelId)
-                });
-
-                var changedFields = null;
-                var submitUrl = '/api/project_storyboard_panel/' + this.props.params.panelId;
-                var submitMethod = 'PUT';
-
-                if (!panel) {
-                    panel = {
-                        name: '',
-                        revisions: []
-                    };
-                    submitUrl = '/api/project_storyboard_panel';
-                    submitMethod = 'POST';
-
-                    changedFields = {
-                        storyboard_id: this.props.params.storyboardId
-                    };
+        if (panel == undefined && nextProps.panel) {
+            this.setState({
+                changedFields: {
+                    name: nextProps.panel.name,
+                    script: nextProps.panel.script
                 }
+            });
+        }
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+        var _props$params = this.props.params,
+            projectId = _props$params.projectId,
+            storyboardId = _props$params.storyboardId,
+            panelId = _props$params.panelId;
 
-                this.setState({
-                    project: data,
-                    storyboard: storyboard,
-                    panel: panel,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        dispatch((0, _storyboardPanel.getStoryboardPanel)(projectId, storyboardId, panelId));
     },
     handleFieldChange: function handleFieldChange(event) {
-        var panel = this.state.panel;
-        var changedFields = this.state.changedFields || {};
+        var _props = this.props,
+            dispatch = _props.dispatch,
+            form_mode = _props.form_mode,
+            project = _props.project,
+            storyboard = _props.storyboard,
+            panel = _props.panel;
+        var changedFields = this.state.changedFields;
 
-        panel[event.target.id] = event.target.value;
-        changedFields[event.target.id] = event.target.value;
+        var newChangedFields = changedFields;
 
+        newChangedFields[event.target.id] = event.target.value;
         this.setState({
-            panel: panel,
-            changedFields: changedFields
+            changedFields: newChangedFields
         });
+        dispatch((0, _storyboardPanel.resetStoryboardPanel)(project, storyboard, panel, form_mode));
     },
     handleClickCancel: function handleClickCancel(event) {
+        var _props$params2 = this.props.params,
+            projectId = _props$params2.projectId,
+            storyboardId = _props$params2.storyboardId,
+            panelId = _props$params2.panelId;
+
         event.preventDefault();
-        _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/storyboard/' + this.props.params.storyboardId + '/panel/' + this.props.params.panelId);
+        _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId);
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
-        var that = this;
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function (data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl: '/api/project_storyboard_panel/' + data.id,
-                    submitMethod: 'PUT',
-                    panel: data
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                });
-            }.bind(this)
-        });
+        var _props2 = this.props,
+            dispatch = _props2.dispatch,
+            form_mode = _props2.form_mode,
+            project = _props2.project,
+            storyboard = _props2.storyboard,
+            panel = _props2.panel;
+        var changedFields = this.state.changedFields;
+
+        if (form_mode == _form.FORM_MODE_ADD) dispatch((0, _storyboardPanel.postStoryboardPanel)(project, storyboard, changedFields));
+
+        if (form_mode == _form.FORM_MODE_EDIT) dispatch((0, _storyboardPanel.putStoryboardPanel)(project, storyboard, panel, changedFields));
     },
     handleSort: function handleSort(items) {
+        var _props3 = this.props,
+            dispatch = _props3.dispatch,
+            form_mode = _props3.form_mode,
+            project = _props3.project,
+            storyboard = _props3.storyboard,
+            panel = _props3.panel;
+        var changedFields = this.state.changedFields;
 
-        var that = this;
 
-        var panel = this.state.panel;
-        panel.revisions = items;
-        this.setState({
-            panel: panel
+        var newPanel = changedFields;
+        newPanel.revisions = items;
+
+        items = items.map(function (item, i) {
+            return { 'id': item.id };
         });
 
-        $.post('/api/project_storyboard_panel_revision_order', { 'items': items }, function (response) {
-
-            var panel = that.state.panel;
-            panel.revisions = response.items;
-            that.setState({
-                panel: panel,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            });
-        });
+        dispatch((0, _storyboardPanel.reorderStoryboardPanelRevisions)(project, storyboard, newPanel, form_mode, items));
     },
     render: function render() {
-        var that = this;
-        if (this.state) {
+        var changedFields = this.state.changedFields;
+        var _props4 = this.props,
+            ui_state = _props4.ui_state,
+            form_mode = _props4.form_mode,
+            errors = _props4.errors,
+            project = _props4.project,
+            storyboard = _props4.storyboard,
+            panel = _props4.panel;
 
-            if (!this.state.panel) {
-                return _react2.default.createElement(_spinner.Spinner, null);
-            }
-
-            var panelRevisionNodes = this.state.panel.revisions.map(function (revision, i) {
-                return _react2.default.createElement(
-                    _reactSortableComponent.SortableItem,
-                    {
-                        key: revision.id,
-                        className: 'card col-xs-4'
-                    },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, { src: revision.content })
-                );
+        var getErrorForId = function getErrorForId(id) {
+            var error = _.findWhere(errors, {
+                'property': id
             });
+            if (error) return error.message;
+            return null;
+        };
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_storyboardPanelBreadcrumb.StoryboardPanelBreadcrumb, this.state),
-                _react2.default.createElement(_alert.Alert, {
-                    status: this.state.formState,
-                    message: this.state.formMessage
-                }),
-                _react2.default.createElement(
-                    'form',
-                    null,
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'name:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('input', {
-                            type: 'text',
-                            className: 'form-control',
-                            id: 'name',
-                            placeholder: 'Name',
-                            value: this.state.panel.name,
-                            onChange: this.handleFieldChange
-                        })
-                    ),
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'script:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('textarea', {
-                            className: 'form-control',
-                            id: 'script',
-                            rows: '3',
-                            value: this.state.panel.script || '',
-                            onChange: this.handleFieldChange
-                        }),
-                        _react2.default.createElement('br', null),
+        var sortableNode = void 0;
+        if (panel) {
+            var panelRevisionNodes = void 0;
+            if (panel.revisions) {
+                panelRevisionNodes = panel.revisions.map(function (revision, i) {
+                    return _react2.default.createElement(
+                        _reactSortableComponent.SortableItem,
+                        {
+                            key: revision.id,
+                            className: 'card col-xs-3'
+                        },
                         _react2.default.createElement(
                             _card.Card,
                             null,
-                            _react2.default.createElement(
-                                _cardBlock.CardBlock,
-                                null,
-                                _react2.default.createElement(_fountain.Fountain, { source: this.state.panel.script })
-                            )
+                            _react2.default.createElement(_image.Image, { src: revision.content })
                         )
-                    ),
+                    );
+                });
+
+                sortableNode = _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: panel.revisions.length }),
                     _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'revisions:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panelRevisionsContainer clearfix' },
-                            _react2.default.createElement(
-                                _reactSortableComponent.SortableItems,
-                                {
-                                    items: that.state.panel.revisions,
-                                    onSort: that.handleSort,
-                                    name: 'sort-revisions-component'
-                                },
-                                panelRevisionNodes
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group text-align-center' },
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-secondary',
-                                onClick: that.handleClickCancel
-                            },
-                            'Cancel'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-success',
-                                onClick: that.handleClickSubmit,
-                                disabled: !that.state.changedFields
-                            },
-                            'Save'
-                        )
+                        _reactSortableComponent.SortableItems,
+                        {
+                            items: panel.revisions,
+                            onSort: this.handleSort,
+                            name: 'sort-revisions-component'
+                        },
+                        panelRevisionNodes
                     )
-                )
-            );
+                );
+            }
         }
-        return _react2.default.createElement(_spinner.Spinner, null);
+
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_storyboardPanelBreadcrumb.StoryboardPanelBreadcrumb, this.props),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                'form',
+                null,
+                _react2.default.createElement(_inputText2.default, {
+                    label: 'Name',
+                    id: 'name',
+                    value: changedFields.name || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('name')
+                }),
+                _react2.default.createElement(_inputDescription2.default, {
+                    label: 'Script',
+                    id: 'script',
+                    value: changedFields.script || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('script')
+                }),
+                _react2.default.createElement(
+                    _card.Card,
+                    { className: 'input-card' },
+                    _react2.default.createElement(
+                        _Card.CardText,
+                        null,
+                        _react2.default.createElement(_fountainFull.FountainFull, { source: changedFields.script })
+                    )
+                ),
+                _react2.default.createElement(_buttonsForm.ButtonsForm, {
+                    handleClickCancel: this.handleClickCancel,
+                    handleClickSubmit: this.handleClickSubmit
+                }),
+                sortableNode
+            )
+        );
     }
 });
-// import { CardSortable } from "../ui/card-sortable"
 
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$storyboardPane = state.storyboardPanel,
+        ui_state = _state$storyboardPane.ui_state,
+        form_mode = _state$storyboardPane.form_mode,
+        errors = _state$storyboardPane.errors,
+        project = _state$storyboardPane.project,
+        storyboard = _state$storyboardPane.storyboard,
+        panel = _state$storyboardPane.panel;
 
-module.exports.StoryboardPanelEdit = StoryboardPanelEdit;
+    return {
+        ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
+        form_mode: form_mode,
+        errors: errors,
+        project: project,
+        storyboard: storyboard,
+        panel: panel
+    };
+};
 
-},{"../ui/alert":683,"../ui/card":689,"../ui/card-block":686,"../ui/card-clickable":687,"../ui/fountain":695,"../ui/image-panel-revision":698,"../ui/section-header":703,"../ui/spinner":705,"./storyboard-panel/storyboard-panel-breadcrumb":680,"react":596,"react-router":431,"react-sortable-component":442}],678:[function(require,module,exports){
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(StoryboardPanelEdit);
+
+},{"../../actions/storyboard-panel":635,"../../constants/form":708,"../../constants/ui-state":710,"../ui/buttons-form":684,"../ui/card":689,"../ui/fountain-full":694,"../ui/image":699,"../ui/input-description":700,"../ui/input-text":701,"../ui/section":704,"../ui/ui-state":706,"./storyboard-panel/storyboard-panel-breadcrumb":680,"material-ui/Card":254,"react":596,"react-redux":397,"react-router":431,"react-sortable-component":442}],678:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -77594,6 +77728,16 @@ var GET_STORYBOARD_SUCCESS = exports.GET_STORYBOARD_SUCCESS = 'GET_STORYBOARD_SU
 var GET_STORYBOARD_PANEL_REQUEST = exports.GET_STORYBOARD_PANEL_REQUEST = 'GET_STORYBOARD_PANEL_REQUEST';
 var GET_STORYBOARD_PANEL_ERROR = exports.GET_STORYBOARD_PANEL_ERROR = 'GET_STORYBOARD_PANEL_ERROR';
 var GET_STORYBOARD_PANEL_SUCCESS = exports.GET_STORYBOARD_PANEL_SUCCESS = 'GET_STORYBOARD_PANEL_SUCCESS';
+var POST_STORYBOARD_PANEL_REQUEST = exports.POST_STORYBOARD_PANEL_REQUEST = 'POST_STORYBOARD_PANEL_REQUEST';
+var POST_STORYBOARD_PANEL_ERROR = exports.POST_STORYBOARD_PANEL_ERROR = 'POST_STORYBOARD_PANEL_ERROR';
+var POST_STORYBOARD_PANEL_SUCCESS = exports.POST_STORYBOARD_PANEL_SUCCESS = 'POST_STORYBOARD_PANEL_SUCCESS';
+var PUT_STORYBOARD_PANEL_REQUEST = exports.PUT_STORYBOARD_PANEL_REQUEST = 'PUT_STORYBOARD_PANEL_REQUEST';
+var PUT_STORYBOARD_PANEL_ERROR = exports.PUT_STORYBOARD_PANEL_ERROR = 'PUT_STORYBOARD_PANEL_ERROR';
+var PUT_STORYBOARD_PANEL_SUCCESS = exports.PUT_STORYBOARD_PANEL_SUCCESS = 'PUT_STORYBOARD_PANEL_SUCCESS';
+var REORDER_STORYBOARD_PANEL_REVISIONS_REQUEST = exports.REORDER_STORYBOARD_PANEL_REVISIONS_REQUEST = 'REORDER_STORYBOARD_PANEL_REVISIONS_REQUEST';
+var REORDER_STORYBOARD_PANEL_REVISIONS_ERROR = exports.REORDER_STORYBOARD_PANEL_REVISIONS_ERROR = 'REORDER_STORYBOARD_PANEL_REVISIONS_ERROR';
+var REORDER_STORYBOARD_PANEL_REVISIONS_SUCCESS = exports.REORDER_STORYBOARD_PANEL_REVISIONS_SUCCESS = 'REORDER_STORYBOARD_PANEL_REVISIONS_SUCCESS';
+var RESET_STORYBOARD_PANEL = exports.RESET_STORYBOARD_PANEL = 'RESET_STORYBOARD_PANEL';
 
 var GET_STORYBOARD_PANEL_COMMENT_REQUEST = exports.GET_STORYBOARD_PANEL_COMMENT_REQUEST = 'GET_STORYBOARD_PANEL_COMMENT_REQUEST';
 var GET_STORYBOARD_PANEL_COMMENT_ERROR = exports.GET_STORYBOARD_PANEL_COMMENT_ERROR = 'GET_STORYBOARD_PANEL_COMMENT_ERROR';
@@ -77752,6 +77896,8 @@ var _storyboardPanel2 = _interopRequireDefault(_storyboardPanel);
 
 var _storyboardPanelEdit = require('../components/pages/storyboard-panel-edit');
 
+var _storyboardPanelEdit2 = _interopRequireDefault(_storyboardPanelEdit);
+
 var _storyboardPanelCommentEdit = require('../components/pages/storyboard-panel-comment-edit');
 
 var _storyboardPanelCommentEdit2 = _interopRequireDefault(_storyboardPanelCommentEdit);
@@ -77821,9 +77967,9 @@ if (lastRequestUri) {
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/add', component: _storyboardEdit.StoryboardEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId', component: _storyboard2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/edit', component: _storyboardEdit.StoryboardEdit }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/add', component: _storyboardPanelEdit.StoryboardPanelEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/add', component: _storyboardPanelEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId', component: _storyboardPanel2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/edit', component: _storyboardPanelEdit.StoryboardPanelEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/edit', component: _storyboardPanelEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/add', component: _storyboardPanelCommentEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/comment/:commentId/edit', component: _storyboardPanelCommentEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/storyboard/:storyboardId/panel/:panelId/revision/add', component: _storyboardPanelRevisionEdit2.default }),
@@ -77898,7 +78044,8 @@ var character = function character() {
                 ui_state: _uiState.UI_STATE_COMPLETE,
                 form_mode: action.form_mode,
                 project: action.project,
-                character: action.character };
+                character: action.character
+            };
         default:
             return state;
     }
@@ -78443,6 +78590,8 @@ var _actions = require('../constants/actions');
 
 var _uiState = require('../constants/ui-state');
 
+var _form = require('../constants/form');
+
 var storyboardPanel = function storyboardPanel() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
@@ -78450,16 +78599,54 @@ var storyboardPanel = function storyboardPanel() {
 
     switch (action.type) {
         case _actions.GET_STORYBOARD_PANEL_REQUEST:
+        case _actions.POST_STORYBOARD_PANEL_REQUEST:
+        case _actions.PUT_STORYBOARD_PANEL_REQUEST:
             return {
                 ui_state: _uiState.UI_STATE_REQUESTING
             };
-        case _actions.GET_STORYBOARD_PANEL_ERROR:
+        case _actions.REORDER_STORYBOARD_PANEL_REVISIONS_REQUEST:
             return {
-                ui_state: _uiState.UI_STATE_ERROR
+                ui_state: _uiState.UI_STATE_REQUESTING,
+                form_mode: action.form_mode,
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel
+            };
+        case _actions.GET_STORYBOARD_PANEL_ERROR:
+        case _actions.POST_STORYBOARD_PANEL_ERROR:
+        case _actions.PUT_STORYBOARD_PANEL_ERROR:
+        case _actions.PUT_STORYBOARD_PANEL_ERROR:
+        case _actions.REORDER_STORYBOARD_PANEL_REVISIONS_ERROR:
+            return {
+                ui_state: _uiState.UI_STATE_ERROR,
+                errors: action.errors ? action.errors : {},
+                form_mode: action.form_mode,
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel ? action.panel : {}
             };
         case _actions.GET_STORYBOARD_PANEL_SUCCESS:
             return {
                 ui_state: _uiState.UI_STATE_COMPLETE,
+                form_mode: action.form_mode,
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel
+            };
+        case _actions.POST_STORYBOARD_PANEL_SUCCESS:
+        case _actions.PUT_STORYBOARD_PANEL_SUCCESS:
+        case _actions.REORDER_STORYBOARD_PANEL_REVISIONS_SUCCESS:
+            return {
+                ui_state: _uiState.UI_STATE_SUCCESS,
+                form_mode: action.form_mode,
+                project: action.project,
+                storyboard: action.storyboard,
+                panel: action.panel
+            };
+        case _actions.RESET_STORYBOARD_PANEL:
+            return {
+                ui_state: _uiState.UI_STATE_COMPLETE,
+                form_mode: action.form_mode,
                 project: action.project,
                 storyboard: action.storyboard,
                 panel: action.panel
@@ -78471,7 +78658,7 @@ var storyboardPanel = function storyboardPanel() {
 
 exports.default = storyboardPanel;
 
-},{"../constants/actions":707,"../constants/ui-state":710}],723:[function(require,module,exports){
+},{"../constants/actions":707,"../constants/form":708,"../constants/ui-state":710}],723:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

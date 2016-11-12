@@ -4,237 +4,207 @@ import {
     SortableItem
 } from 'react-sortable-component'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-// import { CardSortable } from "../ui/card-sortable"
-import { CardBlock } from "../ui/card-block"
-import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { FountainFull } from '../ui/fountain-full'
+import { Image } from "../ui/image"
+import InputDescription from '../ui/input-description'
+import { Section } from "../ui/section"
+import UiState from '../ui/ui-state'
+
 import {
     StoryboardPanelBreadcrumb
 } from "./storyboard-panel/storyboard-panel-breadcrumb"
-import { Spinner } from "../ui/spinner"
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getStoryboardPanel,
+    postStoryboardPanel,
+    putStoryboardPanel,
+    resetStoryboardPanel,
+    reorderStoryboardPanelRevisions
+} from  '../../actions/storyboard-panel'
 
 
 const StoryboardPanelEdit = React.createClass({
-    componentDidMount() {
-        $.ajaxSetup({
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this)
-        });
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let storyboard = _.findWhere(data.storyboards, {
-                    'id': parseInt(this.props.params.storyboardId)
-                });
-                let panel = _.findWhere(storyboard.panels, {
-                    'id': parseInt(this.props.params.panelId)
-                });
-
-                let changedFields = null
-                let submitUrl = '/api/project_storyboard_panel/'
-                    + this.props.params.panelId
-                let submitMethod = 'PUT'
-
-                if (!panel) {
-                    panel = {
-                        name: '',
-                        revisions: []
-                    };
-                    submitUrl = '/api/project_storyboard_panel'
-                    submitMethod = 'POST'
-
-                    changedFields = {
-                        storyboard_id: this.props.params.storyboardId
-                    }
+    getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                script: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { panel } = this.props;
+        if( panel==undefined && nextProps.panel){
+            this.setState({
+                changedFields: {
+                    name: nextProps.panel.name,
+                    script: nextProps.panel.script
                 }
-
-                this.setState({
-                    project: data,
-                    storyboard: storyboard,
-                    panel: panel,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, storyboardId, panelId } = this.props.params;
+        dispatch(getStoryboardPanel(projectId, storyboardId, panelId));
     },
     handleFieldChange(event) {
-        let panel = this.state.panel;
-        let changedFields = this.state.changedFields || {};
+        const { dispatch, form_mode, project, storyboard, panel } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        panel[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            panel: panel,
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetStoryboardPanel( project, storyboard, panel, form_mode ));
     },
     handleClickCancel(event) {
+        const { projectId, storyboardId, panelId } = this.props.params;
         event.preventDefault()
         browserHistory.push(
-            '/project/' + this.props.params.projectId
-            + '/storyboard/' + this.props.params.storyboardId
-            + '/panel/' + this.props.params.panelId
+            `/project/${projectId}/storyboard/${storyboardId}`
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_storyboard_panel/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    panel: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, storyboard, panel } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postStoryboardPanel(project, storyboard, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putStoryboardPanel( project, storyboard, panel, changedFields));
     },
     handleSort(items) {
+        const { dispatch, form_mode, project, storyboard, panel } = this.props;
+        const { changedFields } = this.state;
 
-        var that = this
+        let newPanel = changedFields;
+        newPanel.revisions = items;
 
-        let panel = this.state.panel
-        panel.revisions = items
-        this.setState({
-            panel: panel
+        items = items.map(function(item, i){
+            return (
+                { 'id': item.id }
+            );
         });
 
-        $.post('/api/project_storyboard_panel_revision_order', {'items': items}, function(response){
+        dispatch(reorderStoryboardPanelRevisions(project, storyboard, newPanel, form_mode, items));
 
-            let panel = that.state.panel
-            panel.revisions = response.items
-            that.setState({
-                panel: panel,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            })
-        });
     },
     render() {
-        let that = this
-        if (this.state){
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, project, storyboard, panel } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
+        };
 
-            if (!this.state.panel) {
-                return (
-                    <Spinner />
+        let sortableNode;
+        if (panel) {
+            let panelRevisionNodes;
+            if (panel.revisions) {
+                panelRevisionNodes = panel.revisions.map(function(revision, i) {
+                    return (
+                        <SortableItem
+                            key={ revision.id }
+                            className="card col-xs-3"
+                        >
+                            <Card>
+                                <Image src={ revision.content } />
+                            </Card>
+                        </SortableItem>
+                    );
+                });
+
+                sortableNode = (
+                    <div>
+                        <Section title="Revisions" subtitle="Drag to reorder" count={ panel.revisions.length }></Section>
+
+                        <SortableItems
+                            items={ panel.revisions }
+                            onSort={ this.handleSort }
+                            name="sort-revisions-component"
+                        >
+                            { panelRevisionNodes }
+                        </SortableItems>
+                    </div>
                 );
             }
-
-            let panelRevisionNodes = this.state.panel.revisions.map(function(revision, i) {
-                return (
-                    <SortableItem
-                        key={ revision.id }
-                        className="card col-xs-4"
-                    >
-                        <ImagePanelRevision { ...{ src: revision.content } } ></ImagePanelRevision>
-                    </SortableItem>
-                );
-            });
-
-            return (
-                <div>
-                    <StoryboardPanelBreadcrumb { ...this.state }></StoryboardPanelBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.panel.name }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>script:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="script"
-                                rows="3"
-                                value={ this.state.panel.script || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Fountain source={ this.state.panel.script } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <SectionHeader>revisions:</SectionHeader>
-                        <div className="form-group">
-                            <div className="panelRevisionsContainer clearfix">
-                                <SortableItems
-                                    items={ that.state.panel.revisions }
-                                    onSort={ that.handleSort }
-                                    name="sort-revisions-component"
-                                >
-                                    { panelRevisionNodes }
-                                </SortableItems>
-                            </div>
-                        </div>
-
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-                    </form>
-                </div>
-            );
         }
+
         return (
-            <Spinner />
-        )
+            <div>
+                <StoryboardPanelBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputDescription
+                        label="Script"
+                        id="script"
+                        value={ changedFields.script || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('script') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <FountainFull source={ changedFields.script }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                    { sortableNode }
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.StoryboardPanelEdit = StoryboardPanelEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, project, storyboard, panel } = state.storyboardPanel;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        project,
+        storyboard,
+        panel
+    }
+}
+
+export default connect(mapStateToProps)(StoryboardPanelEdit);
