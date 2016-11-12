@@ -1,70 +1,66 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
-import { ContentEdit } from "../ui/content-edit"
-import { Description } from "../ui/description"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { ContentEdit } from '../ui/content-edit'
+import { Description } from '../ui/description'
+import InputDescription from '../ui/input-description'
+import { Section } from '../ui/section'
 import {
     ConceptArtBreadcrumb
-} from "./concept_art/concept_art-breadcrumb"
-import { Spinner } from "../ui/spinner"
+} from './concept_art/concept_art-breadcrumb'
+import UiState from '../ui/ui-state'
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
 
+import {
+    getConceptArtRevision,
+    postConceptArtRevision,
+    putConceptArtRevision,
+    resetConceptArtRevision
+} from  '../../actions/concept_art-revision'
 
 const ConceptArtRevisionEdit = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let concept_art = _.findWhere(data.concept_art, {
-                    'id': parseInt(this.props.params.conceptArtId)
-                });
-
-                let revision = _.findWhere(concept_art.revisions, {
-                    'id': parseInt(this.props.params.revisionId)
-                });
-
-                let changedFields = null
-                let submitUrl = '/api/project_concept_art_revision/'
-                    + this.props.params.revisionId
-                let submitMethod = 'PUT'
-
-                if (!revision) {
-                    revision = {
-                        name: '',
-                        content: '',
-                        description: ''
-                    };
-                    submitUrl = '/api/project_concept_art_revision'
-                    submitMethod = 'POST'
-
-                    changedFields = {
-                        concept_art_id: this.props.params.conceptArtId
-                    }
+    getInitialState() {
+        return {
+            changedFields: {
+                content: null,
+                description: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { revision } = this.props;
+        if( revision==undefined && nextProps.revision){
+            this.setState({
+                changedFields: {
+                    content: nextProps.revision.content,
+                    description: nextProps.revision.description
                 }
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const {
+            projectId,
+            conceptArtId,
+            revisionId
+        } = this.props.params;
 
-                this.setState({
-                    project: data,
-                    concept_art: concept_art,
-                    revision: revision,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        dispatch(getConceptArtRevision(
+            projectId,
+            conceptArtId,
+            revisionId));
     },
     handleContentSelection(event) {
         event.preventDefault()
@@ -76,110 +72,94 @@ const ConceptArtRevisionEdit = React.createClass({
         })
     },
     handleFieldChange(event) {
-        let revision = this.state.revision;
-        let changedFields = this.state.changedFields || {};
-
-        revision[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            revision: revision,
-            changedFields: changedFields
-        })
+        const { dispatch, project, concept_art, revision, form_mode } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetConceptArtRevision( project, concept_art, revision, form_mode ));
     },
     handleClickCancel(event) {
-        event.preventDefault()
+        event.preventDefault();
         browserHistory.push(
             '/project/' + this.props.params.projectId
             + '/concept_art/' + this.props.params.conceptArtId
-        )
+        );
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_concept_art_revision/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    revision: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, concept_art, revision } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postConceptArtRevision(project, concept_art, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putConceptArtRevision( project, concept_art, revision, changedFields));
+
     },
     render() {
-        let that = this
-        if (this.state){
-            return (
-                <div>
-                    <ConceptArtBreadcrumb { ...this.state }></ConceptArtBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-
-                        <SectionHeader>content:</SectionHeader>
-                        <div className="form-group">
-                            <ContentEdit
-                                type="text"
-                                id="content"
-                                placeholder="Image Url"
-                                value={ this.state.revision.content }
-                                handleFieldChange={ this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                value={ this.state.revision.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.revision.description } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-                    </form>
-                </div>
-            );
+        const { changedFields } = this.state;
+        const { ui_state, project, concept_art, revision, form_mode, errors } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
         }
-        return (
-            <Spinner />
-        )
-    }
-})
 
-module.exports.ConceptArtRevisionEdit = ConceptArtRevisionEdit
+        return (
+            <div>
+                <ConceptArtBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <ContentEdit
+                        id="content"
+                        value={ changedFields.content || '' }
+                        handleFieldChange={ this.handleFieldChange }
+                        errorText={ getErrorForId('content') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+                </form>
+            </div>
+        );
+    }
+});
+
+const mapStateToProps = (state) => {
+    const { ui_state, project, concept_art, revision, form_mode, errors } = state.conceptArtRevision;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        project,
+        concept_art,
+        revision,
+        errors
+    }
+}
+
+export default connect(mapStateToProps)(ConceptArtRevisionEdit);
