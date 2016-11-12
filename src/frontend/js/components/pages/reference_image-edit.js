@@ -78,7 +78,7 @@ const ReferenceImageEdit = React.createClass({
         event.preventDefault()
         browserHistory.push(
             '/project/' + this.props.params.projectId
-            + '/script/' + this.props.params.referenceImageId
+            + '/reference_image/' + this.props.params.referenceImageId
         )
     },
     handleClickSubmit(event) {

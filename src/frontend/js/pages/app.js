@@ -20,6 +20,7 @@ import { ProjectReferenceImagesEdit } from '../components/pages/project-referenc
 import { ProjectStoryboardsEdit } from '../components/pages/project-storyboards-edit'
 import Projects from '../components/pages/projects'
 import { ProjectsEdit } from '../components/pages/projects-edit'
+import ReferenceImage from '../components/pages/reference_image'
 import ReferenceImageEdit from '../components/pages/reference_image-edit'
 import Script from '../components/pages/script'
 import ScriptEdit from '../components/pages/script-edit'
@@ -70,6 +71,7 @@ render((
                 <Route path="project/:projectId/location/:locationId/edit" component={ LocationEdit } />
                 <Route path="project/:projectId/reference_images/edit" component={ ProjectReferenceImagesEdit } />
                 <Route path="project/:projectId/reference_image/add" component={ ReferenceImageEdit } />
+                <Route path="project/:projectId/reference_image/:referenceImageId" component={ ReferenceImage } />
                 <Route path="project/:projectId/reference_image/:referenceImageId/edit" component={ ReferenceImageEdit } />
                 <Route path="project/:projectId/script/add" component={ ScriptEdit } />
                 <Route path="project/:projectId/script/:scriptId" component={ Script } />
