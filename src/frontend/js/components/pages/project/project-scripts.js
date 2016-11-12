@@ -24,7 +24,7 @@ const ProjectScripts = React.createClass({
 
             return (
                 <Card
-                    className="col-xs-3"
+                    className="content-secondary"
                     key={ script.id }
                 >
                     <span>{ script.name }</span>
@@ -45,7 +45,7 @@ const ProjectScripts = React.createClass({
         });
 
         return (
-            <Card className='card-display'>
+            <Card className='content-primary'>
                 <CardTitle
                     actAsExpander={ true }
                     showExpandableButton={ true }

@@ -26,7 +26,7 @@ const ProjectConceptArts = React.createClass({
                 src = concept_art.revisions[0].content;
             return (
                 <Card
-                    className="col-xs-3"
+                    className="content-secondary"
                     key={ concept_art.id }
                 >
                     <span>{ concept_art.name }</span>
@@ -48,7 +48,7 @@ const ProjectConceptArts = React.createClass({
         });
 
         return (
-            <Card className='card-display'>
+            <Card className='content-primary'>
                 <CardTitle
                     actAsExpander={ true }
                     showExpandableButton={ true }

@@ -27,11 +27,11 @@ const ProjectCharacters = React.createClass({
 
             return (
                 <Card
-                    className="col-xs-3"
+                    className="content-secondary"
                     key={ character.id }
                 >
-                    <span>{ character.name }</span>
                     <Image src={ src } />
+                    <CardText>{ character.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"
@@ -44,12 +44,12 @@ const ProjectCharacters = React.createClass({
                             secondary={ true }
                         />
                     </CardActions>
-            </Card>
+                </Card>
             );
         });
 
         return (
-            <Card className='card-display'>
+            <Card className='content-primary'>
                 <CardTitle
                     actAsExpander={ true }
                     showExpandableButton={ true }

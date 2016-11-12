@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CardActions, CardText } from 'material-ui/Card';
+import { CardActions, CardMedia, CardText } from 'material-ui/Card';
 
 import { Card } from "../../ui/card"
 import { CardBlock } from "../../ui/card-block"
@@ -17,10 +17,11 @@ const ProjectDetails = React.createClass({
     render: function() {
         const { project } = this.props;
         return (
-            <div>
-                <Image src={ project.content } />
-                <br />
-                <Card className='card-display'>
+            <div className='content-primary'>
+                <CardMedia className="text-align-center">
+                    <Image src={ project.content } />
+                </CardMedia>
+                <Card>
                     <CardText>
                         <Description source={ project.description }></Description>
                     </CardText>

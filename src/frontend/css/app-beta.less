@@ -116,6 +116,41 @@ button {
     }
 }
 
+.content-primary {
+    margin: 15px 0px 15px 0px;
+    width: 95% !important;
+    display: inline-block;
+    margin: 5px;
+    text-align: left;
+}
+.content-secondary {
+    margin: 5px;
+    width: 48% !important;
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    @media screen and (min-width: 0px) and (max-width: 991px) {
+        &:nth-child(2n+1) {
+            clear:both;
+        }
+    }
+    @media screen and (min-width: 992px) and (max-width: 1279px) {
+        width: 32% !important;
+        &:nth-child(3n+1) {
+            clear:both;
+        }
+    }
+    @media screen and (min-width: 1280px) {
+        width: 24% !important;
+        &:nth-child(4n+1) {
+            clear:both;
+        }
+    }
+
+}
+
+
+
 .footer {
     padding: 15px;
     background-color: @darkestBlue;
@@ -227,6 +262,7 @@ h1 {
     max-width: 100%;
     height: auto;
 }
+
 
 .card-display,
 .input-text,

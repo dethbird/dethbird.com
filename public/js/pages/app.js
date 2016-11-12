@@ -73969,15 +73969,15 @@ var ProjectCharacters = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: character.id
                 },
+                _react2.default.createElement(_image.Image, { src: src }),
                 _react2.default.createElement(
-                    'span',
+                    _Card.CardText,
                     null,
                     character.name
                 ),
-                _react2.default.createElement(_image.Image, { src: src }),
                 _react2.default.createElement(
                     _Card.CardActions,
                     { className: 'clearfix text-align-right' },
@@ -74001,7 +74001,7 @@ var ProjectCharacters = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {
@@ -74087,7 +74087,7 @@ var ProjectConceptArts = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: concept_art.id
                 },
                 _react2.default.createElement(
@@ -74119,7 +74119,7 @@ var ProjectConceptArts = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {
@@ -74193,12 +74193,15 @@ var ProjectDetails = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            null,
-            _react2.default.createElement(_image.Image, { src: project.content }),
-            _react2.default.createElement('br', null),
+            { className: 'content-primary' },
+            _react2.default.createElement(
+                _Card.CardMedia,
+                { className: 'text-align-center' },
+                _react2.default.createElement(_image.Image, { src: project.content })
+            ),
             _react2.default.createElement(
                 _card.Card,
-                { className: 'card-display' },
+                null,
                 _react2.default.createElement(
                     _Card.CardText,
                     null,
@@ -74255,7 +74258,7 @@ var ProjectLocations = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: location.id
                 },
                 _react2.default.createElement(
@@ -74287,7 +74290,7 @@ var ProjectLocations = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {
@@ -74372,7 +74375,7 @@ var ProjectReferenceImages = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: reference_image.id
                 },
                 _react2.default.createElement(
@@ -74404,7 +74407,7 @@ var ProjectReferenceImages = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {
@@ -74489,7 +74492,7 @@ var ProjectScripts = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: script.id
                 },
                 _react2.default.createElement(
@@ -74520,7 +74523,7 @@ var ProjectScripts = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {
@@ -74603,7 +74606,7 @@ var ProjectStoryboards = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-xs-3',
+                    className: 'content-secondary',
                     key: storyboard.id
                 },
                 _react2.default.createElement(
@@ -74635,7 +74638,7 @@ var ProjectStoryboards = _react2.default.createClass({
 
         return _react2.default.createElement(
             _card.Card,
-            { className: 'card-display' },
+            { className: 'content-primary' },
             _react2.default.createElement(
                 _Card.CardTitle,
                 {

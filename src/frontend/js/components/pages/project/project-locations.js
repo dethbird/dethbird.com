@@ -24,7 +24,7 @@ const ProjectLocations = React.createClass({
 
             return (
                 <Card
-                    className="col-xs-3"
+                    className="content-secondary"
                     key={ location.id }
                 >
                     <span>{ location.name }</span>
@@ -46,7 +46,7 @@ const ProjectLocations = React.createClass({
         });
 
         return (
-            <Card className='card-display'>
+            <Card className='content-primary'>
                 <CardTitle
                     actAsExpander={ true }
                     showExpandableButton={ true }
