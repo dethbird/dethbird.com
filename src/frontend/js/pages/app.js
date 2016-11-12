@@ -10,6 +10,7 @@ import CharacterRevisionEdit from '../components/pages/character-revision-edit'
 import ConceptArt from '../components/pages/concept_art'
 import ConceptArtEdit from '../components/pages/concept_art-edit'
 import ConceptArtRevisionEdit from '../components/pages/concept_art-revision-edit'
+import Location from '../components/pages/location'
 import LocationEdit from '../components/pages/location-edit'
 import Project from '../components/pages/project'
 import ProjectEdit from '../components/pages/project-edit'
@@ -68,6 +69,7 @@ render((
                 <Route path="project/:projectId/concept_art/:conceptArtId/revision/:revisionId/edit" component={ ConceptArtRevisionEdit } />
                 <Route path="project/:projectId/locations/edit" component={ ProjectLocationsEdit } />
                 <Route path="project/:projectId/location/add" component={ LocationEdit } />
+                <Route path="project/:projectId/location/:locationId" component={ Location } />
                 <Route path="project/:projectId/location/:locationId/edit" component={ LocationEdit } />
                 <Route path="project/:projectId/reference_images/edit" component={ ProjectReferenceImagesEdit } />
                 <Route path="project/:projectId/reference_image/add" component={ ReferenceImageEdit } />
