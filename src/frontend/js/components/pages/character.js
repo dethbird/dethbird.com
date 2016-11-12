@@ -60,15 +60,16 @@ const Character = React.createClass({
                     key={ revision.id }
                     className="col-lg-3"
                 >
-
-                    <CardMedia
-                        className="text-align-center"
-                        onTouchTap={ () => browserHistory.push(
-                            '/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id) }
-                    >
+                    <CardMedia className="text-align-center">
                         <Image src={ revision.content } />
                     </CardMedia>
                     <CardText>{ revision.description }</CardText>
+                    <CardActions className="text-align-right">
+                        <CardActionsButton
+                            title="Edit"
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id)}
+                        />
+                    </CardActions>
                 </Card>
             );
         });

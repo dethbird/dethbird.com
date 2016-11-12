@@ -70260,18 +70260,23 @@ var Character = _react2.default.createClass({
                 },
                 _react2.default.createElement(
                     _Card.CardMedia,
-                    {
-                        className: 'text-align-center',
-                        onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id);
-                        }
-                    },
+                    { className: 'text-align-center' },
                     _react2.default.createElement(_image.Image, { src: revision.content })
                 ),
                 _react2.default.createElement(
                     _Card.CardText,
                     null,
                     revision.description
+                ),
+                _react2.default.createElement(
+                    _Card.CardActions,
+                    { className: 'text-align-right' },
+                    _react2.default.createElement(_cardActionsButton.CardActionsButton, {
+                        title: 'Edit',
+                        onTouchTap: function onTouchTap() {
+                            return _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id);
+                        }
+                    })
                 )
             );
         });
