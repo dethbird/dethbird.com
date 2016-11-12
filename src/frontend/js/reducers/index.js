@@ -6,6 +6,7 @@ export { default as flickrSelector } from './flickr-selector';
 export { default as login } from './login';
 export { default as project } from './project';
 export { default as projects } from './projects';
+export { default as referenceImage } from './reference-image';
 export { default as script } from './script';
 export { default as scripts } from './scripts';
 export { default as storyboard } from './storyboard';

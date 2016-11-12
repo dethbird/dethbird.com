@@ -1,185 +1,166 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
-
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
-import { ContentEdit } from "../ui/content-edit"
-import { Description } from "../ui/description"
-import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
 import {
-    ProjectReferenceImagesBreadcrumb
-} from "./project-reference_images/project-reference_images-breadcrumb"
-import { Spinner } from "../ui/spinner"
+    SortableItems,
+    SortableItem
+} from 'react-sortable-component'
+import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { ContentEdit } from '../ui/content-edit'
+import { Description } from '../ui/description'
+import InputDescription from '../ui/input-description'
+import { FountainFull } from '../ui/fountain-full'
+import {
+    ReferenceImageBreadcrumb
+} from './reference_image/reference_image-breadcrumb'
+
+import UiState from '../ui/ui-state'
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getReferenceImage,
+    postReferenceImage,
+    putReferenceImage,
+    resetReferenceImage
+} from  '../../actions/reference-image'
 
 const ReferenceImageEdit = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let reference_image = _.findWhere(data.reference_images, {
-                    'id': parseInt(this.props.params.referenceImageId)
-                });
-
-                let changedFields = null
-                let submitUrl = '/api/project_reference_image/'
-                    + this.props.params.referenceImageId
-                let submitMethod = 'PUT'
-
-                if (!reference_image) {
-                    reference_image = {
-                        name: ''
-                    };
-                    submitUrl = '/api/project_reference_image'
-                    submitMethod = 'POST'
-
-                    changedFields = {
-                        project_id: this.props.params.projectId
-                    }
+    getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                content: null,
+                description: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { reference_image } = this.props;
+        if( reference_image==undefined && nextProps.reference_image){
+            this.setState({
+                changedFields: {
+                    name: nextProps.reference_image.name,
+                    content: nextProps.reference_image.content,
+                    description: nextProps.reference_image.description
                 }
-
-                this.setState({
-                    project: data,
-                    reference_image: reference_image,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, referenceImageId } = this.props.params;
+        dispatch(getReferenceImage(projectId, referenceImageId));
     },
     handleFieldChange(event) {
-        let reference_image = this.state.reference_image;
-        let changedFields = this.state.changedFields || {};
+        const { dispatch, form_mode, project, reference_image } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        reference_image[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            reference_image: reference_image,
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetReferenceImage( project, reference_image, form_mode ));
     },
     handleClickCancel(event) {
         event.preventDefault()
         browserHistory.push(
             '/project/' + this.props.params.projectId
-            + '/reference_images'
+            + '/script/' + this.props.params.referenceImageId
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_reference_image/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    reference_image: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, reference_image } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postReferenceImage(project, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putReferenceImage( project, reference_image, changedFields));
     },
     render() {
-        let that = this
-        if (this.state){
-
-            return (
-                <div>
-                    <ProjectReferenceImagesBreadcrumb { ...this.state } />
-
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
-
-                        <SectionHeader>content:</SectionHeader>
-                        <div className="form-group">
-                            <ContentEdit
-                                type="text"
-                                id="content"
-                                placeholder="Image Url"
-                                value={ this.state.reference_image.content }
-                                handleFieldChange={ this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.reference_image.name }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                value={ this.state.reference_image.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.reference_image.description } />
-                                </CardBlock>
-                            </Card>
-                        </div>
-
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-
-                    </form>
-                </div>
-            );
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, project, reference_image } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
+            });
+            if(error)
+                return error.message
+            return null;
         }
+
         return (
-            <Spinner />
-        )
+            <div>
+
+                <ReferenceImageBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <ContentEdit
+                        id="content"
+                        value={ changedFields.content || '' }
+                        handleFieldChange={ this.handleFieldChange }
+                        errorText={ getErrorForId('content') }
+                    />
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.ReferenceImageEdit = ReferenceImageEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, project, reference_image } = state.referenceImage;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        project,
+        reference_image
+    }
+}
+
+export default connect(mapStateToProps)(ReferenceImageEdit);
