@@ -1,124 +1,123 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
+import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
+import TimeAgo from 'react-timeago'
+import { connect } from 'react-redux'
 
-import { Card } from "../ui/card"
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+import {List, ListItem} from 'material-ui/List';
+
+import { cardHeaderStyle } from '../../constants/styles'
 import { CardClickable } from "../ui/card-clickable"
+import { CardActionsButton } from "../ui/card-actions-button"
 import { CardBlock } from "../ui/card-block"
+import { Count } from "../ui/count"
+import { Description } from "../ui/description"
+import { Fountain } from "../ui/fountain"
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
+import { Image } from "../ui/image"
+import { Section } from "../ui/section"
+import { SectionButton } from "../ui/section-button"
 import {
     ConceptArtBreadcrumb
 } from "./concept_art/concept_art-breadcrumb"
-import { Description } from "../ui/description"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
-import { SectionHeader } from "../ui/section-header"
-import { Spinner } from "../ui/spinner"
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
 
+import UiState from '../ui/ui-state'
+
+import { getConceptArt } from  '../../actions/concept_art'
 
 const ConceptArt = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let concept_art = _.findWhere(data.concept_art, {
-                    'id': parseInt(this.props.params.conceptArtId)
-                });
-
-                if (!concept_art) {
-                    concept_art = {
-                        'revisions': []
-                    }
-                }
-
-                this.setState({
-                    project: data,
-                    concept_art: concept_art
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, conceptArtId } = this.props.params;
+        dispatch(getConceptArt(projectId, conceptArtId));
     },
     render() {
+        const { ui_state, concept_art } = this.props;
+        if (!concept_art)
+            return <UiState state={ ui_state } />
+        return this.renderBody();
+    },
+    renderBody() {
 
-        if (this.state) {
-            var that = this;
+        const { ui_state, project, concept_art } = this.props;
+        const { projectId, conceptArtId } = this.props.params;
 
-            var conceptArtRevisionNodes = that.state.concept_art.revisions.map(function(revision) {
-                return (
-                    <Card
-                        className="col-lg-4"
-                        key={ revision.id }
-                    >
-                        <CardBlock className="text-align-center">
-                            <ImagePanelRevision { ...{src: revision.content} } />
-                        </CardBlock>
-                    </Card>
-                );
-            });
+        let src = null;
+        if (concept_art.revisions.length)
+            src = concept_art.revisions[0].content;
 
-
-            let props = {};
-            if (that.state.concept_art.revisions.length) {
-                props.src = that.state.concept_art.revisions[0].content;
-            }
-
+        var concept_artRevisionNodes = concept_art.revisions.map(function(revision) {
             return (
-                <div>
-                    <ConceptArtBreadcrumb
-                        project={ this.state.project }
-                        concept_art={ this.state.concept_art }
-                    />
-
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link btn btn-info"
-                                to={
-                                    '/project/' + this.props.params.projectId
-                                    + '/concept_art/' + this.props.params.conceptArtId
-                                    + '/edit'
-                                }>Edit</Link>
-                        </li>
-                    </ul>
-                    <br />
-
-                    <div className="ConceptArtDetailsContainer">
-                        <Card>
-                            <h3 className="card-header">{ this.state.concept_art.name }</h3>
-                            <CardBlock>
-                                <div className="text-align-center">
-                                    <ImagePanelRevision { ...props } />
-                                </div>
-                            </CardBlock>
-                            <CardBlock>
-                                <Description source={ this.state.concept_art.description }></Description>
-                            </CardBlock>
-                        </Card>
-                    </div>
-
-                    <SectionHeader>{ this.state.concept_art.revisions.length } Revision(s)</SectionHeader>
-                    <div className="ConceptArtRevisionsContainer">
-                        { conceptArtRevisionNodes }
-                        <Link
-                            className="btn btn-success"
-                            to={
-                                '/project/' + that.props.params.projectId
-                                + '/concept_art/' + that.props.params.conceptArtId
-                                + '/revision/add'
-                            }
-                        >Add</Link>
-                    </div>
-                </div>
+                <Card
+                    key={ revision.id }
+                    className="col-lg-3"
+                >
+                    <CardMedia className="text-align-center">
+                        <Image src={ revision.content } />
+                    </CardMedia>
+                    <CardText>{ revision.description }</CardText>
+                    <CardActions className="text-align-right">
+                        <CardActionsButton
+                            title="Edit"
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/revision/' + revision.id)}
+                        />
+                    </CardActions>
+                </Card>
             );
+        });
 
-        }
         return (
-            <Spinner />
-        )
+            <div>
+                <ConceptArtBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title={ concept_art.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/edit')}
+                        title="Edit"
+                    />
+                </HeaderPage>
+
+                <Image src={ src } />
+                <br />
+
+                <Card className='card-display'>
+                    <CardText>
+                        <Description source={ concept_art.description }></Description>
+                    </CardText>
+                </Card>
+
+                <Section title="Revisions" count={ concept_art.revisions.length }>
+                    <SectionButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/revision/add')}
+                        title="Add"
+                    />
+                </Section>
+
+                <div>
+                    { concept_artRevisionNodes }
+                </div>
+            </div>
+        );
     }
 })
 
-module.exports.ConceptArt = ConceptArt
+const mapStateToProps = (state) => {
+    const { ui_state, project, concept_art } = state.conceptArt;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        project,
+        concept_art
+    }
+}
+
+export default connect(mapStateToProps)(ConceptArt);
