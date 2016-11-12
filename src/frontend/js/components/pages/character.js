@@ -67,7 +67,7 @@ const Character = React.createClass({
                     <CardActions className="text-align-right">
                         <CardActionsButton
                             title="Edit"
-                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id)}
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id + '/edit')}
                         />
                     </CardActions>
                 </Card>

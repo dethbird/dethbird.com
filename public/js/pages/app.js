@@ -70795,7 +70795,7 @@ var Character = _react2.default.createClass({
                     _react2.default.createElement(_cardActionsButton.CardActionsButton, {
                         title: 'Edit',
                         onTouchTap: function onTouchTap() {
-                            return _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id);
+                            return _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id + '/edit');
                         }
                     })
                 )
@@ -70934,6 +70934,10 @@ module.exports.CharacterBreadcrumb = CharacterBreadcrumb;
 },{"react":596,"react-router":431}],643:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -70942,265 +70946,242 @@ var _reactSortableComponent = require('react-sortable-component');
 
 var _reactRouter = require('react-router');
 
-var _alert = require('../ui/alert');
+var _reactRedux = require('react-redux');
+
+var _Card = require('material-ui/Card');
+
+var _inputText = require('../ui/input-text');
+
+var _inputText2 = _interopRequireDefault(_inputText);
 
 var _card = require('../ui/card');
 
-var _sectionHeader = require('../ui/section-header');
-
-var _cardClickable = require('../ui/card-clickable');
-
-var _cardBlock = require('../ui/card-block');
+var _buttonsForm = require('../ui/buttons-form');
 
 var _description = require('../ui/description');
 
-var _fountain = require('../ui/fountain');
+var _image = require('../ui/image');
 
-var _imagePanelRevision = require('../ui/image-panel-revision');
+var _inputDescription = require('../ui/input-description');
+
+var _inputDescription2 = _interopRequireDefault(_inputDescription);
+
+var _section = require('../ui/section');
+
+var _uiState = require('../ui/ui-state');
+
+var _uiState2 = _interopRequireDefault(_uiState);
 
 var _concept_artBreadcrumb = require('./concept_art/concept_art-breadcrumb');
 
-var _spinner = require('../ui/spinner');
+var _form = require('../../constants/form');
+
+var _uiState3 = require('../../constants/ui-state');
+
+var _concept_art = require('../../actions/concept_art');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ConceptArtEdit = _react2.default.createClass({
     displayName: 'ConceptArtEdit',
-    componentDidMount: function componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function (data) {
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                description: null
+            }
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        var concept_art = this.props.concept_art;
 
-                var concept_art = _.findWhere(data.concept_art, {
-                    'id': parseInt(this.props.params.conceptArtId)
-                });
-
-                var changedFields = null;
-                var submitUrl = '/api/project_concept_art/' + this.props.params.conceptArtId;
-                var submitMethod = 'PUT';
-
-                if (!concept_art) {
-                    concept_art = {
-                        name: '',
-                        revisions: []
-                    };
-                    submitUrl = '/api/project_concept_art';
-                    submitMethod = 'POST';
-
-                    changedFields = {
-                        project_id: this.props.params.projectId
-                    };
+        if (concept_art == undefined && nextProps.concept_art) {
+            this.setState({
+                changedFields: {
+                    name: nextProps.concept_art.name,
+                    description: nextProps.concept_art.description
                 }
+            });
+        }
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+        var _props$params = this.props.params,
+            projectId = _props$params.projectId,
+            conceptArtId = _props$params.conceptArtId;
 
-                this.setState({
-                    project: data,
-                    concept_art: concept_art,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        dispatch((0, _concept_art.getConceptArt)(projectId, conceptArtId));
     },
     handleFieldChange: function handleFieldChange(event) {
-        var concept_art = this.state.concept_art;
-        var changedFields = this.state.changedFields || {};
+        var _props = this.props,
+            dispatch = _props.dispatch,
+            form_mode = _props.form_mode,
+            project = _props.project,
+            concept_art = _props.concept_art;
+        var changedFields = this.state.changedFields;
 
-        concept_art[event.target.id] = event.target.value;
-        changedFields[event.target.id] = event.target.value;
+        var newChangedFields = changedFields;
 
+        newChangedFields[event.target.id] = event.target.value;
         this.setState({
-            concept_art: concept_art,
-            changedFields: changedFields
+            changedFields: newChangedFields
         });
+        dispatch((0, _concept_art.resetConceptArt)(project, concept_art, form_mode));
     },
     handleClickCancel: function handleClickCancel(event) {
+        var _props$params2 = this.props.params,
+            projectId = _props$params2.projectId,
+            conceptArtId = _props$params2.conceptArtId;
+
         event.preventDefault();
-        _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/concept_art');
+        _reactRouter.browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId);
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
-        var that = this;
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function (data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl: '/api/project_concept_art/' + data.id,
-                    submitMethod: 'PUT',
-                    concept_art: data
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                });
-            }.bind(this)
-        });
+        var _props2 = this.props,
+            dispatch = _props2.dispatch,
+            form_mode = _props2.form_mode,
+            project = _props2.project,
+            concept_art = _props2.concept_art;
+        var changedFields = this.state.changedFields;
+
+        if (form_mode == _form.FORM_MODE_ADD) dispatch((0, _concept_art.postConceptArt)(project, changedFields));
+
+        if (form_mode == _form.FORM_MODE_EDIT) dispatch((0, _concept_art.putConceptArt)(project, concept_art, changedFields));
     },
     handleSort: function handleSort(items) {
+        var _props3 = this.props,
+            dispatch = _props3.dispatch,
+            form_mode = _props3.form_mode,
+            project = _props3.project,
+            concept_art = _props3.concept_art;
+        var changedFields = this.state.changedFields;
 
-        var that = this;
 
-        var concept_art = this.state.concept_art;
-        concept_art.revisions = items;
-        this.setState({
-            concept_art: concept_art
-        });
+        var newConceptArt = changedFields;
+        newConceptArt.revisions = items;
 
         items = items.map(function (item, i) {
             return { 'id': item.id };
         });
 
-        $.post('/api/project_concept_art_revision_order', { 'items': items }, function (response) {
-
-            var concept_art = that.state.concept_art;
-            concept_art.revisions = response.items;
-            that.setState({
-                concept_art: concept_art,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            });
-        });
+        dispatch((0, _concept_art.reorderConceptArtRevisions)(project, newConceptArt, form_mode, items));
     },
     render: function render() {
-        var that = this;
-        if (this.state) {
-            var concept_artRevisionNodes = this.state.concept_art.revisions.map(function (revision, i) {
+        var changedFields = this.state.changedFields;
+        var _props4 = this.props,
+            ui_state = _props4.ui_state,
+            form_mode = _props4.form_mode,
+            errors = _props4.errors,
+            project = _props4.project,
+            concept_art = _props4.concept_art;
 
-                var props = {};
-                props.src = revision.content;
-
-                return _react2.default.createElement(
-                    _reactSortableComponent.SortableItem,
-                    {
-                        key: revision.id,
-                        className: 'card col-xs-4'
-                    },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
-                );
+        var getErrorForId = function getErrorForId(id) {
+            var error = _.findWhere(errors, {
+                'property': id
             });
+            if (error) return error.message;
+            return null;
+        };
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_concept_artBreadcrumb.ConceptArtBreadcrumb, this.state),
-                _react2.default.createElement(_alert.Alert, {
-                    status: this.state.formState,
-                    message: this.state.formMessage
-                }),
-                _react2.default.createElement(
-                    'form',
-                    null,
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'name:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('input', {
-                            type: 'text',
-                            className: 'form-control',
-                            id: 'name',
-                            placeholder: 'Name',
-                            value: this.state.concept_art.name,
-                            onChange: this.handleFieldChange
-                        })
-                    ),
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'description:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('textarea', {
-                            className: 'form-control',
-                            id: 'description',
-                            rows: '3',
-                            value: this.state.concept_art.description || '',
-                            onChange: this.handleFieldChange
-                        }),
-                        _react2.default.createElement('br', null),
+        var sortableNode = void 0;
+        if (concept_art) {
+            var concept_artRevisionNodes = void 0;
+            if (concept_art.revisions) {
+                concept_artRevisionNodes = concept_art.revisions.map(function (revision, i) {
+                    return _react2.default.createElement(
+                        _reactSortableComponent.SortableItem,
+                        {
+                            key: revision.id,
+                            className: 'col-xs-3'
+                        },
                         _react2.default.createElement(
                             _card.Card,
                             null,
-                            _react2.default.createElement(
-                                _cardBlock.CardBlock,
-                                null,
-                                _react2.default.createElement(_description.Description, { source: this.state.concept_art.description })
-                            )
+                            _react2.default.createElement(_image.Image, { src: revision.content }),
+                            _react2.default.createElement(_description.Description, { source: revision.description })
                         )
-                    ),
+                    );
+                });
+
+                sortableNode = _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: concept_art.revisions.length }),
                     _react2.default.createElement(
-                        'div',
-                        { className: 'form-group text-align-center' },
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-secondary',
-                                onClick: that.handleClickCancel
-                            },
-                            'Cancel'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-success',
-                                onClick: that.handleClickSubmit,
-                                disabled: !that.state.changedFields
-                            },
-                            'Save'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'revisions:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'concept_artRevisionsContainer clearfix' },
-                            _react2.default.createElement(
-                                _reactSortableComponent.SortableItems,
-                                {
-                                    items: that.state.concept_art.revisions,
-                                    onSort: that.handleSort,
-                                    name: 'sort-revisions-component'
-                                },
-                                concept_artRevisionNodes
-                            )
-                        )
+                        _reactSortableComponent.SortableItems,
+                        {
+                            items: concept_art.revisions,
+                            onSort: this.handleSort,
+                            name: 'sort-revisions-component'
+                        },
+                        concept_artRevisionNodes
                     )
-                )
-            );
+                );
+            }
         }
-        return _react2.default.createElement(_spinner.Spinner, null);
+
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_concept_artBreadcrumb.ConceptArtBreadcrumb, this.props),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                'form',
+                null,
+                _react2.default.createElement(_inputText2.default, {
+                    label: 'Name',
+                    id: 'name',
+                    value: changedFields.name || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('name')
+                }),
+                _react2.default.createElement(_inputDescription2.default, {
+                    label: 'Description',
+                    id: 'description',
+                    value: changedFields.description || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('description')
+                }),
+                _react2.default.createElement(
+                    _card.Card,
+                    { className: 'input-card' },
+                    _react2.default.createElement(
+                        _Card.CardText,
+                        null,
+                        _react2.default.createElement(_description.Description, { source: changedFields.description })
+                    )
+                ),
+                _react2.default.createElement(_buttonsForm.ButtonsForm, {
+                    handleClickCancel: this.handleClickCancel,
+                    handleClickSubmit: this.handleClickSubmit
+                }),
+                sortableNode
+            )
+        );
     }
 });
 
-module.exports.ConceptArtEdit = ConceptArtEdit;
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$conceptArt = state.conceptArt,
+        ui_state = _state$conceptArt.ui_state,
+        form_mode = _state$conceptArt.form_mode,
+        errors = _state$conceptArt.errors,
+        project = _state$conceptArt.project,
+        concept_art = _state$conceptArt.concept_art;
 
-},{"../ui/alert":684,"../ui/card":690,"../ui/card-block":687,"../ui/card-clickable":688,"../ui/description":693,"../ui/fountain":696,"../ui/image-panel-revision":699,"../ui/section-header":704,"../ui/spinner":706,"./concept_art/concept_art-breadcrumb":646,"react":596,"react-router":431,"react-sortable-component":442}],644:[function(require,module,exports){
+    return {
+        ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
+        form_mode: form_mode,
+        errors: errors,
+        project: project,
+        concept_art: concept_art
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ConceptArtEdit);
+
+},{"../../actions/concept_art":629,"../../constants/form":709,"../../constants/ui-state":711,"../ui/buttons-form":685,"../ui/card":690,"../ui/description":693,"../ui/image":700,"../ui/input-description":701,"../ui/input-text":702,"../ui/section":705,"../ui/ui-state":707,"./concept_art/concept_art-breadcrumb":646,"material-ui/Card":254,"react":596,"react-redux":397,"react-router":431,"react-sortable-component":442}],644:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71626,11 +71607,23 @@ var ConceptArtBreadcrumb = _react2.default.createClass({
     displayName: 'ConceptArtBreadcrumb',
 
     propTypes: {
-        project: _react2.default.PropTypes.object.isRequired,
-        concept_art: _react2.default.PropTypes.object.isRequired
+        project: _react2.default.PropTypes.object,
+        concept_art: _react2.default.PropTypes.object
     },
 
     render: function render() {
+        var _props = this.props,
+            project = _props.project,
+            concept_art = _props.concept_art;
+
+
+        if (!concept_art) {
+            return _react2.default.createElement(
+                'ol',
+                { className: 'breadcrumb' },
+                _react2.default.createElement('li', { className: 'breadcrumb-item' })
+            );
+        }
         return _react2.default.createElement(
             'ol',
             { className: 'breadcrumb' },
@@ -71648,8 +71641,8 @@ var ConceptArtBreadcrumb = _react2.default.createClass({
                 { className: 'breadcrumb-item' },
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/project/' + this.props.project.id },
-                    this.props.project.name
+                    { to: '/project/' + project.id },
+                    project.name
                 )
             ),
             _react2.default.createElement(
@@ -71658,7 +71651,7 @@ var ConceptArtBreadcrumb = _react2.default.createClass({
                 _react2.default.createElement(
                     _reactRouter.Link,
                     {
-                        to: '/project/' + this.props.project.id + '/concept_art'
+                        to: '/project/' + project.id + '/concept_art'
                     },
                     'Concept Art'
                 )
@@ -71666,7 +71659,7 @@ var ConceptArtBreadcrumb = _react2.default.createClass({
             _react2.default.createElement(
                 'li',
                 { className: 'breadcrumb-item' },
-                this.props.concept_art.name
+                concept_art.name
             )
         );
     }
@@ -78209,6 +78202,8 @@ var _concept_art2 = _interopRequireDefault(_concept_art);
 
 var _concept_artEdit = require('../components/pages/concept_art-edit');
 
+var _concept_artEdit2 = _interopRequireDefault(_concept_artEdit);
+
 var _concept_artRevisionEdit = require('../components/pages/concept_art-revision-edit');
 
 var _locationEdit = require('../components/pages/location-edit');
@@ -78314,9 +78309,9 @@ if (lastRequestUri) {
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/revision/add', component: _characterRevisionEdit.CharacterRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/revision/:revisionId/edit', component: _characterRevisionEdit.CharacterRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/edit', component: _projectConcept_artEdit.ProjectConceptArtEdit }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/add', component: _concept_artEdit.ConceptArtEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/add', component: _concept_artEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/:conceptArtId', component: _concept_art2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/:conceptArtId/edit', component: _concept_artEdit.ConceptArtEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/:conceptArtId/edit', component: _concept_artEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/:conceptArtId/revision/add', component: _concept_artRevisionEdit.ConceptArtRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/:conceptArtId/revision/:revisionId/edit', component: _concept_artRevisionEdit.ConceptArtRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/locations/edit', component: _projectLocationsEdit.ProjectLocationsEdit }),

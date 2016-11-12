@@ -4,228 +4,208 @@ import {
     SortableItem
 } from 'react-sortable-component'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
-import { Description } from "../ui/description"
-import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { Description } from '../ui/description'
+import { Image } from "../ui/image"
+import InputDescription from '../ui/input-description'
+import { Section } from "../ui/section"
+import UiState from '../ui/ui-state'
+
 import {
     ConceptArtBreadcrumb
 } from "./concept_art/concept_art-breadcrumb"
-import { Spinner } from "../ui/spinner"
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
 
+import {
+    getConceptArt,
+    postConceptArt,
+    putConceptArt,
+    resetConceptArt,
+    reorderConceptArtRevisions
+} from  '../../actions/concept_art'
 
 const ConceptArtEdit = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let concept_art = _.findWhere(data.concept_art, {
-                    'id': parseInt(this.props.params.conceptArtId)
-                });
-
-                let changedFields = null
-                let submitUrl = '/api/project_concept_art/'
-                    + this.props.params.conceptArtId
-                let submitMethod = 'PUT'
-
-                if (!concept_art) {
-                    concept_art = {
-                        name: '',
-                        revisions: []
-                    };
-                    submitUrl = '/api/project_concept_art'
-                    submitMethod = 'POST'
-
-                    changedFields = {
-                        project_id: this.props.params.projectId
-                    }
+    getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                description: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { concept_art } = this.props;
+        if( concept_art==undefined && nextProps.concept_art){
+            this.setState({
+                changedFields: {
+                    name: nextProps.concept_art.name,
+                    description: nextProps.concept_art.description
                 }
-
-                this.setState({
-                    project: data,
-                    concept_art: concept_art,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, conceptArtId } = this.props.params;
+        dispatch(getConceptArt(projectId, conceptArtId));
     },
     handleFieldChange(event) {
-        let concept_art = this.state.concept_art;
-        let changedFields = this.state.changedFields || {};
+        const { dispatch, form_mode, project, concept_art } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        concept_art[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            concept_art: concept_art,
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetConceptArt( project, concept_art, form_mode ));
     },
     handleClickCancel(event) {
+        const { projectId, conceptArtId } = this.props.params;
         event.preventDefault()
         browserHistory.push(
-            '/project/' + this.props.params.projectId
-            + '/concept_art'
+            `/project/${projectId}/concept_art/${conceptArtId}`
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_concept_art/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    concept_art: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, concept_art } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postConceptArt(project, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putConceptArt( project, concept_art, changedFields));
     },
     handleSort(items) {
+        const { dispatch, form_mode, project, concept_art } = this.props;
+        const { changedFields } = this.state;
 
-        var that = this
-
-        let concept_art = this.state.concept_art
-        concept_art.revisions = items
-        this.setState({
-            concept_art: concept_art
-        });
+        let newConceptArt = changedFields;
+        newConceptArt.revisions = items;
 
         items = items.map(function(item, i){
             return (
                 { 'id': item.id }
             );
-        })
-
-        $.post('/api/project_concept_art_revision_order', {'items': items}, function(response){
-
-            let concept_art = that.state.concept_art
-            concept_art.revisions = response.items
-            that.setState({
-                concept_art: concept_art,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            })
         });
+
+        dispatch(reorderConceptArtRevisions( project, newConceptArt, form_mode, items));
+
     },
     render() {
-        let that = this
-        if (this.state){
-            let concept_artRevisionNodes = this.state.concept_art.revisions.map(function(revision, i) {
-
-                let props = {};
-                props.src = revision.content
-
-                return (
-                    <SortableItem
-                        key={ revision.id }
-                        className="card col-xs-4"
-                    >
-                        <ImagePanelRevision { ...props } />
-                    </SortableItem>
-                );
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, project, concept_art } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
             });
+            if(error)
+                return error.message
+            return null;
+        };
 
-            return (
-                <div>
-                    <ConceptArtBreadcrumb { ...this.state }></ConceptArtBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
 
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.concept_art.name }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                value={ this.state.concept_art.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
+        let sortableNode;
+        if (concept_art) {
+            let concept_artRevisionNodes;
+            if (concept_art.revisions) {
+                concept_artRevisionNodes = concept_art.revisions.map(function(revision, i) {
+                    return (
+                        <SortableItem
+                            key={ revision.id }
+                            className="col-xs-3"
+                        >
                             <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.concept_art.description } />
-                                </CardBlock>
+                                <Image src={ revision.content } />
+                                <Description source={ revision.description } />
                             </Card>
-                        </div>
+                        </SortableItem>
+                    );
+                });
 
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
+                sortableNode = (
+                    <div>
+                        <Section title="Revisions" subtitle="Drag to reorder" count={ concept_art.revisions.length }></Section>
 
-                        <SectionHeader>revisions:</SectionHeader>
-                        <div className="form-group">
-                            <div className="concept_artRevisionsContainer clearfix">
-                                <SortableItems
-                                    items={ that.state.concept_art.revisions }
-                                    onSort={ that.handleSort }
-                                    name="sort-revisions-component"
-                                >
-                                    { concept_artRevisionNodes }
-                                </SortableItems>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            );
+                        <SortableItems
+                            items={ concept_art.revisions }
+                            onSort={ this.handleSort }
+                            name="sort-revisions-component"
+                        >
+                            { concept_artRevisionNodes }
+                        </SortableItems>
+                    </div>
+                );
+            }
         }
+
         return (
-            <Spinner />
-        )
+            <div>
+                <ConceptArtBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                    { sortableNode }
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.ConceptArtEdit = ConceptArtEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, project, concept_art } = state.conceptArt;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        project,
+        concept_art
+    }
+}
+
+export default connect(mapStateToProps)(ConceptArtEdit);

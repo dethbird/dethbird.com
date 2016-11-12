@@ -4,23 +4,28 @@ import { Link } from 'react-router'
 
 const ConceptArtBreadcrumb = React.createClass({
     propTypes: {
-        project: React.PropTypes.object.isRequired,
-        concept_art: React.PropTypes.object.isRequired
+        project: React.PropTypes.object,
+        concept_art: React.PropTypes.object
     },
 
     render: function() {
+        const { project, concept_art } = this.props;
+
+        if (!concept_art) {
+            return <ol className="breadcrumb"><li className="breadcrumb-item"></li></ol>;
+        }
         return (
             <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to="/">Projects</Link></li>
                 <li className="breadcrumb-item">
-                    <Link to={ '/project/' + this.props.project.id }>
-                        { this.props.project.name }
+                    <Link to={ '/project/' + project.id }>
+                        { project.name }
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
                     <Link
                         to={
-                            '/project/' + this.props.project.id
+                            '/project/' + project.id
                             + '/concept_art'
                         }
                     >
@@ -28,7 +33,7 @@ const ConceptArtBreadcrumb = React.createClass({
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
-                    { this.props.concept_art.name }
+                    { concept_art.name }
                 </li>
             </ol>
         );
