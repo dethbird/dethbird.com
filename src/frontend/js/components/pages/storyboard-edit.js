@@ -4,256 +4,213 @@ import {
     SortableItem
 } from 'react-sortable-component'
 import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+import { CardActions, CardText } from 'material-ui/Card';
 
-import { Alert } from "../ui/alert"
-import { Card } from "../ui/card"
-import { SectionHeader } from "../ui/section-header"
-import { CardClickable } from "../ui/card-clickable"
-import { CardBlock } from "../ui/card-block"
-import { Description } from "../ui/description"
-import { Fountain } from "../ui/fountain"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
+import InputText from '../ui/input-text'
+
+import { Card } from '../ui/card'
+import { ButtonsForm } from '../ui/buttons-form'
+import { Description } from '../ui/description'
+import { Fountain } from '../ui/fountain'
+import { Image } from "../ui/image"
+import InputDescription from '../ui/input-description'
+import { Section } from "../ui/section"
+import UiState from '../ui/ui-state'
+
 import {
     StoryboardBreadcrumb
 } from "./storyboard/storyboard-breadcrumb"
-import { Spinner } from "../ui/spinner"
+import {
+    FORM_MODE_ADD,
+    FORM_MODE_EDIT
+} from '../../constants/form';
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
+
+import {
+    getStoryboard,
+    postStoryboard,
+    putStoryboard,
+    resetStoryboard,
+    reorderStoryboardRevisions
+} from  '../../actions/storyboard'
 
 
 const StoryboardEdit = React.createClass({
-    componentDidMount() {
-        $.ajaxSetup({
-            beforeSend: function() {
-                this.setState({
-                    formState: 'info',
-                    formMessage: 'Working.',
-                })
-            }.bind(this)
-        });
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                let storyboard = _.findWhere(data.storyboards, {
-                    'id': parseInt(this.props.params.storyboardId)
-                });
-                let changedFields = null
-                let submitUrl = '/api/project_storyboard/'
-                    + this.props.params.storyboardId
-                let submitMethod = 'PUT'
-
-                if (!storyboard) {
-                    storyboard = {
-                        name: '',
-                        panels: []
-                    };
-                    submitUrl = '/api/project_storyboard'
-                    submitMethod = 'POST'
-
-                    changedFields = {
-                        project_id: this.props.params.projectId
-                    }
+    getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                description: null
+            }
+        }
+    },
+    componentWillReceiveProps(nextProps) {
+        const { storyboard } = this.props;
+        if( storyboard==undefined && nextProps.storyboard){
+            this.setState({
+                changedFields: {
+                    name: nextProps.storyboard.name,
+                    description: nextProps.storyboard.description
                 }
-
-                this.setState({
-                    project: data,
-                    storyboard: storyboard,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+            });
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, storyboardId } = this.props.params;
+        dispatch(getStoryboard(projectId, storyboardId));
     },
     handleFieldChange(event) {
-        let storyboard = this.state.storyboard;
-        let changedFields = this.state.changedFields || {};
+        const { dispatch, form_mode, project, storyboard } = this.props;
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
 
-        storyboard[event.target.id] = event.target.value
-        changedFields[event.target.id] = event.target.value
-
-        this.setState({
-            storyboard: storyboard,
-            changedFields: changedFields
-        })
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState( {
+            changedFields: newChangedFields
+        });
+        dispatch(resetStoryboard( project, storyboard, form_mode ));
     },
     handleClickCancel(event) {
+        const { projectId, storyboardId } = this.props.params;
         event.preventDefault()
         browserHistory.push(
-            '/project/' + this.props.params.projectId
-            + '/storyboards'
+            `/project/${projectId}`
         )
     },
     handleClickSubmit(event) {
-        event.preventDefault()
-        var that = this
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function(data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl:'/api/project_storyboard/'
-                        + data.id,
-                    submitMethod: 'PUT',
-                    storyboard: data
-                })
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                })
-            }.bind(this)
-        });
+        event.preventDefault();
+        const { dispatch, form_mode, project, storyboard } = this.props;
+        const { changedFields } = this.state;
+        if(form_mode == FORM_MODE_ADD)
+            dispatch(postStoryboard(project, storyboard, changedFields));
+
+        if(form_mode == FORM_MODE_EDIT)
+            dispatch(putStoryboard( project, storyboard, changedFields));
     },
     handleSort(items) {
-        var that = this
+        const { dispatch, form_mode, project, storyboard } = this.props;
+        const { changedFields } = this.state;
 
-        let storyboard = this.state.storyboard
-        storyboard.panels = items
-        this.setState({
-            storyboard: storyboard
-        });
+        let newStoryboard = changedFields;
+        newStoryboard.panels = items;
 
         items = items.map(function(item, i){
             return (
                 { 'id': item.id }
             );
-        })
-
-        $.post('/api/project_storyboard_panel_order', {'items': items}, function(response){
-
-            let storyboard = that.state.storyboard
-            storyboard.panels = response.items
-            that.setState({
-                storyboard: storyboard,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            })
         });
+
+        dispatch(reorderStoryboardRevisions(project, newStoryboard, form_mode, items));
+
     },
     render() {
-        let that = this
-        if (this.state){
-            if(!this.state.storyboard) {
-                return (
-                    <Spinner />
-                )
-            }
-            let panelNodes = this.state.storyboard.panels.map(function(panel, i) {
-                let props = {};
-                if (panel.revisions.length)
-                    props.src = panel.revisions[0].content
-
-                return (
-                    <SortableItem
-                        key={ panel.id }
-                        className="card col-xs-4"
-                    >
-                        <h4 className="card-header">{ panel.name }</h4>
-                        <ImagePanelRevision { ... { src: props.src } } ></ImagePanelRevision>
-                    </SortableItem>
-                );
+        const { changedFields } = this.state;
+        const { ui_state, form_mode, errors, project, storyboard } = this.props;
+        const getErrorForId = (id) => {
+            const error = _.findWhere(errors, {
+                'property': id
             });
+            if(error)
+                return error.message
+            return null;
+        };
 
-            return (
-                <div>
-                    <StoryboardBreadcrumb { ...this.state }></StoryboardBreadcrumb>
-                    <Alert
-                        status={ this.state.formState }
-                        message={ this.state.formMessage }
-                    />
-                    <form>
+        console.log('render', storyboard);
 
-                        <SectionHeader>name:</SectionHeader>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                placeholder="Name"
-                                value={ this.state.storyboard.name }
-                                onChange= { this.handleFieldChange }
-                            />
-                        </div>
-
-                        <SectionHeader>description:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                value={ this.state.storyboard.description || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
+        let sortableNode;
+        if (storyboard) {
+            let panelNodes;
+            if (storyboard.panels) {
+                panelNodes = storyboard.panels.map(function(panel, i) {
+                    let src;
+                    if (panel.revisions.length)
+                        src = panel.revisions[0].content
+                    return (
+                        <SortableItem
+                            key={ panel.id }
+                            className="col-xs-3"
+                        >
                             <Card>
-                                <CardBlock>
-                                    <Description source={ this.state.storyboard.description } />
-                                </CardBlock>
+                                <Image src={ src } />
+                                <Fountain source={ panel.script } />
                             </Card>
-                        </div>
+                        </SortableItem>
+                    );
+                });
 
-                        <SectionHeader>script:</SectionHeader>
-                        <div className="form-group">
-                            <textarea
-                                className="form-control"
-                                id="script"
-                                rows="3"
-                                value={ this.state.storyboard.script || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <br />
-                            <Card>
-                                <CardBlock>
-                                    <Fountain source={ this.state.storyboard.script } />
-                                </CardBlock>
-                            </Card>
-                        </div>
+                sortableNode = (
+                    <div>
+                        <Section title="Panels" subtitle="Drag to reorder" count={ storyboard.panels.length }></Section>
 
-                        <div className="form-group text-align-center">
-                            <button
-                                className="btn btn-secondary"
-                                onClick={ that.handleClickCancel }
-                            >Cancel</button>
-                            <button
-                                className="btn btn-success"
-                                onClick={ that.handleClickSubmit }
-                                disabled={ !that.state.changedFields }
-                            >Save</button>
-                        </div>
-
-                        <SectionHeader>reorder panels:</SectionHeader>
-                        <div className="form-group">
-                            <div className="panelRevisionsContainer clearfix">
-                                <SortableItems
-                                    items={ that.state.storyboard.panels }
-                                    onSort={ that.handleSort }
-                                    name="sort-revisions-component"
-                                >
-                                    { panelNodes }
-                                </SortableItems>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            );
+                        <SortableItems
+                            items={ storyboard.panels }
+                            onSort={ this.handleSort }
+                            name="sort-revisions-component"
+                        >
+                            { panelNodes }
+                        </SortableItems>
+                    </div>
+                );
+            }
         }
+
         return (
-            <Spinner />
-        )
+            <div>
+                <StoryboardBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <form>
+
+                    <InputText
+                        label="Name"
+                        id="name"
+                        value={ changedFields.name || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('name') }
+                    />
+
+                    <InputDescription
+                        label="Description"
+                        id="description"
+                        value={ changedFields.description || '' }
+                        onChange= { this.handleFieldChange }
+                        errorText={ getErrorForId('description') }
+                    />
+
+                    <Card className='input-card'>
+                        <CardText>
+                            <Description source={ changedFields.description }  />
+                        </CardText>
+                    </Card>
+
+                    <ButtonsForm
+                        handleClickCancel={ this.handleClickCancel }
+                        handleClickSubmit={ this.handleClickSubmit }
+                    />
+
+                    { sortableNode }
+
+                </form>
+            </div>
+        );
     }
 })
 
-module.exports.StoryboardEdit = StoryboardEdit
+const mapStateToProps = (state) => {
+    const { ui_state, form_mode, errors, project, storyboard } = state.storyboard;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        form_mode,
+        errors,
+        project,
+        storyboard
+    }
+}
+
+export default connect(mapStateToProps)(StoryboardEdit);

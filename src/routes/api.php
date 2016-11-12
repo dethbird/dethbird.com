@@ -999,7 +999,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $configs = $app->container->get('configs');
         $securityContext = $_SESSION['securityContext'];
 
-        $model = new ProjectStoryboard($app->request->params());
+        $model = new ProjectStoryboard(json_decode($app->request->getBody(), true));
         $model->user_id = $securityContext->id;
 
         # validate
@@ -1036,7 +1036,8 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $app->halt(404);
         }
 
-        foreach($app->request->params() as $key=>$value) {
+        $params = json_decode($app->request->getBody(), true);
+        foreach($params as $key=>$value) {
             $model->$key = $value;
         }
 
@@ -1178,7 +1179,8 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
         $result = [];
         $result['items'] = [];
-        foreach($app->request->params('items') as $sort_order => $item) {
+        $params = json_decode($app->request->getBody(), true);
+        foreach($params['items'] as $sort_order => $item) {
             $model = ProjectStoryboardPanel::find_by_id_and_user_id(
                 $item['id'], $securityContext->id);
             $model->sort_order = $sort_order;

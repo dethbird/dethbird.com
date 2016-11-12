@@ -127,7 +127,7 @@ const CharacterEdit = React.createClass({
                     return (
                         <SortableItem
                             key={ revision.id }
-                            className="card col-xs-3"
+                            className="col-xs-3"
                         >
                             <Card>
                                 <Image src={ revision.content } />
