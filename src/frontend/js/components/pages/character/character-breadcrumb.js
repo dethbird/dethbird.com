@@ -1,26 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-
 const CharacterBreadcrumb = React.createClass({
     propTypes: {
-        project: React.PropTypes.object.isRequired,
-        character: React.PropTypes.object.isRequired
+        project: React.PropTypes.object,
+        character: React.PropTypes.object
     },
 
     render: function() {
+        const { project, character } = this.props;
+
+        if (!project) {
+            return <ol className="breadcrumb"><li className="breadcrumb-item"></li></ol>;
+        }
         return (
             <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to="/">Projects</Link></li>
                 <li className="breadcrumb-item">
-                    <Link to={ '/project/' + this.props.project.id }>
-                        { this.props.project.name }
+                    <Link to={ '/project/' + project.id }>
+                        { project.name }
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
                     <Link
                         to={
-                            '/project/' + this.props.project.id
+                            '/project/' + project.id
                             + '/characters'
                         }
                     >
@@ -28,7 +32,7 @@ const CharacterBreadcrumb = React.createClass({
                     </Link>
                 </li>
                 <li className="breadcrumb-item">
-                    { this.props.character.name }
+                    { character.name }
                 </li>
             </ol>
         );

@@ -1,3 +1,4 @@
+export { default as character } from './character';
 export { default as flickrSelector } from './flickr-selector';
 export { default as login } from './login';
 export { default as project } from './project';

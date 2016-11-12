@@ -52,85 +52,79 @@ const Storyboard = React.createClass({
         const { ui_state, project, storyboard } = this.props;
         const { projectId, storyboardId } = this.props.params;
 
-        if (ui_state == UI_STATE_COMPLETE) {
+        var storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
 
-            var storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
-
-                let src = null;
-                if (panel.revisions.length > 0)
-                    src = panel.revisions[0].content
-                return (
-                    <Card
-                        key={ panel.id }
-                        className="col-lg-4"
-                    >
-                        <CardTitle
-                            title={ `Panel ${ i + 1 }` }
-                            titleStyle={ cardHeaderStyle }
-                        />
-                        <div onClick={ () => browserHistory.push(
-                            '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
-                        >
-                            <Image src={ src } />
-                        </div>
-                        <CardMedia>
-                            <Fountain source={ panel.script} />
-                            <List>
-                                <ListItem>
-                                    <Count count={ panel.revisions.length } /> Revisions
-                                </ListItem>
-                                <ListItem>
-                                    <Count count={ panel.comments.length } /> Comments
-                                </ListItem>
-                            </List>
-                        </CardMedia>
-
-                        <CardActions className="text-align-right">
-                            <CardActionsButton
-                                title="View"
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id )}
-                            />
-                            <CardActionsButton
-                                title="Edit"
-                                onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit')}
-                            />
-                        </CardActions>
-                    </Card>
-                );
-            });
-
+            let src = null;
+            if (panel.revisions.length > 0)
+                src = panel.revisions[0].content
             return (
-                <div>
-                    <StoryboardBreadcrumb
-                        project={ project }
-                        storyboard={ storyboard }
+                <Card
+                    key={ panel.id }
+                    className="col-lg-4"
+                >
+                    <CardTitle
+                        title={ `Panel ${ i + 1 }` }
+                        titleStyle={ cardHeaderStyle }
                     />
-
-                    <UiState state={ ui_state } />
-
-                    <HeaderPage title={ storyboard.name }>
-                        <HeaderPageButton
-                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
-                            title="Edit"
-                        />
-                    </HeaderPage>
-
-                    <Section title="Panels" count={ storyboard.panels.length }>
-                        <SectionButton
-                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
-                            title="Add"
-                        />
-                    </Section>
-
-                    <div className="clearfix" />
-
-                    <div className="StoryboardPanelsContainer">
-                        { storyboardPanelNodes }
+                    <div onClick={ () => browserHistory.push(
+                        '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
+                    >
+                        <Image src={ src } />
                     </div>
-                </div>
-            );
+                    <CardMedia>
+                        <Fountain source={ panel.script} />
+                        <List>
+                            <ListItem>
+                                <Count count={ panel.revisions.length } /> Revisions
+                            </ListItem>
+                            <ListItem>
+                                <Count count={ panel.comments.length } /> Comments
+                            </ListItem>
+                        </List>
+                    </CardMedia>
 
-        }
+                    <CardActions className="text-align-right">
+                        <CardActionsButton
+                            title="View"
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id )}
+                        />
+                        <CardActionsButton
+                            title="Edit"
+                            onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit')}
+                        />
+                    </CardActions>
+                </Card>
+            );
+        });
+
+        return (
+            <div>
+                <StoryboardBreadcrumb { ...this.props }/>
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title={ storyboard.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
+                        title="Edit"
+                    />
+                </HeaderPage>
+
+                <Section title="Panels" count={ storyboard.panels.length }>
+                    <SectionButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
+                        title="Add"
+                    />
+                </Section>
+
+                <div className="clearfix" />
+
+                <div className="StoryboardPanelsContainer">
+                    { storyboardPanelNodes }
+                </div>
+            </div>
+        );
+
     }
 })
 

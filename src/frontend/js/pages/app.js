@@ -4,7 +4,7 @@ import { IndexRoute, Router, Route, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 
 import { App } from '../components/app'
-import { Character } from '../components/pages/character'
+import Character from '../components/pages/character'
 import { CharacterEdit } from '../components/pages/character-edit'
 import { CharacterRevisionEdit } from '../components/pages/character-revision-edit'
 import { ConceptArt } from '../components/pages/concept_art'

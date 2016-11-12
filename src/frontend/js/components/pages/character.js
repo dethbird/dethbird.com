@@ -1,120 +1,122 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
+import Modal from 'react-modal'
 import { browserHistory, Link } from 'react-router'
+import TimeAgo from 'react-timeago'
+import { connect } from 'react-redux'
 
-import { Card } from "../ui/card"
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+import {List, ListItem} from 'material-ui/List';
+
+import { cardHeaderStyle } from '../../constants/styles'
 import { CardClickable } from "../ui/card-clickable"
+import { CardActionsButton } from "../ui/card-actions-button"
 import { CardBlock } from "../ui/card-block"
+import { Count } from "../ui/count"
+import { Description } from "../ui/description"
+import { Fountain } from "../ui/fountain"
+import { HeaderPage } from "../ui/header-page"
+import { HeaderPageButton } from "../ui/header-page-button"
+import { Image } from "../ui/image"
+import { Section } from "../ui/section"
+import { SectionButton } from "../ui/section-button"
 import {
     CharacterBreadcrumb
 } from "./character/character-breadcrumb"
-import { Description } from "../ui/description"
-import { ImagePanelRevision } from "../ui/image-panel-revision"
-import { SectionHeader } from "../ui/section-header"
-import { Spinner } from "../ui/spinner"
+import {
+    UI_STATE_INITIALIZING,
+    UI_STATE_COMPLETE,
+} from '../../constants/ui-state';
 
+import UiState from '../ui/ui-state'
+
+import { getCharacter } from  '../../actions/character'
 
 const Character = React.createClass({
-    componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-
-                let character = _.findWhere(data.characters, {
-                    id: parseInt(this.props.params.characterId)
-                });
-
-                this.setState({
-                    project: data,
-                    character: character
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    },
-    handleClick(revision_id) {
-        browserHistory.push(
-            '/project/' + this.props.params.projectId
-            + '/character/' + this.props.params.characterId
-            + '/revision/' + revision_id
-            + '/edit'
-        )
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { projectId, characterId } = this.props.params;
+        dispatch(getCharacter(projectId, characterId));
     },
     render() {
+        const { ui_state, character } = this.props;
+        if (!character)
+            return <UiState state={ ui_state } />
+        return this.renderBody();
+    },
+    renderBody() {
 
-        if (this.state) {
-            const { character } = this.state
-            let src;
+        const { ui_state, project, character } = this.props;
+        const { projectId, characterId } = this.props.params;
 
-            if (character.revisions.length) {
-                src = character.revisions[0].content;
-            }
+        let src = null;
+        if (character.revisions.length)
+            src = character.revisions[0].content;
 
-            var that = this;
-            var characterRevisionNodes = this.state.character.revisions.map(function(revision) {
-                return (
-                    <CardClickable
-                        className="col-lg-4"
-                        key={ revision.id }
-                        onClick={ that.handleClick.bind(that, revision.id) }
-                    >
-                        <CardBlock className="text-align-center">
-                            <ImagePanelRevision src={ revision.content } />
-                        </CardBlock>
-                    </CardClickable>
-                );
-            });
-
+        var characterRevisionNodes = character.revisions.map(function(revision) {
             return (
-                <div>
-                    <CharacterBreadcrumb
-                        project={ this.state.project }
-                        character={ this.state.character }
-                    >
-                    </CharacterBreadcrumb>
-                    <div className="CharacterDetailsContainer">
-                        <Card>
-                            <h3 className="card-header">{ this.state.character.name }</h3>
-                            <CardBlock>
-                                <div className="text-align-center">
-                                    <ImagePanelRevision src={ src } />
-                                </div>
-                            </CardBlock>
-                            <CardBlock>
-                                <Description source={ this.state.character.description }></Description>
-                            </CardBlock>
-                            <div className='card-footer text-muted clearfix'>
-                                <Link to={
-                                    '/project/' + this.props.params.projectId
-                                    + '/character/' + this.props.params.characterId
-                                    + '/edit'
-                                }>Edit</Link>
-                            </div>
-                        </Card>
-                    </div>
-                    <SectionHeader>{ this.state.character.revisions.length } Revision(s)</SectionHeader>
-                    <div className="CharacterRevisionsContainer">
-                        { characterRevisionNodes }
-                        <Link
-                            className="btn btn-success"
-                            to={
-                                '/project/' + that.props.params.projectId
-                                + '/character/' + that.props.params.characterId
-                                + '/revision/add'
-                            }
-                        >Add</Link>
-                    </div>
-                </div>
-            );
+                <Card
+                    key={ revision.id }
+                    className="col-lg-3"
+                >
 
-        }
+                    <CardMedia
+                        className="text-align-center"
+                        onTouchTap={ () => browserHistory.push(
+                            '/project/' + projectId + '/character/' + characterId + '/revision/' + revision.id) }
+                    >
+                        <Image src={ revision.content } />
+                    </CardMedia>
+                    <CardText>{ revision.description }</CardText>
+                </Card>
+            );
+        });
+
         return (
-            <Spinner />
-        )
+            <div>
+                <CharacterBreadcrumb { ...this.props } />
+
+                <UiState state={ ui_state } />
+
+                <HeaderPage title={ character.name }>
+                    <HeaderPageButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/edit')}
+                        title="Edit"
+                    />
+                </HeaderPage>
+
+                <Image src={ src } />
+                <br />
+
+                <Card className='card-display'>
+                    <CardText>
+                        <Description source={ character.description }></Description>
+                    </CardText>
+                </Card>
+
+                <Section title="Revisions" count={ character.revisions.length }>
+                    <SectionButton
+                        onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/add')}
+                        title="Add"
+                    />
+                </Section>
+
+                <div>
+                    { characterRevisionNodes }
+                </div>
+            </div>
+        );
     }
 })
 
-module.exports.Character = Character
+const mapStateToProps = (state) => {
+    const { ui_state, project, character } = state.character;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE_INITIALIZING,
+        project,
+        character
+    }
+}
+
+export default connect(mapStateToProps)(Character);
