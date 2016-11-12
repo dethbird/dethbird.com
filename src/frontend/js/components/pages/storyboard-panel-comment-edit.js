@@ -150,7 +150,7 @@ const StoryboardPanelCommentEdit = React.createClass({
             });
         return (
             <div>
-                <StoryboardPanelBreadcrumb { ...this.props }></StoryboardPanelBreadcrumb>
+                <StoryboardPanelBreadcrumb { ...this.props } />
 
                 <UiState state={ ui_state } />
 

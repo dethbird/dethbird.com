@@ -14,7 +14,7 @@ const ButtonsForm = React.createClass({
         const { handleClickCancel, handleClickSubmit } = this.props;
 
         return (
-            <div>
+            <div className="clearfix buttons-form">
                 <RaisedButton
                     label="Cancel"
                     onClick={ handleClickCancel }

@@ -9,6 +9,9 @@ import {
     PUT_CHARACTER_REQUEST,
     PUT_CHARACTER_ERROR,
     PUT_CHARACTER_SUCCESS,
+    REORDER_CHARACTER_REVISIONS_REQUEST,
+    REORDER_CHARACTER_REVISIONS_ERROR,
+    REORDER_CHARACTER_REVISIONS_SUCCESS,
     RESET_CHARACTER,
 } from '../constants/actions';
 import {
@@ -138,13 +141,57 @@ export const putCharacter = (project, character, fields) =>
             .end((err, res) => {
                 if(res.ok) {
                     const r = res.body;
-                    dispatch(putCharacterSuccess(r));
+                    dispatch(putCharacterSuccess(project, r));
                 }
 
                 if(!res.ok)
-                    dispatch(putCharacterError(project, {...fields, id: character.id }, res.body))
+                    dispatch(putCharacterError(project, {...fields, id: character.id, revisions: character.revisions }, res.body))
             });
     };
+
+/** REORDER */
+const reorderCharacterRevisionsInit = ( project, character, form_mode ) => {
+   return {
+       type: REORDER_CHARACTER_REVISIONS_REQUEST,
+       form_mode,
+       project,
+       character
+   }
+}
+
+const reorderCharacterRevisionsSuccess = (project, character, form_mode) => {
+   return {
+       type: REORDER_CHARACTER_REVISIONS_SUCCESS,
+       form_mode,
+       project,
+       character
+   }
+}
+
+const reorderCharacterRevisionsError = (project, character, form_mode, errors) => {
+   return {
+       type: REORDER_CHARACTER_REVISIONS_ERROR,
+       form_mode,
+       errors,
+       project,
+       character
+   }
+}
+
+export const reorderCharacterRevisions = (project, character, form_mode, items) =>
+   dispatch => {
+       dispatch(reorderCharacterRevisionsInit(project, character, form_mode));
+       request.post('/api/project_character_revision_order')
+           .send({items})
+           .end((err, res) => {
+               if(res.ok) {
+                   dispatch(reorderCharacterRevisionsSuccess(project, character, form_mode));
+               }
+
+               if(!res.ok)
+                   dispatch(reorderCharacterRevisionsError(project, character, form_mode, res.body))
+           });
+   };
 
 /** RESET */
 export const resetCharacter = (project, character, form_mode) => {

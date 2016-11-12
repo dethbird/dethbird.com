@@ -68522,7 +68522,7 @@ exports.uriFragmentInHTMLComment = exports.uriComponentInHTMLComment;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.resetCharacter = exports.putCharacter = exports.postCharacter = exports.getCharacter = undefined;
+exports.resetCharacter = exports.reorderCharacterRevisions = exports.putCharacter = exports.postCharacter = exports.getCharacter = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -68653,10 +68653,52 @@ var putCharacter = exports.putCharacter = function putCharacter(project, charact
         _superagent2.default.put('/api/project_character/' + character.id).send(fields).end(function (err, res) {
             if (res.ok) {
                 var r = res.body;
-                dispatch(putCharacterSuccess(r));
+                dispatch(putCharacterSuccess(project, r));
             }
 
-            if (!res.ok) dispatch(putCharacterError(project, _extends({}, fields, { id: character.id }), res.body));
+            if (!res.ok) dispatch(putCharacterError(project, _extends({}, fields, { id: character.id, revisions: character.revisions }), res.body));
+        });
+    };
+};
+
+/** REORDER */
+var reorderCharacterRevisionsInit = function reorderCharacterRevisionsInit(project, character, form_mode) {
+    return {
+        type: _actions.REORDER_CHARACTER_REVISIONS_REQUEST,
+        form_mode: form_mode,
+        project: project,
+        character: character
+    };
+};
+
+var reorderCharacterRevisionsSuccess = function reorderCharacterRevisionsSuccess(project, character, form_mode) {
+    return {
+        type: _actions.REORDER_CHARACTER_REVISIONS_SUCCESS,
+        form_mode: form_mode,
+        project: project,
+        character: character
+    };
+};
+
+var reorderCharacterRevisionsError = function reorderCharacterRevisionsError(project, character, form_mode, errors) {
+    return {
+        type: _actions.REORDER_CHARACTER_REVISIONS_ERROR,
+        form_mode: form_mode,
+        errors: errors,
+        project: project,
+        character: character
+    };
+};
+
+var reorderCharacterRevisions = exports.reorderCharacterRevisions = function reorderCharacterRevisions(project, character, form_mode, items) {
+    return function (dispatch) {
+        dispatch(reorderCharacterRevisionsInit(project, character, form_mode));
+        _superagent2.default.post('/api/project_character_revision_order').send({ items: items }).end(function (err, res) {
+            if (res.ok) {
+                dispatch(reorderCharacterRevisionsSuccess(project, character, form_mode));
+            }
+
+            if (!res.ok) dispatch(reorderCharacterRevisionsError(project, character, form_mode, res.body));
         });
     };
 };
@@ -69587,7 +69629,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var palette = {
     baseColor: '#2F2137',
-    baseButtonColor: '#722F85',
+    baseButtonColor: '#F2F2F2',
     primaryColor: '#0449A3',
     secondaryColor: '#A3038C'
 };
@@ -69608,8 +69650,7 @@ var muiTheme = (0, _getMuiTheme3.default)((_getMuiTheme = {
         secondaryColor: palette.secondaryColor
     }
 }, _defineProperty(_getMuiTheme, 'floatingActionButton', {
-    color: palette.baseButtonColor,
-    primaryColor: palette.primaryColor,
+    color: palette.primaryColor,
     secondaryColor: palette.secondaryColor
 }), _defineProperty(_getMuiTheme, 'raisedButton', {
     color: palette.baseButtonColor,
@@ -69666,6 +69707,10 @@ module.exports.App = App;
 },{"material-ui/AppBar":244,"material-ui/IconButton":284,"material-ui/IconMenu":286,"material-ui/MenuItem":297,"material-ui/Paper":299,"material-ui/styles/MuiThemeProvider":337,"material-ui/styles/colors":339,"material-ui/styles/getMuiTheme":340,"material-ui/svg-icons/navigation/menu":361,"material-ui/utils/colorManipulator":366,"react":596,"react-router":431,"react-tap-event-plugin":448}],638:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -69674,263 +69719,241 @@ var _reactSortableComponent = require('react-sortable-component');
 
 var _reactRouter = require('react-router');
 
-var _alert = require('../ui/alert');
+var _reactRedux = require('react-redux');
+
+var _Card = require('material-ui/Card');
+
+var _inputText = require('../ui/input-text');
+
+var _inputText2 = _interopRequireDefault(_inputText);
 
 var _card = require('../ui/card');
 
-var _sectionHeader = require('../ui/section-header');
-
-var _cardClickable = require('../ui/card-clickable');
-
-var _cardBlock = require('../ui/card-block');
+var _buttonsForm = require('../ui/buttons-form');
 
 var _description = require('../ui/description');
 
-var _fountain = require('../ui/fountain');
+var _image = require('../ui/image');
 
-var _imagePanelRevision = require('../ui/image-panel-revision');
+var _inputDescription = require('../ui/input-description');
+
+var _inputDescription2 = _interopRequireDefault(_inputDescription);
+
+var _section = require('../ui/section');
+
+var _uiState = require('../ui/ui-state');
+
+var _uiState2 = _interopRequireDefault(_uiState);
 
 var _characterBreadcrumb = require('./character/character-breadcrumb');
 
-var _spinner = require('../ui/spinner');
+var _form = require('../../constants/form');
+
+var _uiState3 = require('../../constants/ui-state');
+
+var _character = require('../../actions/character');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CharacterEdit = _react2.default.createClass({
     displayName: 'CharacterEdit',
-    componentDidMount: function componentDidMount() {
-        $.ajax({
-            url: '/api/project/' + this.props.params.projectId,
-            dataType: 'json',
-            cache: false,
-            success: function (data) {
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {
+                name: null,
+                description: null
+            }
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        var character = this.props.character;
 
-                var character = _.findWhere(data.characters, {
-                    'id': parseInt(this.props.params.characterId)
-                });
-
-                var changedFields = null;
-                var submitUrl = '/api/project_character/' + this.props.params.characterId;
-                var submitMethod = 'PUT';
-
-                if (!character) {
-                    character = {
-                        name: '',
-                        revisions: []
-                    };
-                    submitUrl = '/api/project_character';
-                    submitMethod = 'POST';
-
-                    changedFields = {
-                        project_id: this.props.params.projectId
-                    };
+        if (character == undefined && nextProps.character) {
+            this.setState({
+                changedFields: {
+                    name: nextProps.character.name,
+                    description: nextProps.character.description
                 }
+            });
+        }
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+        var _props$params = this.props.params,
+            projectId = _props$params.projectId,
+            characterId = _props$params.characterId;
 
-                this.setState({
-                    project: data,
-                    character: character,
-                    formState: null,
-                    formMessage: null,
-                    submitUrl: submitUrl,
-                    submitMethod: submitMethod,
-                    changedFields: changedFields
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        dispatch((0, _character.getCharacter)(projectId, characterId));
     },
     handleFieldChange: function handleFieldChange(event) {
-        var character = this.state.character;
-        var changedFields = this.state.changedFields || {};
+        var _props = this.props,
+            dispatch = _props.dispatch,
+            form_mode = _props.form_mode,
+            project = _props.project,
+            character = _props.character;
+        var changedFields = this.state.changedFields;
 
-        character[event.target.id] = event.target.value;
-        changedFields[event.target.id] = event.target.value;
+        var newChangedFields = changedFields;
 
+        newChangedFields[event.target.id] = event.target.value;
         this.setState({
-            character: character,
-            changedFields: changedFields
+            changedFields: newChangedFields
         });
+        dispatch((0, _character.resetCharacter)(project, character, form_mode));
     },
     handleClickCancel: function handleClickCancel(event) {
+        var _props$params2 = this.props.params,
+            projectId = _props$params2.projectId,
+            characterId = _props$params2.characterId;
+
         event.preventDefault();
-        _reactRouter.browserHistory.push('/project/' + this.props.params.projectId + '/characters');
+        _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId);
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
-        var that = this;
-        $.ajax({
-            data: that.state.changedFields,
-            dataType: 'json',
-            cache: false,
-            method: this.state.submitMethod,
-            url: this.state.submitUrl,
-            success: function (data) {
-                this.setState({
-                    formState: 'success',
-                    formMessage: 'Success.',
-                    submitUrl: '/api/project_character/' + data.id,
-                    submitMethod: 'PUT',
-                    character: data
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                this.setState({
-                    formState: 'danger',
-                    formMessage: 'Error: ' + xhr.responseText
-                });
-            }.bind(this)
-        });
+        var _props2 = this.props,
+            dispatch = _props2.dispatch,
+            form_mode = _props2.form_mode,
+            project = _props2.project,
+            character = _props2.character;
+        var changedFields = this.state.changedFields;
+
+        if (form_mode == _form.FORM_MODE_ADD) dispatch((0, _character.postCharacter)(project, changedFields));
+
+        if (form_mode == _form.FORM_MODE_EDIT) dispatch((0, _character.putCharacter)(project, character, changedFields));
     },
     handleSort: function handleSort(items) {
+        var _props3 = this.props,
+            dispatch = _props3.dispatch,
+            form_mode = _props3.form_mode,
+            project = _props3.project,
+            character = _props3.character;
+        var changedFields = this.state.changedFields;
 
-        var that = this;
 
-        var character = this.state.character;
-        character.revisions = items;
-        this.setState({
-            character: character
-        });
+        var newCharacter = changedFields;
+        newCharacter.revisions = items;
 
         items = items.map(function (item, i) {
             return { 'id': item.id };
         });
 
-        $.post('/api/project_character_revision_order', { 'items': items }, function (response) {
-
-            var character = that.state.character;
-            character.revisions = response.items;
-            that.setState({
-                character: character,
-                formState: 'success',
-                formMessage: 'Order saved.'
-            });
-        });
+        dispatch((0, _character.reorderCharacterRevisions)(project, newCharacter, form_mode, items));
     },
     render: function render() {
-        var that = this;
-        if (this.state) {
-            var characterRevisionNodes = this.state.character.revisions.map(function (revision, i) {
-                var props = {};
-                props.src = revision.content;
-                return _react2.default.createElement(
-                    _reactSortableComponent.SortableItem,
-                    {
-                        key: revision.id,
-                        className: 'card col-xs-4'
-                    },
-                    _react2.default.createElement(_imagePanelRevision.ImagePanelRevision, props)
-                );
-            });
+        var changedFields = this.state.changedFields;
+        var _props4 = this.props,
+            ui_state = _props4.ui_state,
+            form_mode = _props4.form_mode,
+            errors = _props4.errors,
+            project = _props4.project,
+            character = _props4.character;
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_characterBreadcrumb.CharacterBreadcrumb, this.state),
-                _react2.default.createElement(_alert.Alert, {
-                    status: this.state.formState,
-                    message: this.state.formMessage
-                }),
-                _react2.default.createElement(
-                    'form',
-                    null,
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'name:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('input', {
-                            type: 'text',
-                            className: 'form-control',
-                            id: 'name',
-                            placeholder: 'Name',
-                            value: this.state.character.name,
-                            onChange: this.handleFieldChange
-                        })
-                    ),
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'description:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement('textarea', {
-                            className: 'form-control',
-                            id: 'description',
-                            rows: '3',
-                            value: this.state.character.description || '',
-                            onChange: this.handleFieldChange
-                        }),
-                        _react2.default.createElement('br', null),
+        var getErrorForId = function getErrorForId(id) {
+            var error = _.findWhere(errors, {
+                'property': id
+            });
+            if (error) return error.message;
+            return null;
+        };
+
+        var sortableNode = void 0;
+        if (character) {
+            var characterRevisionNodes = void 0;
+            if (character.revisions) {
+                characterRevisionNodes = character.revisions.map(function (revision, i) {
+                    return _react2.default.createElement(
+                        _reactSortableComponent.SortableItem,
+                        {
+                            key: revision.id,
+                            className: 'card col-xs-3'
+                        },
                         _react2.default.createElement(
                             _card.Card,
                             null,
-                            _react2.default.createElement(
-                                _cardBlock.CardBlock,
-                                null,
-                                _react2.default.createElement(_description.Description, { source: this.state.character.description })
-                            )
+                            _react2.default.createElement(_image.Image, { src: revision.content })
                         )
-                    ),
+                    );
+                });
+
+                sortableNode = _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: character.revisions.length }),
                     _react2.default.createElement(
-                        'div',
-                        { className: 'form-group text-align-center' },
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-secondary',
-                                onClick: that.handleClickCancel
-                            },
-                            'Cancel'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            {
-                                className: 'btn btn-success',
-                                onClick: that.handleClickSubmit,
-                                disabled: !that.state.changedFields
-                            },
-                            'Save'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        _sectionHeader.SectionHeader,
-                        null,
-                        'revisions:'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'characterRevisionsContainer clearfix' },
-                            _react2.default.createElement(
-                                _reactSortableComponent.SortableItems,
-                                {
-                                    items: that.state.character.revisions,
-                                    onSort: that.handleSort,
-                                    name: 'sort-revisions-component'
-                                },
-                                characterRevisionNodes
-                            )
-                        )
+                        _reactSortableComponent.SortableItems,
+                        {
+                            items: character.revisions,
+                            onSort: this.handleSort,
+                            name: 'sort-revisions-component'
+                        },
+                        characterRevisionNodes
                     )
-                )
-            );
+                );
+            }
         }
-        return _react2.default.createElement(_spinner.Spinner, null);
+
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_characterBreadcrumb.CharacterBreadcrumb, this.props),
+            _react2.default.createElement(_uiState2.default, { state: ui_state }),
+            _react2.default.createElement(
+                'form',
+                null,
+                _react2.default.createElement(_inputText2.default, {
+                    label: 'Name',
+                    id: 'name',
+                    value: changedFields.name || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('name')
+                }),
+                _react2.default.createElement(_inputDescription2.default, {
+                    label: 'Description',
+                    id: 'description',
+                    value: changedFields.description || '',
+                    onChange: this.handleFieldChange,
+                    errorText: getErrorForId('description')
+                }),
+                _react2.default.createElement(
+                    _card.Card,
+                    { className: 'input-card' },
+                    _react2.default.createElement(
+                        _Card.CardText,
+                        null,
+                        _react2.default.createElement(_description.Description, { source: changedFields.description })
+                    )
+                ),
+                _react2.default.createElement(_buttonsForm.ButtonsForm, {
+                    handleClickCancel: this.handleClickCancel,
+                    handleClickSubmit: this.handleClickSubmit
+                }),
+                sortableNode
+            )
+        );
     }
 });
 
-module.exports.CharacterEdit = CharacterEdit;
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$character = state.character,
+        ui_state = _state$character.ui_state,
+        form_mode = _state$character.form_mode,
+        errors = _state$character.errors,
+        project = _state$character.project,
+        character = _state$character.character;
 
-},{"../ui/alert":683,"../ui/card":689,"../ui/card-block":686,"../ui/card-clickable":687,"../ui/description":692,"../ui/fountain":695,"../ui/image-panel-revision":698,"../ui/section-header":703,"../ui/spinner":705,"./character/character-breadcrumb":641,"react":596,"react-router":431,"react-sortable-component":442}],639:[function(require,module,exports){
+    return {
+        ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
+        form_mode: form_mode,
+        errors: errors,
+        project: project,
+        character: character
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(CharacterEdit);
+
+},{"../../actions/character":628,"../../constants/form":708,"../../constants/ui-state":710,"../ui/buttons-form":684,"../ui/card":689,"../ui/description":692,"../ui/image":699,"../ui/input-description":700,"../ui/input-text":701,"../ui/section":704,"../ui/ui-state":706,"./character/character-breadcrumb":641,"material-ui/Card":254,"react":596,"react-redux":397,"react-router":431,"react-sortable-component":442}],639:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -70366,7 +70389,7 @@ var CharacterBreadcrumb = _react2.default.createClass({
             character = _props.character;
 
 
-        if (!project) {
+        if (!character) {
             return _react2.default.createElement(
                 'ol',
                 { className: 'breadcrumb' },
@@ -70397,13 +70420,7 @@ var CharacterBreadcrumb = _react2.default.createClass({
             _react2.default.createElement(
                 'li',
                 { className: 'breadcrumb-item' },
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    {
-                        to: '/project/' + project.id + '/characters'
-                    },
-                    'Characters'
-                )
+                'Characters'
             ),
             _react2.default.createElement(
                 'li',
@@ -76190,7 +76207,7 @@ var ButtonsForm = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            null,
+            { className: 'clearfix buttons-form' },
             _react2.default.createElement(_RaisedButton2.default, {
                 label: 'Cancel',
                 onClick: handleClickCancel,
@@ -77366,12 +77383,14 @@ var Section = _react2.default.createClass({
 
     propTypes: {
         title: _react2.default.PropTypes.string,
+        subtitle: _react2.default.PropTypes.string,
         count: _react2.default.PropTypes.number
     },
 
     render: function render() {
         var _props = this.props,
             title = _props.title,
+            subtitle = _props.subtitle,
             count = _props.count,
             children = _props.children;
 
@@ -77383,14 +77402,28 @@ var Section = _react2.default.createClass({
             return null;
         };
 
+        var subtitleNode = function subtitleNode(subtitle) {
+            if (!subtitle) return null;
+            return _react2.default.createElement(
+                "div",
+                { className: "section-subtitle" },
+                subtitle
+            );
+        };
+
         return _react2.default.createElement(
             "div",
             { className: "section clearfix" },
             _react2.default.createElement(
-                "span",
-                { className: "section-title pull-left" },
-                renderCount(count),
-                title
+                "div",
+                { className: "pull-left" },
+                _react2.default.createElement(
+                    "span",
+                    { className: "section-title" },
+                    renderCount(count),
+                    title
+                ),
+                subtitleNode(subtitle)
             ),
             _react2.default.createElement(
                 "div",
@@ -77529,6 +77562,9 @@ var POST_CHARACTER_SUCCESS = exports.POST_CHARACTER_SUCCESS = 'POST_CHARACTER_SU
 var PUT_CHARACTER_REQUEST = exports.PUT_CHARACTER_REQUEST = 'PUT_CHARACTER_REQUEST';
 var PUT_CHARACTER_ERROR = exports.PUT_CHARACTER_ERROR = 'PUT_CHARACTER_ERROR';
 var PUT_CHARACTER_SUCCESS = exports.PUT_CHARACTER_SUCCESS = 'PUT_CHARACTER_SUCCESS';
+var REORDER_CHARACTER_REVISIONS_REQUEST = exports.REORDER_CHARACTER_REVISIONS_REQUEST = 'REORDER_CHARACTER_REVISIONS_REQUEST';
+var REORDER_CHARACTER_REVISIONS_ERROR = exports.REORDER_CHARACTER_REVISIONS_ERROR = 'REORDER_CHARACTER_REVISIONS_ERROR';
+var REORDER_CHARACTER_REVISIONS_SUCCESS = exports.REORDER_CHARACTER_REVISIONS_SUCCESS = 'REORDER_CHARACTER_REVISIONS_SUCCESS';
 var RESET_CHARACTER = exports.RESET_CHARACTER = 'RESET_CHARACTER';
 
 var GET_FLICKRS_RESET = exports.GET_FLICKRS_RESET = 'GET_FLICKRS_RESET';
@@ -77658,6 +77694,8 @@ var _character2 = _interopRequireDefault(_character);
 
 var _characterEdit = require('../components/pages/character-edit');
 
+var _characterEdit2 = _interopRequireDefault(_characterEdit);
+
 var _characterRevisionEdit = require('../components/pages/character-revision-edit');
 
 var _concept_art = require('../components/pages/concept_art');
@@ -77759,9 +77797,9 @@ if (lastRequestUri) {
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId', component: _project2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/edit', component: _projectEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/characters/edit', component: _projectCharactersEdit.ProjectCharactersEdit }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/add', component: _characterEdit.CharacterEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/add', component: _characterEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId', component: _character2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/edit', component: _characterEdit.CharacterEdit }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/edit', component: _characterEdit2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/revision/add', component: _characterRevisionEdit.CharacterRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/character/:characterId/revision/:revisionId/edit', component: _characterRevisionEdit.CharacterRevisionEdit }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:projectId/concept_art/edit', component: _projectConcept_artEdit.ProjectConceptArtEdit }),
@@ -77812,7 +77850,7 @@ var character = function character() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
-    console.log(action);
+
     switch (action.type) {
         case _actions.GET_CHARACTER_REQUEST:
         case _actions.POST_CHARACTER_REQUEST:
@@ -77820,9 +77858,18 @@ var character = function character() {
             return {
                 ui_state: _uiState.UI_STATE_REQUESTING
             };
+        case _actions.REORDER_CHARACTER_REVISIONS_REQUEST:
+            return {
+                ui_state: _uiState.UI_STATE_REQUESTING,
+                form_mode: action.form_mode,
+                project: action.project,
+                character: action.character
+            };
         case _actions.GET_CHARACTER_ERROR:
         case _actions.POST_CHARACTER_ERROR:
         case _actions.PUT_CHARACTER_ERROR:
+        case _actions.PUT_CHARACTER_ERROR:
+        case _actions.REORDER_CHARACTER_REVISIONS_ERROR:
             return {
                 ui_state: _uiState.UI_STATE_ERROR,
                 errors: action.errors ? action.errors : {},
@@ -77839,6 +77886,7 @@ var character = function character() {
             };
         case _actions.POST_CHARACTER_SUCCESS:
         case _actions.PUT_CHARACTER_SUCCESS:
+        case _actions.REORDER_CHARACTER_REVISIONS_SUCCESS:
             return {
                 ui_state: _uiState.UI_STATE_SUCCESS,
                 form_mode: action.form_mode,

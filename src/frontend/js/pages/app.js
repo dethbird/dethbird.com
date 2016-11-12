@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import { App } from '../components/app'
 import Character from '../components/pages/character'
-import { CharacterEdit } from '../components/pages/character-edit'
+import CharacterEdit from '../components/pages/character-edit'
 import { CharacterRevisionEdit } from '../components/pages/character-revision-edit'
 import { ConceptArt } from '../components/pages/concept_art'
 import { ConceptArtEdit } from '../components/pages/concept_art-edit'

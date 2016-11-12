@@ -17,7 +17,7 @@ injectTapEventPlugin();
 
 const palette = {
     baseColor: '#2F2137',
-    baseButtonColor: '#722F85',
+    baseButtonColor: '#F2F2F2',
     primaryColor: '#0449A3',
     secondaryColor: '#A3038C'
 }
@@ -38,8 +38,7 @@ const muiTheme = getMuiTheme({
         secondaryColor: palette.secondaryColor
     },
     floatingActionButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
+        color: palette.primaryColor,
         secondaryColor: palette.secondaryColor
     },
     raisedButton: {

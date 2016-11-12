@@ -8,6 +8,9 @@ import {
     PUT_CHARACTER_REQUEST,
     PUT_CHARACTER_ERROR,
     PUT_CHARACTER_SUCCESS,
+    REORDER_CHARACTER_REVISIONS_REQUEST,
+    REORDER_CHARACTER_REVISIONS_ERROR,
+    REORDER_CHARACTER_REVISIONS_SUCCESS,
     RESET_CHARACTER,
 } from '../constants/actions';
 import {
@@ -22,7 +25,7 @@ import {
 
 
 const character = (state = {}, action) => {
-    console.log(action);
+
     switch (action.type) {
         case GET_CHARACTER_REQUEST:
         case POST_CHARACTER_REQUEST:
@@ -30,9 +33,18 @@ const character = (state = {}, action) => {
             return {
                 ui_state: UI_STATE_REQUESTING
             }
+        case REORDER_CHARACTER_REVISIONS_REQUEST:
+            return {
+                ui_state: UI_STATE_REQUESTING,
+                form_mode: action.form_mode,
+                project: action.project,
+                character: action.character,
+            }
         case GET_CHARACTER_ERROR:
         case POST_CHARACTER_ERROR:
         case PUT_CHARACTER_ERROR:
+        case PUT_CHARACTER_ERROR:
+        case REORDER_CHARACTER_REVISIONS_ERROR:
             return {
                 ui_state: UI_STATE_ERROR,
                 errors: action.errors ? action.errors : {},
@@ -49,6 +61,7 @@ const character = (state = {}, action) => {
             }
         case POST_CHARACTER_SUCCESS:
         case PUT_CHARACTER_SUCCESS:
+        case REORDER_CHARACTER_REVISIONS_SUCCESS:
             return {
                 ui_state: UI_STATE_SUCCESS,
                 form_mode: action.form_mode,

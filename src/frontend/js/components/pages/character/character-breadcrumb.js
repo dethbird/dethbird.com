@@ -10,7 +10,7 @@ const CharacterBreadcrumb = React.createClass({
     render: function() {
         const { project, character } = this.props;
 
-        if (!project) {
+        if (!character) {
             return <ol className="breadcrumb"><li className="breadcrumb-item"></li></ol>;
         }
         return (
@@ -21,16 +21,7 @@ const CharacterBreadcrumb = React.createClass({
                         { project.name }
                     </Link>
                 </li>
-                <li className="breadcrumb-item">
-                    <Link
-                        to={
-                            '/project/' + project.id
-                            + '/characters'
-                        }
-                    >
-                        Characters
-                    </Link>
-                </li>
+                <li className="breadcrumb-item">Characters</li>
                 <li className="breadcrumb-item">
                     { character.name }
                 </li>
