@@ -3,6 +3,7 @@ export { default as characterRevision } from './character-revision';
 export { default as conceptArt } from './concept_art';
 export { default as conceptArtRevision } from './concept_art-revision';
 export { default as flickrSelector } from './flickr-selector';
+export { default as location } from './location';
 export { default as login } from './login';
 export { default as project } from './project';
 export { default as projects } from './projects';
