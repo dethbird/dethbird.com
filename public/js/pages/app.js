@@ -74868,8 +74868,6 @@ var StoryboardEdit = _react2.default.createClass({
             return null;
         };
 
-        console.log('render', storyboard);
-
         var sortableNode = void 0;
         if (storyboard) {
             var panelNodes = void 0;
@@ -78716,7 +78714,7 @@ var storyboardPanel = function storyboardPanel() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
-
+    console.log(action);
     switch (action.type) {
         case _actions.GET_STORYBOARD_PANEL_REQUEST:
         case _actions.POST_STORYBOARD_PANEL_REQUEST:
@@ -78795,7 +78793,7 @@ var storyboard = function storyboard() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
-    console.log(action);
+
     switch (action.type) {
         case _actions.GET_STORYBOARD_REQUEST:
         case _actions.POST_STORYBOARD_REQUEST:

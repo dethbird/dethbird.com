@@ -25,7 +25,7 @@ import {
 
 
 const storyboardPanel = (state = {}, action) => {
-
+    console.log(action);
     switch (action.type) {
         case GET_STORYBOARD_PANEL_REQUEST:
         case POST_STORYBOARD_PANEL_REQUEST:

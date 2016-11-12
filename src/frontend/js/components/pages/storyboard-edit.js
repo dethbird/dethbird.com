@@ -120,8 +120,6 @@ const StoryboardEdit = React.createClass({
             return null;
         };
 
-        console.log('render', storyboard);
-
         let sortableNode;
         if (storyboard) {
             let panelNodes;
