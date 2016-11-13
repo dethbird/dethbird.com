@@ -58,7 +58,7 @@ const ConceptArt = React.createClass({
             return (
                 <Card
                     key={ revision.id }
-                    className="col-lg-3"
+                    className="content-secondary"
                 >
                     <CardMedia className="text-align-center">
                         <Image src={ revision.content } />
@@ -80,7 +80,7 @@ const ConceptArt = React.createClass({
 
                 <UiState state={ ui_state } />
 
-                <HeaderPage title={ concept_art.name }>
+                <HeaderPage title={ concept_art.name } className='content-primary'>
                     <HeaderPageButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/edit')}
                         title="Edit"
@@ -90,20 +90,20 @@ const ConceptArt = React.createClass({
                 <Image src={ src } />
                 <br />
 
-                <Card className='card-display'>
+                <Card className='content-primary'>
                     <CardText>
                         <Description source={ concept_art.description }></Description>
                     </CardText>
                 </Card>
 
-                <Section title="Revisions" count={ concept_art.revisions.length }>
+                <Section title="Revisions" count={ concept_art.revisions.length } className='content-primary'>
                     <SectionButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/revision/add')}
                         title="Add"
                     />
                 </Section>
 
-                <div>
+                <div className='content-primary'>
                     { concept_artRevisionNodes }
                 </div>
             </div>

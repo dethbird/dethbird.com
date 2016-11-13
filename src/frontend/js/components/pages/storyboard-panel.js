@@ -105,7 +105,7 @@ const StoryboardPanel = React.createClass({
         let panelRevisionNodes = panel.revisions.map(function(revision) {
             return (
                 <Card
-                    className="col-lg-3"
+                    className="content-secondary"
                     key={ revision.id }
                 >
                     <div className="text-align-center">
@@ -160,7 +160,7 @@ const StoryboardPanel = React.createClass({
 
                 <StoryboardPanelBreadcrumb { ...this.props } />
 
-                <HeaderPage title={ panel.name }>
+                <HeaderPage title={ panel.name } className='content-primary'>
                     <HeaderPageButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit' )}
                         title="Edit"
@@ -192,11 +192,15 @@ const StoryboardPanel = React.createClass({
                 </Modal>
                 <br />
 
-                <div className="StoryboardPanelDetailsContainer">
-                    <Image src={ mainImage(panel) } />
-                </div>
+                <Image src={ mainImage(panel) } />
+                <br />
+                <Card className='content-primary'>
+                    <CardText>
+                        <Fountain source={ panel.script } />
+                    </CardText>
+                </Card>
 
-                <Section title="Revisions" count={ panel.revisions.length }>
+                <Section title="Revisions" count={ panel.revisions.length } className='content-primary'>
                     <SectionButton
                         onTouchTap={() => browserHistory.push(
                             '/project/' + projectId
@@ -208,11 +212,11 @@ const StoryboardPanel = React.createClass({
                     />
                 </Section>
 
-                <div className="clearfix PanelRevisionsContainer">
+                <div className="content-primary">
                     { panelRevisionNodes }
                 </div>
 
-                <Section title="Comments" count={ panel.comments.length }>
+                <Section title="Comments" count={ panel.comments.length } className='content-primary'>
                     <SectionButton
                         onTouchTap={() => browserHistory.push(
                             '/project/' + projectId
@@ -224,7 +228,7 @@ const StoryboardPanel = React.createClass({
                     />
                 </Section>
 
-                <div className="clearfix PanelCommentsContainer">
+                <div className="content-primary">
                     { panelCommentNodes }
                 </div>
             </div>

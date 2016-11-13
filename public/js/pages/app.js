@@ -71006,7 +71006,7 @@ var CharacterEdit = _react2.default.createClass({
                         _reactSortableComponent.SortableItem,
                         {
                             key: revision.id,
-                            className: 'col-xs-3'
+                            className: 'content-secondary'
                         },
                         _react2.default.createElement(
                             _card.Card,
@@ -71019,13 +71019,14 @@ var CharacterEdit = _react2.default.createClass({
                 sortableNode = _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: character.revisions.length }),
+                    _react2.default.createElement(_section.Section, { className: 'content-primary', title: 'Revisions', subtitle: 'Drag to reorder', count: character.revisions.length }),
                     _react2.default.createElement(
                         _reactSortableComponent.SortableItems,
                         {
                             items: character.revisions,
                             onSort: this.handleSort,
-                            name: 'sort-revisions-component'
+                            name: 'sort-revisions-component',
+                            className: 'content-primary'
                         },
                         characterRevisionNodes
                     )
@@ -71398,7 +71399,7 @@ var Character = _react2.default.createClass({
                 _Card.Card,
                 {
                     key: revision.id,
-                    className: 'col-lg-3'
+                    className: 'content-secondary'
                 },
                 _react2.default.createElement(
                     _Card.CardMedia,
@@ -71442,7 +71443,7 @@ var Character = _react2.default.createClass({
             _react2.default.createElement('br', null),
             _react2.default.createElement(
                 _Card.Card,
-                { className: 'card-display' },
+                { className: 'content-primary' },
                 _react2.default.createElement(
                     _Card.CardText,
                     null,
@@ -71451,7 +71452,7 @@ var Character = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _section.Section,
-                { title: 'Revisions', count: character.revisions.length },
+                { title: 'Revisions', count: character.revisions.length, className: 'content-primary' },
                 _react2.default.createElement(_sectionButton.SectionButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/add');
@@ -71461,7 +71462,7 @@ var Character = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 'div',
-                null,
+                { className: 'content-primary' },
                 characterRevisionNodes
             )
         );
@@ -71714,7 +71715,7 @@ var ConceptArtEdit = _react2.default.createClass({
                         _reactSortableComponent.SortableItem,
                         {
                             key: revision.id,
-                            className: 'col-xs-3'
+                            className: 'content-secondary'
                         },
                         _react2.default.createElement(
                             _card.Card,
@@ -71728,13 +71729,14 @@ var ConceptArtEdit = _react2.default.createClass({
                 sortableNode = _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: concept_art.revisions.length }),
+                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: concept_art.revisions.length, className: 'content-primary' }),
                     _react2.default.createElement(
                         _reactSortableComponent.SortableItems,
                         {
                             items: concept_art.revisions,
                             onSort: this.handleSort,
-                            name: 'sort-revisions-component'
+                            name: 'sort-revisions-component',
+                            className: 'content-primary'
                         },
                         concept_artRevisionNodes
                     )
@@ -72107,7 +72109,7 @@ var ConceptArt = _react2.default.createClass({
                 _Card.Card,
                 {
                     key: revision.id,
-                    className: 'col-lg-3'
+                    className: 'content-secondary'
                 },
                 _react2.default.createElement(
                     _Card.CardMedia,
@@ -72139,7 +72141,7 @@ var ConceptArt = _react2.default.createClass({
             _react2.default.createElement(_uiState3.default, { state: ui_state }),
             _react2.default.createElement(
                 _headerPage.HeaderPage,
-                { title: concept_art.name },
+                { title: concept_art.name, className: 'content-primary' },
                 _react2.default.createElement(_headerPageButton.HeaderPageButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/edit');
@@ -72151,7 +72153,7 @@ var ConceptArt = _react2.default.createClass({
             _react2.default.createElement('br', null),
             _react2.default.createElement(
                 _Card.Card,
-                { className: 'card-display' },
+                { className: 'content-primary' },
                 _react2.default.createElement(
                     _Card.CardText,
                     null,
@@ -72160,7 +72162,7 @@ var ConceptArt = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _section.Section,
-                { title: 'Revisions', count: concept_art.revisions.length },
+                { title: 'Revisions', count: concept_art.revisions.length, className: 'content-primary' },
                 _react2.default.createElement(_sectionButton.SectionButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/concept_art/' + conceptArtId + '/revision/add');
@@ -72170,7 +72172,7 @@ var ConceptArt = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 'div',
-                null,
+                { className: 'content-primary' },
                 concept_artRevisionNodes
             )
         );
@@ -76004,7 +76006,7 @@ var StoryboardEdit = _react2.default.createClass({
                         _reactSortableComponent.SortableItem,
                         {
                             key: panel.id,
-                            className: 'col-xs-3'
+                            className: 'content-secondary'
                         },
                         _react2.default.createElement(
                             _card.Card,
@@ -76018,13 +76020,14 @@ var StoryboardEdit = _react2.default.createClass({
                 sortableNode = _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_section.Section, { title: 'Panels', subtitle: 'Drag to reorder', count: storyboard.panels.length }),
+                    _react2.default.createElement(_section.Section, { title: 'Panels', subtitle: 'Drag to reorder', count: storyboard.panels.length, className: 'content-primary' }),
                     _react2.default.createElement(
                         _reactSortableComponent.SortableItems,
                         {
                             items: storyboard.panels,
                             onSort: this.handleSort,
-                            name: 'sort-revisions-component'
+                            name: 'sort-revisions-component',
+                            className: 'content-primary'
                         },
                         panelNodes
                     )
@@ -76533,7 +76536,7 @@ var StoryboardPanelEdit = _react2.default.createClass({
                         _reactSortableComponent.SortableItem,
                         {
                             key: revision.id,
-                            className: 'card col-xs-3'
+                            className: 'content-secondary'
                         },
                         _react2.default.createElement(
                             _card.Card,
@@ -76546,13 +76549,14 @@ var StoryboardPanelEdit = _react2.default.createClass({
                 sortableNode = _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: panel.revisions.length }),
+                    _react2.default.createElement(_section.Section, { title: 'Revisions', subtitle: 'Drag to reorder', count: panel.revisions.length, className: 'content-primary' }),
                     _react2.default.createElement(
                         _reactSortableComponent.SortableItems,
                         {
                             items: panel.revisions,
                             onSort: this.handleSort,
-                            name: 'sort-revisions-component'
+                            name: 'sort-revisions-component',
+                            className: 'content-primary'
                         },
                         panelRevisionNodes
                     )
@@ -76976,7 +76980,7 @@ var StoryboardPanel = _react2.default.createClass({
             return _react2.default.createElement(
                 _card.Card,
                 {
-                    className: 'col-lg-3',
+                    className: 'content-secondary',
                     key: revision.id
                 },
                 _react2.default.createElement(
@@ -77022,7 +77026,7 @@ var StoryboardPanel = _react2.default.createClass({
             _react2.default.createElement(_storyboardPanelBreadcrumb.StoryboardPanelBreadcrumb, this.props),
             _react2.default.createElement(
                 _headerPage.HeaderPage,
-                { title: panel.name },
+                { title: panel.name, className: 'content-primary' },
                 _react2.default.createElement(_headerPageButton.HeaderPageButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id + '/edit');
@@ -77067,14 +77071,20 @@ var StoryboardPanel = _react2.default.createClass({
                 )
             ),
             _react2.default.createElement('br', null),
+            _react2.default.createElement(_image.Image, { src: mainImage(panel) }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
-                'div',
-                { className: 'StoryboardPanelDetailsContainer' },
-                _react2.default.createElement(_image.Image, { src: mainImage(panel) })
+                _card.Card,
+                { className: 'content-primary' },
+                _react2.default.createElement(
+                    _Card.CardText,
+                    null,
+                    _react2.default.createElement(_fountain.Fountain, { source: panel.script })
+                )
             ),
             _react2.default.createElement(
                 _section.Section,
-                { title: 'Revisions', count: panel.revisions.length },
+                { title: 'Revisions', count: panel.revisions.length, className: 'content-primary' },
                 _react2.default.createElement(_sectionButton.SectionButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panelId + '/revision/add');
@@ -77084,12 +77094,12 @@ var StoryboardPanel = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 'div',
-                { className: 'clearfix PanelRevisionsContainer' },
+                { className: 'content-primary' },
                 panelRevisionNodes
             ),
             _react2.default.createElement(
                 _section.Section,
-                { title: 'Comments', count: panel.comments.length },
+                { title: 'Comments', count: panel.comments.length, className: 'content-primary' },
                 _react2.default.createElement(_sectionButton.SectionButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panelId + '/comment/add');
@@ -77099,7 +77109,7 @@ var StoryboardPanel = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 'div',
-                { className: 'clearfix PanelCommentsContainer' },
+                { className: 'content-primary' },
                 panelCommentNodes
             )
         );
@@ -77253,6 +77263,8 @@ var _List = require('material-ui/List');
 
 var _styles = require('../../constants/styles');
 
+var _card = require('../ui/card');
+
 var _cardClickable = require('../ui/card-clickable');
 
 var _cardActionsButton = require('../ui/card-actions-button');
@@ -77320,10 +77332,10 @@ var Storyboard = _react2.default.createClass({
             var src = null;
             if (panel.revisions.length > 0) src = panel.revisions[0].content;
             return _react2.default.createElement(
-                _Card.Card,
+                _card.Card,
                 {
                     key: panel.id,
-                    className: 'col-lg-4'
+                    className: 'content-secondary'
                 },
                 _react2.default.createElement(_Card.CardTitle, {
                     title: 'Panel ' + (i + 1),
@@ -77384,7 +77396,7 @@ var Storyboard = _react2.default.createClass({
             _react2.default.createElement(_uiState3.default, { state: ui_state }),
             _react2.default.createElement(
                 _headerPage.HeaderPage,
-                { title: storyboard.name },
+                { title: storyboard.name, className: 'content-primary' },
                 _react2.default.createElement(_headerPageButton.HeaderPageButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit');
@@ -77393,8 +77405,17 @@ var Storyboard = _react2.default.createClass({
                 })
             ),
             _react2.default.createElement(
+                _card.Card,
+                { className: 'content-primary' },
+                _react2.default.createElement(
+                    _Card.CardText,
+                    null,
+                    _react2.default.createElement(_description.Description, { source: storyboard.description })
+                )
+            ),
+            _react2.default.createElement(
                 _section.Section,
-                { title: 'Panels', count: storyboard.panels.length },
+                { title: 'Panels', count: storyboard.panels.length, className: 'content-primary' },
                 _react2.default.createElement(_sectionButton.SectionButton, {
                     onTouchTap: function onTouchTap() {
                         return _reactRouter.browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add');
@@ -77402,10 +77423,9 @@ var Storyboard = _react2.default.createClass({
                     title: 'Add'
                 })
             ),
-            _react2.default.createElement('div', { className: 'clearfix' }),
             _react2.default.createElement(
                 'div',
-                { className: 'StoryboardPanelsContainer' },
+                { className: 'content-primary' },
                 storyboardPanelNodes
             )
         );
@@ -77427,7 +77447,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Storyboard);
 
-},{"../../actions/storyboard":641,"../../constants/styles":718,"../../constants/ui-state":719,"../ui/card-actions-button":694,"../ui/card-block":695,"../ui/card-clickable":696,"../ui/count":700,"../ui/description":701,"../ui/fountain":704,"../ui/header-page":706,"../ui/header-page-button":705,"../ui/image":708,"../ui/section":713,"../ui/section-button":711,"../ui/ui-state":715,"./storyboard/storyboard-breadcrumb":691,"material-ui/Card":254,"material-ui/Divider":270,"material-ui/List":292,"react":596,"react-markdown":386,"react-modal":393,"react-redux":397,"react-router":431,"react-timeago":449}],691:[function(require,module,exports){
+},{"../../actions/storyboard":641,"../../constants/styles":718,"../../constants/ui-state":719,"../ui/card":698,"../ui/card-actions-button":694,"../ui/card-block":695,"../ui/card-clickable":696,"../ui/count":700,"../ui/description":701,"../ui/fountain":704,"../ui/header-page":706,"../ui/header-page-button":705,"../ui/image":708,"../ui/section":713,"../ui/section-button":711,"../ui/ui-state":715,"./storyboard/storyboard-breadcrumb":691,"material-ui/Card":254,"material-ui/Divider":270,"material-ui/List":292,"react":596,"react-markdown":386,"react-modal":393,"react-redux":397,"react-router":431,"react-timeago":449}],691:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77862,13 +77882,15 @@ var Card = _react2.default.createClass({
     },
 
     render: function render() {
-        var children = this.props.children;
+        var _props = this.props,
+            className = _props.className,
+            children = _props.children;
 
 
         return _react2.default.createElement(
             _Card.Card,
-            { className: (0, _classnames2.default)([this.props.className, 'card']) },
-            this.props.children
+            { className: (0, _classnames2.default)([className, 'card']) },
+            children
         );
     }
 });
@@ -78274,16 +78296,21 @@ var Fountain = _react2.default.createClass({
     },
 
     render: function render() {
-        var className = (0, _classnames2.default)([this.props.className, 'fountain']);
+        var _props = this.props,
+            className = _props.className,
+            source = _props.source;
+
+
+        if (!source) return null;
 
         var script = { __html: '<div></div>' };
 
-        if (this.props.source) {
+        if (source) {
             script = {
-                __html: _fountainJs2.default.parse(this.props.source).script_html
+                __html: _fountainJs2.default.parse(source).script_html
             };
             return _react2.default.createElement('div', {
-                className: className,
+                className: (0, _classnames2.default)([className, 'fountain']),
                 dangerouslySetInnerHTML: script
             });
         }
@@ -78376,53 +78403,59 @@ var HeaderPageButton = _react2.default.createClass({
 module.exports.HeaderPageButton = HeaderPageButton;
 
 },{"../../constants/styles":718,"material-ui/FloatingActionButton":277,"material-ui/svg-icons/action/assessment":345,"material-ui/svg-icons/action/delete":346,"material-ui/svg-icons/content/add":350,"material-ui/svg-icons/content/sort":351,"material-ui/svg-icons/editor/mode-edit":352,"react":596}],706:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HeaderPage = _react2.default.createClass({
-    displayName: "HeaderPage",
+    displayName: 'HeaderPage',
 
 
     propTypes: {
         title: _react2.default.PropTypes.string,
-        subtitle: _react2.default.PropTypes.string
+        subtitle: _react2.default.PropTypes.string,
+        className: _react2.default.PropTypes.string
     },
 
     render: function render() {
         var _props = this.props,
             title = _props.title,
             subtitle = _props.subtitle,
+            className = _props.className,
             children = _props.children;
 
         var subtitleNode = function subtitleNode(subtitle) {
             if (!subtitle) return null;
             return _react2.default.createElement(
-                "div",
-                { className: "header-page-subtitle" },
+                'div',
+                { className: 'header-page-subtitle' },
                 subtitle
             );
         };
         return _react2.default.createElement(
-            "div",
-            { className: "header-page clearfix" },
+            'div',
+            { className: (0, _classnames2.default)([className, 'header-page clearfix']) },
             _react2.default.createElement(
-                "div",
-                { className: "pull-left" },
+                'div',
+                { className: 'pull-left' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "header-page-title" },
+                    'div',
+                    { className: 'header-page-title' },
                     title
                 ),
                 subtitleNode(subtitle)
             ),
             _react2.default.createElement(
-                "div",
-                { className: "pull-right" },
+                'div',
+                { className: 'pull-right' },
                 children
             )
         );
@@ -78431,7 +78464,7 @@ var HeaderPage = _react2.default.createClass({
 
 module.exports.HeaderPage = HeaderPage;
 
-},{"react":596}],707:[function(require,module,exports){
+},{"classnames":24,"react":596}],707:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -78732,24 +78765,29 @@ var SectionHeader = _react2.default.createClass({
 module.exports.SectionHeader = SectionHeader;
 
 },{"classnames":24,"react":596}],713:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _react = require("react");
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _count = require("../ui/count");
+var _count = require('../ui/count');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Section = _react2.default.createClass({
-    displayName: "Section",
+    displayName: 'Section',
 
 
     propTypes: {
         title: _react2.default.PropTypes.string,
         subtitle: _react2.default.PropTypes.string,
-        count: _react2.default.PropTypes.number
+        count: _react2.default.PropTypes.number,
+        className: _react2.default.PropTypes.string
     },
 
     render: function render() {
@@ -78757,6 +78795,7 @@ var Section = _react2.default.createClass({
             title = _props.title,
             subtitle = _props.subtitle,
             count = _props.count,
+            className = _props.className,
             children = _props.children;
 
 
@@ -78770,29 +78809,29 @@ var Section = _react2.default.createClass({
         var subtitleNode = function subtitleNode(subtitle) {
             if (!subtitle) return null;
             return _react2.default.createElement(
-                "div",
-                { className: "section-subtitle" },
+                'div',
+                { className: 'section-subtitle' },
                 subtitle
             );
         };
 
         return _react2.default.createElement(
-            "div",
-            { className: "section clearfix" },
+            'div',
+            { className: (0, _classnames2.default)([className, 'section clearfix']) },
             _react2.default.createElement(
-                "div",
-                { className: "pull-left" },
+                'div',
+                { className: 'pull-left' },
                 _react2.default.createElement(
-                    "span",
-                    { className: "section-title" },
+                    'span',
+                    { className: 'section-title' },
                     renderCount(count),
                     title
                 ),
                 subtitleNode(subtitle)
             ),
             _react2.default.createElement(
-                "div",
-                { className: "pull-right" },
+                'div',
+                { className: 'pull-right' },
                 children
             )
         );
@@ -78801,7 +78840,7 @@ var Section = _react2.default.createClass({
 
 module.exports.Section = Section;
 
-},{"../ui/count":700,"react":596}],714:[function(require,module,exports){
+},{"../ui/count":700,"classnames":24,"react":596}],714:[function(require,module,exports){
 "use strict";
 
 var _react = require("react");

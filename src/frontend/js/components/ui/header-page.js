@@ -1,16 +1,17 @@
 import React from 'react'
-
+import classNames from 'classnames';
 
 const HeaderPage = React.createClass({
 
 
     propTypes: {
         title: React.PropTypes.string,
-        subtitle: React.PropTypes.string
+        subtitle: React.PropTypes.string,
+        className: React.PropTypes.string
     },
 
     render: function() {
-        const { title, subtitle, children } = this.props;
+        const { title, subtitle, className, children } = this.props;
         const subtitleNode = (subtitle) =>  {
             if (!subtitle)
                 return null;
@@ -19,7 +20,7 @@ const HeaderPage = React.createClass({
             )
         };
         return (
-            <div className="header-page clearfix">
+            <div className={ classNames([className, 'header-page clearfix']) }>
                 <div className="pull-left">
                     <div className="header-page-title">{ title }</div>
                     { subtitleNode(subtitle)}

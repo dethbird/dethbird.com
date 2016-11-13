@@ -11,18 +11,22 @@ const Fountain = React.createClass({
     },
 
     render: function() {
-        let className = classNames([this.props.className, 'fountain'])
+
+        const { className, source } = this.props;
+
+        if (!source)
+            return null;
 
         let script = { __html: '<div></div>' }
 
-        if (this.props.source) {
+        if (source) {
             script = {
                 __html: fountainJs.parse(
-                    this.props.source).script_html
+                    source).script_html
             }
             return (
                 <div
-                    className={ className }
+                    className={ classNames([className, 'fountain']) }
                     dangerouslySetInnerHTML={ script }
                 >
                 </div>

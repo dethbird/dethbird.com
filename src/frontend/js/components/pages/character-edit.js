@@ -127,7 +127,7 @@ const CharacterEdit = React.createClass({
                     return (
                         <SortableItem
                             key={ revision.id }
-                            className="col-xs-3"
+                            className="content-secondary"
                         >
                             <Card>
                                 <Image src={ revision.content } />
@@ -138,12 +138,13 @@ const CharacterEdit = React.createClass({
 
                 sortableNode = (
                     <div>
-                        <Section title="Revisions" subtitle="Drag to reorder" count={ character.revisions.length }></Section>
+                        <Section className="content-primary" title="Revisions" subtitle="Drag to reorder" count={ character.revisions.length }></Section>
 
                         <SortableItems
                             items={ character.revisions }
                             onSort={ this.handleSort }
                             name="sort-revisions-component"
+                            className="content-primary"
                         >
                             { characterRevisionNodes }
                         </SortableItems>

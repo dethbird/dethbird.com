@@ -5,11 +5,12 @@ import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux'
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 
 import { cardHeaderStyle } from '../../constants/styles'
+import { Card } from "../ui/card"
 import { CardClickable } from "../ui/card-clickable"
 import { CardActionsButton } from "../ui/card-actions-button"
 import { CardBlock } from "../ui/card-block"
@@ -60,7 +61,7 @@ const Storyboard = React.createClass({
             return (
                 <Card
                     key={ panel.id }
-                    className="col-lg-4"
+                    className="content-secondary"
                 >
                     <CardTitle
                         title={ `Panel ${ i + 1 }` }
@@ -103,23 +104,27 @@ const Storyboard = React.createClass({
 
                 <UiState state={ ui_state } />
 
-                <HeaderPage title={ storyboard.name }>
+                <HeaderPage title={ storyboard.name } className='content-primary'>
                     <HeaderPageButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/edit')}
                         title="Edit"
                     />
                 </HeaderPage>
 
-                <Section title="Panels" count={ storyboard.panels.length }>
+                <Card className="content-primary">
+                    <CardText>
+                        <Description source={ storyboard.description } />
+                    </CardText>
+                </Card>
+
+                <Section title="Panels" count={ storyboard.panels.length } className='content-primary'>
                     <SectionButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/storyboard/' + storyboardId + '/panel/add')}
                         title="Add"
                     />
                 </Section>
 
-                <div className="clearfix" />
-
-                <div className="StoryboardPanelsContainer">
+                <div className="content-primary">
                     { storyboardPanelNodes }
                 </div>
             </div>

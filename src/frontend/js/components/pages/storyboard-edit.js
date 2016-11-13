@@ -131,7 +131,7 @@ const StoryboardEdit = React.createClass({
                     return (
                         <SortableItem
                             key={ panel.id }
-                            className="col-xs-3"
+                            className="content-secondary"
                         >
                             <Card>
                                 <Image src={ src } />
@@ -143,12 +143,13 @@ const StoryboardEdit = React.createClass({
 
                 sortableNode = (
                     <div>
-                        <Section title="Panels" subtitle="Drag to reorder" count={ storyboard.panels.length }></Section>
+                        <Section title="Panels" subtitle="Drag to reorder" count={ storyboard.panels.length } className='content-primary'></Section>
 
                         <SortableItems
                             items={ storyboard.panels }
                             onSort={ this.handleSort }
                             name="sort-revisions-component"
+                            className='content-primary'
                         >
                             { panelNodes }
                         </SortableItems>

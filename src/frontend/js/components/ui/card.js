@@ -10,11 +10,11 @@ const Card = React.createClass({
     },
 
     render: function() {
-        const { children } = this.props;
+        const { className, children } = this.props;
 
         return (
-            <MaterialCard className={ classNames([this.props.className, 'card']) }>
-                { this.props.children }
+            <MaterialCard className={ classNames([className, 'card']) }>
+                { children }
             </MaterialCard>
         );
     }

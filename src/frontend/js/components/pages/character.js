@@ -58,7 +58,7 @@ const Character = React.createClass({
             return (
                 <Card
                     key={ revision.id }
-                    className="col-lg-3"
+                    className="content-secondary"
                 >
                     <CardMedia className="text-align-center">
                         <Image src={ revision.content } />
@@ -90,20 +90,20 @@ const Character = React.createClass({
                 <Image src={ src } />
                 <br />
 
-                <Card className='card-display'>
+                <Card className='content-primary'>
                     <CardText>
                         <Description source={ character.description }></Description>
                     </CardText>
                 </Card>
 
-                <Section title="Revisions" count={ character.revisions.length }>
+                <Section title="Revisions" count={ character.revisions.length } className='content-primary'>
                     <SectionButton
                         onTouchTap={() => browserHistory.push('/project/' + projectId + '/character/' + characterId + '/revision/add')}
                         title="Add"
                     />
                 </Section>
 
-                <div>
+                <div className='content-primary'>
                     { characterRevisionNodes }
                 </div>
             </div>

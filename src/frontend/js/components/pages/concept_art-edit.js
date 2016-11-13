@@ -127,7 +127,7 @@ const ConceptArtEdit = React.createClass({
                     return (
                         <SortableItem
                             key={ revision.id }
-                            className="col-xs-3"
+                            className="content-secondary"
                         >
                             <Card>
                                 <Image src={ revision.content } />
@@ -139,12 +139,13 @@ const ConceptArtEdit = React.createClass({
 
                 sortableNode = (
                     <div>
-                        <Section title="Revisions" subtitle="Drag to reorder" count={ concept_art.revisions.length }></Section>
+                        <Section title="Revisions" subtitle="Drag to reorder" count={ concept_art.revisions.length } className='content-primary'></Section>
 
                         <SortableItems
                             items={ concept_art.revisions }
                             onSort={ this.handleSort }
                             name="sort-revisions-component"
+                            className='content-primary'
                         >
                             { concept_artRevisionNodes }
                         </SortableItems>

@@ -312,6 +312,77 @@ html [type=button] {
 .btn-danger {
   color: #fff !important;
 }
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+.fountain {
+  padding: 15px;
+  font-family: 'IM Fell English', serif;
+  text-align: center;
+}
+.fountain p {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+}
+.fountain .dialogue p {
+  text-align: center;
+}
+@media screen and (min-width: 0px) and (max-width: 480px) {
+  .fountain {
+    padding: 10px;
+    font-size: 3.4vw !important;
+  }
+  .fountain h4 {
+    font-size: 4.8vw !important;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .fountain {
+    padding: 12px;
+    font-size: 2.3vw !important;
+  }
+  .fountain h4 {
+    font-size: 3.6vw !important;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .fountain {
+    padding: 15px;
+    font-size: 1.6vw !important;
+  }
+  .fountain h4 {
+    font-size: 2.2vw !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .fountain {
+    padding: 15px;
+    font-size: 1.2vw !important;
+  }
+  .fountain h4 {
+    font-size: 1.8vw !important;
+  }
+}
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .fountain {
+    padding: 20px;
+    font-size: 1.1vw !important;
+  }
+  .fountain h4 {
+    font-size: 1.5vw !important;
+  }
+}
+@media screen and (min-width: 1441px) {
+  .fountain {
+    padding: 23px;
+    font-size: 0.9vw !important;
+  }
+  .fountain h4 {
+    font-size: 1.3vw !important;
+  }
+}
 [class^=col-lg] {
   padding-left: 0;
   padding-right: 0;
@@ -377,10 +448,6 @@ html [type=button] {
 .col-xs-3:nth-child(4n+1) {
   clear: both;
 }
-.card img {
-  max-width: 100%;
-  height: auto;
-}
 .comment {
   text-align: left;
 }
@@ -406,7 +473,7 @@ html [type=button] {
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .content-primary {
     margin: 8px 0px 8px 0px;
-    width: 96% !important;
+    width: 100% !important;
   }
 }
 @media screen and (min-width: 769px) and (max-width: 1024px) {
@@ -518,48 +585,6 @@ html [type=button] {
   background-color: #0D47A1;
   margin-bottom: 10px;
   border-radius: 10px;
-}
-.fountain {
-  padding: 15px 40px 15px 40px;
-  font-family: 'IM Fell English', serif;
-}
-.fountain h1 {
-  color: #000;
-  font-size: 2.3em;
-  margin-bottom: 2.0rem;
-}
-.fountain h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 1.8rem;
-}
-.fountain h4 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.1rem;
-  margin-top: 0.5rem;
-}
-.fountain p {
-  font-size: 1.02rem;
-  margin-left: 50px;
-}
-.fountain p.credit,
-.fountain p.credit,
-.fountain p.authors,
-.fountain p.source,
-.fountain p.draft-date {
-  margin-bottom: 0.8rem;
-}
-.fountain p.credit {
-  font-weight: bold;
-  margin-bottom: -0.1rem;
-}
-.fountain .dialogue h4 {
-  left: 50%;
-  margin-left: 50px;
-}
-.fountain .dialogue p {
-  margin-left: 0px;
 }
 .col-xs-3 .fountain {
   padding: 15px 25px 15px 25px;

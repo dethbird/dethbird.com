@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react'
 
 import { Count } from "../ui/count"
@@ -8,11 +9,12 @@ const Section = React.createClass({
     propTypes: {
         title: React.PropTypes.string,
         subtitle: React.PropTypes.string,
-        count: React.PropTypes.number
+        count: React.PropTypes.number,
+        className: React.PropTypes.string
     },
 
     render: function() {
-        const { title, subtitle, count, children } = this.props;
+        const { title, subtitle, count, className, children } = this.props;
 
         const renderCount = (count) => {
             if (count !== undefined) {
@@ -32,7 +34,7 @@ const Section = React.createClass({
         };
 
         return (
-            <div className="section clearfix">
+            <div className={ classNames([className, 'section clearfix'])}>
                 <div className="pull-left">
                     <span className="section-title">{ renderCount(count) }{ title }</span>
                     { subtitleNode(subtitle) }
