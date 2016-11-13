@@ -24,8 +24,8 @@ const ProjectStoryboards = React.createClass({
                     className="content-secondary"
                     key={ storyboard.id }
                 >
-                    <span>{ storyboard.name }</span>
                     <Image src={ storyboard.content } />
+                    <CardText className='card-text'>{ storyboard.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

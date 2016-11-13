@@ -27,8 +27,8 @@ const ProjectLocations = React.createClass({
                     className="content-secondary"
                     key={ location.id }
                 >
-                    <span>{ location.name }</span>
                     <Image src={ location.content } />
+                    <CardText className='card-text'>{ location.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

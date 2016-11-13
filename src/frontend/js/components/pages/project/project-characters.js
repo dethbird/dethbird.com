@@ -31,7 +31,7 @@ const ProjectCharacters = React.createClass({
                     key={ character.id }
                 >
                     <Image src={ src } />
-                    <CardText>{ character.name }</CardText>
+                    <CardText className='card-text'>{ character.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

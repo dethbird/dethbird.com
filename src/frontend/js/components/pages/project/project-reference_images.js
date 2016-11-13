@@ -27,8 +27,8 @@ const ProjectReferenceImages = React.createClass({
                     className="content-secondary"
                     key={ reference_image.id }
                 >
-                    <span>{ reference_image.name }</span>
                     <Image src={ reference_image.content } />
+                    <CardText className='card-text'>{ reference_image.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

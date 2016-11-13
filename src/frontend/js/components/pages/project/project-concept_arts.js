@@ -29,8 +29,8 @@ const ProjectConceptArts = React.createClass({
                     className="content-secondary"
                     key={ concept_art.id }
                 >
-                    <span>{ concept_art.name }</span>
                     <Image src={ src } />
+                    <CardText className='card-text'>{ concept_art.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

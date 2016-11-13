@@ -27,7 +27,7 @@ const ProjectScripts = React.createClass({
                     className="content-secondary"
                     key={ script.id }
                 >
-                    <span>{ script.name }</span>
+                    <CardText className='card-text'>{ script.name }</CardText>
                     <CardActions className="clearfix text-align-right">
                         <CardActionsButton
                             title="View"

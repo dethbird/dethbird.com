@@ -17,12 +17,12 @@ const ProjectDetails = React.createClass({
     render: function() {
         const { project } = this.props;
         return (
-            <div className='content-primary'>
-                <CardMedia className="text-align-center">
+            <div>
+                <div className="content-primary text-align-center">
                     <Image src={ project.content } />
-                </CardMedia>
-                <Card>
-                    <CardText>
+                </div>
+                <Card className='content-primary'>
+                    <CardText className='card-text'>
                         <Description source={ project.description }></Description>
                     </CardText>
                 </Card>
