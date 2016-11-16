@@ -580,9 +580,6 @@ html [type=button] {
     clear: both;
   }
 }
-.dialog-content {
-  color: green;
-}
 .footer {
   padding: 15px;
   background-color: #0D47A1;

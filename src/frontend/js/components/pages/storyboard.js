@@ -13,7 +13,7 @@ import { cardHeaderStyle } from '../../constants/styles'
 import { Card } from '../ui/card'
 import { CardClickable } from '../ui/card-clickable'
 import { CardActionsButton } from '../ui/card-actions-button'
-import { CardBlock } from '../ui/card-block'
+import { CardComment } from '../ui/card-comment'
 import { Count } from '../ui/count'
 import { Description } from '../ui/description'
 import { Fountain } from '../ui/fountain'
@@ -21,6 +21,7 @@ import { HeaderPage } from '../ui/header-page'
 import { HeaderPageButton } from '../ui/header-page-button'
 import { Image } from '../ui/image'
 import ImageWithPreview from '../ui/image-with-preview'
+import ListItemWithPreview from '../ui/list-item-with-preview'
 import { Section } from '../ui/section'
 import { SectionButton } from '../ui/section-button'
 import {
@@ -54,7 +55,17 @@ const Storyboard = React.createClass({
         const { ui_state, project, storyboard } = this.props;
         const { projectId, storyboardId } = this.props.params;
 
-        var storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
+        const storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
+
+            const panelCommentNodes = panel.comments.map(function(comment, cid){
+                return (
+                    <CardComment
+                        comment={ comment }
+                        link={ `/project/${project.id}/storyboard/${storyboard.id}/panel/${panel.id}/edit` }
+                        key={ cid }
+                    />
+                )
+            });
 
             let src = null;
             if (panel.revisions.length > 0)
@@ -68,16 +79,16 @@ const Storyboard = React.createClass({
                         title={ `Panel ${ i + 1 }` }
                         titleStyle={ cardHeaderStyle }
                     />
-                <ImageWithPreview src={ src } title={ `Panel ${ i + 1 }` } />
+                    <ImageWithPreview src={ src } title={ `Panel ${ i + 1 }` } />
                     <CardMedia>
                         <Fountain source={ panel.script} />
                         <List>
                             <ListItem>
                                 <Count count={ panel.revisions.length } /> Revisions
                             </ListItem>
-                            <ListItem>
+                            <ListItemWithPreview previewContent={ panelCommentNodes } previewTitle={ `Panel ${ i + 1 } comments` }>
                                 <Count count={ panel.comments.length } /> Comments
-                            </ListItem>
+                            </ListItemWithPreview>
                         </List>
                     </CardMedia>
 
