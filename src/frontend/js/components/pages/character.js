@@ -5,14 +5,13 @@ import { browserHistory, Link } from 'react-router'
 import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux'
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 
 import { cardHeaderStyle } from '../../constants/styles'
-import { CardClickable } from "../ui/card-clickable"
+import { Card } from "../ui/card"
 import { CardActionsButton } from "../ui/card-actions-button"
-import { CardBlock } from "../ui/card-block"
 import { Count } from "../ui/count"
 import { Description } from "../ui/description"
 import { Fountain } from "../ui/fountain"

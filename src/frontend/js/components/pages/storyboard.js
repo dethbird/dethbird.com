@@ -10,21 +10,22 @@ import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 
 import { cardHeaderStyle } from '../../constants/styles'
-import { Card } from "../ui/card"
-import { CardClickable } from "../ui/card-clickable"
-import { CardActionsButton } from "../ui/card-actions-button"
-import { CardBlock } from "../ui/card-block"
-import { Count } from "../ui/count"
-import { Description } from "../ui/description"
-import { Fountain } from "../ui/fountain"
-import { HeaderPage } from "../ui/header-page"
-import { HeaderPageButton } from "../ui/header-page-button"
-import { Image } from "../ui/image"
-import { Section } from "../ui/section"
-import { SectionButton } from "../ui/section-button"
+import { Card } from '../ui/card'
+import { CardClickable } from '../ui/card-clickable'
+import { CardActionsButton } from '../ui/card-actions-button'
+import { CardBlock } from '../ui/card-block'
+import { Count } from '../ui/count'
+import { Description } from '../ui/description'
+import { Fountain } from '../ui/fountain'
+import { HeaderPage } from '../ui/header-page'
+import { HeaderPageButton } from '../ui/header-page-button'
+import { Image } from '../ui/image'
+import ImageWithPreview from '../ui/image-with-preview'
+import { Section } from '../ui/section'
+import { SectionButton } from '../ui/section-button'
 import {
     StoryboardBreadcrumb
-} from "./storyboard/storyboard-breadcrumb"
+} from './storyboard/storyboard-breadcrumb'
 
 import {
     UI_STATE_INITIALIZING,
@@ -67,11 +68,7 @@ const Storyboard = React.createClass({
                         title={ `Panel ${ i + 1 }` }
                         titleStyle={ cardHeaderStyle }
                     />
-                    <div onClick={ () => browserHistory.push(
-                        '/project/' + projectId + '/storyboard/' + storyboardId + '/panel/' + panel.id) }
-                    >
-                        <Image src={ src } />
-                    </div>
+                <ImageWithPreview src={ src } title={ `Panel ${ i + 1 }` } />
                     <CardMedia>
                         <Fountain source={ panel.script} />
                         <List>
