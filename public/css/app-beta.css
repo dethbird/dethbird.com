@@ -316,6 +316,12 @@ html [type=button] {
   max-width: 100%;
   height: auto;
 }
+.card.comment {
+  margin: 8px 0px 8px 0px;
+}
+.card.comment.resolved {
+  background-color: #f3f3f3 !important;
+}
 .card-title span:first-child {
   font-size: 1.25rem !important;
 }

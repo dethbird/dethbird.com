@@ -67,7 +67,7 @@ const Storyboard = React.createClass({
             });
 
             const unresolvedComments = _.reject(panel.comments, function(comment){
-                comment.status == 'resolved'
+                return comment.status == 'resolved'
             }).length;
 
             const unresolvedCommentNode = unresolvedComments
@@ -77,7 +77,6 @@ const Storyboard = React.createClass({
             let src = null;
             if (panel.revisions.length > 0)
                 src = panel.revisions[0].content
-
 
             return (
                 <Card

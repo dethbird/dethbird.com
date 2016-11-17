@@ -6,7 +6,7 @@ const Count = React.createClass({
     propTypes: {
         count: React.PropTypes.number.isRequired,
         className: React.PropTypes.string,
-        secondary: React.PropTypes.string
+        secondary: React.PropTypes.bool
     },
 
     render: function() {

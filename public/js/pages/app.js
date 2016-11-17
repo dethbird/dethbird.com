@@ -77158,7 +77158,7 @@ var Storyboard = _react2.default.createClass({
             });
 
             var unresolvedComments = _.reject(panel.comments, function (comment) {
-                comment.status == 'resolved';
+                return comment.status == 'resolved';
             }).length;
 
             var unresolvedCommentNode = unresolvedComments ? _react2.default.createElement(
@@ -77838,7 +77838,7 @@ var Count = _react2.default.createClass({
     propTypes: {
         count: _react2.default.PropTypes.number.isRequired,
         className: _react2.default.PropTypes.string,
-        secondary: _react2.default.PropTypes.string
+        secondary: _react2.default.PropTypes.bool
     },
 
     render: function render() {
