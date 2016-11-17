@@ -4,13 +4,10 @@
 @lighterBlue: @baseBlue + #020222;
 @darkerBlue: @baseBlue - #010111;
 @darkestBlue: #0D47A1;
-@info: #117EB3;
 
-@cardBackgroundColor: #fff;
-@cardBackgroundColorHover: @cardBackgroundColor - #111;
-@cardHeaderBackgroundColor: #f5f5f5;
-@cardHeaderBackgroundColorHover: @cardHeaderBackgroundColor - #111;
-@cardBorderColor: #e5e5e5;
+@info: #117EB3;
+@primary: #117EB3;
+@secondary: #A3038C;
 @muted: #818a91;
 
 blockquote {
@@ -44,6 +41,11 @@ button {
     height: auto;
 }
 
+.card-title {
+    span:first-child {
+        font-size: 1.25rem !important;
+    }
+}
 
 .fountain {
     padding: 15px;
@@ -234,7 +236,7 @@ button {
             clear:both;
         }
     }
-    @media screen and (min-width: 481px) and (max-width: 786px) {
+    @media screen and (min-width: 481px) and (max-width: 768px) {
         margin: 5px;
         width: 48.5% !important;
         &:nth-child(2n+1) {
@@ -275,10 +277,13 @@ button {
     // color: green;
 }
 .dialog-body {
-    // color: green;
+    text-align: center;
 }
 .dialog-content {
-    // color: green;
+    @media screen and (min-width: 0px) and (max-width: 768px) {
+        padding: 5px;
+        width: 100% !important;
+    }
 }
 
 .footer {
@@ -367,9 +372,23 @@ h1 {
         max-height: 768px;
     }
 }
-.image-display {
-    width: 100%;
-    height: auto;
+.image-dialog {
+    @media screen and (min-width: 0px) and (max-width: 786px) {
+        max-height: auto;
+        max-width: 100%;
+    }
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        max-height: 500px;
+    }
+    @media screen and (min-width: 1025px) and (max-width: 1280px) {
+        max-height: 540px;
+    }
+    @media screen and (min-width: 1281px) and (max-width: 1440px) {
+        max-height: 640px;
+    }
+    @media screen and (min-width: 1441px) {
+        max-height: 710px;
+    }
 }
 .card-display,
 .input-text,
@@ -385,12 +404,19 @@ h1 {
         width: 100% !important;
     }
 }
-
+.list-item-subitem {
+    margin-top: 3px;
+}
 .modal-trigger {
     cursor: zoom-in;
 }
 #mount {
     min-height: 250px;
+}
+
+.muted {
+    color: @muted;
+    font-size: 1rem;
 }
 
 .section {
@@ -422,10 +448,15 @@ section.well {
 
 .tag {
     margin-right: 5px;
-}
-
-.tag-info {
-    background-color: @info;
+    &-info {
+        background-color: @info;
+    }
+    &-primary {
+        background-color: @primary;
+    }
+    &-secondary {
+        background-color: @secondary;
+    }
 }
 
 .text-align-center {

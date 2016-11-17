@@ -9,7 +9,6 @@ import {CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 
-import { cardHeaderStyle } from '../../constants/styles'
 import { Card } from '../ui/card'
 import { CardClickable } from '../ui/card-clickable'
 import { CardActionsButton } from '../ui/card-actions-button'
@@ -67,9 +66,19 @@ const Storyboard = React.createClass({
                 )
             });
 
+            const unresolvedComments = _.reject(panel.comments, function(comment){
+                comment.status == 'resolved'
+            }).length;
+
+            const unresolvedCommentNode = unresolvedComments
+                ? <div className="list-item-subitem muted"><Count count={ unresolvedComments } secondary={ true } /> Unresolved</div>
+                : null;
+
             let src = null;
             if (panel.revisions.length > 0)
                 src = panel.revisions[0].content
+
+
             return (
                 <Card
                     key={ panel.id }
@@ -77,7 +86,7 @@ const Storyboard = React.createClass({
                 >
                     <CardTitle
                         title={ `Panel ${ i + 1 }` }
-                        titleStyle={ cardHeaderStyle }
+                        className='card-title'
                     />
                     <ImageWithPreview src={ src } title={ `Panel ${ i + 1 }` } />
                     <CardMedia>
@@ -87,7 +96,10 @@ const Storyboard = React.createClass({
                                 <Count count={ panel.revisions.length } /> Revisions
                             </ListItem>
                             <ListItemWithPreview previewContent={ panelCommentNodes } previewTitle={ `Panel ${ i + 1 } comments` }>
-                                <Count count={ panel.comments.length } /> Comments
+                                <div>
+                                    <Count count={ panel.comments.length } /> Comments
+                                    { unresolvedCommentNode }
+                                </div>
                             </ListItemWithPreview>
                         </List>
                     </CardMedia>

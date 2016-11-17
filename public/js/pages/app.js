@@ -77075,8 +77075,6 @@ var _Divider2 = _interopRequireDefault(_Divider);
 
 var _List = require('material-ui/List');
 
-var _styles = require('../../constants/styles');
-
 var _card = require('../ui/card');
 
 var _cardClickable = require('../ui/card-clickable');
@@ -77159,8 +77157,20 @@ var Storyboard = _react2.default.createClass({
                 });
             });
 
+            var unresolvedComments = _.reject(panel.comments, function (comment) {
+                comment.status == 'resolved';
+            }).length;
+
+            var unresolvedCommentNode = unresolvedComments ? _react2.default.createElement(
+                'div',
+                { className: 'list-item-subitem muted' },
+                _react2.default.createElement(_count.Count, { count: unresolvedComments, secondary: true }),
+                ' Unresolved'
+            ) : null;
+
             var src = null;
             if (panel.revisions.length > 0) src = panel.revisions[0].content;
+
             return _react2.default.createElement(
                 _card.Card,
                 {
@@ -77169,7 +77179,7 @@ var Storyboard = _react2.default.createClass({
                 },
                 _react2.default.createElement(_Card.CardTitle, {
                     title: 'Panel ' + (i + 1),
-                    titleStyle: _styles.cardHeaderStyle
+                    className: 'card-title'
                 }),
                 _react2.default.createElement(_imageWithPreview2.default, { src: src, title: 'Panel ' + (i + 1) }),
                 _react2.default.createElement(
@@ -77188,8 +77198,13 @@ var Storyboard = _react2.default.createClass({
                         _react2.default.createElement(
                             _listItemWithPreview2.default,
                             { previewContent: panelCommentNodes, previewTitle: 'Panel ' + (i + 1) + ' comments' },
-                            _react2.default.createElement(_count.Count, { count: panel.comments.length }),
-                            ' Comments'
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                _react2.default.createElement(_count.Count, { count: panel.comments.length }),
+                                ' Comments',
+                                unresolvedCommentNode
+                            )
                         )
                     )
                 ),
@@ -77270,7 +77285,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Storyboard);
 
-},{"../../actions/storyboard":640,"../../constants/styles":719,"../../constants/ui-state":720,"../ui/card":697,"../ui/card-actions-button":693,"../ui/card-clickable":695,"../ui/card-comment":696,"../ui/count":699,"../ui/description":700,"../ui/fountain":703,"../ui/header-page":705,"../ui/header-page-button":704,"../ui/image":708,"../ui/image-with-preview":707,"../ui/list-item-with-preview":711,"../ui/section":714,"../ui/section-button":712,"../ui/ui-state":716,"./storyboard/storyboard-breadcrumb":690,"material-ui/Card":254,"material-ui/Divider":270,"material-ui/List":292,"react":595,"react-markdown":385,"react-modal":392,"react-redux":396,"react-router":430,"react-timeago":448}],690:[function(require,module,exports){
+},{"../../actions/storyboard":640,"../../constants/ui-state":720,"../ui/card":697,"../ui/card-actions-button":693,"../ui/card-clickable":695,"../ui/card-comment":696,"../ui/count":699,"../ui/description":700,"../ui/fountain":703,"../ui/header-page":705,"../ui/header-page-button":704,"../ui/image":708,"../ui/image-with-preview":707,"../ui/list-item-with-preview":711,"../ui/section":714,"../ui/section-button":712,"../ui/ui-state":716,"./storyboard/storyboard-breadcrumb":690,"material-ui/Card":254,"material-ui/Divider":270,"material-ui/List":292,"react":595,"react-markdown":385,"react-modal":392,"react-redux":396,"react-router":430,"react-timeago":448}],690:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -77822,21 +77837,27 @@ var Count = _react2.default.createClass({
 
     propTypes: {
         count: _react2.default.PropTypes.number.isRequired,
-        className: _react2.default.PropTypes.string
+        className: _react2.default.PropTypes.string,
+        secondary: _react2.default.PropTypes.string
     },
 
     render: function render() {
+        var _props = this.props,
+            count = _props.count,
+            className = _props.className,
+            secondary = _props.secondary;
+
 
         var tagClass = 'tag-default';
-        if (this.props.count > 0) {
-            tagClass = 'tag-info';
+        if (count > 0) {
+            tagClass = 'tag-primary';
+            if (secondary) tagClass = 'tag-secondary';
         }
 
-        var className = (0, _classnames2.default)([this.props.className, 'tag', tagClass]);
         return _react2.default.createElement(
             'span',
-            { className: className },
-            this.props.count
+            { className: (0, _classnames2.default)([className, 'tag', tagClass]) },
+            count
         );
     }
 });
@@ -78414,7 +78435,7 @@ var ImageWithPreview = _react2.default.createClass({
                     contentClassName: 'dialog-content'
                 },
                 _react2.default.createElement('img', {
-                    className: (0, _classnames2.default)(['image-display']),
+                    className: (0, _classnames2.default)(['image-dialog']),
                     src: src ? src : 'https://c1.staticflickr.com/9/8185/29446313350_0a95598297_b.jpg'
                 })
             )

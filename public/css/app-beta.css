@@ -316,6 +316,9 @@ html [type=button] {
   max-width: 100%;
   height: auto;
 }
+.card-title span:first-child {
+  font-size: 1.25rem !important;
+}
 .fountain {
   padding: 15px;
   font-family: 'IM Fell English', serif;
@@ -535,7 +538,7 @@ html [type=button] {
     clear: both;
   }
 }
-@media screen and (min-width: 481px) and (max-width: 786px) {
+@media screen and (min-width: 481px) and (max-width: 768px) {
   .content-secondary {
     margin: 5px;
     width: 48.5% !important;
@@ -578,6 +581,15 @@ html [type=button] {
   }
   .content-secondary:nth-child(4n+1) {
     clear: both;
+  }
+}
+.dialog-body {
+  text-align: center;
+}
+@media screen and (min-width: 0px) and (max-width: 768px) {
+  .dialog-content {
+    padding: 5px;
+    width: 100% !important;
   }
 }
 .footer {
@@ -676,9 +688,31 @@ h1 {
     max-height: 768px;
   }
 }
-.image-display {
-  width: 100%;
-  height: auto;
+@media screen and (min-width: 0px) and (max-width: 786px) {
+  .image-dialog {
+    max-height: auto;
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .image-dialog {
+    max-height: 500px;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .image-dialog {
+    max-height: 540px;
+  }
+}
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .image-dialog {
+    max-height: 640px;
+  }
+}
+@media screen and (min-width: 1441px) {
+  .image-dialog {
+    max-height: 710px;
+  }
 }
 .card-display,
 .input-text,
@@ -701,11 +735,18 @@ h1 {
     width: 100% !important;
   }
 }
+.list-item-subitem {
+  margin-top: 3px;
+}
 .modal-trigger {
   cursor: zoom-in;
 }
 #mount {
   min-height: 250px;
+}
+.muted {
+  color: #818a91;
+  font-size: 1rem;
 }
 .section {
   margin: 15px 0px 15px 0px;
@@ -735,6 +776,12 @@ section.well {
 }
 .tag-info {
   background-color: #117EB3;
+}
+.tag-primary {
+  background-color: #117EB3;
+}
+.tag-secondary {
+  background-color: #A3038C;
 }
 .text-align-center {
   text-align: center;

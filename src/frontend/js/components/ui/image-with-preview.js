@@ -59,7 +59,7 @@ const ImageWithPreview = React.createClass({
                     contentClassName='dialog-content'
                     >
                     <img
-                        className={ classNames(['image-display']) }
+                        className={ classNames(['image-dialog']) }
                         src={ src ? src : 'https://c1.staticflickr.com/9/8185/29446313350_0a95598297_b.jpg' }
                     />
                 </Dialog>
