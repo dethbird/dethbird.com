@@ -13,6 +13,7 @@ import { Card } from '../ui/card'
 import { CardClickable } from '../ui/card-clickable'
 import { CardActionsButton } from '../ui/card-actions-button'
 import { CardComment } from '../ui/card-comment'
+import CardPanelRevision from '../ui/card-panel-revision'
 import { Count } from '../ui/count'
 import { Description } from '../ui/description'
 import { Fountain } from '../ui/fountain'
@@ -56,11 +57,22 @@ const Storyboard = React.createClass({
 
         const storyboardPanelNodes = storyboard.panels.map(function(panel, i) {
 
+            const panelRevisionNodes = panel.revisions.map(function(revision, rid){
+                return (
+                    <CardPanelRevision
+                        revision={ revision }
+                        link={ `/project/${project.id}/storyboard/${storyboard.id}/panel/${panel.id}/revision/${revision.id}/edit` }
+                        key={ rid }
+                        index={ rid + 1 }
+                    />
+                );
+            });
+
             const panelCommentNodes = panel.comments.map(function(comment, cid){
                 return (
                     <CardComment
                         comment={ comment }
-                        link={ `/project/${project.id}/storyboard/${storyboard.id}/panel/${panel.id}/edit` }
+                        link={ `/project/${project.id}/storyboard/${storyboard.id}/panel/${panel.id}/comment/${comment.id}/edit` }
                         key={ cid }
                     />
                 )
@@ -88,12 +100,15 @@ const Storyboard = React.createClass({
                         className='card-title'
                     />
                     <ImageWithPreview src={ src } title={ `Panel ${ i + 1 }` } />
+
                     <CardMedia>
                         <Fountain source={ panel.script} />
                         <List>
-                            <ListItem>
-                                <Count count={ panel.revisions.length } /> Revisions
-                            </ListItem>
+                            <ListItemWithPreview previewContent={ panelRevisionNodes } previewTitle={ `Panel ${ i + 1 } revisions` }>
+                                <div>
+                                    <Count count={ panel.revisions.length } /> Revisions
+                                </div>
+                            </ListItemWithPreview>
                             <ListItemWithPreview previewContent={ panelCommentNodes } previewTitle={ `Panel ${ i + 1 } comments` }>
                                 <div>
                                     <Count count={ panel.comments.length } /> Comments
