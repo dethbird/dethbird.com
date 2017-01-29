@@ -136,9 +136,9 @@ $app->notFound(function () use ($app) {
 
 # index
 $app->get("/", function () use ($app) {
-    
+
     $configs = $app->container->get('configs');
-    $securityContext = $_SESSION['securityContext'];
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
     $lastRequestUri = $_SESSION['lastRequestUri'];
 
     $templateVars = array(

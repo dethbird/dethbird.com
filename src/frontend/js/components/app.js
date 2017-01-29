@@ -24,54 +24,41 @@ const palette = {
 
 const muiTheme = getMuiTheme({
     fontFamily: 'Hind Vadodara',
-    appBar: {
-        color: palette.baseColor
-    },
-    floatingActionButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    },
-    flatButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    },
-    floatingActionButton: {
-        color: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    },
-    raisedButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    },
-    ripple: {
-        color: 'rgba(0,0,0,0.25)'
-    }
+    // appBar: {
+    //     color: palette.baseColor
+    // },
+    // floatingActionButton: {
+    //     color: palette.baseButtonColor,
+    //     primaryColor: palette.primaryColor,
+    //     secondaryColor: palette.secondaryColor
+    // },
+    // flatButton: {
+    //     color: palette.baseButtonColor,
+    //     primaryColor: palette.primaryColor,
+    //     secondaryColor: palette.secondaryColor
+    // },
+    // floatingActionButton: {
+    //     color: palette.primaryColor,
+    //     secondaryColor: palette.secondaryColor
+    // },
+    // raisedButton: {
+    //     color: palette.baseButtonColor,
+    //     primaryColor: palette.primaryColor,
+    //     secondaryColor: palette.secondaryColor
+    // },
+    // ripple: {
+    //     color: 'rgba(0,0,0,0.25)'
+    // }
 });
 
 const App = React.createClass({
 
     render: function() {
-        const AppBarIcon = (props) => (
-            <IconMenu
-                iconButtonElement={
-                  <IconButton iconStyle={{color: 'white'}}><NavigationMenu/></IconButton>
-                }
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                    <MenuItem primaryText="Logout" onTouchTap={ () => { window.location = '/logout' } }/>
-            </IconMenu>
-        );
+        
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
-                    <AppBar
-                        title="StoryStation"
-                        iconElementLeft={ <AppBarIcon /> }
-                    />
+
                     <Paper zDepth={1} className="container-fluid" style={ { textAlign: 'center', padding: '15px' } }>
                         {this.props.children}
                     </Paper>

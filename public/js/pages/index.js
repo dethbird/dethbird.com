@@ -42949,8 +42949,6 @@ arguments[4][151][0].apply(exports,arguments)
 },{"_process":518,"dup":151}],494:[function(require,module,exports){
 'use strict';
 
-var _getMuiTheme;
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -42967,9 +42965,9 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _colors = require('material-ui/styles/colors');
 
-var _getMuiTheme2 = require('material-ui/styles/getMuiTheme');
+var _getMuiTheme = require('material-ui/styles/getMuiTheme');
 
-var _getMuiTheme3 = _interopRequireDefault(_getMuiTheme2);
+var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 
 var _AppBar = require('material-ui/AppBar');
 
@@ -42999,8 +42997,6 @@ var _menu2 = _interopRequireDefault(_menu);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 (0, _reactTapEventPlugin2.default)();
 
 var palette = {
@@ -43010,64 +43006,22 @@ var palette = {
     secondaryColor: '#A3038C'
 };
 
-var muiTheme = (0, _getMuiTheme3.default)((_getMuiTheme = {
-    fontFamily: 'Hind Vadodara',
-    appBar: {
-        color: palette.baseColor
-    },
-    floatingActionButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    },
-    flatButton: {
-        color: palette.baseButtonColor,
-        primaryColor: palette.primaryColor,
-        secondaryColor: palette.secondaryColor
-    }
-}, _defineProperty(_getMuiTheme, 'floatingActionButton', {
-    color: palette.primaryColor,
-    secondaryColor: palette.secondaryColor
-}), _defineProperty(_getMuiTheme, 'raisedButton', {
-    color: palette.baseButtonColor,
-    primaryColor: palette.primaryColor,
-    secondaryColor: palette.secondaryColor
-}), _defineProperty(_getMuiTheme, 'ripple', {
-    color: 'rgba(0,0,0,0.25)'
-}), _getMuiTheme));
+var muiTheme = (0, _getMuiTheme2.default)({
+    fontFamily: 'Hind Vadodara'
+});
 
 var App = _react2.default.createClass({
     displayName: 'App',
 
 
     render: function render() {
-        var AppBarIcon = function AppBarIcon(props) {
-            return _react2.default.createElement(
-                _IconMenu2.default,
-                {
-                    iconButtonElement: _react2.default.createElement(
-                        _IconButton2.default,
-                        { iconStyle: { color: 'white' } },
-                        _react2.default.createElement(_menu2.default, null)
-                    ),
-                    targetOrigin: { horizontal: 'right', vertical: 'top' },
-                    anchorOrigin: { horizontal: 'right', vertical: 'top' }
-                },
-                _react2.default.createElement(_MenuItem2.default, { primaryText: 'Logout', onTouchTap: function onTouchTap() {
-                        window.location = '/logout';
-                    } })
-            );
-        };
+
         return _react2.default.createElement(
             _MuiThemeProvider2.default,
             { muiTheme: muiTheme },
             _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_AppBar2.default, {
-                    title: 'StoryStation',
-                    iconElementLeft: _react2.default.createElement(AppBarIcon, null)
-                }),
                 _react2.default.createElement(
                     _Paper2.default,
                     { zDepth: 1, className: 'container-fluid', style: { textAlign: 'center', padding: '15px' } },
