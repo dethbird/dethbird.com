@@ -135,8 +135,8 @@ $app->notFound(function () use ($app) {
 });
 
 # index
-$app->get("/", $authorize($app), function () use ($app) {
-
+$app->get("/", function () use ($app) {
+    
     $configs = $app->container->get('configs');
     $securityContext = $_SESSION['securityContext'];
     $lastRequestUri = $_SESSION['lastRequestUri'];
