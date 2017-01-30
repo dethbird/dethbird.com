@@ -1,7 +1,7 @@
 import {
-    GET_PROJECTS_REQUEST,
-    GET_PROJECTS_ERROR,
-    GET_PROJECTS_SUCCESS,
+    GET_CONTENT_ARTICLES_REQUEST,
+    GET_CONTENT_ARTICLES_ERROR,
+    GET_CONTENT_ARTICLES_SUCCESS,
 } from '../constants/actions';
 import {
     UI_STATE_REQUESTING,
@@ -10,25 +10,25 @@ import {
 } from '../constants/ui-state';
 
 
-const projects = (state = {}, action) => {
+const contentArticles = (state = {}, action) => {
 
     switch (action.type) {
-        case GET_PROJECTS_REQUEST:
+        case GET_CONTENT_ARTICLES_REQUEST:
             return {
                 ui_state: UI_STATE_REQUESTING
             }
-        case GET_PROJECTS_ERROR:
+        case GET_CONTENT_ARTICLES_ERROR:
             return {
                 ui_state: UI_STATE_ERROR
             }
-        case GET_PROJECTS_SUCCESS:
+        case GET_CONTENT_ARTICLES_SUCCESS:
             return {
                 ui_state: UI_STATE_COMPLETE,
-                projects: action.projects
+                articles: action.articles
             }
         default:
             return state;
     }
 }
 
-export default projects;
+export default contentArticles;

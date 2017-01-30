@@ -13,11 +13,11 @@ const Card = React.createClass({
         const { className, children } = this.props;
 
         return (
-            <MaterialCard className={ classNames([className, 'card']) }>
+            <MaterialCard className={ classNames([className]) }>
                 { children }
             </MaterialCard>
         );
     }
 })
 
-module.exports.Card = Card
+export default Card;

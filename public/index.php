@@ -113,9 +113,9 @@ $authorizeByHeaders = function ($app) {
 
         # check cookie for securityContext
         if (!isset($_SESSION['securityContext'])) {
-            $apiKey = $app->request->headers->get('Api-Key');
+            $apiKey = $app->request->headers->get('X-Api-Key');
             if ($apiKey == "") {
-                $app->halt(400);
+                $app->halt(400, "Invalid key");
             } else {
 
                 $user = User::find_by_api_key($apiKey);
@@ -155,7 +155,7 @@ $app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
-    $lastRequestUri = $_SESSION['lastRequestUri'];
+    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
 
     $templateVars = array(
         "configs" => $configs,

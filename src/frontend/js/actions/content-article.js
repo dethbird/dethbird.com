@@ -1,15 +1,15 @@
 import request from 'superagent';
 import {
-    GET_SCRIPT_REQUEST,
-    GET_SCRIPT_ERROR,
-    GET_SCRIPT_SUCCESS,
-    POST_SCRIPT_REQUEST,
-    POST_SCRIPT_ERROR,
-    POST_SCRIPT_SUCCESS,
-    PUT_SCRIPT_REQUEST,
-    PUT_SCRIPT_ERROR,
-    PUT_SCRIPT_SUCCESS,
-    RESET_SCRIPT,
+    GET_CONTENT_ARTICLE_REQUEST,
+    GET_CONTENT_ARTICLE_ERROR,
+    GET_CONTENT_ARTICLE_SUCCESS,
+    POST_CONTENT_ARTICLE_REQUEST,
+    POST_CONTENT_ARTICLE_ERROR,
+    POST_CONTENT_ARTICLE_SUCCESS,
+    PUT_CONTENT_ARTICLE_REQUEST,
+    PUT_CONTENT_ARTICLE_ERROR,
+    PUT_CONTENT_ARTICLE_SUCCESS,
+    RESET_CONTENT_ARTICLE,
 } from '../constants/actions';
 import {
     FORM_MODE_ADD,
@@ -17,31 +17,31 @@ import {
 } from '../constants/form';
 
 /** GET */
-const getScriptInit = () => {
+const getContentArticleInit = () => {
     return {
-        type: GET_SCRIPT_REQUEST
+        type: GET_CONTENT_ARTICLE_REQUEST
     }
 }
 
-const getScriptSuccess = (project, script, form_mode) => {
+const getContentArticleSuccess = (project, script, form_mode) => {
     return {
-        type: GET_SCRIPT_SUCCESS,
+        type: GET_CONTENT_ARTICLE_SUCCESS,
         form_mode,
         project,
         script
     }
 }
 
-const getScriptError = () => {
+const getContentArticleError = () => {
     return {
-        type: GET_SCRIPT_SUCCESS,
+        type: GET_CONTENT_ARTICLE_SUCCESS,
         form_mode: FORM_MODE_ADD
     }
 }
 
-export const getScript = (projectId, scriptId) =>
+export const getContentArticle = (projectId, scriptId) =>
     dispatch => {
-        dispatch(getScriptInit());
+        dispatch(getContentArticleInit());
         request.get(`/api/project/${projectId}`)
             .then((res) => {
                 const project = res.body;
@@ -49,36 +49,36 @@ export const getScript = (projectId, scriptId) =>
                     'id': parseInt(scriptId)
                 });
                 const form_mode = script ? FORM_MODE_EDIT : FORM_MODE_ADD;
-                dispatch(getScriptSuccess(project, script, form_mode));
+                dispatch(getContentArticleSuccess(project, script, form_mode));
             })
             .catch((error) => {
                 console.log(error);
-                dispatch(getScriptError())
+                dispatch(getContentArticleError())
             });
     };
 
 /** POST */
-const postScriptInit = ( project, script ) => {
+const postContentArticleInit = ( project, script ) => {
     return {
-        type: POST_SCRIPT_REQUEST,
+        type: POST_CONTENT_ARTICLE_REQUEST,
         form_mode: FORM_MODE_ADD,
         project,
         script
     }
 }
 
-const postScriptSuccess = (project, script) => {
+const postContentArticleSuccess = (project, script) => {
     return {
-        type: POST_SCRIPT_SUCCESS,
+        type: POST_CONTENT_ARTICLE_SUCCESS,
         form_mode: FORM_MODE_EDIT,
         project,
         script
     }
 }
 
-const postScriptError = (project, script, errors) => {
+const postContentArticleError = (project, script, errors) => {
     return {
-        type: POST_SCRIPT_ERROR,
+        type: POST_CONTENT_ARTICLE_ERROR,
         errors,
         form_mode: FORM_MODE_ADD,
         project,
@@ -86,43 +86,43 @@ const postScriptError = (project, script, errors) => {
     }
 }
 
-export const postScript = (project, fields) =>
+export const postContentArticle = (project, fields) =>
     dispatch => {
-        dispatch(postScriptInit());
+        dispatch(postContentArticleInit());
         request.post('/api/project_script')
             .send( { ...fields, project_id: project.id } )
             .end((err, res) => {
                 if(res.ok) {
                     const script = res.body;
-                    dispatch(postScriptSuccess(project, script));
+                    dispatch(postContentArticleSuccess(project, script));
                 }
                 if(!res.ok)
-                    dispatch(postScriptError(project, fields, res.body))
+                    dispatch(postContentArticleError(project, fields, res.body))
             });
     };
 
  /** PUT */
-const putScriptInit = ( project, script ) => {
+const putContentArticleInit = ( project, script ) => {
     return {
-        type: PUT_SCRIPT_REQUEST,
+        type: PUT_CONTENT_ARTICLE_REQUEST,
         form_mode: FORM_MODE_EDIT,
         project,
         script
     }
 }
 
-const putScriptSuccess = (project, script) => {
+const putContentArticleSuccess = (project, script) => {
     return {
-        type: PUT_SCRIPT_SUCCESS,
+        type: PUT_CONTENT_ARTICLE_SUCCESS,
         form_mode: FORM_MODE_EDIT,
         project,
         script
     }
 }
 
-const putScriptError = (project, script, errors) => {
+const putContentArticleError = (project, script, errors) => {
     return {
-        type: PUT_SCRIPT_ERROR,
+        type: PUT_CONTENT_ARTICLE_ERROR,
         form_mode: FORM_MODE_EDIT,
         errors,
         project,
@@ -130,26 +130,26 @@ const putScriptError = (project, script, errors) => {
     }
 }
 
-export const putScript = (project, script, fields) =>
+export const putContentArticle = (project, script, fields) =>
     dispatch => {
-        dispatch(putScriptInit());
+        dispatch(putContentArticleInit());
         request.put('/api/project_script/' + script.id)
             .send(fields)
             .end((err, res) => {
                 if(res.ok) {
                     const r = res.body;
-                    dispatch(putScriptSuccess(r));
+                    dispatch(putContentArticleSuccess(r));
                 }
 
                 if(!res.ok)
-                    dispatch(putScriptError(project, {...fields, id: script.id }, res.body))
+                    dispatch(putContentArticleError(project, {...fields, id: script.id }, res.body))
             });
     };
 
 /** RESET */
-export const resetScript = (project, script, form_mode) => {
+export const resetContentArticle = (project, script, form_mode) => {
     return {
-        type: RESET_SCRIPT,
+        type: RESET_CONTENT_ARTICLE,
         form_mode,
         project,
         script
