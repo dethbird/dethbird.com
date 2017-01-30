@@ -23,7 +23,7 @@ class ContentArticle extends ActiveRecord\Model
         if ($model->user_id) {
             $user = User::find_by_id($model->user_id);
             $model->user = json_decode($user->to_json([
-                'except' => ['api_key', 'password', 'email', 'notifications']
+                'except' => ['api_key', 'password', 'email', 'read', 'write']
             ]));
         }
         return json_encode($model);

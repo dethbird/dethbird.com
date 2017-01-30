@@ -71,9 +71,22 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
     $app->group('/content', function () use ($app) {
 
-        # update comment
-        $app->post('/article', function () use ($app) {
+        global $writeAccess;
 
+        # get articles
+        $app->get('/articles', function () use ($app) {
+            $articles = ContentArticle::find('all', array('order' => 'date_published desc'));
+            $_response = [];
+            foreach($articles as $article) {
+                $_response[] = json_decode($article->to_json());
+            }
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode($_response));
+        });
+
+        # upsert article
+        $app->post('/article', $writeAccess($app), function () use ($app) {
             $configs = $app->container->get('configs');
             $securityContext = $_SESSION['securityContext'];
             $payload = json_decode($app->request->getBody(), true);
@@ -95,8 +108,8 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $model->author = $article->author;
             $model->lead_image_url = $article->lead_image_url;
             $model->date_published = $article->date_published;
-            $model->excerpt = $client->cleanData($article->excerpt);
-            $model->content = $client->cleanData($article->content);
+            $model->excerpt = $article->excerpt;
+            $model->content = $article->content;
             $model->word_count = $article->word_count;
             $model->domain = $article->domain;
             $model->save();

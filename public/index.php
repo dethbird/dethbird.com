@@ -130,6 +130,21 @@ $authorizeByHeaders = function ($app) {
     };
 };
 
+# authorize the user by header auth token
+$writeAccess = function ($app) {
+
+    return function () use ($app) {
+        # check cookie for securityContext
+        if (isset($_SESSION['securityContext'])) {
+
+            $user = $_SESSION['securityContext'];
+            if (!$user->write) {
+                $app->halt(403);
+            }
+        }
+    };
+};
+
 $app->notFound(function () use ($app) {
     $_SESSION['lastRequestUri'] = $_SERVER['REQUEST_URI'];
     $app->redirect("/");
