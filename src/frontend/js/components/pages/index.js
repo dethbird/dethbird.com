@@ -1,18 +1,9 @@
 import React from 'react';
 import { browserHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
-// import {CardActions, CardHeader, CardText, CardTitle} from 'material-ui/Card';
 
 import AppHeader from '../layout/app-header';
 import ContentArticleCard from '../layout/card/content-article-card';
-// import { Card } from '../ui/card'
-// import { CardBlock } from '../ui/card-block'
-// import { Description } from '../ui/description'
-// import { FountainFull } from '../ui/fountain-full'
-// import { Image } from "../ui/image"
-// import { HeaderPage } from "../ui/header-page"
-// import { HeaderPageButton } from "../ui/header-page-button"
-// import { SectionHeader } from '../ui/section-header'
 import UiState from '../ui/ui-state'
 
 import {
@@ -37,7 +28,7 @@ const Index = React.createClass({
         } else {
             articleNodes =  articles.map(function(article) {
                 return (
-                    <div className="column is-one-fourth" key={ article.id }>
+                    <div className="column is-one-quarter" key={ article.id }>
                         <ContentArticleCard article={ article } />
                     </div>
                 );
@@ -50,7 +41,7 @@ const Index = React.createClass({
                     <AppHeader title="Lameness Reduction Party"/>
                 </div>
                 <div className="app-body">
-                    <div className="columns">
+                    <div className="columns" ref="articleContainer">
                         { articleNodes }
                     </div>
                 </div>

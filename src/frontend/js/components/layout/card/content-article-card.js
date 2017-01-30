@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import React from 'react'
+import moment from 'moment';
+
 
 const ContentArticleCard = React.createClass({
 
@@ -12,11 +14,11 @@ const ContentArticleCard = React.createClass({
         const { article, className } = this.props;
 
         return (
-            <div className={ classNames([className, 'card']) }>
+            <div className={ classNames([className, 'card']) } key={ article.id }>
                 <header className="card-header">
-                    <p className="card-header-title">
+                    <h5 className="card-header-title">
                         { article.title }
-                    </p>
+                    </h5>
                 </header>
                 <div className="card-image">
                     <figure className="image">
@@ -25,7 +27,16 @@ const ContentArticleCard = React.createClass({
                 </div>
                 <div className="card-content">
                     <div className="content">{ article.excerpt }</div>
-                    <div className="content has-text-right"><small>{ article.date_published }</small></div>
+                    <div className="content is-clearfix">
+                        <span className="is-pulled-left">
+                            <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
+                            <br />
+                            { article.author ? `by ${article.author}` : null }
+                        </span>
+                        <span className="is-pulled-right">
+                            <a className="button is-primary" href={ article.url } target="_blank">{ article.domain }</a>
+                        </span>
+                    </div>
                 </div>
             </div>
         );
