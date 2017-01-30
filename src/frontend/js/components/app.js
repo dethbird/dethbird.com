@@ -54,15 +54,10 @@ const muiTheme = getMuiTheme({
 const App = React.createClass({
 
     render: function() {
-        
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                <div>
-
-                    <Paper zDepth={1} className="container-fluid" style={ { textAlign: 'center', padding: '15px' } }>
-                        {this.props.children}
-                    </Paper>
-                </div>
+                {this.props.children}
             </MuiThemeProvider>
         );
     }

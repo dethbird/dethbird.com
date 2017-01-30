@@ -18,11 +18,12 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require '../vendor/autoload.php';
 require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/FlickrData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/GoogleData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/VimeoData.php';
+// require_once APPLICATION_PATH . 'src/library/ExternalData/FlickrData.php';
+// require_once APPLICATION_PATH . 'src/library/ExternalData/GoogleData.php';
+// require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/MercuryPostlightData.php';
+// require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
+// require_once APPLICATION_PATH . 'src/library/ExternalData/VimeoData.php';
 require_once APPLICATION_PATH . 'src/library/Data/Base.php';
 require_once APPLICATION_PATH . 'src/library/Logic/Projects.php';
 require_once APPLICATION_PATH . 'src/library/Logic/Scripts.php';
@@ -112,12 +113,12 @@ $authorizeByHeaders = function ($app) {
 
         # check cookie for securityContext
         if (!isset($_SESSION['securityContext'])) {
-            $authToken = $app->request->headers->get('Auth-Token');
-            if ($authToken == "") {
+            $apiKey = $app->request->headers->get('Api-Key');
+            if ($apiKey == "") {
                 $app->halt(400);
             } else {
 
-                $user = User::find_by_auth_token($authToken);
+                $user = User::find_by_api_key($apiKey);
 
                 if(!$user) {
                     $app->halt(404);

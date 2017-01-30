@@ -2,7 +2,7 @@
 
 class User extends ActiveRecord\Model
 {
-    static $table_name = 'users';
+    static $table_name = 'user';
 
     static $before_create = array('before_create_audit');
     static $before_save = array('before_save_audit');

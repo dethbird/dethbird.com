@@ -1,14 +1,26 @@
 @import (less) '../../../node_modules/react-datepicker/dist/react-datepicker.css';
+@import (less) '../../../node_modules/less-prefixer/prefixer.less';
 
-@baseBlue: #27213C;
-@lighterBlue: @baseBlue + #020222;
-@darkerBlue: @baseBlue - #010111;
-@darkestBlue: #0D47A1;
+@base: #F0F0F0;
 
 @info: #117EB3;
 @primary: #117EB3;
 @secondary: #A3038C;
 @muted: #818a91;
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 1080px;
+    padding: 25px;
+}
+// div[class^="app-"] {
+//     flex: 1 1 auto;
+// }
+.app-header {
+    flex-shrink: 2;
+}
 
 blockquote {
     padding: 15px;
@@ -16,7 +28,7 @@ blockquote {
 
 body {
   font-family: 'Hind Vadodara', sans-serif;
-  background-color: @darkerBlue;
+  background-color: @base;
 }
 
 button {
@@ -296,7 +308,6 @@ button {
 
 .footer {
     padding: 15px;
-    background-color: @darkestBlue;
     margin-bottom: 10px;
     border-radius: 10px;
 }
@@ -421,7 +432,10 @@ h1 {
 #mount {
     min-height: 250px;
 }
-
+.mount-point {
+    display: flex;
+    flex-direction: row;
+}
 .muted {
     color: @muted;
     font-size: 1rem;
@@ -446,12 +460,10 @@ h1 {
 }
 
 .security-context {
-    color: @lighterBlue;
 }
 
 section.well {
     padding: 10px;
-    background-color: @darkerBlue;
     margin-bottom: 10px;
     clear: both;
 }

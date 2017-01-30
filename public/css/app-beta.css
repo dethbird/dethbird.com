@@ -289,12 +289,22 @@
 .react-datepicker__tether-element {
   z-index: 2147483647;
 }
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 1080px;
+  padding: 25px;
+}
+.app-header {
+  flex-shrink: 2;
+}
 blockquote {
   padding: 15px;
 }
 body {
   font-family: 'Hind Vadodara', sans-serif;
-  background-color: #26202b;
+  background-color: #F0F0F0;
 }
 button {
   margin: 12px;
@@ -600,7 +610,6 @@ html [type=button] {
 }
 .footer {
   padding: 15px;
-  background-color: #0D47A1;
   margin-bottom: 10px;
   border-radius: 10px;
 }
@@ -750,6 +759,10 @@ h1 {
 #mount {
   min-height: 250px;
 }
+.mount-point {
+  display: flex;
+  flex-direction: row;
+}
 .muted {
   color: #818a91;
   font-size: 1rem;
@@ -771,12 +784,8 @@ h1 {
 .section-header {
   font-size: 1.4rem;
 }
-.security-context {
-  color: #29235e;
-}
 section.well {
   padding: 10px;
-  background-color: #26202b;
   margin-bottom: 10px;
   clear: both;
 }
