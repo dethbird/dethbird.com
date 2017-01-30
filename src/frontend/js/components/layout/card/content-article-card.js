@@ -10,7 +10,7 @@ const ContentArticleCard = React.createClass({
 
     render: function() {
         const { article, className } = this.props;
-        console.log(article);
+
         return (
             <div className={ classNames([className, 'card']) }>
                 <header className="card-header">

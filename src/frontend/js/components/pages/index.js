@@ -37,7 +37,7 @@ const Index = React.createClass({
         } else {
             articleNodes =  articles.map(function(article) {
                 return (
-                    <div className="column is-one-third" key={ article.id }>
+                    <div className="column is-one-fourth" key={ article.id }>
                         <ContentArticleCard article={ article } />
                     </div>
                 );
