@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React from 'react'
 import moment from 'moment';
 
-
 const ContentArticleCard = React.createClass({
 
     propTypes: {
@@ -12,9 +11,8 @@ const ContentArticleCard = React.createClass({
 
     render: function() {
         const { article, className } = this.props;
-
         return (
-            <div className={ classNames([className, 'card']) } key={ article.id }>
+            <div className={ classNames([className, 'card']) } >
                 <header className="card-header">
                     <h5 className="card-header-title">
                         { article.title }

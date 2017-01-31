@@ -1,11 +1,9 @@
 {
   "dependencies": {
     "browserify": "12.*",
-    "bulma": "^0.3.1",
     "classnames": "^2.2.5",
     "fountain-js": "0.0.1",
     "gsap": "^1.19.1",
-    "jquery": "^2.2.4",
     "material-ui": "^0.16.7",
     "moment": "^2.15.0",
     "packery": "~2.1.1",
@@ -14,6 +12,7 @@
     "react-dom": "^15.3.1",
     "react-markdown": "^2.4.2",
     "react-modal": "^1.4.0",
+    "react-motion": "^0.4.7",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",
     "react-sortable-component": "^1.0.0",
