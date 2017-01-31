@@ -52429,7 +52429,7 @@ var Index = _react2.default.createClass({
         } else {
 
             var defaultStyles = articles.map(function (article, i) {
-                return { x: 1.3 };
+                return { x: 1.3, s: 0 };
             });
 
             articleNodes = _react2.default.createElement(
@@ -52438,7 +52438,7 @@ var Index = _react2.default.createClass({
                     defaultStyles: defaultStyles,
                     styles: function styles(prevInterpolatedStyles) {
                         return prevInterpolatedStyles.map(function (_, i) {
-                            return i === 0 ? { x: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 12 }) } : { x: (0, _reactMotion.spring)(prevInterpolatedStyles[i - 1].x, { stiffness: 200, damping: 12 }) };
+                            return i === 0 ? { x: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 12 }), s: (0, _reactMotion.spring)(1) } : { x: (0, _reactMotion.spring)(prevInterpolatedStyles[i - 1].x, { stiffness: 200, damping: 12 }), s: (0, _reactMotion.spring)(prevInterpolatedStyles[i - 1].s) };
                         });
                     }
                 },
@@ -52449,7 +52449,7 @@ var Index = _react2.default.createClass({
                         interpolatingStyles.map(function (style, i) {
                             return _react2.default.createElement(
                                 'div',
-                                { key: articles[i].id, style: { transform: 'scale(' + style.x + ')' }, className: 'column is-one-quarter' },
+                                { key: articles[i].id, style: { transform: 'scale(' + style.x + ')', opacity: style.s }, className: 'column is-one-quarter' },
                                 _react2.default.createElement(_contentArticleCard2.default, { article: articles[i] })
                             );
                         })
