@@ -3,7 +3,7 @@ import { browserHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
 import { StaggeredMotion, presets, spring } from 'react-motion';
 
-import AppHeader from '../layout/app-header';
+// import AppHeader from '../layout/app-header';
 import ContentArticleCard from '../layout/card/content-article-card';
 import UiState from '../ui/ui-state'
 
@@ -21,7 +21,6 @@ const Index = React.createClass({
     },
     render() {
         const { ui_state, articles } = this.props;
-
 
         let articleNodes;
         if(!articles) {
@@ -53,27 +52,9 @@ const Index = React.createClass({
                     }
                 </StaggeredMotion>
             );
-
-            const oldarticleNodes =  articles.map(function(article, i) {
-                return (
-                    <div className="column is-one-quarter" key={ article.id }>
-                        <ContentArticleCard article={ article } />
-                    </div>
-                );
-            });
         }
 
-        return (
-            <div className="app">
-                <div className="app-header">
-                    <AppHeader title="Lameness Reduction Party"/>
-                </div>
-                <div className="app-body">
-                    { articleNodes }
-                </div>
-                <div className="app-footer">footer</div>
-            </div>
-        );
+        return articleNodes;
     }
 })
 

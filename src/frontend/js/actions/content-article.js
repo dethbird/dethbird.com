@@ -58,100 +58,94 @@ export const getContentArticle = (projectId, scriptId) =>
     };
 
 /** POST */
-const postContentArticleInit = ( project, script ) => {
+const postContentArticleInit = ( article ) => {
     return {
         type: POST_CONTENT_ARTICLE_REQUEST,
         form_mode: FORM_MODE_ADD,
-        project,
-        script
+        article
     }
 }
 
-const postContentArticleSuccess = (project, script) => {
+const postContentArticleSuccess = (article) => {
     return {
         type: POST_CONTENT_ARTICLE_SUCCESS,
         form_mode: FORM_MODE_EDIT,
-        project,
-        script
+        article
     }
 }
 
-const postContentArticleError = (project, script, errors) => {
+const postContentArticleError = (article, errors) => {
     return {
         type: POST_CONTENT_ARTICLE_ERROR,
         errors,
         form_mode: FORM_MODE_ADD,
-        project,
-        script,
+        article
     }
 }
 
-export const postContentArticle = (project, fields) =>
+export const postContentArticle = (fields) =>
     dispatch => {
         dispatch(postContentArticleInit());
-        request.post('/api/project_script')
-            .send( { ...fields, project_id: project.id } )
-            .end((err, res) => {
+        request.post('/api/content/article')
+            .set('X-Api-Key', fields.xApiKey)
+            .send( { url: fields.url } )
+            .end(function(err, res){
                 if(res.ok) {
-                    const script = res.body;
-                    dispatch(postContentArticleSuccess(project, script));
+                    dispatch(postContentArticleSuccess({... res.body, xApiKey: fields.xApiKey }));
+                } else {
+                    dispatch(postContentArticleError(fields, res.body))
                 }
-                if(!res.ok)
-                    dispatch(postContentArticleError(project, fields, res.body))
-            });
+        });
     };
 
  /** PUT */
-const putContentArticleInit = ( project, script ) => {
+const putContentArticleInit = ( article ) => {
     return {
         type: PUT_CONTENT_ARTICLE_REQUEST,
         form_mode: FORM_MODE_EDIT,
-        project,
-        script
+        article
     }
 }
 
-const putContentArticleSuccess = (project, script) => {
+const putContentArticleSuccess = ( article ) => {
     return {
         type: PUT_CONTENT_ARTICLE_SUCCESS,
         form_mode: FORM_MODE_EDIT,
-        project,
-        script
+        article
     }
 }
 
-const putContentArticleError = (project, script, errors) => {
+const putContentArticleError = (article, errors) => {
     return {
         type: PUT_CONTENT_ARTICLE_ERROR,
         form_mode: FORM_MODE_EDIT,
         errors,
-        project,
-        script
+        article
     }
 }
 
-export const putContentArticle = (project, script, fields) =>
+export const putContentArticle = (article, fields) =>
     dispatch => {
         dispatch(putContentArticleInit());
-        request.put('/api/project_script/' + script.id)
-            .send(fields)
+        request.put('/api/content/article/' + article.id)
+            .set('X-Api-Key', fields.xApiKey)
+            .send( { notes: fields.notes } )
             .end((err, res) => {
+                console.log(res);
                 if(res.ok) {
-                    const r = res.body;
-                    dispatch(putContentArticleSuccess(r));
+                    dispatch(putContentArticleSuccess(res.body));
                 }
 
                 if(!res.ok)
-                    dispatch(putContentArticleError(project, {...fields, id: script.id }, res.body))
+                    dispatch(putContentArticleError( { ...article, ...fields }, res.body))
             });
     };
 
 /** RESET */
-export const resetContentArticle = (project, script, form_mode) => {
+export const resetContentArticle = (article, form_mode) => {
     return {
         type: RESET_CONTENT_ARTICLE,
         form_mode,
-        project,
-        script
+        article
     }
 }

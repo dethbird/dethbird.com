@@ -13,6 +13,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
+import AppHeader from './layout/app-header';
+
 injectTapEventPlugin();
 
 const palette = {
@@ -57,7 +59,15 @@ const App = React.createClass({
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                {this.props.children}
+                <div className="app">
+                    <div className="app-header">
+                        <AppHeader title="Lameness Reduction Party"/>
+                    </div>
+                    <div className="app-body">
+                        {this.props.children}
+                    </div>
+                    <div className="app-footer">footer</div>
+                </div>
             </MuiThemeProvider>
         );
     }

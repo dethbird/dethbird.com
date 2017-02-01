@@ -4,12 +4,10 @@ import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames';
 
 const Description = React.createClass({
-
     propTypes: {
         source: React.PropTypes.string,
         className: React.PropTypes.string
     },
-
     render: function() {
         const { source, className } = this.props;
 
@@ -25,4 +23,4 @@ const Description = React.createClass({
     }
 })
 
-module.exports.Description = Description
+export default Description;

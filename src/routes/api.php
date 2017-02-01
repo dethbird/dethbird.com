@@ -94,7 +94,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $client = new MercuryPostlightData($configs['service']['mercury_postlight']['key']);
             $article = $client->getArticle($payload['url']);
             if(isset($article->error)) {
-                $app->halt(400, 'Invalid url');
+                $app->halt(400, json_encode(['url' => 'Invalid url']));
             }
 
             // fetch model if exists
@@ -112,6 +112,26 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $model->content = $article->content;
             $model->word_count = $article->word_count;
             $model->domain = $article->domain;
+            $model->save();
+
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody($model->to_json());
+
+        });
+
+        # update article
+        $app->put('/article/:articleId', $writeAccess($app), function ($articleId) use ($app) {
+            $configs = $app->container->get('configs');
+            $securityContext = $_SESSION['securityContext'];
+            $payload = json_decode($app->request->getBody(), true);
+
+            // fetch model if exists
+            $model = ContentArticle::find_by_id($articleId);
+            if (!$model) {
+                $app->halt(400, json_encode(['article_id' => 'Article not found']));
+            }
+            $model->notes = $payload['notes'];
             $model->save();
 
             $app->response->setStatus(200);

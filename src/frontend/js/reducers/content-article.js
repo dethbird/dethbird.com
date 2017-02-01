@@ -22,7 +22,6 @@ import {
 
 
 const contentArticle = (state = {}, action) => {
-
     switch (action.type) {
         case GET_CONTENT_ARTICLE_REQUEST:
         case POST_CONTENT_ARTICLE_REQUEST:

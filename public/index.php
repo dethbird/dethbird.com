@@ -112,19 +112,17 @@ $authorizeByHeaders = function ($app) {
     return function () use ($app) {
 
         # check cookie for securityContext
-        if (!isset($_SESSION['securityContext'])) {
-            $apiKey = $app->request->headers->get('X-Api-Key');
-            if ($apiKey == "") {
-                $app->halt(400, "Invalid key");
+        $apiKey = $app->request->headers->get('X-Api-Key');
+        if ($apiKey == "") {
+            $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key']));
+        } else {
+
+            $user = User::find_by_api_key($apiKey);
+
+            if(!$user) {
+                $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key']));
             } else {
-
-                $user = User::find_by_api_key($apiKey);
-
-                if(!$user) {
-                    $app->halt(404);
-                } else {
-                    $_SESSION['securityContext'] = json_decode($user->to_json());
-                }
+                $_SESSION['securityContext'] = json_decode($user->to_json());
             }
         }
     };
