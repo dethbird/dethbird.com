@@ -27,7 +27,7 @@ const getContentArticlesError = () => {
 export const getContentArticles = () =>
     dispatch => {
         dispatch(getContentArticlesInit());
-        request.get('/api/content/articles').set('X-Api-Key', applicationApiKey)
+        request.get('/api/content/articles')
             .end(function(err, res){
                 dispatch(getContentArticlesSuccess(res.body));
             });

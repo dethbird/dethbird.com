@@ -90,19 +90,18 @@ $authorize = function ($app) {
 
     return function () use ($app) {
 
+        $configs = $app->container->get('configs');
+
+        # if no user session, set to default user: application
+        if(!isset( $_SESSION['securityContext'])) {
+            $user = User::find_by_api_key($configs['application']['api_key']);
+            $_SESSION['securityContext'] = json_decode($user->to_json([
+                'except' => ['api_key', 'password', 'email']
+            ]));
+        }
+
         # store current path in session for smart login
         $_SESSION['redirectTo'] = $app->request->getPathInfo();
-
-        # check cookie for securityContext
-        if(!isset( $_SESSION['securityContext'])) {
-            $app->redirect("/login");
-        }
-        $securityContext = $_SESSION['securityContext'];
-
-        if (!isset($securityContext->username)) {
-            $app->redirect("/login");
-        }
-
     };
 };
 
@@ -114,15 +113,18 @@ $authorizeByHeaders = function ($app) {
         # check cookie for securityContext
         $apiKey = $app->request->headers->get('X-Api-Key');
         if ($apiKey == "") {
-            $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key']));
+            if (!isset($_SESSION['securityContext'])) {
+                $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
+            }
         } else {
-
             $user = User::find_by_api_key($apiKey);
 
             if(!$user) {
-                $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key']));
+                $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
             } else {
-                $_SESSION['securityContext'] = json_decode($user->to_json());
+                $_SESSION['securityContext'] = json_decode($user->to_json([
+                    'except' => ['api_key', 'password', 'email']
+                ]));
             }
         }
     };
@@ -149,7 +151,7 @@ $app->notFound(function () use ($app) {
 });
 
 # index
-$app->get("/", function () use ($app) {
+$app->get("/", $authorize($app), function () use ($app) {
 
     $configs = $app->container->get('configs');
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;

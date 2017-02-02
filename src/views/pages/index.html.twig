@@ -14,6 +14,7 @@
   <script type="text/javascript">
     var lastRequestUri = "{{lastRequestUri}}";
     var applicationApiKey = "{{configs.application.api_key}}";
+    var securityContext = {{securityContext|json_encode|raw}};
   </script>
   <script type="text/javascript" src="/js/pages/index.js"></script>
 {% endblock %}
