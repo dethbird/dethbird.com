@@ -131,7 +131,6 @@ export const putContentArticle = (article, fields) =>
             .set('X-Api-Key', fields.xApiKey)
             .send( { notes: fields.notes } )
             .end((err, res) => {
-                console.log(res);
                 if(res.ok) {
                     dispatch(putContentArticleSuccess(res.body));
                 }

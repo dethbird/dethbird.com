@@ -54,7 +54,7 @@ const Submit = React.createClass({
         this.setState( {
             changedFields: newChangedFields
         });
-        dispatch(resetContentArticle( article, form_mode ));
+        dispatch(resetContentArticle( article ? { ... article, ... changedFields } : null, form_mode ));
     },
     handleClickSubmit(event) {
         event.preventDefault();
@@ -109,9 +109,6 @@ const Submit = React.createClass({
                                 value={ changedFields.notes || '' }
                                 onChange= { this.handleFieldChange }
                             />
-                            <div className="box">
-                                <Description source={ changedFields.notes || '' } />
-                            </div>
                             <div className="is-pulled-right">
                                 <a
                                     className="button is-primary"

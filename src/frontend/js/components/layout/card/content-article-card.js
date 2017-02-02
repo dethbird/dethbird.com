@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React from 'react'
 import moment from 'moment';
 
+import Description from '../../ui/description';
+
 const ContentArticleCard = React.createClass({
 
     propTypes: {
@@ -35,6 +37,9 @@ const ContentArticleCard = React.createClass({
                             <a className="button is-primary" href={ article.url } target="_blank">{ article.domain }</a>
                         </span>
                     </div>
+                </div>
+                <div className="card-content">
+                    <div className="content box"><Description source={ article.notes } /></div>
                 </div>
             </div>
         );

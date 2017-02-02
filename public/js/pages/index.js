@@ -59289,6 +59289,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _description = require('../../ui/description');
+
+var _description2 = _interopRequireDefault(_description);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ContentArticleCard = _react2.default.createClass({
@@ -59358,6 +59362,15 @@ var ContentArticleCard = _react2.default.createClass({
                         )
                     )
                 )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'card-content' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'content box' },
+                    _react2.default.createElement(_description2.default, { source: article.notes })
+                )
             )
         );
     }
@@ -59365,7 +59378,7 @@ var ContentArticleCard = _react2.default.createClass({
 
 exports.default = ContentArticleCard;
 
-},{"classnames":23,"moment":302,"react":533}],570:[function(require,module,exports){
+},{"../../ui/description":572,"classnames":23,"moment":302,"react":533}],570:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59470,6 +59483,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -59542,7 +59557,7 @@ var Submit = _react2.default.createClass({
         this.setState({
             changedFields: newChangedFields
         });
-        dispatch((0, _contentArticle.resetContentArticle)(article, form_mode));
+        dispatch((0, _contentArticle.resetContentArticle)(article ? _extends({}, article, changedFields) : null, form_mode));
     },
     handleClickSubmit: function handleClickSubmit(event) {
         event.preventDefault();
@@ -59613,11 +59628,6 @@ var Submit = _react2.default.createClass({
                             value: changedFields.notes || '',
                             onChange: this.handleFieldChange
                         }),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'box' },
-                            _react2.default.createElement(_description2.default, { source: changedFields.notes || '' })
-                        ),
                         _react2.default.createElement(
                             'div',
                             { className: 'is-pulled-right' },
