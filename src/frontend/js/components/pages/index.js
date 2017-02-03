@@ -43,7 +43,7 @@ const Index = React.createClass({
                             { interpolatingStyles.map((style, i) => {
                                     return (
                                         <div key={ articles[i].id } style={ { transform: `scale(${ style.x })`, opacity: style.s } }  className="column is-one-quarter" >
-                                            <ContentArticleCard article={ articles[i] } />
+                                            <ContentArticleCard article={ articles[i] } securityContext={ securityContext } renderNav={ true } />
                                         </div>
                                     );
                                 }

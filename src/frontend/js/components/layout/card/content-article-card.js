@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react'
 import moment from 'moment';
+import { browserHistory } from 'react-router';
 
 import Description from '../../ui/description';
 
@@ -8,7 +9,14 @@ const ContentArticleCard = React.createClass({
 
     propTypes: {
         className: React.PropTypes.string,
-        article: React.PropTypes.object.isRequired
+        article: React.PropTypes.object.isRequired,
+        securityContext: React.PropTypes.object.isRequired,
+        renderNav: React.PropTypes.bool
+    },
+    getDefaultProps: function() {
+        return {
+            renderNav: false
+        }
     },
     renderNotes: function() {
         const { article } = this.props;
@@ -19,6 +27,23 @@ const ContentArticleCard = React.createClass({
         return (
             <div className="card-content">
                 <div className="content box"><Description source={ article.notes } className="notes" /></div>
+            </div>
+        );
+
+    },
+    renderNav: function() {
+        const { article, securityContext, renderNav } = this.props;
+
+        if (article.user.id !== securityContext.id || !renderNav)
+            return null;
+
+        return (
+            <div className="card-footer">
+                <a className="card-footer-item" onClick={ () => browserHistory.push(`/content/article/${article.id}/edit`)}>
+                    <span className="icon">
+                        <i className="fa fa-cog"></i>
+                    </span>
+                </a>
             </div>
         );
 
@@ -51,6 +76,7 @@ const ContentArticleCard = React.createClass({
                     </div>
                 </div>
                 { this.renderNotes() }
+                { this.renderNav() }
             </div>
         );
     }

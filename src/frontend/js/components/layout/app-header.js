@@ -27,7 +27,7 @@ const AppHeader = React.createClass({
                                     <i className="fa fa-home"></i>
                                 </span>
                             </a>
-                            <a className="level-item" title="Submit" onClick={ () => browserHistory.push(`/submit`)}>
+                            <a className="level-item" title="Submit" onClick={ () => browserHistory.push(`/content/article/add`)}>
                                 <span className="icon">
                                     <i className="fa fa-plus"></i>
                                 </span>

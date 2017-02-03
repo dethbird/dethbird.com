@@ -23,12 +23,11 @@ const getContentArticleInit = () => {
     }
 }
 
-const getContentArticleSuccess = (project, script, form_mode) => {
+const getContentArticleSuccess = (article, form_mode) => {
     return {
         type: GET_CONTENT_ARTICLE_SUCCESS,
         form_mode,
-        project,
-        script
+        article
     }
 }
 
@@ -39,21 +38,15 @@ const getContentArticleError = () => {
     }
 }
 
-export const getContentArticle = (projectId, scriptId) =>
+export const getContentArticle = (articleId) =>
     dispatch => {
         dispatch(getContentArticleInit());
-        request.get(`/api/project/${projectId}`)
+        request.get(`/api/content/article/${articleId}`)
             .then((res) => {
-                const project = res.body;
-                const script = _.findWhere(project.scripts, {
-                    'id': parseInt(scriptId)
-                });
-                const form_mode = script ? FORM_MODE_EDIT : FORM_MODE_ADD;
-                dispatch(getContentArticleSuccess(project, script, form_mode));
+                dispatch(getContentArticleSuccess(res.body, FORM_MODE_EDIT));
             })
-            .catch((error) => {
-                console.log(error);
-                dispatch(getContentArticleError())
+            .catch((error, res) => {
+                dispatch(getContentArticleSuccess(null, FORM_MODE_ADD));
             });
     };
 

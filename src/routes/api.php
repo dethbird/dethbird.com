@@ -86,7 +86,24 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $app->response->setBody(json_encode($_response));
         });
 
-        # upsert article
+        # get article
+        $app->get('/article/:articleId', function ($articleId) use ($app) {
+            $configs = $app->container->get('configs');
+            $securityContext = $_SESSION['securityContext'];
+
+            // fetch model if exists
+            $model = ContentArticle::find_by_id($articleId);
+            if (!$model) {
+                $app->halt(404, json_encode(['article_id' => 'Article not found']));
+            }
+
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody($model->to_json());
+
+        });
+
+        # post article
         $app->post('/article', $writeAccess($app), function () use ($app) {
             $configs = $app->container->get('configs');
             $securityContext = $_SESSION['securityContext'];
@@ -121,7 +138,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
         });
 
-        # update article
+        # put article
         $app->put('/article/:articleId', $writeAccess($app), function ($articleId) use ($app) {
             $configs = $app->container->get('configs');
             $securityContext = $_SESSION['securityContext'];
@@ -130,7 +147,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             // fetch model if exists
             $model = ContentArticle::find_by_id($articleId);
             if (!$model) {
-                $app->halt(400, json_encode(['article_id' => 'Article not found']));
+                $app->halt(404, json_encode(['article_id' => 'Article not found']));
             }
             $model->notes = $payload['notes'];
             $model->save();
