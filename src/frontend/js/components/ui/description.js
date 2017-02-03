@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactMarkdown from 'react-markdown';
 import marked from 'marked';
 
 import classNames from 'classnames';
@@ -21,17 +20,6 @@ const Description = React.createClass({
                 />
             );
         }
-
-
-            /*
-            return (
-                <ReactMarkdown
-                    className={ classNames([className, 'description']) }
-                    source={ source || '' }
-                >
-                </ReactMarkdown>
-            );
-            */
         return null;
     }
 })

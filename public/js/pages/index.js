@@ -55342,7 +55342,6 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import ReactMarkdown from 'react-markdown';
 var Description = _react2.default.createClass({
     displayName: 'Description',
 
@@ -55363,16 +55362,6 @@ var Description = _react2.default.createClass({
                 dangerouslySetInnerHTML: html
             });
         }
-
-        /*
-        return (
-            <ReactMarkdown
-                className={ classNames([className, 'description']) }
-                source={ source || '' }
-            >
-            </ReactMarkdown>
-        );
-        */
         return null;
     }
 });
