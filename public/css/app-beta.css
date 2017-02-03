@@ -307,3 +307,6 @@ body {
   margin: 15px 0px 15px 0px;
   width: 100% !important;
 }
+.notes {
+  font-family: 'Architects Daughter', cursive;
+}

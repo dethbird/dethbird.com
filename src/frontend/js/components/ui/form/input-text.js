@@ -10,12 +10,13 @@ const InputText = React.createClass({
         id: React.PropTypes.string.isRequired,
         value: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func.isRequired,
-        errorText: React.PropTypes.string
+        errorText: React.PropTypes.string,
+        password: React.PropTypes.bool
 
     },
 
     render: function() {
-        const { label, id, value, onChange, errorText } = this.props;
+        const { label, id, value, onChange, errorText, password } = this.props;
 
         return (
             <TextField
@@ -26,6 +27,7 @@ const InputText = React.createClass({
                 onChange= { onChange }
                 className='input-text'
                 errorText={ errorText }
+                type={ password===true ? "password" : "text" }
             />
         );
     }

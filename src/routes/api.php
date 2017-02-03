@@ -55,12 +55,13 @@ $app->post('/api/authorize', function () use ($app) {
         if(!$user) {
             $app->halt(404);
         }
-
+        $userJson = $user->to_json([
+            'except' => ['api_key', 'password', 'email']
+        ]);
+        $_SESSION['securityContext'] = json_decode($userJson);
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
-        $app->response->setBody($user->to_json([
-            'except'=>['password', 'app_user', 'notifications', 'date_added', 'date_updated']
-        ]));
+        $app->response->setBody($userJson);
     } else {
         $app->halt(400);
     }

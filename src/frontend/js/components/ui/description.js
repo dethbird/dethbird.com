@@ -1,5 +1,6 @@
-import React from 'react'
-import ReactMarkdown from 'react-markdown'
+import React from 'react';
+// import ReactMarkdown from 'react-markdown';
+import marked from 'marked';
 
 import classNames from 'classnames';
 
@@ -11,7 +12,18 @@ const Description = React.createClass({
     render: function() {
         const { source, className } = this.props;
 
-        if (source)
+        if (source) {
+            const html = {__html: marked(source)};
+            return (
+                <div
+                    className={ classNames([className, 'description']) }
+                    dangerouslySetInnerHTML={ html }
+                />
+            );
+        }
+
+
+            /*
             return (
                 <ReactMarkdown
                     className={ classNames([className, 'description']) }
@@ -19,6 +31,7 @@ const Description = React.createClass({
                 >
                 </ReactMarkdown>
             );
+            */
         return null;
     }
 })

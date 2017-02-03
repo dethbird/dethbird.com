@@ -10,7 +10,19 @@ const ContentArticleCard = React.createClass({
         className: React.PropTypes.string,
         article: React.PropTypes.object.isRequired
     },
+    renderNotes: function() {
+        const { article } = this.props;
 
+        if (!article.notes)
+            return null;
+
+        return (
+            <div className="card-content">
+                <div className="content box"><Description source={ article.notes } className="notes" /></div>
+            </div>
+        );
+
+    },
     render: function() {
         const { article, className } = this.props;
         return (
@@ -38,9 +50,7 @@ const ContentArticleCard = React.createClass({
                         </span>
                     </div>
                 </div>
-                <div className="card-content">
-                    <div className="content box"><Description source={ article.notes } /></div>
-                </div>
+                { this.renderNotes() }
             </div>
         );
     }
