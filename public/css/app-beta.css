@@ -299,6 +299,10 @@ body {
 .columns {
   flex-wrap: wrap;
 }
+.control.is-grouped {
+  display: flex;
+  justify-content: flex-end;
+}
 .input-text,
 .input-date,
 .input-description,
@@ -306,7 +310,4 @@ body {
 .input-select {
   margin: 15px 0px 15px 0px;
   width: 100% !important;
-}
-.notes {
-  font-family: 'Architects Daughter', cursive;
 }

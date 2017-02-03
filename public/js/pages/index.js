@@ -54655,7 +54655,7 @@ var postContentArticleError = function postContentArticleError(article, errors) 
 var postContentArticle = exports.postContentArticle = function postContentArticle(fields) {
     return function (dispatch) {
         dispatch(postContentArticleInit());
-        _superagent2.default.post('/api/content/article').set('X-Api-Key', fields.xApiKey).send({ url: fields.url }).end(function (err, res) {
+        _superagent2.default.post('/api/content/article').send({ url: fields.url }).end(function (err, res) {
             if (res.ok) {
                 dispatch(postContentArticleSuccess(_extends({}, res.body, { xApiKey: fields.xApiKey })));
             } else {
@@ -54694,7 +54694,7 @@ var putContentArticleError = function putContentArticleError(article, errors) {
 var putContentArticle = exports.putContentArticle = function putContentArticle(article, fields) {
     return function (dispatch) {
         dispatch(putContentArticleInit());
-        _superagent2.default.put('/api/content/article/' + article.id).set('X-Api-Key', fields.xApiKey).send({ notes: fields.notes }).end(function (err, res) {
+        _superagent2.default.put('/api/content/article/' + article.id).send({ notes: fields.notes }).end(function (err, res) {
             if (res.ok) {
                 dispatch(putContentArticleSuccess(res.body));
             }
@@ -54840,7 +54840,7 @@ var App = _react2.default.createClass({
                 _react2.default.createElement(
                     'div',
                     { className: 'app-header' },
-                    _react2.default.createElement(_appHeader2.default, { title: 'Lameness Reduction Party' })
+                    _react2.default.createElement(_appHeader2.default, { securityContext: securityContext })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -54874,6 +54874,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
 var _securityContext = require('../ui/security-context');
 
 var _securityContext2 = _interopRequireDefault(_securityContext);
@@ -54886,14 +54888,16 @@ var AppHeader = _react2.default.createClass({
 
     propTypes: {
         className: _react2.default.PropTypes.string,
-        title: _react2.default.PropTypes.string.isRequired
+        securityContext: _react2.default.PropTypes.object.isRequired
     },
 
     render: function render() {
         var _props = this.props,
             className = _props.className,
-            title = _props.title;
+            securityContext = _props.securityContext;
 
+
+        if (securityContext.application_user == 1) return null;
 
         return _react2.default.createElement(
             'div',
@@ -54902,12 +54906,33 @@ var AppHeader = _react2.default.createClass({
                 'div',
                 { className: 'column is-10' },
                 _react2.default.createElement(
-                    'svg',
-                    { xmlns: 'http://www.w3.org/2000/svg', width: '500', height: '50', viewBox: '0 0 500 50' },
+                    'nav',
+                    { className: 'level' },
                     _react2.default.createElement(
-                        'text',
-                        { x: '0', y: '35', fontFamily: 'IM Fell English', fontSize: '35' },
-                        title
+                        'div',
+                        { className: 'level-left' },
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'level-item', title: 'Home', onClick: function onClick() {
+                                    return _reactRouter.browserHistory.push('/');
+                                } },
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'icon' },
+                                _react2.default.createElement('i', { className: 'fa fa-home' })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'level-item', title: 'Submit', onClick: function onClick() {
+                                    return _reactRouter.browserHistory.push('/submit');
+                                } },
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'icon' },
+                                _react2.default.createElement('i', { className: 'fa fa-plus' })
+                            )
+                        )
                     )
                 )
             ),
@@ -54922,7 +54947,7 @@ var AppHeader = _react2.default.createClass({
 
 exports.default = AppHeader;
 
-},{"../ui/security-context":550,"classnames":23,"react":510}],544:[function(require,module,exports){
+},{"../ui/security-context":550,"classnames":23,"react":510,"react-router":468}],544:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -55185,7 +55210,6 @@ var Submit = _react2.default.createClass({
     getInitialState: function getInitialState() {
         return {
             changedFields: {
-                xApiKey: null,
                 url: null,
                 notes: null
             }
@@ -55197,7 +55221,6 @@ var Submit = _react2.default.createClass({
         if (article == undefined && nextProps.article) {
             this.setState({
                 changedFields: {
-                    xApiKey: nextProps.article.xApiKey,
                     url: nextProps.article.url,
                     notes: nextProps.article.notes
                 }
@@ -55243,12 +55266,6 @@ var Submit = _react2.default.createClass({
                 _react2.default.createElement(
                     'form',
                     { className: 'is-clearfix' },
-                    _react2.default.createElement(_inputText2.default, {
-                        label: 'X-Api-Key',
-                        id: 'xApiKey',
-                        value: changedFields.xApiKey || '',
-                        onChange: this.handleFieldChange
-                    }),
                     _react2.default.createElement(_inputText2.default, {
                         label: 'URL',
                         id: 'url',
@@ -55661,7 +55678,7 @@ var SecurityContext = _react2.default.createClass({
                     { className: 'control' },
                     _react2.default.createElement(
                         'span',
-                        { className: 'tag is-dark' },
+                        { className: 'tag is-dark is-medium' },
                         securityContext.username
                     )
                 ),

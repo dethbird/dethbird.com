@@ -126,7 +126,7 @@ const SecurityContext = React.createClass({
             return (
                 <div className={ classNames([className, 'securty-context control is-grouped']) }>
                     <p className="control">
-                        <span className="tag is-dark">{ securityContext.username }</span>
+                        <span className="tag is-dark is-medium">{ securityContext.username }</span>
                     </p>
                     <p className="control">
                         <a

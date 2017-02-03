@@ -28,7 +28,6 @@ const Submit = React.createClass({
     getInitialState() {
         return {
             changedFields: {
-                xApiKey: null,
                 url: null,
                 notes: null
             }
@@ -39,7 +38,6 @@ const Submit = React.createClass({
         if( article==undefined && nextProps.article){
             this.setState({
                 changedFields: {
-                    xApiKey: nextProps.article.xApiKey,
                     url: nextProps.article.url,
                     notes: nextProps.article.notes
                 }
@@ -75,12 +73,6 @@ const Submit = React.createClass({
             return (
                 <div className="box container">
                     <form className="is-clearfix">
-                        <InputText
-                            label="X-Api-Key"
-                            id="xApiKey"
-                            value={ changedFields.xApiKey || '' }
-                            onChange= { this.handleFieldChange }
-                        />
                         <InputText
                             label="URL"
                             id="url"

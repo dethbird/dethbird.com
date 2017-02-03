@@ -87,7 +87,6 @@ export const postContentArticle = (fields) =>
     dispatch => {
         dispatch(postContentArticleInit());
         request.post('/api/content/article')
-            .set('X-Api-Key', fields.xApiKey)
             .send( { url: fields.url } )
             .end(function(err, res){
                 if(res.ok) {
@@ -128,7 +127,6 @@ export const putContentArticle = (article, fields) =>
     dispatch => {
         dispatch(putContentArticleInit());
         request.put('/api/content/article/' + article.id)
-            .set('X-Api-Key', fields.xApiKey)
             .send( { notes: fields.notes } )
             .end((err, res) => {
                 if(res.ok) {

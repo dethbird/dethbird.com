@@ -61,7 +61,7 @@ const App = React.createClass({
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div className="app">
                     <div className="app-header">
-                        <AppHeader title="Lameness Reduction Party"/>
+                        <AppHeader securityContext={ securityContext }/>
                     </div>
                     <div className="app-body">
                         {this.props.children}
