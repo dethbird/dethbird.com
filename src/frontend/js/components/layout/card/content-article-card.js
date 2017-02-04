@@ -53,9 +53,9 @@ const ContentArticleCard = React.createClass({
         return (
             <div className={ classNames([className, 'card']) } >
                 <header className="card-header">
-                    <h5 className="card-header-title">
+                    <h4 className="card-header-title">
                         { article.title }
-                    </h5>
+                    </h4>
                 </header>
                 <div className="card-image">
                     <figure className="image">

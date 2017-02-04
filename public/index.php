@@ -172,25 +172,6 @@ $app->get("/", $authorize($app), function () use ($app) {
 });
 
 
-# login
-$app->get("/login", function () use ($app) {
-
-    $configs = $app->container->get('configs');
-
-    $templateVars = array(
-        "configs" => $configs,
-        "section" => "login"
-    );
-
-    $app->render(
-        'pages/login.html.twig',
-        $templateVars,
-        200
-    );
-});
-
-
-
 # logout
 $app->get("/logout", function () use ($app) {
   $_SESSION['securityContext'] = null;

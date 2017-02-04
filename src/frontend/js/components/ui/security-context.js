@@ -57,7 +57,7 @@ const SecurityContext = React.createClass({
                 });
 
                 if(res.ok) {
-                    location.reload();
+                    window.location.href = '/';
                 } else {
                     console.log(res);
                 }
@@ -131,7 +131,8 @@ const SecurityContext = React.createClass({
                     <p className="control">
                         <a
                             className="button is-light"
-                            onClick={ this.handleClickLogout }
+                            href="/logout"
+                            title="Logout"
                         >Logout</a>
                     </p>
                 </div>

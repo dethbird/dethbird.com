@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { App } from '../components/app';
 import ContentArticleEdit from '../components/pages/content-article-edit';
 import Index from '../components/pages/index';
+import Login from '../components/pages/login';
 import Submit from '../components/pages/submit';
 import store from '../store/store';
 
@@ -26,7 +27,8 @@ render((
         <Router history={browserHistory}>
             <Route path="/" component={ App }>
                 <IndexRoute component={ Index } />
-                <Route path="submit" component={ Submit } />
+                <Route path="/login" component={ Login } />
+                <Route path="/submit" component={ Submit } />
                 <Route path="/content/article/add" component={ ContentArticleEdit } />
                 <Route path="/content/article/:articleId/edit" component={ ContentArticleEdit } />
                 <Route path="*" component={ Index } />

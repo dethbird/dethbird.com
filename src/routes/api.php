@@ -159,4 +159,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         });
     });
 
+    $app->get('/externalimage', function () use ($app) {
+        echo "farts";
+    });
 });
