@@ -55109,24 +55109,28 @@ var ContentArticleCard = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'content is-clearfix' },
+                    { className: 'columns is-clearfix' },
                     _react2.default.createElement(
-                        'span',
-                        { className: 'is-pulled-left' },
+                        'div',
+                        { className: 'column is-6 is-mobile' },
                         _react2.default.createElement(
                             'strong',
                             null,
                             (0, _moment2.default)(article.date_published).format("YYYY MMMM Do")
                         ),
                         _react2.default.createElement('br', null),
-                        article.author ? 'by ' + article.author : null
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            article.author ? 'by ' + article.author : null
+                        )
                     ),
                     _react2.default.createElement(
-                        'span',
-                        { className: 'is-pulled-right' },
+                        'div',
+                        { className: 'column is-6 is-mobile' },
                         _react2.default.createElement(
                             'a',
-                            { className: 'button is-primary', href: article.url, target: '_blank' },
+                            { className: 'is-pulled-right button is-primary is-small', href: article.url, target: '_blank' },
                             article.domain
                         )
                     )
@@ -55406,37 +55410,20 @@ var Index = _react2.default.createClass({
             articleNodes = _react2.default.createElement(_uiState2.default, { state: ui_state });
         } else {
 
-            var defaultStyles = articles.map(function (article, i) {
-                return { x: 1.3, s: 0 };
+            articleNodes = articles.map(function (article, i) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'column is-3', key: article.id },
+                    _react2.default.createElement(_contentArticleCard2.default, { article: article, securityContext: securityContext, renderNav: true })
+                );
             });
-
-            articleNodes = _react2.default.createElement(
-                _reactMotion.StaggeredMotion,
-                {
-                    defaultStyles: defaultStyles,
-                    styles: function styles(prevInterpolatedStyles) {
-                        return prevInterpolatedStyles.map(function (_, i) {
-                            return i === 0 ? { x: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 12 }), s: (0, _reactMotion.spring)(1) } : { x: (0, _reactMotion.spring)(prevInterpolatedStyles[i - 1].x, { stiffness: 200, damping: 12 }), s: (0, _reactMotion.spring)(prevInterpolatedStyles[i - 1].s) };
-                        });
-                    }
-                },
-                function (interpolatingStyles) {
-                    return _react2.default.createElement(
-                        'div',
-                        { className: 'columns' },
-                        interpolatingStyles.map(function (style, i) {
-                            return _react2.default.createElement(
-                                'div',
-                                { key: articles[i].id, style: { transform: 'scale(' + style.x + ')', opacity: style.s }, className: 'column is-one-quarter' },
-                                _react2.default.createElement(_contentArticleCard2.default, { article: articles[i], securityContext: securityContext, renderNav: true })
-                            );
-                        })
-                    );
-                }
-            );
         }
 
-        return articleNodes;
+        return _react2.default.createElement(
+            'div',
+            { className: 'columns is-multiline' },
+            articleNodes
+        );
     }
 });
 

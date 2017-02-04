@@ -27,34 +27,20 @@ const Index = React.createClass({
             articleNodes = <UiState state={ ui_state } />
         } else {
 
-            const defaultStyles = articles.map(function(article, i) { return  { x: 1.3, s: 0 }; });
-
-            articleNodes =  (
-                <StaggeredMotion
-                    defaultStyles={ defaultStyles }
-                    styles={ prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
-                        return i === 0
-                        ? { x : spring(1, {stiffness: 200, damping: 12}), s: spring(1) }
-                        : { x : spring( prevInterpolatedStyles[i - 1].x, {stiffness: 200, damping: 12} ), s:  spring( prevInterpolatedStyles[i - 1].s) }
-                    })}
-                >
-                    {interpolatingStyles =>
-                        <div className="columns">
-                            { interpolatingStyles.map((style, i) => {
-                                    return (
-                                        <div key={ articles[i].id } style={ { transform: `scale(${ style.x })`, opacity: style.s } }  className="column is-one-quarter" >
-                                            <ContentArticleCard article={ articles[i] } securityContext={ securityContext } renderNav={ true } />
-                                        </div>
-                                    );
-                                }
-                            )}
-                        </div>
-                    }
-                </StaggeredMotion>
-            );
+            articleNodes = articles.map(function(article, i){
+                return (
+                    <div className="column is-3"  key={ article.id }>
+                        <ContentArticleCard article={ article } securityContext={ securityContext } renderNav={ true }/>
+                    </div>
+                );
+            });
         }
 
-        return articleNodes;
+        return (
+            <div className="columns is-multiline">
+                { articleNodes }
+            </div>
+        );
     }
 })
 

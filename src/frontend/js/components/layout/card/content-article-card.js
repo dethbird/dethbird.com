@@ -65,15 +65,15 @@ const ContentArticleCard = React.createClass({
                 </div>
                 <div className="card-content">
                     <div className="content">{ article.excerpt }</div>
-                    <div className="content is-clearfix">
-                        <span className="is-pulled-left">
+                    <div className="columns is-clearfix">
+                        <div className="column is-6 is-mobile">
                             <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
                             <br />
-                            { article.author ? `by ${article.author}` : null }
-                        </span>
-                        <span className="is-pulled-right">
-                            <a className="button is-primary" href={ article.url } target="_blank">{ article.domain }</a>
-                        </span>
+                            <span>{ article.author ? `by ${article.author}` : null }</span>
+                        </div>
+                        <div className="column is-6 is-mobile">
+                            <a className="is-pulled-right button is-primary is-small" href={ article.url } target="_blank">{ article.domain }</a>
+                        </div>
                     </div>
                 </div>
                 { this.renderNotes() }
