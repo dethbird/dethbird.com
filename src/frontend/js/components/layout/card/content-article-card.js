@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react'
 import moment from 'moment';
+import { TweenMax, TimelineMax } from 'gsap';
 import { browserHistory } from 'react-router';
 
 import Description from '../../ui/description';
@@ -12,7 +13,8 @@ const ContentArticleCard = React.createClass({
         className: React.PropTypes.string,
         article: React.PropTypes.object.isRequired,
         securityContext: React.PropTypes.object.isRequired,
-        renderNav: React.PropTypes.bool
+        renderNav: React.PropTypes.bool,
+        sequence: React.PropTypes.number
     },
     getDefaultProps: function() {
         return {
@@ -49,10 +51,18 @@ const ContentArticleCard = React.createClass({
         );
 
     },
+    componentDidMount: function() {
+        const { sequence } = this.props
+        const { root } = this.refs
+        let tl = new TimelineMax();
+        tl.add( TweenMax.from(root, .5, { scale: 1.3, opacity: 0 }, 0) );
+        tl.delay( sequence ? sequence/4 : 0 );
+        tl.play();
+    },
     render: function() {
         const { article, className } = this.props;
         return (
-            <div className={ classNames([className, 'card']) } >
+            <div className={ classNames([className, 'card']) } ref="root">
                 <header className="card-header">
                     <h4 className="card-header-title">
                         { article.title }

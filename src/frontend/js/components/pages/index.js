@@ -1,9 +1,7 @@
 import React from 'react';
 import { browserHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
-import { StaggeredMotion, presets, spring } from 'react-motion';
 
-// import AppHeader from '../layout/app-header';
 import ContentArticleCard from '../layout/card/content-article-card';
 import UiState from '../ui/ui-state'
 
@@ -30,7 +28,7 @@ const Index = React.createClass({
             articleNodes = articles.map(function(article, i){
                 return (
                     <div className="column is-3"  key={ article.id }>
-                        <ContentArticleCard article={ article } securityContext={ securityContext } renderNav={ true }/>
+                        <ContentArticleCard article={ article } securityContext={ securityContext } renderNav={ true } sequence={ i } />
                     </div>
                 );
             });
