@@ -55055,16 +55055,20 @@ var ContentArticleCard = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            { className: 'card-footer' },
+            { className: 'control is-grouped' },
             _react2.default.createElement(
-                'a',
-                { className: 'card-footer-item', onClick: function onClick() {
-                        return _reactRouter.browserHistory.push('/content/article/' + article.id + '/edit');
-                    } },
+                'p',
+                { className: 'control' },
                 _react2.default.createElement(
-                    'span',
-                    { className: 'icon' },
-                    _react2.default.createElement('i', { className: 'fa fa-cog' })
+                    'a',
+                    { className: 'is-light', onClick: function onClick() {
+                            return _reactRouter.browserHistory.push('/content/article/' + article.id + '/edit');
+                        } },
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'icon' },
+                        _react2.default.createElement('i', { className: 'fa fa-cog' })
+                    )
                 )
             )
         );
@@ -55108,7 +55112,7 @@ var ContentArticleCard = _react2.default.createClass({
                     { className: 'content' },
                     _react2.default.createElement(
                         'a',
-                        { className: 'button is-primary', href: article.url, target: '_blank' },
+                        { className: 'button is-primary is-small is-outlined', href: article.url, target: '_blank' },
                         article.domain
                     ),
                     _react2.default.createElement('br', null),
@@ -55124,9 +55128,9 @@ var ContentArticleCard = _react2.default.createClass({
                         (0, _moment2.default)(article.date_published).format("YYYY MMMM Do")
                     )
                 ),
-                this.renderNotes()
-            ),
-            this.renderNav()
+                this.renderNotes(),
+                this.renderNav()
+            )
         );
     }
 });

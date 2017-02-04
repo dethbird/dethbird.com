@@ -37,12 +37,14 @@ const ContentArticleCard = React.createClass({
             return null;
 
         return (
-            <div className="card-footer">
-                <a className="card-footer-item" onClick={ () => browserHistory.push(`/content/article/${article.id}/edit`)}>
-                    <span className="icon">
-                        <i className="fa fa-cog"></i>
-                    </span>
-                </a>
+            <div className="control is-grouped">
+                <p className="control">
+                    <a className="is-light" onClick={ () => browserHistory.push(`/content/article/${article.id}/edit`)}>
+                        <span className="icon">
+                            <i className="fa fa-cog"></i>
+                        </span>
+                    </a>
+                </p>
             </div>
         );
 
@@ -64,15 +66,15 @@ const ContentArticleCard = React.createClass({
                 <div className="card-content">
                     <div className="content">{ article.excerpt }</div>
                     <div className="content">
-                        <a className="button is-primary" href={ article.url } target="_blank">{ article.domain }</a>
+                        <a className="button is-primary is-small is-outlined" href={ article.url } target="_blank">{ article.domain }</a>
                         <br />
                         <span>{ article.author ? `by ${article.author}` : null }</span>
                         <br />
                         <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
                     </div>
                     { this.renderNotes() }
+                    { this.renderNav() }
                 </div>
-                { this.renderNav() }
             </div>
         );
     }
