@@ -1,5 +1,9 @@
 import request from 'superagent';
+import { browserHistory, Link } from 'react-router';
 import {
+    DELETE_CONTENT_ARTICLE_REQUEST,
+    DELETE_CONTENT_ARTICLE_ERROR,
+    DELETE_CONTENT_ARTICLE_SUCCESS,
     GET_CONTENT_ARTICLE_REQUEST,
     GET_CONTENT_ARTICLE_ERROR,
     GET_CONTENT_ARTICLE_SUCCESS,
@@ -15,6 +19,47 @@ import {
     FORM_MODE_ADD,
     FORM_MODE_EDIT
 } from '../constants/form';
+
+/** DELETE */
+const deleteContentArticleInit = ( article ) => {
+    return {
+        type: DELETE_CONTENT_ARTICLE_REQUEST,
+        form_mode: FORM_MODE_EDIT,
+        article
+    }
+}
+
+// const deleteContentArticleSuccess = (article) => {
+//     return {
+//         type: DELETE_CONTENT_ARTICLE_SUCCESS,
+//         form_mode: FORM_MODE_EDIT,
+//         article
+//     }
+// }
+
+const deleteContentArticleError = (article, errors) => {
+    return {
+        type: POST_CONTENT_ARTICLE_ERROR,
+        errors,
+        form_mode: FORM_MODE_ADD,
+        article
+    }
+}
+
+export const deleteContentArticle = (article) =>
+    dispatch => {
+        dispatch(postContentArticleInit());
+        request.delete(`/api/content/article/${article.id}`)
+            .end(function(err, res){
+                if(res.ok) {
+                    browserHistory.push(`/`);
+                } else {
+                    console.log(res);
+                    dispatch(deleteContentArticleError(article, res.body))
+                }
+        });
+    };
+
 
 /** GET */
 const getContentArticleInit = () => {
@@ -59,13 +104,13 @@ const postContentArticleInit = ( article ) => {
     }
 }
 
-const postContentArticleSuccess = (article) => {
-    return {
-        type: POST_CONTENT_ARTICLE_SUCCESS,
-        form_mode: FORM_MODE_EDIT,
-        article
-    }
-}
+// const postContentArticleSuccess = (article) => {
+//     return {
+//         type: POST_CONTENT_ARTICLE_SUCCESS,
+//         form_mode: FORM_MODE_EDIT,
+//         article
+//     }
+// }
 
 const postContentArticleError = (article, errors) => {
     return {
@@ -83,7 +128,7 @@ export const postContentArticle = (fields) =>
             .send( { url: fields.url } )
             .end(function(err, res){
                 if(res.ok) {
-                    dispatch(postContentArticleSuccess({... res.body, xApiKey: fields.xApiKey }));
+                    window.location = `/content/article/${res.body.id}/edit`;
                 } else {
                     dispatch(postContentArticleError(fields, res.body))
                 }

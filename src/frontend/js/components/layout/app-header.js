@@ -18,22 +18,24 @@ const AppHeader = React.createClass({
             return null;
 
         return (
-            <div className="columns">
+            <div className="columns is-mobile">
                 <div className="column is-10">
-                    <nav className="level">
-                        <div className="level-left">
+                    <div className="columns is-mobile">
+                        <p className="control">
                             <a className="level-item" title="Home" onClick={ () => browserHistory.push(`/`)}>
                                 <span className="icon">
                                     <i className="fa fa-home"></i>
                                 </span>
                             </a>
+                        </p>
+                        <p className="control">
                             <a className="level-item" title="Submit" onClick={ () => browserHistory.push(`/content/article/add`)}>
                                 <span className="icon">
                                     <i className="fa fa-plus"></i>
                                 </span>
                             </a>
-                        </div>
-                    </nav>
+                        </p>
+                    </div>
                 </div>
                 <div className="column is-2 clearfix">
                     <SecurityContext securityContext={ securityContext } className="has-text-right"/>

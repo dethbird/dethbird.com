@@ -86,6 +86,23 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $app->response->setBody(json_encode($_response));
         });
 
+        # delete article
+        $app->delete('/article/:articleId', function ($articleId) use ($app) {
+            $configs = $app->container->get('configs');
+            $securityContext = $_SESSION['securityContext'];
+
+            // fetch model if exists
+            $model = ContentArticle::find_by_id($articleId);
+            if (!$model) {
+                $app->halt(404, json_encode(['article_id' => 'Article not found']));
+            }
+            $model->delete();
+
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+
+        });
+
         # get article
         $app->get('/article/:articleId', function ($articleId) use ($app) {
             $configs = $app->container->get('configs');

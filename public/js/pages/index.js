@@ -54572,7 +54572,7 @@ arguments[4][160][0].apply(exports,arguments)
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.resetContentArticle = exports.putContentArticle = exports.postContentArticle = exports.getContentArticle = undefined;
+exports.resetContentArticle = exports.putContentArticle = exports.postContentArticle = exports.getContentArticle = exports.deleteContentArticle = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -54580,11 +54580,53 @@ var _superagent = require('superagent');
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
+var _reactRouter = require('react-router');
+
 var _actions = require('../constants/actions');
 
 var _form = require('../constants/form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** DELETE */
+var deleteContentArticleInit = function deleteContentArticleInit(article) {
+    return {
+        type: _actions.DELETE_CONTENT_ARTICLE_REQUEST,
+        form_mode: _form.FORM_MODE_EDIT,
+        article: article
+    };
+};
+
+// const deleteContentArticleSuccess = (article) => {
+//     return {
+//         type: DELETE_CONTENT_ARTICLE_SUCCESS,
+//         form_mode: FORM_MODE_EDIT,
+//         article
+//     }
+// }
+
+var deleteContentArticleError = function deleteContentArticleError(article, errors) {
+    return {
+        type: _actions.POST_CONTENT_ARTICLE_ERROR,
+        errors: errors,
+        form_mode: _form.FORM_MODE_ADD,
+        article: article
+    };
+};
+
+var deleteContentArticle = exports.deleteContentArticle = function deleteContentArticle(article) {
+    return function (dispatch) {
+        dispatch(postContentArticleInit());
+        _superagent2.default.delete('/api/content/article/' + article.id).end(function (err, res) {
+            if (res.ok) {
+                _reactRouter.browserHistory.push('/');
+            } else {
+                console.log(res);
+                dispatch(deleteContentArticleError(article, res.body));
+            }
+        });
+    };
+};
 
 /** GET */
 var getContentArticleInit = function getContentArticleInit() {
@@ -54628,13 +54670,13 @@ var postContentArticleInit = function postContentArticleInit(article) {
     };
 };
 
-var postContentArticleSuccess = function postContentArticleSuccess(article) {
-    return {
-        type: _actions.POST_CONTENT_ARTICLE_SUCCESS,
-        form_mode: _form.FORM_MODE_EDIT,
-        article: article
-    };
-};
+// const postContentArticleSuccess = (article) => {
+//     return {
+//         type: POST_CONTENT_ARTICLE_SUCCESS,
+//         form_mode: FORM_MODE_EDIT,
+//         article
+//     }
+// }
 
 var postContentArticleError = function postContentArticleError(article, errors) {
     return {
@@ -54650,7 +54692,7 @@ var postContentArticle = exports.postContentArticle = function postContentArticl
         dispatch(postContentArticleInit());
         _superagent2.default.post('/api/content/article').send({ url: fields.url }).end(function (err, res) {
             if (res.ok) {
-                dispatch(postContentArticleSuccess(_extends({}, res.body, { xApiKey: fields.xApiKey })));
+                window.location = '/content/article/' + res.body.id + '/edit';
             } else {
                 dispatch(postContentArticleError(fields, res.body));
             }
@@ -54706,7 +54748,7 @@ var resetContentArticle = exports.resetContentArticle = function resetContentArt
     };
 };
 
-},{"../constants/actions":555,"../constants/form":556,"superagent":532}],541:[function(require,module,exports){
+},{"../constants/actions":555,"../constants/form":556,"react-router":468,"superagent":532}],541:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -54894,16 +54936,16 @@ var AppHeader = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            { className: 'columns' },
+            { className: 'columns is-mobile' },
             _react2.default.createElement(
                 'div',
                 { className: 'column is-10' },
                 _react2.default.createElement(
-                    'nav',
-                    { className: 'level' },
+                    'div',
+                    { className: 'columns is-mobile' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'level-left' },
+                        'p',
+                        { className: 'control' },
                         _react2.default.createElement(
                             'a',
                             { className: 'level-item', title: 'Home', onClick: function onClick() {
@@ -54914,7 +54956,11 @@ var AppHeader = _react2.default.createClass({
                                 { className: 'icon' },
                                 _react2.default.createElement('i', { className: 'fa fa-home' })
                             )
-                        ),
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'control' },
                         _react2.default.createElement(
                             'a',
                             { className: 'level-item', title: 'Submit', onClick: function onClick() {
@@ -55198,13 +55244,21 @@ var ContentArticleEdit = _react2.default.createClass({
 
         if (form_mode == _form.FORM_MODE_ADD) dispatch((0, _contentArticle.postContentArticle)(changedFields));
     },
+    handleClickDelete: function handleClickDelete(event) {
+        event.preventDefault();
+        var _props3 = this.props,
+            dispatch = _props3.dispatch,
+            article = _props3.article;
+
+        dispatch((0, _contentArticle.deleteContentArticle)(article));
+    },
     render: function render() {
         var changedFields = this.state.changedFields;
-        var _props3 = this.props,
-            ui_state = _props3.ui_state,
-            form_mode = _props3.form_mode,
-            errors = _props3.errors,
-            article = _props3.article;
+        var _props4 = this.props,
+            ui_state = _props4.ui_state,
+            form_mode = _props4.form_mode,
+            errors = _props4.errors,
+            article = _props4.article;
 
 
         if (form_mode !== _form.FORM_MODE_EDIT) {
@@ -55254,14 +55308,30 @@ var ContentArticleEdit = _react2.default.createClass({
                         }),
                         _react2.default.createElement(
                             'div',
-                            { className: 'is-pulled-right' },
+                            { className: 'control is-grouped' },
                             _react2.default.createElement(
-                                'a',
-                                {
-                                    className: (0, _classnames2.default)(['button is-primary', ui_state == _uiState3.UI_STATE_REQUESTING ? 'is-loading' : null]),
-                                    onClick: this.handleClickSubmit
-                                },
-                                'Save'
+                                'p',
+                                { className: 'control' },
+                                _react2.default.createElement(
+                                    'a',
+                                    {
+                                        className: (0, _classnames2.default)(['button is-danger', ui_state == _uiState3.UI_STATE_REQUESTING ? 'is-loading' : null]),
+                                        onClick: this.handleClickDelete
+                                    },
+                                    'Delete'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                { className: 'control' },
+                                _react2.default.createElement(
+                                    'a',
+                                    {
+                                        className: (0, _classnames2.default)(['button is-primary', ui_state == _uiState3.UI_STATE_REQUESTING ? 'is-loading' : null]),
+                                        onClick: this.handleClickSubmit
+                                    },
+                                    'Save'
+                                )
                             )
                         )
                     )
@@ -56078,9 +56148,12 @@ exports.default = UiState;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var DELETE_CONTENT_ARTICLE_REQUEST = exports.DELETE_CONTENT_ARTICLE_REQUEST = 'DELETE_CONTENT_ARTICLE_REQUEST';
+var DELETE_CONTENT_ARTICLE_ERROR = exports.DELETE_CONTENT_ARTICLE_ERROR = 'DELETE_CONTENT_ARTICLE_ERROR';
+var DELETE_CONTENT_ARTICLE_SUCCESS = exports.DELETE_CONTENT_ARTICLE_SUCCESS = 'DELETE_CONTENT_ARTICLE_SUCCESS';
+var GET_CONTENT_ARTICLE_SUCCESS = exports.GET_CONTENT_ARTICLE_SUCCESS = 'GET_CONTENT_ARTICLE_SUCCESS';
 var GET_CONTENT_ARTICLE_REQUEST = exports.GET_CONTENT_ARTICLE_REQUEST = 'GET_CONTENT_ARTICLE_REQUEST';
 var GET_CONTENT_ARTICLE_ERROR = exports.GET_CONTENT_ARTICLE_ERROR = 'GET_CONTENT_ARTICLE_ERROR';
-var GET_CONTENT_ARTICLE_SUCCESS = exports.GET_CONTENT_ARTICLE_SUCCESS = 'GET_CONTENT_ARTICLE_SUCCESS';
 var POST_CONTENT_ARTICLE_REQUEST = exports.POST_CONTENT_ARTICLE_REQUEST = 'POST_CONTENT_ARTICLE_REQUEST';
 var POST_CONTENT_ARTICLE_ERROR = exports.POST_CONTENT_ARTICLE_ERROR = 'POST_CONTENT_ARTICLE_ERROR';
 var POST_CONTENT_ARTICLE_SUCCESS = exports.POST_CONTENT_ARTICLE_SUCCESS = 'POST_CONTENT_ARTICLE_SUCCESS';
@@ -56168,6 +56241,10 @@ var NoMatch = _react2.default.createClass({
     }
 });
 
+if (lastRequestUri !== '/favicon.ico') {
+    _reactRouter.browserHistory.push(lastRequestUri);
+}
+
 (0, _reactDom.render)(_react2.default.createElement(
     _reactRedux.Provider,
     { store: _store2.default },
@@ -56205,12 +56282,14 @@ var contentArticle = function contentArticle() {
     var action = arguments[1];
 
     switch (action.type) {
+        case _actions.DELETE_CONTENT_ARTICLE_REQUEST:
         case _actions.GET_CONTENT_ARTICLE_REQUEST:
         case _actions.POST_CONTENT_ARTICLE_REQUEST:
         case _actions.PUT_CONTENT_ARTICLE_REQUEST:
             return {
                 ui_state: _uiState.UI_STATE_REQUESTING
             };
+        case _actions.DELETE_CONTENT_ARTICLE_ERROR:
         case _actions.GET_CONTENT_ARTICLE_ERROR:
         case _actions.POST_CONTENT_ARTICLE_ERROR:
         case _actions.PUT_CONTENT_ARTICLE_ERROR:
@@ -56226,6 +56305,7 @@ var contentArticle = function contentArticle() {
                 form_mode: action.form_mode,
                 article: action.article
             };
+        case _actions.DELETE_CONTENT_ARTICLE_SUCCESS:
         case _actions.POST_CONTENT_ARTICLE_SUCCESS:
         case _actions.PUT_CONTENT_ARTICLE_SUCCESS:
             return {

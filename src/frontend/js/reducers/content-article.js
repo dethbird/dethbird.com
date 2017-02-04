@@ -1,4 +1,7 @@
 import {
+    DELETE_CONTENT_ARTICLE_REQUEST,
+    DELETE_CONTENT_ARTICLE_ERROR,
+    DELETE_CONTENT_ARTICLE_SUCCESS,
     GET_CONTENT_ARTICLE_REQUEST,
     GET_CONTENT_ARTICLE_ERROR,
     GET_CONTENT_ARTICLE_SUCCESS,
@@ -23,12 +26,14 @@ import {
 
 const contentArticle = (state = {}, action) => {
     switch (action.type) {
+        case DELETE_CONTENT_ARTICLE_REQUEST:
         case GET_CONTENT_ARTICLE_REQUEST:
         case POST_CONTENT_ARTICLE_REQUEST:
         case PUT_CONTENT_ARTICLE_REQUEST:
             return {
                 ui_state: UI_STATE_REQUESTING
             }
+        case DELETE_CONTENT_ARTICLE_ERROR:
         case GET_CONTENT_ARTICLE_ERROR:
         case POST_CONTENT_ARTICLE_ERROR:
         case PUT_CONTENT_ARTICLE_ERROR:
@@ -44,6 +49,7 @@ const contentArticle = (state = {}, action) => {
                 form_mode: action.form_mode,
                 article: action.article,
             }
+        case DELETE_CONTENT_ARTICLE_SUCCESS:
         case POST_CONTENT_ARTICLE_SUCCESS:
         case PUT_CONTENT_ARTICLE_SUCCESS:
             return {

@@ -19,6 +19,7 @@ import {
     UI_STATE_COMPLETE,
 } from '../../constants/ui-state';
 import {
+    deleteContentArticle,
     getContentArticle,
     postContentArticle,
     putContentArticle,
@@ -72,6 +73,11 @@ const ContentArticleEdit = React.createClass({
         if (form_mode == FORM_MODE_ADD)
             dispatch(postContentArticle( changedFields ));
     },
+    handleClickDelete(event) {
+        event.preventDefault();
+        const { dispatch, article } = this.props;
+        dispatch(deleteContentArticle( article ));
+    },
     render() {
         const { changedFields } = this.state;
         const { ui_state, form_mode, errors, article } = this.props;
@@ -108,11 +114,19 @@ const ContentArticleEdit = React.createClass({
                                 value={ changedFields.notes || '' }
                                 onChange= { this.handleFieldChange }
                             />
-                            <div className="is-pulled-right">
-                                <a
-                                    className={ classNames(['button is-primary', ui_state==UI_STATE_REQUESTING ? 'is-loading' : null])}
-                                    onClick={ this.handleClickSubmit }
-                                >Save</a>
+                            <div className="control is-grouped">
+                                <p className="control">
+                                    <a
+                                        className={ classNames(['button is-danger', ui_state==UI_STATE_REQUESTING ? 'is-loading' : null])}
+                                        onClick={ this.handleClickDelete }
+                                    >Delete</a>
+                                </p>
+                                <p className="control">
+                                    <a
+                                        className={ classNames(['button is-primary', ui_state==UI_STATE_REQUESTING ? 'is-loading' : null])}
+                                        onClick={ this.handleClickSubmit }
+                                    >Save</a>
+                                </p>
                             </div>
                         </form>
                     </div>
