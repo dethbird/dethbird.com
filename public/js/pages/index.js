@@ -55040,12 +55040,8 @@ var ContentArticleCard = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            { className: 'card-content' },
-            _react2.default.createElement(
-                'div',
-                { className: 'content box' },
-                _react2.default.createElement(_description2.default, { source: article.notes, className: 'notes' })
-            )
+            { className: 'content box' },
+            _react2.default.createElement(_description2.default, { source: article.notes, className: 'notes' })
         );
     },
     renderNav: function renderNav() {
@@ -55109,34 +55105,27 @@ var ContentArticleCard = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'columns is-clearfix' },
+                    { className: 'content' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'column is-6 is-mobile' },
-                        _react2.default.createElement(
-                            'strong',
-                            null,
-                            (0, _moment2.default)(article.date_published).format("YYYY MMMM Do")
-                        ),
-                        _react2.default.createElement('br', null),
-                        _react2.default.createElement(
-                            'span',
-                            null,
-                            article.author ? 'by ' + article.author : null
-                        )
+                        'a',
+                        { className: 'button is-primary', href: article.url, target: '_blank' },
+                        article.domain
                     ),
+                    _react2.default.createElement('br', null),
                     _react2.default.createElement(
-                        'div',
-                        { className: 'column is-6 is-mobile' },
-                        _react2.default.createElement(
-                            'a',
-                            { className: 'is-pulled-right button is-primary is-small', href: article.url, target: '_blank' },
-                            article.domain
-                        )
+                        'span',
+                        null,
+                        article.author ? 'by ' + article.author : null
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        (0, _moment2.default)(article.date_published).format("YYYY MMMM Do")
                     )
-                )
+                ),
+                this.renderNotes()
             ),
-            this.renderNotes(),
             this.renderNav()
         );
     }

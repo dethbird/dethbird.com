@@ -26,9 +26,7 @@ const ContentArticleCard = React.createClass({
             return null;
 
         return (
-            <div className="card-content">
-                <div className="content box"><Description source={ article.notes } className="notes" /></div>
-            </div>
+            <div className="content box"><Description source={ article.notes } className="notes" /></div>
         );
 
     },
@@ -65,18 +63,15 @@ const ContentArticleCard = React.createClass({
                 </div>
                 <div className="card-content">
                     <div className="content">{ article.excerpt }</div>
-                    <div className="columns is-clearfix">
-                        <div className="column is-6 is-mobile">
-                            <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
-                            <br />
-                            <span>{ article.author ? `by ${article.author}` : null }</span>
-                        </div>
-                        <div className="column is-6 is-mobile">
-                            <a className="is-pulled-right button is-primary is-small" href={ article.url } target="_blank">{ article.domain }</a>
-                        </div>
+                    <div className="content">
+                        <a className="button is-primary" href={ article.url } target="_blank">{ article.domain }</a>
+                        <br />
+                        <span>{ article.author ? `by ${article.author}` : null }</span>
+                        <br />
+                        <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
                     </div>
+                    { this.renderNotes() }
                 </div>
-                { this.renderNotes() }
                 { this.renderNav() }
             </div>
         );
