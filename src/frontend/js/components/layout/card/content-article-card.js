@@ -4,6 +4,7 @@ import moment from 'moment';
 import { browserHistory } from 'react-router';
 
 import Description from '../../ui/description';
+import Image from '../../ui/image';
 
 const ContentArticleCard = React.createClass({
 
@@ -59,7 +60,7 @@ const ContentArticleCard = React.createClass({
                 </header>
                 <div className="card-image">
                     <figure className="image">
-                        <img src={ article.lead_image_url } alt="Image" />
+                        <Image src={ article.lead_image_url } />
                     </figure>
                 </div>
                 <div className="card-content">
