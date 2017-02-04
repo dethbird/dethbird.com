@@ -54939,16 +54939,16 @@ var AppHeader = _react2.default.createClass({
             { className: 'columns is-mobile' },
             _react2.default.createElement(
                 'div',
-                { className: 'column is-10' },
+                { className: 'column is-6' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'columns is-mobile' },
+                    { className: 'control is-grouped-left' },
                     _react2.default.createElement(
                         'p',
                         { className: 'control' },
                         _react2.default.createElement(
                             'a',
-                            { className: 'level-item', title: 'Home', onClick: function onClick() {
+                            { title: 'Home', onClick: function onClick() {
                                     return _reactRouter.browserHistory.push('/');
                                 } },
                             _react2.default.createElement(
@@ -54963,7 +54963,7 @@ var AppHeader = _react2.default.createClass({
                         { className: 'control' },
                         _react2.default.createElement(
                             'a',
-                            { className: 'level-item', title: 'Submit', onClick: function onClick() {
+                            { title: 'Submit', onClick: function onClick() {
                                     return _reactRouter.browserHistory.push('/content/article/add');
                                 } },
                             _react2.default.createElement(
@@ -54977,7 +54977,7 @@ var AppHeader = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 'div',
-                { className: 'column is-2 clearfix' },
+                { className: 'column is-6 clearfix' },
                 _react2.default.createElement(_securityContext2.default, { securityContext: securityContext, className: 'has-text-right' })
             )
         );

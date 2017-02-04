@@ -19,17 +19,17 @@ const AppHeader = React.createClass({
 
         return (
             <div className="columns is-mobile">
-                <div className="column is-10">
-                    <div className="columns is-mobile">
+                <div className="column is-6">
+                    <div className="control is-grouped-left">
                         <p className="control">
-                            <a className="level-item" title="Home" onClick={ () => browserHistory.push(`/`)}>
+                            <a title="Home" onClick={ () => browserHistory.push(`/`)}>
                                 <span className="icon">
                                     <i className="fa fa-home"></i>
                                 </span>
                             </a>
                         </p>
                         <p className="control">
-                            <a className="level-item" title="Submit" onClick={ () => browserHistory.push(`/content/article/add`)}>
+                            <a title="Submit" onClick={ () => browserHistory.push(`/content/article/add`)}>
                                 <span className="icon">
                                     <i className="fa fa-plus"></i>
                                 </span>
@@ -37,7 +37,7 @@ const AppHeader = React.createClass({
                         </p>
                     </div>
                 </div>
-                <div className="column is-2 clearfix">
+                <div className="column is-6 clearfix">
                     <SecurityContext securityContext={ securityContext } className="has-text-right"/>
                 </div>
             </div>
