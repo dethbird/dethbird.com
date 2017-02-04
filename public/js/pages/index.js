@@ -56119,9 +56119,10 @@ var NoMatch = _react2.default.createClass({
     }
 });
 
-if (lastRequestUri) {
-    _reactRouter.browserHistory.push(lastRequestUri);
-}
+// console.log(lastRequestUri);
+// if (lastRequestUri) {
+//     browserHistory.push(lastRequestUri);
+// }
 
 (0, _reactDom.render)(_react2.default.createElement(
     _reactRedux.Provider,

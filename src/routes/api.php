@@ -160,6 +160,32 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
     });
 
     $app->get('/externalimage', function () use ($app) {
-        echo "farts";
+        $imageUrl = $app->request->params('image');
+        $model = ContentArticle::find_by_lead_image_url($imageUrl);
+        if (!$model) {
+            $app->halt(404, json_encode(['image' => 'Article not found']));
+        }
+
+        $year = date('Y', strtotime($model->date_published));
+        $month = date('m', strtotime($model->date_published));
+        $day = date('d', strtotime($model->date_published));
+
+        $folder = APPLICATION_PATH . 'cache/image/content/article/' . $year . '/' . $month . '/' . $day;
+        if(!file_exists($folder))
+            mkdir($folder, 0755, true);
+
+        $extension = strtolower(pathinfo($model->lead_image_url, PATHINFO_EXTENSION ));
+        $localPath = $folder . '/' .$model->id . '.' . $extension;
+        if (!file_exists($localPath)) {
+            // download the image
+            $resource = fopen($localPath, "w");
+            $client =  new GuzzleHttp\Client();
+            $client->request('GET', $model->lead_image_url, ['sink' => $resource]);
+            chmod($localPath, 0755);
+        }
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type',  mime_content_type($localPath));
+        $app->response->setBody(file_get_contents($localPath));
     });
 });
