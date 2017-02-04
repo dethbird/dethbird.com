@@ -61526,10 +61526,6 @@ var ContentArticleCard = _react2.default.createClass({
         tl.add(_gsap.TweenMax.from(root, .5, { scale: 1.3, opacity: 0 }, 0));
         tl.delay(sequence ? sequence / 4 : 0);
         tl.play();
-        // console.log('animate');
-        // console.log(this.refs.root);
-        // console.log(TimelineLite);
-        // TweenLite.from(root, 1, {scale: 1.3 } ease:Power2.easeInOut);
     },
     render: function render() {
         var _props2 = this.props,
