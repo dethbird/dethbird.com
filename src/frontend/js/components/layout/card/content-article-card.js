@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react'
 import moment from 'moment';
 import { TweenMax, TimelineMax } from 'gsap';
+import CustomScroll from 'react-custom-scroll';
 import { browserHistory } from 'react-router';
 
 import Description from '../../ui/description';
@@ -28,7 +29,11 @@ const ContentArticleCard = React.createClass({
             return null;
 
         return (
-            <div className="content box"><Description source={ article.notes } className="notes" /></div>
+            <div className="box">
+                <CustomScroll heightRelativeToParent="calc(100% - 20px)">
+                    <Description source={ article.notes } className="content notes" />
+                </CustomScroll>
+            </div>
         );
 
     },
@@ -64,9 +69,9 @@ const ContentArticleCard = React.createClass({
         return (
             <div className={ classNames([className, 'card']) } ref="root">
                 <header className="card-header">
-                    <h4 className="card-header-title">
+                    <h5 className="card-header-title title is-5">
                         { article.title }
-                    </h4>
+                    </h5>
                 </header>
                 <div className="card-image">
                     <figure className="image">
