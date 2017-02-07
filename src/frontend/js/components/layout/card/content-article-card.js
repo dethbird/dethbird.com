@@ -80,6 +80,7 @@ const ContentArticleCard = React.createClass({
                 </div>
                 <div className="card-content">
                     <div className="content">{ article.excerpt }</div>
+                    { this.renderNotes() }
                     <div className="content">
                         <a className="button is-primary is-small is-outlined" href={ article.url } target="_blank">{ article.domain }</a>
                         <br />
@@ -87,7 +88,6 @@ const ContentArticleCard = React.createClass({
                         <br />
                         <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
                     </div>
-                    { this.renderNotes() }
                     { this.renderNav() }
                 </div>
             </div>

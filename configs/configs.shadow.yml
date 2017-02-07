@@ -17,6 +17,8 @@ mysql:
 service:
     mercury_postlight:
         key: :MERCURY_POSTLIGHT_KEY
+    pocket:
+        key: :POCKET_KEY
     flickr:
         key: :FLICKR_KEY
         secret: :FLICKR_SECRET

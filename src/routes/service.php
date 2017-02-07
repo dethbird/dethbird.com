@@ -147,35 +147,25 @@ $app->group('/service', function () use ($app) {
         $app->get('/authorize', function () use ($app) {
             $configs = $app->container->get('configs');
             $pocketData = new PocketData(
-                $configs['service']['pocket']['consumer_key']);
+                $configs['service']['pocket']['key']);
             $code = $pocketData->fetchRequestCode(
-                "http://".$_SERVER['HTTP_HOST']."/service/pocket/redirect");
+                "https://".$_SERVER['HTTP_HOST']."/service/pocket/redirect");
             $_SESSION['pocketCode'] = $code;
             $app->redirect($pocketData->getAuthorizeScreenUri(
                 $code,
-                "http://".$_SERVER['HTTP_HOST']."/service/pocket/redirect"
+                "https://".$_SERVER['HTTP_HOST']."/service/pocket/redirect"
             ));
         });
 
         $app->get('/redirect', function () use ($app) {
             $configs = $app->container->get('configs');
-            $db = $app->container->get('db');
-            $securityContext = $_SESSION['securityContext'];
             $pocketData = new PocketData(
-                $configs['service']['pocket']['consumer_key']);
+                $configs['service']['pocket']['key']);
 
-            $accessTokenData = $pocketData->fetchAccessTokenData(
+            $_SESSION['pocketAccessToken'] = $pocketData->fetchAccessTokenData(
                 $_SESSION['pocketCode']);
 
-            $result = $db->perform(
-                $configs['sql']['account_pocket']['insert_update_pocket_user'],
-                [
-                    'user_id' => $securityContext->id,
-                    'username' => $accessTokenData->username,
-                    'access_token' => $accessTokenData->access_token
-                ]
-            );
-            $app->redirect('/likedrop');
+            $app->redirect('/import/pocket');
         });
     });
 

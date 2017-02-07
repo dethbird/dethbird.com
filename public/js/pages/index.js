@@ -61576,6 +61576,7 @@ var ContentArticleCard = _react2.default.createClass({
                     { className: 'content' },
                     article.excerpt
                 ),
+                this.renderNotes(),
                 _react2.default.createElement(
                     'div',
                     { className: 'content' },
@@ -61597,7 +61598,6 @@ var ContentArticleCard = _react2.default.createClass({
                         (0, _moment2.default)(article.date_published).format("YYYY MMMM Do")
                     )
                 ),
-                this.renderNotes(),
                 this.renderNav()
             )
         );

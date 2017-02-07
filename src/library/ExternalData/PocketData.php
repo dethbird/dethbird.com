@@ -66,9 +66,10 @@ class PocketData extends ExternalDataBase {
                 'access_token' => $this->accessToken,
                 'state' => 'all',
                 'sort' => 'newest',
-                'detailType' => 'complete'
+                'detailType' => 'complete',
+                'count' => 100
             ]
         ]);
-        return json_decode($response->getBody()->getContents());
+        return $response->getBody()->getContents();
     }
 }

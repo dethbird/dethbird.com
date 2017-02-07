@@ -22,7 +22,7 @@ require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php'
 // require_once APPLICATION_PATH . 'src/library/ExternalData/GoogleData.php';
 // require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/MercuryPostlightData.php';
-// require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
 // require_once APPLICATION_PATH . 'src/library/ExternalData/VimeoData.php';
 require_once APPLICATION_PATH . 'src/library/Data/Base.php';
 require_once APPLICATION_PATH . 'src/library/Logic/Projects.php';
@@ -171,6 +171,18 @@ $app->get("/", $authorize($app), function () use ($app) {
     );
 });
 
+$app->group('/import', $authorize($app), function () use ($app) {
+    $app->get("/pocket", function () use ($app) {
+        if(!isset($_SESSION['pocketAccessToken'])){
+            $app->redirect("/service/pocket/authorize");
+        }
+        $configs = $app->container->get('configs');
+        $pocketData = new PocketData(
+            $configs['service']['pocket']['key'], $_SESSION['pocketAccessToken']->access_token);
+        $response = $pocketData->getArticles();
+        echo $response; die();
+    });
+});
 
 # logout
 $app->get("/logout", function () use ($app) {
