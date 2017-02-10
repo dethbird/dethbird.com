@@ -177,10 +177,25 @@ $app->group('/import', $authorize($app), function () use ($app) {
             $app->redirect("/service/pocket/authorize");
         }
         $configs = $app->container->get('configs');
+        $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
         $pocketData = new PocketData(
             $configs['service']['pocket']['key'], $_SESSION['pocketAccessToken']->access_token);
-        $response = $pocketData->getArticles();
-        echo $response; die();
+
+        $pocketResponse = $pocketData->getArticles();
+
+        $templateVars = array(
+            "configs" => $configs,
+            'securityContext' => $securityContext,
+            'lastRequestUri' => '/import/pocket',
+            'pocketResponse' => $pocketResponse,
+            "section" => "import"
+        );
+
+        $app->render(
+            'pages/import.html.twig',
+            $templateVars,
+            200
+        );
     });
 });
 

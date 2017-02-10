@@ -155,6 +155,52 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
         });
 
+        # post article
+        $app->post('/articles', $writeAccess($app), function () use ($app) {
+            $configs = $app->container->get('configs');
+            $securityContext = $_SESSION['securityContext'];
+            $payload = json_decode($app->request->getBody(), true);
+
+            $response = [];
+
+            foreach ($payload as $url) {
+                $client = new MercuryPostlightData($configs['service']['mercury_postlight']['key']);
+                $article = $client->getArticle($url);
+                if(isset($article->error)) {
+                    $response[] = ['url' => 'Invalid url', 'item' => $url];
+
+                } else if (!$article->date_published) {
+                    $response[] = ['date_published' => 'No date published', 'item' => $url];
+                } else {
+
+                    // fetch model if exists
+                    $model = ContentArticle::find_by_url($article->url);
+                    if (!$model) {
+                        $model = new ContentArticle();
+                        $model->user_id = $securityContext->id;
+                    }
+                    $model->url = $article->url;
+                    $model->title = $client->cleanData($article->title);
+                    $model->author = $article->author;
+                    $model->lead_image_url = $article->lead_image_url;
+                    $model->date_published = $article->date_published;
+                    $model->excerpt = $article->excerpt;
+                    $model->content = $article->content;
+                    $model->word_count = $article->word_count;
+                    $model->domain = $article->domain;
+                    $model->save();
+
+                    $response[] = json_decode($model->to_json());
+                }
+            }
+
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode($response));
+
+
+        });
+
         # put article
         $app->put('/article/:articleId', $writeAccess($app), function ($articleId) use ($app) {
             $configs = $app->container->get('configs');

@@ -35,6 +35,13 @@ const AppHeader = React.createClass({
                                 </span>
                             </a>
                         </p>
+                        <p className="control">
+                            <a title="Submit" href="/import/pocket">
+                                <span className="icon">
+                                    <i className="fa fa-get-pocket"></i>
+                                </span>
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div className="column is-6 clearfix">

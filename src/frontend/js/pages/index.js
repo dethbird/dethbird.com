@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import { App } from '../components/app';
 import ContentArticleEdit from '../components/pages/content-article-edit';
+import ImportPocket from '../components/pages/import-pocket';
 import Index from '../components/pages/index';
 import Login from '../components/pages/login';
 import Submit from '../components/pages/submit';
@@ -31,6 +32,7 @@ render((
                 <Route path="/submit" component={ Submit } />
                 <Route path="/content/article/add" component={ ContentArticleEdit } />
                 <Route path="/content/article/:articleId/edit" component={ ContentArticleEdit } />
+                <Route path="/import/pocket" component={ ImportPocket } />
                 <Route path="*" component={ Index } />
             </Route>
         </Router>

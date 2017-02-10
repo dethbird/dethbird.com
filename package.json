@@ -9,6 +9,7 @@
     "material-ui": "^0.16.7",
     "moment": "^2.15.0",
     "packery": "~2.1.1",
+    "pluralize": "^3.1.0",
     "react": "^15.3.1",
     "react-addons-transition-group": "^15.4.2",
     "react-custom-scroll": "^1.8.0",

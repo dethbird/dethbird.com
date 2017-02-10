@@ -19,17 +19,9 @@ const SecurityContext = React.createClass({
 
     getInitialState: function() {
         return {
-            showLoginForm: false,
             changedFields: {},
             uiState: UI_STATE_COMPLETE
         }
-    },
-
-    handleClickLogin: function() {
-        this.setState( {
-            ... this.state,
-            showLoginForm: true
-        });
     },
 
     handleCancelLogin: function() {
@@ -38,7 +30,6 @@ const SecurityContext = React.createClass({
             showLoginForm: false
         });
     },
-
 
     handleSubmitLogin: function() {
         const { changedFields } = this.state;
@@ -75,53 +66,42 @@ const SecurityContext = React.createClass({
 
     render: function() {
         const { className, securityContext } = this.props;
-        const { showLoginForm, changedFields, uiState } = this.state;
+        const { changedFields, uiState } = this.state;
         if(securityContext.application_user===1){
-            if (showLoginForm) {
-                return (
-                    <div className="box">
-                        <form>
-                            <InputText
-                                label="username"
-                                id="username"
-                                value={ changedFields.username || '' }
-                                onChange= { this.handleFieldChange }
-                            />
-                            <InputText
-                                label="password"
-                                id="password"
-                                value={ changedFields.password || '' }
-                                onChange= { this.handleFieldChange }
-                                password={ true }
-                            />
-                            <div className="control is-grouped">
-                                <p className="control">
-                                    <a
-                                        className="button is-light"
-                                        onClick={ this.handleCancelLogin }
-                                    >Cancel</a>
-                                </p>
-                                <p className="control">
-                                    <a
-                                        className={ classNames(['button is-primary', uiState==UI_STATE_REQUESTING ? 'is-loading': null ]) }
-                                        onClick={ this.handleSubmitLogin }
-                                    >Login</a>
-                                </p>
-                            </div>
+            return (
+                <div className="box">
+                    <form>
+                        <InputText
+                            label="username"
+                            id="username"
+                            value={ changedFields.username || '' }
+                            onChange= { this.handleFieldChange }
+                        />
+                        <InputText
+                            label="password"
+                            id="password"
+                            value={ changedFields.password || '' }
+                            onChange= { this.handleFieldChange }
+                            password={ true }
+                        />
+                        <div className="control is-grouped">
+                            <p className="control">
+                                <a
+                                    className="button is-light"
+                                    onClick={ this.handleCancelLogin }
+                                >Cancel</a>
+                            </p>
+                            <p className="control">
+                                <a
+                                    className={ classNames(['button is-primary', uiState==UI_STATE_REQUESTING ? 'is-loading': null ]) }
+                                    onClick={ this.handleSubmitLogin }
+                                >Login</a>
+                            </p>
+                        </div>
 
-                        </form>
-                    </div>
-                );
-            } else {
-                return (
-                    <div className={ classNames([className, 'securty-context']) }>
-                        <a
-                            className="button is-info"
-                            onClick={ this.handleClickLogin }
-                        >Login</a>
-                    </div>
-                );
-            }
+                    </form>
+                </div>
+            );
         } else {
             return (
                 <div className={ classNames([className, 'securty-context control is-grouped']) }>
