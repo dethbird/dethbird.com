@@ -38,6 +38,7 @@ const ContentArticleEdit = React.createClass({
         if( article==undefined && nextProps.article){
             this.setState({
                 changedFields: {
+                    url: nextProps.article.url,
                     notes: nextProps.article.notes
                 }
             });

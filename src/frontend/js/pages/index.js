@@ -8,7 +8,6 @@ import ContentArticleEdit from '../components/pages/content-article-edit';
 import ImportPocket from '../components/pages/import-pocket';
 import Index from '../components/pages/index';
 import Login from '../components/pages/login';
-import Submit from '../components/pages/submit';
 import store from '../store/store';
 
 const NoMatch = React.createClass({
@@ -29,7 +28,6 @@ render((
             <Route path="/" component={ App }>
                 <IndexRoute component={ Index } />
                 <Route path="/login" component={ Login } />
-                <Route path="/submit" component={ Submit } />
                 <Route path="/content/article/add" component={ ContentArticleEdit } />
                 <Route path="/content/article/:articleId/edit" component={ ContentArticleEdit } />
                 <Route path="/import/pocket" component={ ImportPocket } />
