@@ -76,7 +76,13 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
         # get articles
         $app->get('/articles', function () use ($app) {
-            $articles = ContentArticle::find('all', array('order' => 'date_published desc'));
+            $securityContext = $_SESSION['securityContext'];
+            $article = [];
+            if ($securityContext->application_user==1){
+                $articles = ContentArticle::find_all_by_user_id($securityContext->id, ['order' => 'date_published desc']);
+            } else if ($securityContext->application_user==0){
+                $articles = ContentArticle::find('all', ['order' => 'date_published desc']);
+            }
             $_response = [];
             foreach($articles as $article) {
                 $_response[] = json_decode($article->to_json());
@@ -215,6 +221,29 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $model->notes = $payload['notes'];
             $model->save();
 
+            if (sizeof($payload['tags'])>0){
+                // delete existing article tags
+                ContentArticleTag::table()->delete(['content_article_id' => $model->id]);
+
+                // find or create tag
+                while (list($key, $tag) = each($payload['tags'])) {
+                    $tagModel = Tag::find('one', ['conditions' => ['UPPER(text) = UPPER(?)', trim($tag['text'])]]);
+                    if(!$tagModel){
+                        $tagModel = new Tag([
+                            "text" => trim($tag['text']),
+                            "user_id" => $securityContext->id
+                        ]);
+                        $tagModel->save();
+                    }
+                    $contentArticleTag = new ContentArticleTag([
+                        "content_article_id" => $model->id,
+                        "tag_id" => $tagModel->id
+                    ]);
+                    $contentArticleTag->save();
+                }
+
+            }
+
             $app->response->setStatus(200);
             $app->response->headers->set('Content-Type', 'application/json');
             $app->response->setBody($model->to_json());
@@ -250,5 +279,20 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type',  mime_content_type($localPath));
         $app->response->setBody(file_get_contents($localPath));
+    });
+    $app->group('/tags', function () use ($app) {
+
+        # get tags
+        $app->get('', function () use ($app) {
+            $securityContext = $_SESSION['securityContext'];
+            $tags = Tag::find_all_by_user_id($securityContext->id, ['order' => 'text asc']);
+            $userTags = [];
+            while (list($key, $tag) = each($tags)) {
+                $userTags[] = json_decode($tag->to_json());
+            }
+            $app->response->setStatus(200);
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode($userTags));
+        });
     });
 });

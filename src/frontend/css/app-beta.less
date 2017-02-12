@@ -38,6 +38,34 @@ body {
     margin: 15px 0px 15px 0px;
     width: 100% !important;
 }
+.input-tags {
+    .tag {
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
+    ul {
+        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+        background: white;
+        width: 200px;
+        margin: 0;
+    }
+    li {
+        list-style: none;
+        border-bottom: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 0;
+    }
+    li mark {
+        text-decoration: underline;
+        background: none;
+        font-weight: 600;
+    }
+    li.active {
+        background: #b7cfe0;
+        cursor: pointer;
+    }
+
+}
 
 .notes {
     max-height: 285px;

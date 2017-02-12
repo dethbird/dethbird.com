@@ -165,7 +165,7 @@ export const putContentArticle = (article, fields) =>
     dispatch => {
         dispatch(putContentArticleInit());
         request.put('/api/content/article/' + article.id)
-            .send( { notes: fields.notes } )
+            .send( { notes: fields.notes, tags: fields.tags } )
             .end((err, res) => {
                 if(res.ok) {
                     dispatch(putContentArticleSuccess(res.body));

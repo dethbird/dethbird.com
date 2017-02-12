@@ -37,6 +37,23 @@ const ContentArticleCard = React.createClass({
         );
 
     },
+    renderTags: function() {
+        const { article } = this.props;
+
+        if (article.tags.length < 1)
+            return null;
+
+        const tags = article.tags.map(function(tag, i){
+            return (
+                <span className="tag is-info">{ tag.text }</span>
+            );
+        });
+
+        return (
+            <div className="content">{ tags }</div>
+        );
+
+    },
     renderNav: function() {
         const { article, securityContext, renderNav } = this.props;
 
@@ -87,6 +104,7 @@ const ContentArticleCard = React.createClass({
                         <span>{ article.author ? `by ${article.author}` : null }</span>
                         <br />
                         <strong>{  moment(article.date_published).format("YYYY MMMM Do") }</strong>
+                        { this.renderTags() }
                     </div>
                     { this.renderNav() }
                 </div>

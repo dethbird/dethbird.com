@@ -7,6 +7,7 @@ import ContentArticleCard from '../layout/card/content-article-card';
 import Description from '../ui/description';
 import InputDescription from '../ui/form/input-description';
 import InputText from '../ui/form/input-text';
+import InputTags from '../ui/form/input-tags';
 import UiState from '../ui/ui-state'
 
 import {
@@ -39,7 +40,8 @@ const ContentArticleEdit = React.createClass({
             this.setState({
                 changedFields: {
                     url: nextProps.article.url,
-                    notes: nextProps.article.notes
+                    notes: nextProps.article.notes,
+                    tags: nextProps.article.tags
                 }
             });
         }
@@ -48,6 +50,15 @@ const ContentArticleEdit = React.createClass({
         const { dispatch } = this.props;
         const { articleId } = this.props.params;
         dispatch(getContentArticle(articleId));
+    },
+    handleTagsChanged(tags) {
+        const { changedFields } = this.state;
+        let newChangedFields = changedFields;
+        newChangedFields['tags'] = tags;
+        this.setState({
+            ... this.state,
+            changedFields: newChangedFields
+        });
     },
     handleFieldChange(event) {
         const { dispatch, form_mode, article } = this.props;
@@ -109,12 +120,20 @@ const ContentArticleEdit = React.createClass({
                     <br />
                     <div className="box">
                         <form className="is-clearfix">
-                            <InputDescription
-                                label="Notes (markdown)"
-                                id="notes"
-                                value={ changedFields.notes || '' }
-                                onChange= { this.handleFieldChange }
-                            />
+                            <div className="control">
+                                <InputDescription
+                                    label="Notes (markdown)"
+                                    id="notes"
+                                    value={ changedFields.notes || '' }
+                                    onChange= { this.handleFieldChange }
+                                />
+                            </div>
+                            <div className="control">
+                                <InputTags
+                                    tags={ changedFields.tags || [] }
+                                    onChange={ this.handleTagsChanged }
+                                />
+                            </div>
                             <div className="control is-grouped">
                                 <p className="control">
                                     <a

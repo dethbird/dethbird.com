@@ -26,6 +26,14 @@ class ContentArticle extends ActiveRecord\Model
                 'except' => ['api_key', 'password', 'email', 'read', 'write']
             ]));
         }
+
+        $model->tags = [];
+        $contentArticleTags = ContentArticleTag::find_all_by_content_article_id($model->id);
+        while (list($k, $v) = each($contentArticleTags)) {
+            $tag = Tag::find($v->tag_id);
+            $model->tags[] = json_decode($tag->to_json());
+        }
+
         return json_encode($model);
     }
 }
