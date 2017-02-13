@@ -72234,7 +72234,8 @@ var ContentArticleCard = _react2.default.createClass({
         securityContext: _react2.default.PropTypes.object.isRequired,
         renderNav: _react2.default.PropTypes.bool,
         sequence: _react2.default.PropTypes.number,
-        onCheckArticle: _react2.default.PropTypes.func
+        onCheckArticle: _react2.default.PropTypes.func,
+        checked: _react2.default.PropTypes.bool
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -72282,7 +72283,8 @@ var ContentArticleCard = _react2.default.createClass({
             article = _props.article,
             securityContext = _props.securityContext,
             renderNav = _props.renderNav,
-            onCheckArticle = _props.onCheckArticle;
+            onCheckArticle = _props.onCheckArticle,
+            checked = _props.checked;
 
 
         if (article.user.id !== securityContext.id || !renderNav) return null;
@@ -72293,7 +72295,7 @@ var ContentArticleCard = _react2.default.createClass({
             checkbox = _react2.default.createElement(
                 'div',
                 { className: 'control' },
-                _react2.default.createElement(_inputCheckbox2.default, { value: '' + article.id, onCheck: onCheckArticle })
+                _react2.default.createElement(_inputCheckbox2.default, { value: '' + article.id, onCheck: onCheckArticle, checked: checked })
             );
         }
 
@@ -72330,11 +72332,12 @@ var ContentArticleCard = _react2.default.createClass({
     render: function render() {
         var _props2 = this.props,
             article = _props2.article,
-            className = _props2.className;
+            className = _props2.className,
+            checked = _props2.checked;
 
         return _react2.default.createElement(
             'div',
-            { className: (0, _classnames2.default)([className, 'card']), ref: 'root' },
+            { className: (0, _classnames2.default)([className, 'card', checked ? 'checked' : null]), ref: 'root' },
             _react2.default.createElement(
                 'header',
                 { className: 'card-header' },
@@ -72969,7 +72972,9 @@ var Index = _react2.default.createClass({
         var that = this;
 
         that.setState({
-            uiState: _uiState3.UI_STATE_REQUESTING
+            uiState: _uiState3.UI_STATE_REQUESTING,
+            selectedArticles: [],
+            changedFields: {}
         });
 
         _superagent2.default.post('/api/tags/bulk-add/content-articles').send({
@@ -73054,6 +73059,7 @@ var Index = _react2.default.createClass({
         );
     },
     render: function render() {
+        var selectedArticles = this.state.selectedArticles;
         var _props = this.props,
             ui_state = _props.ui_state,
             articles = _props.articles;
@@ -73074,7 +73080,8 @@ var Index = _react2.default.createClass({
                         securityContext: securityContext,
                         renderNav: true,
                         sequence: i,
-                        onCheckArticle: that.handleCheckArticle
+                        onCheckArticle: that.handleCheckArticle,
+                        checked: selectedArticles.indexOf('' + article.id) > -1
                     })
                 );
             });

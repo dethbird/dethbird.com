@@ -17,7 +17,8 @@ const ContentArticleCard = React.createClass({
         securityContext: React.PropTypes.object.isRequired,
         renderNav: React.PropTypes.bool,
         sequence: React.PropTypes.number,
-        onCheckArticle: React.PropTypes.func
+        onCheckArticle: React.PropTypes.func,
+        checked: React.PropTypes.bool
     },
     getDefaultProps: function() {
         return {
@@ -57,7 +58,7 @@ const ContentArticleCard = React.createClass({
 
     },
     renderNav: function() {
-        const { article, securityContext, renderNav, onCheckArticle } = this.props;
+        const { article, securityContext, renderNav, onCheckArticle, checked} = this.props;
 
         if (article.user.id !== securityContext.id || !renderNav)
             return null;
@@ -67,7 +68,7 @@ const ContentArticleCard = React.createClass({
         if (typeof onCheckArticle === "function") {
             checkbox = (
                 <div className="control">
-                    <InputCheckbox value={ `${article.id}` } onCheck={ onCheckArticle } />
+                    <InputCheckbox value={ `${article.id}` } onCheck={ onCheckArticle } checked={ checked }/>
                 </div>
             );
         }
@@ -95,9 +96,9 @@ const ContentArticleCard = React.createClass({
         tl.play();
     },
     render: function() {
-        const { article, className } = this.props;
+        const { article, className, checked } = this.props;
         return (
-            <div className={ classNames([className, 'card']) } ref="root">
+            <div className={ classNames([className, 'card', checked ? 'checked' : null]) } ref="root">
                 <header className="card-header">
                     <h5 className="card-header-title title is-5">
                         { article.title }

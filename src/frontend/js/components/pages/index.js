@@ -30,7 +30,9 @@ const Index = React.createClass({
         const that = this;
 
         that.setState( {
-            uiState: UI_STATE_REQUESTING
+            uiState: UI_STATE_REQUESTING,
+            selectedArticles: [],
+            changedFields: {}
         });
 
         request.post('/api/tags/bulk-add/content-articles')
@@ -95,6 +97,7 @@ const Index = React.createClass({
         );
     },
     render() {
+        const { selectedArticles } = this.state;
         const { ui_state, articles } = this.props;
         const that = this;
 
@@ -112,6 +115,7 @@ const Index = React.createClass({
                             renderNav={ true }
                             sequence={ i }
                             onCheckArticle={ that.handleCheckArticle }
+                            checked={ selectedArticles.indexOf(`${article.id}`) > -1 }
                         />
                     </div>
                 );

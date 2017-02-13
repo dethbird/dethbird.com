@@ -373,6 +373,9 @@ body {
   font-family: 'Hind Vadodara', sans-serif;
   background-color: #F0F0F0;
 }
+.card.checked {
+  border-top: 4px #23d160 solid;
+}
 .columns {
   flex-wrap: wrap;
 }
