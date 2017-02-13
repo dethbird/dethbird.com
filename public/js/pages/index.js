@@ -72120,7 +72120,7 @@ var AppHeader = _react2.default.createClass({
 
         return _react2.default.createElement(
             'div',
-            { className: 'columns is-mobile' },
+            { className: 'columns is-mobile app-header' },
             _react2.default.createElement(
                 'div',
                 { className: 'column is-6' },
@@ -72214,6 +72214,10 @@ var _description = require('../../ui/description');
 
 var _description2 = _interopRequireDefault(_description);
 
+var _inputCheckbox = require('../../ui/form/input-checkbox');
+
+var _inputCheckbox2 = _interopRequireDefault(_inputCheckbox);
+
 var _image = require('../../ui/image');
 
 var _image2 = _interopRequireDefault(_image);
@@ -72229,7 +72233,8 @@ var ContentArticleCard = _react2.default.createClass({
         article: _react2.default.PropTypes.object.isRequired,
         securityContext: _react2.default.PropTypes.object.isRequired,
         renderNav: _react2.default.PropTypes.bool,
-        sequence: _react2.default.PropTypes.number
+        sequence: _react2.default.PropTypes.number,
+        onCheckArticle: _react2.default.PropTypes.func
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -72261,7 +72266,7 @@ var ContentArticleCard = _react2.default.createClass({
         var tags = article.tags.map(function (tag, i) {
             return _react2.default.createElement(
                 'span',
-                { className: 'tag is-info' },
+                { className: 'tag is-info', key: i },
                 tag.text
             );
         });
@@ -72276,16 +72281,28 @@ var ContentArticleCard = _react2.default.createClass({
         var _props = this.props,
             article = _props.article,
             securityContext = _props.securityContext,
-            renderNav = _props.renderNav;
+            renderNav = _props.renderNav,
+            onCheckArticle = _props.onCheckArticle;
 
 
         if (article.user.id !== securityContext.id || !renderNav) return null;
 
+        var checkbox = null;
+
+        if (typeof onCheckArticle === "function") {
+            checkbox = _react2.default.createElement(
+                'div',
+                { className: 'control' },
+                _react2.default.createElement(_inputCheckbox2.default, { value: '' + article.id, onCheck: onCheckArticle })
+            );
+        }
+
         return _react2.default.createElement(
             'div',
             { className: 'control is-grouped' },
+            checkbox,
             _react2.default.createElement(
-                'p',
+                'div',
                 { className: 'control' },
                 _react2.default.createElement(
                     'a',
@@ -72375,7 +72392,7 @@ var ContentArticleCard = _react2.default.createClass({
 
 exports.default = ContentArticleCard;
 
-},{"../../ui/description":743,"../../ui/image":748,"classnames":25,"gsap":168,"moment":450,"react":703,"react-custom-scroll":458,"react-router":658}],738:[function(require,module,exports){
+},{"../../ui/description":743,"../../ui/form/input-checkbox":744,"../../ui/image":748,"classnames":25,"gsap":168,"moment":450,"react":703,"react-custom-scroll":458,"react-router":658}],738:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -72902,6 +72919,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -72909,6 +72928,14 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
+
+var _pluralize = require('pluralize');
+
+var _pluralize2 = _interopRequireDefault(_pluralize);
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
 
 var _contentArticleCard = require('../layout/card/content-article-card');
 
@@ -72926,16 +72953,112 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Index = _react2.default.createClass({
     displayName: 'Index',
+
+    getInitialState: function getInitialState() {
+        return {
+            selectedArticles: [],
+            changedFields: {}
+        };
+    },
+    handleBulkAddTagClick: function handleBulkAddTagClick() {
+        var dispatch = this.props.dispatch;
+        var _state = this.state,
+            changedFields = _state.changedFields,
+            selectedArticles = _state.selectedArticles;
+
+        var that = this;
+
+        that.setState({
+            uiState: _uiState3.UI_STATE_REQUESTING
+        });
+
+        _superagent2.default.post('/api/tags/bulk-add/content-articles').send({
+            tag: changedFields.bulkTag,
+            article_ids: selectedArticles
+        }).end(function (err, res) {
+            if (res.ok) {
+                dispatch((0, _contentArticles.getContentArticles)());
+            } else {
+                console.log(res);
+            }
+        });
+    },
+    handleFieldChange: function handleFieldChange(event) {
+        var changedFields = this.state.changedFields;
+
+        var newChangedFields = changedFields;
+        newChangedFields[event.target.id] = event.target.value;
+        this.setState(_extends({}, this.state, {
+            changedFields: newChangedFields
+        }));
+    },
+
+    handleCheckArticle: function handleCheckArticle(event, checked) {
+        var selectedArticles = this.state.selectedArticles;
+        var value = event.target.value;
+
+        var index = _.indexOf(selectedArticles, value);
+
+        if (checked && index < 0) selectedArticles.push(value);
+
+        if (!checked && index >= 0) selectedArticles.splice(index, 1);
+
+        this.setState(_extends({}, this.state, {
+            selectedArticles: selectedArticles
+        }));
+    },
     componentWillMount: function componentWillMount() {
         var dispatch = this.props.dispatch;
 
         dispatch((0, _contentArticles.getContentArticles)());
+    },
+    renderBulkControls: function renderBulkControls() {
+        var _state2 = this.state,
+            selectedArticles = _state2.selectedArticles,
+            changedFields = _state2.changedFields;
+
+        if (selectedArticles.length < 1) return null;
+
+        return _react2.default.createElement(
+            'div',
+            { className: 'content-article-bulk-controls' },
+            _react2.default.createElement(
+                'div',
+                { className: 'box' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control' },
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'With ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            selectedArticles.length
+                        ),
+                        ' selected:'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control has-addons' },
+                    _react2.default.createElement('input', { type: 'text', className: 'input', id: 'bulkTag', value: changedFields.bulkTag || '', onChange: this.handleFieldChange, placeholder: 'New tag' }),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'button', onClick: this.handleBulkAddTagClick },
+                        'Add Tag'
+                    )
+                )
+            )
+        );
     },
     render: function render() {
         var _props = this.props,
             ui_state = _props.ui_state,
             articles = _props.articles;
 
+        var that = this;
 
         var articleNodes = void 0;
         if (!articles) {
@@ -72945,16 +73068,27 @@ var Index = _react2.default.createClass({
             articleNodes = articles.map(function (article, i) {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'column is-3', key: article.id },
-                    _react2.default.createElement(_contentArticleCard2.default, { article: article, securityContext: securityContext, renderNav: true, sequence: i })
+                    { className: 'column is-2', key: article.id },
+                    _react2.default.createElement(_contentArticleCard2.default, {
+                        article: article,
+                        securityContext: securityContext,
+                        renderNav: true,
+                        sequence: i,
+                        onCheckArticle: that.handleCheckArticle
+                    })
                 );
             });
         }
 
         return _react2.default.createElement(
             'div',
-            { className: 'columns is-multiline' },
-            articleNodes
+            null,
+            this.renderBulkControls(),
+            _react2.default.createElement(
+                'div',
+                { className: 'columns is-multiline' },
+                articleNodes
+            )
         );
     }
 });
@@ -72964,16 +73098,16 @@ var mapStateToProps = function mapStateToProps(state) {
         ui_state = _state$contentArticle.ui_state,
         articles = _state$contentArticle.articles;
 
-    return {
+    return _extends({}, state, {
         ui_state: ui_state ? ui_state : _uiState3.UI_STATE_INITIALIZING,
         articles: articles
-    };
+    });
     return state;
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Index);
 
-},{"../../actions/content-articles":734,"../../constants/ui-state":753,"../layout/card/content-article-card":737,"../ui/ui-state":750,"react":703,"react-redux":624,"react-router":658}],742:[function(require,module,exports){
+},{"../../actions/content-articles":734,"../../constants/ui-state":753,"../layout/card/content-article-card":737,"../ui/ui-state":750,"pluralize":452,"react":703,"react-redux":624,"react-router":658,"superagent":725}],742:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -73092,7 +73226,10 @@ var InputCheckbox = _react2.default.createClass({
         return _react2.default.createElement(_Checkbox2.default, {
             value: value || '',
             onCheck: onCheck,
-            className: 'input-checkbox'
+            className: 'input-checkbox',
+            labelStyle: {
+                width: 0
+            }
         });
     }
 });

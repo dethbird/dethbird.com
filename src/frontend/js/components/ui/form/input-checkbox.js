@@ -19,6 +19,9 @@ const InputCheckbox = React.createClass({
                 value={ value || '' }
                 onCheck= { onCheck }
                 className='input-checkbox'
+                labelStyle = {{
+                    width: 0
+                }}
             />
         );
     }

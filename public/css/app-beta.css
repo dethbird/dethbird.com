@@ -366,6 +366,9 @@
 .app {
   padding: 15px;
 }
+.app-header {
+  margin-bottom: 5px;
+}
 body {
   font-family: 'Hind Vadodara', sans-serif;
   background-color: #F0F0F0;
@@ -381,6 +384,9 @@ body {
   display: flex;
   justify-content: flex-start;
 }
+.content-article-bulk-controls {
+  margin-bottom: 15px;
+}
 .input-text,
 .input-date,
 .input-description,
@@ -388,6 +394,10 @@ body {
 .input-select {
   margin: 15px 0px 15px 0px;
   width: 100% !important;
+}
+.input-checkbox > div > div {
+  width: 0 !important;
+  height: auto;
 }
 .input-tags .tag {
   margin-bottom: 5px;

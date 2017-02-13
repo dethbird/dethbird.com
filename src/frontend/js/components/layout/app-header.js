@@ -18,7 +18,7 @@ const AppHeader = React.createClass({
             return null;
 
         return (
-            <div className="columns is-mobile">
+            <div className="columns is-mobile app-header">
                 <div className="column is-6">
                     <div className="control is-grouped-left">
                         <p className="control">

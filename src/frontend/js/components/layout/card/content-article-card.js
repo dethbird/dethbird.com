@@ -6,6 +6,7 @@ import CustomScroll from 'react-custom-scroll';
 import { browserHistory } from 'react-router';
 
 import Description from '../../ui/description';
+import InputCheckbox from '../../ui/form/input-checkbox';
 import Image from '../../ui/image';
 
 const ContentArticleCard = React.createClass({
@@ -15,7 +16,8 @@ const ContentArticleCard = React.createClass({
         article: React.PropTypes.object.isRequired,
         securityContext: React.PropTypes.object.isRequired,
         renderNav: React.PropTypes.bool,
-        sequence: React.PropTypes.number
+        sequence: React.PropTypes.number,
+        onCheckArticle: React.PropTypes.func
     },
     getDefaultProps: function() {
         return {
@@ -45,7 +47,7 @@ const ContentArticleCard = React.createClass({
 
         const tags = article.tags.map(function(tag, i){
             return (
-                <span className="tag is-info">{ tag.text }</span>
+                <span className="tag is-info" key={ i }>{ tag.text }</span>
             );
         });
 
@@ -55,20 +57,31 @@ const ContentArticleCard = React.createClass({
 
     },
     renderNav: function() {
-        const { article, securityContext, renderNav } = this.props;
+        const { article, securityContext, renderNav, onCheckArticle } = this.props;
 
         if (article.user.id !== securityContext.id || !renderNav)
             return null;
 
+        let checkbox = null;
+
+        if (typeof onCheckArticle === "function") {
+            checkbox = (
+                <div className="control">
+                    <InputCheckbox value={ `${article.id}` } onCheck={ onCheckArticle } />
+                </div>
+            );
+        }
+
         return (
             <div className="control is-grouped">
-                <p className="control">
+                { checkbox }
+                <div className="control">
                     <a className="is-light" onClick={ () => browserHistory.push(`/content/article/${article.id}/edit`)}>
                         <span className="icon">
                             <i className="fa fa-cog"></i>
                         </span>
                     </a>
-                </p>
+                </div>
             </div>
         );
 

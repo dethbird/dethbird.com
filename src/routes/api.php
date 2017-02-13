@@ -78,9 +78,9 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         $app->get('/articles', function () use ($app) {
             $securityContext = $_SESSION['securityContext'];
             $article = [];
-            if ($securityContext->application_user==1){
+            if ($securityContext->application_user==0){
                 $articles = ContentArticle::find_all_by_user_id($securityContext->id, ['order' => 'date_published desc']);
-            } else if ($securityContext->application_user==0){
+            } else if ($securityContext->application_user==1){
                 $articles = ContentArticle::find('all', ['order' => 'date_published desc']);
             }
             $_response = [];
@@ -227,7 +227,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
 
                 // find or create tag
                 while (list($key, $tag) = each($payload['tags'])) {
-                    $tagModel = Tag::find('one', ['conditions' => ['UPPER(text) = UPPER(?)', trim($tag['text'])]]);
+                    $tagModel = Tag::find('one', ['conditions' => ['UPPER(text) = UPPER(?) AND user_id = ?', trim($tag['text']), $securityContext->id]]);
                     if(!$tagModel){
                         $tagModel = new Tag([
                             "text" => trim($tag['text']),
@@ -283,7 +283,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
     $app->group('/tags', function () use ($app) {
 
         # get tags
-        $app->get('', function () use ($app) {
+        $app->get('/', function () use ($app) {
             $securityContext = $_SESSION['securityContext'];
             $tags = Tag::find_all_by_user_id($securityContext->id, ['order' => 'text asc']);
             $userTags = [];
@@ -293,6 +293,45 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $app->response->setStatus(200);
             $app->response->headers->set('Content-Type', 'application/json');
             $app->response->setBody(json_encode($userTags));
+        });
+
+        $app->group('/bulk-add', function () use ($app) {
+            global $writeAccess;
+
+            # get tags
+            $app->post('/content-articles', $writeAccess($app), function () use ($app) {
+
+                $configs = $app->container->get('configs');
+                $securityContext = $_SESSION['securityContext'];
+                $payload = json_decode($app->request->getBody(), true);
+
+                $tagModel = Tag::find('one', ['conditions' => ['UPPER(text) = UPPER(?) AND user_id = ?', trim($payload['tag']), $securityContext->id]]);
+
+                if (!$tagModel) {
+                    $tagModel = new Tag();
+                    $tagModel->text = trim($payload['tag']);
+                    $tagModel->user_id = $securityContext->id;
+                    $tagModel->save();
+                }
+
+                foreach($payload['article_ids'] as $articleId) {
+                    $article = ContentArticle::find_by_id((int) $articleId);
+                    $contentArticleTag = ContentArticleTag::find_by_content_article_id_and_tag_id(
+                        $article->id,
+                        $tagModel->id
+                    );
+                    if (!$contentArticleTag) {
+                        $contentArticleTag = new ContentArticleTag();
+                        $contentArticleTag->content_article_id = $article->id;
+                        $contentArticleTag->tag_id = $tagModel->id;
+                        $contentArticleTag->save();
+                    }
+                }
+
+                $app->response->setStatus(200);
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(["status" => "ok"]));
+            });
         });
     });
 });
