@@ -77,12 +77,30 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
         # get articles
         $app->get('/articles', function () use ($app) {
             $securityContext = $_SESSION['securityContext'];
-            $article = [];
+            $params = $app->request->params();
+
+            $sql = 'SELECT DISTINCT ca.* FROM `content_article` ca';
+            $sql .= PHP_EOL . 'LEFT JOIN `content_article_tag` cat ON cat.content_article_id = ca.id';
+            $sql .= PHP_EOL . 'LEFT JOIN `tag` t ON cat.tag_id = t.id';
+            $sql .= PHP_EOL . 'WHERE 1';
             if ($securityContext->application_user==0){
-                $articles = ContentArticle::find_all_by_user_id($securityContext->id, ['order' => 'date_published desc']);
-            } else if ($securityContext->application_user==1){
-                $articles = ContentArticle::find('all', ['order' => 'date_published desc']);
+                $sql .= PHP_EOL . sprintf('AND ca.user_id = %u', $securityContext->id);
             }
+            if (isset($params['user_id'])) {
+                $sql .= PHP_EOL . sprintf('AND ca.user_id = %u', $params['user_id']);
+            }
+            if (isset($params['tags'])) {
+
+                $tags = explode(",", $params['tags']);
+                foreach ($tags as $i=>$tag) {
+                    $tags[$i] = strtoupper($tag);
+                }
+                $sql .= PHP_EOL . 'AND UPPER(t.text) IN (\'' . implode('\', \'', $tags) . '\')';
+            }
+            $sql .= PHP_EOL . 'ORDER BY ca.date_published desc';
+
+            $articles = ContentArticle::find_by_sql($sql);
+
             $_response = [];
             foreach($articles as $article) {
                 $_response[] = json_decode($article->to_json());
@@ -150,7 +168,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
             $model->lead_image_url = $article->lead_image_url;
             $model->date_published = $article->date_published;
             $model->excerpt = $article->excerpt;
-            $model->content = $article->content;
+            // $model->content = $article->content;
             $model->word_count = $article->word_count;
             $model->domain = $article->domain;
             $model->save();
@@ -191,7 +209,7 @@ $app->group('/api', $authorizeByHeaders($app), function () use ($app) {
                     $model->lead_image_url = $article->lead_image_url;
                     $model->date_published = $article->date_published;
                     $model->excerpt = $article->excerpt;
-                    $model->content = $article->content;
+                    // $model->content = $article->content;
                     $model->word_count = $article->word_count;
                     $model->domain = $article->domain;
                     $model->save();

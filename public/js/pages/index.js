@@ -72132,9 +72132,7 @@ var AppHeader = _react2.default.createClass({
                         { className: 'control' },
                         _react2.default.createElement(
                             'a',
-                            { title: 'Home', onClick: function onClick() {
-                                    return _reactRouter.browserHistory.push('/');
-                                } },
+                            { title: 'Home', href: '/' },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'icon' },
@@ -72147,9 +72145,7 @@ var AppHeader = _react2.default.createClass({
                         { className: 'control' },
                         _react2.default.createElement(
                             'a',
-                            { title: 'Submit', onClick: function onClick() {
-                                    return _reactRouter.browserHistory.push('/content/article/add');
-                                } },
+                            { title: 'Submit', href: '/content/article/add' },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'icon' },
@@ -72326,7 +72322,7 @@ var ContentArticleCard = _react2.default.createClass({
 
         var tl = new _gsap.TimelineMax();
         tl.add(_gsap.TweenMax.from(root, .5, { scale: 1.3, opacity: 0 }, 0));
-        tl.delay(sequence ? sequence / 4 : 0);
+        tl.delay(sequence ? sequence / 10 : 0);
         tl.play();
     },
     render: function render() {

@@ -22,14 +22,14 @@ const AppHeader = React.createClass({
                 <div className="column is-6">
                     <div className="control is-grouped-left">
                         <p className="control">
-                            <a title="Home" onClick={ () => browserHistory.push(`/`)}>
+                            <a title="Home" href="/">
                                 <span className="icon">
                                     <i className="fa fa-home"></i>
                                 </span>
                             </a>
                         </p>
                         <p className="control">
-                            <a title="Submit" onClick={ () => browserHistory.push(`/content/article/add`)}>
+                            <a title="Submit" href="/content/article/add">
                                 <span className="icon">
                                     <i className="fa fa-plus"></i>
                                 </span>

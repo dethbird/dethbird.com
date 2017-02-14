@@ -92,7 +92,7 @@ const ContentArticleCard = React.createClass({
         const { root } = this.refs
         let tl = new TimelineMax();
         tl.add( TweenMax.from(root, .5, { scale: 1.3, opacity: 0 }, 0) );
-        tl.delay( sequence ? sequence/4 : 0 );
+        tl.delay( sequence ? sequence/10 : 0 );
         tl.play();
     },
     render: function() {

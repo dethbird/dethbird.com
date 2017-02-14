@@ -376,6 +376,9 @@ body {
 .card.checked {
   border-top: 4px #23d160 solid;
 }
+.card .tag {
+  margin: 0 1px 1px 0;
+}
 .columns {
   flex-wrap: wrap;
 }
