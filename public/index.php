@@ -18,16 +18,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require '../vendor/autoload.php';
 require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php';
-// require_once APPLICATION_PATH . 'src/library/ExternalData/FlickrData.php';
-// require_once APPLICATION_PATH . 'src/library/ExternalData/GoogleData.php';
-// require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/MercuryPostlightData.php';
-require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
-// require_once APPLICATION_PATH . 'src/library/ExternalData/VimeoData.php';
-require_once APPLICATION_PATH . 'src/library/Data/Base.php';
-require_once APPLICATION_PATH . 'src/library/Logic/Projects.php';
-require_once APPLICATION_PATH . 'src/library/Logic/Scripts.php';
-require_once APPLICATION_PATH . 'src/library/Validation/Validator.php';
 require_once APPLICATION_PATH . 'vendor/php-activerecord/php-activerecord/ActiveRecord.php';
 
 use Aptoma\Twig\Extension\MarkdownExtension;
@@ -58,15 +48,7 @@ $view->parserExtensions = array(
     new MarkdownExtension($markdownEngine)
 );
 
-$db = new DataBase(
-    $configs['mysql']['host'],
-    $configs['mysql']['database'],
-    $configs['mysql']['user'],
-    $configs['mysql']['password']);
-
-
 $app->container->set('configs', $configs);
-$app->container->set('db', $db);
 
 
 ActiveRecord\Config::initialize(function($cfg)
@@ -85,65 +67,65 @@ ActiveRecord\Config::initialize(function($cfg)
     );
 });
 
-# authorize the user by session (middleware)
-$authorize = function ($app) {
-
-    return function () use ($app) {
-
-        $configs = $app->container->get('configs');
-
-        # if no user session, set to default user: application
-        if(!isset( $_SESSION['securityContext'])) {
-            $user = User::find_by_api_key($configs['application']['api_key']);
-            $_SESSION['securityContext'] = json_decode($user->to_json([
-                'except' => ['api_key', 'password', 'email']
-            ]));
-        }
-
-        # store current path in session for smart login
-        $_SESSION['redirectTo'] = $app->request->getPathInfo();
-    };
-};
-
-# authorize the user by header auth token
-$authorizeByHeaders = function ($app) {
-
-    return function () use ($app) {
-
-        # check cookie for securityContext
-        $apiKey = $app->request->headers->get('X-Api-Key');
-        if ($apiKey == "") {
-            if (!isset($_SESSION['securityContext'])) {
-                $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
-            }
-        } else {
-            $user = User::find_by_api_key($apiKey);
-
-            if(!$user) {
-                $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
-            } else {
-                $_SESSION['securityContext'] = json_decode($user->to_json([
-                    'except' => ['api_key', 'password', 'email']
-                ]));
-            }
-        }
-    };
-};
-
-# authorize the user by header auth token
-$writeAccess = function ($app) {
-
-    return function () use ($app) {
-        # check cookie for securityContext
-        if (isset($_SESSION['securityContext'])) {
-
-            $user = $_SESSION['securityContext'];
-            if (!$user->write) {
-                $app->halt(403);
-            }
-        }
-    };
-};
+// # authorize the user by session (middleware)
+// $authorize = function ($app) {
+//
+//     return function () use ($app) {
+//
+//         $configs = $app->container->get('configs');
+//
+//         # if no user session, set to default user: application
+//         if(!isset( $_SESSION['securityContext'])) {
+//             $user = User::find_by_api_key($configs['application']['api_key']);
+//             $_SESSION['securityContext'] = json_decode($user->to_json([
+//                 'except' => ['api_key', 'password', 'email']
+//             ]));
+//         }
+//
+//         # store current path in session for smart login
+//         $_SESSION['redirectTo'] = $app->request->getPathInfo();
+//     };
+// };
+//
+// # authorize the user by header auth token
+// $authorizeByHeaders = function ($app) {
+//
+//     return function () use ($app) {
+//
+//         # check cookie for securityContext
+//         $apiKey = $app->request->headers->get('X-Api-Key');
+//         if ($apiKey == "") {
+//             if (!isset($_SESSION['securityContext'])) {
+//                 $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
+//             }
+//         } else {
+//             $user = User::find_by_api_key($apiKey);
+//
+//             if(!$user) {
+//                 $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
+//             } else {
+//                 $_SESSION['securityContext'] = json_decode($user->to_json([
+//                     'except' => ['api_key', 'password', 'email']
+//                 ]));
+//             }
+//         }
+//     };
+// };
+//
+// # authorize the user by header auth token
+// $writeAccess = function ($app) {
+//
+//     return function () use ($app) {
+//         # check cookie for securityContext
+//         if (isset($_SESSION['securityContext'])) {
+//
+//             $user = $_SESSION['securityContext'];
+//             if (!$user->write) {
+//                 $app->halt(403);
+//             }
+//         }
+//     };
+// };
 
 $app->notFound(function () use ($app) {
     $_SESSION['lastRequestUri'] = $_SERVER['REQUEST_URI'];
@@ -151,7 +133,7 @@ $app->notFound(function () use ($app) {
 });
 
 # index
-$app->get("/", $authorize($app), function () use ($app) {
+$app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
@@ -171,34 +153,6 @@ $app->get("/", $authorize($app), function () use ($app) {
     );
 });
 
-$app->group('/import', $authorize($app), function () use ($app) {
-    $app->get("/pocket", function () use ($app) {
-        if(!isset($_SESSION['pocketAccessToken'])){
-            $app->redirect("/service/pocket/authorize");
-        }
-        $configs = $app->container->get('configs');
-        $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
-        $pocketData = new PocketData(
-            $configs['service']['pocket']['key'], $_SESSION['pocketAccessToken']->access_token);
-
-        $pocketResponse = $pocketData->getArticles();
-
-        $templateVars = array(
-            "configs" => $configs,
-            'securityContext' => $securityContext,
-            'lastRequestUri' => '/import/pocket',
-            'pocketResponse' => $pocketResponse,
-            "section" => "import"
-        );
-
-        $app->render(
-            'pages/import.html.twig',
-            $templateVars,
-            200
-        );
-    });
-});
-
 # logout
 $app->get("/logout", function () use ($app) {
   $_SESSION['securityContext'] = null;
@@ -206,11 +160,11 @@ $app->get("/logout", function () use ($app) {
 });
 
 
-require_once APPLICATION_PATH . 'src/routes/api.php';
+// require_once APPLICATION_PATH . 'src/routes/api.php';
 // require_once APPLICATION_PATH . 'src/routes/likedrop.php';
 // require_once APPLICATION_PATH . 'src/routes/projects.php';
 // require_once APPLICATION_PATH . 'src/routes/scripts.php';
-require_once APPLICATION_PATH . 'src/routes/service.php';
+// require_once APPLICATION_PATH . 'src/routes/service.php';
 
 
 $app->run();

@@ -60,17 +60,15 @@ const App = React.createClass({
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div className="app">
-                    <div className="app-header">
-                        <AppHeader securityContext={ securityContext }/>
-                    </div>
+                    <div className="app-header" />
                     <div className="app-body">
                         {this.props.children}
                     </div>
-                    <div className="app-footer">footer</div>
+                    <div className="app-footer" />
                 </div>
             </MuiThemeProvider>
         );
     }
 })
 
-module.exports.App = App
+export default App;

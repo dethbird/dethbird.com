@@ -1,11 +1,11 @@
-# StoryStation
-Tools for concepting and iterating on narrative projects pre-production.
+# dethbird.com
+My fucking website
 
 ## Deploy
 
 ### clone from GIT
 ```bash
-git clone git@github.com:dethbird/explosioncorp-workstation.git workstation
+git clone git@github.com:dethbird/dethbird.com.git workstation
 cd workstation
 ```
 
@@ -83,8 +83,8 @@ php scripts/build.php --cache --configs --npm --js --php --ugly
 ### Permissions
 
 ```bash
-chmod 755 workstation
-cd workstation
+chmod 755 dethbird.com
+cd dethbird.com
 chmod 755 public/
 chmod 644 public/index.php public/.htaccess
 ```
