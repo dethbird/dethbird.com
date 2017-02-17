@@ -11,6 +11,9 @@ class ContentArticle extends ActiveRecord\Model
         if (!$this->date_added) {
             $this->date_added = date('Y-m-d g:i:s a');
         }
+        if (!$this->date_published) {
+            $this->date_published = date('Y-m-d g:i:s a');
+        }
         $this->date_updated = date('Y-m-d g:i:s a');
     }
 

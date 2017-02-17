@@ -5,7 +5,8 @@ import pluralize from 'pluralize';
 import request from 'superagent';
 
 import ContentArticleCard from '../layout/card/content-article-card';
-import UiState from '../ui/ui-state'
+import InputAutocomplete from '../ui/form/input-autocomplete';
+import UiState from '../ui/ui-state';
 
 import {
     UI_STATE_REQUESTING,
@@ -75,10 +76,27 @@ const Index = React.createClass({
     },
     componentWillMount() {
         const { dispatch } = this.props;
+        const that = this;
         dispatch(getContentArticles());
+
+        request.get('/api/tags')
+            .end(function(err, res){
+                if(res.ok) {
+                    const tags = res.body.map(function(tag){
+                        return tag.text;
+                    });
+                    that.setState({
+                        ... that.state,
+                        tags
+                    });
+                } else {
+                    console.log(res);
+                }
+            });
+
     },
     renderBulkControls() {
-        const { selectedArticles, changedFields } = this.state;
+        const { selectedArticles, changedFields, tags } = this.state;
         if (selectedArticles.length < 1)
             return null;
 
@@ -89,7 +107,7 @@ const Index = React.createClass({
                         <span>With <strong>{ selectedArticles.length }</strong> selected:</span>
                     </div>
                     <div className="control has-addons">
-                        <input type="text" className="input" id="bulkTag" value={ changedFields.bulkTag || '' } onChange={ this.handleFieldChange } placeholder="New tag"/>
+                        <InputAutocomplete label="Add Tag" id="bulkTag" onChange={ this.handleFieldChange } dataSource={ tags } />
                         <button className="button" onClick={ this.handleBulkAddTagClick }>Add Tag</button>
                     </div>
                 </div>
@@ -102,10 +120,7 @@ const Index = React.createClass({
         const that = this;
 
         let articleNodes;
-        if(!articles) {
-            articleNodes = <UiState state={ ui_state } />
-        } else {
-
+        if(articles) {
             articleNodes = articles.map(function(article, i){
                 return (
                     <div className="column is-2"  key={ article.id }>

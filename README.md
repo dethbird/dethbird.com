@@ -1,12 +1,12 @@
-# StoryStation
-Tools for concepting and iterating on narrative projects pre-production.
+# Explosioncorp // Ingest
+Ingestion phase.
 
 ## Deploy
 
 ### clone from GIT
 ```bash
-git clone git@github.com:dethbird/explosioncorp-workstation.git workstation
-cd workstation
+git clone https://github.com/dethbird/ingest.explosioncorp.git ingest
+cd ingest
 ```
 
 ### Initialize
@@ -83,8 +83,8 @@ php scripts/build.php --cache --configs --npm --js --php --ugly
 ### Permissions
 
 ```bash
-chmod 755 workstation
-cd workstation
+chmod 755 ingest
+cd ingest
 chmod 755 public/
 chmod 644 public/index.php public/.htaccess
 ```
