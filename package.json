@@ -15,6 +15,7 @@
     "react-custom-scroll": "^1.8.0",
     "react-datepicker": "^0.29.0",
     "react-dom": "^15.3.1",
+    "react-event-debounce": "^4.0.9",
     "react-modal": "^1.4.0",
     "react-motion": "^0.4.7",
     "react-redux": "^4.4.5",

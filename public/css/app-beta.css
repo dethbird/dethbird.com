@@ -371,13 +371,15 @@
 }
 body {
   font-family: 'Hind Vadodara', sans-serif;
-  background-color: #F0F0F0;
 }
 .card.checked {
   border-top: 4px #23d160 solid;
 }
 .card .tag {
   margin: 0 1px 1px 0;
+}
+.canvas {
+  overflow: hidden;
 }
 .columns {
   flex-wrap: wrap;
@@ -396,6 +398,9 @@ body {
 .element {
   position: absolute;
   display: block;
+}
+html {
+  overflow: visible;
 }
 .input-text,
 .input-date,

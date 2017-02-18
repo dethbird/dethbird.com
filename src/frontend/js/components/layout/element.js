@@ -4,15 +4,21 @@ import React from 'react';
 const Element = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
-        element: React.PropTypes.object.isRequired
+        element: React.PropTypes.object.isRequired,
+        windowScrollX: React.PropTypes.number
     },
     compileStyle(){
-        const { element } = this.props;
+        const { element, windowScrollX } = this.props;
+
+        let parallaxShiftX = 0;
+        if (element.parallax)
+            parallaxShiftX = (windowScrollX / element.parallax.depth);
+
         let style = {};
         if (element.position)
             style = {
                 ... style,
-                left: element.position.left,
+                left: element.position.left + windowScrollX - parallaxShiftX,
                 top: element.position.top
             }
         if (element.dimensions)
@@ -21,6 +27,11 @@ const Element = React.createClass({
                 width: element.dimensions.width,
                 height: element.dimensions.height
             }
+
+        if (element.id=="bg_shops") {
+            console.log(style);
+            console.log(parallaxShiftX);
+        }
         return style;
     },
     renderTag() {
@@ -32,10 +43,9 @@ const Element = React.createClass({
         return null;
     },
     render: function() {
-        const { className, element } = this.props;
-
+        const { className, element, windowScrollX } = this.props;
         return (
-            <div className={ classNames([className, 'element']) } style={ this.compileStyle() }>
+            <div className={ classNames([className, 'element']) } style={ this.compileStyle() } id={ element.id }>
                 { this.renderTag() }
             </div>
         );
