@@ -1,0 +1,11 @@
+elements:
+    -
+        id: a_guy
+        tag: image
+        src: /img/layout/index/a_guy.png
+        position:
+            left: 379
+            top: 461
+        dimensions:
+            width: 300
+            height: auto

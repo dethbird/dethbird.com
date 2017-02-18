@@ -15,8 +15,8 @@ const NoMatch = React.createClass({
     }
 });
 
-if (lastRequestUri !== '/favicon.ico') {
-    browserHistory.push(lastRequestUri);
+if (requestUri !== '/favicon.ico') {
+    browserHistory.push(requestUri);
 }
 
 render((

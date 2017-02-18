@@ -393,6 +393,10 @@ body {
 .content-article-bulk-controls {
   margin-bottom: 15px;
 }
+.element {
+  position: absolute;
+  display: block;
+}
 .input-text,
 .input-date,
 .input-description,

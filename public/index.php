@@ -67,83 +67,29 @@ ActiveRecord\Config::initialize(function($cfg)
     );
 });
 
-// # authorize the user by session (middleware)
-// $authorize = function ($app) {
-//
-//     return function () use ($app) {
-//
-//         $configs = $app->container->get('configs');
-//
-//         # if no user session, set to default user: application
-//         if(!isset( $_SESSION['securityContext'])) {
-//             $user = User::find_by_api_key($configs['application']['api_key']);
-//             $_SESSION['securityContext'] = json_decode($user->to_json([
-//                 'except' => ['api_key', 'password', 'email']
-//             ]));
-//         }
-//
-//         # store current path in session for smart login
-//         $_SESSION['redirectTo'] = $app->request->getPathInfo();
-//     };
-// };
-//
-// # authorize the user by header auth token
-// $authorizeByHeaders = function ($app) {
-//
-//     return function () use ($app) {
-//
-//         # check cookie for securityContext
-//         $apiKey = $app->request->headers->get('X-Api-Key');
-//         if ($apiKey == "") {
-//             if (!isset($_SESSION['securityContext'])) {
-//                 $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
-//             }
-//         } else {
-//             $user = User::find_by_api_key($apiKey);
-//
-//             if(!$user) {
-//                 $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
-//             } else {
-//                 $_SESSION['securityContext'] = json_decode($user->to_json([
-//                     'except' => ['api_key', 'password', 'email']
-//                 ]));
-//             }
-//         }
-//     };
-// };
-//
-// # authorize the user by header auth token
-// $writeAccess = function ($app) {
-//
-//     return function () use ($app) {
-//         # check cookie for securityContext
-//         if (isset($_SESSION['securityContext'])) {
-//
-//             $user = $_SESSION['securityContext'];
-//             if (!$user->write) {
-//                 $app->halt(403);
-//             }
-//         }
-//     };
-// };
 
 $app->notFound(function () use ($app) {
     $_SESSION['lastRequestUri'] = $_SERVER['REQUEST_URI'];
     $app->redirect("/");
 });
 
-# index
-$app->get("/", function () use ($app) {
 
+# all GET routes
+$app->get("/.*?", function () use ($app) {
     $configs = $app->container->get('configs');
-    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
     $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
+
+    // locate layout file if exists
+    $layoutFile = "../configs/layout" . ($_SERVER['REQUEST_URI'] == "/" ? "/index" : $_SERVER['REQUEST_URI'])  . "/layout.yml";
+    $layout;
+    if(file_exists($layoutFile)) {
+        $layout = Yaml::parse(file_get_contents($layoutFile));
+    }
 
     $templateVars = array(
         "configs" => $configs,
-        'securityContext' => $securityContext,
-        'lastRequestUri' => $lastRequestUri,
-        "section" => "index"
+        'requestUri' => $_SERVER['REQUEST_URI'],
+        'layout' => $layout
     );
 
     $app->render(
@@ -151,6 +97,7 @@ $app->get("/", function () use ($app) {
         $templateVars,
         200
     );
+
 });
 
 # logout
