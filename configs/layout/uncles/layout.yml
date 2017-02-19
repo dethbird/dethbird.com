@@ -14,7 +14,7 @@ elements:
         dimensions:
             width: 150
             height: auto
-        parallax:
+        parallax_x:
             depth: 20
     -
         id: uncle002
@@ -26,5 +26,5 @@ elements:
         dimensions:
             width: 400
             height: auto
-        parallax:
+        parallax_x:
             depth: 20

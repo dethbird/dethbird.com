@@ -8,7 +8,8 @@ import Pannable from '../ui/pannable';
 const Canvas = React.createClass({
     getInitialState() {
         return {
-            scrollX: 0
+            scrollX: 0,
+            scrollY: 0
         }
     },
     propTypes: {
@@ -31,16 +32,17 @@ const Canvas = React.createClass({
     windowScrollListener(event) {
         this.setState({
             ... this.state,
-            scrollX: window.scrollX
+            scrollX: window.scrollX,
+            scrollY: window.scrollY
         });
     },
     render: function() {
         const { layout } = this.props;
-        const { scrollX } = this.state;
+        const { scrollX, scrollY } = this.state;
 
         const elementNodes = layout.elements.map(function(element, i){
             return (
-                <Element element={ element } key={ i } windowScrollX={ scrollX }/>
+                <Element element={ element } key={ i } windowScrollX={ scrollX } windowScrollY={ scrollY }/>
             );
         });
 

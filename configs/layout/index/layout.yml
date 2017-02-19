@@ -2,7 +2,7 @@ canvas:
     id: index
     dimensions:
         width: 5760
-        height: 1080
+        height: 3000
 elements:
     -
         id: bg_shops
@@ -14,7 +14,9 @@ elements:
         dimensions:
             width: 800
             height: auto
-        parallax:
+        parallax_x:
+            depth: 20
+        parallax_y:
             depth: 20
     -
         id: billboard001
@@ -26,8 +28,10 @@ elements:
         dimensions:
             width: 300
             height: auto
-        parallax:
+        parallax_x:
             depth: 6
+        parallax_y:
+            depth: 17
     -
         id: a_guy
         tag: image
@@ -38,8 +42,10 @@ elements:
         dimensions:
             width: 300
             height: auto
-        parallax:
+        parallax_x:
             depth: 3
+        parallax_y:
+            depth: 15
     -
         id: cartrunk
         tag: image
@@ -50,5 +56,7 @@ elements:
         dimensions:
             width: 780
             height: auto
-        parallax:
+        parallax_x:
             depth: 2
+        parallax_y:
+            depth: 15

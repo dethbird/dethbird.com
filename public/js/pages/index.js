@@ -46430,7 +46430,8 @@ var Canvas = _react2.default.createClass({
     displayName: 'Canvas',
     getInitialState: function getInitialState() {
         return {
-            scrollX: 0
+            scrollX: 0,
+            scrollY: 0
         };
     },
 
@@ -46452,17 +46453,20 @@ var Canvas = _react2.default.createClass({
     },
     windowScrollListener: function windowScrollListener(event) {
         this.setState(_extends({}, this.state, {
-            scrollX: window.scrollX
+            scrollX: window.scrollX,
+            scrollY: window.scrollY
         }));
     },
 
     render: function render() {
         var layout = this.props.layout;
-        var scrollX = this.state.scrollX;
+        var _state = this.state,
+            scrollX = _state.scrollX,
+            scrollY = _state.scrollY;
 
 
         var elementNodes = layout.elements.map(function (element, i) {
-            return _react2.default.createElement(_element2.default, { element: element, key: i, windowScrollX: scrollX });
+            return _react2.default.createElement(_element2.default, { element: element, key: i, windowScrollX: scrollX, windowScrollY: scrollY });
         });
 
         var style = this.compileStyle();
@@ -46505,21 +46509,26 @@ var Element = _react2.default.createClass({
     propTypes: {
         className: _react2.default.PropTypes.string,
         element: _react2.default.PropTypes.object.isRequired,
-        windowScrollX: _react2.default.PropTypes.number
+        windowScrollX: _react2.default.PropTypes.number,
+        windowScrollY: _react2.default.PropTypes.number
     },
     compileStyle: function compileStyle() {
         var _props = this.props,
             element = _props.element,
-            windowScrollX = _props.windowScrollX;
+            windowScrollX = _props.windowScrollX,
+            windowScrollY = _props.windowScrollY;
 
 
         var parallaxShiftX = 0;
-        if (element.parallax) parallaxShiftX = windowScrollX / element.parallax.depth;
+        if (element.parallax_x) parallaxShiftX = windowScrollX / element.parallax_x.depth;
+
+        var parallaxShiftY = 0;
+        if (element.parallax_y) parallaxShiftY = windowScrollY / element.parallax_y.depth;
 
         var style = {};
         if (element.position) style = _extends({}, style, {
             left: element.position.left + windowScrollX - parallaxShiftX,
-            top: element.position.top
+            top: element.position.top + windowScrollY - parallaxShiftY
         });
         if (element.dimensions) style = _extends({}, style, {
             width: element.dimensions.width,

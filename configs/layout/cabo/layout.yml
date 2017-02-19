@@ -14,5 +14,5 @@ elements:
         dimensions:
             width: 600
             height: auto
-        parallax:
+        parallax_x:
             depth: 20
