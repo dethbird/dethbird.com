@@ -27,11 +27,6 @@ const Element = React.createClass({
                 width: element.dimensions.width,
                 height: element.dimensions.height
             }
-
-        if (element.id=="bg_shops") {
-            console.log(style);
-            console.log(parallaxShiftX);
-        }
         return style;
     },
     renderTag() {
@@ -45,7 +40,14 @@ const Element = React.createClass({
     render: function() {
         const { className, element, windowScrollX } = this.props;
         return (
-            <div className={ classNames([className, 'element']) } style={ this.compileStyle() } id={ element.id }>
+            <div
+                className={ classNames([className, 'element']) }
+                style={ this.compileStyle() }
+                id={ element.id }
+                onMouseDown={ function(e){
+                    e.preventDefault();
+                }}
+            >
                 { this.renderTag() }
             </div>
         );

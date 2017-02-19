@@ -31,6 +31,7 @@ body {
 
 .canvas {
     overflow: hidden;
+    position: absolute;
 }
 
 #cabo.canvas, #index.canvas {
@@ -57,6 +58,7 @@ body {
 .element {
     position: absolute;
     display: block;
+    user-select: none;
 }
 html {
     overflow: visible;
@@ -105,4 +107,7 @@ html {
 .notes {
     max-height: 285px;
     font-size: 0.85rem;
+}
+.pannable, .pannable-handle {
+    position: absolute;
 }
