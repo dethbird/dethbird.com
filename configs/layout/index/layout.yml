@@ -1,4 +1,5 @@
 canvas:
+    id: index
     dimensions:
         width: 5760
         height: 1080

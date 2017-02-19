@@ -364,10 +364,10 @@
   border-radius: 3px;
 }
 .app {
-  padding: 15px;
+  padding: 0px;
 }
 .app-header {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 body {
   font-family: 'Hind Vadodara', sans-serif;
@@ -380,6 +380,10 @@ body {
 }
 .canvas {
   overflow: hidden;
+}
+#cabo.canvas,
+#index.canvas {
+  background-color: #DBDBDB;
 }
 .columns {
   flex-wrap: wrap;

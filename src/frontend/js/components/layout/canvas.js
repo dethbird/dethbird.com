@@ -3,6 +3,7 @@ import React from 'react';
 import debounce from 'react-event-debounce';
 
 import Element from './element';
+import Pannable from '../ui/pannable';
 
 const Canvas = React.createClass({
     getInitialState() {
@@ -44,9 +45,11 @@ const Canvas = React.createClass({
         });
 
         return (
-            <div className="canvas" ref="root" style={ this.compileStyle() }>
-                { elementNodes }
-            </div>
+            <Pannable>
+                <div className="canvas" ref="root" style={ this.compileStyle() } id={ layout.canvas.id }>
+                    { elementNodes }
+                </div>
+            </Pannable>
         );
     }
 })

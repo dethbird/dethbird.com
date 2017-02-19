@@ -1,5 +1,5 @@
 canvas:
-    id: cabo_canvas
+    id: cabo
     dimensions:
         width: 5760
         height: 2000
