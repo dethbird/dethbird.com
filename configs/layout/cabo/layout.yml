@@ -1,0 +1,18 @@
+canvas:
+    id: cabo_canvas
+    dimensions:
+        width: 5760
+        height: 2000
+elements:
+    -
+        id: ear_herpes_center_building
+        tag: image
+        src: /img/layout/cabo/ear_herpes_center_building.png
+        position:
+            left: 24
+            top: 87
+        dimensions:
+            width: 600
+            height: auto
+        parallax:
+            depth: 20

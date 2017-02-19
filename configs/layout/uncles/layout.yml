@@ -1,0 +1,29 @@
+canvas:
+    dimensions:
+        width: 5760
+        height: 1080
+elements:
+    -
+        id: uncle001
+        tag: image
+        src: /img/layout/uncles/uncle001.png
+        position:
+            left: 727
+            top: 175
+        dimensions:
+            width: 150
+            height: auto
+        parallax:
+            depth: 20
+    -
+        id: uncle002
+        tag: image
+        src: /img/layout/uncles/uncle002.png
+        position:
+            left: 80
+            top: 208
+        dimensions:
+            width: 400
+            height: auto
+        parallax:
+            depth: 20
