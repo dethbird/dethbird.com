@@ -47,7 +47,6 @@ const Canvas = React.createClass({
         });
 
         const style = this.compileStyle();
-        console.log(window);
         return (
             <Pannable dampen={ 8 } style={ style }>
                 <div className="canvas" ref="root" style={ style } id={ layout.canvas.id }>

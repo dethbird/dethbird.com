@@ -46470,7 +46470,6 @@ var Canvas = _react2.default.createClass({
         });
 
         var style = this.compileStyle();
-        console.log(window);
         return _react2.default.createElement(
             _pannable2.default,
             { dampen: 8, style: style },
@@ -46700,7 +46699,6 @@ var Pannable = _react2.default.createClass({
         style: _react2.default.PropTypes.object
     },
     startPanning: function startPanning(e) {
-        console.log(e.target);
         e.stopPropagation();
         this.setState(_extends({}, this.state, {
             panning: true,
