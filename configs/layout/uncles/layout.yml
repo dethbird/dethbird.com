@@ -16,6 +16,8 @@ elements:
             height: auto
         parallax_x:
             depth: 20
+        parallax_y:
+            depth: 20
     -
         id: uncle002
         tag: image
@@ -27,4 +29,6 @@ elements:
             width: 400
             height: auto
         parallax_x:
+            depth: 20
+        parallax_y:
             depth: 20

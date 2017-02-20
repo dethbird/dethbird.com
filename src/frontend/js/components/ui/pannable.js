@@ -18,7 +18,6 @@ const Pannable = React.createClass({
         style: React.PropTypes.object
     },
     startPanning(e) {
-        console.log(e.target);
         e.stopPropagation();
         this.setState({
             ... this.state,

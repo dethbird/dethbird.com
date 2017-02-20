@@ -16,3 +16,20 @@ elements:
             height: auto
         parallax_x:
             depth: 20
+        parallax_y:
+            depth: 20
+
+    -
+        id: ear_herpes_center_cat
+        tag: image
+        src: /img/layout/cabo/ear_herpes_center_cat.png
+        position:
+            left: 78
+            top: 494
+        dimensions:
+            width: 551
+            height: auto
+        parallax_x:
+            depth: 16
+        parallax_y:
+            depth: 16

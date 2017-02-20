@@ -382,6 +382,9 @@ body {
   overflow: hidden;
   position: absolute;
 }
+.canvas {
+  background-color: #DBDBDB;
+}
 #cabo.canvas,
 #index.canvas {
   background-color: #DBDBDB;
@@ -452,4 +455,7 @@ html {
 .pannable,
 .pannable-handle {
   position: absolute;
+}
+.pannable-handle {
+  cursor: all-scroll;
 }

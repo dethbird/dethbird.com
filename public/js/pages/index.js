@@ -46470,6 +46470,7 @@ var Canvas = _react2.default.createClass({
         });
 
         var style = this.compileStyle();
+        console.log(window);
         return _react2.default.createElement(
             _pannable2.default,
             { dampen: 8, style: style },
