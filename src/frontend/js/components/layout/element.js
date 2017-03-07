@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import Description from '../ui/description';
+
 const Element = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
@@ -40,13 +42,18 @@ const Element = React.createClass({
             return (
                 <img src={ element.src } />
             )
+        if (element.tag=="markdown")
+            return (
+                <Description source={ element.markdown } />
+            )
         return null;
     },
     render: function() {
         const { className, element, windowScrollX } = this.props;
+        const elementClasses = element.classes!==undefined ? element.classes : null;
         return (
             <div
-                className={ classNames([className, 'element']) }
+                className={ classNames([className, elementClasses, 'element']) }
                 style={ this.compileStyle() }
                 id={ element.id }
                 onMouseDown={ function(e){

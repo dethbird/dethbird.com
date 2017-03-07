@@ -3,6 +3,8 @@ canvas:
     dimensions:
         width: 5760
         height: 1080
+    parallax:
+        dampen: 8
 elements:
     -
         id: uncle001
@@ -32,3 +34,17 @@ elements:
             depth: 20
         parallax_y:
             depth: 20
+    -
+        id: uncle003
+        tag: image
+        src: /img/layout/uncles/uncle003.png
+        position:
+            left: 920
+            top: 208
+        dimensions:
+            width: 400
+            height: auto
+        parallax_x:
+            depth: 22
+        parallax_y:
+            depth: 22

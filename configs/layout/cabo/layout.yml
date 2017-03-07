@@ -1,9 +1,29 @@
 canvas:
     id: cabo
     dimensions:
-        width: 5760
-        height: 2000
+        width: 25000
+        height: 20000
+    parallax:
+        dampen: 3.5
 elements:
+    -
+        id: sun_with_sunglasses
+        tag: markdown
+        src: /img/layout/cabo/ear_herpes_center_building.png
+        markdown: |
+            Sun with sunglasses
+        position:
+            left: 550
+            top: 15
+        dimensions:
+            width: 280
+            height: 280
+        parallax_x:
+            depth: 40
+        parallax_y:
+            depth: 40
+        classes:
+            - element-placeholder
     -
         id: ear_herpes_center_building
         tag: image
@@ -15,10 +35,9 @@ elements:
             width: 600
             height: auto
         parallax_x:
-            depth: 20
+            depth: 32
         parallax_y:
-            depth: 20
-
+            depth: 32
     -
         id: ear_herpes_center_cat
         tag: image
@@ -30,6 +49,81 @@ elements:
             width: 551
             height: auto
         parallax_x:
-            depth: 16
+            depth: 28
         parallax_y:
-            depth: 16
+            depth: 28
+    -
+        id: casa_de_miguel
+        tag: markdown
+        src: /img/layout/cabo/casa_de_miguel.png
+        markdown: |
+            Casa de Miguel
+
+            - ronaldo
+            - beeramyd
+            - breakfast nachos
+        position:
+            left: 1050
+            top: 50
+        dimensions:
+            width: 560
+            height: 380
+        parallax_x:
+            depth: 37
+        parallax_y:
+            depth: 37
+        classes:
+            - element-placeholder
+    -
+        id: sloot_vultures
+        tag: markdown
+        src: /img/layout/cabo/sloot_vultures.png
+        markdown: |
+            Sloot Vultures
+        position:
+            left: 1550
+            top: 75
+        dimensions:
+            width: 680
+            height: 140
+        parallax_x:
+            depth: 34
+        parallax_y:
+            depth: 34
+        classes:
+            - element-placeholder
+    -
+        id: balloon_hands_man
+        tag: image
+        src: /img/layout/cabo/balloon_hands_man.png
+        position:
+            left: 850
+            top: 700
+        dimensions:
+            width: 280
+            height: auto
+        parallax_x:
+            depth: 22
+        parallax_y:
+            depth: 22
+    -
+        id: chi_chi_mama_man
+        tag: markdown
+        src: /img/layout/cabo/chi_chi_mama_man.png
+        markdown: |
+            Chi-Chi Mama man
+
+            - restaurant
+            - see him talking to customers and spewing corona into the margarita
+        position:
+            left: 1550
+            top: 780
+        dimensions:
+            width: 680
+            height: 380
+        parallax_x:
+            depth: 20
+        parallax_y:
+            depth: 20
+        classes:
+            - element-placeholder

@@ -3,6 +3,8 @@ canvas:
     dimensions:
         width: 5760
         height: 3000
+    parallax:
+        dampen: 8
 elements:
     -
         id: bg_shops

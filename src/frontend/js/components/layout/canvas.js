@@ -48,7 +48,7 @@ const Canvas = React.createClass({
 
         const style = this.compileStyle();
         return (
-            <Pannable dampen={ 8 } style={ style }>
+            <Pannable dampen={ layout.canvas.parallax.dampen } style={ style }>
                 <div className="canvas" ref="root" style={ style } id={ layout.canvas.id }>
                     { elementNodes }
                 </div>
