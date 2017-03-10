@@ -94,7 +94,7 @@ $authorize = function ($app) {
 
         # if no user session, set to default user: application
         if(!isset( $_SESSION['securityContext'])) {
-            $user = User::find_by_api_key($configs['application']['api_key']);
+            $user = Users::find_by_api_key($configs['application']['api_key']);
             $_SESSION['securityContext'] = json_decode($user->to_json([
                 'except' => ['api_key', 'password', 'email']
             ]));
@@ -117,7 +117,7 @@ $authorizeByHeaders = function ($app) {
                 $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
             }
         } else {
-            $user = User::find_by_api_key($apiKey);
+            $user = Users::find_by_api_key($apiKey);
 
             if(!$user) {
                 $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
@@ -171,33 +171,6 @@ $app->get("/", $authorize($app), function () use ($app) {
     );
 });
 
-$app->group('/import', $authorize($app), function () use ($app) {
-    $app->get("/pocket", function () use ($app) {
-        if(!isset($_SESSION['pocketAccessToken'])){
-            $app->redirect("/service/pocket/authorize");
-        }
-        $configs = $app->container->get('configs');
-        $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
-        $pocketData = new PocketData(
-            $configs['service']['pocket']['key'], $_SESSION['pocketAccessToken']->access_token);
-
-        $pocketResponse = $pocketData->getArticles();
-
-        $templateVars = array(
-            "configs" => $configs,
-            'securityContext' => $securityContext,
-            'lastRequestUri' => '/import/pocket',
-            'pocketResponse' => $pocketResponse,
-            "section" => "import"
-        );
-
-        $app->render(
-            'pages/import.html.twig',
-            $templateVars,
-            200
-        );
-    });
-});
 
 # logout
 $app->get("/logout", function () use ($app) {
@@ -210,7 +183,7 @@ require_once APPLICATION_PATH . 'src/routes/api.php';
 // require_once APPLICATION_PATH . 'src/routes/likedrop.php';
 // require_once APPLICATION_PATH . 'src/routes/projects.php';
 // require_once APPLICATION_PATH . 'src/routes/scripts.php';
-require_once APPLICATION_PATH . 'src/routes/service.php';
+// require_once APPLICATION_PATH . 'src/routes/service.php';
 
 
 $app->run();
