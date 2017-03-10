@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "babelify": "^7.3.0",
     "browserify": "12.*",
     "classnames": "^2.2.5",
     "fountain-js": "0.0.1",
