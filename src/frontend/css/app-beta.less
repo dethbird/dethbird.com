@@ -1,94 +1,91 @@
-@import (less) '../../../node_modules/react-datepicker/dist/react-datepicker.css';
-@import (less) '../../../node_modules/react-custom-scroll/src/main/customScroll.css';
 
-@base: #F0F0F0;
-
-@info: #117EB3;
-@primary: #117EB3;
-@secondary: #A3038C;
-@muted: #818a91;
-
-.app {
-    padding: 15px;
+.body {
+    font-family: 'Hind Vadodara', sans-serif;
 }
 
-.app-header {
-    margin-bottom: 5px;
+
+.hidden.menu {
+    display: none;
 }
 
-body {
-  font-family: 'Hind Vadodara', sans-serif;
-  background-color: @base;
+.masthead.segment {
+    min-height: 700px;
+    padding: 1em 0em;
+    background-image: url('http://wallpaper.pickywallpapers.com/1920x1080/purple-space-landscape.jpg') !important;
+}
+.masthead .logo.item img {
+    margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+.masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
 }
 
-.card.checked {
-    border-top: 4px #23d160 solid;
+.ui.vertical.stripe {
+    padding: 8em 0em;
 }
-.card {
-    .tag {
-        margin: 0 1px 1px 0;
+.ui.vertical.stripe h3 {
+    font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+    margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+    clear: both;
+}
+.ui.vertical.stripe p {
+    font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+    margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+    padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+.footer.segment {
+    padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+        display: none !important;
     }
-}
-
-.columns {
-    flex-wrap: wrap;
-}
-
-.control.is-grouped {
-    display: flex;
-    justify-content: flex-end;
-}
-.control.is-grouped-left {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.content-article-bulk-controls {
-    margin-bottom: 15px;
-}
-
-.input-text,
-.input-date,
-.input-description,
-.input-card,
-.input-select {
-    margin: 15px 0px 15px 0px;
-    width: 100% !important;
-}
-.input-checkbox > div > div {
-    width: 0 !important;
-    height: auto;
-}
-.input-tags {
-    .tag {
-        margin-bottom: 5px;
-        margin-right: 5px;
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+        display: none;
     }
-    ul {
-        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
-        background: white;
-        width: 200px;
-        margin: 0;
+    .secondary.pointing.menu .toc.item {
+        display: block;
     }
-    li {
-        list-style: none;
-        border-bottom: 1px solid #ddd;
-        padding: 5px 10px;
-        margin: 0;
+    .masthead.segment {
+        min-height: 350px;
     }
-    li mark {
-        text-decoration: underline;
-        background: none;
-        font-weight: 600;
+    .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
     }
-    li.active {
-        background: #b7cfe0;
-        cursor: pointer;
+    .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
     }
-
-}
-
-.notes {
-    max-height: 285px;
-    font-size: 0.85rem;
 }

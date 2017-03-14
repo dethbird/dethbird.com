@@ -58,16 +58,8 @@ $view->parserExtensions = array(
     new MarkdownExtension($markdownEngine)
 );
 
-$db = new DataBase(
-    $configs['mysql']['host'],
-    $configs['mysql']['database'],
-    $configs['mysql']['user'],
-    $configs['mysql']['password']);
-
 
 $app->container->set('configs', $configs);
-$app->container->set('db', $db);
-
 
 ActiveRecord\Config::initialize(function($cfg)
 {
@@ -166,6 +158,31 @@ $app->get("/", $authorize($app), function () use ($app) {
 
     $app->render(
         'pages/index.html.twig',
+        $templateVars,
+        200
+    );
+});
+
+# mockup
+$app->get("/mockup/:section", $authorize($app), function ($section) use ($app) {
+
+    $configs = $app->container->get('configs');
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
+    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
+
+    if (!file_exists( APPLICATION_PATH . 'src/views/mockup/' . $section . '.html.twig')) {
+        $section = "index";
+    }
+
+    $templateVars = array(
+        "configs" => $configs,
+        'securityContext' => $securityContext,
+        'lastRequestUri' => $lastRequestUri,
+        "section" => "index"
+    );
+
+    $app->render(
+        'mockup/' .$section. '.html.twig',
         $templateVars,
         200
     );
