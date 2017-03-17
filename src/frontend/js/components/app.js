@@ -7,7 +7,12 @@ import AppHeader from './layout/app-header';
 
 const App = React.createClass({
 
+    propTypes: {
+        securityContext: React.PropTypes.object
+    },
+
     render: function() {
+        const { securityContext } = this.props;
 
         return (
             <div className="app">
@@ -23,4 +28,4 @@ const App = React.createClass({
     }
 })
 
-module.exports.App = App
+export default App;
