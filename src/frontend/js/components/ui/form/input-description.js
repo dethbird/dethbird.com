@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import React from 'react'
 
-import TextField from 'material-ui/TextField';
-
 const InputDescription = React.createClass({
 
     propTypes: {
@@ -17,7 +15,7 @@ const InputDescription = React.createClass({
         const { label, id, value, onChange, errorText } = this.props;
 
         return (
-            <TextField
+            <textarea
                 hintText={ label }
                 floatingLabelText={ label }
                 id={ id }

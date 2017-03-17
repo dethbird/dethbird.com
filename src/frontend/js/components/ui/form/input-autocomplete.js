@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import React from 'react'
 
-import AutoComplete from 'material-ui/AutoComplete';
-
 const InputAutocomplete = React.createClass({
 
     propTypes: {
@@ -23,15 +21,17 @@ const InputAutocomplete = React.createClass({
     render: function() {
         const { label, id, onChange, dataSource } = this.props;
 
-        return (
-            <AutoComplete
-                id={ id }
-                hintText="Start typing"
-                dataSource={ dataSource }
-                onNewRequest={ this.handleUpdateInput }
-                floatingLabelText={ label }
-            />
-        );
+        return null;
+
+        // return (
+        //     <AutoComplete
+        //         id={ id }
+        //         hintText="Start typing"
+        //         dataSource={ dataSource }
+        //         onNewRequest={ this.handleUpdateInput }
+        //         floatingLabelText={ label }
+        //     />
+        // );
     }
 });
 
