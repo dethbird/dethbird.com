@@ -54709,25 +54709,25 @@ var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
 
-var _app = require('../components/app');
+var _app = require('components/app');
 
-var _contentArticleEdit = require('../components/pages/content-article-edit');
+var _contentArticleEdit = require('components/pages/content-article-edit');
 
 var _contentArticleEdit2 = _interopRequireDefault(_contentArticleEdit);
 
-var _importPocket = require('../components/pages/import-pocket');
+var _importPocket = require('components/pages/import-pocket');
 
 var _importPocket2 = _interopRequireDefault(_importPocket);
 
-var _index = require('../components/pages/index');
+var _index = require('components/pages/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _login = require('../components/pages/login');
+var _login = require('components/pages/login');
 
 var _login2 = _interopRequireDefault(_login);
 
-var _store = require('../store/store');
+var _store = require('store/store');
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -54767,7 +54767,7 @@ if (lastRequestUri !== '/favicon.ico') {
     )
 ), document.getElementById('mount'));
 
-},{"../components/app":486,"../components/pages/content-article-edit":490,"../components/pages/import-pocket":491,"../components/pages/index":492,"../components/pages/login":493,"../store/store":510,"react":466,"react-dom":262,"react-redux":392,"react-router":426}],507:[function(require,module,exports){
+},{"components/app":486,"components/pages/content-article-edit":490,"components/pages/import-pocket":491,"components/pages/index":492,"components/pages/login":493,"react":466,"react-dom":262,"react-redux":392,"react-router":426,"store/store":510}],507:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

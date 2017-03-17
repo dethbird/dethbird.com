@@ -17,6 +17,11 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
+#### Make sure frontend src is in NODE_PATH
+```bash
+export NODE_PATH=$NODE_PATH:./src/frontend/js/
+```
+
 #### Copy .env from .env.shadow and edit values
 ```bash
 cp .env.shadow .env
