@@ -4,7 +4,7 @@ import App from 'components/app';
 
 let securityContext = {};
 
-beforeAll(() => {
+beforeEach(() => {
     securityContext = {"id":5,"username":"application","application_user":1,"read":1,"write":0,"date_added":null,"date_updated":null}
 });
 

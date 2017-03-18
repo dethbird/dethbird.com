@@ -1,0 +1,54 @@
+{% extends 'layout-mockup-logged-in.html.twig' %}
+{% block title %}{% endblock %}
+{% block head %}
+    {{parent()}}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+
+{% include 'mockup/partials/header-menu.html.twig' with {'foo': 'bar'} %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui grid container">
+        <div class="eight wide column left aligned">
+            <h1 class="ui header">Beepo Beeparelli</h1>
+        </div>
+        <div class="eight wide column right aligned">
+            <a class="ui button">Edit</a>
+        </div>
+    </div>
+    <div class="ui container">
+        <img class="ui centered medium circular image" src="https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg">
+    </div>
+    <br />
+    <div class="ui grid text container">
+        <div class="sixteen wide column center aligned">
+            <h2 class="ui header">Plumber, Pipelandia</h2>
+            <div class="ui label">
+              Age
+              <div class="detail inverted">37</div>
+            </div>
+            <div class="ui label">
+              Gender
+              <div class="detail">Male</div>
+            </div>
+        </div>
+        <div class="sixteen wide column center aligned">
+            <a class="ui teal tag label small">Addictive Personality</a>
+            <a class="ui teal tag label small">Yearns for stage</a>
+            <a class="ui teal tag label small">Loves opera</a>
+        </div>
+    </div>
+    <br />
+    <div class="ui text container">
+        <div class="ui segment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque nisi in ante tempor molestie. Aliquam nulla massa, finibus nec est suscipit, congue aliquet nulla. Integer eu lobortis magna, eget convallis enim. Nam dictum laoreet posuere. Quisque fermentum, ante ut suscipit dapibus, odio nisi pharetra tortor, et porta ipsum libero eget eros. Nam consectetur ornare nulla ac efficitur. Phasellus ipsum metus, euismod sit amet lectus sed, condimentum scelerisque dui. Maecenas congue magna nec elit dignissim aliquet. Praesent sed dignissim lacus, viverra volutpat magna. Phasellus massa mi, condimentum eu nunc quis, rutrum lobortis diam. Cras elementum a mauris in vulputate. Pellentesque aliquam sit amet erat ut elementum. Aenean mauris sem, mollis sed fermentum in, scelerisque in augue.</div>
+    </div>
+</div>
+
+{% include 'mockup/partials/footer-menu.html.twig' with {'foo': 'bar'} %}
+
+{% endblock %}
+
+
+{% block includes %}
+{% endblock %}
