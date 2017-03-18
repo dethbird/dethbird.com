@@ -14,7 +14,14 @@
             <h1 class="ui header">The World of Beepo Beeparelli</h1>
         </div>
         <div class="eight wide column right aligned">
-            <a class="ui button">Edit</a>
+            <div class="ui dropdown">
+                <div class="text">Menu</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">Edit</div>
+                    <div class="item">Generate Pitch</div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="ui container">
@@ -144,58 +151,44 @@
         <h3 class="ui grey header">Character</h3>
     </div>
     <div class="ui four column container vertical stripe grid">
-        <div class="ui column">
+        <div class="ui center aligned column">
             <div class="ui segment">
-                character
+                <img class="ui centered circular image" src="https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg">
+                <h5 class="ui header">Beepo Beeparelli</h5>
             </div>
         </div>
-        <div class="ui column">
+        <div class="ui center aligned column">
             <div class="ui segment">
-                character
+                <img class="ui centered circular image" src="https://c2.staticflickr.com/4/3095/2763101849_f9f084533a_z.jpg">
+                <h5 class="ui header">The Princess</h5>
             </div>
         </div>
-        <div class="ui column">
+        <div class="ui center aligned column">
             <div class="ui segment">
-                character
+                <img class="ui centered circular image" src="https://i2.wp.com/cdn2.iconfinder.com/static/2ae174f07522a6b8c7c997bf4b62a821/assets/img/default-avatar-user.png?ssl=1">
+                <h5 class="ui header">DB3700</h5>
             </div>
         </div>
-        <div class="ui column">
+        <div class="ui center aligned column">
             <div class="ui segment">
-                character
+                <img class="ui centered circular image" src="https://c2.staticflickr.com/4/3080/2765795841_32f66a3bbb_o.jpg">
+                <h5 class="ui header">Cloud Mob Guy</h5>
             </div>
         </div>
-        <div class="ui column">
+        <div class="ui center aligned column">
             <div class="ui segment">
-                character
-            </div>
-        </div>
-        <div class="ui column">
-            <div class="ui segment">
-                character
-            </div>
-        </div>
-        <div class="ui column">
-            <div class="ui segment">
-                character
-            </div>
-        </div>
-        <div class="ui column">
-            <div class="ui segment">
-                character
-            </div>
-        </div>
-        <div class="ui column">
-            <div class="ui segment">
-                character
-            </div>
-        </div>
-        <div class="ui column">
-            <div class="ui segment">
-                character
+                <img class="ui centered circular image" src="https://i2.wp.com/cdn2.iconfinder.com/static/2ae174f07522a6b8c7c997bf4b62a821/assets/img/default-avatar-user.png?ssl=1">
+                <h5 class="ui header">Elizabeth</h5>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.ui.dropdown').dropdown();
+    });
+</script>
 
 {% include 'mockup/partials/footer-menu.html.twig' with {'foo': 'bar'} %}
 
