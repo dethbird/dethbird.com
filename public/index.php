@@ -129,7 +129,6 @@ $app->get('/', function ($request, $response){
         "section" => "index"
     ];
 
-
     return $this['view']->render(
         $response,
         'pages/index.html.twig',

@@ -52,6 +52,9 @@ h6 {
 .footer.segment {
   padding: 5em 0em;
 }
+.fountain {
+  text-align: left;
+}
 .secondary.pointing.menu .toc.item {
   display: none;
 }
