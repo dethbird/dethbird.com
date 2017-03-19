@@ -54,6 +54,15 @@ h6 {
 }
 .fountain {
   text-align: left;
+  font-family: 'IM Fell English', serif;
+}
+.fountain h1,
+.fountain h2,
+.fountain h3,
+.fountain h4,
+.fountain h5,
+.fountain h6 {
+  font-family: 'IM Fell English', serif;
 }
 .secondary.pointing.menu .toc.item {
   display: none;

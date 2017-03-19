@@ -54,12 +54,19 @@
                 <div class="image">
                     <img src="https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg">
                 </div>
-                <div class="content">
+                <div class="ui content left aligned">
                     <a class="header">Panel 1</a>
                     <div class="meta">
                         <span class="date">0:35:00:00</span>
                     </div>
-                    <div class="description fountain">{{ configs.example.fountain.snippet }}</div>
+                    <div class="ui accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i> Script
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden fountain">{{ configs.example.fountain.snippet }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,12 +75,19 @@
                 <div class="image">
                     <img src="https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg">
                 </div>
-                <div class="content">
-                    <a class="header">Panel 2</a>
+                <div class="ui content left aligned">
+                    <a class="header">Panel 1</a>
                     <div class="meta">
                         <span class="date">0:35:00:00</span>
                     </div>
-                    <div class="description fountain">{{ configs.example.fountain.snippet }}</div>
+                    <div class="ui accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i> Script
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden fountain">{{ configs.example.fountain.snippet }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,12 +96,19 @@
                 <div class="image">
                     <img src="https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg">
                 </div>
-                <div class="content">
-                    <a class="header">Panel 3</a>
+                <div class="ui content left aligned">
+                    <a class="header">Panel 1</a>
                     <div class="meta">
                         <span class="date">0:35:00:00</span>
                     </div>
-                    <div class="description fountain">{{ configs.example.fountain.snippet }}</div>
+                    <div class="ui accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i> Script
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden fountain">{{ configs.example.fountain.snippet }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,12 +117,19 @@
                 <div class="image">
                     <img src="https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg">
                 </div>
-                <div class="content">
-                    <a class="header">Panel 4</a>
+                <div class="ui content left aligned">
+                    <a class="header">Panel 1</a>
                     <div class="meta">
                         <span class="date">0:35:00:00</span>
                     </div>
-                    <div class="description fountain">{{ configs.example.fountain.snippet }}</div>
+                    <div class="ui accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i> Script
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden fountain">{{ configs.example.fountain.snippet }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,12 +138,19 @@
                 <div class="image">
                     <img src="https://c1.staticflickr.com/3/2439/3663515635_1c89de110c_b.jpg">
                 </div>
-                <div class="content">
-                    <a class="header">Panel 5</a>
+                <div class="ui content left aligned">
+                    <a class="header">Panel 1</a>
                     <div class="meta">
                         <span class="date">0:35:00:00</span>
                     </div>
-                    <div class="description fountain">{{ configs.example.fountain.snippet }}</div>
+                    <div class="ui accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i> Script
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden fountain">{{ configs.example.fountain.snippet }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,6 +200,7 @@
             console.log(fountain.parse(e.html()).html);
             e.html(fountain.parse(e.html()).html.script);
         });
+        $('.ui.accordion').accordion();
     });
 </script>
 
