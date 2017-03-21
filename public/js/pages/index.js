@@ -27367,7 +27367,7 @@ var Index = _react2.default.createClass({
                         ),
                         _react2.default.createElement(
                             _itemContainer2.default,
-                            null,
+                            { className: 'right' },
                             _react2.default.createElement(
                                 _button2.default,
                                 { className: 'inverted' },
