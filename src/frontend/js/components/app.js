@@ -14,6 +14,8 @@ const App = React.createClass({
     render: function() {
         const { securityContext } = this.props;
 
+        console.log(securityContext);
+
         return (
             <div className="app">
                 <div className="app-header">
