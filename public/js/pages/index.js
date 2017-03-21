@@ -29292,10 +29292,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _securityContext = require('../ui/security-context');
-
-var _securityContext2 = _interopRequireDefault(_securityContext);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AppHeader = _react2.default.createClass({
@@ -29304,7 +29300,7 @@ var AppHeader = _react2.default.createClass({
 
     propTypes: {
         className: _react2.default.PropTypes.string,
-        securityContext: _react2.default.PropTypes.object.isRequired
+        securityContext: _react2.default.PropTypes.object
     },
 
     render: function render() {
@@ -29318,65 +29314,14 @@ var AppHeader = _react2.default.createClass({
         return _react2.default.createElement(
             'div',
             { className: 'columns is-mobile app-header' },
-            _react2.default.createElement(
-                'div',
-                { className: 'column is-6' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'control is-grouped-left' },
-                    _react2.default.createElement(
-                        'p',
-                        { className: 'control' },
-                        _react2.default.createElement(
-                            'a',
-                            { title: 'Home', href: '/' },
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'icon' },
-                                _react2.default.createElement('i', { className: 'fa fa-home' })
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        { className: 'control' },
-                        _react2.default.createElement(
-                            'a',
-                            { title: 'Submit', href: '/content/article/add' },
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'icon' },
-                                _react2.default.createElement('i', { className: 'fa fa-plus' })
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        { className: 'control' },
-                        _react2.default.createElement(
-                            'a',
-                            { title: 'Submit', href: '/import/pocket' },
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'icon' },
-                                _react2.default.createElement('i', { className: 'fa fa-get-pocket' })
-                            )
-                        )
-                    )
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'column is-6 clearfix' },
-                _react2.default.createElement(_securityContext2.default, { securityContext: securityContext, className: 'has-text-right' })
-            )
+            'farts'
         );
     }
 });
 
 exports.default = AppHeader;
 
-},{"../ui/security-context":285,"classnames":1,"react":262,"react-router":225}],282:[function(require,module,exports){
+},{"classnames":1,"react":262,"react-router":225}],282:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
