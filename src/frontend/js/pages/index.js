@@ -23,10 +23,10 @@ if (lastRequestUri !== '/favicon.ico') {
 render((
     <Provider store={ store }>
         <Router history={browserHistory}>
-            <Route path="/" component={ App } props={securityContext}>
-                <IndexRoute component={ Index } props={securityContext} />
-                <Route path="/login" component={ Login } props={securityContext} />
-                <Route path="*" component={ Index } props={securityContext} />
+            <Route path="/" component={ App } props={ { securityContext } }>
+                <IndexRoute component={ Index } props={ { securityContext } } />
+                <Route path="/login" component={ Login } props={ { securityContext } } />
+                <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>
         </Router>
     </Provider>
