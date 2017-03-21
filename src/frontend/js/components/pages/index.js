@@ -18,7 +18,7 @@ const Index = React.createClass({
                         <Menu className={ ['large', 'secondary', 'inverted', 'pointing'] }>
                             <ItemLink className="active">One</ItemLink>
                             <ItemLink>Two</ItemLink>
-                            <ItemContainer>
+                            <ItemContainer className="right">
                                 <Button className="inverted">Login</Button>
                                 <Button className="inverted">Signup</Button>
                             </ItemContainer>
