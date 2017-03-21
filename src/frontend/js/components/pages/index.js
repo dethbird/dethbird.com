@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-    Button,
-    Container,
-    Header,
-    Image,
-    Icon,
-    Menu,
     Segment,
     Sidebar,
 } from 'semantic-ui-react';
 
 import LoginForm from 'components/ui/form/login-form';
+import Footer from 'components/ui/footer';
+import Masthead from 'components/ui/masthead';
 
 const Index = React.createClass({
     getInitialState() {
@@ -31,20 +27,9 @@ const Index = React.createClass({
                     <LoginForm onClickCancel={ this.toggleVisibility }/>
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
-                    <Segment inverted={ true } className="masthead">
-                        <Container>
-                            <Menu size="large" secondary={ true } inverted={ true } pointing={ true }>
-                                <Menu.Item active={ true }>One</Menu.Item>
-                                <Menu.Item>Two</Menu.Item>
-                                <Menu.Item as="div" className="right">
-                                    <Button inverted={ true } onClick={ this.toggleVisibility }>Login</Button>
-                                    <Button inverted={ true }>Signup</Button>
-                                </Menu.Item>
-                            </Menu>
-                        </Container>
-                    </Segment>
+                    <Masthead onClickLogin={ this.toggleVisibility } />
                     <Segment>index</Segment>
-                    <Segment inverted={ true }>index</Segment>
+                    <Footer />
                 </Sidebar.Pusher>
             </Sidebar.Pushable>
         )
