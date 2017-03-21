@@ -1,33 +1,31 @@
 import React from 'react';
-
-import Button from 'components/ui/button';
-import Container from 'components/ui/container';
-import ItemLink from 'components/ui/item-link';
-import ItemContainer from 'components/ui/item-container';
-import Menu from 'components/ui/menu';
-import SegmentVertical from 'components/ui/segment-vertical';
-import Segments from 'components/ui/segments';
+import {
+    Button,
+    Container,
+    Menu,
+    Segment
+} from 'semantic-ui-react';
 
 const Index = React.createClass({
     render() {
         const { securityContext } = this.props.route.props;
         return (
-            <Segments>
-                <SegmentVertical className={ ['inverted', 'masthead'] }>
+            <Segment.Group>
+                <Segment inverted={ true } className="masthead">
                     <Container>
-                        <Menu className={ ['large', 'secondary', 'inverted', 'pointing'] }>
-                            <ItemLink className="active">One</ItemLink>
-                            <ItemLink>Two</ItemLink>
-                            <ItemContainer className="right">
-                                <Button className="inverted">Login</Button>
-                                <Button className="inverted">Signup</Button>
-                            </ItemContainer>
+                        <Menu size="large" secondary={ true } inverted={ true } pointing={ true }>
+                            <Menu.Item active={ true }>One</Menu.Item>
+                            <Menu.Item>Two</Menu.Item>
+                            <Menu.Item as="div" className="right">
+                                <Button inverted={ true }>Login</Button>
+                                <Button inverted={ true }>Signup</Button>
+                            </Menu.Item>
                         </Menu>
                     </Container>
-                </SegmentVertical>
-                <SegmentVertical>index</SegmentVertical>
-                <SegmentVertical className="inverted">index</SegmentVertical>
-            </Segments>
+                </Segment>
+                <Segment>index</Segment>
+                <Segment inverted={ true }>index</Segment>
+            </Segment.Group>
         )
     }
 })
