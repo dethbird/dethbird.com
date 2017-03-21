@@ -24,9 +24,9 @@ render((
     <Provider store={ store }>
         <Router history={browserHistory}>
             <Route path="/" component={ App } props={securityContext}>
-                <IndexRoute component={ Index } />
-                <Route path="/login" component={ Login } />
-                <Route path="*" component={ Index } />
+                <IndexRoute component={ Index } props={securityContext} />
+                <Route path="/login" component={ Login } props={securityContext} />
+                <Route path="*" component={ Index } props={securityContext} />
             </Route>
         </Router>
     </Provider>

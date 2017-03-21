@@ -198,6 +198,11 @@
         echo $c("Javascript")
             ->white()->bold()->highlight('blue') . PHP_EOL;
 
+        //export NODE_PATH=$NODE_PATH:./src/frontend/js/
+        $shell->executeCommand('export', [
+           "NODE_PATH=$NODE_PATH:./src/frontend/js/"
+       ]);
+
         if($cmd['js-page']){
             $frontendFiles = ["src/frontend/js/pages/" . $cmd['js-page'] . ".js"];
         } else {
