@@ -64,6 +64,9 @@ h6 {
 .fountain h6 {
   font-family: 'IM Fell English', serif;
 }
+.main-content {
+  margin-top: 0 !important;
+}
 .secondary.pointing.menu .toc.item {
   display: none;
 }

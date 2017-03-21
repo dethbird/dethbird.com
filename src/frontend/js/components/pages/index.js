@@ -30,7 +30,7 @@ const Index = React.createClass({
                 <Sidebar as={ Segment } animation='overlay' direction='top' visible={visible} inverted={ true }>
                     <LoginForm onClickCancel={ this.toggleVisibility }/>
                 </Sidebar>
-                <Sidebar.Pusher as={ Segment.Group } dimmed={ visible }>
+                <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
                     <Segment inverted={ true } className="masthead">
                         <Container>
                             <Menu size="large" secondary={ true } inverted={ true } pointing={ true }>

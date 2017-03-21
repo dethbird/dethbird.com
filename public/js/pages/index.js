@@ -62080,7 +62080,7 @@ var Index = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Sidebar.Pusher,
-                { as: _semanticUiReact.Segment.Group, dimmed: visible },
+                { as: _semanticUiReact.Segment.Group, dimmed: visible, className: 'main-content' },
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { inverted: true, className: 'masthead' },
