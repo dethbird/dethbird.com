@@ -19,7 +19,7 @@ php composer.phar install
 
 #### Make sure frontend src is in NODE_PATH
 ```bash
-export NODE_PATH=$NODE_PATH:./src/frontend/js/
+export NODE_PATH=$NODE_PATH:./src/frontend/js/:./configs/
 ```
 
 #### Copy .env from .env.shadow and edit values

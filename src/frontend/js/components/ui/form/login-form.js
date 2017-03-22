@@ -6,12 +6,21 @@ import {
     Menu
 } from 'semantic-ui-react';
 
+import loginPostSchema from 'validation_schema/login-post.json';
+import * as jsonSchema from 'utility/json-schema';
+
 const LoginForm = React.createClass({
+    getInitialState() {
+        return {
+            changedFields: jsonSchema.initialFields(loginPostSchema)
+        }
+    },
     propTypes: {
         onClickCancel: React.PropTypes.func.isRequired
     },
     render() {
         const { onClickCancel } = this.props;
+
         return (
             <Container text={ true }>
                 <Form inverted={ true }>
