@@ -24,4 +24,6 @@ $app->post("/api/0.1/login", function ($request, $response){
 
     return $response
         ->withJson($model);
-});
+})
+->add( new RequestBodyValidation(
+    APPLICATION_PATH . 'configs/validation_schema/login-post.json') );

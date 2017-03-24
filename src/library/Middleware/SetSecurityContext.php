@@ -1,5 +1,5 @@
 <?php
-class SecurityContextMiddleware
+class SetSecurityContext
 {
 
     private $container;

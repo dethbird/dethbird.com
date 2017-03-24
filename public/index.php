@@ -15,7 +15,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 
 require '../vendor/autoload.php';
-require_once APPLICATION_PATH . 'src/library/Middleware/SecurityContextMiddleware.php';
+require_once APPLICATION_PATH . 'src/library/Middleware/SetSecurityContext.php';
+require_once APPLICATION_PATH . 'src/library/Middleware/RequestBodyValidation.php';
 require_once APPLICATION_PATH . 'src/library/Validation/Validator.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -136,7 +137,7 @@ $app->get('/', function ($request, $response){
     );
 
 })
-->add( new SecurityContextMiddleware($container) );
+->add( new SetSecurityContext($container) );
 
 // # mockup
 $app->get("/mockup/{section}", function ($request, $response, $args){
@@ -163,7 +164,7 @@ $app->get("/mockup/{section}", function ($request, $response, $args){
         $templateVars
     );
 })
-->add( new SecurityContextMiddleware($container) );
+->add( new SetSecurityContext($container) );
 
 
 // # logout
