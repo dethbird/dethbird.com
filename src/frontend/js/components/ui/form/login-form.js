@@ -34,8 +34,9 @@ const LoginForm = React.createClass({
         onClickCancel: React.PropTypes.func.isRequired
     },
     render() {
-        const { onClickCancel } = this.props;
+        const { onClickCancel, ui_state, errors } = this.props;
         const { changedFields } = this.state;
+        console.log(ui_state);
         return (
             <Container text={ true }>
                 <Form inverted={ true }>

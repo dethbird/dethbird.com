@@ -173,7 +173,7 @@ $app->get("/mockup/{section}", function ($request, $response, $args){
 // });
 
 
-// require_once APPLICATION_PATH . 'src/routes/api.php';
+require_once APPLICATION_PATH . 'src/routes/api.php';
 // require_once APPLICATION_PATH . 'src/routes/service.php';
 
 

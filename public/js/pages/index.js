@@ -65149,6 +65149,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loginAttempt = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _superagent = require('superagent');
 
 var _superagent2 = _interopRequireDefault(_superagent);
@@ -65156,8 +65158,6 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _actions = require('constants/actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /** POST */
 var loginAttemptInit = function loginAttemptInit() {
@@ -65181,10 +65181,9 @@ var loginAttemptError = function loginAttemptError(errors) {
 
 var loginAttempt = exports.loginAttempt = function loginAttempt(fields) {
     return function (dispatch) {
-        var _request$post;
-
+        console.log(fields);
         dispatch(loginAttemptInit());
-        (_request$post = _superagent2.default.post('/api/0.1/login')).send.apply(_request$post, _toConsumableArray(fields)).end(function (err, res) {
+        _superagent2.default.post('/api/0.1/login').send(_extends({}, fields)).end(function (err, res) {
             if (res.ok) {
                 dispatch(loginAttemptSuccess());
             } else {
@@ -65377,9 +65376,13 @@ var LoginForm = _react2.default.createClass({
     render: function render() {
         var _this = this;
 
-        var onClickCancel = this.props.onClickCancel;
+        var _props = this.props,
+            onClickCancel = _props.onClickCancel,
+            ui_state = _props.ui_state,
+            errors = _props.errors;
         var changedFields = this.state.changedFields;
 
+        console.log(ui_state);
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
@@ -65511,6 +65514,7 @@ var LOGIN_ATTEMPT = exports.LOGIN_ATTEMPT = {
 };
 
 var UI_STATE = exports.UI_STATE = {
+    INITIALIZING: "UI_STATE_INITIALIZING",
     REQUESTING: "UI_STATE_REQUESTING",
     ERROR: "UI_STATE_ERROR",
     SUCCESS: "UI_STATE_SUCCESS"
