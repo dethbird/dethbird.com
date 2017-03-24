@@ -4,7 +4,7 @@ import {
     Sidebar,
 } from 'semantic-ui-react';
 
-import LoginForm from 'components/ui/form/login-form';
+import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
 import Masthead from 'components/ui/masthead';
 

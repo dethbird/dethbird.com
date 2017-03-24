@@ -7,3 +7,28 @@ export const initialFields = (schema) => {
     });
     return fields;
 }
+
+export const getErrorMessageForProperty = (property, errors) => {
+    if (errors) {
+        if (errors.properties) {
+            const error = _.findWhere(errors.properties, {
+                property
+            });
+            if (error) {
+                return error.message;
+            }
+            return null;
+        }
+    }
+    return null;
+}
+
+export const getGlobalErrorMessage = (errors) => {
+    if (errors) {
+        if (errors.global) {
+            return errors.global.message;
+        }
+        return null;
+    }
+    return null;
+}

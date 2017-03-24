@@ -2,10 +2,12 @@
 	"properties": {
 		"username": {
             "required": true,
+            "minLength": 1,
 		    "type": "string"
 		},
 		"password": {
             "required": true,
+            "minLength": 1,
             "type": ["integer", "string"]
 		}
 	}

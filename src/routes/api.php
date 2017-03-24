@@ -8,7 +8,11 @@ $app->post("/api/0.1/login", function ($request, $response){
     );
 
     if (!$user) {
-        return $response->withStatus(404);
+        return $response->withStatus(404)->withJson([
+            "global" => [
+                "message" => "User not found"
+            ]
+        ]);
     }
 
     $model = json_decode(

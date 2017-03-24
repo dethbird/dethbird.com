@@ -5,8 +5,6 @@ import {
 
 const Footer = React.createClass({
     render() {
-        const { onClickLogin } = this.props;
-
         return (
             <Segment inverted={ true }>Footer</Segment>
         )

@@ -4,13 +4,16 @@ import {
     Button,
     Container,
     Form,
-    Menu
+    Menu,
+    Message
 } from 'semantic-ui-react';
 
-import { UI_STATE } from 'constants/actions';
+import ErrorMessage from 'components/ui/error-message';
+import { UI_STATE } from 'constants/ui-state';
 import { loginAttempt } from 'actions/login';
 import loginPostSchema from 'validation_schema/login-post.json';
 import * as jsonSchema from 'utility/json-schema';
+
 
 const LoginForm = React.createClass({
     getInitialState() {
@@ -39,10 +42,20 @@ const LoginForm = React.createClass({
         console.log(ui_state);
         return (
             <Container text={ true }>
-                <Form inverted={ true }>
+                <Form
+                    inverted={ true }
+                    loading={ ui_state == UI_STATE.REQUESTING }
+                    error={ ui_state == UI_STATE.ERROR }
+                    success={ ui_state == UI_STATE.SUCCESS }
+                >
+                    <Container>
+                        <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+                    </Container>
                     <Form.Group widths='equal'>
-                        <Form.Input label="Username" placeholder="Username" id="username" type="text" onChange={ (e) => this.handleFieldChange(e, 'username') } value={ changedFields.username || '' }></Form.Input>
-                        <Form.Input label="Password" placeholder="Password" id="password" type="password"  onChange={ (e) => this.handleFieldChange(e, 'password') } value={ changedFields.password || '' }></Form.Input>
+                        <Form.Input label="Username" placeholder="Username" id="username" type="text" onChange={ (e) => this.handleFieldChange(e, 'username') } value={ changedFields.username || '' } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('username', errors)} />
+                        <Form.Input label="Password" placeholder="Password" id="password" type="password"  onChange={ (e) => this.handleFieldChange(e, 'password') } value={ changedFields.password || '' } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('password', errors)} />
                     </Form.Group>
                     <Container textAlign="right">
                         <Button.Group>

@@ -37,9 +37,9 @@ class RequestBodyValidation
         );
 
         if (!$validator->isValid()) {
-            $errors = [];
+            $errors = ['properties' => []];
             foreach ($validator->getErrors() as $error) {
-                $errors[] = $error;
+                $errors['properties'][] = $error;
             }
             return $response
                 ->withStatus(400)->withJson($errors);

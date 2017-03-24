@@ -1,8 +1,5 @@
-import {
-    LOGIN_ATTEMPT,
-    UI_STATE
-} from 'constants/actions';
-
+import { LOGIN_ATTEMPT } from 'constants/actions';
+import { UI_STATE } from 'constants/ui-state';
 
 const loginReducer = (state = {}, action) => {
 
@@ -18,7 +15,7 @@ const loginReducer = (state = {}, action) => {
             }
         case LOGIN_ATTEMPT.SUCCESS:
             return {
-                ui_state: UI_STATE.COMPLETE
+                ui_state: UI_STATE.SUCCESS
             }
         default:
             return state;

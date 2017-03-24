@@ -23,7 +23,6 @@ const loginAttemptError = (errors) => {
 
 export const loginAttempt = (fields) =>
     dispatch => {
-        console.log(fields);
         dispatch(loginAttemptInit());
         request.post('/api/0.1/login')
             .send( { ... fields } )

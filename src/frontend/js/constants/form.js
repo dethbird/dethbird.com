@@ -1,2 +1,4 @@
-export const FORM_MODE_ADD = 'FORM_MODE_ADD';
-export const FORM_MODE_EDIT = 'FORM_MODE_EDIT';
+export const FORM_MODE = {
+    ADD: "FORM_MODE_ADD",
+    EDIT: "FORM_MODE_EDIT"
+};
