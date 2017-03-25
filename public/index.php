@@ -74,6 +74,7 @@ ActiveRecord\Config::initialize(function($cfg)
         ]
     );
 });
+// ActiveRecord\Serialization::$DATETIME_FORMAT = 'Y-m-d g:i:s a';
 
 
 // # authorize the user by header auth token
@@ -118,7 +119,6 @@ ActiveRecord\Config::initialize(function($cfg)
 
 # index
 $app->get('/', function ($request, $response){
-
     $configs = $this['configs'];
     $view = $this['view'];
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
