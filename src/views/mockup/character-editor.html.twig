@@ -1,0 +1,82 @@
+{% extends 'layout-mockup-logged-in.html.twig' %}
+{% block title %}{% endblock %}
+{% block head %}
+    {{parent()}}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+
+{% include 'mockup/partials/header-menu.html.twig' with {'active': 'character'} %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui text container">
+        <form class="ui large form">
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Character's name" value="Beepo Beeparelli"/>
+            </div>
+            <div class="field">
+                <img class="ui centered large circular image" src="https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg">
+            </div>
+            <div class="field">
+                <label>Avatar Image URL</label>
+                <div class="ui left icon input">
+                    <input type="text" name="avatar_image_url" placeholder="Image URL" value="https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg"/>
+                    <i class="image icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label>Occupation</label>
+                <input type="text" name="occupation" placeholder="Occupation" value="Plumber">
+            </div>
+            <div class="fields">
+                <div class="three wide field">
+                    <label>Age</label>
+                    <input type="text" name="age" placeholder="Age" value="37">
+                </div>
+                <div class="thirteen wide field">
+                    <label>Location</label>
+                    <div class="ui left icon input">
+                        <input type="text" name="age" placeholder="Age" value="Pipelandia">
+                        <i class="location arrow icon"></i>
+                    </div>
+
+                </div>
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <textarea rows="3">Beepo is a robot built by Japanese robotics engineers with whatever information they had about Italian stereotypes. Upon his activation they uploaded the occupation "plumber" into his main fucking memory.</textarea>
+            </div>
+            <div class="field">
+                <label>Tags</label>
+                <div class="ui container">
+                    <div class="ui teal tag label large">Addictive Personality <a><i class="trash icon"></i></a></div>
+                    <div class="ui teal tag label large">Yearns for stage <a><i class="trash icon"></i></a></div>
+                    <div class="ui teal tag label large">Loves opera <a><i class="trash icon"></i></a></div>
+                </div>
+            </div>
+            <div class="offset ten wide field">
+                <div class="ui right labeled left icon input">
+                    <i class="tags icon"></i>
+                    <input type="text" placeholder="New Tag">
+                    <a class="ui tag label">Add</a>
+                </div>
+            </div>
+            <div class="ui right aligned container">
+                <button class="ui large primary button" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.ui.dropdown').dropdown();
+    });
+</script>
+{% include 'mockup/partials/footer-menu.html.twig' with {'foo': 'bar'} %}
+
+{% endblock %}
+
+
+{% block includes %}
+{% endblock %}

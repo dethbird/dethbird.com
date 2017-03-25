@@ -15,9 +15,10 @@ h6 {
 .masthead.segment {
   min-height: 700px;
   padding: 1em 0em;
+  background-image: url('/img/purple-space-landscape.jpg') !important;
 }
-.masthead .logo.item img {
-  margin-right: 1em;
+.masthead img.logo {
+  margin-top: 5.5em;
 }
 .masthead .ui.menu .ui.button {
   margin-left: 0.5em;

@@ -65410,7 +65410,15 @@ var Index = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     null,
-                    'index'
+                    _react2.default.createElement(
+                        _semanticUiReact.Container,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h1' },
+                            'Features'
+                        )
+                    )
                 ),
                 _react2.default.createElement(_footer2.default, null)
             )
@@ -65474,8 +65482,84 @@ var Footer = _react2.default.createClass({
     render: function render() {
         return _react2.default.createElement(
             _semanticUiReact.Segment,
-            { inverted: true },
-            'Footer'
+            { inverted: true, className: 'footer' },
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Grid,
+                    { stackable: true, divided: true, stretched: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { largeScreen: 3 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h4', inverted: true },
+                            'About'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.List,
+                            { inverted: true, link: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Sitemap'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Contact Us'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { largeScreen: 3 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h4', inverted: true },
+                            'Services'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.List,
+                            { inverted: true, link: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Sitemap'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Contact Us'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { largeScreen: 7 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h4', inverted: true },
+                            'Footer Header'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.List,
+                            { inverted: true, link: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Sitemap'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.List.Item,
+                                { as: 'a' },
+                                'Contact Us'
+                            )
+                        )
+                    )
+                )
+            )
         );
     }
 });
@@ -65541,6 +65625,17 @@ var Masthead = _react2.default.createClass({
                         )
                     )
                 )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(_semanticUiReact.Image, { src: '/svg/storystation.svg', className: 'logo' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h2', inverted: true },
+                    'The boring part of silver screen magic!'
+                ),
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Get Started', icon: 'right arrow', labelPosition: 'right', primary: true, size: 'huge' })
             )
         );
     }

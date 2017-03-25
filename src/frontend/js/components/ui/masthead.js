@@ -2,6 +2,8 @@ import React from 'react';
 import {
     Button,
     Container,
+    Header,
+    Image,
     Menu,
     Segment
 } from 'semantic-ui-react';
@@ -24,6 +26,11 @@ const Masthead = React.createClass({
                             <Button inverted={ true }>Signup</Button>
                         </Menu.Item>
                     </Menu>
+                </Container>
+                <Container text={ true } >
+                    <Image src="/svg/storystation.svg" className="logo"/>
+                    <Header as='h2' inverted={ true }>The boring part of silver screen magic!</Header>
+                    <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge"/>
                 </Container>
             </Segment>
         )

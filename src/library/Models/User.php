@@ -1,11 +1,11 @@
 <?php
 
-class Users extends ActiveRecord\Model
+class User extends ActiveRecord\Model
 {
-    static $table_name = 'users';
+    static $table_name = 'user';
 
-    static $before_create = array('before_create_audit');
-    static $before_save = array('before_save_audit');
+    static $before_create = ['before_create_audit'];
+    static $before_save = ['before_save_audit'];
 
     public function before_create_audit() {
         $this->date_added = date('Y-m-d g:i:s a');

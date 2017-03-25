@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    Container,
+    Header,
     Segment,
     Sidebar,
 } from 'semantic-ui-react';
@@ -28,7 +30,11 @@ const Index = React.createClass({
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
                     <Masthead onClickLogin={ this.toggleVisibility } />
-                    <Segment>index</Segment>
+                    <Segment>
+                        <Container>
+                            <Header as="h1">Features</Header>
+                        </Container>
+                    </Segment>
                     <Footer />
                 </Sidebar.Pusher>
             </Sidebar.Pushable>
