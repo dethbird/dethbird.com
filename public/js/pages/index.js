@@ -65238,25 +65238,40 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = require('semantic-ui-react');
 
+var _footer = require('components/ui/footer');
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _loggedInHeader = require('components/ui/logged-in-header');
+
+var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CharacterEdit = _react2.default.createClass({
     displayName: 'CharacterEdit',
     render: function render() {
+        var path = this.props.route.path;
         var securityContext = this.props.route.props.securityContext;
 
 
         return _react2.default.createElement(
-            _semanticUiReact.Container,
-            { className: 'main-content' },
-            'Content'
+            _semanticUiReact.Segment.Group,
+            null,
+            _react2.default.createElement(_loggedInHeader2.default, { path: path }),
+            _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { className: 'main-content' },
+                'Character Edit'
+            ),
+            _react2.default.createElement(_footer2.default, null)
         );
     }
 });
 
 exports.default = CharacterEdit;
 
-},{"react":690,"semantic-ui-react":798}],915:[function(require,module,exports){
+},{"components/ui/footer":918,"components/ui/logged-in-header":919,"react":690,"semantic-ui-react":798}],915:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65545,14 +65560,16 @@ var LoggedInHeader = _react2.default.createClass({
                 null,
                 _react2.default.createElement(
                     _semanticUiReact.Menu,
-                    { size: 'large', inverted: true },
+                    { size: 'large', inverted: true, secondary: true },
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Dashboard', className: path == "dashboard" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Projects', className: path == "projects" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Scripts', className: path == "scripts" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Characters', className: path == "characters" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { content: _react2.default.createElement(
                             _semanticUiReact.Button,
-                            { as: 'a', inverted: true },
+                            { as: 'a', inverted: true, onClick: function onClick() {
+                                    window.location.href = "/logout";
+                                } },
                             'Logout'
                         ), className: 'right' })
                 )

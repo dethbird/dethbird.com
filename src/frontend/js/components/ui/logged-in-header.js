@@ -3,6 +3,7 @@ import {
     Button,
     Container,
     Item,
+    Label,
     Menu,
     Segment
 } from 'semantic-ui-react';
@@ -16,7 +17,7 @@ const LoggedInHeader = React.createClass({
         return (
             <Segment inverted={ true } >
                 <Container>
-                    <Menu size="large" inverted={ true }>
+                    <Menu size="large" inverted={ true } secondary={ true }>
                         <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } />
                         <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
                         <Item as="a" content="Scripts" className={ path=="scripts" ? "active" : null } />
