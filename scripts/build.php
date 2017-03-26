@@ -227,12 +227,13 @@
                     "[ babelify --presets [ es2015 react stage-2 ] ]"
                 ];
 
+                echo $c('browserify '  . implode(' ', $command))->yellow()->bold() . PHP_EOL;
+
                 try {
                     $browserifyList = $shell->executeCommand('browserify', array_merge($command, ["--list"]));
                 } catch (Exception $e) {
                     echo $c(print_r($e->getMessage(), true))->dark() . PHP_EOL;
                     echo $c('EXCEPTION')->red()->bold() . PHP_EOL;
-                    echo $c('browserify '  . implode(' ', $command))->yellow()->bold() . PHP_EOL;
                     exit();
                 }
 

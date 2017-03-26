@@ -1,0 +1,85 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import {
+    Button,
+    Container,
+    Form,
+    Menu,
+    Message
+} from 'semantic-ui-react';
+
+import ErrorMessage from 'components/ui/error-message';
+import { UI_STATE } from 'constants/ui-state';
+import { characterGet } from 'actions/character';
+import loginPostSchema from 'validation_schema/login-post.json';
+import * as jsonSchema from 'utility/json-schema';
+
+
+const CharacterForm = React.createClass({
+    propTypes: {
+        id: React.PropTypes.string
+    },
+    getInitialState() {
+        return {
+            changedFields: jsonSchema.initialFields(loginPostSchema)
+        }
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const { id } = this.props;
+        console.log(id);
+        dispatch(characterGet(id));
+    },
+    handleFieldChange(e, elementId) {
+        const { changedFields } = this.state;
+        changedFields[elementId] = e.currentTarget.value;
+        this.setState({
+            ... changedFields
+        });
+    },
+    onClickSubmit() {
+        const { dispatch } = this.props;
+        const { changedFields } = this.state;
+        dispatch(loginAttempt(changedFields));
+    },
+    render() {
+        const { ui_state, errors } = this.props;
+        const { changedFields } = this.state;
+        return (
+            <Container text={ true }>
+                <Form
+                    inverted={ true }
+                    loading={ ui_state == UI_STATE.REQUESTING }
+                    error={ ui_state == UI_STATE.ERROR }
+                    success={ ui_state == UI_STATE.SUCCESS }
+                >
+                    <Container>
+                        <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+                    </Container>
+                    <Form.Group widths='equal'>
+                        <Form.Input label="Username" placeholder="Username" id="username" type="text" onChange={ (e) => this.handleFieldChange(e, 'username') } value={ changedFields.username || '' } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('username', errors)} />
+                        <Form.Input label="Password" placeholder="Password" id="password" type="password"  onChange={ (e) => this.handleFieldChange(e, 'password') } value={ changedFields.password || '' } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('password', errors)} />
+                    </Form.Group>
+                    <Container textAlign="right">
+                        <Button.Group>
+                            <Button as="a" color="teal" onClick={ this.onClickSubmit }>Login</Button>
+                            <Button as="a" onClick={ () => { console.log('back'); } }>Cancel</Button>
+                        </Button.Group>
+                    </Container>
+                </Form>
+            </Container>
+        )
+    }
+})
+
+const mapStateToProps = (state) => {
+    const { ui_state, errors } = state.characterReducer;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
+        errors
+    }
+}
+
+export default connect(mapStateToProps)(CharacterForm);

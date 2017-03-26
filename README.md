@@ -30,6 +30,10 @@ vim .env
 
 ### Build script
 
+#### Watchify
+watchify src/frontend/js/pages/index.js -o public/js/pages/index.js -t [ babelify --presets [ es2015 react stage-2 ] ]
+
+
 #### Help
 
 ```bash

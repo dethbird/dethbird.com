@@ -32,3 +32,14 @@ $app->post("/api/0.1/login", function ($request, $response){
 })
 ->add( new RequestBodyValidation(
     APPLICATION_PATH . 'configs/validation_schema/login-post.json') );
+
+$app->group('/api/0.1', function(){
+    $this->group('/character', function(){
+        $this->get('/{id}', function($request, $response, $args){
+            $model = Character::find_by_id($args['id']);
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new ReadAccess($_SESSION['securityContext']) );
+    });
+});

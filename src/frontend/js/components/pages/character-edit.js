@@ -12,12 +12,13 @@ const CharacterEdit = React.createClass({
     render() {
         const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
+        const { characterId } = this.props.params;
 
         return (
             <Segment.Group>
                 <LoggedInHeader path={ path } />
                 <Segment className="main-content">
-                    <CharacterForm />
+                    <CharacterForm id={ characterId=="add" ? null : characterId } />
                 </Segment>
                 <Footer />
             </Segment.Group>
