@@ -13,7 +13,7 @@ import {
 import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
 import { characterGet } from 'actions/character';
-import loginPostSchema from 'validation_schema/login-post.json';
+import characterPostSchema from 'validation_schema/character-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
 
@@ -23,13 +23,12 @@ const CharacterForm = React.createClass({
     },
     getInitialState() {
         return {
-            changedFields: jsonSchema.initialFields(loginPostSchema)
+            changedFields: {}
         }
     },
     componentWillMount() {
         const { dispatch } = this.props;
         const { id } = this.props;
-        console.log(id);
         dispatch(characterGet(id));
     },
     handleFieldChange(e, elementId) {
@@ -47,7 +46,8 @@ const CharacterForm = React.createClass({
     render() {
         const { ui_state, errors, model } = this.props;
         const { changedFields } = this.state;
-        console.log(model);
+        const inputFields = jsonSchema.buildInputFields(model, changedFields, characterPostSchema);
+
         return (
             <Container text={ true }>
                 <Form
@@ -59,16 +59,16 @@ const CharacterForm = React.createClass({
                     <Container>
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
-                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ changedFields.name || '' } />
-                    <Image shape="circular" size="large" centered={ true } src="https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg" />
-                    <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ changedFields.avatar_image_url || '' } icon='image' iconPosition='left' />
-                    <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ changedFields.occupation || '' } />
+                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } />
+                    <Image shape="circular" size="large" centered={ true } src={ inputFields.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
+                    <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
+                    <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ inputFields.occupation || '' } />
                     <Form.Group>
                         <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ (e) => this.handleFieldChange(e, 'age') } value={ changedFields.age || '' } width={ 3 } />
-                        <Form.Input label="Location" placeholder="Location" id="location" type="text" onChange={ (e) => this.handleFieldChange(e, 'location') } value={ changedFields.location || '' } width={ 13 } icon='location arrow' iconPosition='left' />
+                        <Form.Input label="Location" placeholder="Location" id="location" type="text" onChange={ (e) => this.handleFieldChange(e, 'location') } value={ inputFields.location || '' } width={ 13 } icon='location arrow' iconPosition='left' />
                     </Form.Group>
-                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ changedFields.description || '' } autoHeight={ true }/>
-                    <Form.Input label="Tags" placeholder="Tags" id="tags" type="text" onChange={ (e) => this.handleFieldChange(e, 'tags') } value={ changedFields.tags || '' } />
+                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
+                    <Form.Input label="Tags" placeholder="Tags" id="tags" type="text" onChange={ (e) => this.handleFieldChange(e, 'tags') } value={ inputFields.tags || '' } />
                     <Container textAlign="right">
                         <Button.Group>
                             <Button as="a" color="teal" onClick={ this.onClickSubmit }>Login</Button>

@@ -8,6 +8,16 @@ export const initialFields = (schema) => {
     return fields;
 }
 
+export const buildInputFields = (model, changedFields, schema) => {
+
+    const inputFields = model ? model : initialFields(schema);
+
+    return {
+        ... inputFields,
+        ... changedFields
+    };
+}
+
 export const getErrorMessageForProperty = (property, errors) => {
     if (errors) {
         if (errors.properties) {

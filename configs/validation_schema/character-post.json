@@ -1,0 +1,27 @@
+{
+	"properties": {
+		"name": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"avatar_image_url": {
+            "type": "string"
+		},
+		"occupation": {
+            "type": "string"
+		},
+		"age": {
+            "type": "string"
+		},
+		"location": {
+            "type": "string"
+		},
+		"description": {
+            "type": "string"
+		},
+		"tags": {
+            "type": "string"
+		}
+	}
+}
