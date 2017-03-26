@@ -15,7 +15,8 @@ const characterReducer = (state = {}, action) => {
             }
         case CHARACTER.SUCCESS:
             return {
-                ui_state: UI_STATE.SUCCESS
+                ui_state: UI_STATE.SUCCESS,
+                model: action.model
             }
         default:
             return state;
