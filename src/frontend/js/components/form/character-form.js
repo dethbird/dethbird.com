@@ -39,7 +39,8 @@ const CharacterForm = React.createClass({
         if(nextProps.model!==undefined) {
             this.setState({
                  ... this.state,
-                 model: nextProps.model
+                 model: nextProps.model,
+                 changedFields: {}
             });
         }
     },

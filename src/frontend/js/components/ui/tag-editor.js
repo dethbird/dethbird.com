@@ -1,8 +1,9 @@
 import React from 'react';
+import * as _ from 'underscore';
 import {
-    Button,
     Container,
     Divider,
+    Icon,
     Input,
     Label
 } from 'semantic-ui-react';
@@ -50,11 +51,33 @@ const TagEditor = React.createClass({
             onChange(e, 'tags');
         }
     },
+    removeTag(tag) {
+        const { tags } = this.state;
+        const { onChange } = this.props;
+
+        const newTags = _.filter(tags, function(t){
+            return t !== tag;
+        });
+
+        this.setState({
+            tags: newTags,
+            newTag: null
+        });
+
+        const e = {
+            currentTarget: {
+                value: JSON.stringify(newTags)
+            }
+        };
+        onChange(e, 'tags');
+
+    },
     render() {
+        const { removeTag } = this;
         const { tags, newTag } = this.state;
         const tagNodes = tags.map(function(tag, i){
             return (
-                <Label color="teal" tag={ true } size="large" key={ i }>{ tag } <Button as="a" icon="trash" /></Label>
+                <Label color="teal" tag={ true } size="large" key={ i }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
             );
         });
 

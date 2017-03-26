@@ -65271,7 +65271,8 @@ var CharacterForm = _react2.default.createClass({
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
         if (nextProps.model !== undefined) {
             this.setState(_extends({}, this.state, {
-                model: nextProps.model
+                model: nextProps.model,
+                changedFields: {}
             }));
         }
     },
@@ -65966,7 +65967,13 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _underscore = require('underscore');
+
+var _ = _interopRequireWildcard(_underscore);
+
 var _semanticUiReact = require('semantic-ui-react');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66018,7 +66025,29 @@ var TagEditor = _react2.default.createClass({
             onChange(e, 'tags');
         }
     },
+    removeTag: function removeTag(tag) {
+        var tags = this.state.tags;
+        var onChange = this.props.onChange;
+
+
+        var newTags = _.filter(tags, function (t) {
+            return t !== tag;
+        });
+
+        this.setState({
+            tags: newTags,
+            newTag: null
+        });
+
+        var e = {
+            currentTarget: {
+                value: JSON.stringify(newTags)
+            }
+        };
+        onChange(e, 'tags');
+    },
     render: function render() {
+        var removeTag = this.removeTag;
         var _state2 = this.state,
             tags = _state2.tags,
             newTag = _state2.newTag;
@@ -66027,7 +66056,15 @@ var TagEditor = _react2.default.createClass({
             return _react2.default.createElement(
                 _semanticUiReact.Label,
                 { color: 'teal', tag: true, size: 'large', key: i },
-                tag
+                tag,
+                ' ',
+                _react2.default.createElement(
+                    'a',
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'trash', onClick: function onClick(e) {
+                            removeTag(tag);
+                        } })
+                )
             );
         });
 
@@ -66053,7 +66090,7 @@ var TagEditor = _react2.default.createClass({
 
 exports.default = TagEditor;
 
-},{"react":691,"semantic-ui-react":799}],925:[function(require,module,exports){
+},{"react":691,"semantic-ui-react":799,"underscore":910}],925:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
