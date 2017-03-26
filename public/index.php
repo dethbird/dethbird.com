@@ -51,10 +51,10 @@ $container['view'] = function ($container) {
 # container notFoundHandler
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
+        $_SESSION['lastRequestUri'] = $_SERVER['REQUEST_URI'];
         return $c['response']
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('Page not foundo');
+            ->withStatus(302)
+            ->withHeader('Location', '/');
     };
 };
 
@@ -116,30 +116,9 @@ ActiveRecord\Config::initialize(function($cfg)
 //         }
 //     };
 // };
+//
 
-# index
-$app->get('/', function ($request, $response){
-    $configs = $this['configs'];
-    $view = $this['view'];
-    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
-    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
-    $templateVars = [
-        "configs" => $configs,
-        'securityContext' => $securityContext,
-        'lastRequestUri' => $lastRequestUri,
-        "section" => "index"
-    ];
-
-    return $this['view']->render(
-        $response,
-        'pages/index.html.twig',
-        $templateVars
-    );
-
-})
-->add( new SetSecurityContext($container) );
-
-// # mockup
+# mockup
 $app->get("/mockup/{section}", function ($request, $response, $args){
     $section = $args['section'];
     $configs = $this['configs'];
@@ -166,12 +145,38 @@ $app->get("/mockup/{section}", function ($request, $response, $args){
 })
 ->add( new SetSecurityContext($container) );
 
+# index
+$app->get('/', function ($request, $response){
+    $configs = $this['configs'];
+    $view = $this['view'];
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
+    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
+
+    $templateVars = [
+        "configs" => $configs,
+        'securityContext' => $securityContext,
+        'lastRequestUri' => $lastRequestUri,
+        "section" => "index"
+    ];
+
+    return $this['view']->render(
+        $response,
+        'pages/index.html.twig',
+        $templateVars
+    );
+
+})
+->add( new SetSecurityContext($container) );
+
 
 // # logout
-// $app->get("/logout", function () use ($app) {
-//   $_SESSION['securityContext'] = null;
-//   $app->redirect("/");
-// });
+$app->get("/logout",  function ($request, $response) {
+    $_SESSION['securityContext'] = null;
+    $_SESSION['lastRequestUri'] = '/';
+    return $response
+        ->withStatus(302)
+        ->withHeader('Location', '/');
+});
 
 
 require_once APPLICATION_PATH . 'src/routes/api.php';
