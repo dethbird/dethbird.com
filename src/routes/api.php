@@ -72,6 +72,14 @@ $app->group('/api/0.1', function(){
                     ->withJson(["global" => ["message" => "Not found"]]);
             }
 
+            if ($_SESSION['securityContext']->application_user!==1) {
+                if ($model->created_by != $_SESSION['securityContext']->id) {
+                    return $response
+                        ->withStatus(403)
+                        ->withJson(["global" => ["message" => "Ownership check failed"]]);
+                }
+            }
+
             $model->update_attributes($params);
 
             return $response
