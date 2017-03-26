@@ -26,7 +26,7 @@ const Index = React.createClass({
         return (
             <Sidebar.Pushable>
                 <Sidebar as={ Segment } animation='overlay' direction='top' visible={visible} inverted={ true }>
-                    <LoginForm onClickCancel={ this.toggleVisibility }/>
+                    <LoginForm onClickCancel={ this.toggleVisibility } />
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
                     <Masthead onClickLogin={ this.toggleVisibility } />
