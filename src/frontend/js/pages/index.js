@@ -35,6 +35,7 @@ render((
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
+                <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/:characterId/edit" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>

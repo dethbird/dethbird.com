@@ -34,6 +34,20 @@ $app->post("/api/0.1/login", function ($request, $response){
     APPLICATION_PATH . 'configs/validation_schema/login-post.json') );
 
 $app->group('/api/0.1', function(){
+
+    $this->post('/character', function($request, $response, $args){
+        $params = $request->getParsedBody();
+        $params['created_by'] = $_SESSION['securityContext']->id;
+        $model = new Character($params);
+        $model->save();
+
+        return $response
+            ->withJson($model->to_array());
+    })
+    ->add( new WriteAccess($_SESSION['securityContext']) )
+    ->add( new RequestBodyValidation(
+        APPLICATION_PATH . 'configs/validation_schema/character-post.json') );
+
     $this->group('/character', function(){
         $this->get('/{id}', function($request, $response, $args){
             $model = Character::find_by_id($args['id']);
@@ -46,5 +60,26 @@ $app->group('/api/0.1', function(){
                 ->withJson($model->to_array());
         })
         ->add( new ReadAccess($_SESSION['securityContext']) );
+
+        $this->put('/{id}', function($request, $response, $args){
+            $params = $request->getParsedBody();
+            $params['updated_by'] = $_SESSION['securityContext']->id;
+            $model = Character::find_by_id($args['id']);
+
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
+
+            $model->update_attributes($params);
+
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new WriteAccess($_SESSION['securityContext']) )
+        ->add( new RequestBodyValidation(
+            APPLICATION_PATH . 'configs/validation_schema/character-put.json') );
+
     });
 });

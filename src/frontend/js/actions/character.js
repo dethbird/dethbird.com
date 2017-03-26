@@ -2,21 +2,21 @@ import request from 'superagent';
 import { browserHistory } from 'react-router';
 import { CHARACTER } from 'constants/actions';
 
-// GET
-const characterGetInit = () => {
+
+const characterRequestInit = () => {
     return {
         type: CHARACTER.REQUEST
     }
 }
 
-const characterGetSuccess = (model) => {
+const characterRequestSuccess = (model) => {
     return {
         type: CHARACTER.SUCCESS,
         model
     }
 }
 
-const characterGetError = (errors) => {
+const characterRequestError = (errors) => {
     return {
         type: CHARACTER.ERROR,
         errors
@@ -25,13 +25,43 @@ const characterGetError = (errors) => {
 
 export const characterGet = (id) =>
     dispatch => {
-        dispatch(characterGetInit());
+        dispatch(characterRequestInit());
         request.get(`/api/0.1/character/${id}`)
             .end(function(err, res){
                 if(res.ok) {
-                    dispatch(characterGetSuccess(res.body));
+                    dispatch(characterRequestSuccess(res.body));
                 } else {
-                    dispatch(loginAttemptError(res.body));
+                    dispatch(characterRequestError(res.body));
+                }
+        });
+    };
+
+
+export const characterPut = (id, fields) =>
+    dispatch => {
+        dispatch(characterRequestInit());
+        request.put(`/api/0.1/character/${id}`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(characterRequestSuccess(res.body));
+                } else {
+                    dispatch(characterRequestError(res.body));
+                }
+        });
+    };
+
+export const characterPost = (fields) =>
+    dispatch => {
+        dispatch(characterRequestInit());
+        request.post(`/api/0.1/character`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(characterRequestSuccess(res.body));
+                    browserHistory.replace(`/character/${res.body.id}/edit`);
+                } else {
+                    dispatch(characterRequestError(res.body));
                 }
         });
     };

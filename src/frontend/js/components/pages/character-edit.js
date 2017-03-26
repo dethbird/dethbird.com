@@ -18,7 +18,7 @@ const CharacterEdit = React.createClass({
             <Segment.Group>
                 <LoggedInHeader path={ path } />
                 <Segment className="main-content">
-                    <CharacterForm id={ characterId=="add" ? null : characterId } />
+                    <CharacterForm id={ characterId } />
                 </Segment>
                 <Footer />
             </Segment.Group>

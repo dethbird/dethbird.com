@@ -1,7 +1,6 @@
 {
 	"properties": {
 		"name": {
-            "required": true,
             "minLength": 1,
 		    "type": "string"
 		},
