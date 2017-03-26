@@ -29,7 +29,9 @@ const CharacterForm = React.createClass({
     componentWillMount() {
         const { dispatch } = this.props;
         const { id } = this.props;
-        dispatch(characterGet(id));
+        if (id) {
+            dispatch(characterGet(id));
+        }
     },
     handleFieldChange(e, elementId) {
         const { changedFields } = this.state;
@@ -44,10 +46,9 @@ const CharacterForm = React.createClass({
         dispatch(loginAttempt(changedFields));
     },
     render() {
-        const { ui_state, errors, model } = this.props;
+        const { id, ui_state, errors, model } = this.props;
         const { changedFields } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, characterPostSchema);
-
         return (
             <Container text={ true }>
                 <Form
@@ -64,16 +65,13 @@ const CharacterForm = React.createClass({
                     <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
                     <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ inputFields.occupation || '' } />
                     <Form.Group>
-                        <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ (e) => this.handleFieldChange(e, 'age') } value={ changedFields.age || '' } width={ 3 } />
+                        <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ (e) => this.handleFieldChange(e, 'age') } value={ inputFields.age || '' } width={ 3 } />
                         <Form.Input label="Location" placeholder="Location" id="location" type="text" onChange={ (e) => this.handleFieldChange(e, 'location') } value={ inputFields.location || '' } width={ 13 } icon='location arrow' iconPosition='left' />
                     </Form.Group>
                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                     <Form.Input label="Tags" placeholder="Tags" id="tags" type="text" onChange={ (e) => this.handleFieldChange(e, 'tags') } value={ inputFields.tags || '' } />
                     <Container textAlign="right">
-                        <Button.Group>
-                            <Button as="a" color="teal" onClick={ this.onClickSubmit }>Login</Button>
-                            <Button as="a" onClick={ () => { console.log('back'); } }>Cancel</Button>
-                        </Button.Group>
+                        <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }>{ id ? "Save" : "Create" }</Button>
                     </Container>
                 </Form>
             </Container>

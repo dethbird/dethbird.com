@@ -65225,7 +65225,9 @@ var CharacterForm = _react2.default.createClass({
         var dispatch = this.props.dispatch;
         var id = this.props.id;
 
-        dispatch((0, _character.characterGet)(id));
+        if (id) {
+            dispatch((0, _character.characterGet)(id));
+        }
     },
     handleFieldChange: function handleFieldChange(e, elementId) {
         var changedFields = this.state.changedFields;
@@ -65243,14 +65245,14 @@ var CharacterForm = _react2.default.createClass({
         var _this = this;
 
         var _props = this.props,
+            id = _props.id,
             ui_state = _props.ui_state,
             errors = _props.errors,
             model = _props.model;
         var changedFields = this.state.changedFields;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _characterPost2.default);
-        // console.log(characterPostSchema);
-        console.log(inputFields);
+        console.log(Object.keys(changedFields).length);
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
@@ -65282,7 +65284,7 @@ var CharacterForm = _react2.default.createClass({
                     null,
                     _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Age', placeholder: 'Age', id: 'age', type: 'text', onChange: function onChange(e) {
                             return _this.handleFieldChange(e, 'age');
-                        }, value: changedFields.age || '', width: 3 }),
+                        }, value: inputFields.age || '', width: 3 }),
                     _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Location', placeholder: 'Location', id: 'location', type: 'text', onChange: function onChange(e) {
                             return _this.handleFieldChange(e, 'location');
                         }, value: inputFields.location || '', width: 13, icon: 'location arrow', iconPosition: 'left' })
@@ -65297,20 +65299,9 @@ var CharacterForm = _react2.default.createClass({
                     _semanticUiReact.Container,
                     { textAlign: 'right' },
                     _react2.default.createElement(
-                        _semanticUiReact.Button.Group,
-                        null,
-                        _react2.default.createElement(
-                            _semanticUiReact.Button,
-                            { as: 'a', color: 'teal', onClick: this.onClickSubmit },
-                            'Login'
-                        ),
-                        _react2.default.createElement(
-                            _semanticUiReact.Button,
-                            { as: 'a', onClick: function onClick() {
-                                    console.log('back');
-                                } },
-                            'Cancel'
-                        )
+                        _semanticUiReact.Button,
+                        { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                        id ? "Save" : "Create"
                     )
                 )
             )
