@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     Container,
     Divider,
     Input,
@@ -53,7 +54,7 @@ const TagEditor = React.createClass({
         const { tags, newTag } = this.state;
         const tagNodes = tags.map(function(tag, i){
             return (
-                <Label color="teal" tag={ true } size="large" key={ i }>{ tag }</Label>
+                <Label color="teal" tag={ true } size="large" key={ i }>{ tag } <Button as="a" icon="trash" /></Label>
             );
         });
 
