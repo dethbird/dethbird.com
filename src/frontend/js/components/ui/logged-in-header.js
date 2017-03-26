@@ -21,7 +21,7 @@ const LoggedInHeader = React.createClass({
                         <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
                         <Item as="a" content="Scripts" className={ path=="scripts" ? "active" : null } />
                         <Item as="a" content="Characters" className={ path=="characters" ? "active" : null } />
-                        <Item content={ <Button as="a" inverted={ true }>Logout</Button> } className="right"/>
+                        <Item content={ <Button as="a" inverted={ true } onClick={ () => { window.location.href = "/logout"} } >Logout</Button> } className="right" />
                     </Menu>
                 </Container>
             </Segment>
