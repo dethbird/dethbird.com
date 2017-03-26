@@ -13,7 +13,7 @@ const Dashboard = React.createClass({
 
         return (
             <Segment.Group>
-                <LoggedInHeader path={ path } />
+                <LoggedInHeader path={ path } securityContext={ securityContext } />
                 <Segment className="main-content">Dashboard</Segment>
                 <Footer />
             </Segment.Group>

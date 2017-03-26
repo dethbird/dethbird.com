@@ -31,7 +31,7 @@ export const loginAttempt = (fields) =>
                 if(res.ok) {
                     dispatch(loginAttemptSuccess());
                     securityContext = res.body;
-                    browserHistory.push('/dashboard');
+                    window.location.href="/dashboard";
                 } else {
                     dispatch(loginAttemptError(res.body));
                 }

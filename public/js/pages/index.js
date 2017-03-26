@@ -65171,7 +65171,7 @@ var loginAttempt = exports.loginAttempt = function loginAttempt(fields) {
             if (res.ok) {
                 dispatch(loginAttemptSuccess());
                 securityContext = res.body;
-                _reactRouter.browserHistory.push('/dashboard');
+                window.location.href = "/dashboard";
             } else {
                 dispatch(loginAttemptError(res.body));
             }
@@ -65555,7 +65555,7 @@ var CharacterEdit = _react2.default.createClass({
         return _react2.default.createElement(
             _semanticUiReact.Segment.Group,
             null,
-            _react2.default.createElement(_loggedInHeader2.default, { path: path }),
+            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
             _react2.default.createElement(
                 _semanticUiReact.Segment,
                 { className: 'main-content' },
@@ -65601,7 +65601,7 @@ var Dashboard = _react2.default.createClass({
         return _react2.default.createElement(
             _semanticUiReact.Segment.Group,
             null,
-            _react2.default.createElement(_loggedInHeader2.default, { path: path }),
+            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
             _react2.default.createElement(
                 _semanticUiReact.Segment,
                 { className: 'main-content' },
@@ -65844,7 +65844,30 @@ var LoggedInHeader = _react2.default.createClass({
     displayName: 'LoggedInHeader',
 
     propTypes: {
-        path: _react2.default.PropTypes.string
+        path: _react2.default.PropTypes.string,
+        securityContext: _react2.default.PropTypes.object.isRequired
+    },
+    renderSecurityContext: function renderSecurityContext() {
+        var securityContext = this.props.securityContext;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Container,
+            { textAlign: 'right', fluid: true },
+            _react2.default.createElement(
+                _semanticUiReact.Label,
+                { as: 'a', image: true, color: 'black' },
+                _react2.default.createElement('img', { src: securityContext.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
+                securityContext.username
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Button,
+                { as: 'a', onClick: function onClick() {
+                        window.location.href = "/logout";
+                    }, basic: true, color: 'grey', size: 'mini' },
+                'Logout'
+            )
+        );
     },
     render: function render() {
         var path = this.props.path;
@@ -65862,13 +65885,7 @@ var LoggedInHeader = _react2.default.createClass({
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Projects', className: path == "projects" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Scripts', className: path == "scripts" ? "active" : null }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Characters', className: path == "characters" ? "active" : null }),
-                    _react2.default.createElement(_semanticUiReact.Item, { content: _react2.default.createElement(
-                            _semanticUiReact.Button,
-                            { as: 'a', inverted: true, onClick: function onClick() {
-                                    window.location.href = "/logout";
-                                } },
-                            'Logout'
-                        ), className: 'right' })
+                    _react2.default.createElement(_semanticUiReact.Item, { content: this.renderSecurityContext(), className: 'right' })
                 )
             )
         );
