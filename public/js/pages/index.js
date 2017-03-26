@@ -65216,16 +65216,18 @@ var CharacterForm = _react2.default.createClass({
 
         var _props = this.props,
             ui_state = _props.ui_state,
-            errors = _props.errors;
+            errors = _props.errors,
+            model = _props.model;
         var changedFields = this.state.changedFields;
 
+        console.log(model);
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
             _react2.default.createElement(
                 _semanticUiReact.Form,
                 {
-                    inverted: true,
+                    size: 'large',
                     loading: ui_state == _uiState.UI_STATE.REQUESTING,
                     error: ui_state == _uiState.UI_STATE.ERROR,
                     success: ui_state == _uiState.UI_STATE.SUCCESS
@@ -65235,18 +65237,32 @@ var CharacterForm = _react2.default.createClass({
                     null,
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
                 ),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
+                        return _this.handleFieldChange(e, 'name');
+                    }, value: changedFields.name || '' }),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', size: 'large', centered: true, src: 'https://c1.staticflickr.com/3/2533/3996839316_699ee275b7_b.jpg' }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Avatar Image URL', placeholder: 'https://image.com/image.jpg', id: 'avatar_image_url', type: 'text', onChange: function onChange(e) {
+                        return _this.handleFieldChange(e, 'avatar_image_url');
+                    }, value: changedFields.avatar_image_url || '', icon: 'image', iconPosition: 'left' }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Occupation', placeholder: 'Occupation', id: 'occupation', type: 'text', onChange: function onChange(e) {
+                        return _this.handleFieldChange(e, 'occupation');
+                    }, value: changedFields.occupation || '' }),
                 _react2.default.createElement(
                     _semanticUiReact.Form.Group,
-                    { widths: 'equal' },
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Username', placeholder: 'Username', id: 'username', type: 'text', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'username');
-                        }, value: changedFields.username || '' }),
-                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('username', errors) }),
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password', placeholder: 'Password', id: 'password', type: 'password', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'password');
-                        }, value: changedFields.password || '' }),
-                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('password', errors) })
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Age', placeholder: 'Age', id: 'age', type: 'text', onChange: function onChange(e) {
+                            return _this.handleFieldChange(e, 'age');
+                        }, value: changedFields.age || '', width: 3 }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Location', placeholder: 'Location', id: 'location', type: 'text', onChange: function onChange(e) {
+                            return _this.handleFieldChange(e, 'location');
+                        }, value: changedFields.location || '', width: 13, icon: 'location arrow', iconPosition: 'left' })
                 ),
+                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
+                        return _this.handleFieldChange(e, 'description');
+                    }, value: changedFields.description || '', autoHeight: true }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Tags', placeholder: 'Tags', id: 'tags', type: 'text', onChange: function onChange(e) {
+                        return _this.handleFieldChange(e, 'tags');
+                    }, value: changedFields.tags || '' }),
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { textAlign: 'right' },
@@ -65275,11 +65291,13 @@ var CharacterForm = _react2.default.createClass({
 var mapStateToProps = function mapStateToProps(state) {
     var _state$characterReduc = state.characterReducer,
         ui_state = _state$characterReduc.ui_state,
-        errors = _state$characterReduc.errors;
+        errors = _state$characterReduc.errors,
+        model = _state$characterReduc.model;
 
     return {
         ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
-        errors: errors
+        errors: errors,
+        model: model
     };
 };
 

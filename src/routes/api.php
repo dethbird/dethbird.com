@@ -37,6 +37,11 @@ $app->group('/api/0.1', function(){
     $this->group('/character', function(){
         $this->get('/{id}', function($request, $response, $args){
             $model = Character::find_by_id($args['id']);
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
             return $response
                 ->withJson($model->to_array());
         })
