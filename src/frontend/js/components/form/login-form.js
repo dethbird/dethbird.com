@@ -39,7 +39,6 @@ const LoginForm = React.createClass({
     render() {
         const { onClickCancel, ui_state, errors } = this.props;
         const { changedFields } = this.state;
-        console.log(ui_state);
         return (
             <Container text={ true }>
                 <Form

@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { browserHistory } from 'react-router';
 import { LOGIN_ATTEMPT } from 'constants/actions';
 
 /** POST */
@@ -29,6 +30,8 @@ export const loginAttempt = (fields) =>
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(loginAttemptSuccess());
+                    securityContext = res.body;
+                    browserHistory.push('/dashboard');
                 } else {
                     dispatch(loginAttemptError(res.body));
                 }
