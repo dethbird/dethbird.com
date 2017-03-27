@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import {
     Button,
     Container,
@@ -32,10 +33,10 @@ const LoggedInHeader = React.createClass({
             <Segment inverted={ true } >
                 <Container>
                     <Menu size="large" inverted={ true } secondary={ true }>
-                        <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } />
+                        <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
                         <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
                         <Item as="a" content="Scripts" className={ path=="scripts" ? "active" : null } />
-                        <Item as="a" content="Characters" className={ path=="characters" ? "active" : null } />
+                        <Item as="a" content="Characters" className={ path=="characters" ? "active" : null } onClick={ (e) => { browserHistory.push('/characters'); } }/>
                         <Item content={ this.renderSecurityContext() } className="right" />
                     </Menu>
                 </Container>

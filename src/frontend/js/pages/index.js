@@ -7,6 +7,7 @@ import App from 'components/app';
 import Index from 'components/pages/index';
 import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
+import Characters from 'components/pages/characters';
 import store from 'store/store';
 
 
@@ -35,6 +36,7 @@ render((
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
+                <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/:characterId/edit" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="*" component={ Index } props={ { securityContext } } />

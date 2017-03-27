@@ -1,7 +1,41 @@
 import request from 'superagent';
 import { browserHistory } from 'react-router';
-import { CHARACTER } from 'constants/actions';
+import { CHARACTER, CHARACTERS } from 'constants/actions';
 
+
+const charactersRequestInit = () => {
+    return {
+        type: CHARACTERS.REQUEST
+    }
+}
+
+const charactersRequestSuccess = (models) => {
+    return {
+        type: CHARACTERS.SUCCESS,
+        models
+    }
+}
+
+const charactersRequestError = (errors) => {
+    return {
+        type: CHARACTERS.ERROR,
+        errors
+    }
+}
+
+
+export const charactersGet = (id) =>
+    dispatch => {
+        dispatch(charactersRequestInit());
+        request.get(`/api/0.1/characters`)
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(charactersRequestSuccess(res.body));
+                } else {
+                    dispatch(charactersRequestError(res.body));
+                }
+        });
+    };
 
 const characterRequestInit = () => {
     return {
@@ -22,6 +56,7 @@ const characterRequestError = (errors) => {
         errors
     }
 }
+
 
 export const characterGet = (id) =>
     dispatch => {

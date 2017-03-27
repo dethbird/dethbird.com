@@ -35,6 +35,18 @@ $app->post("/api/0.1/login", function ($request, $response){
 
 $app->group('/api/0.1', function(){
 
+    $this->get('/characters', function($request, $response, $args){
+        $models = [];
+        $models = Character::find_all_by_created_by($_SESSION['securityContext']->id);
+        $_arr = [];
+        foreach ($models as $model) {
+            $_arr[] = $model->to_array();
+        }
+        return $response
+            ->withJson($_arr);
+    })
+    ->add( new ReadAccess($_SESSION['securityContext']) );
+
     $this->post('/character', function($request, $response, $args){
         $params = $request->getParsedBody();
         $params['created_by'] = $_SESSION['securityContext']->id;
