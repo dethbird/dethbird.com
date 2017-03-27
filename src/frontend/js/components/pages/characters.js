@@ -3,7 +3,7 @@ import {
     Segment,
 } from 'semantic-ui-react';
 
-import CharacterList from 'components/ui/character-list';
+import CharactersList from 'components/ui/list/characters-list';
 import LoggedInHeader from 'components/ui/logged-in-header';
 import Footer from 'components/ui/footer';
 
@@ -17,7 +17,7 @@ const Characters = React.createClass({
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
                 <Segment className="main-content">
-                    <CharacterList />
+                    <CharactersList />
                 </Segment>
                 <Footer />
             </Segment.Group>

@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import {
     Button,
     Container,
+    Dropdown,
     Item,
     Label,
     Menu,
@@ -36,7 +37,12 @@ const LoggedInHeader = React.createClass({
                         <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
                         <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
                         <Item as="a" content="Scripts" className={ path=="scripts" ? "active" : null } />
-                        <Item as="a" content="Characters" className={ path=="characters" ? "active" : null } onClick={ (e) => { browserHistory.push('/characters'); } }/>
+                        <Dropdown item text='Characters'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item as="a" icon='list' text='List' onClick={ (e) => { browserHistory.push('/characters'); } } />
+                                <Dropdown.Item as="a" icon='add' text='Create' onClick={ (e) => { browserHistory.push('/character/create'); } }  />
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Item content={ this.renderSecurityContext() } className="right" />
                     </Menu>
                 </Container>
