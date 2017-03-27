@@ -84,8 +84,12 @@ const CharacterForm = React.createClass({
                     <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('avatar_image_url', errors)} />
 
-                    <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ inputFields.occupation || '' } />
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('occupation', errors)} />
+                    <Form.Group>
+                        <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ inputFields.occupation || '' } width={ 8 } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('occupation', errors)} />
+                        <Form.Input label="Gender" placeholder="Gender" id="gender" type="text" onChange={ (e) => this.handleFieldChange(e, 'gender') } value={ inputFields.gender || '' }  width={ 8 } />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('gender', errors)} />
+                    </Form.Group>
 
                     <Form.Group>
                         <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ (e) => this.handleFieldChange(e, 'age') } value={ inputFields.age || '' } width={ 3 } />

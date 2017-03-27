@@ -12,6 +12,10 @@
             "minLength": 1,
             "type": "string"
 		},
+		"gender": {
+            "minLength": 1,
+            "type": "string"
+		},
 		"age": {
             "minLength": 1,
             "type": "string"

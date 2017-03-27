@@ -14,6 +14,10 @@ module.exports={
             "minLength": 1,
             "type": "string"
 		},
+		"gender": {
+            "minLength": 1,
+            "type": "string"
+		},
 		"age": {
             "minLength": 1,
             "type": "string"
@@ -65366,10 +65370,18 @@ var CharacterForm = _react2.default.createClass({
                         return _this.handleFieldChange(e, 'avatar_image_url');
                     }, value: inputFields.avatar_image_url || '', icon: 'image', iconPosition: 'left' }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('avatar_image_url', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Occupation', placeholder: 'Occupation', id: 'occupation', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'occupation');
-                    }, value: inputFields.occupation || '' }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('occupation', errors) }),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Group,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Occupation', placeholder: 'Occupation', id: 'occupation', type: 'text', onChange: function onChange(e) {
+                            return _this.handleFieldChange(e, 'occupation');
+                        }, value: inputFields.occupation || '', width: 8 }),
+                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('occupation', errors) }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Gender', placeholder: 'Gender', id: 'gender', type: 'text', onChange: function onChange(e) {
+                            return _this.handleFieldChange(e, 'gender');
+                        }, value: inputFields.gender || '', width: 8 }),
+                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('gender', errors) })
+                ),
                 _react2.default.createElement(
                     _semanticUiReact.Form.Group,
                     null,
@@ -65809,6 +65821,13 @@ var CharacterCard = _react2.default.createClass({
                     _semanticUiReact.Card.Header,
                     null,
                     character.name
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Meta,
+                    null,
+                    [character.age, character.gender].filter(function (val) {
+                        return val;
+                    }).join(', ')
                 )
             ),
             _react2.default.createElement(
@@ -65817,7 +65836,7 @@ var CharacterCard = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Card.Meta,
                     null,
-                    [character.age, character.occupation, character.location].filter(function (val) {
+                    [character.occupation, character.location].filter(function (val) {
                         return val;
                     }).join(', ')
                 )

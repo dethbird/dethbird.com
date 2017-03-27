@@ -16,9 +16,10 @@ const CharacterCard = React.createClass({
                 <Card.Content className="center aligned">
                     <Image shape="circular" centered={ true } src={ character.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
                     <Card.Header>{ character.name }</Card.Header>
+                    <Card.Meta>{ [character.age, character.gender ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
                 </Card.Content>
                 <Card.Content>
-                    <Card.Meta>{ [character.age, character.occupation, character.location ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
+                    <Card.Meta>{ [character.occupation, character.location ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
                 </Card.Content>
             </Card>
         );
