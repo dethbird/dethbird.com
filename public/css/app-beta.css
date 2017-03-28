@@ -33,15 +33,6 @@ h6 {
   font-size: 1.7em;
   font-weight: normal;
 }
-.ui.vertical.stripe {
-  padding: 3em;
-}
-.ui.vertical.stripe .floated.image {
-  clear: both;
-}
-.ui.vertical.stripe .horizontal.divider {
-  margin: 3em 0em;
-}
 .quote.stripe.segment {
   padding: 0em;
 }
@@ -69,6 +60,18 @@ h6 {
 }
 .secondary.pointing.menu .toc.item {
   display: none;
+}
+.ui.spaced.image {
+  margin: 0 .5em .5em .5em;
+}
+.ui.vertical.stripe {
+  padding: 3em;
+}
+.ui.vertical.stripe .floated.image {
+  clear: both;
+}
+.ui.vertical.stripe .horizontal.divider {
+  margin: 3em 0em;
 }
 @media only screen and (max-width: 700px) {
   .ui.fixed.menu {

@@ -65816,7 +65816,7 @@ var CharacterCard = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
                 { className: 'center aligned' },
-                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', centered: true, src: character.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', spaced: true, centered: true, src: character.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Header,
                     null,
@@ -65828,13 +65828,9 @@ var CharacterCard = _react2.default.createClass({
                     [character.age, character.gender].filter(function (val) {
                         return val;
                     }).join(', ')
-                )
-            ),
-            _react2.default.createElement(
-                _semanticUiReact.Card.Content,
-                null,
+                ),
                 _react2.default.createElement(
-                    _semanticUiReact.Card.Meta,
+                    _semanticUiReact.Card.Description,
                     null,
                     [character.occupation, character.location].filter(function (val) {
                         return val;
