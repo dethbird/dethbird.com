@@ -1,15 +1,10 @@
 {
   "dependencies": {
-    "babelify": "^7.3.0",
-    "browserify": "12.*",
     "classnames": "^2.2.5",
     "fountain-js": "0.0.1",
-    "gasp": "0.0.2",
     "gsap": "^1.19.1",
-    "gulp": "^3.9.1",
     "marked": "^0.3.6",
     "moment": "^2.15.0",
-    "packery": "~2.1.1",
     "pluralize": "^3.1.0",
     "react": "^15.3.1",
     "react-addons-transition-group": "^15.4.2",
@@ -29,7 +24,6 @@
     "redux-thunk": "^2.1.0",
     "semantic-ui": "^2.2.9",
     "semantic-ui-react": "^0.67.1",
-    "simplemde": "~1.11.2",
     "superagent": "^2.3.0",
     "timeago": "^1.4.3",
     "uglify-js": "^2.5.0",
@@ -46,25 +40,18 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.18.0",
     "babelify": "^7.3.0",
+    "browserify": "^14.1.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "jest": "^19.0.2",
-    "less": "^2.7.1",
+    "less": "^2.7.2",
     "npm-watch": "^0.1.6",
     "react-addons-test-utils": "^15.4.2",
     "webpack": "^2.3.2"
-  },
-  "watch": {
-    "build-js": {
-      "patterns": [
-        "src/frontend/js"
-      ],
-      "extensions": "js",
-      "quiet": true
-    }
   }
 }
