@@ -39,7 +39,7 @@ const LoggedInHeader = React.createClass({
                         <Dropdown item text='Scripts'>
                             <Dropdown.Menu>
                                 <Dropdown.Item as="a" icon='list' text='List' onClick={ (e) => { browserHistory.push('/scripts'); } } />
-                                <Dropdown.Item as="a" icon='add' text='Create' onClick={ (e) => { browserHistory.push('/scripts/create'); } }  />
+                                <Dropdown.Item as="a" icon='add' text='Create' onClick={ (e) => { browserHistory.push('/script/create'); } }  />
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown item text='Characters'>

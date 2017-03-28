@@ -2,7 +2,7 @@
 
 class Script extends ActiveRecord\Model
 {
-    static $table_name = 'character';
+    static $table_name = 'script';
 
     static $before_create = ['before_create_audit'];
     static $after_create = ['after_create_audit'];

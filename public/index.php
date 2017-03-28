@@ -1,5 +1,5 @@
 <?php
-ini_set('error_reporting', E_ERROR);
+ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors',1);
 define("APPLICATION_PATH", __DIR__ . "/../");
@@ -28,7 +28,8 @@ use Guzzle\Http\Client;
 
 $app = new \Slim\App([
     'settings' => [
-        'determineRouteBeforeAppMiddleware' => true
+        'determineRouteBeforeAppMiddleware' => true,
+        'displayErrorDetails' => true
     ]
 ]);
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
