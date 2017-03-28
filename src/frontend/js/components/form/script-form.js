@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
-import TagEditor from 'components/ui/tag-editor';
+import ScriptInput from 'components/ui/form/script-input';
 import { UI_STATE } from 'constants/ui-state';
 import { scriptGet, scriptPut, scriptPost } from 'actions/script';
 import scriptPostSchema from 'validation_schema/script-post.json';
@@ -80,7 +80,7 @@ const ScriptForm = React.createClass({
                     <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
-                    <Form.TextArea label="Script" placeholder="Script" id="script" onChange={ (e) => this.handleFieldChange(e, 'script') } value={ inputFields.script || '' } autoHeight={ true }/>
+                    <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
 
                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
