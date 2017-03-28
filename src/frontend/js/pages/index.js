@@ -38,7 +38,7 @@ render((
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
-                <Route path="character/:characterId/edit" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="character/:id/edit" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>
         </Router>

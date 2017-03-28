@@ -65594,7 +65594,7 @@ var CharacterEdit = _react2.default.createClass({
     render: function render() {
         var path = this.props.route.path;
         var securityContext = this.props.route.props.securityContext;
-        var characterId = this.props.params.characterId;
+        var id = this.props.params.id;
 
 
         return _react2.default.createElement(
@@ -65604,7 +65604,7 @@ var CharacterEdit = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Segment,
                 { className: 'main-content' },
-                _react2.default.createElement(_characterForm2.default, { id: characterId })
+                _react2.default.createElement(_characterForm2.default, { id: id })
             ),
             _react2.default.createElement(_footer2.default, null)
         );
@@ -66110,7 +66110,20 @@ var LoggedInHeader = _react2.default.createClass({
                             _reactRouter.browserHistory.push('/dashboard');
                         } }),
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Projects', className: path == "projects" ? "active" : null }),
-                    _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Scripts', className: path == "scripts" ? "active" : null }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Dropdown,
+                        { item: true, text: 'Scripts' },
+                        _react2.default.createElement(
+                            _semanticUiReact.Dropdown.Menu,
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Dropdown.Item, { as: 'a', icon: 'list', text: 'List', onClick: function onClick(e) {
+                                    _reactRouter.browserHistory.push('/scripts');
+                                } }),
+                            _react2.default.createElement(_semanticUiReact.Dropdown.Item, { as: 'a', icon: 'add', text: 'Create', onClick: function onClick(e) {
+                                    _reactRouter.browserHistory.push('/scripts/create');
+                                } })
+                        )
+                    ),
                     _react2.default.createElement(
                         _semanticUiReact.Dropdown,
                         { item: true, text: 'Characters' },
@@ -66459,7 +66472,7 @@ var requireAuth = function requireAuth(nextState, replace, callback) {
             _react2.default.createElement(_reactRouter.Route, { path: 'dashboard', component: _dashboard2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'characters', component: _characters2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'character/create', component: _characterEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'character/:characterId/edit', component: _characterEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'character/:id/edit', component: _characterEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: '*', component: _index2.default, props: { securityContext: securityContext } })
         )
     )
