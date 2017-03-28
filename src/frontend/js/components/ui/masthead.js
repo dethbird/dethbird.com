@@ -29,7 +29,7 @@ const Masthead = React.createClass({
                 </Container>
                 <Container text={ true } >
                     <Image src="/svg/storystation.svg" className="logo"/>
-                    <Header as='h2' inverted={ true }>The boring part of silver screen magic!</Header>
+                    <Header as='h2' inverted={ true }>The boring part of silver screen magic!!</Header>
                     <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge"/>
                 </Container>
             </Segment>

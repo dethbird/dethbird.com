@@ -20,7 +20,7 @@ if (lastRequestUri !== '/favicon.ico') {
 const NoMatch = React.createClass({
     render() {
         return (
-            <div>Whachhu talkin about</div>
+            <div>Whachhu talkin about?</div>
         );
     }
 });
