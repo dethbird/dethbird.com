@@ -2,6 +2,7 @@ import React from 'react';
 import * as _ from 'underscore';
 import {
     Container,
+    Grid,
     Rail,
     Segment,
     TextArea
@@ -16,25 +17,32 @@ const ScriptInput = React.createClass({
     },
     render() {
         const { handleFieldChange } = this;
-        const { script, onChange } = this.props;
+        const { script, onChange, id, placeholder } = this.props;
         const parsed = fountainUtils.parse(script);
 
         return (
-            <Container>
-                <TextArea
-                    value={ script }
-                    onChange={ (e) => { onChange(e, 'script') } }
-                    autoHeight={ true }
-                />
-            <Segment raised={ true }>
-                    <div
-                        className="fountain"
-                        dangerouslySetInnerHTML={ {
-                            __html: parsed.html.title_page + parsed.html.script
-                        } }
+            <Grid columns={ 2 }>
+                <Grid.Column>
+                    <TextArea
+                        value={ script }
+                        onChange={ (e) => { onChange(e, id) } }
+                        autoHeight={ true }
+                        id={ id }
+                        className="script-input"
+                        placeholder={ placeholder }
                     />
-                </Segment>
-            </Container>
+                </Grid.Column>
+                <Grid.Column>
+                    <Segment raised={ true } className="fountain-container">
+                        <div
+                            className="fountain"
+                            dangerouslySetInnerHTML={ {
+                                __html: parsed.html.title_page + parsed.html.script
+                            } }
+                        />
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         )
     }
 })

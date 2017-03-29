@@ -33550,16 +33550,16 @@ var ScriptForm = _react2.default.createClass({
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _scriptPost2.default);
         return _react2.default.createElement(
-            _semanticUiReact.Container,
-            { text: true },
+            _semanticUiReact.Form,
+            {
+                size: 'large',
+                loading: ui_state == _uiState.UI_STATE.REQUESTING,
+                error: ui_state == _uiState.UI_STATE.ERROR,
+                success: ui_state == _uiState.UI_STATE.SUCCESS
+            },
             _react2.default.createElement(
-                _semanticUiReact.Form,
-                {
-                    size: 'large',
-                    loading: ui_state == _uiState.UI_STATE.REQUESTING,
-                    error: ui_state == _uiState.UI_STATE.ERROR,
-                    success: ui_state == _uiState.UI_STATE.SUCCESS
-                },
+                _semanticUiReact.Container,
+                { text: true },
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
@@ -33569,20 +33569,20 @@ var ScriptForm = _react2.default.createClass({
                         return _this.handleFieldChange(e, 'name');
                     }, value: inputFields.name || '', required: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) }),
                 _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
                         return _this.handleFieldChange(e, 'description');
                     }, value: inputFields.description || '', autoHeight: true }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
+            ),
+            _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
+            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) }),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'right' },
                 _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    { textAlign: 'right' },
-                    _react2.default.createElement(
-                        _semanticUiReact.Button,
-                        { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
-                        id ? "Save" : "Create"
-                    )
+                    _semanticUiReact.Button,
+                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                    id ? "Save" : "Create"
                 )
             )
         );
@@ -33759,29 +33759,42 @@ var ScriptInput = _react2.default.createClass({
         var handleFieldChange = this.handleFieldChange;
         var _props = this.props,
             script = _props.script,
-            _onChange = _props.onChange;
+            _onChange = _props.onChange,
+            id = _props.id,
+            placeholder = _props.placeholder;
 
         var parsed = _fountainUtils2.default.parse(script);
 
         return _react2.default.createElement(
-            _semanticUiReact.Container,
-            null,
-            _react2.default.createElement(_semanticUiReact.TextArea, {
-                value: script,
-                onChange: function onChange(e) {
-                    _onChange(e, 'script');
-                },
-                autoHeight: true
-            }),
+            _semanticUiReact.Grid,
+            { columns: 2 },
             _react2.default.createElement(
-                _semanticUiReact.Segment,
-                { raised: true },
-                _react2.default.createElement('div', {
-                    className: 'fountain',
-                    dangerouslySetInnerHTML: {
-                        __html: parsed.html.title_page + parsed.html.script
-                    }
+                _semanticUiReact.Grid.Column,
+                null,
+                _react2.default.createElement(_semanticUiReact.TextArea, {
+                    value: script,
+                    onChange: function onChange(e) {
+                        _onChange(e, id);
+                    },
+                    autoHeight: true,
+                    id: id,
+                    className: 'script-input',
+                    placeholder: placeholder
                 })
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Grid.Column,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    { raised: true, className: 'fountain-container' },
+                    _react2.default.createElement('div', {
+                        className: 'fountain',
+                        dangerouslySetInnerHTML: {
+                            __html: parsed.html.title_page + parsed.html.script
+                        }
+                    })
+                )
             )
         );
     }

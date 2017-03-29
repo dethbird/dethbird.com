@@ -2,11 +2,19 @@
   font-family: 'Hind Vadodara', sans-serif;
 }
 .fountain {
-  margin: 1em 4em 1em 4em;
+  font-family: 'IM Fell English', serif;
+  margin: 2em 3em 2em 3em;
+}
+.fountain h1,
+.fountain h2,
+.fountain h3,
+.fountain h4,
+.fountain h5,
+.fountain h6 {
   font-family: 'IM Fell English', serif;
 }
 .fountain div.dialogue {
-  margin: 2em 6em 2em 6em;
+  margin: 1.5em 6em 1.5em 6em;
 }
 .fountain .italic {
   font-style: italic;
@@ -21,13 +29,9 @@
 .fountain .transition {
   text-align: right;
 }
-.fountain h1,
-.fountain h2,
-.fountain h3,
-.fountain h4,
-.fountain h5,
-.fountain h6 {
-  font-family: 'IM Fell English', serif;
+.fountain-container {
+  background-color: #fffaf3 !important;
+  font-size: 0.8em !important;
 }
 h1,
 h2,
@@ -76,6 +80,14 @@ h6 {
 }
 .secondary.pointing.menu .toc.item {
   display: none;
+}
+.script-input {
+  padding: 2em !important;
+  font-family: 'PT Mono', monospace;
+  font-size: .8em !important;
+  color: #666 !important;
+  font-weight: bold !important;
+  background-color: #fdfdfd !important;
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;

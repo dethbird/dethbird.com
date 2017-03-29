@@ -66,13 +66,13 @@ const ScriptForm = React.createClass({
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, scriptPostSchema);
         return (
-            <Container text={ true }>
-                <Form
-                    size="large"
-                    loading={ ui_state == UI_STATE.REQUESTING }
-                    error={ ui_state == UI_STATE.ERROR }
-                    success={ ui_state == UI_STATE.SUCCESS }
-                >
+            <Form
+                size="large"
+                loading={ ui_state == UI_STATE.REQUESTING }
+                error={ ui_state == UI_STATE.ERROR }
+                success={ ui_state == UI_STATE.SUCCESS }
+            >
+                <Container text={ true }>
                     <Container>
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
@@ -80,17 +80,18 @@ const ScriptForm = React.createClass({
                     <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
-                    <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
-
                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                    <Container textAlign="right">
+                </Container>
+
+                <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
+                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
+
+                <Container text={ true } textAlign="right">
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }>{ id ? "Save" : "Create" }</Button>
-                    </Container>
-                </Form>
-            </Container>
+                </Container>
+            </Form>
         )
     }
 })
