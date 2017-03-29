@@ -18,14 +18,15 @@ const ScriptInput = React.createClass({
         const { handleFieldChange } = this;
         const { script, onChange } = this.props;
         const parsed = fountainUtils.parse(script);
-        console.log(parsed);
+
         return (
             <Container>
                 <TextArea
                     value={ script }
                     onChange={ (e) => { onChange(e, 'script') } }
+                    autoHeight={ true }
                 />
-                <Segment>
+            <Segment raised={ true }>
                     <div
                         className="fountain"
                         dangerouslySetInnerHTML={ {

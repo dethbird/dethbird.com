@@ -248,11 +248,7 @@ inline.lexer = (s) => {
     return s.replace(/\[star\]/g, '*').replace(/\[underline\]/g, '_').trim();
 };
 
-const parse = (script, toks, callback) => {
-    if (callback === undefined && typeof toks === 'function') {
-        callback = toks;
-        toks = undefined;
-    }
+const parse = (script, callback) => {
 
     var tokens = tokenize(script),
         i = tokens.length,
@@ -266,7 +262,7 @@ const parse = (script, toks, callback) => {
 
         switch (token.type) {
             case 'title':
-                title_page.push('<h1>' + token.text + '</h1>');
+                title_page.push('<h1 class=\"title\" >' + token.text + '</h1>');
                 title = token.text.replace('<br />', ' ').replace(/<(?:.|\n)*?>/g, '');
                 break;
             case 'credit':
@@ -298,10 +294,10 @@ const parse = (script, toks, callback) => {
                 break;
 
             case 'scene_heading':
-                html.push('<h3' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + token.text + '</h3>');
+                html.push('<h3 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + token.text + '</h3>');
                 break;
             case 'transition':
-                html.push('<h2>' + token.text + '</h2>');
+                html.push('<h2 class=\"transition\">' + token.text + '</h2>');
                 break;
 
             case 'dual_dialogue_begin':
@@ -311,13 +307,13 @@ const parse = (script, toks, callback) => {
                 html.push('<div class=\"dialogue' + (token.dual ? ' ' + token.dual : '') + '\">');
                 break;
             case 'character':
-                html.push('<h4>' + token.text + '</h4>');
+                html.push('<h4 class=\"character\">' + token.text + '</h4>');
                 break;
             case 'parenthetical':
                 html.push('<p class=\"parenthetical\">' + token.text + '</p>');
                 break;
             case 'dialogue':
-                html.push('<p>' + token.text + '</p>');
+                html.push('<p class=\"dialogue\">' + token.text + '</p>');
                 break;
             case 'dialogue_end':
                 html.push('</div> ');
@@ -344,7 +340,7 @@ const parse = (script, toks, callback) => {
                 break;
 
             case 'action':
-                html.push('<p>' + token.text + '</p>');
+                html.push('<p class=\"action\">' + token.text + '</p>');
                 break;
             case 'centered':
                 html.push('<p class=\"centered\">' + token.text + '</p>');
@@ -365,7 +361,7 @@ const parse = (script, toks, callback) => {
             title_page: title_page.join(''),
             script: html.join('')
         },
-        tokens: toks ? tokens.reverse() : undefined
+        tokens: tokens.reverse()
     };
 
     if (typeof callback === 'function') {
@@ -375,12 +371,10 @@ const parse = (script, toks, callback) => {
     return output;
 };
 
-let fountain = (script, callback) => {
-    return parse(script, callback);
-};
+let fountain = () => {};
 
-fountain.parse = (script, tokens, callback) => {
-    return parse(script, tokens, callback);
+fountain.parse = (script, callback) => {
+    return parse(script, callback);
 };
 
 export default fountain;

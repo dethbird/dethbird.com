@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "webpack --progress --colors",
+    "build-style": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
     "test": "jest"
   },

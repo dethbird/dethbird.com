@@ -7,6 +7,10 @@ date_default_timezone_set('America/New_York');
 session_cache_limiter(false);
 session_start();
 
+if (!isset($_SESSION['securityContext'])) {
+    $_SESSION['securityContext'] = null;
+}
+
 set_include_path(implode(PATH_SEPARATOR, array(
     APPLICATION_PATH ,
     APPLICATION_PATH . 'library',

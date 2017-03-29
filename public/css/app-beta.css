@@ -1,6 +1,34 @@
 .body {
   font-family: 'Hind Vadodara', sans-serif;
 }
+.fountain {
+  margin: 1em 4em 1em 4em;
+  font-family: 'IM Fell English', serif;
+}
+.fountain div.dialogue {
+  margin: 2em 6em 2em 6em;
+}
+.fountain .italic {
+  font-style: italic;
+}
+.fountain .underline {
+  text-decoration: underline;
+}
+.fountain .character,
+.fountain .parenthetical {
+  text-align: center;
+}
+.fountain .transition {
+  text-align: right;
+}
+.fountain h1,
+.fountain h2,
+.fountain h3,
+.fountain h4,
+.fountain h5,
+.fountain h6 {
+  font-family: 'IM Fell English', serif;
+}
 h1,
 h2,
 h3,
@@ -42,18 +70,6 @@ h6 {
 }
 .footer.segment {
   padding: 5em 0em;
-}
-.fountain {
-  text-align: left;
-  font-family: 'IM Fell English', serif;
-}
-.fountain h1,
-.fountain h2,
-.fountain h3,
-.fountain h4,
-.fountain h5,
-.fountain h6 {
-  font-family: 'IM Fell English', serif;
 }
 .main-content {
   margin-top: 0 !important;
