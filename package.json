@@ -33,7 +33,8 @@
     "build": "webpack --progress --colors",
     "build-style": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
-    "test": "jest"
+    "test-watch": "jest --color --watch",
+    "test": "jest --color"
   },
   "devDependencies": {
     "babel-loader": "^6.4.1",
