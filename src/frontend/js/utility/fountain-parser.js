@@ -31,6 +31,7 @@ export const REGEX = {
     NOTE_INLINE: /(?:\[{2}(?!\[+))([\s\S]+?)(?:\]{2}(?!\[+))/g,
 
     LYRICS: /^(?:[~])(.*)/,
+    LYRICS_MULTIPLE: /^((?:[~])(.*)?(\n))+/,
     PAGE_BREAK: /^\={3,}$/,
     LINE_BREAK: /^ {2}$/,
 
@@ -235,6 +236,21 @@ export const tokenizeLines = (lines) => {
             continue;
         }
 
+        // lyrics multiple
+        if (match = line.match(REGEX.LYRICS_MULTIPLE)) {
+            const parts = match.input.split('\n');
+            let text = [];
+            for (const i in parts) {
+                text.push(parts[i].substring(1));
+            }
+            const token = {
+                type: 'lyrics',
+                text: text.join('<br />')
+            };
+            tokens.push(token);
+            continue;
+        }
+
         // lyrics
         if (match = line.match(REGEX.LYRICS)) {
             const token = {
@@ -431,6 +447,6 @@ export const compileTokens = (tokens) => {
 
 export const parseFountainScript = (script) => {
     const tokens = tokenizeLines( lexizeScript(script) );
-    const html = compileTokens(tokens);
-    return { tokens, html };
+    const markup = compileTokens(tokens);
+    return { tokens, markup };
 }
