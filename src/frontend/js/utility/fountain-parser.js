@@ -272,10 +272,12 @@ export const tokenizeLines = (lines) => {
         }
 
         // defaut: action
-        tokens.push({
-            type: 'action',
-            text: line
-        });
+        if(line.trim()){
+            tokens.push({
+                type: 'action',
+                text: line
+            });
+        }
 
     }
 
@@ -297,10 +299,10 @@ export const lexizeText = (text) => {
     }
 
     const styles = [
-        'UNDERLINE',
-        'ITALIC',
-        'BOLD',
         'BOLD_ITALIC',
+        'BOLD',
+        'ITALIC',
+        'UNDERLINE',
         'ITALIC_UNDERLINE',
         'BOLD_UNDERLINE',
         'BOLD_ITALIC_UNDERLINE'
@@ -314,7 +316,8 @@ export const lexizeText = (text) => {
     for (const i in styles) {
         const style = styles[i];
         if (REGEX[style].test(text)) {
-            text = text.replace(style, INLINE[style]);
+            text = text.replace(REGEX[style], INLINE[style]);
+            continue;
         }
     }
 
@@ -337,34 +340,34 @@ export const compileTokens = (tokens) => {
                 title_page.push('<div class=\"title_page\">');
                 break;
             case 'title':
-                title_page.push('<h1 class=\"title\" >' + token.text + '</h1>');
+                title_page.push('<h1 class=\"title\" >' + text + '</h1>');
                 break;
             case 'credit':
-                title_page.push('<p class=\"credit\">' + token.text + '</p>');
+                title_page.push('<p class=\"credit\">' + text + '</p>');
                 break;
             case 'author':
-                title_page.push('<p class=\"authors\">' + token.text + '</p>');
+                title_page.push('<p class=\"authors\">' + text + '</p>');
                 break;
             case 'authors':
-                title_page.push('<p class=\"authors\">' + token.text + '</p>');
+                title_page.push('<p class=\"authors\">' + text + '</p>');
                 break;
             case 'source':
-                title_page.push('<p class=\"source\">' + token.text + '</p>');
+                title_page.push('<p class=\"source\">' + text + '</p>');
                 break;
             case 'notes':
-                title_page.push('<p class=\"notes\">' + token.text + '</p>');
+                title_page.push('<p class=\"notes\">' + text + '</p>');
                 break;
             case 'draft_date':
-                title_page.push('<p class=\"draft-date\">' + token.text + '</p>');
+                title_page.push('<p class=\"draft-date\">' + text + '</p>');
                 break;
             case 'date':
-                title_page.push('<p class=\"date\">' + token.text + '</p>');
+                title_page.push('<p class=\"date\">' + text + '</p>');
                 break;
             case 'contact':
-                title_page.push('<p class=\"contact\">' + token.text + '</p>');
+                title_page.push('<p class=\"contact\">' + text + '</p>');
                 break;
             case 'copyright':
-                title_page.push('<p class=\"copyright\">' + token.text + '</p>');
+                title_page.push('<p class=\"copyright\">' + text + '</p>');
                 break;
             case 'title_page_end':
                 title_page.push('</div>');
@@ -372,10 +375,10 @@ export const compileTokens = (tokens) => {
 
             // script body
             case 'scene_heading':
-                html.push('<h3 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + token.text + '</h3>');
+                html.push('<h3 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h3>');
                 break;
             case 'transition':
-                html.push('<h2 class=\"transition\">' + token.text + '</h2>');
+                html.push('<h2 class=\"transition\">' + text + '</h2>');
                 break;
 
             case 'dual_dialogue_begin':
@@ -385,13 +388,13 @@ export const compileTokens = (tokens) => {
                 html.push('<div class=\"dialogue\">');
                 break;
             case 'character':
-                html.push('<h4 class=\"character\">' + token.text + '</h4>');
+                html.push('<h4 class=\"character\">' + text + '</h4>');
                 break;
             case 'parenthetical':
-                html.push('<p class=\"parenthetical\">' + token.text + '</p>');
+                html.push('<p class=\"parenthetical\">' + text + '</p>');
                 break;
             case 'dialogue':
-                html.push('<p class=\"dialogue\">' + token.text + '</p>');
+                html.push('<p class=\"dialogue\">' + text + '</p>');
                 break;
             case 'dialogue_end':
                 html.push('</div>');
@@ -401,14 +404,14 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'section':
-                html.push('<h' + token.level +' class=\"section\" data-depth=\"' + token.level + '\">' + token.text + '</h' + token.level +'>');
+                html.push('<h' + token.level +' class=\"section\" data-depth=\"' + token.level + '\">' + text + '</h' + token.level +'>');
                 break;
             case 'synopsis':
-                html.push('<p class=\"synopsis\">' + token.text + '</p>');
+                html.push('<p class=\"synopsis\">' + text + '</p>');
                 break;
 
             case 'note':
-                html.push('<span class=\"note\"> ' + token.text + '</span>');
+                html.push('<span class=\"note\"> ' + text + '</span>');
                 break;
             case 'boneyard_begin':
                 html.push('<!-- ');
@@ -418,15 +421,15 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'action':
-                html.push('<p class=\"action\">' + token.text + '</p>');
+                html.push('<p class=\"action\">' + text + '</p>');
                 break;
             case 'centered':
-                html.push('<p class=\"centered\">' + token.text + '</p>');
+                html.push('<p class=\"centered\">' + text + '</p>');
                 break;
 
 
             case 'lyrics':
-                html.push('<span class=\"lyrics\">' + token.text + '</span>');
+                html.push('<span class=\"lyrics\">' + text + '</span>');
                 break;
 
             case 'page_break':
