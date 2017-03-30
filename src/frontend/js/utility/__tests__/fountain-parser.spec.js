@@ -18,7 +18,7 @@ const exampleTitlePage = fs.readFileSync(dataDir + '/title_page.fountain', 'utf8
 const exampleTransitions = fs.readFileSync(dataDir + '/transitions.fountain', 'utf8');
 
 describe('fountainParser.tokenizeLines()', () => {
-    test.only('tokenize dialogue', () => {
+    test('tokenize dialogue', () => {
         const tokens = tokenizeLines(lexizeScript(exampleDialogue));
         console.log(tokens);
     });
@@ -47,8 +47,8 @@ describe('fountainParser.tokenizeLines()', () => {
         console.log(tokens);
     });
 
-    test('compile dialogue', () => {
-        const compiled = compileTokens(tokenizeLines(lexizeScript(exampleDialogue)));
+    test.only('compile dialogue', () => {
+        const compiled = parseFountainScript(exampleDialogue);
         console.log(compiled);
     });
 });
