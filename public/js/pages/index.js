@@ -33574,8 +33574,13 @@ var ScriptForm = _react2.default.createClass({
                     }, value: inputFields.description || '', autoHeight: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
             ),
-            _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
-            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) }),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) })
+            ),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
                 _semanticUiReact.Container,
                 { text: true, textAlign: 'right' },
@@ -34901,10 +34906,10 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 break;
 
             case 'dual_dialogue_begin':
-                html.push('<div class=\"dialogue dual\">');
+                html.push('<div class=\"dialogue-container dual\">');
                 break;
             case 'dialogue_begin':
-                html.push('<div class=\"dialogue\">');
+                html.push('<div class=\"dialogue-container\">');
                 break;
             case 'character':
                 html.push('<h4 class=\"character\">' + text + '</h4>');

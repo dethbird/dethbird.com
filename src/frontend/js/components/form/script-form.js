@@ -85,9 +85,11 @@ const ScriptForm = React.createClass({
 
                 </Container>
 
-                <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
-                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
-
+                <Container>
+                    <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
+                </Container>
+                <br />
                 <Container text={ true } textAlign="right">
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }>{ id ? "Save" : "Create" }</Button>
                 </Container>

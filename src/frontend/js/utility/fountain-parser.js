@@ -382,10 +382,10 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'dual_dialogue_begin':
-                html.push('<div class=\"dialogue dual\">');
+                html.push('<div class=\"dialogue-container dual\">');
                 break;
             case 'dialogue_begin':
-                html.push('<div class=\"dialogue\">');
+                html.push('<div class=\"dialogue-container\">');
                 break;
             case 'character':
                 html.push('<h4 class=\"character\">' + text + '</h4>');
