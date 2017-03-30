@@ -8,7 +8,7 @@ import {
     TextArea
 } from 'semantic-ui-react';
 
-import fountainUtils from 'utility/fountain-utils';
+import { parseFountainScript } from 'utility/fountain-parser';
 
 const ScriptInput = React.createClass({
     propTypes: {
@@ -18,7 +18,7 @@ const ScriptInput = React.createClass({
     render() {
         const { handleFieldChange } = this;
         const { script, onChange, id, placeholder } = this.props;
-        const parsed = fountainUtils.parse(script);
+        const parsed = parseFountainScript(script);
 
         return (
             <Grid columns={ 2 }>
@@ -37,7 +37,7 @@ const ScriptInput = React.createClass({
                         <div
                             className="fountain"
                             dangerouslySetInnerHTML={ {
-                                __html: parsed.html.title_page + parsed.html.script
+                                __html: parsed.markup
                             } }
                         />
                     </Segment>
