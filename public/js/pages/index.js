@@ -6040,7 +6040,7 @@ var LoggedInHeader = _react2.default.createClass({
             { inverted: true },
             _react2.default.createElement(
                 _semanticUiReact.Container,
-                null,
+                { fluid: true },
                 _react2.default.createElement(
                     _semanticUiReact.Menu,
                     { size: 'large', inverted: true, secondary: true },
@@ -33498,7 +33498,8 @@ var ScriptForm = _react2.default.createClass({
     getInitialState: function getInitialState() {
         return {
             changedFields: {},
-            model: undefined
+            model: undefined,
+            sidebarVisible: false
         };
     },
     componentWillMount: function componentWillMount() {
@@ -33537,6 +33538,9 @@ var ScriptForm = _react2.default.createClass({
             dispatch((0, _script.scriptPost)(changedFields));
         }
     },
+    toggleSidebarVisibility: function toggleSidebarVisibility() {
+        this.setState(_extends({}, this.state, { sidebarVisible: !this.state.sidebarVisible }));
+    },
     render: function render() {
         var _this = this;
 
@@ -33546,48 +33550,99 @@ var ScriptForm = _react2.default.createClass({
             errors = _props2.errors;
         var _state = this.state,
             changedFields = _state.changedFields,
-            model = _state.model;
+            model = _state.model,
+            sidebarVisible = _state.sidebarVisible;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _scriptPost2.default);
-        return _react2.default.createElement(
-            _semanticUiReact.Form,
-            {
-                size: 'large',
-                loading: ui_state == _uiState.UI_STATE.REQUESTING,
-                error: ui_state == _uiState.UI_STATE.ERROR,
-                success: ui_state == _uiState.UI_STATE.SUCCESS
-            },
-            _react2.default.createElement(
-                _semanticUiReact.Container,
-                { text: true },
-                _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    null,
-                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
-                ),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'name');
-                    }, value: inputFields.name || '', required: true }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'description');
-                    }, value: inputFields.description || '', autoHeight: true }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
-            ),
-            _react2.default.createElement(
-                _semanticUiReact.Container,
+
+        var panels = [{
+            title: "dfjnsdkjfnsdkjnf 22",
+            content: _react2.default.createElement(
+                _semanticUiReact.Segment,
                 null,
-                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) })
+                'Farts'
+            )
+        }, {
+            title: "dfjnsdkjfnsdkjnf  342",
+            content: _react2.default.createElement(
+                _semanticUiReact.Segment,
+                null,
+                'Farts'
+            )
+        }, {
+            title: "dfjnsdkjfnsdkjnf  5254",
+            content: _react2.default.createElement(
+                _semanticUiReact.Segment,
+                null,
+                'Farts'
+            )
+        }];
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { textAlign: 'left', fluid: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { onClick: this.toggleSidebarVisibility },
+                    sidebarVisible ? "<" : "Script Help"
+                )
             ),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
-                _semanticUiReact.Container,
-                { text: true, textAlign: 'right' },
+                _semanticUiReact.Sidebar.Pushable,
+                null,
                 _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
-                    id ? "Save" : "Create"
+                    _semanticUiReact.Sidebar,
+                    { as: _semanticUiReact.Segment, animation: 'push', width: 'very wide', direction: 'left', visible: sidebarVisible, inverted: true },
+                    _react2.default.createElement(_semanticUiReact.Accordion, { panels: panels, inverted: true })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Sidebar.Pusher,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Form,
+                        {
+                            size: 'large',
+                            loading: ui_state == _uiState.UI_STATE.REQUESTING,
+                            error: ui_state == _uiState.UI_STATE.ERROR,
+                            success: ui_state == _uiState.UI_STATE.SUCCESS
+                        },
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            { text: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.Container,
+                                null,
+                                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
+                                    return _this.handleFieldChange(e, 'name');
+                                }, value: inputFields.name || '', required: true }),
+                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
+                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
+                                    return _this.handleFieldChange(e, 'description');
+                                }, value: inputFields.description || '', autoHeight: true }),
+                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
+                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) })
+                        ),
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            { text: true, textAlign: 'right' },
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'large' },
+                                id ? "Save" : "Create"
+                            )
+                        )
+                    )
                 )
             )
         );

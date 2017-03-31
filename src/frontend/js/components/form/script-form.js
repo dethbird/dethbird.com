@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+    Accordion,
     Button,
     Container,
     Form,
+    Icon,
     Image,
     Label,
-    Menu,
-    Message
+    Message,
+    Segment,
+    Sidebar
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
@@ -25,7 +28,8 @@ const ScriptForm = React.createClass({
     getInitialState() {
         return {
             changedFields: {},
-            model: undefined
+            model: undefined,
+            sidebarVisible: false
         }
     },
     componentWillMount() {
@@ -61,39 +65,75 @@ const ScriptForm = React.createClass({
             dispatch(scriptPost(changedFields));
         }
     },
+    toggleSidebarVisibility() {
+        this.setState({ ... this.state, sidebarVisible: !this.state.sidebarVisible });
+    },
     render() {
         const { id, ui_state, errors } = this.props;
-        const { changedFields, model } = this.state;
+        const { changedFields, model, sidebarVisible } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, scriptPostSchema);
+
+        const panels = [
+            {
+                title: "dfjnsdkjfnsdkjnf 22",
+                content: (
+                    <Segment>Farts</Segment>
+                )
+            },
+            {
+                title: "dfjnsdkjfnsdkjnf  342",
+                content: (
+                    <Segment>Farts</Segment>
+                )
+            },
+            {
+                title: "dfjnsdkjfnsdkjnf  5254",
+                content: (
+                    <Segment>Farts</Segment>
+                )
+            }
+        ];
         return (
-            <Form
-                size="large"
-                loading={ ui_state == UI_STATE.REQUESTING }
-                error={ ui_state == UI_STATE.ERROR }
-                success={ ui_state == UI_STATE.SUCCESS }
-            >
-                <Container text={ true }>
-                    <Container>
-                        <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
-                    </Container>
-
-                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
-
-                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
-
-                </Container>
-
-                <Container>
-                    <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
+            <div>
+                <Container textAlign="left" fluid>
+                    <Button onClick={ this.toggleSidebarVisibility }>{ sidebarVisible ? "<" : "Script Help" }</Button>
                 </Container>
                 <br />
-                <Container text={ true } textAlign="right">
-                        <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }>{ id ? "Save" : "Create" }</Button>
-                </Container>
-            </Form>
+                <Sidebar.Pushable>
+                    <Sidebar as={Segment} animation='push' width='very wide'  direction='left' visible={ sidebarVisible } inverted>
+                        <Accordion panels={panels} inverted/>
+                    </Sidebar>
+                    <Sidebar.Pusher>
+                        <Form
+                            size="large"
+                            loading={ ui_state == UI_STATE.REQUESTING }
+                            error={ ui_state == UI_STATE.ERROR }
+                            success={ ui_state == UI_STATE.SUCCESS }
+                        >
+                            <Container text={ true }>
+                                <Container>
+                                    <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+                                </Container>
+                                <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
+                                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
+
+                                <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
+                                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
+
+                            </Container>
+
+                            <Container>
+                                <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
+                                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
+                            </Container>
+                            <br />
+                            <Container text={ true } textAlign="right">
+                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } size="large">{ id ? "Save" : "Create" }</Button>
+                            </Container>
+                        </Form>
+                  </Sidebar.Pusher>
+                </Sidebar.Pushable>
+            </div>
         )
     }
 })

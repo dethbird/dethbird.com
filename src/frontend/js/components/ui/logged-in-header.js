@@ -32,7 +32,7 @@ const LoggedInHeader = React.createClass({
         const { path } = this.props;
         return (
             <Segment inverted={ true } >
-                <Container>
+                <Container fluid>
                     <Menu size="large" inverted={ true } secondary={ true }>
                         <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
                         <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
