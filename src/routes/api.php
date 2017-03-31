@@ -2,9 +2,15 @@
 $app->post("/api/0.1/login", function ($request, $response){
 
     $params = $request->getParsedBody();
-    $user = User::find_by_username_and_password(
-        $params['username'],
-        md5($params['password'])
+
+    $user = User::first(
+        [
+            'conditions' => [
+                'UPPER(username) = ? AND password = ?',
+                strtoupper($params['username']),
+                md5($params['password'])
+            ]
+        ]
     );
 
     if (!$user) {
