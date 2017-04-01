@@ -34927,18 +34927,20 @@ var SidebarFountainHelp = _react2.default.createClass({
             })
         }, {
             title: "Sections",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Sections",
+                description: "Sections are optional markers for managing the structure of a story.",
+                documentation_link: "https://fountain.io/syntax#section-sections",
+                example: "# Act\n\n## Sequence\n\n### Scene\n\n## Another Sequence\n\n### Another scene\n\n# Another Act"
+            })
         }, {
             title: "Synopses",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Synopses",
+                description: "Synopses are optional blocks of text to describe a Section or scene.\n\nSynopses are single lines prefixed by an equals sign `=`.",
+                documentation_link: "https://fountain.io/syntax#section-sections",
+                example: "# ACT I\n\n= Set up the characters and the story.\n\nEXT. BRICK'S PATIO - DAY\n\n= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.\n\nA gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something."
+            })
         }];
         return _react2.default.createElement(_semanticUiReact.Accordion, { panels: panels, inverted: true });
     }
