@@ -29,8 +29,7 @@ export const REGEX = {
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
     NOTE_INLINE: /(?:\[{2}(?!\[+))([\s\S]+?)(?:\]{2}(?!\[+))/g,
 
-    LYRICS: /^(?:[~])(.*)/,
-    LYRICS_MULTIPLE: /^((?:[~])(.*)?(\n))+/,
+    LYRICS: /^(?:~)([\S\s]+)/,
     PAGE_BREAK: /^\={3,}$/,
     LINE_BREAK: /^ {2}$/,
 
@@ -129,7 +128,7 @@ export const tokenizeLines = (lines) => {
         }
 
         // line breaks
-        if (REGEX.LINE_BREAK.test(line)) {
+        if (match = REGEX.LINE_BREAK.test(line)) {
             tokens.push({
                 type: 'line_break'
             });
@@ -229,28 +228,22 @@ export const tokenizeLines = (lines) => {
             continue;
         }
 
-        // lyrics multiple
-        if (match = line.match(REGEX.LYRICS_MULTIPLE)) {
-            const parts = match.input.split('\n');
-            let text = [];
-            for (const i in parts) {
-                text.push(parts[i].substring(1));
-            }
-            const token = {
-                type: 'lyrics',
-                text: text.join('<br />')
-            };
-            tokens.push(token);
-            continue;
-        }
-
         // lyrics
         if (match = line.match(REGEX.LYRICS)) {
-            const token = {
-                type: 'lyrics',
-                text: match[1]
-            };
-            tokens.push(token);
+            tokens.push({
+                type: 'lyrics_end'
+            });
+            const lyrics = match[1].split('~');
+            for (const i in lyrics) {
+                const token = {
+                    type: 'lyrics',
+                    text: lyrics[i].trim()
+                };
+                tokens.push(token);
+            }
+            tokens.push({
+                type: 'lyrics_begin'
+            });
             continue;
         }
 
@@ -421,9 +414,14 @@ export const compileTokens = (tokens) => {
                 html.push('<p class=\"centered\">' + text + '</p>');
                 break;
 
-
+            case 'lyrics_begin':
+                html.push('<div class=\"lyrics-container\">');
+                break;
             case 'lyrics':
                 html.push('<span class=\"lyrics\">' + text + '</span>');
+                break;
+            case 'lyrics_end':
+                html.push('</div>');
                 break;
 
             case 'page_break':

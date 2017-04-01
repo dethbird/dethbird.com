@@ -11,6 +11,7 @@ const dataDir = process.cwd() + '/src/frontend/js/utility/__tests__/data';
 // example data
 const exampleCharacters = fs.readFileSync(dataDir + '/characters.fountain', 'utf8');
 const exampleDialogue = fs.readFileSync(dataDir + '/dialogue.fountain', 'utf8');
+const exampleLyrics = fs.readFileSync(dataDir + '/lyrics.fountain', 'utf8');
 const exampleNotes = fs.readFileSync(dataDir + '/notes.fountain', 'utf8');
 const examplePageBreaks = fs.readFileSync(dataDir + '/page_break.fountain', 'utf8');
 const exampleSceneHeadings = fs.readFileSync(dataDir + '/scene_headings.fountain', 'utf8');
@@ -52,8 +53,12 @@ describe('fountainParser.tokenizeLines()', () => {
         const compiled = parseFountainScript(exampleDialogue);
         console.log(compiled);
     });
-    test.only('compile characters', () => {
+    test('compile characters', () => {
         const compiled = parseFountainScript(exampleCharacters);
+        console.log(compiled);
+    });
+    test.only('compile lyrics', () => {
+        const compiled = parseFountainScript(exampleLyrics);
         console.log(compiled);
     });
 });

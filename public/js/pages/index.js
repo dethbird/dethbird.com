@@ -18740,8 +18740,7 @@ var REGEX = exports.REGEX = {
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
     NOTE_INLINE: /(?:\[{2}(?!\[+))([\s\S]+?)(?:\]{2}(?!\[+))/g,
 
-    LYRICS: /^(?:[~])(.*)/,
-    LYRICS_MULTIPLE: /^((?:[~])(.*)?(\n))+/,
+    LYRICS: /^(?:~)([\S\s]+)/,
     PAGE_BREAK: /^\={3,}$/,
     LINE_BREAK: /^ {2}$/,
 
@@ -18840,7 +18839,7 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
         }
 
         // line breaks
-        if (REGEX.LINE_BREAK.test(line)) {
+        if (match = REGEX.LINE_BREAK.test(line)) {
             tokens.push({
                 type: 'line_break'
             });
@@ -18940,38 +18939,32 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
             continue;
         }
 
-        // lyrics multiple
-        if (match = line.match(REGEX.LYRICS_MULTIPLE)) {
-            var _parts = match.input.split('\n');
-            var _text = [];
-            for (var _i2 in _parts) {
-                _text.push(_parts[_i2].substring(1));
-            }
-            var _token4 = {
-                type: 'lyrics',
-                text: _text.join('<br />')
-            };
-            tokens.push(_token4);
-            continue;
-        }
-
         // lyrics
         if (match = line.match(REGEX.LYRICS)) {
-            var _token5 = {
-                type: 'lyrics',
-                text: match[1]
-            };
-            tokens.push(_token5);
+            tokens.push({
+                type: 'lyrics_end'
+            });
+            var lyrics = match[1].split('~');
+            for (var _i2 in lyrics) {
+                var _token4 = {
+                    type: 'lyrics',
+                    text: lyrics[_i2].trim()
+                };
+                tokens.push(_token4);
+            }
+            tokens.push({
+                type: 'lyrics_begin'
+            });
             continue;
         }
 
         // actions (power user)
         if (match = line.match(REGEX.ACTION_POWER_USER)) {
-            var _token6 = {
+            var _token5 = {
                 type: 'action',
                 text: match[1]
             };
-            tokens.push(_token6);
+            tokens.push(_token5);
             continue;
         }
 
@@ -19114,8 +19107,14 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 html.push('<p class=\"centered\">' + text + '</p>');
                 break;
 
+            case 'lyrics_begin':
+                html.push('<div class=\"lyrics-container\">');
+                break;
             case 'lyrics':
                 html.push('<span class=\"lyrics\">' + text + '</span>');
+                break;
+            case 'lyrics_end':
+                html.push('</div>');
                 break;
 
             case 'page_break':
