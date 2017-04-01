@@ -297,7 +297,8 @@ export const lexizeText = (text) => {
     text = text.replace(REGEX.NOTE_INLINE, INLINE.NOTE)
         .replace(/\\\*/g, '[star]')
         .replace(/\\_/g, '[underline]')
-        .replace(/\n/g, INLINE.LINE_BREAK);
+        .replace(/\n/g, INLINE.LINE_BREAK)
+        .replace(/{two spaces}/g, '\n');
 
     for (const i in styles) {
         const style = styles[i];
@@ -329,31 +330,31 @@ export const compileTokens = (tokens) => {
                 title_page.push('<h1 class=\"title\" >' + text + '</h1>');
                 break;
             case 'credit':
-                title_page.push('<p class=\"credit\">' + text + '</p>');
+                title_page.push('<div class=\"credits-container\"><span class=\"credit\">' + text + ' </span>');
                 break;
             case 'author':
-                title_page.push('<p class=\"authors\">' + text + '</p>');
+                title_page.push('<span class=\"authors\">' + text + '</span></div>');
                 break;
             case 'authors':
-                title_page.push('<p class=\"authors\">' + text + '</p>');
+                title_page.push('<span class=\"authors\">' + text + '</span></div>');
                 break;
             case 'source':
-                title_page.push('<p class=\"source\">' + text + '</p>');
+                title_page.push('<span class=\"source\">' + text + '</span>');
                 break;
             case 'notes':
-                title_page.push('<p class=\"notes\">' + text + '</p>');
+                title_page.push('<span class=\"notes\">' + text + '</span>');
                 break;
             case 'draft_date':
-                title_page.push('<p class=\"draft-date\">' + text + '</p>');
+                title_page.push('<span class=\"draft-date\">' + text + '</span>');
                 break;
             case 'date':
-                title_page.push('<p class=\"date\">' + text + '</p>');
+                title_page.push('<span class=\"date\">' + text + '</span>');
                 break;
             case 'contact':
-                title_page.push('<p class=\"contact\">' + text + '</p>');
+                title_page.push('<span class=\"contact\">' + text + '</span>');
                 break;
             case 'copyright':
-                title_page.push('<p class=\"copyright\">' + text + '</p>');
+                title_page.push('<span class=\"copyright\">' + text + '</span>');
                 break;
             case 'title_page_end':
                 title_page.push('</div>');
@@ -378,10 +379,10 @@ export const compileTokens = (tokens) => {
                 html.push('<h4 class=\"character\">' + text + ( extension ? ' <span class=\"character_extension\">' + extension + '</span>' :  '' ) +'</h4>');
                 break;
             case 'parenthetical':
-                html.push('<p class=\"parenthetical\">' + text + '</p>');
+                html.push('<span class=\"parenthetical\">' + text + '</span>');
                 break;
             case 'dialogue':
-                html.push('<p class=\"dialogue\">' + text + '</p>');
+                html.push('<span class=\"dialogue\">' + text + '</span>');
                 break;
             case 'dialogue_end':
                 html.push('</div>');
@@ -394,7 +395,7 @@ export const compileTokens = (tokens) => {
                 html.push('<h' + token.level +' class=\"section\" data-depth=\"' + token.level + '\">' + text + '</h' + token.level +'>');
                 break;
             case 'synopsis':
-                html.push('<p class=\"synopsis\">' + text + '</p>');
+                html.push('<span class=\"synopsis\">' + text + '</span>');
                 break;
 
             case 'note':
@@ -408,10 +409,10 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'action':
-                html.push('<p class=\"action\">' + text + '</p>');
+                html.push('<span class=\"action\">' + text + '</span>');
                 break;
             case 'centered':
-                html.push('<p class=\"centered\">' + text + '</p>');
+                html.push('<span class=\"centered\">' + text + '</span>');
                 break;
 
             case 'lyrics_begin':
@@ -436,7 +437,7 @@ export const compileTokens = (tokens) => {
     return title_page.join('') + (
         html.length
         ? ('<div class=\"script_body\">' + html.join('') + '</div>')
-        : null
+        : ''
     );
 }
 

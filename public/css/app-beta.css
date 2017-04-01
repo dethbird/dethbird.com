@@ -1,7 +1,14 @@
 .body {
   font-family: 'Hind Vadodara', sans-serif;
 }
+code {
+  font-family: 'PT Mono', monospace !important;
+  color: red;
+  background-color: #eee;
+  padding: 2px;
+}
 .fountain {
+  color: #000 !important;
   font-family: 'IM Fell English', serif;
   margin: 2em 3em 2em 3em;
 }
@@ -13,21 +20,31 @@
 .fountain h6 {
   font-family: 'IM Fell English', serif;
   margin: 0;
+  color: #000 !important;
+  margin: .5em 0 .5em 0 !important;
+}
+.fountain h1 {
+  font-size: 2.5rem !important;
 }
 .fountain .dialogue-container {
-  margin: 1.1em 6em 1.1em 6em;
+  text-align: center;
+  margin: 1em 10% 1em 10%;
 }
 .fountain .dialogue-container.dual .character::after {
   content: " (together)";
 }
-.fountain .dialog {
-  margin: .5em 0em .5em 0em;
+.fountain .centered {
+  text-align: center;
 }
 .fountain .action {
+  display: block;
   margin: 1em 0 1em 0;
 }
 .fountain .bold {
   font-weight: bold;
+}
+.fountain hr {
+  margin: 1.6em 0 1.6em 0 !important;
 }
 .fountain .italic {
   font-style: italic;
@@ -35,6 +52,10 @@
 .fountain .lyrics {
   font-style: italic;
   color: grey;
+  display: block;
+}
+.fountain .dialogue,
+.fountain .parenthetical {
   display: block;
 }
 .fountain .note {
@@ -52,13 +73,29 @@
 .fountain .scene_heading {
   margin: .5em 0em .5em 0em;
 }
+.fountain .title_page {
+  padding: 0 0 2em 0;
+  text-align: center;
+}
+.fountain .title_page .date,
+.fountain .title_page .draft-date,
+.fountain .title_page .notes,
+.fountain .title_page .contact,
+.fountain .title_page .copyright,
+.fountain .title_page .source {
+  display: block;
+}
+.fountain .title_page .date,
+.fountain .title_page .draft-date,
+.fountain .title_page .contact {
+  text-align: left;
+}
+.fountain .title_page .notes {
+  font-style: italic;
+}
 .fountain .transition {
   text-align: left;
   margin: 1em 0 .5em 0;
-}
-.fountain-container {
-  background-color: #fffdf8 !important;
-  font-size: 0.8em !important;
 }
 h1,
 h2,

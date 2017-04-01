@@ -57,8 +57,12 @@ describe('fountainParser.tokenizeLines()', () => {
         const compiled = parseFountainScript(exampleCharacters);
         console.log(compiled);
     });
-    test.only('compile lyrics', () => {
+    test('compile lyrics', () => {
         const compiled = parseFountainScript(exampleLyrics);
+        console.log(compiled);
+    });
+    test.only('compile title page', () => {
+        const compiled = parseFountainScript(exampleTitlePage);
         console.log(compiled);
     });
 });

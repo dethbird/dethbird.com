@@ -95,7 +95,7 @@ const ScriptForm = React.createClass({
                     <Sidebar as={Segment} animation='push' width='very wide'  direction='left' visible={ sidebarVisible } inverted>
                         <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
                     </Sidebar>
-                    <Sidebar.Pusher>
+                    <Sidebar.Pusher dimmed={ sidebarVisible }>
                         <Form
                             size="large"
                             loading={ ui_state == UI_STATE.REQUESTING }
