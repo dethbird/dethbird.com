@@ -15,10 +15,8 @@ export const REGEX = {
 
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
 
-    DIALOGUE: /^([A-Z][A-Z0-9 ]+)(\ \([A-Za-z0-9]+\))?(?:\ )?(\^)?(?:\n)([\s\S]+)/,
-    DIALOGUE_POWER_USER: /^(?:[@])([a-zA-Z*_]+[0-9A-Z (._\-')]*)(\^?)?(?:\n)([\s\S]+)/,
-    PARENTHETICAL_DIALOGUE: /(\(.+\))(?:\n+)/,
-    PARENTHETICAL_CHARACTER_EXTENSION: /^([A-Z*_ ]+)?(\(.+\))/,
+    DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
     SECTION: /^(#+)(?: *)(.*)/,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
@@ -88,12 +86,11 @@ export const tokenizeLines = (lines) => {
 
         // dialogue blocks - characters, parentheticals and dialogue
         match = line.match(REGEX.DIALOGUE);
-        console.log(match);
         if (!match) {
             match = line.match(REGEX.DIALOGUE_POWER_USER);
         }
         if (match) {
-            const dual = lastDual | match[2]=='^';
+            const dual = lastDual | match[3]=='^';
 
             // last 2 chars are not spaces
             if (match[1].indexOf('  ') !== match[1].length - 2) {
@@ -102,49 +99,30 @@ export const tokenizeLines = (lines) => {
                     type: dual ? 'dual_dialogue_end' : 'dialogue_end'
                 });
 
-                const parts = match[3].split(REGEX.PARENTHETICAL_DIALOGUE).reverse();
+                tokens.push({
+                    type: 'dialogue',
+                    text: match[5].trim()
+                });
+                if (match[4]) {
 
-                // parenthetical found
-                if (parts[1]) {
-
-                    tokens.push({
-                        type: 'dialogue',
-                        text: parts[0].trim()
-                    });
                     tokens.push({
                         type: 'parenthetical',
-                        text: parts[1].trim()
+                        text: match[4].trim()
                     });
 
-                } else {
-                    tokens.push({
-                        type: 'dialogue',
-                        text: match[3].trim()
-                    });
                 }
 
-                // check for character parenthetical extension
-                const charParts = REGEX.PARENTHETICAL_CHARACTER_EXTENSION.test(match[1]);
-
-                // parenthetical extension found
-                if(charParts[1]) {
-                    tokens.push({
-                        type: 'character',
-                        text: charParts[1].trim(),
-                        extension: charParts[2].trim()
-                    });
-                } else {
-                    tokens.push({
-                        type: 'character',
-                        text: match[1].trim()
-                    });
-                }
+                tokens.push({
+                    type: 'character',
+                    text: match[1],
+                    extension: match[2] ? match[2].trim() : null
+                });
 
                 tokens.push({
                     type: dual ? 'dual_dialogue_begin' : 'dialogue_begin'
                 });
 
-                lastDual = match[2]=='^';
+                lastDual = match[3]=='^';
 
                 continue;
             }

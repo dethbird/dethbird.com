@@ -18726,10 +18726,8 @@ var REGEX = exports.REGEX = {
 
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
 
-    DIALOGUE: /^([A-Z*_]+[0-9A-Z (A-Za-z0-9._\-')]*)(\^?)?(?:\n(?!\n+))([\s\S]+)/,
-    DIALOGUE_POWER_USER: /^(?:[@])([a-zA-Z*_]+[0-9A-Z (._\-')]*)(\^?)?(?:\n)([\s\S]+)/,
-    PARENTHETICAL_DIALOGUE: /(\(.+\))(?:\n+)/,
-    PARENTHETICAL_CHARACTER_EXTENSION: /^([A-Z*_ ]+)?(\(.+\))/,
+    DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
     SECTION: /^(#+)(?: *)(.*)/,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
@@ -18804,7 +18802,7 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
             match = line.match(REGEX.DIALOGUE_POWER_USER);
         }
         if (match) {
-            var dual = lastDual | match[2] == '^';
+            var dual = lastDual | match[3] == '^';
 
             // last 2 chars are not spaces
             if (match[1].indexOf('  ') !== match[1].length - 2) {
@@ -18813,48 +18811,29 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
                     type: dual ? 'dual_dialogue_end' : 'dialogue_end'
                 });
 
-                var parts = match[3].split(REGEX.PARENTHETICAL_DIALOGUE).reverse();
+                tokens.push({
+                    type: 'dialogue',
+                    text: match[5].trim()
+                });
+                if (match[4]) {
 
-                // parenthetical found
-                if (parts[1]) {
-
-                    tokens.push({
-                        type: 'dialogue',
-                        text: parts[0].trim()
-                    });
                     tokens.push({
                         type: 'parenthetical',
-                        text: parts[1].trim()
-                    });
-                } else {
-                    tokens.push({
-                        type: 'dialogue',
-                        text: match[3].trim()
+                        text: match[4].trim()
                     });
                 }
 
-                // check for character parenthetical extension
-                var charParts = match[1].split(REGEX.PARENTHETICAL_CHARACTER_EXTENSION);
-
-                // parenthetical extension found
-                if (charParts[1]) {
-                    tokens.push({
-                        type: 'character',
-                        text: charParts[1].trim(),
-                        extension: charParts[2].trim()
-                    });
-                } else {
-                    tokens.push({
-                        type: 'character',
-                        text: match[1].trim()
-                    });
-                }
+                tokens.push({
+                    type: 'character',
+                    text: match[1],
+                    extension: match[2] ? match[2].trim() : null
+                });
 
                 tokens.push({
                     type: dual ? 'dual_dialogue_begin' : 'dialogue_begin'
                 });
 
-                lastDual = match[2] == '^';
+                lastDual = match[3] == '^';
 
                 continue;
             }
@@ -18937,10 +18916,10 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
 
             match = line.replace(REGEX.TITLE_PAGE, '\n$1').split(REGEX.LEXER.SPLITTER).reverse();
             for (var _i in match) {
-                var _parts = match[_i].replace(REGEX.LEXER.CLEANER, '').split(/\:\n*/);
+                var parts = match[_i].replace(REGEX.LEXER.CLEANER, '').split(/\:\n*/);
                 tokens.push({
-                    type: _parts[0].trim().toLowerCase().replace(' ', '_'),
-                    text: _parts[1].trim()
+                    type: parts[0].trim().toLowerCase().replace(' ', '_'),
+                    text: parts[1].trim()
                 });
             }
 
@@ -18963,10 +18942,10 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
 
         // lyrics multiple
         if (match = line.match(REGEX.LYRICS_MULTIPLE)) {
-            var _parts2 = match.input.split('\n');
+            var _parts = match.input.split('\n');
             var _text = [];
-            for (var _i2 in _parts2) {
-                _text.push(_parts2[_i2].substring(1));
+            for (var _i2 in _parts) {
+                _text.push(_parts[_i2].substring(1));
             }
             var _token4 = {
                 type: 'lyrics',
@@ -34847,39 +34826,44 @@ var SidebarFountainHelp = _react2.default.createClass({
             })
         }, {
             title: "Character",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Character",
+                description: "A Character element is any line entirely in uppercase, with one empty line before it and without an empty line after it. Use the \"@\" symbol if you need to use lower case in the character name.",
+                documentation_link: "https://fountain.io/syntax#section-character",
+                example: "MARTIN (Covered in bees)\nAaaaa!!! Get 'em off!\n\nBUTTHEAD\n(pointing at MARTIN)\nYea yea\n\nBEAVIS (Exhuberantly) ^\nHeh heh\n\n@McBain\nWhat's the point of all this?"
+            })
         }, {
             title: "Dialogue",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Dialogue",
+                description: "Dialogue is any text following a Character or Parenthetical element.",
+                documentation_link: "https://fountain.io/syntax#section-dialogue",
+                example: "SANBORN\nA good 'ole boy. You know, loves the Army, blood runs green. Country boy. Seems solid."
+            })
         }, {
             title: "Parenthetical",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Parenthetical",
+                description: "Parentheticals follow a Character element, and are wrapped in parentheses \"()\".",
+                documentation_link: "https://fountain.io/syntax#section-paren",
+                example: "STEEL\n(starting the engine)\nSo much for retirement!"
+            })
         }, {
             title: "Dual Dialogue",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Dual Dialogue",
+                description: "Dual, or simultaneous, dialogue is expressed by adding a caret \"^\" after the second Character element.",
+                documentation_link: "https://fountain.io/syntax#section-dual",
+                example: "BRICK\nScrew retirement.\n\nSTEEL ^\nScrew retirement."
+            })
         }, {
             title: "Lyrics",
-            content: _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                'Farts'
-            )
+            content: renderContent({
+                title: "Lyrics",
+                description: "You create a Lyric by starting with a line with a tilde \"~\".",
+                documentation_link: "https://fountain.io/syntax#section-dual",
+                example: "~Willy Wonka! Willy Wonka! The amazing chocolatier!\n~Willy Wonka! Willy Wonka! Everybody give a cheer!"
+            })
         }, {
             title: "Transition",
             content: _react2.default.createElement(

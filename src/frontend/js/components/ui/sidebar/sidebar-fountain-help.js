@@ -47,31 +47,56 @@ const SidebarFountainHelp = React.createClass({
             {
                 title: "Character",
                 content: (
-                    <Segment>Farts</Segment>
+                    renderContent({
+                        title: "Character",
+                        description: "A Character element is any line entirely in uppercase, with one empty line before it and without an empty line after it. Use the \"@\" symbol if you need to use lower case in the character name.",
+                        documentation_link: "https://fountain.io/syntax#section-character",
+                        example: "MARTIN (Covered in bees)\nAaaaa!!! Get 'em off!\n\nBUTTHEAD\n(pointing at MARTIN)\nYea yea\n\nBEAVIS (Exhuberantly) ^\nHeh heh\n\n@McBain\nWhat's the point of all this?"
+                    })
                 )
             },
             {
                 title: "Dialogue",
                 content: (
-                    <Segment>Farts</Segment>
+                    renderContent({
+                        title: "Dialogue",
+                        description: "Dialogue is any text following a Character or Parenthetical element.",
+                        documentation_link: "https://fountain.io/syntax#section-dialogue",
+                        example: "SANBORN\nA good 'ole boy. You know, loves the Army, blood runs green. Country boy. Seems solid."
+                    })
                 )
             },
             {
                 title: "Parenthetical",
                 content: (
-                    <Segment>Farts</Segment>
+                    renderContent({
+                        title: "Parenthetical",
+                        description: "Parentheticals follow a Character element, and are wrapped in parentheses \"()\".",
+                        documentation_link: "https://fountain.io/syntax#section-paren",
+                        example: "STEEL\n(starting the engine)\nSo much for retirement!"
+                    })
                 )
             },
             {
                 title: "Dual Dialogue",
                 content: (
-                    <Segment>Farts</Segment>
+                    renderContent({
+                        title: "Dual Dialogue",
+                        description: "Dual, or simultaneous, dialogue is expressed by adding a caret \"^\" after the second Character element.",
+                        documentation_link: "https://fountain.io/syntax#section-dual",
+                        example: "BRICK\nScrew retirement.\n\nSTEEL ^\nScrew retirement."
+                    })
                 )
             },
             {
                 title: "Lyrics",
                 content: (
-                    <Segment>Farts</Segment>
+                    renderContent({
+                        title: "Lyrics",
+                        description: "You create a Lyric by starting with a line with a tilde \"~\".",
+                        documentation_link: "https://fountain.io/syntax#section-dual",
+                        example: "~Willy Wonka! Willy Wonka! The amazing chocolatier!\n~Willy Wonka! Willy Wonka! Everybody give a cheer!"
+                    })
                 )
             },
             {

@@ -32,6 +32,10 @@
 .fountain .italic {
   font-style: italic;
 }
+.fountain .lyrics {
+  font-style: italic;
+  color: grey;
+}
 .fountain .note {
   padding: 5px;
   background-color: #e8f8ff;
@@ -110,9 +114,11 @@ h6 {
   background-color: black !important;
   color: rgba(85, 255, 231, 0.97) !important;
   text-shadow: 2px 2px 10px #55ffe7 !important;
+  white-space: pre-wrap !important;
 }
 div.script-input {
   white-space: pre;
+  white-space: pre-wrap !important;
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
