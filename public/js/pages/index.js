@@ -18789,8 +18789,9 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
         // centered
         if (match = line.match(REGEX.CENTERED)) {
             tokens.push({
-                type: 'centered',
-                text: match[0].replace(/>|</g, '')
+                type: 'action',
+                text: match[0].replace(/>|</g, ''),
+                centered: true
             });
             continue;
         }
@@ -18962,7 +18963,8 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
         if (match = line.match(REGEX.ACTION_POWER_USER)) {
             var _token5 = {
                 type: 'action',
-                text: match[1]
+                text: match[1],
+                centered: false
             };
             tokens.push(_token5);
             continue;
@@ -18972,7 +18974,8 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
         if (line.trim()) {
             tokens.push({
                 type: 'action',
-                text: line
+                text: line,
+                centered: false
             });
         }
     }
@@ -19101,10 +19104,7 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 break;
 
             case 'action':
-                html.push('<span class=\"action\">' + text + '</span>');
-                break;
-            case 'centered':
-                html.push('<span class=\"centered\">' + text + '</span>');
+                html.push('<span class=\"action' + (token.centered ? ' centered' : '') + '\">' + text + '</span>');
                 break;
 
             case 'lyrics_begin':

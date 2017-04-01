@@ -77,8 +77,9 @@ export const tokenizeLines = (lines) => {
         // centered
         if (match = line.match(REGEX.CENTERED)) {
             tokens.push({
-                type: 'centered',
-                text: match[0].replace(/>|</g, '')
+                type: 'action',
+                text: match[0].replace(/>|</g, ''),
+                centered: true
             });
             continue;
         }
@@ -251,7 +252,8 @@ export const tokenizeLines = (lines) => {
         if (match = line.match(REGEX.ACTION_POWER_USER)) {
             const token = {
                 type: 'action',
-                text: match[1]
+                text: match[1],
+                centered: false
             };
             tokens.push(token);
             continue;
@@ -261,7 +263,8 @@ export const tokenizeLines = (lines) => {
         if(line.trim()){
             tokens.push({
                 type: 'action',
-                text: line
+                text: line,
+                centered: false
             });
         }
 
@@ -409,10 +412,7 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'action':
-                html.push('<span class=\"action\">' + text + '</span>');
-                break;
-            case 'centered':
-                html.push('<span class=\"centered\">' + text + '</span>');
+                html.push('<span class=\"action' + (token.centered ? ' centered' : '' ) + '\">' + text + '</span>');
                 break;
 
             case 'lyrics_begin':

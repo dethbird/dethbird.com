@@ -34,6 +34,7 @@ code {
   content: " (together)";
 }
 .fountain .centered {
+  display: block;
   text-align: center;
 }
 .fountain .action {
