@@ -35,6 +35,7 @@
 .fountain .lyrics {
   font-style: italic;
   color: grey;
+  display: block;
 }
 .fountain .note {
   padding: 5px;
