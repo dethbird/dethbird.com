@@ -15,6 +15,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
+import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';
 import { scriptGet, scriptPut, scriptPost } from 'actions/script';
 import scriptPostSchema from 'validation_schema/script-post.json';
@@ -56,6 +57,17 @@ const ScriptForm = React.createClass({
             changedFields
         });
     },
+    handleClickSnippetInsert(e, snippet) {
+        const { changedFields, model } = this.state;
+        changedFields['script'] = changedFields['script']
+            ? changedFields['script'] + '\n\n' + snippet
+            : model.script + '\n\n' + snippet;
+        this.setState({
+            ... this.state,
+            changedFields
+        });
+
+    },
     onClickSubmit() {
         const { id, dispatch } = this.props;
         const { changedFields } = this.state;
@@ -73,26 +85,6 @@ const ScriptForm = React.createClass({
         const { changedFields, model, sidebarVisible } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, scriptPostSchema);
 
-        const panels = [
-            {
-                title: "dfjnsdkjfnsdkjnf 22",
-                content: (
-                    <Segment>Farts</Segment>
-                )
-            },
-            {
-                title: "dfjnsdkjfnsdkjnf  342",
-                content: (
-                    <Segment>Farts</Segment>
-                )
-            },
-            {
-                title: "dfjnsdkjfnsdkjnf  5254",
-                content: (
-                    <Segment>Farts</Segment>
-                )
-            }
-        ];
         return (
             <div>
                 <Container textAlign="left" fluid>
@@ -101,7 +93,7 @@ const ScriptForm = React.createClass({
                 <br />
                 <Sidebar.Pushable>
                     <Sidebar as={Segment} animation='push' width='very wide'  direction='left' visible={ sidebarVisible } inverted>
-                        <Accordion panels={panels} inverted/>
+                        <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
                     </Sidebar>
                     <Sidebar.Pusher>
                         <Form

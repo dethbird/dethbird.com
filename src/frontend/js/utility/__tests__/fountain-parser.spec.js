@@ -9,6 +9,7 @@ import {
 const dataDir = process.cwd() + '/src/frontend/js/utility/__tests__/data';
 
 // example data
+const exampleCharacters = fs.readFileSync(dataDir + '/characters.fountain', 'utf8');
 const exampleDialogue = fs.readFileSync(dataDir + '/dialogue.fountain', 'utf8');
 const exampleNotes = fs.readFileSync(dataDir + '/notes.fountain', 'utf8');
 const examplePageBreaks = fs.readFileSync(dataDir + '/page_break.fountain', 'utf8');
@@ -47,8 +48,12 @@ describe('fountainParser.tokenizeLines()', () => {
         console.log(tokens);
     });
 
-    test.only('compile dialogue', () => {
+    test('compile dialogue', () => {
         const compiled = parseFountainScript(exampleDialogue);
+        console.log(compiled);
+    });
+    test.only('compile characters', () => {
+        const compiled = parseFountainScript(exampleCharacters);
         console.log(compiled);
     });
 });

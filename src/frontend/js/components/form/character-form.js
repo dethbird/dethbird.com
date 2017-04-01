@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
-import TagEditor from 'components/ui/tag-editor';
+import TagEditor from 'components/ui/form/tag-editor';
 import { UI_STATE } from 'constants/ui-state';
 import { characterGet, characterPut, characterPost } from 'actions/character';
 import characterPostSchema from 'validation_schema/character-post.json';
