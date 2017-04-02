@@ -37,6 +37,9 @@ code {
   display: block;
   text-align: center;
 }
+.fountain .current {
+  border-left: 2px inset green;
+}
 .fountain .action {
   display: block;
   margin: 1.5em 0 1.5em 0;

@@ -34768,8 +34768,6 @@ var _scriptSnippet2 = _interopRequireDefault(_scriptSnippet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log((0, _marked2.default)('**bees**'));
-
 var SidebarFountainHelp = _react2.default.createClass({
     displayName: 'SidebarFountainHelp',
 

@@ -8,8 +8,6 @@ import {
 } from 'semantic-ui-react';
 import marked from 'marked';
 
-console.log(marked('**bees**'));
-
 import ScriptSnippet from 'components/ui/script-snippet';
 
 const SidebarFountainHelp = React.createClass({
