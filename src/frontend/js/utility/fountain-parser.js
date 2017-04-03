@@ -289,7 +289,7 @@ export const sectionizeTokens = (tokens) => {
 
             if (lastSection) {
 
-                if (token.level >= lastSection.level ) {
+                if (token.level > lastSection.level ) {
 
                     sections.push(lastSection);
                     sections.push(token);
@@ -303,18 +303,15 @@ export const sectionizeTokens = (tokens) => {
 
                     let s;
                     while (s = sections.pop()) {
-                        // console.log('POPPED S', s);
-                        // console.log('lastSection', lastSection);
-                        // console.log('token', token);
-                        if (s.level < lastSection.level && s.level >= token.level) {
+                        if (s.level <= lastSection.level && s.level >= token.level) {
                             newTokens.push({
                                 type: 'section_end',
                                 text: s.text,
                                 level: s.level
                             });
                         } else {
+                        sections.push(s);
                             sections.push(token);
-                            sections.push(s);
                             break;
                         }
 
@@ -338,7 +335,6 @@ export const sectionizeTokens = (tokens) => {
         }
     }
 
-    // console.log('SECTIONS END', sections);
     if(sections.length > 0) {
         let s;
         while (s = sections.pop()) {
