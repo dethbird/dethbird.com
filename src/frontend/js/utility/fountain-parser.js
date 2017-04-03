@@ -295,8 +295,6 @@ export const sectionizeTokens = (tokens) => {
                     sections.push(token);
 
                 } else {
-                    console.log('TOKEN', token);
-                    console.log('SECTIONS', sections);
                     newTokens.push({
                         type: 'section_end',
                         text: lastSection.text,
@@ -308,7 +306,7 @@ export const sectionizeTokens = (tokens) => {
                         // console.log('POPPED S', s);
                         // console.log('lastSection', lastSection);
                         // console.log('token', token);
-                        if (s.level <= lastSection.level && s.level >= token.level) {
+                        if (s.level < lastSection.level && s.level >= token.level) {
                             newTokens.push({
                                 type: 'section_end',
                                 text: s.text,
@@ -321,28 +319,11 @@ export const sectionizeTokens = (tokens) => {
                         }
 
                     }
-
-                    // popout sections until you reach this level
-                    // //const i = sections.length - 1;
-                    // let s;
-                    // while (s = sections.pop()) {
-                    //     if (s.level >= token.level) {
-                    //         newTokens.push({
-                    //             type: 'section_end',
-                    //             level: lastSection.level
-                    //         });
-                    //         newTokens.push({
-                    //             type: 'section_end',
-                    //             level: s.level
-                    //         });
-                    //     } else {
-                    //         sections.push(s);
-                    //         break;
-                    //     }
-                    // }
+                    if (sections.length==0) {
+                        sections.push(token);
+                    }
                 }
             } else {
-                // console.log('no lastSection');
                 sections.push(token);
             }
 
@@ -355,7 +336,6 @@ export const sectionizeTokens = (tokens) => {
         } else {
             newTokens.push(token);
         }
-        console.log('SECTIONS', sections);
     }
 
     // console.log('SECTIONS END', sections);
@@ -364,6 +344,7 @@ export const sectionizeTokens = (tokens) => {
         while (s = sections.pop()) {
             newTokens.push({
                 type: 'section_end',
+                text: s.text,
                 level: s.level
             })
         }
