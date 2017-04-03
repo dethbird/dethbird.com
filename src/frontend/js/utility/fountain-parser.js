@@ -282,46 +282,69 @@ export const sectionizeTokens = (tokens) => {
     for (const i in tokens) {
         const token = tokens[i];
         if (token.type == 'section') {
+
             if (sections.length > 0) {
                 lastSection = sections.pop();
             }
 
-            console.log(lastSection);
-            console.log(sections.length);
-
             if (lastSection) {
-                newTokens.push({
-                    type: 'section_end',
-                    level: lastSection.level
-                });
-            }
 
-            //
-            // if (lastSection) {
-            //     if (token.level >= lastSection.level ) {
-            //         sections.push(lastSection);
-            //
-            //     } else {
-            //         // popout sections until you reach this level
-            //         // //const i = sections.length - 1;
-            //         // let s;
-            //         // while (s = sections.pop()) {
-            //         //     if (s.level >= token.level) {
-            //         //         newTokens.push({
-            //         //             type: 'section_end',
-            //         //             level: lastSection.level
-            //         //         });
-            //         //         newTokens.push({
-            //         //             type: 'section_end',
-            //         //             level: s.level
-            //         //         });
-            //         //     } else {
-            //         //         sections.push(s);
-            //         //         break;
-            //         //     }
-            //         // }
-            //     }
-            // }
+                if (token.level >= lastSection.level ) {
+
+                    sections.push(lastSection);
+                    sections.push(token);
+
+                } else {
+                    console.log('TOKEN', token);
+                    console.log('SECTIONS', sections);
+                    newTokens.push({
+                        type: 'section_end',
+                        text: lastSection.text,
+                        level: lastSection.level
+                    });
+
+                    let s;
+                    while (s = sections.pop()) {
+                        // console.log('POPPED S', s);
+                        // console.log('lastSection', lastSection);
+                        // console.log('token', token);
+                        if (s.level <= lastSection.level && s.level >= token.level) {
+                            newTokens.push({
+                                type: 'section_end',
+                                text: s.text,
+                                level: s.level
+                            });
+                        } else {
+                            sections.push(token);
+                            sections.push(s);
+                            break;
+                        }
+
+                    }
+
+                    // popout sections until you reach this level
+                    // //const i = sections.length - 1;
+                    // let s;
+                    // while (s = sections.pop()) {
+                    //     if (s.level >= token.level) {
+                    //         newTokens.push({
+                    //             type: 'section_end',
+                    //             level: lastSection.level
+                    //         });
+                    //         newTokens.push({
+                    //             type: 'section_end',
+                    //             level: s.level
+                    //         });
+                    //     } else {
+                    //         sections.push(s);
+                    //         break;
+                    //     }
+                    // }
+                }
+            } else {
+                // console.log('no lastSection');
+                sections.push(token);
+            }
 
             newTokens.push({
                 type: 'section_begin',
@@ -329,25 +352,23 @@ export const sectionizeTokens = (tokens) => {
                 level: token.level
             });
 
-            sections.push(token);
-
-
-            // console.log(sections);
-
         } else {
             newTokens.push(token);
         }
+        console.log('SECTIONS', sections);
     }
 
+    // console.log('SECTIONS END', sections);
     if(sections.length > 0) {
-        const section = sections.pop();
-        newTokens.push({
-            type: 'section_end',
-            level: section.level
-        })
+        let s;
+        while (s = sections.pop()) {
+            newTokens.push({
+                type: 'section_end',
+                level: s.level
+            })
+        }
     }
-    console.log(sections);
-    console.log(newTokens);
+    console.log('NEW TOKENS', newTokens);
     return newTokens;
 }
 
