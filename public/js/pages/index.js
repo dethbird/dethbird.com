@@ -18980,7 +18980,62 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
         }
     }
 
-    return tokens.reverse();
+    return sectionizeTokens(tokens.reverse());
+};
+
+var sectionizeTokensOld = exports.sectionizeTokensOld = function sectionizeTokensOld(tokens) {
+    var newTokens = [];
+    var sections = [];
+    var lastSection = void 0;
+    for (var i in tokens) {
+        var token = tokens[i];
+        if (token.type == 'section') {
+            if (sections.length > 0) {
+                lastSection = sections.pop();
+            }
+
+            if (lastSection) {
+                if (token.level >= lastSection.level) {
+                    sections.push(lastSection);
+                } else {
+                    // popout sections until you reach this level
+                    //const i = sections.length - 1;
+                    var s = void 0;
+                    while (s = sections.pop()) {
+                        if (s.level >= token.level) {
+                            newTokens.push({
+                                type: 'section_end',
+                                level: lastSection.level
+                            });
+                            newTokens.push({
+                                type: 'section_end',
+                                level: s.level
+                            });
+                        } else {
+                            sections.push(s);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            newTokens.push({
+                type: 'section_begin',
+                text: token.text,
+                level: token.level
+            });
+
+            // console.log(lastSection, token);
+            sections.push(token);
+            // console.log(token);
+            // console.log('sections', sections);
+        } else {
+            newTokens.push(token);
+        }
+    }
+    console.log(sections.length);
+    console.log(newTokens);
+    return tokens;
 };
 
 var lexizeScript = exports.lexizeScript = function lexizeScript(script) {

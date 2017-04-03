@@ -275,7 +275,7 @@ export const tokenizeLines = (lines) => {
 
 
 
-export const sectionizeTokensOld = (tokens) => {
+export const sectionizeTokens = (tokens) => {
     let newTokens = [];
     let sections = [];
     let lastSection;
@@ -286,31 +286,42 @@ export const sectionizeTokensOld = (tokens) => {
                 lastSection = sections.pop();
             }
 
-            if (lastSection) {
-                if (token.level >= lastSection.level ) {
-                    sections.push(lastSection);
+            console.log(lastSection);
+            console.log(sections.length);
 
-                } else {
-                    // popout sections until you reach this level
-                    //const i = sections.length - 1;
-                    let s;
-                    while (s = sections.pop()) {
-                        if (s.level >= token.level) {
-                            newTokens.push({
-                                type: 'section_end',
-                                level: lastSection.level
-                            });
-                            newTokens.push({
-                                type: 'section_end',
-                                level: s.level
-                            });
-                        } else {
-                            sections.push(s);
-                            break;
-                        }
-                    }
-                }
+            if (lastSection) {
+                newTokens.push({
+                    type: 'section_end',
+                    level: lastSection.level
+                });
             }
+
+            //
+            // if (lastSection) {
+            //     if (token.level >= lastSection.level ) {
+            //         sections.push(lastSection);
+            //
+            //     } else {
+            //         // popout sections until you reach this level
+            //         // //const i = sections.length - 1;
+            //         // let s;
+            //         // while (s = sections.pop()) {
+            //         //     if (s.level >= token.level) {
+            //         //         newTokens.push({
+            //         //             type: 'section_end',
+            //         //             level: lastSection.level
+            //         //         });
+            //         //         newTokens.push({
+            //         //             type: 'section_end',
+            //         //             level: s.level
+            //         //         });
+            //         //     } else {
+            //         //         sections.push(s);
+            //         //         break;
+            //         //     }
+            //         // }
+            //     }
+            // }
 
             newTokens.push({
                 type: 'section_begin',
@@ -318,17 +329,26 @@ export const sectionizeTokensOld = (tokens) => {
                 level: token.level
             });
 
-            // console.log(lastSection, token);
             sections.push(token);
-            // console.log(token);
-            // console.log('sections', sections);
+
+
+            // console.log(sections);
+
         } else {
             newTokens.push(token);
         }
     }
-    console.log(sections.length);
+
+    if(sections.length > 0) {
+        const section = sections.pop();
+        newTokens.push({
+            type: 'section_end',
+            level: section.level
+        })
+    }
+    console.log(sections);
     console.log(newTokens);
-    return tokens;
+    return newTokens;
 }
 
 export const lexizeScript = (script) => {
