@@ -16,6 +16,7 @@ const exampleNotes = fs.readFileSync(dataDir + '/notes.fountain', 'utf8');
 const examplePageBreaks = fs.readFileSync(dataDir + '/page_break.fountain', 'utf8');
 const exampleSceneHeadings = fs.readFileSync(dataDir + '/scene_headings.fountain', 'utf8');
 const exampleSections = fs.readFileSync(dataDir + '/sections.fountain', 'utf8');
+const exampleSectionsWithImage = fs.readFileSync(dataDir + '/sections-with-image.fountain', 'utf8');
 const exampleTitlePage = fs.readFileSync(dataDir + '/title_page.fountain', 'utf8');
 const exampleTransitions = fs.readFileSync(dataDir + '/transitions.fountain', 'utf8');
 
@@ -65,8 +66,12 @@ describe('fountainParser.tokenizeLines()', () => {
         const compiled = parseFountainScript(exampleTitlePage);
         console.log(compiled);
     });
-    test.only('compile sections', () => {
+    test('compile sections', () => {
         const compiled = parseFountainScript(exampleSections);
+        console.log(compiled);
+    });
+    test.only('compile sections with images', () => {
+        const compiled = parseFountainScript(exampleSectionsWithImage);
         console.log(compiled);
     });
 });

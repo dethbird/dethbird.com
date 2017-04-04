@@ -3,8 +3,7 @@ export const SECTION_LEVELS = [
     "act",
     "sequence",
     "scene",
-    "panel",
-    "shot"
+    "panel"
 ];
 
 export const REGEX = {
@@ -27,7 +26,7 @@ export const REGEX = {
     DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
     DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
-    SECTION: /^(#+)(?: *)(.*)/,
+    SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?/i,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
 
     // !!!! power user action!!!
@@ -189,7 +188,8 @@ export const tokenizeLines = (lines) => {
             const token = {
                 type: 'section',
                 text: match[2],
-                level: match[1].length
+                level: match[1].length,
+                image: match[3]
             };
             tokens.push(token);
             continue;
@@ -336,7 +336,8 @@ export const sectionizeTokens = (tokens) => {
             newTokens.push({
                 type: 'section_begin',
                 text: token.text,
-                level: token.level
+                level: token.level,
+                image: token.image
             });
 
         } else {
@@ -479,8 +480,11 @@ export const compileTokens = (tokens) => {
                 break;
 
             case 'section_begin':
-                html.push('<div class=\"section_begin\" data-section=\"' + SECTION_LEVELS[token.level] + '\">');
-                html.push('<h' + token.level +' class=\"section\" data-depth=\"' + token.level + '\">' + text + '</h' + token.level +'>');
+                html.push('<div class=\"section-container ' + SECTION_LEVELS[token.level] + '\">');
+                html.push('<h' + token.level +' class=\"section ' + SECTION_LEVELS[token.level] + '\">' + text + '</h' + token.level +'>');
+                if (token.image) {
+                    html.push('<img class=\"section-image\" src=\"' + token.image + '\" />');
+                }
                 break;
 
             case 'section_end':

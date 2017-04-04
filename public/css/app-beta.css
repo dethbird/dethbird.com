@@ -10,7 +10,7 @@ code {
 .fountain {
   color: #000 !important;
   font-family: 'IM Fell English', serif;
-  margin: 2em 3em 2em 3em;
+  margin: 1em 2em 1em 2em;
 }
 .fountain h1,
 .fountain h2,
@@ -77,6 +77,10 @@ code {
 .fountain .parenthetical {
   text-align: center;
   margin: .5em 0em .5em 0em;
+}
+.fountain .section-image {
+  max-width: 100%;
+  display: block;
 }
 .fountain .scene_heading {
   display: block;
