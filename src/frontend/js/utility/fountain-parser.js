@@ -189,7 +189,8 @@ export const tokenizeLines = (lines) => {
                 type: 'section',
                 text: match[2],
                 level: match[1].length,
-                image: match[3]
+                image: match[3],
+                duration: match[1].length == 4 ? match[5] : false
             };
             tokens.push(token);
             continue;
@@ -334,10 +335,8 @@ export const sectionizeTokens = (tokens) => {
             }
 
             newTokens.push({
-                type: 'section_begin',
-                text: token.text,
-                level: token.level,
-                image: token.image
+                ... token,
+                type: 'section_begin'
             });
 
         } else {
@@ -484,6 +483,9 @@ export const compileTokens = (tokens) => {
                 html.push('<h' + token.level +' class=\"section ' + SECTION_LEVELS[token.level] + '\">' + text + '</h' + token.level +'>');
                 if (token.image) {
                     html.push('<img class=\"section-image\" src=\"' + token.image + '\" />');
+                }
+                if (token.duration) {
+                    html.push('<span class=\"section-duration\">' + token.duration + '</span>');
                 }
                 break;
 

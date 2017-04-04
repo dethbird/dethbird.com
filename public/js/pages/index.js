@@ -18709,6 +18709,9 @@ var scriptPost = exports.scriptPost = function scriptPost(fields) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var SECTION_LEVELS = exports.SECTION_LEVELS = ["", "act", "sequence", "scene", "panel"];
 
 var REGEX = exports.REGEX = {
@@ -18894,7 +18897,8 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
                 type: 'section',
                 text: match[2],
                 level: match[1].length,
-                image: match[3]
+                image: match[3],
+                duration: match[1].length == 4 ? match[5] : false
             };
             tokens.push(_token);
             continue;
@@ -19033,12 +19037,9 @@ var sectionizeTokens = exports.sectionizeTokens = function sectionizeTokens(toke
                 sections.push(token);
             }
 
-            newTokens.push({
-                type: 'section_begin',
-                text: token.text,
-                level: token.level,
-                image: token.image
-            });
+            newTokens.push(_extends({}, token, {
+                type: 'section_begin'
+            }));
         } else {
             newTokens.push(token);
         }
@@ -19165,6 +19166,9 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 html.push('<h' + token.level + ' class=\"section ' + SECTION_LEVELS[token.level] + '\">' + text + '</h' + token.level + '>');
                 if (token.image) {
                     html.push('<img class=\"section-image\" src=\"' + token.image + '\" />');
+                }
+                if (token.duration) {
+                    html.push('<span class=\"section-duration\">' + token.duration + '</span>');
                 }
                 break;
 
@@ -33880,7 +33884,8 @@ var LoginForm = _react2.default.createClass({
         changedFields[elementId] = e.currentTarget.value;
         this.setState(_extends({}, changedFields));
     },
-    onClickSubmit: function onClickSubmit() {
+    onClickSubmit: function onClickSubmit(e) {
+        e.preventDefault();
         var dispatch = this.props.dispatch;
         var changedFields = this.state.changedFields;
 

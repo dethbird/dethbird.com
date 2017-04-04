@@ -72,6 +72,6 @@ describe('fountainParser.tokenizeLines()', () => {
     });
     test.only('compile sections with metadata', () => {
         const compiled = parseFountainScript(exampleSectionsWithMetadata);
-        console.log(compiled);
+        console.dir(compiled);
     });
 });

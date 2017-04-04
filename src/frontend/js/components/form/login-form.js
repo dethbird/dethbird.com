@@ -28,7 +28,8 @@ const LoginForm = React.createClass({
             ... changedFields
         });
     },
-    onClickSubmit() {
+    onClickSubmit(e) {
+        e.preventDefault();
         const { dispatch } = this.props;
         const { changedFields } = this.state;
         dispatch(loginAttempt(changedFields));
