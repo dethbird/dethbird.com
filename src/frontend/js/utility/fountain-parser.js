@@ -26,7 +26,7 @@ export const REGEX = {
     DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
     DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
-    SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?/i,
+    SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?(?:\n)?([0-9]?[0-9]:[0-9][0-9])?/i,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
 
     // !!!! power user action!!!
