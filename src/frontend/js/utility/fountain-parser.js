@@ -1,3 +1,12 @@
+export const SECTION_LEVELS = [
+    "",
+    "act",
+    "sequence",
+    "scene",
+    "panel",
+    "shot"
+];
+
 export const REGEX = {
 
     LEXER: {
@@ -345,7 +354,6 @@ export const sectionizeTokens = (tokens) => {
             })
         }
     }
-    console.log('NEW TOKENS', newTokens);
     return newTokens;
 }
 
@@ -441,7 +449,7 @@ export const compileTokens = (tokens) => {
 
             // script body
             case 'scene_heading':
-                html.push('<h3 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h3>');
+                html.push('<h2 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h2>');
                 break;
             case 'transition':
                 html.push('<h2 class=\"transition\">' + text + '</h2>');
@@ -470,9 +478,15 @@ export const compileTokens = (tokens) => {
                 html.push('</div>');
                 break;
 
-            case 'section':
+            case 'section_begin':
+                html.push('<div class=\"section_begin\" data-section=\"' + SECTION_LEVELS[token.level] + '\">');
                 html.push('<h' + token.level +' class=\"section\" data-depth=\"' + token.level + '\">' + text + '</h' + token.level +'>');
                 break;
+
+            case 'section_end':
+                html.push('</div>');
+                break;
+
             case 'synopsis':
                 html.push('<span class=\"synopsis\">' + text + '</span>');
                 break;

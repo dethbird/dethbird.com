@@ -67,6 +67,6 @@ describe('fountainParser.tokenizeLines()', () => {
     });
     test.only('compile sections', () => {
         const compiled = parseFountainScript(exampleSections);
-        // console.log(compiled);
+        console.log(compiled);
     });
 });

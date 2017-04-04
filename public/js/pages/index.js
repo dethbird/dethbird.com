@@ -18709,6 +18709,8 @@ var scriptPost = exports.scriptPost = function scriptPost(fields) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var SECTION_LEVELS = exports.SECTION_LEVELS = ["", "act", "sequence", "scene", "panel", "shot"];
+
 var REGEX = exports.REGEX = {
 
     LEXER: {
@@ -18983,40 +18985,51 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
     return sectionizeTokens(tokens.reverse());
 };
 
-var sectionizeTokensOld = exports.sectionizeTokensOld = function sectionizeTokensOld(tokens) {
+var sectionizeTokens = exports.sectionizeTokens = function sectionizeTokens(tokens) {
     var newTokens = [];
     var sections = [];
     var lastSection = void 0;
     for (var i in tokens) {
         var token = tokens[i];
         if (token.type == 'section') {
+
             if (sections.length > 0) {
                 lastSection = sections.pop();
             }
 
             if (lastSection) {
-                if (token.level >= lastSection.level) {
+
+                if (token.level > lastSection.level) {
+
                     sections.push(lastSection);
+                    sections.push(token);
                 } else {
-                    // popout sections until you reach this level
-                    //const i = sections.length - 1;
+                    newTokens.push({
+                        type: 'section_end',
+                        text: lastSection.text,
+                        level: lastSection.level
+                    });
+
                     var s = void 0;
                     while (s = sections.pop()) {
-                        if (s.level >= token.level) {
+                        if (s.level <= lastSection.level && s.level >= token.level) {
                             newTokens.push({
                                 type: 'section_end',
-                                level: lastSection.level
-                            });
-                            newTokens.push({
-                                type: 'section_end',
+                                text: s.text,
                                 level: s.level
                             });
                         } else {
                             sections.push(s);
+                            sections.push(token);
                             break;
                         }
                     }
+                    if (sections.length == 0) {
+                        sections.push(token);
+                    }
                 }
+            } else {
+                sections.push(token);
             }
 
             newTokens.push({
@@ -19024,18 +19037,22 @@ var sectionizeTokensOld = exports.sectionizeTokensOld = function sectionizeToken
                 text: token.text,
                 level: token.level
             });
-
-            // console.log(lastSection, token);
-            sections.push(token);
-            // console.log(token);
-            // console.log('sections', sections);
         } else {
             newTokens.push(token);
         }
     }
-    console.log(sections.length);
-    console.log(newTokens);
-    return tokens;
+
+    if (sections.length > 0) {
+        var _s = void 0;
+        while (_s = sections.pop()) {
+            newTokens.push({
+                type: 'section_end',
+                text: _s.text,
+                level: _s.level
+            });
+        }
+    }
+    return newTokens;
 };
 
 var lexizeScript = exports.lexizeScript = function lexizeScript(script) {
@@ -19112,7 +19129,7 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
 
             // script body
             case 'scene_heading':
-                html.push('<h3 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h3>');
+                html.push('<h2 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h2>');
                 break;
             case 'transition':
                 html.push('<h2 class=\"transition\">' + text + '</h2>');
@@ -19141,9 +19158,15 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 html.push('</div>');
                 break;
 
-            case 'section':
+            case 'section_begin':
+                html.push('<div class=\"section_begin\" data-section=\"' + SECTION_LEVELS[token.level] + '\">');
                 html.push('<h' + token.level + ' class=\"section\" data-depth=\"' + token.level + '\">' + text + '</h' + token.level + '>');
                 break;
+
+            case 'section_end':
+                html.push('</div>');
+                break;
+
             case 'synopsis':
                 html.push('<span class=\"synopsis\">' + text + '</span>');
                 break;
