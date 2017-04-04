@@ -18731,7 +18731,7 @@ var REGEX = exports.REGEX = {
     DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
     DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
-    SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?/i,
+    SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?(?:\n)?([0-9]?[0-9]:[0-9][0-9])?/i,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
 
     // !!!! power user action!!!
@@ -33908,11 +33908,13 @@ var LoginForm = _react2.default.createClass({
                     inverted: true,
                     loading: ui_state == _uiState.UI_STATE.REQUESTING,
                     error: ui_state == _uiState.UI_STATE.ERROR,
-                    success: ui_state == _uiState.UI_STATE.SUCCESS
+                    success: ui_state == _uiState.UI_STATE.SUCCESS,
+                    onSubmit: this.onClickSubmit
                 },
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
+                    _react2.default.createElement(_semanticUiReact.Message, { success: true, content: 'Successfully logged in, redirecting ...' }),
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
                 ),
                 _react2.default.createElement(
@@ -33935,7 +33937,7 @@ var LoginForm = _react2.default.createClass({
                         null,
                         _react2.default.createElement(
                             _semanticUiReact.Button,
-                            { as: 'a', color: 'teal', onClick: this.onClickSubmit },
+                            { color: 'teal', onClick: this.onClickSubmit },
                             'Login'
                         ),
                         _react2.default.createElement(

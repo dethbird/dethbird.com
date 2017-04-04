@@ -46,8 +46,10 @@ const LoginForm = React.createClass({
                     loading={ ui_state == UI_STATE.REQUESTING }
                     error={ ui_state == UI_STATE.ERROR }
                     success={ ui_state == UI_STATE.SUCCESS }
+                    onSubmit={ this.onClickSubmit }
                 >
                     <Container>
+                        <Message success={ true } content="Successfully logged in, redirecting ..." />
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
                     <Form.Group widths='equal'>
@@ -58,7 +60,7 @@ const LoginForm = React.createClass({
                     </Form.Group>
                     <Container textAlign="right">
                         <Button.Group>
-                            <Button as="a" color="teal" onClick={ this.onClickSubmit }>Login</Button>
+                            <Button color="teal" onClick={ this.onClickSubmit }>Login</Button>
                             <Button as="a" onClick={ onClickCancel }>Cancel</Button>
                         </Button.Group>
                     </Container>
