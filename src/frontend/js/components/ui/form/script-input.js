@@ -21,8 +21,8 @@ const ScriptInput = React.createClass({
         const parsed = parseFountainScript(script);
 
         return (
-            <Grid columns={ 2 }>
-                <Grid.Column>
+            <Grid>
+                <Grid.Column width={ 6 }>
                     <TextArea
                         value={ script }
                         onChange={ (e) => { onChange(e, id) } }
@@ -32,7 +32,7 @@ const ScriptInput = React.createClass({
                         placeholder={ placeholder }
                     />
                 </Grid.Column>
-                <Grid.Column>
+                <Grid.Column width={ 10 }>
                     <Segment raised={ true } className="fountain-container">
                         <div
                             className="fountain"

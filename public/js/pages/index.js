@@ -19165,7 +19165,9 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
                 html.push('<div class=\"section-container ' + SECTION_LEVELS[token.level] + '\">');
                 html.push('<h' + token.level + ' class=\"section ' + SECTION_LEVELS[token.level] + '\">' + text + '</h' + token.level + '>');
                 if (token.image) {
+                    html.push('<div class=\"section-image-container\">');
                     html.push('<img class=\"section-image\" src=\"' + token.image + '\" />');
+                    html.push('</div>');
                 }
                 if (token.duration) {
                     html.push('<span class=\"section-duration\">' + token.duration + '</span>');
@@ -34343,10 +34345,10 @@ var ScriptInput = _react2.default.createClass({
 
         return _react2.default.createElement(
             _semanticUiReact.Grid,
-            { columns: 2 },
+            null,
             _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                null,
+                { width: 6 },
                 _react2.default.createElement(_semanticUiReact.TextArea, {
                     value: script,
                     onChange: function onChange(e) {
@@ -34360,7 +34362,7 @@ var ScriptInput = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                null,
+                { width: 10 },
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { raised: true, className: 'fountain-container' },

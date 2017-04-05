@@ -78,9 +78,12 @@ code {
   text-align: center;
   margin: .5em 0em .5em 0em;
 }
+.fountain .section-image-container {
+  text-align: center;
+}
 .fountain .section-image {
   max-width: 100%;
-  display: block;
+  display: inline-block;
 }
 .fountain .scene_heading {
   display: block;
