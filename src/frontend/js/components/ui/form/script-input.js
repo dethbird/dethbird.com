@@ -22,7 +22,7 @@ const ScriptInput = React.createClass({
 
         return (
             <Grid>
-                <Grid.Column width={ 6 }>
+                <Grid.Column width={ 7 }>
                     <TextArea
                         value={ script }
                         onChange={ (e) => { onChange(e, id) } }
@@ -32,7 +32,7 @@ const ScriptInput = React.createClass({
                         placeholder={ placeholder }
                     />
                 </Grid.Column>
-                <Grid.Column width={ 10 }>
+                <Grid.Column width={ 9 }>
                     <Segment raised={ true } className="fountain-container">
                         <div
                             className="fountain"

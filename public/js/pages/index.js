@@ -18896,6 +18896,7 @@ var tokenizeLines = exports.tokenizeLines = function tokenizeLines(lines) {
             var _token = {
                 type: 'section',
                 text: match[2],
+                level_text: match[1],
                 level: match[1].length,
                 image: match[3],
                 duration: match[1].length == 4 ? match[5] : false
@@ -19163,10 +19164,10 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
 
             case 'section_begin':
                 html.push('<div class=\"section-container ' + SECTION_LEVELS[token.level] + '\">');
-                html.push('<h' + token.level + ' class=\"section ' + SECTION_LEVELS[token.level] + '\">' + text + '</h' + token.level + '>');
+                html.push('<h' + token.level + ' class=\"section ' + SECTION_LEVELS[token.level] + '\"><span class=\"section level-text ' + SECTION_LEVELS[token.level] + '\">' + token.level_text + '</span>' + text + '</h' + token.level + '>');
                 if (token.image) {
                     html.push('<div class=\"section-image-container\">');
-                    html.push('<img class=\"section-image\" src=\"' + token.image + '\" />');
+                    html.push('<img class=\"section-image ' + SECTION_LEVELS[token.level] + '\" src=\"' + token.image + '\" />');
                     html.push('</div>');
                 }
                 if (token.duration) {
@@ -34348,7 +34349,7 @@ var ScriptInput = _react2.default.createClass({
             null,
             _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                { width: 6 },
+                { width: 7 },
                 _react2.default.createElement(_semanticUiReact.TextArea, {
                     value: script,
                     onChange: function onChange(e) {
@@ -34362,7 +34363,7 @@ var ScriptInput = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                { width: 10 },
+                { width: 9 },
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { raised: true, className: 'fountain-container' },
