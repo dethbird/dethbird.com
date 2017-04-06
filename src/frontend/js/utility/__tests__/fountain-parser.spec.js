@@ -1,5 +1,6 @@
 import fs from 'fs';
 import {
+    convertTokensToProjectStory,
     compileTokens,
     lexizeScript,
     parseFountainScript,
@@ -70,8 +71,17 @@ describe('fountainParser.tokenizeLines()', () => {
         const compiled = parseFountainScript(exampleSections);
         console.log(compiled);
     });
-    test.only('compile sections with metadata', () => {
+    test('compile sections with metadata', () => {
         const compiled = parseFountainScript(exampleSectionsWithMetadata);
         console.dir(compiled);
+    });
+
+
+    test.only('convert tokens to project', () => {
+        const project = convertTokensToProjectStory(
+            tokenizeLines(lexizeScript(exampleSectionsWithMetadata)));
+
+        const util = require('util')
+        console.log(util.inspect(project, false, null));
     });
 });

@@ -540,6 +540,60 @@ export const compileTokens = (tokens) => {
     );
 }
 
+export const convertTokensToProjectStory = (tokens) => {
+    let project = {};
+    project.acts = [];
+
+    let currentAct = 0;
+    let currentSequence = 0;
+    let currentScene = 0;
+    let currentPanel = 0;
+
+    for (const i in tokens) {
+        const token = tokens[i];
+        if (token.type=='section_begin') {
+            if (token.level == 1) {
+                token.sequences = [];
+                project.acts.push(token);
+            }
+            if (token.level == 2) {
+                token.scenes = [];
+                project.acts[
+                    project.acts.length - 1
+                ].sequences.push(token);
+            }
+            if (token.level == 3) {
+                token.panels = [];
+                project.acts[
+                    project.acts.length - 1
+                ].sequences[
+                    project.acts[
+                        project.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes.push(token);
+            }
+            if (token.level == 4) {
+                project.acts[
+                    project.acts.length - 1
+                ].sequences[
+                    project.acts[
+                        project.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes[
+                    project.acts[
+                        project.acts.length - 1
+                    ].sequences[
+                        project.acts[
+                            project.acts.length - 1
+                        ].sequences.length - 1
+                    ].scenes.length - 1
+                ].panels.push(token);
+            }
+        }
+    }
+    return project;
+}
+
 export const parseFountainScript = (script) => {
     const tokens = tokenizeLines( lexizeScript(script) );
     const markup = compileTokens(tokens);
