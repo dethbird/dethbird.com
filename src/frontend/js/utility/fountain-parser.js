@@ -541,8 +541,8 @@ export const compileTokens = (tokens) => {
 }
 
 export const convertTokensToProjectStory = (tokens) => {
-    let project = {};
-    project.acts = [];
+    let story = {};
+    story.acts = [];
 
     for(let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
@@ -552,7 +552,7 @@ export const convertTokensToProjectStory = (tokens) => {
             for(let j = i + 1; j < tokens.length; j++) {
                 // look ahead until next section_begin
                 if(tokens[j].type != "title_page_end") {
-                    project[tokens[j].type] = tokens[j].text;
+                    story[tokens[j].type] = tokens[j].text;
                 } else {
                     break;
                 }
@@ -573,44 +573,44 @@ export const convertTokensToProjectStory = (tokens) => {
 
             if (token.level == 1) {
                 token.sequences = [];
-                project.acts.push(token);
+                story.acts.push(token);
             }
             if (token.level == 2) {
                 token.scenes = [];
-                project.acts[
-                    project.acts.length - 1
+                story.acts[
+                    story.acts.length - 1
                 ].sequences.push(token);
             }
             if (token.level == 3) {
                 token.panels = [];
-                project.acts[
-                    project.acts.length - 1
+                story.acts[
+                    story.acts.length - 1
                 ].sequences[
-                    project.acts[
-                        project.acts.length - 1
+                    story.acts[
+                        story.acts.length - 1
                     ].sequences.length - 1
                 ].scenes.push(token);
             }
             if (token.level == 4) {
-                project.acts[
-                    project.acts.length - 1
+                story.acts[
+                    story.acts.length - 1
                 ].sequences[
-                    project.acts[
-                        project.acts.length - 1
+                    story.acts[
+                        story.acts.length - 1
                     ].sequences.length - 1
                 ].scenes[
-                    project.acts[
-                        project.acts.length - 1
+                    story.acts[
+                        story.acts.length - 1
                     ].sequences[
-                        project.acts[
-                            project.acts.length - 1
+                        story.acts[
+                            story.acts.length - 1
                         ].sequences.length - 1
                     ].scenes.length - 1
                 ].panels.push(token);
             }
         }
     }
-    return project;
+    return story;
 }
 
 export const parseFountainScript = (script) => {
