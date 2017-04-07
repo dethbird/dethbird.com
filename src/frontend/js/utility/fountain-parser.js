@@ -551,12 +551,12 @@ export const convertTokensToProjectStory = (tokens) => {
             for(let j = i + 1; j < tokens.length; j++) {
                 // look ahead until next section_begin
                 if(tokens[j].type != "title_page_end") {
+                    // section content
                     story[tokens[j].type] = tokens[j].text;
                 } else {
                     break;
                 }
             }
-
         }
 
         if (token.type=='section_begin') {
