@@ -546,7 +546,6 @@ export const convertTokensToProjectStory = (tokens) => {
 
     for(let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
-        // console.log(token);
 
         if (token.type=='title_page_start') {
             for(let j = i + 1; j < tokens.length; j++) {

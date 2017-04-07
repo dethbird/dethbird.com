@@ -6,6 +6,7 @@ import {
     parseFountainScript,
     tokenizeLines
 } from 'utility/fountain-parser';
+import { log } from 'utility/logger';
 
 const dataDir = process.cwd() + '/src/frontend/js/utility/__tests__/data';
 
@@ -78,10 +79,8 @@ describe('fountainParser.tokenizeLines()', () => {
 
 
     test.only('convert tokens to project', () => {
-        const project = convertTokensToProjectStory(
+        const story = convertTokensToProjectStory(
             tokenizeLines(lexizeScript(exampleSectionsWithMetadata)));
-
-        const util = require('util')
-        console.log(util.inspect(project, false, null));
+        log(story);
     });
 });
