@@ -572,81 +572,112 @@ export const convertTokensToProjectStory = (tokens) => {
             }
 
             if (token.level == 1) {
-                token.sequences = [];
-                story.acts.push(token);
+                // token.sequences = [];
+                delete token.duration;
+                delete token.level;
+                story.acts.push({
+                    ... token,
+                    type: 'act',
+                    sequences: []
+                });
             }
             if (token.level == 2) {
-                token.scenes = [];
                 if (story.acts.length < 1) {
                     story.acts.push({
-                        type: "section_begin",
-                        text: "Act",
-                        level: 1,
+                        type: 'act',
+                        text: 'Act',
+                        level_text: '#',
+                        image: undefined,
+                        tokens: [],
                         sequences: []
                     });
                 }
+
+                delete token.duration;
+                delete token.level;
                 story.acts[
                     story.acts.length - 1
-                ].sequences.push(token);
+                ].sequences.push({
+                    ... token,
+                    type: 'sequence',
+                    scenes: []
+                });
             }
             if (token.level == 3) {
                 token.panels = [];
 
                 if (story.acts.length < 1) {
                     story.acts.push({
-                        type: "section_begin",
-                        text: "Act",
-                        level: 1,
+                        type: 'act',
+                        text: 'Act',
+                        level_text: '#',
+                        image: undefined,
+                        tokens: [],
                         sequences: []
                     });
                 }
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
-                        type: "section_begin",
-                        text: "Sequence",
-                        level: 2,
+                        type: 'sequence',
+                        text: 'Sequence',
+                        level_text: '##',
+                        image: undefined,
+                        tokens: [],
                         scenes: []
                     });
                 }
 
+                delete token.duration;
+                delete token.level;
                 story.acts[
                     story.acts.length - 1
                 ].sequences[
                     story.acts[
                         story.acts.length - 1
                     ].sequences.length - 1
-                ].scenes.push(token);
+                ].scenes.push({
+                    ... token,
+                    type: 'scene',
+                    panels: []
+                });
             }
             if (token.level == 4) {
 
                 if (story.acts.length < 1) {
                     story.acts.push({
-                        type: "section_begin",
-                        text: "Act",
-                        level: 1,
+                        type: 'act',
+                        text: 'Act',
+                        level_text: '#',
+                        image: undefined,
+                        tokens: [],
                         sequences: []
                     });
                 }
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
-                        type: "section_begin",
-                        text: "Sequence",
-                        level: 2,
+                        type: 'sequence',
+                        text: 'Sequence',
+                        level_text: '##',
+                        image: undefined,
+                        tokens: [],
                         scenes: []
                     });
                 }
 
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
-                        type: "section_begin",
-                        text: "Scene",
-                        level: 3,
+                        type: 'scene',
+                        text: 'Scene',
+                        level_text: '###',
+                        image: undefined,
+                        tokens: [],
                         panels: []
                     });
                 }
 
+                delete token.level;
                 story.acts[
                     story.acts.length - 1
                 ].sequences[
@@ -661,7 +692,10 @@ export const convertTokensToProjectStory = (tokens) => {
                             story.acts.length - 1
                         ].sequences.length - 1
                     ].scenes.length - 1
-                ].panels.push(token);
+                ].panels.push({
+                    ... token,
+                    type: 'panel'
+                });
             }
         }
     }
