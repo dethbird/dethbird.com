@@ -566,6 +566,7 @@ export const convertTokensToProjectStory = (tokens) => {
                 if(tokens[j].type !== "section_begin" && tokens[j].type != "section_end") {
                     token.tokens.push(tokens[j]);
                 } else {
+                    i = j-1;
                     break;
                 }
             }
@@ -576,12 +577,39 @@ export const convertTokensToProjectStory = (tokens) => {
             }
             if (token.level == 2) {
                 token.scenes = [];
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        type: "section_begin",
+                        text: "Act",
+                        level: 1,
+                        sequences: []
+                    });
+                }
                 story.acts[
                     story.acts.length - 1
                 ].sequences.push(token);
             }
             if (token.level == 3) {
                 token.panels = [];
+
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        type: "section_begin",
+                        text: "Act",
+                        level: 1,
+                        sequences: []
+                    });
+                }
+
+                if (story.acts[story.acts.length - 1].sequences.length < 1) {
+                    story.acts[story.acts.length - 1].sequences.push({
+                        type: "section_begin",
+                        text: "Sequence",
+                        level: 2,
+                        scenes: []
+                    });
+                }
+
                 story.acts[
                     story.acts.length - 1
                 ].sequences[
@@ -591,6 +619,34 @@ export const convertTokensToProjectStory = (tokens) => {
                 ].scenes.push(token);
             }
             if (token.level == 4) {
+
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        type: "section_begin",
+                        text: "Act",
+                        level: 1,
+                        sequences: []
+                    });
+                }
+
+                if (story.acts[story.acts.length - 1].sequences.length < 1) {
+                    story.acts[story.acts.length - 1].sequences.push({
+                        type: "section_begin",
+                        text: "Sequence",
+                        level: 2,
+                        scenes: []
+                    });
+                }
+
+                if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
+                    story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        type: "section_begin",
+                        text: "Scene",
+                        level: 3,
+                        panels: []
+                    });
+                }
+
                 story.acts[
                     story.acts.length - 1
                 ].sequences[
