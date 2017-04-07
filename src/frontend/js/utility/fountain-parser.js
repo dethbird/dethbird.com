@@ -544,15 +544,23 @@ export const convertTokensToProjectStory = (tokens) => {
     let project = {};
     project.acts = [];
 
-    let currentAct = 0;
-    let currentSequence = 0;
-    let currentScene = 0;
-    let currentPanel = 0;
-
     for(let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
+        // console.log(token);
+
+        if (token.type=='title_page_start') {
+            for(let j = i + 1; j < tokens.length; j++) {
+                // look ahead until next section_begin
+                if(tokens[j].type != "title_page_end") {
+                    project[tokens[j].type] = tokens[j].text;
+                } else {
+                    break;
+                }
+            }
+
+        }
+
         if (token.type=='section_begin') {
-            const j = i+1;
             token.tokens = [];
             for(let j = i + 1; j < tokens.length; j++) {
                 // look ahead until next section_begin
