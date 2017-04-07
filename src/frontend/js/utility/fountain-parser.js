@@ -549,9 +549,20 @@ export const convertTokensToProjectStory = (tokens) => {
     let currentScene = 0;
     let currentPanel = 0;
 
-    for (const i in tokens) {
+    for(let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
         if (token.type=='section_begin') {
+            const j = i+1;
+            token.tokens = [];
+            for(let j = i + 1; j < tokens.length; j++) {
+                // look ahead until next section_begin
+                if(tokens[j].type !== "section_begin" && tokens[j].type != "section_end") {
+                    token.tokens.push(tokens[j]);
+                } else {
+                    break;
+                }
+            }
+
             if (token.level == 1) {
                 token.sequences = [];
                 project.acts.push(token);
