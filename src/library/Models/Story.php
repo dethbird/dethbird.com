@@ -1,8 +1,8 @@
 <?php
 
-class Script extends ActiveRecord\Model
+class Story extends ActiveRecord\Model
 {
-    static $table_name = 'script';
+    static $table_name = 'story';
 
     static $before_create = ['before_create_audit'];
     static $after_create = ['after_create_audit'];
@@ -15,27 +15,27 @@ class Script extends ActiveRecord\Model
     }
 
     public function after_create_audit() {
-        $log = new ScriptChangelog(
+        $log = new StoryChangelog(
             $this->to_array(
                 [
                     "except" => ['id']
                 ]
             )
         );
-        $log->script_id = $this->id;
+        $log->story_id = $this->id;
         $log->type = 'create';
         $log->save();
     }
 
     public function after_update_audit() {
-        $log = new ScriptChangelog(
+        $log = new StoryChangelog(
             $this->to_array(
                 [
                     "except" => ['id']
                 ]
             )
         );
-        $log->script_id = $this->id;
+        $log->story_id = $this->id;
         $log->type = 'update';
         $log->save();
     }

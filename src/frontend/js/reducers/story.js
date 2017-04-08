@@ -1,19 +1,19 @@
-import { SCRIPT } from 'constants/actions';
+import { STORY } from 'constants/actions';
 import { UI_STATE } from 'constants/ui-state';
 
-const scriptReducer = (state = {}, action) => {
+const storyReducer = (state = {}, action) => {
 
     switch (action.type) {
-        case SCRIPT.REQUEST:
+        case STORY.REQUEST:
             return {
                 ui_state: UI_STATE.REQUESTING
             }
-        case SCRIPT.ERROR:
+        case STORY.ERROR:
             return {
                 ui_state: UI_STATE.ERROR,
                 errors: action.errors
             }
-        case SCRIPT.SUCCESS:
+        case STORY.SUCCESS:
             return {
                 ui_state: UI_STATE.SUCCESS,
                 model: action.model
@@ -23,4 +23,4 @@ const scriptReducer = (state = {}, action) => {
     }
 }
 
-export default scriptReducer;
+export default storyReducer;

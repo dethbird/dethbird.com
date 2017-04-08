@@ -5,28 +5,28 @@ import {
     Container
 } from 'semantic-ui-react';
 
-import ScriptCard from 'components/ui/card/script-card';
+import StoryCard from 'components/ui/card/story-card';
 import { UI_STATE } from 'constants/ui-state';
-import { scriptsGet } from 'actions/script';
+import { storiesGet } from 'actions/story';
 
-const ScriptsList = React.createClass({
+const StoriesList = React.createClass({
     componentWillMount() {
         const { dispatch } = this.props;
-        dispatch(scriptsGet());
+        dispatch(storiesGet());
     },
     render() {
         const { models } = this.props;
 
-        const scriptNodes = models ? models.map(function(script, i){
+        const storyNodes = models ? models.map(function(story, i){
             return (
-                <ScriptCard script={ script } key={ i } />
+                <StoryCard story={ story } key={ i } />
             );
         }) : [];
 
         return (
             <Container>
                 <Card.Group itemsPerRow={ 4 } >
-                    { scriptNodes }
+                    { storyNodes }
                 </Card.Group>
             </Container>
         );
@@ -34,7 +34,7 @@ const ScriptsList = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-    const { ui_state, errors, models } = state.scriptsReducer;
+    const { ui_state, errors, models } = state.storiesReducer;
     return {
         ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
         errors,
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ScriptsList);
+export default connect(mapStateToProps)(StoriesList);

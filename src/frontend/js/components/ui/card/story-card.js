@@ -5,20 +5,20 @@ import {
     Image
 } from 'semantic-ui-react';
 
-const ScriptCard = React.createClass({
+const StoryCard = React.createClass({
     propTypes: {
-        script: React.PropTypes.object.isRequired
+        story: React.PropTypes.object.isRequired
     },
     render() {
-        const { script } = this.props;
+        const { story } = this.props;
         return (
-            <Card onClick={ (e) => { browserHistory.push(`/script/${script.id}/edit`)} } >
+            <Card onClick={ (e) => { browserHistory.push(`/story/${story.id}/edit`)} } >
                 <Card.Content className="center aligned">
-                    <Card.Header>{ script.name }</Card.Header>
+                    <Card.Header>{ story.name }</Card.Header>
                 </Card.Content>
             </Card>
         );
     }
 });
 
-export default ScriptCard;
+export default StoryCard;

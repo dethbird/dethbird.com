@@ -108,10 +108,10 @@ $app->group('/api/0.1', function(){
 
     });
 
-    # scripts
-    $this->get('/scripts', function($request, $response, $args){
+    # stories
+    $this->get('/stories', function($request, $response, $args){
         $models = [];
-        $models = Script::find_all_by_created_by($_SESSION['securityContext']->id);
+        $models = Story::find_all_by_created_by($_SESSION['securityContext']->id);
         $_arr = [];
         foreach ($models as $model) {
             $_arr[] = $model->to_array();
@@ -121,10 +121,10 @@ $app->group('/api/0.1', function(){
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 
-    $this->post('/script', function($request, $response, $args){
+    $this->post('/story', function($request, $response, $args){
         $params = $request->getParsedBody();
         $params['created_by'] = $_SESSION['securityContext']->id;
-        $model = new Script($params);
+        $model = new Story($params);
         $model->save();
 
         return $response
@@ -132,11 +132,11 @@ $app->group('/api/0.1', function(){
     })
     ->add( new WriteAccess($_SESSION['securityContext']) )
     ->add( new RequestBodyValidation(
-        APPLICATION_PATH . 'configs/validation_schema/script-post.json') );
+        APPLICATION_PATH . 'configs/validation_schema/story-post.json') );
 
-    $this->group('/script', function(){
+    $this->group('/story', function(){
         $this->get('/{id}', function($request, $response, $args){
-            $model = Script::find_by_id($args['id']);
+            $model = Story::find_by_id($args['id']);
             if (!$model) {
                 return $response
                     ->withStatus(404)
@@ -150,7 +150,7 @@ $app->group('/api/0.1', function(){
         $this->put('/{id}', function($request, $response, $args){
             $params = $request->getParsedBody();
             $params['updated_by'] = $_SESSION['securityContext']->id;
-            $model = Script::find_by_id($args['id']);
+            $model = Story::find_by_id($args['id']);
 
             if (!$model) {
                 return $response
@@ -173,7 +173,7 @@ $app->group('/api/0.1', function(){
         })
         ->add( new WriteAccess($_SESSION['securityContext']) )
         ->add( new RequestBodyValidation(
-            APPLICATION_PATH . 'configs/validation_schema/script-put.json') );
+            APPLICATION_PATH . 'configs/validation_schema/story-put.json') );
 
     });
 });

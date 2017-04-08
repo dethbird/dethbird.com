@@ -3,21 +3,22 @@ import {
     Segment,
 } from 'semantic-ui-react';
 
-import ScriptsList from 'components/ui/list/scripts-list';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import StoryForm from 'components/form/story-form';
 import Footer from 'components/ui/footer';
+import LoggedInHeader from 'components/ui/logged-in-header';
 
 
-const Scripts = React.createClass({
+const StoryEdit = React.createClass({
     render() {
         const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
+        const { id } = this.props.params;
 
         return (
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
                 <Segment className="main-content">
-                    <ScriptsList />
+                    <StoryForm id={ id } />
                 </Segment>
                 <Footer />
             </Segment.Group>
@@ -25,4 +26,4 @@ const Scripts = React.createClass({
     }
 })
 
-export default Scripts;
+export default StoryEdit;

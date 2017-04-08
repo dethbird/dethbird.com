@@ -1,0 +1,102 @@
+import request from 'superagent';
+import { browserHistory } from 'react-router';
+import { STORY, STORIES } from 'constants/actions';
+
+
+const storiesRequestInit = () => {
+    return {
+        type: STORIES.REQUEST
+    }
+}
+
+const storiesRequestSuccess = (models) => {
+    return {
+        type: STORIES.SUCCESS,
+        models
+    }
+}
+
+const storiesRequestError = (errors) => {
+    return {
+        type: STORIES.ERROR,
+        errors
+    }
+}
+
+
+export const storiesGet = (id) =>
+    dispatch => {
+        dispatch(storiesRequestInit());
+        request.get(`/api/0.1/stories`)
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storiesRequestSuccess(res.body));
+                } else {
+                    dispatch(storiesRequestError(res.body));
+                }
+        });
+    };
+
+const storyRequestInit = () => {
+    return {
+        type: STORY.REQUEST
+    }
+}
+
+const storyRequestSuccess = (model) => {
+    return {
+        type: STORY.SUCCESS,
+        model
+    }
+}
+
+const storyRequestError = (errors) => {
+    return {
+        type: STORY.ERROR,
+        errors
+    }
+}
+
+
+export const storyGet = (id) =>
+    dispatch => {
+        dispatch(storyRequestInit());
+        request.get(`/api/0.1/story/${id}`)
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storyRequestSuccess(res.body));
+                } else {
+                    dispatch(storyRequestError(res.body));
+                }
+        });
+    };
+
+
+export const storyPut = (id, fields) =>
+    dispatch => {
+        dispatch(storyRequestInit());
+        request.put(`/api/0.1/story/${id}`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storyRequestSuccess(res.body));
+                } else {
+                    dispatch(storyRequestError(res.body));
+                }
+        });
+    };
+
+export const storyPost = (fields) =>
+    dispatch => {
+        dispatch(storyRequestInit());
+        request.post(`/api/0.1/story`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storyRequestSuccess(res.body));
+                    browserHistory.replace(`/story/${res.body.id}/edit`);
+                } else {
+                    dispatch(storyRequestError(res.body));
+                }
+        });
+    };

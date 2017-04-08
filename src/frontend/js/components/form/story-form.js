@@ -17,12 +17,12 @@ import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
 import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';
-import { scriptGet, scriptPut, scriptPost } from 'actions/script';
-import scriptPostSchema from 'validation_schema/script-post.json';
+import { storyGet, storyPut, storyPost } from 'actions/story';
+import storyPostSchema from 'validation_schema/story-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
 
-const ScriptForm = React.createClass({
+const StoryForm = React.createClass({
     propTypes: {
         id: React.PropTypes.string
     },
@@ -37,7 +37,7 @@ const ScriptForm = React.createClass({
         const { dispatch } = this.props;
         const { id } = this.props;
         if (id) {
-            dispatch(scriptGet(id));
+            dispatch(storyGet(id));
         }
     },
     componentWillReceiveProps(nextProps){
@@ -72,9 +72,9 @@ const ScriptForm = React.createClass({
         const { id, dispatch } = this.props;
         const { changedFields } = this.state;
         if (id) {
-            dispatch(scriptPut(id, changedFields));
+            dispatch(storyPut(id, changedFields));
         } else {
-            dispatch(scriptPost(changedFields));
+            dispatch(storyPost(changedFields));
         }
     },
     toggleSidebarVisibility() {
@@ -83,7 +83,7 @@ const ScriptForm = React.createClass({
     render() {
         const { id, ui_state, errors } = this.props;
         const { changedFields, model, sidebarVisible } = this.state;
-        const inputFields = jsonSchema.buildInputFields(model, changedFields, scriptPostSchema);
+        const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         return (
             <div>
@@ -131,7 +131,7 @@ const ScriptForm = React.createClass({
 })
 
 const mapStateToProps = (state) => {
-    const { ui_state, errors, model } = state.scriptReducer;
+    const { ui_state, errors, model } = state.storyReducer;
     return {
         ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
         errors,
@@ -139,4 +139,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ScriptForm);
+export default connect(mapStateToProps)(StoryForm);
