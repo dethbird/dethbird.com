@@ -12,7 +12,7 @@ const ActItem = React.createClass({
         const { act } = this.props;
 
         return (
-            <Card fluid>
+            <Card raised fluid>
                 <Card.Content header={ act.level_text + ' ' + act.text } />
             </Card>
         )

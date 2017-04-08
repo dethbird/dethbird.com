@@ -12,7 +12,7 @@ const PanelItem = React.createClass({
         const { panel } = this.props;
 
         return (
-            <Card fluid>
+            <Card raised fluid>
                 <Card.Content header={ panel.level_text + ' ' + panel.text } />
             </Card>
         )

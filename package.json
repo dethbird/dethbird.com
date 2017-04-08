@@ -27,7 +27,8 @@
     "superagent": "^2.3.0",
     "timeago": "^1.4.3",
     "uglify-js": "^2.5.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "build": "webpack --progress --colors",

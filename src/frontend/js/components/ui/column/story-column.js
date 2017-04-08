@@ -14,7 +14,11 @@ const StoryColumn = React.createClass({
     propTypes: {
         story: React.PropTypes.object.isRequired
     },
+    handleOnSelectStoryItem(e, payload) {
+        console.log(payload);
+    },
     renderStoryNodes() {
+        const { handleOnSelectStoryItem } = this;
         const { story } = this.props;
 
         if (!story.acts) {
@@ -23,8 +27,8 @@ const StoryColumn = React.createClass({
 
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
-        console.log(story);
-        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem story={ story } /></Grid.Row>);
+
+        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem story={ story } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>);
         for (actIndex in story.acts) {
             key ++;
             const act = story.acts[actIndex];

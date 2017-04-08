@@ -12,7 +12,7 @@ const SequenceItem = React.createClass({
         const { sequence } = this.props;
 
         return (
-            <Card fluid>
+            <Card raised fluid>
                 <Card.Content header={ sequence.level_text + ' ' + sequence.text } />
             </Card>
         )

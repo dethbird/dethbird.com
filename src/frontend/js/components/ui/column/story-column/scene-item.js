@@ -15,7 +15,7 @@ const SceneItem = React.createClass({
         const { scene } = this.props;
 
         return (
-            <Card fluid>
+            <Card raised fluid>
                 <Card.Content>
                     <Header>{ scene.level_text + ' ' + scene.text }</Header>
                 </Card.Content>
