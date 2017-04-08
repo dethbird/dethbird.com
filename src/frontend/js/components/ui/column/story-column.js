@@ -24,31 +24,31 @@ const StoryColumn = React.createClass({
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
         console.log(story);
-        nodes.push(<Grid.Row key={ key }><StoryItem story={ story } /></Grid.Row>);
+        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem story={ story } /></Grid.Row>);
         for (actIndex in story.acts) {
             key ++;
             const act = story.acts[actIndex];
             nodes.push(
-                <Grid.Row key={ key }><ActItem act={ act } /></Grid.Row>
+                <Grid.Row key={ key } className="act-item"><ActItem act={ act } /></Grid.Row>
             );
             for (sequenceIndex in act.sequences) {
                 key++;
                 const sequence = act.sequences[sequenceIndex];
                 nodes.push(
-                    <Grid.Row key={ key }><SequenceItem sequence={ sequence } /></Grid.Row>
+                    <Grid.Row key={ key } className="sequence-item"><SequenceItem sequence={ sequence } /></Grid.Row>
                 );
                 for (sceneIndex in sequence.scenes) {
                     key++;
                     const scene = sequence.scenes[sceneIndex];
                     nodes.push(
-                        <Grid.Row key={ key }><SceneItem scene={ scene } /></Grid.Row>
+                        <Grid.Row key={ key } className="scene-item"><SceneItem scene={ scene } /></Grid.Row>
                     );
 
                     for (panelIndex in scene.panels) {
                         key++;
                         const panel = scene.panels[panelIndex];
                         nodes.push(
-                            <Grid.Row key={ key }><PanelItem panel={ panel } /></Grid.Row>
+                            <Grid.Row key={ key } className="panel-item"><PanelItem panel={ panel } /></Grid.Row>
                         );
                     }
                 }
@@ -63,7 +63,7 @@ const StoryColumn = React.createClass({
         const storyNodes = renderStoryNodes();
 
         return (
-            <Grid verticalAlign="top">
+            <Grid verticalAlign="top" className="story-column">
                 { storyNodes }
             </Grid>
         )

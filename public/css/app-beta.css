@@ -210,6 +210,9 @@ div.script-input {
   white-space: pre;
   white-space: pre-wrap !important;
 }
+.story-column .row {
+  padding-bottom: 0 !important;
+}
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
 }

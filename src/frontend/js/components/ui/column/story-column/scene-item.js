@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-    Card
+    Button,
+    Card,
+    Header,
+    Grid
 } from 'semantic-ui-react';
 
 
@@ -13,7 +16,9 @@ const SceneItem = React.createClass({
 
         return (
             <Card fluid>
-                <Card.Content header={ scene.level_text + ' ' + scene.text } />
+                <Card.Content>
+                    <Header>{ scene.level_text + ' ' + scene.text }</Header>
+                </Card.Content>
             </Card>
         )
     }
