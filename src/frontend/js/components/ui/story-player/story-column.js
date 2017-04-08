@@ -4,31 +4,24 @@ import {
     Grid
 } from 'semantic-ui-react';
 
-import StoryItem from 'components/ui/column/story-column/story-item';
-import SectionItem from 'components/ui/column/story-column/section-item';
+import StoryItem from 'components/ui/story-player/story-column/story-item';
+import SectionItem from 'components/ui/story-player/story-column/section-item';
 
 const StoryColumn = React.createClass({
-    getInitialState() {
-        return {
-            selectedItem: {
-                id: null
-            }
-        }
-    },
     propTypes: {
-        story: React.PropTypes.object.isRequired
+        story: React.PropTypes.object.isRequired,
+        selectedItem: React.PropTypes.object.isRequired,
+        onSelectStoryItem: React.PropTypes.func
     },
     handleOnSelectStoryItem(e, payload) {
-        console.log(payload);
-        this.setState({
-            ... this.state,
-            selectedItem: payload
-        });
+        const { onSelectStoryItem } = this.props;
+        if (onSelectStoryItem) {
+            onSelectStoryItem(e, payload);
+        }
     },
     renderStoryNodes() {
         const { handleOnSelectStoryItem } = this;
-        const { story } = this.props;
-        const { selectedItem } = this.state;
+        const { story, selectedItem } = this.props;
 
         if (!story.acts) {
             return null;

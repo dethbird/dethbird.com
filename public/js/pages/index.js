@@ -34511,259 +34511,9 @@ var StoryCard = _react2.default.createClass({
 exports.default = StoryCard;
 
 /***/ }),
-/* 495 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(13);
-
-var _storyItem = __webpack_require__(497);
-
-var _storyItem2 = _interopRequireDefault(_storyItem);
-
-var _sectionItem = __webpack_require__(496);
-
-var _sectionItem2 = _interopRequireDefault(_sectionItem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var StoryColumn = _react2.default.createClass({
-    displayName: 'StoryColumn',
-    getInitialState: function getInitialState() {
-        return {
-            selectedItem: {
-                id: null
-            }
-        };
-    },
-
-    propTypes: {
-        story: _react2.default.PropTypes.object.isRequired
-    },
-    handleOnSelectStoryItem: function handleOnSelectStoryItem(e, payload) {
-        console.log(payload);
-        this.setState(_extends({}, this.state, {
-            selectedItem: payload
-        }));
-    },
-    renderStoryNodes: function renderStoryNodes() {
-        var handleOnSelectStoryItem = this.handleOnSelectStoryItem;
-        var story = this.props.story;
-        var selectedItem = this.state.selectedItem;
-
-
-        if (!story.acts) {
-            return null;
-        }
-        var nodes = [];
-        var actIndex = void 0,
-            sequenceIndex = void 0,
-            sceneIndex = void 0,
-            panelIndex = void 0,
-            key = 0;
-        var activeSelection = false;
-
-        activeSelection = selectedItem.id == story.id;
-        nodes.push(_react2.default.createElement(
-            _semanticUiReact.Grid.Row,
-            { key: key, className: 'story-item' },
-            _react2.default.createElement(_storyItem2.default, {
-                item: story,
-                onSelectStoryItem: handleOnSelectStoryItem,
-                selected: selectedItem.id == story.id,
-                highlighted: activeSelection
-            })
-        ));
-        for (actIndex in story.acts) {
-            key++;
-            var act = story.acts[actIndex];
-            activeSelection = selectedItem.id == story.id;
-            activeSelection = activeSelection ? activeSelection : selectedItem.id == act.id;
-            nodes.push(_react2.default.createElement(
-                _semanticUiReact.Grid.Row,
-                { key: key, className: 'act-item' },
-                _react2.default.createElement(_sectionItem2.default, {
-                    item: act,
-                    onSelectStoryItem: handleOnSelectStoryItem,
-                    selected: selectedItem.id == act.id,
-                    highlighted: activeSelection
-                })
-            ));
-            for (sequenceIndex in act.sequences) {
-                key++;
-                var sequence = act.sequences[sequenceIndex];
-                activeSelection = activeSelection ? activeSelection : selectedItem.id == sequence.id;
-                nodes.push(_react2.default.createElement(
-                    _semanticUiReact.Grid.Row,
-                    { key: key, className: 'sequence-item' },
-                    _react2.default.createElement(_sectionItem2.default, {
-                        item: sequence,
-                        onSelectStoryItem: handleOnSelectStoryItem,
-                        selected: selectedItem.id == sequence.id,
-                        highlighted: activeSelection
-                    })
-                ));
-                for (sceneIndex in sequence.scenes) {
-                    key++;
-                    var scene = sequence.scenes[sceneIndex];
-                    activeSelection = activeSelection ? activeSelection : selectedItem.id == scene.id;
-                    nodes.push(_react2.default.createElement(
-                        _semanticUiReact.Grid.Row,
-                        { key: key, className: 'scene-item' },
-                        _react2.default.createElement(_sectionItem2.default, {
-                            item: scene,
-                            onSelectStoryItem: handleOnSelectStoryItem,
-                            selected: selectedItem.id == scene.id,
-                            highlighted: activeSelection
-                        })
-                    ));
-
-                    for (panelIndex in scene.panels) {
-                        key++;
-                        var panel = scene.panels[panelIndex];
-                        activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
-                        nodes.push(_react2.default.createElement(
-                            _semanticUiReact.Grid.Row,
-                            { key: key, className: 'panel-item' },
-                            _react2.default.createElement(_sectionItem2.default, {
-                                item: panel,
-                                onSelectStoryItem: handleOnSelectStoryItem,
-                                selected: selectedItem.id == panel.id,
-                                highlighted: activeSelection
-                            })
-                        ));
-                    }
-                }
-            }
-        }
-
-        return nodes;
-    },
-    render: function render() {
-        var renderStoryNodes = this.renderStoryNodes;
-
-
-        var storyNodes = renderStoryNodes();
-
-        return _react2.default.createElement(
-            _semanticUiReact.Grid,
-            { verticalAlign: 'top', className: 'story-column' },
-            storyNodes
-        );
-    }
-});
-
-exports.default = StoryColumn;
-
-/***/ }),
-/* 496 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(13);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SectionItem = _react2.default.createClass({
-    displayName: 'SectionItem',
-
-    propTypes: {
-        item: _react2.default.PropTypes.object.isRequired,
-        onSelectStoryItem: _react2.default.PropTypes.func.isRequired,
-        selected: _react2.default.PropTypes.bool,
-        highlighted: _react2.default.PropTypes.bool
-    },
-    render: function render() {
-        var _props = this.props,
-            item = _props.item,
-            onSelectStoryItem = _props.onSelectStoryItem,
-            selected = _props.selected,
-            highlighted = _props.highlighted;
-
-
-        return _react2.default.createElement(
-            _semanticUiReact.Card,
-            { raised: !selected, color: highlighted ? "purple" : null, fluid: true, onClick: function onClick(e) {
-                    return onSelectStoryItem(e, item);
-                } },
-            _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.level_text + ' ' + item.text })
-        );
-    }
-});
-
-exports.default = SectionItem;
-
-/***/ }),
-/* 497 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(13);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var StoryItem = _react2.default.createClass({
-    displayName: 'StoryItem',
-
-    propTypes: {
-        item: _react2.default.PropTypes.object.isRequired,
-        onSelectStoryItem: _react2.default.PropTypes.func.isRequired,
-        selected: _react2.default.PropTypes.bool,
-        highlighted: _react2.default.PropTypes.bool
-    },
-    render: function render() {
-        var _props = this.props,
-            item = _props.item,
-            onSelectStoryItem = _props.onSelectStoryItem,
-            selected = _props.selected,
-            highlighted = _props.highlighted;
-
-
-        return _react2.default.createElement(
-            _semanticUiReact.Card,
-            { raised: !selected, color: highlighted ? "purple" : null, fluid: true, onClick: function onClick(e) {
-                    return onSelectStoryItem(e, item);
-                } },
-            _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.title })
-        );
-    }
-});
-
-exports.default = StoryItem;
-
-/***/ }),
+/* 495 */,
+/* 496 */,
+/* 497 */,
 /* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35527,10 +35277,6 @@ var _errorMessage = __webpack_require__(106);
 
 var _errorMessage2 = _interopRequireDefault(_errorMessage);
 
-var _storyColumn = __webpack_require__(495);
-
-var _storyColumn2 = _interopRequireDefault(_storyColumn);
-
 var _uiState = __webpack_require__(30);
 
 var _story = __webpack_require__(157);
@@ -35540,6 +35286,14 @@ var _jsonSchema = __webpack_require__(107);
 var jsonSchema = _interopRequireWildcard(_jsonSchema);
 
 var _fountainParser = __webpack_require__(158);
+
+var _storyColumn = __webpack_require__(971);
+
+var _storyColumn2 = _interopRequireDefault(_storyColumn);
+
+var _storySectionPlayer = __webpack_require__(974);
+
+var _storySectionPlayer2 = _interopRequireDefault(_storySectionPlayer);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -35555,7 +35309,11 @@ var StoryPlayer = _react2.default.createClass({
         return {
             model: {
                 script: ''
-            }
+            },
+            selectedItem: {
+                id: null
+            },
+            story: {}
         };
     },
     componentWillMount: function componentWillMount() {
@@ -35569,18 +35327,27 @@ var StoryPlayer = _react2.default.createClass({
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
         if (nextProps.model !== undefined) {
             this.setState(_extends({}, this.state, {
-                model: nextProps.model
+                model: nextProps.model,
+                story: (0, _fountainParser.convertTokensToStory)((0, _fountainParser.tokenizeLines)((0, _fountainParser.lexizeScript)(nextProps.model.script)))
             }));
         }
     },
+    handleOnSelectStoryItem: function handleOnSelectStoryItem(e, payload) {
+        this.setState(_extends({}, this.state, {
+            selectedItem: payload
+        }));
+    },
     render: function render() {
+        var handleOnSelectStoryItem = this.handleOnSelectStoryItem;
         var _props = this.props,
             id = _props.id,
             ui_state = _props.ui_state,
             errors = _props.errors;
-        var model = this.state.model;
+        var _state = this.state,
+            model = _state.model,
+            selectedItem = _state.selectedItem,
+            story = _state.story;
 
-        var story = model.script ? (0, _fountainParser.convertTokensToStory)((0, _fountainParser.tokenizeLines)((0, _fountainParser.lexizeScript)(model.script))) : {};
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
@@ -35591,16 +35358,12 @@ var StoryPlayer = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Grid.Column,
                     { width: 6 },
-                    _react2.default.createElement(_storyColumn2.default, { story: story })
+                    _react2.default.createElement(_storyColumn2.default, { story: story, onSelectStoryItem: handleOnSelectStoryItem, selectedItem: selectedItem })
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Grid.Column,
                     { width: 10 },
-                    _react2.default.createElement(
-                        _semanticUiReact.Segment,
-                        { inverted: true },
-                        'Player'
-                    )
+                    _react2.default.createElement(_storySectionPlayer2.default, { story: story, selectedItem: selectedItem })
                 )
             )
         );
@@ -71689,6 +71452,297 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 971 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(13);
+
+var _storyItem = __webpack_require__(973);
+
+var _storyItem2 = _interopRequireDefault(_storyItem);
+
+var _sectionItem = __webpack_require__(972);
+
+var _sectionItem2 = _interopRequireDefault(_sectionItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StoryColumn = _react2.default.createClass({
+    displayName: 'StoryColumn',
+
+    propTypes: {
+        story: _react2.default.PropTypes.object.isRequired,
+        selectedItem: _react2.default.PropTypes.object.isRequired,
+        onSelectStoryItem: _react2.default.PropTypes.func
+    },
+    handleOnSelectStoryItem: function handleOnSelectStoryItem(e, payload) {
+        var onSelectStoryItem = this.props.onSelectStoryItem;
+
+        if (onSelectStoryItem) {
+            onSelectStoryItem(e, payload);
+        }
+    },
+    renderStoryNodes: function renderStoryNodes() {
+        var handleOnSelectStoryItem = this.handleOnSelectStoryItem;
+        var _props = this.props,
+            story = _props.story,
+            selectedItem = _props.selectedItem;
+
+
+        if (!story.acts) {
+            return null;
+        }
+        var nodes = [];
+        var actIndex = void 0,
+            sequenceIndex = void 0,
+            sceneIndex = void 0,
+            panelIndex = void 0,
+            key = 0;
+        var activeSelection = false;
+
+        activeSelection = selectedItem.id == story.id;
+        nodes.push(_react2.default.createElement(
+            _semanticUiReact.Grid.Row,
+            { key: key, className: 'story-item' },
+            _react2.default.createElement(_storyItem2.default, {
+                item: story,
+                onSelectStoryItem: handleOnSelectStoryItem,
+                selected: selectedItem.id == story.id,
+                highlighted: activeSelection
+            })
+        ));
+        for (actIndex in story.acts) {
+            key++;
+            var act = story.acts[actIndex];
+            activeSelection = selectedItem.id == story.id;
+            activeSelection = activeSelection ? activeSelection : selectedItem.id == act.id;
+            nodes.push(_react2.default.createElement(
+                _semanticUiReact.Grid.Row,
+                { key: key, className: 'act-item' },
+                _react2.default.createElement(_sectionItem2.default, {
+                    item: act,
+                    onSelectStoryItem: handleOnSelectStoryItem,
+                    selected: selectedItem.id == act.id,
+                    highlighted: activeSelection
+                })
+            ));
+            for (sequenceIndex in act.sequences) {
+                key++;
+                var sequence = act.sequences[sequenceIndex];
+                activeSelection = activeSelection ? activeSelection : selectedItem.id == sequence.id;
+                nodes.push(_react2.default.createElement(
+                    _semanticUiReact.Grid.Row,
+                    { key: key, className: 'sequence-item' },
+                    _react2.default.createElement(_sectionItem2.default, {
+                        item: sequence,
+                        onSelectStoryItem: handleOnSelectStoryItem,
+                        selected: selectedItem.id == sequence.id,
+                        highlighted: activeSelection
+                    })
+                ));
+                for (sceneIndex in sequence.scenes) {
+                    key++;
+                    var scene = sequence.scenes[sceneIndex];
+                    activeSelection = activeSelection ? activeSelection : selectedItem.id == scene.id;
+                    nodes.push(_react2.default.createElement(
+                        _semanticUiReact.Grid.Row,
+                        { key: key, className: 'scene-item' },
+                        _react2.default.createElement(_sectionItem2.default, {
+                            item: scene,
+                            onSelectStoryItem: handleOnSelectStoryItem,
+                            selected: selectedItem.id == scene.id,
+                            highlighted: activeSelection
+                        })
+                    ));
+
+                    for (panelIndex in scene.panels) {
+                        key++;
+                        var panel = scene.panels[panelIndex];
+                        activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
+                        nodes.push(_react2.default.createElement(
+                            _semanticUiReact.Grid.Row,
+                            { key: key, className: 'panel-item' },
+                            _react2.default.createElement(_sectionItem2.default, {
+                                item: panel,
+                                onSelectStoryItem: handleOnSelectStoryItem,
+                                selected: selectedItem.id == panel.id,
+                                highlighted: activeSelection
+                            })
+                        ));
+                    }
+                }
+            }
+        }
+
+        return nodes;
+    },
+    render: function render() {
+        var renderStoryNodes = this.renderStoryNodes;
+
+
+        var storyNodes = renderStoryNodes();
+
+        return _react2.default.createElement(
+            _semanticUiReact.Grid,
+            { verticalAlign: 'top', className: 'story-column' },
+            storyNodes
+        );
+    }
+});
+
+exports.default = StoryColumn;
+
+/***/ }),
+/* 972 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(13);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SectionItem = _react2.default.createClass({
+    displayName: 'SectionItem',
+
+    propTypes: {
+        item: _react2.default.PropTypes.object.isRequired,
+        onSelectStoryItem: _react2.default.PropTypes.func.isRequired,
+        selected: _react2.default.PropTypes.bool,
+        highlighted: _react2.default.PropTypes.bool
+    },
+    render: function render() {
+        var _props = this.props,
+            item = _props.item,
+            onSelectStoryItem = _props.onSelectStoryItem,
+            selected = _props.selected,
+            highlighted = _props.highlighted;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Card,
+            { raised: !selected, color: highlighted ? "purple" : null, fluid: true, onClick: function onClick(e) {
+                    return onSelectStoryItem(e, item);
+                } },
+            _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.level_text + ' ' + item.text })
+        );
+    }
+});
+
+exports.default = SectionItem;
+
+/***/ }),
+/* 973 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(13);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StoryItem = _react2.default.createClass({
+    displayName: 'StoryItem',
+
+    propTypes: {
+        item: _react2.default.PropTypes.object.isRequired,
+        onSelectStoryItem: _react2.default.PropTypes.func.isRequired,
+        selected: _react2.default.PropTypes.bool,
+        highlighted: _react2.default.PropTypes.bool
+    },
+    render: function render() {
+        var _props = this.props,
+            item = _props.item,
+            onSelectStoryItem = _props.onSelectStoryItem,
+            selected = _props.selected,
+            highlighted = _props.highlighted;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Card,
+            { raised: !selected, color: highlighted ? "purple" : null, fluid: true, onClick: function onClick(e) {
+                    return onSelectStoryItem(e, item);
+                } },
+            _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.title })
+        );
+    }
+});
+
+exports.default = StoryItem;
+
+/***/ }),
+/* 974 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(13);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StorySectionPlayer = _react2.default.createClass({
+    displayName: 'StorySectionPlayer',
+
+    propTypes: {
+        story: _react2.default.PropTypes.object.isRequired,
+        selectedItem: _react2.default.PropTypes.object.isRequired
+    },
+    render: function render() {
+        var _props = this.props,
+            story = _props.story,
+            selectedItem = _props.selectedItem;
+
+        console.log(story);
+        console.log(selectedItem);
+        return _react2.default.createElement(
+            _semanticUiReact.Container,
+            null,
+            'Farts'
+        );
+    }
+});
+
+exports.default = StorySectionPlayer;
 
 /***/ })
 /******/ ]);

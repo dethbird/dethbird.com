@@ -213,6 +213,18 @@ div.script-input {
 .story-column .row {
   padding-bottom: 0 !important;
 }
+.story-column .row.act-item {
+  margin-left: 8px;
+}
+.story-column .row.sequence-item {
+  margin-left: 16px;
+}
+.story-column .row.scene-item {
+  margin-left: 24px;
+}
+.story-column .row.panel-item {
+  margin-left: 32px;
+}
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
 }

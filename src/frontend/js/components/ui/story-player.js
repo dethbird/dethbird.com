@@ -7,7 +7,6 @@ import {
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
-import StoryColumn from 'components/ui/column/story-column';
 import { UI_STATE } from 'constants/ui-state';
 import { storyGet } from 'actions/story';
 import * as jsonSchema from 'utility/json-schema';
@@ -18,6 +17,10 @@ import {
 } from 'utility/fountain-parser';
 
 
+import StoryColumn from 'components/ui/story-player/story-column';
+import StorySectionPlayer from 'components/ui/story-player/story-section-player';
+
+
 const StoryPlayer = React.createClass({
     propTypes: {
         id: React.PropTypes.string
@@ -26,7 +29,11 @@ const StoryPlayer = React.createClass({
         return {
             model: {
                 script: ''
-            }
+            },
+            selectedItem: {
+                id: null
+            },
+            story: {}
         }
     },
     componentWillMount() {
@@ -40,23 +47,30 @@ const StoryPlayer = React.createClass({
         if(nextProps.model!==undefined) {
             this.setState({
                  ... this.state,
-                 model: nextProps.model
+                 model: nextProps.model,
+                 story: convertTokensToStory(tokenizeLines(lexizeScript(nextProps.model.script)))
             });
         }
     },
+    handleOnSelectStoryItem(e, payload) {
+        this.setState({
+            ... this.state,
+            selectedItem: payload
+        });
+    },
     render() {
+        const { handleOnSelectStoryItem } = this;
         const { id, ui_state, errors } = this.props;
-        const { model } = this.state;
-        const story = model.script ? convertTokensToStory(tokenizeLines(lexizeScript(model.script))) : {};
+        const { model, selectedItem, story } = this.state;
 
         return (
             <Container>
                 <Grid>
                     <Grid.Column width={ 6 }>
-                        <StoryColumn story={ story } />
+                        <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem }/>
                     </Grid.Column>
                     <Grid.Column width={ 10 }>
-                        <Segment inverted>Player</Segment>
+                        <StorySectionPlayer story={ story } selectedItem={ selectedItem } />
                     </Grid.Column>
                 </Grid>
             </Container>
