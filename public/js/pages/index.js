@@ -10012,8 +10012,15 @@ var storyPost = exports.storyPost = function storyPost(fields) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.parseFountainScript = exports.convertTokensToStory = exports.compileTokens = exports.lexizeText = exports.lexizeScript = exports.sectionizeTokens = exports.tokenizeLines = exports.INLINE = exports.REGEX = exports.SECTION_LEVELS = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _v = __webpack_require__(973);
+
+var _v2 = _interopRequireDefault(_v);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SECTION_LEVELS = exports.SECTION_LEVELS = ["", "act", "sequence", "scene", "panel"];
 
@@ -10525,6 +10532,7 @@ var compileTokens = exports.compileTokens = function compileTokens(tokens) {
 var convertTokensToStory = exports.convertTokensToStory = function convertTokensToStory(tokens) {
     var story = {};
     story.acts = [];
+    story.id = (0, _v2.default)();
 
     for (var i = 0; i < tokens.length; i++) {
         var token = tokens[i];
@@ -10559,12 +10567,14 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 delete token.level;
                 story.acts.push(_extends({}, token, {
                     type: 'act',
+                    id: (0, _v2.default)(),
                     sequences: []
                 }));
             }
             if (token.level == 2) {
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -10577,6 +10587,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 delete token.duration;
                 delete token.level;
                 story.acts[story.acts.length - 1].sequences.push(_extends({}, token, {
+                    id: (0, _v2.default)(),
                     type: 'sequence',
                     scenes: []
                 }));
@@ -10586,6 +10597,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -10597,6 +10609,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: (0, _v2.default)(),
                         type: 'sequence',
                         text: 'Sequence',
                         level_text: '##',
@@ -10609,6 +10622,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 delete token.duration;
                 delete token.level;
                 story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push(_extends({}, token, {
+                    id: (0, _v2.default)(),
                     type: 'scene',
                     panels: []
                 }));
@@ -10617,6 +10631,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -10628,6 +10643,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: (0, _v2.default)(),
                         type: 'sequence',
                         text: 'Sequence',
                         level_text: '##',
@@ -10639,6 +10655,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        id: (0, _v2.default)(),
                         type: 'scene',
                         text: 'Scene',
                         level_text: '###',
@@ -10650,6 +10667,7 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
 
                 delete token.level;
                 story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes[story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length - 1].panels.push(_extends({}, token, {
+                    id: (0, _v2.default)(),
                     type: 'panel'
                 }));
             }
@@ -34554,11 +34572,11 @@ var StoryColumn = _react2.default.createClass({
             sceneIndex = void 0,
             panelIndex = void 0,
             key = 0;
-
+        console.log(story);
         nodes.push(_react2.default.createElement(
             _semanticUiReact.Grid.Row,
             { key: key, className: 'story-item' },
-            _react2.default.createElement(_storyItem2.default, { story: story, onSelectStoryItem: handleOnSelectStoryItem })
+            _react2.default.createElement(_storyItem2.default, { item: story, onSelectStoryItem: handleOnSelectStoryItem })
         ));
         for (actIndex in story.acts) {
             key++;
@@ -34803,12 +34821,12 @@ var StoryItem = _react2.default.createClass({
     displayName: 'StoryItem',
 
     propTypes: {
-        story: _react2.default.PropTypes.object.isRequired,
+        item: _react2.default.PropTypes.object.isRequired,
         onSelectStoryItem: _react2.default.PropTypes.func.isRequired
     },
     render: function render() {
         var _props = this.props,
-            story = _props.story,
+            item = _props.item,
             onSelectStoryItem = _props.onSelectStoryItem;
 
 
@@ -34817,10 +34835,10 @@ var StoryItem = _react2.default.createClass({
             { raised: true, fluid: true, onClick: function onClick(e) {
                     return onSelectStoryItem(e, {
                         type: 'story',
-                        item: story
+                        item: item
                     });
                 } },
-            _react2.default.createElement(_semanticUiReact.Card.Content, { header: story.title })
+            _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.title })
         );
     }
 });
@@ -71649,6 +71667,110 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 971 */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return  bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+/* 972 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+var rng;
+
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16);
+  rng = function whatwgRNG() {
+    crypto.getRandomValues(rnds8);
+    return rnds8;
+  };
+}
+
+if (!rng) {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var  rnds = new Array(16);
+  rng = function() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+module.exports = rng;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(155)))
+
+/***/ }),
+/* 973 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(972);
+var bytesToUuid = __webpack_require__(971);
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options == 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
 
 /***/ })
 /******/ ]);

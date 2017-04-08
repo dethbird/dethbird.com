@@ -6,19 +6,19 @@ import {
 
 const StoryItem = React.createClass({
     propTypes: {
-        story: React.PropTypes.object.isRequired,
+        item: React.PropTypes.object.isRequired,
         onSelectStoryItem: React.PropTypes.func.isRequired
     },
     render() {
-        const { story, onSelectStoryItem } = this.props;
+        const { item, onSelectStoryItem } = this.props;
 
         return (
             <Card raised fluid onClick={ (e) => onSelectStoryItem(e, {
                     type: 'story',
-                    item: story
+                    item
                 })
             }>
-                <Card.Content header={ story.title } />
+                <Card.Content header={ item.title } />
             </Card>
         )
     }

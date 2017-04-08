@@ -1,3 +1,5 @@
+import uuidV4 from 'uuid/v4';
+
 export const SECTION_LEVELS = [
     "",
     "act",
@@ -543,6 +545,7 @@ export const compileTokens = (tokens) => {
 export const convertTokensToStory = (tokens) => {
     let story = {};
     story.acts = [];
+    story.id = uuidV4();
 
     for(let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
@@ -578,12 +581,14 @@ export const convertTokensToStory = (tokens) => {
                 story.acts.push({
                     ... token,
                     type: 'act',
+                    id: uuidV4(),
                     sequences: []
                 });
             }
             if (token.level == 2) {
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -599,6 +604,7 @@ export const convertTokensToStory = (tokens) => {
                     story.acts.length - 1
                 ].sequences.push({
                     ... token,
+                    id: uuidV4(),
                     type: 'sequence',
                     scenes: []
                 });
@@ -608,6 +614,7 @@ export const convertTokensToStory = (tokens) => {
 
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -619,6 +626,7 @@ export const convertTokensToStory = (tokens) => {
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: uuidV4(),
                         type: 'sequence',
                         text: 'Sequence',
                         level_text: '##',
@@ -638,6 +646,7 @@ export const convertTokensToStory = (tokens) => {
                     ].sequences.length - 1
                 ].scenes.push({
                     ... token,
+                    id: uuidV4(),
                     type: 'scene',
                     panels: []
                 });
@@ -646,6 +655,7 @@ export const convertTokensToStory = (tokens) => {
 
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
                         type: 'act',
                         text: 'Act',
                         level_text: '#',
@@ -657,6 +667,7 @@ export const convertTokensToStory = (tokens) => {
 
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: uuidV4(),
                         type: 'sequence',
                         text: 'Sequence',
                         level_text: '##',
@@ -668,6 +679,7 @@ export const convertTokensToStory = (tokens) => {
 
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        id: uuidV4(),
                         type: 'scene',
                         text: 'Scene',
                         level_text: '###',
@@ -694,6 +706,7 @@ export const convertTokensToStory = (tokens) => {
                     ].scenes.length - 1
                 ].panels.push({
                     ... token,
+                    id: uuidV4(),
                     type: 'panel'
                 });
             }

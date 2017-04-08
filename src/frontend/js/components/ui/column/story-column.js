@@ -27,8 +27,8 @@ const StoryColumn = React.createClass({
 
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
-
-        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem story={ story } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>);
+        console.log(story);
+        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem item={ story } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>);
         for (actIndex in story.acts) {
             key ++;
             const act = story.acts[actIndex];
