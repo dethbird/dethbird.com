@@ -13,11 +13,7 @@ const StoryItem = React.createClass({
         const { item, onSelectStoryItem } = this.props;
 
         return (
-            <Card raised fluid onClick={ (e) => onSelectStoryItem(e, {
-                    type: 'story',
-                    item
-                })
-            }>
+            <Card raised fluid onClick={ (e) => onSelectStoryItem(e, item)}>
                 <Card.Content header={ item.title } />
             </Card>
         )

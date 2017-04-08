@@ -545,6 +545,7 @@ export const compileTokens = (tokens) => {
 export const convertTokensToStory = (tokens) => {
     let story = {};
     story.acts = [];
+    story.type = 'story';
     story.id = uuidV4();
 
     for(let i = 0; i < tokens.length; i++) {

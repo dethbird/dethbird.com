@@ -11,11 +11,22 @@ import SceneItem from 'components/ui/column/story-column/scene-item';
 import PanelItem from 'components/ui/column/story-column/panel-item';
 
 const StoryColumn = React.createClass({
+    getInitialState() {
+        return {
+            selectedItem: {
+                id: null
+            }
+        }
+    },
     propTypes: {
         story: React.PropTypes.object.isRequired
     },
     handleOnSelectStoryItem(e, payload) {
         console.log(payload);
+        this.setState({
+            ... this.state,
+            selectedItem: payload
+        });
     },
     renderStoryNodes() {
         const { handleOnSelectStoryItem } = this;
@@ -24,35 +35,34 @@ const StoryColumn = React.createClass({
         if (!story.acts) {
             return null;
         }
-
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
-        console.log(story);
+
         nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem item={ story } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>);
         for (actIndex in story.acts) {
             key ++;
             const act = story.acts[actIndex];
             nodes.push(
-                <Grid.Row key={ key } className="act-item"><ActItem act={ act } /></Grid.Row>
+                <Grid.Row key={ key } className="act-item"><ActItem item={ act } onSelectStoryItem={ handleOnSelectStoryItem } /></Grid.Row>
             );
             for (sequenceIndex in act.sequences) {
                 key++;
                 const sequence = act.sequences[sequenceIndex];
                 nodes.push(
-                    <Grid.Row key={ key } className="sequence-item"><SequenceItem sequence={ sequence } /></Grid.Row>
+                    <Grid.Row key={ key } className="sequence-item"><SequenceItem item={ sequence } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
                 );
                 for (sceneIndex in sequence.scenes) {
                     key++;
                     const scene = sequence.scenes[sceneIndex];
                     nodes.push(
-                        <Grid.Row key={ key } className="scene-item"><SceneItem scene={ scene } /></Grid.Row>
+                        <Grid.Row key={ key } className="scene-item"><SceneItem item={ scene } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
                     );
 
                     for (panelIndex in scene.panels) {
                         key++;
                         const panel = scene.panels[panelIndex];
                         nodes.push(
-                            <Grid.Row key={ key } className="panel-item"><PanelItem panel={ panel } /></Grid.Row>
+                            <Grid.Row key={ key } className="panel-item"><PanelItem item={ panel } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
                         );
                     }
                 }

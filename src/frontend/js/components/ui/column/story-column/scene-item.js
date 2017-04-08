@@ -1,24 +1,20 @@
 import React from 'react';
 import {
-    Button,
-    Card,
-    Header,
-    Grid
+    Card
 } from 'semantic-ui-react';
 
 
 const SceneItem = React.createClass({
     propTypes: {
-        scene: React.PropTypes.object.isRequired
+        item: React.PropTypes.object.isRequired,
+        onSelectStoryItem: React.PropTypes.func.isRequired
     },
     render() {
-        const { scene } = this.props;
+        const { item, onSelectStoryItem } = this.props;
 
         return (
-            <Card raised fluid>
-                <Card.Content>
-                    <Header>{ scene.level_text + ' ' + scene.text }</Header>
-                </Card.Content>
+            <Card raised fluid onClick={ (e) => onSelectStoryItem(e, item)}>
+                <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>
         )
     }

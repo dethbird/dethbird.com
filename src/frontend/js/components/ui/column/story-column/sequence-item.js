@@ -6,14 +6,15 @@ import {
 
 const SequenceItem = React.createClass({
     propTypes: {
-        sequence: React.PropTypes.object.isRequired
+        item: React.PropTypes.object.isRequired,
+        onSelectStoryItem: React.PropTypes.func.isRequired
     },
     render() {
-        const { sequence } = this.props;
+        const { item, onSelectStoryItem } = this.props;
 
         return (
-            <Card raised fluid>
-                <Card.Content header={ sequence.level_text + ' ' + sequence.text } />
+            <Card raised fluid onClick={ (e) => onSelectStoryItem(e, item)}>
+                <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>
         )
     }

@@ -6,14 +6,15 @@ import {
 
 const ActItem = React.createClass({
     propTypes: {
-        act: React.PropTypes.object.isRequired
+        item: React.PropTypes.object.isRequired,
+        onSelectStoryItem: React.PropTypes.func.isRequired
     },
     render() {
-        const { act } = this.props;
+        const { item, onSelectStoryItem } = this.props;
 
         return (
-            <Card raised fluid>
-                <Card.Content header={ act.level_text + ' ' + act.text } />
+            <Card raised fluid onClick={ (e) => onSelectStoryItem(e, item)}>
+                <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>
         )
     }
