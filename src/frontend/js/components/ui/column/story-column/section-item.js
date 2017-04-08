@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 
 
-const StoryItem = React.createClass({
+const SectionItem = React.createClass({
     propTypes: {
         item: React.PropTypes.object.isRequired,
         onSelectStoryItem: React.PropTypes.func.isRequired,
@@ -16,10 +16,10 @@ const StoryItem = React.createClass({
 
         return (
             <Card raised={ !selected } color={ highlighted ? "purple" : null } fluid onClick={ (e) => onSelectStoryItem(e, item)}>
-                <Card.Content header={ item.title } />
+                <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>
         )
     }
 })
 
-export default StoryItem;
+export default SectionItem;

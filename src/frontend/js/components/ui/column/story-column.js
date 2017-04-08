@@ -5,10 +5,7 @@ import {
 } from 'semantic-ui-react';
 
 import StoryItem from 'components/ui/column/story-column/story-item';
-import ActItem from 'components/ui/column/story-column/act-item';
-import SequenceItem from 'components/ui/column/story-column/sequence-item';
-import SceneItem from 'components/ui/column/story-column/scene-item';
-import PanelItem from 'components/ui/column/story-column/panel-item';
+import SectionItem from 'components/ui/column/story-column/section-item';
 
 const StoryColumn = React.createClass({
     getInitialState() {
@@ -31,38 +28,82 @@ const StoryColumn = React.createClass({
     renderStoryNodes() {
         const { handleOnSelectStoryItem } = this;
         const { story } = this.props;
+        const { selectedItem } = this.state;
 
         if (!story.acts) {
             return null;
         }
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
+        let activeSelection = false;
 
-        nodes.push(<Grid.Row key={ key } className="story-item"><StoryItem item={ story } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>);
+        activeSelection = selectedItem.id == story.id;
+        nodes.push(
+            <Grid.Row key={ key } className="story-item">
+                <StoryItem
+                    item={ story }
+                    onSelectStoryItem={ handleOnSelectStoryItem }
+                    selected={ selectedItem.id == story.id }
+                    highlighted={ activeSelection }
+                />
+            </Grid.Row>);
         for (actIndex in story.acts) {
             key ++;
             const act = story.acts[actIndex];
+            activeSelection = selectedItem.id == story.id;
+            activeSelection = activeSelection ? activeSelection : selectedItem.id == act.id;
             nodes.push(
-                <Grid.Row key={ key } className="act-item"><ActItem item={ act } onSelectStoryItem={ handleOnSelectStoryItem } /></Grid.Row>
+                <Grid.Row key={ key } className="act-item">
+                    <SectionItem
+                        item={ act }
+                        onSelectStoryItem={ handleOnSelectStoryItem }
+                        selected={ selectedItem.id == act.id }
+                        highlighted={ activeSelection }
+                    />
+                </Grid.Row>
             );
             for (sequenceIndex in act.sequences) {
                 key++;
                 const sequence = act.sequences[sequenceIndex];
+                activeSelection = activeSelection ? activeSelection : selectedItem.id == sequence.id;
                 nodes.push(
-                    <Grid.Row key={ key } className="sequence-item"><SequenceItem item={ sequence } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
+                    <Grid.Row key={ key } className="sequence-item">
+                        <SectionItem
+                            item={ sequence }
+                            onSelectStoryItem={ handleOnSelectStoryItem }
+                            selected={ selectedItem.id == sequence.id }
+                            highlighted={ activeSelection }
+                        />
+                    </Grid.Row>
                 );
                 for (sceneIndex in sequence.scenes) {
                     key++;
                     const scene = sequence.scenes[sceneIndex];
+                    activeSelection = activeSelection ? activeSelection : selectedItem.id == scene.id;
                     nodes.push(
-                        <Grid.Row key={ key } className="scene-item"><SceneItem item={ scene } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
+                        <Grid.Row key={ key } className="scene-item">
+                            <SectionItem
+                                item={ scene }
+                                onSelectStoryItem={ handleOnSelectStoryItem }
+                                selected={ selectedItem.id == scene.id }
+                                highlighted={ activeSelection }
+                            />
+                        </Grid.Row>
                     );
 
                     for (panelIndex in scene.panels) {
                         key++;
                         const panel = scene.panels[panelIndex];
+                        activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
                         nodes.push(
-                            <Grid.Row key={ key } className="panel-item"><PanelItem item={ panel } onSelectStoryItem={ handleOnSelectStoryItem }/></Grid.Row>
+                            <Grid.Row key={ key } className="panel-item">
+                                <SectionItem
+                                    item={ panel }
+                                    onSelectStoryItem={ handleOnSelectStoryItem }
+                                    selected={ selectedItem.id == panel.id }
+                                    highlighted={ activeSelection }
+                                />
+                            </Grid.Row>
                         );
                     }
                 }
