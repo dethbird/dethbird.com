@@ -540,7 +540,7 @@ export const compileTokens = (tokens) => {
     );
 }
 
-export const convertTokensToProjectStory = (tokens) => {
+export const convertTokensToStory = (tokens) => {
     let story = {};
     story.acts = [];
 
@@ -703,7 +703,7 @@ export const convertTokensToProjectStory = (tokens) => {
 }
 
 export const parseFountainScript = (script) => {
-    const tokens = tokenizeLines( lexizeScript(script) );
+    const tokens = tokenizeLines(lexizeScript(script));
     const markup = compileTokens(tokens);
     return { tokens, markup };
 }

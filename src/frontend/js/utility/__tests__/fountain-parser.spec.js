@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {
-    convertTokensToProjectStory,
+    convertTokensToStory,
     compileTokens,
     lexizeScript,
     parseFountainScript,
@@ -79,7 +79,7 @@ describe('fountainParser.tokenizeLines()', () => {
 
 
     test.only('convert tokens to project', () => {
-        const story = convertTokensToProjectStory(
+        const story = convertTokensToStory(
             tokenizeLines(lexizeScript(exampleSectionsWithMetadata)));
         log(story);
     });

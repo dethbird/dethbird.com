@@ -9,6 +9,7 @@ import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
 import Characters from 'components/pages/characters';
 import StoryEdit from 'components/pages/story-edit';
+import StoryPlay from 'components/pages/story-play';
 import Stories from 'components/pages/stories';
 import store from 'store/store';
 
@@ -44,6 +45,7 @@ render((
                 <Route path="stories" component={ Stories } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/create" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/edit" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="story/:id/play" component={ StoryPlay } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>
         </Router>
