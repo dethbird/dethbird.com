@@ -51274,6 +51274,7 @@ var StorySectionPlayer = _react2.default.createClass({
             sceneIndex = void 0,
             panelIndex = void 0;
         var activeSelection = false;
+        var duration_in_miliseconds = 0;
 
         activeSelection = selectedItem.id == story.id;
         for (actIndex in story.acts) {
@@ -51290,13 +51291,17 @@ var StorySectionPlayer = _react2.default.createClass({
                         var panel = scene.panels[panelIndex];
                         activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
                         if (activeSelection) {
+                            duration_in_miliseconds = duration_in_miliseconds + panel.duration_in_miliseconds;
                             nodes.push(panel);
                         }
                     }
                 }
             }
         }
-        return nodes;
+        return {
+            duration_in_miliseconds: duration_in_miliseconds,
+            panels: nodes
+        };
     },
     render: function render() {
         var extractPanelsToPlay = this.extractPanelsToPlay;
@@ -51314,7 +51319,12 @@ var StorySectionPlayer = _react2.default.createClass({
             );
         }
         // extract panels to play
-        var panels = extractPanelsToPlay(story, selectedItem);
+
+        var _extractPanelsToPlay = extractPanelsToPlay(story, selectedItem),
+            panels = _extractPanelsToPlay.panels,
+            duration_in_miliseconds = _extractPanelsToPlay.duration_in_miliseconds;
+
+        console.log(duration_in_miliseconds);
 
         return _react2.default.createElement(
             _semanticUiReact.Grid,
@@ -51322,7 +51332,7 @@ var StorySectionPlayer = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Grid.Row,
                 null,
-                _react2.default.createElement(_player2.default, { panels: panels, onClickPlay: onClickPlay, onClickPause: onClickPause })
+                _react2.default.createElement(_player2.default, { panels: panels, onClickPlay: onClickPlay, onClickPause: onClickPause, durationInMiliseconds: duration_in_miliseconds })
             ),
             _react2.default.createElement(
                 _semanticUiReact.Grid.Row,
@@ -51354,6 +51364,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(14);
 
+var _fountainParser = __webpack_require__(89);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Player = _react2.default.createClass({
@@ -51368,6 +51380,7 @@ var Player = _react2.default.createClass({
 
     propTypes: {
         panels: _react2.default.PropTypes.array.isRequired,
+        durationInMiliseconds: _react2.default.PropTypes.number.isRequired,
         onClickPlay: _react2.default.PropTypes.func.isRequired,
         onClickPause: _react2.default.PropTypes.func.isRequired
     },
@@ -51386,7 +51399,7 @@ var Player = _react2.default.createClass({
             playing: true,
             timeout: setTimeout(function () {
                 play(nextIndex);
-            }, 3000)
+            }, panels[index].duration_in_miliseconds)
         }));
     },
     handleClickPlay: function handleClickPlay(e) {
@@ -51415,7 +51428,8 @@ var Player = _react2.default.createClass({
             handleClickPause = this.handleClickPause;
         var _props4 = this.props,
             panels = _props4.panels,
-            onClickPause = _props4.onClickPause;
+            onClickPause = _props4.onClickPause,
+            durationInMiliseconds = _props4.durationInMiliseconds;
         var _state = this.state,
             panelIndex = _state.panelIndex,
             playing = _state.playing;
@@ -51431,11 +51445,15 @@ var Player = _react2.default.createClass({
                 )
             );
         }
-        // console.log(panels[panelIndex]);
+        console.log(panels[panelIndex]);
         return _react2.default.createElement(
             _semanticUiReact.Segment.Group,
             { as: _semanticUiReact.Container, text: true },
-            _react2.default.createElement(_semanticUiReact.Segment, { inverted: true, className: 'player' }),
+            _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { inverted: true, className: 'player' },
+                _react2.default.createElement(_semanticUiReact.Image, { src: panels[panelIndex].image })
+            ),
             _react2.default.createElement(
                 _semanticUiReact.Segment,
                 null,
@@ -51460,7 +51478,7 @@ var Player = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4, textAlign: 'right' },
-                        'time'
+                        (0, _fountainParser.milisecondsToDuration)(durationInMiliseconds)
                     )
                 )
             ),

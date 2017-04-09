@@ -4,8 +4,11 @@ import {
     Container,
     Grid,
     Icon,
+    Image,
     Segment
 } from 'semantic-ui-react';
+
+import { milisecondsToDuration } from 'utility/fountain-parser';
 
 const Player = React.createClass({
     getInitialState() {
@@ -17,6 +20,7 @@ const Player = React.createClass({
     },
     propTypes: {
         panels: React.PropTypes.array.isRequired,
+        durationInMiliseconds: React.PropTypes.number.isRequired,
         onClickPlay: React.PropTypes.func.isRequired,
         onClickPause: React.PropTypes.func.isRequired
     },
@@ -33,7 +37,7 @@ const Player = React.createClass({
             playing: true,
             timeout: setTimeout(function(){
                 play(nextIndex);
-            }, 3000)
+            }, panels[index].duration_in_miliseconds)
         });
 
     },
@@ -55,7 +59,7 @@ const Player = React.createClass({
     },
     render() {
         const { handleClickPlay, handleClickPause } = this;
-        const { panels, onClickPause } = this.props;
+        const { panels, onClickPause, durationInMiliseconds } = this.props;
         const { panelIndex, playing } = this.state;
         if (panels.length==0) {
             return (
@@ -66,16 +70,17 @@ const Player = React.createClass({
                 </Container>
             );
         }
-        // console.log(panels[panelIndex]);
+        console.log(panels[panelIndex]);
         return (
             <Segment.Group as={ Container } text>
                 <Segment inverted  className="player">
+                    <Image src={ panels[panelIndex].image } />
                 </Segment>
                 <Segment>
                     <Grid>
                         <Grid.Column width={ 4 }><span>{ panels.length } panel(s)</span></Grid.Column>
                         <Grid.Column width={ 8 } textAlign="center">bar</Grid.Column>
-                        <Grid.Column width={ 4 } textAlign="right">time</Grid.Column>
+                        <Grid.Column width={ 4 } textAlign="right">{ milisecondsToDuration(durationInMiliseconds) }</Grid.Column>
                     </Grid>
                 </Segment>
                 <Segment textAlign='center'>
