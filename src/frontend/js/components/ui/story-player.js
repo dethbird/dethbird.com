@@ -67,9 +67,17 @@ const StoryPlayer = React.createClass({
             playingPanel: payload
         });
     },
+    handleClickPause() {
+        this.setState({
+            ... this.state,
+            playingPanel: {
+                id: null
+            }
+        });
+    },
     render() {
-        const { handleOnSelectStoryItem, handleClickPlay } = this;
-        const { id, ui_state, errors } = this.props;
+        const { handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
+        const { id, ui_state, errors, onCliCkPause } = this.props;
         const { model, selectedItem, story, playingPanel } = this.state;
 
         return (
@@ -79,7 +87,7 @@ const StoryPlayer = React.createClass({
                         <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
                     </Grid.Column>
                     <Grid.Column width={ 10 }>
-                        <StorySectionPlayer story={ story } selectedItem={ selectedItem } onClickPlay={ handleClickPlay } />
+                        <StorySectionPlayer story={ story } selectedItem={ selectedItem } onClickPlay={ handleClickPlay }  onClickPause={ handleClickPause } />
                     </Grid.Column>
                 </Grid>
             </Container>

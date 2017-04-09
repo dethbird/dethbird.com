@@ -10,7 +10,8 @@ import {
 const Player = React.createClass({
     propTypes: {
         panels: React.PropTypes.array.isRequired,
-        onClickPlay: React.PropTypes.func.isRequired
+        onClickPlay: React.PropTypes.func.isRequired,
+        onClickPause: React.PropTypes.func.isRequired
     },
     handleClickPlay(e) {
         const { onClickPlay, panels } = this.props;
@@ -18,7 +19,7 @@ const Player = React.createClass({
     },
     render() {
         const { handleClickPlay } = this;
-        const { panels } = this.props;
+        const { panels, onClickPause } = this.props;
         if (panels.length==0) {
             return (
                 <Container fluid>
@@ -40,8 +41,8 @@ const Player = React.createClass({
                     </Grid>
                 </Segment>
                 <Segment textAlign='center'>
-                    <Button as="a"><Icon name="pause" /> Pause</Button>
-                    <Button as="a" color="teal" onClick={ handleClickPlay } ><Icon name="play" /> Play</Button>
+                    <Button as="a" onClick={ onClickPause }><Icon name="pause" /> Pause</Button>
+                    <Button as="a" color="teal" onClick={ handleClickPlay }><Icon name="play" /> Play</Button>
                 </Segment>
             </Segment.Group>
         )

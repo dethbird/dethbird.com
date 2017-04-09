@@ -35342,13 +35342,22 @@ var StoryPlayer = _react2.default.createClass({
             playingPanel: payload
         }));
     },
+    handleClickPause: function handleClickPause() {
+        this.setState(_extends({}, this.state, {
+            playingPanel: {
+                id: null
+            }
+        }));
+    },
     render: function render() {
         var handleOnSelectStoryItem = this.handleOnSelectStoryItem,
-            handleClickPlay = this.handleClickPlay;
+            handleClickPlay = this.handleClickPlay,
+            handleClickPause = this.handleClickPause;
         var _props = this.props,
             id = _props.id,
             ui_state = _props.ui_state,
-            errors = _props.errors;
+            errors = _props.errors,
+            onCliCkPause = _props.onCliCkPause;
         var _state = this.state,
             model = _state.model,
             selectedItem = _state.selectedItem,
@@ -35370,7 +35379,7 @@ var StoryPlayer = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Grid.Column,
                     { width: 10 },
-                    _react2.default.createElement(_storySectionPlayer2.default, { story: story, selectedItem: selectedItem, onClickPlay: handleClickPlay })
+                    _react2.default.createElement(_storySectionPlayer2.default, { story: story, selectedItem: selectedItem, onClickPlay: handleClickPlay, onClickPause: handleClickPause })
                 )
             )
         );
@@ -35702,7 +35711,8 @@ var StorySectionPlayer = _react2.default.createClass({
     propTypes: {
         story: _react2.default.PropTypes.object.isRequired,
         selectedItem: _react2.default.PropTypes.object.isRequired,
-        onClickPlay: _react2.default.PropTypes.func.isRequired
+        onClickPlay: _react2.default.PropTypes.func.isRequired,
+        onClickPause: _react2.default.PropTypes.func.isRequired
     },
     extractPanelsToPlay: function extractPanelsToPlay(story, selectedItem) {
         var nodes = [];
@@ -35740,7 +35750,8 @@ var StorySectionPlayer = _react2.default.createClass({
         var _props = this.props,
             story = _props.story,
             selectedItem = _props.selectedItem,
-            onClickPlay = _props.onClickPlay;
+            onClickPlay = _props.onClickPlay,
+            onClickPause = _props.onClickPause;
 
         if (!selectedItem.id) {
             return _react2.default.createElement(
@@ -35758,7 +35769,7 @@ var StorySectionPlayer = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Grid.Row,
                 null,
-                _react2.default.createElement(_player2.default, { panels: panels, onClickPlay: onClickPlay })
+                _react2.default.createElement(_player2.default, { panels: panels, onClickPlay: onClickPlay, onClickPause: onClickPause })
             ),
             _react2.default.createElement(
                 _semanticUiReact.Grid.Row,
@@ -35795,7 +35806,8 @@ var Player = _react2.default.createClass({
 
     propTypes: {
         panels: _react2.default.PropTypes.array.isRequired,
-        onClickPlay: _react2.default.PropTypes.func.isRequired
+        onClickPlay: _react2.default.PropTypes.func.isRequired,
+        onClickPause: _react2.default.PropTypes.func.isRequired
     },
     handleClickPlay: function handleClickPlay(e) {
         var _props = this.props,
@@ -35806,7 +35818,9 @@ var Player = _react2.default.createClass({
     },
     render: function render() {
         var handleClickPlay = this.handleClickPlay;
-        var panels = this.props.panels;
+        var _props2 = this.props,
+            panels = _props2.panels,
+            onClickPause = _props2.onClickPause;
 
         if (panels.length == 0) {
             return _react2.default.createElement(
@@ -35856,7 +35870,7 @@ var Player = _react2.default.createClass({
                 { textAlign: 'center' },
                 _react2.default.createElement(
                     _semanticUiReact.Button,
-                    { as: 'a' },
+                    { as: 'a', onClick: onClickPause },
                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'pause' }),
                     ' Pause'
                 ),
