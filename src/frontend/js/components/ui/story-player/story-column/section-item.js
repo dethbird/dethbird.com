@@ -16,7 +16,7 @@ const SectionItem = React.createClass({
     render() {
         const { item, onSelectStoryItem, selected, highlighted, playing } = this.props;
         const className = classNames([
-            selected ? 'card-selected' : null ,
+            selected && !playing ? 'card-selected' : null ,
             playing ? 'card-playing' : null ,
             highlighted && !playing ? 'card-highlighted' : null
         ]);

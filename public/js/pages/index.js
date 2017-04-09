@@ -35588,7 +35588,7 @@ var SectionItem = _react2.default.createClass({
             highlighted = _props.highlighted,
             playing = _props.playing;
 
-        var className = (0, _classnames2.default)([selected ? 'card-selected' : null, playing ? 'card-playing' : null, highlighted && !playing ? 'card-highlighted' : null]);
+        var className = (0, _classnames2.default)([selected && !playing ? 'card-selected' : null, playing ? 'card-playing' : null, highlighted && !playing ? 'card-highlighted' : null]);
 
         var color = highlighted ? 'purple' : null;
         color = playing ? 'orange' : color;
