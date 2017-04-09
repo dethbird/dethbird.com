@@ -66,7 +66,7 @@ const Player = React.createClass({
                 </Container>
             );
         }
-        console.log(panels[panelIndex]);
+        // console.log(panels[panelIndex]);
         return (
             <Segment.Group as={ Container } text>
                 <Segment inverted  className="player">

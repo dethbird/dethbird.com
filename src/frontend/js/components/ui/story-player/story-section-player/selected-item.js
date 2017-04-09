@@ -14,7 +14,7 @@ const SelectedItem = React.createClass({
 
     renderHeader() {
         const { selectedItem } = this.props;
-        console.log(selectedItem);
+        // console.log(selectedItem);
         if (selectedItem.type == 'story') {
             return (
                 <Header>{ selectedItem.title }</Header>

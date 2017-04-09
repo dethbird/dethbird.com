@@ -1,4 +1,5 @@
 import React from 'react';
+import * as _ from 'underscore';
 import {
     Container,
     Grid
@@ -32,44 +33,39 @@ const StoryColumn = React.createClass({
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
         let activeSelection = false;
         story.duration_in_miliseconds = 0;
-        activeSelection = selectedItem.id == story.id;
 
         let actNodes = [];
         for (actIndex in story.acts) {
             const act = story.acts[actIndex];
             act.duration_in_miliseconds = 0;
-            activeSelection = selectedItem.id == story.id;
-            activeSelection = activeSelection ? activeSelection : selectedItem.id == act.id;
             let sequenceNodes = [];
             for (sequenceIndex in act.sequences) {
                 const sequence = act.sequences[sequenceIndex];
                 sequence.duration_in_miliseconds = 0;
-                activeSelection = activeSelection ? activeSelection : selectedItem.id == sequence.id;
                 let sceneNodes = [];
                 for (sceneIndex in sequence.scenes) {
                     const scene = sequence.scenes[sceneIndex];
                     scene.duration_in_miliseconds = 0;
-                    activeSelection = activeSelection ? activeSelection : selectedItem.id == scene.id;
                     let panelNodes = [];
                     for (panelIndex in scene.panels) {
                         key++;
                         const panel = scene.panels[panelIndex];
-                        activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
-
                         scene.duration_in_miliseconds = scene.duration_in_miliseconds + panel.duration_in_miliseconds;
                         sequence.duration_in_miliseconds = sequence.duration_in_miliseconds + panel.duration_in_miliseconds;
                         act.duration_in_miliseconds = act.duration_in_miliseconds + panel.duration_in_miliseconds;
                         story.duration_in_miliseconds = story.duration_in_miliseconds + panel.duration_in_miliseconds;
 
+                        console.log(
+                             _.findWhere([story,act,sequence,scene].concat(scene.panels.slice(panelIndex, scene.panels.length)), {id: selectedItem.id})
+                        );
                         panel.duration = milisecondsToDuration(panel.duration_in_miliseconds);
-
                         panelNodes.push(
                             <Grid.Row key={ key } className="panel-item">
                                 <SectionItem
                                     item={ panel }
                                     onSelectStoryItem={ handleOnSelectStoryItem }
                                     selected={ selectedItem.id == panel.id }
-                                    highlighted={ activeSelection }
+                                    highlighted={ _.findWhere([story,act,sequence,scene].concat(scene.panels.slice(0, panelIndex)), {id: selectedItem.id}) !== undefined }
                                     playing={ panel.id == playingPanel.id }
                                 />
                             </Grid.Row>
@@ -83,7 +79,7 @@ const StoryColumn = React.createClass({
                                 item={ scene }
                                 onSelectStoryItem={ handleOnSelectStoryItem }
                                 selected={ selectedItem.id == scene.id }
-                                highlighted={ activeSelection }
+                                highlighted={ _.findWhere([story,act,sequence,scene], {id: selectedItem.id}) !== undefined }
                             />
                         </Grid.Row>
                     );
@@ -97,7 +93,7 @@ const StoryColumn = React.createClass({
                             item={ sequence }
                             onSelectStoryItem={ handleOnSelectStoryItem }
                             selected={ selectedItem.id == sequence.id }
-                            highlighted={ activeSelection }
+                            highlighted={ _.findWhere([story,act,sequence], {id: selectedItem.id}) !== undefined }
                         />
                     </Grid.Row>
                 );
@@ -111,7 +107,7 @@ const StoryColumn = React.createClass({
                         item={ act }
                         onSelectStoryItem={ handleOnSelectStoryItem }
                         selected={ selectedItem.id == act.id }
-                        highlighted={ activeSelection }
+                        highlighted={ _.findWhere([story,act], {id: selectedItem.id}) !== undefined }
                     />
                 </Grid.Row>
             );
@@ -126,7 +122,7 @@ const StoryColumn = React.createClass({
                     item={ story }
                     onSelectStoryItem={ handleOnSelectStoryItem }
                     selected={ selectedItem.id == story.id }
-                    highlighted={ activeSelection }
+                    highlighted={ _.findWhere([story], {id: selectedItem.id}) !== undefined }
                 />
             </Grid.Row>
         );
