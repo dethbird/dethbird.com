@@ -11,8 +11,8 @@ const StorySectionPlayer = React.createClass({
     },
     render() {
         const { story, selectedItem } = this.props;
-        console.log(story);
-        console.log(selectedItem);
+        // console.log(story);
+        // console.log(selectedItem);
         return (
             <Container>Farts</Container>
         )

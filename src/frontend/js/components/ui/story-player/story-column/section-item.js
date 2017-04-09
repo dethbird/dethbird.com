@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import {
     Card
 } from 'semantic-ui-react';
@@ -13,9 +14,20 @@ const SectionItem = React.createClass({
     },
     render() {
         const { item, onSelectStoryItem, selected, highlighted } = this.props;
-
         return (
-            <Card raised={ !selected } color={ highlighted ? "purple" : null } fluid onClick={ (e) => onSelectStoryItem(e, item)}>
+            <Card
+                raised={ selected===false }
+                color={ highlighted ? 'purple' : null }
+                fluid
+                onClick={ (e) => onSelectStoryItem(e, item)}
+                className={
+                    classNames([
+                        selected ? 'card-selected' : null ,
+                        highlighted ? 'card-highlighted' : null
+                    ])
+
+                }
+            >
                 <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>
         )
