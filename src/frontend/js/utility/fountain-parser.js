@@ -1,4 +1,6 @@
 import uuidV4 from 'uuid/v4';
+import moment from 'moment';
+import pad from 'pad-left';
 
 export const SECTION_LEVELS = [
     "",
@@ -65,6 +67,25 @@ export const INLINE = {
     ITALIC: '<span class=\"italic\">$2</span>',
     UNDERLINE: '<span class=\"underline\">$2</span>'
 };
+
+
+export const durationToMilliseconds = (duration) => {
+    if(!duration) {
+        return 3000;
+    }
+
+    const parts = duration.split(':').reverse();
+    let seconds = 0, i;
+    for(i in parts) {
+        seconds = seconds + (parseInt(parts[i]) * Math.pow(60, i));
+    }
+    return seconds * 1000;
+}
+
+export const milisecondsToDuration = (miliseconds) => {
+    let duration = moment.duration(miliseconds);
+    return [pad(duration.get('hours'), 2, '0'), pad(duration.get('minutes'), 2, '0'), pad(duration.get('seconds'), 2, '0')].join(':');
+}
 
 export const tokenizeLines = (lines) => {
 
@@ -193,7 +214,8 @@ export const tokenizeLines = (lines) => {
                 level_text: match[1],
                 level: match[1].length,
                 image: match[3],
-                duration: match[1].length == 4 ? match[5] : false
+                duration: match[1].length == 4 ? match[5] : false,
+                duration_in_miliseconds: match[1].length == 4 ? durationToMilliseconds(match[5]) : false
             };
             tokens.push(token);
             continue;

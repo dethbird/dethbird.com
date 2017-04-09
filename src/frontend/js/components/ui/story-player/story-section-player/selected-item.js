@@ -11,12 +11,26 @@ const SelectedItem = React.createClass({
     propTypes: {
         selectedItem: React.PropTypes.object.isRequired
     },
+
+    renderHeader() {
+        const { selectedItem } = this.props;
+        console.log(selectedItem);
+        if (selectedItem.type == 'story') {
+            return (
+                <Header>{ selectedItem.title }</Header>
+            )
+        } else {
+            return (
+                <Header>{ selectedItem.level_text + ' ' + selectedItem.text }</Header>
+            )
+        }
+    },
     render() {
         const { selectedItem } = this.props;
 
         return (
             <Container>
-                <Header>{ selectedItem.level_text + ' ' + selectedItem.text }</Header>
+                { this.renderHeader() }
                 <Card fluid className="fountain-container">
                     <div
                         className="fountain"

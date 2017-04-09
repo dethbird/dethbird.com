@@ -13,6 +13,18 @@ const SectionItem = React.createClass({
         highlighted: React.PropTypes.bool,
         playing: React.PropTypes.bool
     },
+    renderHeader() {
+        const { item } = this.props;
+        if (item.type == 'story') {
+            return (
+                <Card.Content header={ item.title } />
+            )
+        } else {
+            return (
+                <Card.Content header={ item.level_text + ' ' + item.text } />
+            )
+        }
+    },
     render() {
         const { item, onSelectStoryItem, selected, highlighted, playing } = this.props;
         const className = classNames([
@@ -32,7 +44,8 @@ const SectionItem = React.createClass({
                 onClick={ (e) => onSelectStoryItem(e, item)}
                 className={ className }
             >
-                <Card.Content header={ item.level_text + ' ' + item.text } />
+                { this.renderHeader() }
+                <Card.Content extra>{ item.duration }</Card.Content>
             </Card>
         )
     }
