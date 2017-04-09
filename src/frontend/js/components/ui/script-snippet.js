@@ -18,7 +18,7 @@ const ScriptSnippet = React.createClass({
         );
     },
     propTypes: {
-        id: React.PropTypes.string
+        snippet: React.PropTypes.string.isRequired
     },
     renderContent() {
         const { snippet } = this.props;

@@ -219,6 +219,9 @@ div.script-input {
 .story-column .row {
   padding-bottom: 0 !important;
 }
+.story-column .row:last-child {
+  padding-bottom: 1rem !important;
+}
 .story-column .row.act-item {
   margin-left: 8px;
 }
@@ -230,6 +233,9 @@ div.script-input {
 }
 .story-column .row.panel-item {
   margin-left: 32px;
+}
+.story-player .player {
+  height: 480px;
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;

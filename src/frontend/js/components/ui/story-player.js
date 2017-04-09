@@ -64,7 +64,7 @@ const StoryPlayer = React.createClass({
         const { model, selectedItem, story } = this.state;
 
         return (
-            <Container>
+            <Container className="story-player">
                 <Grid>
                     <Grid.Column width={ 6 }>
                         <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem }/>
