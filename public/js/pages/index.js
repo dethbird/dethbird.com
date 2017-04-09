@@ -35793,6 +35793,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -35803,24 +35805,67 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Player = _react2.default.createClass({
     displayName: 'Player',
+    getInitialState: function getInitialState() {
+        return {
+            panelIndex: 0,
+            playing: false,
+            timeout: null
+        };
+    },
 
     propTypes: {
         panels: _react2.default.PropTypes.array.isRequired,
         onClickPlay: _react2.default.PropTypes.func.isRequired,
         onClickPause: _react2.default.PropTypes.func.isRequired
     },
-    handleClickPlay: function handleClickPlay(e) {
+    play: function play(index) {
+        var play = this.play;
         var _props = this.props,
-            onClickPlay = _props.onClickPlay,
-            panels = _props.panels;
+            panels = _props.panels,
+            onClickPlay = _props.onClickPlay;
 
+        var nextIndex = index + 1 == panels.length ? 0 : index + 1;
+
+        onClickPlay(null, panels[index]);
+
+        this.setState(_extends({}, this.state, {
+            panelIndex: index,
+            playing: true,
+            timeout: setTimeout(function () {
+                play(nextIndex);
+            }, 3000)
+        }));
+    },
+    handleClickPlay: function handleClickPlay(e) {
+        var panelIndex = this.state.panelIndex;
+        var _props2 = this.props,
+            onClickPlay = _props2.onClickPlay,
+            panels = _props2.panels;
+
+        this.play(0);
         onClickPlay(e, panels[0]);
     },
+    handleClickPause: function handleClickPause(e) {
+        var timeout = this.state.timeout;
+        var _props3 = this.props,
+            onClickPause = _props3.onClickPause,
+            panels = _props3.panels;
+
+        this.setState(_extends({}, this.state, {
+            playing: false,
+            timeout: clearTimeout(timeout)
+        }));
+        onClickPause(e);
+    },
     render: function render() {
-        var handleClickPlay = this.handleClickPlay;
-        var _props2 = this.props,
-            panels = _props2.panels,
-            onClickPause = _props2.onClickPause;
+        var handleClickPlay = this.handleClickPlay,
+            handleClickPause = this.handleClickPause;
+        var _props4 = this.props,
+            panels = _props4.panels,
+            onClickPause = _props4.onClickPause;
+        var _state = this.state,
+            panelIndex = _state.panelIndex,
+            playing = _state.playing;
 
         if (panels.length == 0) {
             return _react2.default.createElement(
@@ -35870,13 +35915,13 @@ var Player = _react2.default.createClass({
                 { textAlign: 'center' },
                 _react2.default.createElement(
                     _semanticUiReact.Button,
-                    { as: 'a', onClick: onClickPause },
+                    { as: 'a', onClick: handleClickPause, disabled: !playing },
                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'pause' }),
                     ' Pause'
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Button,
-                    { as: 'a', color: 'teal', onClick: handleClickPlay },
+                    { as: 'a', color: 'teal', onClick: handleClickPlay, disabled: playing },
                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                     ' Play'
                 )
