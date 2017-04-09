@@ -13,7 +13,8 @@ import SelectedItem from 'components/ui/story-player/story-section-player/select
 const StorySectionPlayer = React.createClass({
     propTypes: {
         story: React.PropTypes.object.isRequired,
-        selectedItem: React.PropTypes.object.isRequired
+        selectedItem: React.PropTypes.object.isRequired,
+        onClickPlay: React.PropTypes.func.isRequired
     },
     extractPanelsToPlay(story, selectedItem){
         let nodes = [];
@@ -45,7 +46,7 @@ const StorySectionPlayer = React.createClass({
     },
     render() {
         const { extractPanelsToPlay } = this;
-        const { story, selectedItem } = this.props;
+        const { story, selectedItem, onClickPlay } = this.props;
         if (!selectedItem.id) {
             return (
                 <Container>No item selected</Container>
@@ -53,12 +54,11 @@ const StorySectionPlayer = React.createClass({
         }
         // extract panels to play
         const panels = extractPanelsToPlay(story, selectedItem);
-        console.log(panels);
 
         return (
             <Grid className="story-section-player" as={ Container } >
                 <Grid.Row>
-                    <Player panels={ panels } />
+                    <Player panels={ panels } onClickPlay={ onClickPlay }/>
                 </Grid.Row>
                 <Grid.Row>
                     <SelectedItem selectedItem={ selectedItem } />

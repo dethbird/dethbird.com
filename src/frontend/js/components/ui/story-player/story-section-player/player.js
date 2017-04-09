@@ -9,9 +9,15 @@ import {
 
 const Player = React.createClass({
     propTypes: {
-        panels: React.PropTypes.array.isRequired
+        panels: React.PropTypes.array.isRequired,
+        onClickPlay: React.PropTypes.func.isRequired
+    },
+    handleClickPlay(e) {
+        const { onClickPlay, panels } = this.props;
+        onClickPlay(e, panels[0]);
     },
     render() {
+        const { handleClickPlay } = this;
         const { panels } = this.props;
         if (panels.length==0) {
             return (
@@ -35,7 +41,7 @@ const Player = React.createClass({
                 </Segment>
                 <Segment textAlign='center'>
                     <Button as="a"><Icon name="pause" /> Pause</Button>
-                    <Button as="a" color="teal"><Icon name="play" /> Play</Button>
+                    <Button as="a" color="teal" onClick={ handleClickPlay } ><Icon name="play" /> Play</Button>
                 </Segment>
             </Segment.Group>
         )

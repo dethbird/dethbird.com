@@ -13,7 +13,7 @@ const SelectedItem = React.createClass({
     },
     render() {
         const { selectedItem } = this.props;
-        console.log(selectedItem);
+
         return (
             <Container>
                 <Header>{ selectedItem.level_text + ' ' + selectedItem.text }</Header>

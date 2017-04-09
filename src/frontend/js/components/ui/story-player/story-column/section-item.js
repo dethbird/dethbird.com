@@ -10,23 +10,27 @@ const SectionItem = React.createClass({
         item: React.PropTypes.object.isRequired,
         onSelectStoryItem: React.PropTypes.func.isRequired,
         selected: React.PropTypes.bool,
-        highlighted: React.PropTypes.bool
+        highlighted: React.PropTypes.bool,
+        playing: React.PropTypes.bool
     },
     render() {
-        const { item, onSelectStoryItem, selected, highlighted } = this.props;
+        const { item, onSelectStoryItem, selected, highlighted, playing } = this.props;
+        const className = classNames([
+            selected ? 'card-selected' : null ,
+            playing ? 'card-playing' : null ,
+            highlighted && !playing ? 'card-highlighted' : null
+        ]);
+
+        let color = highlighted ? 'purple' : null;
+        color = playing ? 'orange' : color;
+
         return (
             <Card
                 raised={ selected===false }
-                color={ highlighted ? 'purple' : null }
+                color={ color }
                 fluid
                 onClick={ (e) => onSelectStoryItem(e, item)}
-                className={
-                    classNames([
-                        selected ? 'card-selected' : null ,
-                        highlighted ? 'card-highlighted' : null
-                    ])
-
-                }
+                className={ className }
             >
                 <Card.Content header={ item.level_text + ' ' + item.text } />
             </Card>

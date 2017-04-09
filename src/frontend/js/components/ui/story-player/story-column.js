@@ -11,7 +11,8 @@ const StoryColumn = React.createClass({
     propTypes: {
         story: React.PropTypes.object.isRequired,
         selectedItem: React.PropTypes.object.isRequired,
-        onSelectStoryItem: React.PropTypes.func
+        onSelectStoryItem: React.PropTypes.func,
+        playingPanel: React.PropTypes.object
     },
     handleOnSelectStoryItem(e, payload) {
         const { onSelectStoryItem } = this.props;
@@ -21,7 +22,7 @@ const StoryColumn = React.createClass({
     },
     renderStoryNodes() {
         const { handleOnSelectStoryItem } = this;
-        const { story, selectedItem } = this.props;
+        const { story, selectedItem, playingPanel } = this.props;
 
         if (!story.acts) {
             return null;
@@ -95,6 +96,7 @@ const StoryColumn = React.createClass({
                                     onSelectStoryItem={ handleOnSelectStoryItem }
                                     selected={ selectedItem.id == panel.id }
                                     highlighted={ activeSelection }
+                                    playing={ panel.id == playingPanel.id }
                                 />
                             </Grid.Row>
                         );
