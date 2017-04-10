@@ -1,7 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-    Card
+    Card,
+    Grid,
+    Header,
+    Icon
 } from 'semantic-ui-react';
 
 
@@ -17,18 +20,18 @@ const SectionItem = React.createClass({
         const { item } = this.props;
         if (item.type == 'story') {
             return (
-                <Card.Content header={ item.title } />
+                <Header>{ item.title }</Header>
             )
         } else {
             return (
-                <Card.Content header={ item.level_text + ' ' + item.text } />
+                <Header as={ 'h' + (item.level_text.length + 1) }>{ item.level_text + ' ' + item.text }</Header>
             )
         }
     },
     render() {
         const { item, onSelectStoryItem, selected, highlighted, playing } = this.props;
         const className = classNames([
-            selected && !playing ? 'card-selected' : null ,
+            selected && !playing ? 'card-selected' : null,
             playing ? 'card-playing' : null ,
             highlighted && !playing ? 'card-highlighted' : null
         ]);
@@ -44,8 +47,16 @@ const SectionItem = React.createClass({
                 onClick={ (e) => onSelectStoryItem(e, item)}
                 className={ className }
             >
-                { this.renderHeader() }
-                <Card.Content extra>{ item.duration }</Card.Content>
+                <Card.Content>
+                    <Grid>
+                        <Grid.Column width={ 10 }>
+                            { this.renderHeader() }
+                        </Grid.Column>
+                        <Grid.Column width={ 6 } textAlign="right">
+                            <Icon name="time" /><span>{ item.duration }</span>
+                        </Grid.Column>
+                    </Grid>
+                </Card.Content>
             </Card>
         )
     }

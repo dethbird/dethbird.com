@@ -79,9 +79,9 @@ const Player = React.createClass({
                 </Segment>
                 <Segment>
                     <Grid>
-                        <Grid.Column width={ 4 }><span>{ panels.length } panel(s)</span></Grid.Column>
+                        <Grid.Column width={ 4 }><Icon name="grid layout" /><span>{ panels.length } panel(s)</span></Grid.Column>
                         <Grid.Column width={ 8 } textAlign="center">bar</Grid.Column>
-                        <Grid.Column width={ 4 } textAlign="right">{ milisecondsToDuration(durationInMiliseconds) }</Grid.Column>
+                        <Grid.Column width={ 4 } textAlign="right"><Icon name="time" />{ milisecondsToDuration(durationInMiliseconds) }</Grid.Column>
                     </Grid>
                 </Segment>
                 <Segment textAlign='center'>

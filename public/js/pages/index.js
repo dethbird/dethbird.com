@@ -51196,9 +51196,17 @@ var SectionItem = _react2.default.createClass({
         var item = this.props.item;
 
         if (item.type == 'story') {
-            return _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.title });
+            return _react2.default.createElement(
+                _semanticUiReact.Header,
+                null,
+                item.title
+            );
         } else {
-            return _react2.default.createElement(_semanticUiReact.Card.Content, { header: item.level_text + ' ' + item.text });
+            return _react2.default.createElement(
+                _semanticUiReact.Header,
+                { as: 'h' + (item.level_text.length + 1) },
+                item.level_text + ' ' + item.text
+            );
         }
     },
     render: function render() {
@@ -51225,11 +51233,28 @@ var SectionItem = _react2.default.createClass({
                 },
                 className: className
             },
-            this.renderHeader(),
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
-                { extra: true },
-                item.duration
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Grid,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 10 },
+                        this.renderHeader()
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 6, textAlign: 'right' },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            item.duration
+                        )
+                    )
+                )
             )
         );
     }
@@ -51475,6 +51500,7 @@ var Player = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4 },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'grid layout' }),
                         _react2.default.createElement(
                             'span',
                             null,
@@ -51490,6 +51516,7 @@ var Player = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4, textAlign: 'right' },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
                         (0, _fountainParser.milisecondsToDuration)(durationInMiliseconds)
                     )
                 )
