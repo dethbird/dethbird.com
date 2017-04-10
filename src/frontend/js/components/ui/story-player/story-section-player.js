@@ -14,6 +14,7 @@ const StorySectionPlayer = React.createClass({
     propTypes: {
         story: React.PropTypes.object.isRequired,
         selectedItem: React.PropTypes.object.isRequired,
+        playingPanel: React.PropTypes.object.isRequired,
         onClickPlay: React.PropTypes.func.isRequired,
         onClickPause: React.PropTypes.func.isRequired
     },
@@ -52,7 +53,7 @@ const StorySectionPlayer = React.createClass({
     },
     render() {
         const { extractPanelsToPlay } = this;
-        const { story, selectedItem, onClickPlay, onClickPause } = this.props;
+        const { story, selectedItem, playingPanel, onClickPlay, onClickPause } = this.props;
         if (!selectedItem.id) {
             return (
                 <Container>No item selected</Container>
@@ -64,15 +65,18 @@ const StorySectionPlayer = React.createClass({
             duration_in_miliseconds
         } = extractPanelsToPlay(story, selectedItem);
 
-        console.log(duration_in_miliseconds);
-
         return (
             <Grid className="story-section-player" as={ Container } >
                 <Grid.Row>
-                    <Player panels={ panels } onClickPlay={ onClickPlay } onClickPause={ onClickPause } durationInMiliseconds={ duration_in_miliseconds } />
+                    <Player
+                        panels={ panels }
+                        onClickPlay={ onClickPlay }
+                        onClickPause={ onClickPause }
+                        durationInMiliseconds={ duration_in_miliseconds }
+                    />
                 </Grid.Row>
                 <Grid.Row>
-                    <SelectedItem selectedItem={ selectedItem } />
+                    <SelectedItem selectedItem={ playingPanel.id ? playingPanel : selectedItem } />
                 </Grid.Row>
             </Grid>
         );

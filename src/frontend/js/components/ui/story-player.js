@@ -87,7 +87,13 @@ const StoryPlayer = React.createClass({
                         <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
                     </Grid.Column>
                     <Grid.Column width={ 10 }>
-                        <StorySectionPlayer story={ story } selectedItem={ selectedItem } onClickPlay={ handleClickPlay }  onClickPause={ handleClickPause } />
+                        <StorySectionPlayer
+                            story={ story }
+                            selectedItem={ selectedItem }
+                            onClickPlay={ handleClickPlay }
+                            onClickPause={ handleClickPause }
+                            playingPanel={ playingPanel }
+                        />
                     </Grid.Column>
                 </Grid>
             </Container>

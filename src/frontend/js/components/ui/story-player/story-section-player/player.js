@@ -52,6 +52,7 @@ const Player = React.createClass({
         const { onClickPause, panels } = this.props;
         this.setState({
             ... this.state,
+            panelIndex: 0,
             playing: false,
             timeout: clearTimeout(timeout)
         });
@@ -70,11 +71,11 @@ const Player = React.createClass({
                 </Container>
             );
         }
-        console.log(panels[panelIndex]);
+
         return (
             <Segment.Group as={ Container } text>
                 <Segment inverted  className="player">
-                    <Image src={ panels[panelIndex].image } />
+                    <Image src={ panels[panelIndex] ? panels[panelIndex].image : null } />
                 </Segment>
                 <Segment>
                     <Grid>
