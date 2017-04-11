@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import {
     Button,
+    Icon,
     Segment
 } from 'semantic-ui-react';
 
@@ -20,7 +21,7 @@ const StoryEdit = React.createClass({
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
                 <Segment basic>
-                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}}>Edit story</Button>
+                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}}><Icon name="edit" /> Edit story</Button>
                 </Segment>
                 <Segment className="main-content">
                     <StoryPlayer id={ id } />

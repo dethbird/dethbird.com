@@ -58559,7 +58559,8 @@ var StoryEdit = _react2.default.createClass({
                     { as: 'a', onClick: function onClick() {
                             _reactRouter.browserHistory.push('/story/' + id + '/edit');
                         } },
-                    'Edit story'
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
+                    ' Edit story'
                 )
             ),
             _react2.default.createElement(
@@ -59221,6 +59222,8 @@ var StoryForm = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Button,
                     { onClick: this.toggleSidebarVisibility },
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'help circle' }),
+                    ' ',
                     sidebarVisible ? "<" : ".fountain help"
                 ),
                 _react2.default.createElement(
@@ -59228,11 +59231,14 @@ var StoryForm = _react2.default.createClass({
                     { as: 'a', onClick: function onClick() {
                             _reactRouter.browserHistory.push('/story/' + id + '/play');
                         } },
-                    'Play story'
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
+                    ' Play story'
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Button,
                     { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
+                    ' ',
                     id ? "Save" : "Create"
                 )
             ),

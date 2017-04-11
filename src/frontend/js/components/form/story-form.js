@@ -89,9 +89,9 @@ const StoryForm = React.createClass({
         return (
             <div>
                 <Container textAlign="left" fluid>
-                    <Button onClick={ this.toggleSidebarVisibility }>{ sidebarVisible ? "<" : ".fountain help" }</Button>
-                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}>Play story</Button>
-                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } >{ id ? "Save" : "Create" }</Button>
+                    <Button onClick={ this.toggleSidebarVisibility }><Icon name="help circle" /> { sidebarVisible ? "<" : ".fountain help"  }</Button>
+                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}><Icon name="play" /> Play story</Button>
+                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } ><Icon name="save" /> { id ? "Save" : "Create" }</Button>
                 </Container>
                 <br />
                 <Sidebar.Pushable>
