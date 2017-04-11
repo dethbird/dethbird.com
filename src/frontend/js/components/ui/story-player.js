@@ -1,6 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
+    Button,
     Container,
     Grid,
     Segment
@@ -81,22 +83,24 @@ const StoryPlayer = React.createClass({
         const { model, selectedItem, story, playingPanel } = this.state;
 
         return (
-            <Container className="story-player">
-                <Grid>
-                    <Grid.Column width={ 6 }>
-                        <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
-                    </Grid.Column>
-                    <Grid.Column width={ 10 }>
-                        <StorySectionPlayer
-                            story={ story }
-                            selectedItem={ selectedItem }
-                            onClickPlay={ handleClickPlay }
-                            onClickPause={ handleClickPause }
-                            playingPanel={ playingPanel }
-                        />
-                    </Grid.Column>
-                </Grid>
-            </Container>
+            <div>
+                <Container className="story-player">
+                    <Grid>
+                        <Grid.Column width={ 6 }>
+                            <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
+                        </Grid.Column>
+                        <Grid.Column width={ 10 }>
+                            <StorySectionPlayer
+                                story={ story }
+                                selectedItem={ selectedItem }
+                                onClickPlay={ handleClickPlay }
+                                onClickPause={ handleClickPause }
+                                playingPanel={ playingPanel }
+                            />
+                        </Grid.Column>
+                    </Grid>
+                </Container>
+            </div>
         )
     }
 })

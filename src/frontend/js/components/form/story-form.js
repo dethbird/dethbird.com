@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
     Accordion,
@@ -88,7 +89,9 @@ const StoryForm = React.createClass({
         return (
             <div>
                 <Container textAlign="left" fluid>
-                    <Button onClick={ this.toggleSidebarVisibility }>{ sidebarVisible ? "<" : "Script Help" }</Button>
+                    <Button onClick={ this.toggleSidebarVisibility }>{ sidebarVisible ? "<" : ".fountain help" }</Button>
+                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}>Play story</Button>
+                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } >{ id ? "Save" : "Create" }</Button>
                 </Container>
                 <br />
                 <Sidebar.Pushable>
@@ -117,10 +120,6 @@ const StoryForm = React.createClass({
                             <Container>
                                 <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
                                 <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
-                            </Container>
-                            <br />
-                            <Container text={ true } textAlign="right">
-                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } size="large">{ id ? "Save" : "Create" }</Button>
                             </Container>
                         </Form>
                   </Sidebar.Pusher>

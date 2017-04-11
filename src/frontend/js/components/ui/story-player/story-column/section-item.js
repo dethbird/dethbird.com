@@ -17,7 +17,7 @@ const SectionItem = React.createClass({
         playing: React.PropTypes.bool
     },
     renderHeader() {
-        const { item } = this.props;
+        const { item, storyId } = this.props;
         if (item.type == 'story') {
             return (
                 <Header>{ item.title }</Header>
