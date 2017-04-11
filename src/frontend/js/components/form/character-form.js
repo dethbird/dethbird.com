@@ -4,6 +4,7 @@ import {
     Button,
     Container,
     Form,
+    Icon,
     Image,
     Label,
     Menu,
@@ -106,7 +107,7 @@ const CharacterForm = React.createClass({
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 
                     <Container textAlign="right">
-                        <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }>{ id ? "Save" : "Create" }</Button>
+                        <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> { id ? "Save" : "Create" }</Button>
                     </Container>
                 </Form>
             </Container>

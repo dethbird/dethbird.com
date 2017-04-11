@@ -58923,6 +58923,8 @@ var CharacterForm = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Button,
                         { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
+                        ' ',
                         id ? "Save" : "Create"
                     )
                 )
