@@ -7,6 +7,9 @@ import {
     Segment,
     TextArea
 } from 'semantic-ui-react';
+import CodeMirror from 'react-codemirror';
+import markdownMode from 'codemirror/mode/markdown/markdown';
+
 
 import { parseFountainScript } from 'utility/fountain-parser';
 
@@ -14,6 +17,13 @@ const ScriptInput = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func
+    },
+    handleFieldChange(value, id) {
+        const { onChange } = this.props;
+        onChange (
+            { currentTarget: { value }},
+            id
+        );
     },
     render() {
         const { handleFieldChange } = this;
@@ -23,13 +33,15 @@ const ScriptInput = React.createClass({
         return (
             <Grid>
                 <Grid.Column width={ 7 }>
-                    <TextArea
-                        value={ script }
-                        onChange={ (e) => { onChange(e, id) } }
-                        autoHeight={ true }
+                    <CodeMirror
+                        value={ script || '' }
+                        onChange={ (e) => { handleFieldChange(e, id) } }
+                        options={{
+                            lineNumbers: true,
+                            lineWrapping: true,
+                            mode: 'markdown'
+                        }}
                         id={ id }
-                        className="script-input"
-                        placeholder={ placeholder }
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>
