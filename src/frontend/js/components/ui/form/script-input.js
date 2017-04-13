@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react';
 import CodeMirror from 'react-codemirror';
 import markdownMode from 'codemirror/mode/markdown/markdown';
+import fountainMode from 'codemirror-mode/fountain/fountain';
 
 
 import { parseFountainScript } from 'utility/fountain-parser';
@@ -39,7 +40,8 @@ const ScriptInput = React.createClass({
                         options={{
                             lineNumbers: true,
                             lineWrapping: true,
-                            mode: 'markdown'
+                            mode: 'fountain',
+                            theme: 'base16-light'
                         }}
                         id={ id }
                     />
