@@ -14,6 +14,7 @@ CodeMirror.defineMode("fountain", function() {
 
     return {
         token: function(stream, state) {
+            let match = false;
             // section subelements
             if (state.section) {
                 if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
@@ -40,10 +41,10 @@ CodeMirror.defineMode("fountain", function() {
                 return "heading";
             }
             // section
-            if (stream.match(REGEX.SECTION)){
+            if (match = stream.match(REGEX.SECTION)){
                 state.section = true;
                 stream.skipToEnd();
-                return "section";
+                return "section-" + match[1].length;
             }
             // character / dialogue
             if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){

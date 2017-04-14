@@ -60011,6 +60011,7 @@ var _fountainParser = __webpack_require__(64);
 
         return {
             token: function token(stream, state) {
+                var match = false;
                 // section subelements
                 if (state.section) {
                     if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
@@ -60037,10 +60038,10 @@ var _fountainParser = __webpack_require__(64);
                     return "heading";
                 }
                 // section
-                if (stream.match(_fountainParser.REGEX.SECTION)) {
+                if (match = stream.match(_fountainParser.REGEX.SECTION)) {
                     state.section = true;
                     stream.skipToEnd();
-                    return "section";
+                    return "section-" + match[1].length;
                 }
                 // character / dialogue
                 if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {

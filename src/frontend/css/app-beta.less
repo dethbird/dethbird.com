@@ -2,7 +2,11 @@
 
 /* CODEMIRROR FOUNTAIN */
 
-.cm-s-storystation.CodeMirror { background: #f5f5f5; color: #202020; }
+.cm-s-storystation.CodeMirror {
+    background: #fcfcfc;
+    color: #1a1a1a;
+    line-height:1.4375;
+}
 
 .cm-s-storystation span.cm-meta { color: #FF1717; }
 .cm-s-storystation span.cm-keyword { line-height: 1em; font-weight: bold; color: #7F0055; }
@@ -29,9 +33,21 @@
     color: #000;
     font-weight: bold;
 }
-.cm-s-storystation span.cm-section {
-    color: #3264BA;
+.cm-s-storystation span[class^="cm-section"] {
+    color: #3C1518;
     font-weight: bold;
+    font-size: 18px;
+}
+.cm-s-storystation span.cm-section-1 {
+    font-size: 24px;
+}
+.cm-s-storystation span.cm-section-2 {
+    font-size: 22px;
+}
+.cm-s-storystation span.cm-section-3 {
+    font-size: 20px;
+}
+.cm-s-storystation span.cm-section-4 {
     font-size: 18px;
 }
 .cm-s-storystation span.cm-heading {
@@ -48,7 +64,7 @@
     font-size: 14px;
 }
 .cm-s-storystation span.cm-title-keyword {
-    color: purple;
+    color: #9B1222;
     font-weight: bold;
 }
 .cm-s-storystation span.cm-lyrics {
@@ -58,6 +74,7 @@
 .cm-s-storystation span.cm-synopsis {
     color: gray;
     text-transform: italic;
+    background-color: #EFEFEF;
 }
 .cm-s-storystation span.cm-page-break {
     color: #9B3676;
