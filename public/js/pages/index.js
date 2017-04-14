@@ -8777,12 +8777,12 @@ var Footer = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
                                 { as: 'a' },
-                                'Sitemap'
+                                'About Us'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
                                 { as: 'a' },
-                                'Contact Us'
+                                'Mission Statement'
                             )
                         )
                     ),
@@ -8792,7 +8792,7 @@ var Footer = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Header,
                             { as: 'h4', inverted: true },
-                            'Services'
+                            'Legal'
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.List,
@@ -8800,12 +8800,12 @@ var Footer = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
                                 { as: 'a' },
-                                'Sitemap'
+                                'Privacy Policy'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
                                 { as: 'a' },
-                                'Contact Us'
+                                'Terms of Service'
                             )
                         )
                     ),
@@ -8815,7 +8815,7 @@ var Footer = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Header,
                             { as: 'h4', inverted: true },
-                            'Footer Header'
+                            'Help'
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.List,
@@ -8823,7 +8823,7 @@ var Footer = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
                                 { as: 'a' },
-                                'Sitemap'
+                                'FAQ'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.List.Item,
@@ -61197,12 +61197,22 @@ var Masthead = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Menu.Item,
                         { active: true },
-                        'One'
+                        'Overview'
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Menu.Item,
                         null,
-                        'Two'
+                        'Demo'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Menu.Item,
+                        null,
+                        'Docs'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Menu.Item,
+                        null,
+                        'Animation & Showbiz News'
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Menu.Item,
@@ -61222,12 +61232,12 @@ var Masthead = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Container,
-                { text: true },
+                { text: true, textAlign: 'center' },
                 _react2.default.createElement(_semanticUiReact.Image, { src: '/svg/storystation.svg', className: 'logo' }),
                 _react2.default.createElement(
                     _semanticUiReact.Header,
                     { as: 'h2', inverted: true },
-                    'The boring part of silver screen magic!!'
+                    'Get that story written and produced.'
                 ),
                 _react2.default.createElement(_semanticUiReact.Button, { content: 'Get Started', icon: 'right arrow', labelPosition: 'right', primary: true, size: 'huge' })
             )
