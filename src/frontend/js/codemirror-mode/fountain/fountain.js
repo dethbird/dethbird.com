@@ -15,6 +15,23 @@ CodeMirror.defineMode("fountain", function() {
     return {
         token: function(stream, state) {
             let match = false;
+
+            // note started
+            if (state.note) {
+                // find the ']]'
+                match = stream.skipTo(']]');
+                if (match) {
+                    stream.eat(']]');
+                    stream.next();
+                    stream.next();
+                    state.note = false;
+                    return 'note';
+                } else {
+                    stream.skipToEnd();
+                    return 'note';
+                }
+            }
+
             // section subelements
             if (state.section) {
                 if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
@@ -66,12 +83,23 @@ CodeMirror.defineMode("fountain", function() {
                 stream.skipToEnd();
                 return "page-break";
             }
+            // check for notes
+            if (stream.match(/\[\[/g)){
+                match = stream.skipTo('[[');
+                if (!match) {
+                    stream.backUp(2);
+                }
+                state.note = true;
+                return null;
+            }
+
             stream.skipToEnd();
             return null;
         },
         startState: function() {
             return {
                 section: false,
+                note: false,
             };
       }
     };
