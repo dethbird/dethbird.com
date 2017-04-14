@@ -60024,17 +60024,23 @@ var _fountainParser = __webpack_require__(64);
                         return null;
                     }
                 }
-                // section
-                if (stream.match(_fountainParser.REGEX.SECTION)) {
-                    state.section = true;
-                    stream.skipToEnd();
-                    return "section";
+                // title
+                if (stream.match(_fountainParser.REGEX.TITLE_PAGE)) {
+                    stream.skipTo(':');
+                    stream.next();
+                    return "title-keyword";
                 }
                 // scene heading
                 if (stream.match(_fountainParser.REGEX.SCENE_HEADING)) {
                     state.section = true;
                     stream.skipToEnd();
                     return "heading";
+                }
+                // section
+                if (stream.match(_fountainParser.REGEX.SECTION)) {
+                    state.section = true;
+                    stream.skipToEnd();
+                    return "section";
                 }
                 // character / dialogue
                 if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
@@ -60044,7 +60050,17 @@ var _fountainParser = __webpack_require__(64);
                 // lyrics
                 if (stream.match(/^~ /)) {
                     stream.skipToEnd();
-                    return "tag";
+                    return "lyrics";
+                }
+                // synopsis
+                if (stream.match(/^= /)) {
+                    stream.skipToEnd();
+                    return "synopsis";
+                }
+                // page-break
+                if (stream.match(_fountainParser.REGEX.PAGE_BREAK)) {
+                    stream.skipToEnd();
+                    return "page-break";
                 }
                 stream.skipToEnd();
                 return null;

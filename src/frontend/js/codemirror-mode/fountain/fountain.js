@@ -27,17 +27,23 @@ CodeMirror.defineMode("fountain", function() {
                     return null;
                 }
             }
-            // section
-            if (stream.match(REGEX.SECTION)){
-                state.section = true;
-                stream.skipToEnd();
-                return "section";
+            // title
+            if (stream.match(REGEX.TITLE_PAGE)){
+                stream.skipTo(':');
+                stream.next();
+                return "title-keyword";
             }
             // scene heading
             if (stream.match(REGEX.SCENE_HEADING)){
                 state.section = true;
                 stream.skipToEnd();
                 return "heading";
+            }
+            // section
+            if (stream.match(REGEX.SECTION)){
+                state.section = true;
+                stream.skipToEnd();
+                return "section";
             }
             // character / dialogue
             if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){
@@ -47,7 +53,17 @@ CodeMirror.defineMode("fountain", function() {
             // lyrics
             if (stream.match(/^~ /)){
                 stream.skipToEnd();
-                return "tag";
+                return "lyrics";
+            }
+            // synopsis
+            if (stream.match(/^= /)){
+                stream.skipToEnd();
+                return "synopsis";
+            }
+            // page-break
+            if (stream.match(REGEX.PAGE_BREAK)){
+                stream.skipToEnd();
+                return "page-break";
             }
             stream.skipToEnd();
             return null;
