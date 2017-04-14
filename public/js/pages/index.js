@@ -60011,28 +60011,38 @@ var _fountainParser = __webpack_require__(64);
 
         return {
             token: function token(stream, state) {
+                // section subelements
                 if (state.section) {
                     if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
                         stream.skipToEnd();
-                        return 'variable-2';
+                        return 'section-image';
                     } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/)) {
                         stream.skipToEnd();
-                        return 'variable-3';
+                        return 'section-duration';
                     } else {
                         state.section = false;
                         return null;
                     }
                 }
+                // section
                 if (stream.match(_fountainParser.REGEX.SECTION)) {
                     state.section = true;
                     stream.skipToEnd();
-                    return "header";
+                    return "section";
                 }
-                var match = void 0;
-                if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
-                    console.log('dialogue');
-                    console.log(stream);
-                    console.log(match);
+                // scene heading
+                if (stream.match(_fountainParser.REGEX.SCENE_HEADING)) {
+                    state.section = true;
+                    stream.skipToEnd();
+                    return "heading";
+                }
+                // character / dialogue
+                if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
+                    stream.skipToEnd();
+                    return "character";
+                }
+                // lyrics
+                if (stream.match(/^~ /)) {
                     stream.skipToEnd();
                     return "tag";
                 }
@@ -60794,7 +60804,7 @@ var ScriptInput = _react2.default.createClass({
                         lineNumbers: true,
                         lineWrapping: true,
                         mode: 'fountain',
-                        theme: 'base16-light'
+                        theme: 'storystation'
                     },
                     id: id
                 })

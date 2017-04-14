@@ -41,7 +41,7 @@ const ScriptInput = React.createClass({
                             lineNumbers: true,
                             lineWrapping: true,
                             mode: 'fountain',
-                            theme: 'base16-light'
+                            theme: 'storystation'
                         }}
                         id={ id }
                     />
