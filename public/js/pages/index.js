@@ -60012,10 +60012,10 @@ var _fountainParser = __webpack_require__(64);
         return {
             token: function token(stream, state) {
                 var match = false;
+                var nextChar = false;
 
                 // note started
                 if (state.note) {
-                    // find the ']]'
                     match = stream.skipTo(']]');
                     if (match) {
                         stream.eat(']]');
@@ -60027,6 +60027,28 @@ var _fountainParser = __webpack_require__(64);
                         stream.skipToEnd();
                         return 'note';
                     }
+                }
+
+                if (state.character_extended) {
+                    nextChar = stream.peek();
+                    if (nextChar == '(') {
+                        match = stream.skipTo(')');
+                        if (match) {
+                            stream.eat(')');
+                            stream.eatSpace();
+                            return 'character-parenthetical';
+                        } else {
+                            stream.skipToEnd();
+                            return null;
+                        }
+                    } else if (nextChar == '^') {
+                        stream.eat('^');
+                        stream.skipToEnd();
+                        return 'character-dual';
+                    }
+
+                    stream.skipToEnd();
+                    return "dialogue";
                 }
 
                 // section subelements
@@ -60063,12 +60085,17 @@ var _fountainParser = __webpack_require__(64);
                     return "section-" + match[1].length;
                 }
                 // character / dialogue
-                if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
+                if (match = stream.match(/^([A-Z][A-Z0-9]+([A-Z0-9 ])+)/)) {
                     stream.eatSpace();
-                    var nextChar = stream.peek();
+                    nextChar = stream.peek();
                     if (nextChar && nextChar !== '(' && nextChar !== '^') {
+                        stream.skipToEnd();
                         return null;
+                    } else if (nextChar == '(' || nextChar == '^') {
+                        state.character_extended = true;
+                        return "character";
                     }
+                    state.character_extended = true;
                     stream.skipToEnd();
                     return "character";
                 }
@@ -60100,8 +60127,14 @@ var _fountainParser = __webpack_require__(64);
                 stream.skipToEnd();
                 return null;
             },
+            blankLine: function blankLine(state) {
+                state.character_extended = false;
+            },
+
             startState: function startState() {
                 return {
+                    last_line_blank: false,
+                    character_extended: false,
                     section: false,
                     section_level: false,
                     note: false

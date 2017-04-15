@@ -15,10 +15,10 @@ CodeMirror.defineMode("fountain", function() {
     return {
         token: function(stream, state) {
             let match = false;
+            let nextChar = false;
 
             // note started
             if (state.note) {
-                // find the ']]'
                 match = stream.skipTo(']]');
                 if (match) {
                     stream.eat(']]');
@@ -30,6 +30,28 @@ CodeMirror.defineMode("fountain", function() {
                     stream.skipToEnd();
                     return 'note';
                 }
+            }
+
+            if (state.character_extended) {
+                nextChar = stream.peek();
+                if (nextChar == '(') {
+                    match = stream.skipTo(')');
+                    if (match) {
+                        stream.eat(')');
+                        stream.eatSpace();
+                        return 'character-parenthetical';
+                    } else {
+                        stream.skipToEnd();
+                        return null;
+                    }
+                } else if (nextChar == '^') {
+                    stream.eat('^');
+                    stream.skipToEnd();
+                    return 'character-dual';
+                }
+
+                stream.skipToEnd();
+                return "dialogue";
             }
 
             // section subelements
@@ -66,12 +88,17 @@ CodeMirror.defineMode("fountain", function() {
                 return "section-" + match[1].length;
             }
             // character / dialogue
-            if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){
+            if (match = stream.match(/^([A-Z][A-Z0-9]+([A-Z0-9 ])+)/)){
                 stream.eatSpace();
-                const nextChar = stream.peek();
+                nextChar = stream.peek();
                 if (nextChar && nextChar !== '(' && nextChar !=='^') {
+                    stream.skipToEnd();
                     return null;
+                } else if (nextChar == '(' || nextChar == '^') {
+                    state.character_extended = true;
+                    return "character";
                 }
+                state.character_extended = true;
                 stream.skipToEnd();
                 return "character";
             }
@@ -103,8 +130,13 @@ CodeMirror.defineMode("fountain", function() {
             stream.skipToEnd();
             return null;
         },
+        blankLine(state) {
+            state.character_extended = false;
+        },
         startState: function() {
             return {
+                last_line_blank: false,
+                character_extended: false,
                 section: false,
                 section_level: false,
                 note: false,

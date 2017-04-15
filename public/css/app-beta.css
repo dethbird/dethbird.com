@@ -485,10 +485,22 @@ span.CodeMirror-selectedtext {
 .cm-s-storystation span.cm-error {
   color: #f00;
 }
-.cm-s-storystation span.cm-character {
+.cm-s-storystation span.cm-character,
+.cm-s-storystation span.cm-character-parenthetical,
+.cm-s-storystation span.cm-character-dual {
   color: #e02edf;
   font-weight: bold;
   font-size: 1.2em;
+}
+.cm-s-storystation span.cm-character-parenthetical {
+  font-style: italic !important;
+  color: #b425c3;
+}
+.cm-s-storystation span.cm-character-dual {
+  color: #0bce00;
+}
+.cm-s-storystation span.cm-dialogue {
+  color: #1c7c8c;
 }
 .cm-s-storystation span[class^="cm-section"] {
   color: #6a0b8d;
@@ -529,16 +541,16 @@ span.CodeMirror-selectedtext {
 }
 .cm-s-storystation span.cm-lyrics {
   color: #4188d3;
-  text-transform: italic;
+  font-style: italic;
 }
 .cm-s-storystation span.cm-synopsis {
   color: gray;
-  text-transform: italic;
+  font-style: italic;
   background-color: #EFEFEF;
 }
 .cm-s-storystation span.cm-note {
   color: #6f9034;
-  text-transform: italic;
+  font-style: italic;
   background-color: #f6ffdf;
 }
 .cm-s-storystation span.cm-page-break {
@@ -644,7 +656,9 @@ code {
 }
 .fountain .note {
   padding: 5px;
-  background-color: #fffdca;
+  color: #6f9034;
+  font-style: italic;
+  background-color: #f6ffdf;
   display: inline-block;
 }
 .fountain .underline {
