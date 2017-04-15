@@ -60034,11 +60034,12 @@ var _fountainParser = __webpack_require__(64);
                     if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
                         stream.skipToEnd();
                         return 'section-image';
-                    } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/)) {
+                    } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                         stream.skipToEnd();
                         return 'section-duration';
                     } else {
                         state.section = false;
+                        state.section_level = false;
                         return null;
                     }
                 }
@@ -60057,16 +60058,14 @@ var _fountainParser = __webpack_require__(64);
                 // section
                 if (match = stream.match(_fountainParser.REGEX.SECTION)) {
                     state.section = true;
+                    state.section_level = match[1].length;
                     stream.skipToEnd();
                     return "section-" + match[1].length;
                 }
                 // character / dialogue
                 if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
-                    // console.log(match);
-                    // console.log(stream);
                     stream.eatSpace();
                     var nextChar = stream.peek();
-                    console.log(nextChar);
                     if (nextChar && nextChar !== '(' && nextChar !== '^') {
                         return null;
                     }
@@ -60104,6 +60103,7 @@ var _fountainParser = __webpack_require__(64);
             startState: function startState() {
                 return {
                     section: false,
+                    section_level: false,
                     note: false
                 };
             }

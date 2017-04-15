@@ -37,11 +37,12 @@ CodeMirror.defineMode("fountain", function() {
                 if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
                     stream.skipToEnd();
                     return 'section-image';
-                } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/)) {
+                } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                     stream.skipToEnd();
                     return 'section-duration';
                 } else {
                     state.section = false;
+                    state.section_level = false;
                     return null;
                 }
             }
@@ -59,17 +60,15 @@ CodeMirror.defineMode("fountain", function() {
             }
             // section
             if (match = stream.match(REGEX.SECTION)){
-                state.section = true;
+                state.section = true
+                state.section_level = match[1].length;
                 stream.skipToEnd();
                 return "section-" + match[1].length;
             }
             // character / dialogue
             if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){
-                // console.log(match);
-                // console.log(stream);
                 stream.eatSpace();
                 const nextChar = stream.peek();
-                console.log(nextChar);
                 if (nextChar && nextChar !== '(' && nextChar !=='^') {
                     return null;
                 }
@@ -107,6 +106,7 @@ CodeMirror.defineMode("fountain", function() {
         startState: function() {
             return {
                 section: false,
+                section_level: false,
                 note: false,
             };
       }
