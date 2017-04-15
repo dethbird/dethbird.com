@@ -64,7 +64,15 @@ CodeMirror.defineMode("fountain", function() {
                 return "section-" + match[1].length;
             }
             // character / dialogue
-            if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){
+            if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)){
+                // console.log(match);
+                // console.log(stream);
+                stream.eatSpace();
+                const nextChar = stream.peek();
+                console.log(nextChar);
+                if (nextChar && nextChar !== '(' && nextChar !=='^') {
+                    return null;
+                }
                 stream.skipToEnd();
                 return "character";
             }

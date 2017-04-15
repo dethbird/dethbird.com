@@ -59606,7 +59606,7 @@ var Index = _react2.default.createClass({
                 _react2.default.createElement(_masthead2.default, { onClickLogin: this.toggleVisibility }),
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
-                    null,
+                    { className: 'main-content' },
                     _react2.default.createElement(
                         _semanticUiReact.Container,
                         null,
@@ -60061,7 +60061,15 @@ var _fountainParser = __webpack_require__(64);
                     return "section-" + match[1].length;
                 }
                 // character / dialogue
-                if (stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
+                if (match = stream.match(/^([A-Z][A-Z-0-9]+([A-Z-0-9 ])+)(\([A-Za-z0-9 ]+\))?(?:\ )?(\^)?/)) {
+                    // console.log(match);
+                    // console.log(stream);
+                    stream.eatSpace();
+                    var nextChar = stream.peek();
+                    console.log(nextChar);
+                    if (nextChar && nextChar !== '(' && nextChar !== '^') {
+                        return null;
+                    }
                     stream.skipToEnd();
                     return "character";
                 }
