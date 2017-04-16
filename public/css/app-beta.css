@@ -520,7 +520,7 @@ span.CodeMirror-selectedtext {
   font-size: 1.3em;
 }
 .cm-s-storystation span.cm-heading {
-  color: #6a0b8d;
+  color: #6629d8;
   font-weight: bold;
 }
 .cm-s-storystation span.cm-section-image {
@@ -588,7 +588,7 @@ code {
 .fountain {
   color: #000 !important;
   font-family: 'Crimson Text', serif;
-  font-size: 1.13rem !important;
+  font-size: 1rem !important;
   margin: 1em 2em 1em 2em;
 }
 .fountain h1,
@@ -603,20 +603,20 @@ code {
   margin: .7em 0 .5em 0 !important;
 }
 .fountain h1 {
-  font-size: 2.6rem !important;
+  font-size: 2.4em !important;
 }
 .fountain h2 {
-  font-size: 2.2rem !important;
+  font-size: 2.0em !important;
 }
 .fountain h3 {
-  font-size: 1.9rem !important;
+  font-size: 1.8em !important;
 }
 .fountain h4 {
-  font-size: 1.6rem !important;
+  font-size: 1.6em !important;
 }
 .fountain .dialogue-container {
   text-align: center;
-  margin: 1.5em 10% 1.5em 10%;
+  margin: 1.5em 20% 1.5em 20%;
 }
 .fountain .dialogue-container.dual .character::after {
   content: " (together)";
@@ -643,7 +643,7 @@ code {
 }
 .fountain .lyrics-container {
   display: block;
-  margin: 1.5em 1em 1.5em 1em;
+  margin: 1em;
 }
 .fountain .lyrics {
   font-style: italic;
@@ -667,7 +667,7 @@ code {
 .fountain .character,
 .fountain .parenthetical {
   text-align: center;
-  margin: .5em 0em .5em 0em;
+  margin: .3em 0 .3em 0;
 }
 .fountain .section-duration {
   display: block;
@@ -696,9 +696,9 @@ code {
 }
 .fountain .synopsis {
   display: block;
-  padding: 1em;
+  padding: .5em;
   background-color: #e6e6e6;
-  margin-left: 1.2em;
+  margin: .5em 0 .5em 0;
 }
 .fountain .title_page {
   padding: 0 0 1em 0;

@@ -474,7 +474,7 @@ export const compileTokens = (tokens) => {
 
             // script body
             case 'scene_heading':
-                html.push('<h2 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h2>');
+                html.push('<h4 class=\"scene_heading\" ' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + text + '</h4>');
                 break;
             case 'transition':
                 html.push('<h2 class=\"transition\">' + text + '</h2>');
