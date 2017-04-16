@@ -588,7 +588,7 @@ code {
 .fountain {
   color: #000 !important;
   font-family: 'Crimson Text', serif;
-  font-size: 1rem !important;
+  font-size: 1.1rem !important;
   margin: 1em 2em 1em 2em;
 }
 .fountain h1,
@@ -603,16 +603,16 @@ code {
   margin: .7em 0 .5em 0 !important;
 }
 .fountain h1 {
-  font-size: 2.4em !important;
+  font-size: 2em !important;
 }
 .fountain h2 {
-  font-size: 2.0em !important;
+  font-size: 1.6em !important;
 }
 .fountain h3 {
-  font-size: 1.8em !important;
+  font-size: 1.6em !important;
 }
 .fountain h4 {
-  font-size: 1.6em !important;
+  font-size: 1.4em !important;
 }
 .fountain .dialogue-container {
   text-align: center;
