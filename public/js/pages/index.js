@@ -61540,7 +61540,7 @@ var StoryForm = _react2.default.createClass({
                                 { basic: true },
                                 _react2.default.createElement(
                                     _semanticUiReact.Button,
-                                    { attached: 'left', disabled: true, size: 'tiny', color: 'teal' },
+                                    { attached: 'left', disabled: true, size: 'tiny' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
                                     ' Editor'
                                 ),
@@ -61548,7 +61548,7 @@ var StoryForm = _react2.default.createClass({
                                     _semanticUiReact.Button,
                                     { as: 'a', onClick: function onClick() {
                                             _reactRouter.browserHistory.push('/story/' + id + '/play');
-                                        }, attached: 'right', size: 'tiny', color: 'teal' },
+                                        }, attached: 'right', size: 'tiny' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                                     ' Player'
                                 ),
@@ -62768,13 +62768,13 @@ var StoryPlayer = _react2.default.createClass({
                                 _semanticUiReact.Button,
                                 { as: 'a', onClick: function onClick() {
                                         _reactRouter.browserHistory.push('/story/' + id + '/edit');
-                                    }, attached: 'left', size: 'tiny', color: 'teal' },
+                                    }, attached: 'left', size: 'tiny' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
                                 ' Editor'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Button,
-                                { attached: 'right', disabled: true, size: 'tiny', color: 'teal' },
+                                { attached: 'right', disabled: true, size: 'tiny' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                                 ' Player'
                             ),
@@ -63364,11 +63364,7 @@ var Player = _react2.default.createClass({
                             ' panel(s)'
                         )
                     ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 8, textAlign: 'center' },
-                        'bar'
-                    ),
+                    _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 8, textAlign: 'center' }),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4, textAlign: 'right' },

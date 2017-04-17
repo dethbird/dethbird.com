@@ -94,10 +94,10 @@ const StoryForm = React.createClass({
                         <Grid>
                             <Grid.Column width={ 4 }>
                                 <Segment basic>
-                                    <Button attached='left' disabled size='tiny' color='teal'>
+                                    <Button attached='left' disabled size='tiny'>
                                         <Icon name="edit" /> Editor
                                     </Button>
-                                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}} attached='right' size='tiny' color='teal'>
+                                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}} attached='right' size='tiny'>
                                         <Icon name="play" /> Player
                                     </Button>
 

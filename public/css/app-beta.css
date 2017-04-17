@@ -811,6 +811,11 @@ div.script-input {
 }
 .story-player .player {
   height: 480px;
+  text-align: center;
+}
+.story-player .player img {
+  max-height: 100%;
+  display: inline-block;
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
