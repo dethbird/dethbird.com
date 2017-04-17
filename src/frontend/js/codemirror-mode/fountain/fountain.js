@@ -88,7 +88,7 @@ CodeMirror.defineMode("fountain", function() {
                 return "section-" + match[1].length;
             }
             // character / dialogue
-            if (match = stream.match(/^([A-Z][A-Z0-9]+([A-Z0-9 ])+)/)){
+            if (match = stream.match(/^([A-Z][A-Z0-9'\-]+([A-Z0-9'\- ])+)/)){
                 stream.eatSpace();
                 nextChar = stream.peek();
                 if (nextChar && nextChar !== '(' && nextChar !=='^') {
