@@ -60837,11 +60837,7 @@ var StoryEdit = _react2.default.createClass({
             _semanticUiReact.Segment.Group,
             null,
             _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
-            _react2.default.createElement(
-                _semanticUiReact.Segment,
-                { className: 'main-content' },
-                _react2.default.createElement(_storyForm2.default, { id: id })
-            ),
+            _react2.default.createElement(_storyForm2.default, { id: id, className: 'main-content' }),
             _react2.default.createElement(_footer2.default, null)
         );
     }
@@ -61544,7 +61540,7 @@ var StoryForm = _react2.default.createClass({
                                 { basic: true },
                                 _react2.default.createElement(
                                     _semanticUiReact.Button,
-                                    { attached: 'left', disabled: true },
+                                    { attached: 'left', disabled: true, size: 'tiny', color: 'teal' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
                                     ' Editor'
                                 ),
@@ -61552,13 +61548,13 @@ var StoryForm = _react2.default.createClass({
                                     _semanticUiReact.Button,
                                     { as: 'a', onClick: function onClick() {
                                             _reactRouter.browserHistory.push('/story/' + id + '/play');
-                                        }, attached: 'right' },
+                                        }, attached: 'right', size: 'tiny', color: 'teal' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                                     ' Player'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Button,
-                                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', floated: 'right' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
                                     ' ',
                                     id ? "Save" : "Create"
@@ -62772,19 +62768,19 @@ var StoryPlayer = _react2.default.createClass({
                                 _semanticUiReact.Button,
                                 { as: 'a', onClick: function onClick() {
                                         _reactRouter.browserHistory.push('/story/' + id + '/edit');
-                                    }, attached: 'left' },
+                                    }, attached: 'left', size: 'tiny', color: 'teal' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
                                 ' Editor'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Button,
-                                { attached: 'right', disabled: true },
+                                { attached: 'right', disabled: true, size: 'tiny', color: 'teal' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                                 ' Player'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Button,
-                                { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                                { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', floated: 'right' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
                                 ' ',
                                 id ? "Save" : "Create"

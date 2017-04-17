@@ -17,9 +17,7 @@ const StoryEdit = React.createClass({
         return (
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
-                <Segment className="main-content">
-                    <StoryForm id={ id } />
-                </Segment>
+                <StoryForm id={ id } className="main-content"/>
                 <Footer />
             </Segment.Group>
         );
