@@ -60606,75 +60606,67 @@ var StoryForm = _react2.default.createClass({
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _storyPost2.default);
 
         return _react2.default.createElement(
-            'div',
-            null,
+            _semanticUiReact.Form,
+            {
+                size: 'large',
+                loading: ui_state == _uiState.UI_STATE.REQUESTING,
+                error: ui_state == _uiState.UI_STATE.ERROR,
+                success: ui_state == _uiState.UI_STATE.SUCCESS
+            },
             _react2.default.createElement(
                 _semanticUiReact.Container,
-                { textAlign: 'left', fluid: true },
+                { fluid: true },
                 _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { onClick: this.toggleSidebarVisibility },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'help circle' }),
-                    ' ',
-                    sidebarVisible ? "<" : ".fountain help"
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { as: 'a', onClick: function onClick() {
-                            _reactRouter.browserHistory.push('/story/' + id + '/play');
-                        } },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
-                    ' Play story'
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
-                    ' ',
-                    id ? "Save" : "Create"
-                )
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-                _semanticUiReact.Sidebar.Pushable,
-                null,
-                _react2.default.createElement(
-                    _semanticUiReact.Sidebar,
-                    { as: _semanticUiReact.Segment, animation: 'push', width: 'very wide', direction: 'left', visible: sidebarVisible, inverted: true },
-                    _react2.default.createElement(_sidebarFountainHelp2.default, { onClickSnippetInsert: this.handleClickSnippetInsert })
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Sidebar.Pusher,
-                    { dimmed: sidebarVisible },
+                    _semanticUiReact.Segment,
+                    { basic: true },
                     _react2.default.createElement(
-                        _semanticUiReact.Form,
-                        {
-                            size: 'large',
-                            loading: ui_state == _uiState.UI_STATE.REQUESTING,
-                            error: ui_state == _uiState.UI_STATE.ERROR,
-                            success: ui_state == _uiState.UI_STATE.SUCCESS
-                        },
+                        _semanticUiReact.Grid,
+                        null,
                         _react2.default.createElement(
-                            _semanticUiReact.Container,
-                            { text: true },
+                            _semanticUiReact.Grid.Column,
+                            { width: 4 },
+                            _react2.default.createElement(
+                                _semanticUiReact.Segment,
+                                { basic: true },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Button,
+                                    { as: 'a', onClick: function onClick() {
+                                            _reactRouter.browserHistory.push('/story/' + id + '/play');
+                                        } },
+                                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
+                                    ' Play story'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Button,
+                                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
+                                    ' ',
+                                    id ? "Save" : "Create"
+                                )
+                            ),
                             _react2.default.createElement(
                                 _semanticUiReact.Container,
                                 null,
-                                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
+                                _react2.default.createElement(
+                                    _semanticUiReact.Container,
+                                    null,
+                                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
+                                ),
+                                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
+                                        return _this.handleFieldChange(e, 'name');
+                                    }, value: inputFields.name || '', required: true }),
+                                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
+                                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
+                                        return _this.handleFieldChange(e, 'description');
+                                    }, value: inputFields.description || '', autoHeight: true }),
+                                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
                             ),
-                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
-                                    return _this.handleFieldChange(e, 'name');
-                                }, value: inputFields.name || '', required: true }),
-                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
-                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
-                                    return _this.handleFieldChange(e, 'description');
-                                }, value: inputFields.description || '', autoHeight: true }),
-                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) })
+                            _react2.default.createElement(_sidebarFountainHelp2.default, { onClickSnippetInsert: this.handleClickSnippetInsert })
                         ),
                         _react2.default.createElement(
-                            _semanticUiReact.Container,
-                            null,
-                            _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Script', placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
+                            _semanticUiReact.Grid.Column,
+                            { width: 12 },
+                            _react2.default.createElement(_semanticUiReact.Form.Field, { placeholder: 'Script', id: 'script', control: _scriptInput2.default, script: inputFields.script || '', onChange: this.handleFieldChange }),
                             _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('script', errors) })
                         )
                     )
@@ -61577,7 +61569,7 @@ var SidebarFountainHelp = _react2.default.createClass({
                 example: "# ACT I\n\n= Set up the characters and the story.\n\nEXT. BRICK'S PATIO - DAY\n\n= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.\n\nA gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something."
             })
         }];
-        return _react2.default.createElement(_semanticUiReact.Accordion, { panels: panels, inverted: true });
+        return _react2.default.createElement(_semanticUiReact.Accordion, { panels: panels });
     }
 });
 

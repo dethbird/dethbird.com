@@ -205,7 +205,7 @@ const SidebarFountainHelp = React.createClass({
             }
         ];
         return (
-            <Accordion panels={panels} inverted/>
+            <Accordion panels={panels}/>
         )
     }
 })

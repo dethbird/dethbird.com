@@ -6,6 +6,7 @@ import {
     Button,
     Container,
     Form,
+    Grid,
     Icon,
     Image,
     Label,
@@ -87,44 +88,41 @@ const StoryForm = React.createClass({
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         return (
-            <div>
-                <Container textAlign="left" fluid>
-                    <Button onClick={ this.toggleSidebarVisibility }><Icon name="help circle" /> { sidebarVisible ? "<" : ".fountain help"  }</Button>
-                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}><Icon name="play" /> Play story</Button>
-                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } ><Icon name="save" /> { id ? "Save" : "Create" }</Button>
-                </Container>
-                <br />
-                <Sidebar.Pushable>
-                    <Sidebar as={Segment} animation='push' width='very wide'  direction='left' visible={ sidebarVisible } inverted>
-                        <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
-                    </Sidebar>
-                    <Sidebar.Pusher dimmed={ sidebarVisible }>
-                        <Form
-                            size="large"
-                            loading={ ui_state == UI_STATE.REQUESTING }
-                            error={ ui_state == UI_STATE.ERROR }
-                            success={ ui_state == UI_STATE.SUCCESS }
-                        >
-                            <Container text={ true }>
-                                <Container>
-                                    <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+            <Form
+                size="large"
+                loading={ ui_state == UI_STATE.REQUESTING }
+                error={ ui_state == UI_STATE.ERROR }
+                success={ ui_state == UI_STATE.SUCCESS }
+            >
+                <Container fluid>
+                    <Segment basic>
+                        <Grid>
+                            <Grid.Column width={ 4 }>
+                                <Segment basic>
+                                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}><Icon name="play" /> Play story</Button>
+                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } ><Icon name="save" /> { id ? "Save" : "Create" }</Button>
+                                </Segment>
+                                <Container >
+                                    <Container>
+                                        <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+                                    </Container>
+                                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
+                                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
+
+                                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
+                                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
+
                                 </Container>
-                                <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
-                                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
-
-                                <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
-                                <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
-
-                            </Container>
-
-                            <Container>
-                                <Form.Field label="Script" placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
+                                <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                            </Grid.Column>
+                            <Grid.Column width={ 12 }>
+                                <Form.Field placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
                                 <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
-                            </Container>
-                        </Form>
-                  </Sidebar.Pusher>
-                </Sidebar.Pushable>
-            </div>
+                            </Grid.Column>
+                        </Grid>
+                    </Segment>
+                </Container>
+            </Form>
         )
     }
 })
