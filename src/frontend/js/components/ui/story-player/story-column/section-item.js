@@ -4,6 +4,7 @@ import {
     Card,
     Grid,
     Header,
+    Image,
     Icon
 } from 'semantic-ui-react';
 
@@ -20,11 +21,27 @@ const SectionItem = React.createClass({
         const { item, storyId } = this.props;
         if (item.type == 'story') {
             return (
-                <Header>{ item.title }</Header>
+                <Header>
+                    { item.title }
+                </Header>
             )
         } else {
             return (
-                <Header as={ 'h' + (item.level_text.length + 1) }>{ item.level_text + ' ' + item.text }</Header>
+                <Header as={ 'h' + (item.level_text.length + 1) }>
+                    { item.level_text + ' ' + item.text }
+                </Header>
+            )
+        }
+    },
+    renderImage() {
+        const { item } = this.props;
+        if (item.type == 'story') {
+            return (
+                <Image src={ item.image || '' } size='medium' verticalAlign='middle' shape='circular' />
+            )
+        } else {
+            return (
+                <Image src={ item.image || '' } size='medium' verticalAlign='middle' shape={ (item.level_text.length == 4) ? null : 'circular' } />
             )
         }
     },
@@ -44,15 +61,18 @@ const SectionItem = React.createClass({
                 raised={ selected===false }
                 color={ color }
                 fluid
-                onClick={ (e) => onSelectStoryItem(e, item)}
+                onClick={ (e) => onSelectStoryItem(e, item) }
                 className={ className }
             >
                 <Card.Content>
                     <Grid>
-                        <Grid.Column width={ 10 }>
+                        <Grid.Column width={ 6 } textAlign="left" >
                             { this.renderHeader() }
                         </Grid.Column>
-                        <Grid.Column width={ 6 } textAlign="right">
+                        <Grid.Column width={ 3 } textAlign="right">
+                            { this.renderImage() }
+                        </Grid.Column>
+                        <Grid.Column width={ 7 } textAlign="right">
                             <Icon name="time" /><span>{ item.duration }</span>
                         </Grid.Column>
                     </Grid>
