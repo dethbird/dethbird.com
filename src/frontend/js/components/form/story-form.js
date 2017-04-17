@@ -94,7 +94,13 @@ const StoryForm = React.createClass({
                         <Grid>
                             <Grid.Column width={ 4 }>
                                 <Segment basic>
-                                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}}><Icon name="play" /> Play story</Button>
+                                    <Button attached='left' disabled>
+                                        <Icon name="edit" /> Editor
+                                    </Button>
+                                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/play`)}} attached='right'>
+                                        <Icon name="play" /> Player
+                                    </Button>
+
                                     <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } ><Icon name="save" /> { id ? "Save" : "Create" }</Button>
                                 </Segment>
                                 <Container >

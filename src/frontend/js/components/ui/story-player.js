@@ -122,7 +122,14 @@ const StoryPlayer = React.createClass({
                     <Grid>
                         <Grid.Column width={ 4 }>
                             <Segment basic>
-                                <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}}><Icon name="edit" /> Edit story</Button>
+
+                                <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}} attached="left">
+                                    <Icon name="edit" /> Editor
+                                </Button>
+                                <Button attached='right' disabled>
+                                    <Icon name="play" /> Player
+                                </Button>
+
                                 <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } ><Icon name="save" /> { id ? "Save" : "Create" }</Button>
                             </Segment>
                             <ScriptInputBasic script={ inputFields.script || '' } onChange={ handleFieldChange } id='script'/>

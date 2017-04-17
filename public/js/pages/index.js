@@ -61544,11 +61544,17 @@ var StoryForm = _react2.default.createClass({
                                 { basic: true },
                                 _react2.default.createElement(
                                     _semanticUiReact.Button,
+                                    { attached: 'left', disabled: true },
+                                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
+                                    ' Editor'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Button,
                                     { as: 'a', onClick: function onClick() {
                                             _reactRouter.browserHistory.push('/story/' + id + '/play');
-                                        } },
+                                        }, attached: 'right' },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
-                                    ' Play story'
+                                    ' Player'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Button,
@@ -62766,9 +62772,15 @@ var StoryPlayer = _react2.default.createClass({
                                 _semanticUiReact.Button,
                                 { as: 'a', onClick: function onClick() {
                                         _reactRouter.browserHistory.push('/story/' + id + '/edit');
-                                    } },
+                                    }, attached: 'left' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
-                                ' Edit story'
+                                ' Editor'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                { attached: 'right', disabled: true },
+                                _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
+                                ' Player'
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Button,
