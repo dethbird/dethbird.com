@@ -5,6 +5,7 @@ import {
     Button,
     Container,
     Grid,
+    Icon,
     Segment
 } from 'semantic-ui-react';
 
@@ -21,6 +22,8 @@ import {
 
 import StoryColumn from 'components/ui/story-player/story-column';
 import StorySectionPlayer from 'components/ui/story-player/story-section-player';
+import storyPostSchema from 'validation_schema/story-post.json';
+import ScriptInputBasic from 'components/ui/form/script-input-basic';
 
 
 const StoryPlayer = React.createClass({
@@ -29,6 +32,7 @@ const StoryPlayer = React.createClass({
     },
     getInitialState() {
         return {
+            changedFields: {},
             model: {
                 script: ''
             },
@@ -77,30 +81,50 @@ const StoryPlayer = React.createClass({
             }
         });
     },
+    handleFieldChange(e, elementId) {
+        const { changedFields, story } = this.state;
+        changedFields[elementId] = e.currentTarget.value;
+        const newStory = elementId == 'script'
+             ? convertTokensToStory(tokenizeLines(lexizeScript(e.currentTarget.value)))
+             : story;
+
+        this.setState({
+            ... this.state,
+            changedFields,
+            story: newStory
+        });
+    },
     render() {
-        const { handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
+        const { handleFieldChange, handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
         const { id, ui_state, errors, onCliCkPause } = this.props;
-        const { model, selectedItem, story, playingPanel } = this.state;
+        const { model, selectedItem, story, playingPanel, changedFields } = this.state;
+
+        const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         return (
-            <div>
-                <Container className="story-player">
-                    <Grid>
-                        <Grid.Column width={ 6 }>
-                            <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
-                        </Grid.Column>
-                        <Grid.Column width={ 10 }>
-                            <StorySectionPlayer
-                                story={ story }
-                                selectedItem={ selectedItem }
-                                onClickPlay={ handleClickPlay }
-                                onClickPause={ handleClickPause }
-                                playingPanel={ playingPanel }
-                            />
-                        </Grid.Column>
-                    </Grid>
-                </Container>
-            </div>
+            <Container className="story-player" fluid>
+                <Grid>
+                    <Grid.Column width={ 4 }>
+                        <Segment basic>
+                            <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}}><Icon name="edit" /> Edit story</Button>
+                        </Segment>
+                        <ScriptInputBasic script={ inputFields.script || '' } onChange={ handleFieldChange } id='script'/>
+                    </Grid.Column>
+                    <Grid.Column width={ 4 }>
+                        <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
+                    </Grid.Column>
+                    <Grid.Column width={ 8 }>
+                        <StorySectionPlayer
+                            story={ story }
+                            selectedItem={ selectedItem }
+                            onClickPlay={ handleClickPlay }
+                            onClickPause={ handleClickPause }
+                            playingPanel={ playingPanel }
+                        />
+                    </Grid.Column>
+                </Grid>
+            </Container>
+
         )
     }
 })

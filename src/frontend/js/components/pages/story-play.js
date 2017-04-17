@@ -20,9 +20,6 @@ const StoryEdit = React.createClass({
         return (
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
-                <Segment basic>
-                    <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}}><Icon name="edit" /> Edit story</Button>
-                </Segment>
                 <Segment className="main-content">
                     <StoryPlayer id={ id } />
                 </Segment>

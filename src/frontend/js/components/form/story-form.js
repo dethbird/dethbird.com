@@ -11,8 +11,7 @@ import {
     Image,
     Label,
     Message,
-    Segment,
-    Sidebar
+    Segment
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
@@ -31,8 +30,7 @@ const StoryForm = React.createClass({
     getInitialState() {
         return {
             changedFields: {},
-            model: undefined,
-            sidebarVisible: false
+            model: undefined
         }
     },
     componentWillMount() {
@@ -79,12 +77,9 @@ const StoryForm = React.createClass({
             dispatch(storyPost(changedFields));
         }
     },
-    toggleSidebarVisibility() {
-        this.setState({ ... this.state, sidebarVisible: !this.state.sidebarVisible });
-    },
     render() {
         const { id, ui_state, errors } = this.props;
-        const { changedFields, model, sidebarVisible } = this.state;
+        const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         return (
