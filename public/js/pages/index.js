@@ -26276,6 +26276,21 @@ var _fountainParser = __webpack_require__(64);
                     stream.skipToEnd();
                     return "character";
                 }
+                if (match = stream.match(/^([@][A-Za-z]+)/)) {
+                    stream.eatSpace();
+                    nextChar = stream.peek();
+                    if (nextChar && nextChar !== '(' && nextChar !== '^') {
+                        stream.skipToEnd();
+                        return null;
+                    } else if (nextChar == '(' || nextChar == '^') {
+                        state.character_extended = true;
+                        return "character";
+                    }
+                    state.character_extended = true;
+                    stream.skipToEnd();
+                    return "character";
+                }
+
                 // lyrics
                 if (stream.match(/^~ /)) {
                     stream.skipToEnd();
