@@ -3,6 +3,7 @@ import {
     Card,
     Header,
     Container,
+    Segment
 } from 'semantic-ui-react';
 
 import { compileTokens } from 'utility/fountain-parser';
@@ -14,7 +15,6 @@ const SelectedItem = React.createClass({
 
     renderHeader() {
         const { selectedItem } = this.props;
-        // console.log(selectedItem);
         if (selectedItem.type == 'story') {
             return (
                 <Header>{ selectedItem.title }</Header>
@@ -29,15 +29,22 @@ const SelectedItem = React.createClass({
         const { selectedItem } = this.props;
 
         return (
-            <Container>
-                { this.renderHeader() }
+            <Container text>
+
                 <Card fluid className="fountain-container">
-                    <div
-                        className="fountain"
-                        dangerouslySetInnerHTML={ {
-                            __html: compileTokens(selectedItem.tokens)
-                        } }
-                    />
+                    <Card.Header>
+                        <Segment basic>
+                            { this.renderHeader() }
+                        </Segment>
+                    </Card.Header>
+                    <Card.Content>
+                        <div
+                            className="fountain"
+                            dangerouslySetInnerHTML={ {
+                                __html: compileTokens(selectedItem.tokens)
+                            } }
+                        />
+                    </Card.Content>
                 </Card>
             </Container>
         )
