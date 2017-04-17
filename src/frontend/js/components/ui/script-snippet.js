@@ -3,13 +3,16 @@ import {
     Menu,
     Segment
 } from 'semantic-ui-react';
+import CodeMirror from 'react-codemirror';
+import markdownMode from 'codemirror/mode/markdown/markdown';
+import fountainMode from 'codemirror-mode/fountain/fountain';
 
 import { parseFountainScript } from 'utility/fountain-parser';
 
 const ScriptSnippet = React.createClass({
     getInitialState() {
         return {
-            activeItem: "fountain"
+            activeItem: "rendered"
         }
     },
     handleItemClick(e, { name }) {
@@ -26,8 +29,17 @@ const ScriptSnippet = React.createClass({
 
         if (activeItem=="fountain") {
             return (
-                <Segment attached="top" className="script-input">
-                    { snippet }
+                <Segment attached="top">
+                    <CodeMirror
+                        value={ snippet || '' }
+                        options={{
+                            lineNumbers: true,
+                            lineWrapping: true,
+                            mode: 'fountain',
+                            theme: 'storystation',
+                            readOnly: true
+                        }}
+                    />
                 </Segment>
             );
         } else {

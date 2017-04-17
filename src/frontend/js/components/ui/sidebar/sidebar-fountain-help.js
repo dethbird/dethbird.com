@@ -39,24 +39,24 @@ const SidebarFountainHelp = React.createClass({
         const { renderContent } = this;
         const panels = [
             {
-                title: "Action",
+                title: "Title Page",
                 content: (
                     renderContent({
-                        title: "Action",
-                        description: "Action, or scene description, is any paragraph that doesn't meet criteria for another element.",
-                        documentation_link: "https://fountain.io/syntax#section-action",
-                        example: "They drink long and well from the beers.\n\nAnd then there's a long beat.\nLonger than is funny.\nLong enough to be depressing.\n\nThe men look at each other."
+                        title: "Title Page",
+                        description: "The optional Title Page is always the first thing in a Fountain document. Information is encoding in the format `key`: `value`.",
+                        documentation_link: "https://fountain.io/syntax#section-titlepage",
+                        example: "Title:\n\t_**BRICK & STEEL**_\n\t_**FULL RETIRED**_\nCredit: Written by\nAuthors: Stu Maschwitz, Don Dovip\nSource: Story by KTM\nNotes: Do not reproduce\nCopyright: 2017 Explosioncorp LLC\nDraft date: 1/20/2012\nContact:\n\tNext Level Productions\n\t1588 Mission Dr.\n\tSolvang, CA 93463"
                     })
                 )
             },
             {
-                title: "Centered Text",
+                title: "Sections",
                 content: (
                     renderContent({
-                        title: "Centered Text",
-                        description: "Centered text constitutes an Action element, and is bracketed with `>`/`<`:",
-                        documentation_link: "https://fountain.io/syntax#section-centered",
-                        example: "Stuff happened\n\n> THE END <"
+                        title: "Sections",
+                        description: "Sections are optional markers for managing the structure of a story.",
+                        documentation_link: "https://fountain.io/syntax#section-sections",
+                        example: "# Act\n\n## Sequence\n\n### Scene\n\n## Another Sequence\n\n### Another scene\n\n# Another Act"
                     })
                 )
             },
@@ -94,35 +94,13 @@ const SidebarFountainHelp = React.createClass({
                 )
             },
             {
-                title: "Emphasis",
+                title: "Synopses",
                 content: (
                     renderContent({
-                        title: "Emphasis",
-                        description: "Combine bold, italic and underlines",
-                        documentation_link: "https://fountain.io/syntax#section-emphasis",
-                        example: "*italics*\n**bold**\n***bold italics***\n_underline_"
-                    })
-                )
-            },
-            {
-                title: "Line Breaks",
-                content: (
-                    renderContent({
-                        title: "Line Breaks",
-                        description: "To force line breaks in action or dialogue, so that the next line is not interpreted as a new action, type `{two spaces}`.",
-                        documentation_link: "https://fountain.io/syntax#section-br",
-                        example: "DEALER\nTen.\nFour.\nDealer gets a seven.\n{two spaces}\nHit or stand sir?\n\nMONKEY\nDude, I'm a monkey."
-                    })
-                )
-            },
-            {
-                title: "Lyrics",
-                content: (
-                    renderContent({
-                        title: "Lyrics",
-                        description: "You create a Lyric by starting with a line with a tilde `~`.",
-                        documentation_link: "https://fountain.io/syntax#section-lyrics",
-                        example: "~Willy Wonka! Willy Wonka! The amazing chocolatier!\n~Willy Wonka! Willy Wonka! Everybody give a cheer!"
+                        title: "Synopses",
+                        description: "Synopses are optional blocks of text to describe a Section or scene.\n\nSynopses are single lines prefixed by an equals sign `=`.",
+                        documentation_link: "https://fountain.io/syntax#section-sections",
+                        example: "# ACT I\n\n= Set up the characters and the story.\n\nEXT. BRICK'S PATIO - DAY\n\n= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.\n\nA gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something."
                     })
                 )
             },
@@ -138,17 +116,6 @@ const SidebarFountainHelp = React.createClass({
                 )
             },
             {
-                title: "Page Breaks",
-                content: (
-                    renderContent({
-                        title: "Page Breaks",
-                        description: "Page Breaks are indicated by a line containing three or more consecutive equals signs `===`, and nothing more.",
-                        documentation_link: "https://fountain.io/syntax#section-pagebreaks",
-                        example: "The General Lee flies through the air. FREEZE FRAME.\n\nNARRATOR\nShoot, to the Dukes that's about like taking Grandma for a Sunday drive.\n\n>**End of Act One**<\n\n===\n\n>**Act Two**<\n\nThe General Lee hangs in the air, right where we left it.  The NARRATOR'S voice kicks in."
-                    })
-                )
-            },
-            {
                 title: "Parenthetical",
                 content: (
                     renderContent({
@@ -156,17 +123,6 @@ const SidebarFountainHelp = React.createClass({
                         description: "Parentheticals follow a Character element, and are wrapped in parentheses `()`.",
                         documentation_link: "https://fountain.io/syntax#section-paren",
                         example: "STEEL\n(starting the engine)\nSo much for retirement!"
-                    })
-                )
-            },
-            {
-                title: "Title Page",
-                content: (
-                    renderContent({
-                        title: "Title Page",
-                        description: "The optional Title Page is always the first thing in a Fountain document. Information is encoding in the format `key`: `value`.",
-                        documentation_link: "https://fountain.io/syntax#section-titlepage",
-                        example: "Title:\n\t_**BRICK & STEEL**_\n\t_**FULL RETIRED**_\nCredit: Written by\nAuthors: Stu Maschwitz, Don Dovip\nSource: Story by KTM\nNotes: Do not reproduce\nCopyright: 2017 Explosioncorp LLC\nDraft date: 1/20/2012\nContact:\n\tNext Level Productions\n\t1588 Mission Dr.\n\tSolvang, CA 93463"
                     })
                 )
             },
@@ -182,24 +138,68 @@ const SidebarFountainHelp = React.createClass({
                 )
             },
             {
-                title: "Sections",
+                title: "Lyrics",
                 content: (
                     renderContent({
-                        title: "Sections",
-                        description: "Sections are optional markers for managing the structure of a story.",
-                        documentation_link: "https://fountain.io/syntax#section-sections",
-                        example: "# Act\n\n## Sequence\n\n### Scene\n\n## Another Sequence\n\n### Another scene\n\n# Another Act"
+                        title: "Lyrics",
+                        description: "You create a Lyric by starting with a line with a tilde `~`.",
+                        documentation_link: "https://fountain.io/syntax#section-lyrics",
+                        example: "~Willy Wonka! Willy Wonka! The amazing chocolatier!\n~Willy Wonka! Willy Wonka! Everybody give a cheer!"
                     })
                 )
             },
             {
-                title: "Synopses",
+                title: "Action",
                 content: (
                     renderContent({
-                        title: "Synopses",
-                        description: "Synopses are optional blocks of text to describe a Section or scene.\n\nSynopses are single lines prefixed by an equals sign `=`.",
-                        documentation_link: "https://fountain.io/syntax#section-sections",
-                        example: "# ACT I\n\n= Set up the characters and the story.\n\nEXT. BRICK'S PATIO - DAY\n\n= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.\n\nA gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something."
+                        title: "Action",
+                        description: "Action, or scene description, is any paragraph that doesn't meet criteria for another element.",
+                        documentation_link: "https://fountain.io/syntax#section-action",
+                        example: "They drink long and well from the beers.\n\nAnd then there's a long beat.\nLonger than is funny.\nLong enough to be depressing.\n\nThe men look at each other."
+                    })
+                )
+            },
+            {
+                title: "Line Breaks",
+                content: (
+                    renderContent({
+                        title: "Line Breaks",
+                        description: "To force line breaks in action or dialogue, so that the next line is not interpreted as a new action, type `{two spaces}`.",
+                        documentation_link: "https://fountain.io/syntax#section-br",
+                        example: "DEALER\nTen.\nFour.\nDealer gets a seven.\n{two spaces}\nHit or stand sir?\n\nMONKEY\nDude, I'm a monkey."
+                    })
+                )
+            },
+            {
+                title: "Page Breaks",
+                content: (
+                    renderContent({
+                        title: "Page Breaks",
+                        description: "Page Breaks are indicated by a line containing three or more consecutive equals signs `===`, and nothing more.",
+                        documentation_link: "https://fountain.io/syntax#section-pagebreaks",
+                        example: "The General Lee flies through the air. FREEZE FRAME.\n\nNARRATOR\nShoot, to the Dukes that's about like taking Grandma for a Sunday drive.\n\n>**End of Act One**<\n\n===\n\n>**Act Two**<\n\nThe General Lee hangs in the air, right where we left it.  The NARRATOR'S voice kicks in."
+                    })
+                )
+            },
+            {
+                title: "Centered Text",
+                content: (
+                    renderContent({
+                        title: "Centered Text",
+                        description: "Centered text constitutes an Action element, and is bracketed with `>`/`<`:",
+                        documentation_link: "https://fountain.io/syntax#section-centered",
+                        example: "Stuff happened\n\n> THE END <"
+                    })
+                )
+            },
+            {
+                title: "Emphasis",
+                content: (
+                    renderContent({
+                        title: "Emphasis",
+                        description: "Combine bold, italic and underlines",
+                        documentation_link: "https://fountain.io/syntax#section-emphasis",
+                        example: "*italics*\n**bold**\n***bold italics***\n_underline_"
                     })
                 )
             }
