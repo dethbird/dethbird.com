@@ -9,6 +9,7 @@ import fountainMode from 'codemirror-mode/fountain/fountain';
 
 import { parseFountainScript } from 'utility/fountain-parser';
 
+
 const ScriptSnippet = React.createClass({
     getInitialState() {
         return {
@@ -19,6 +20,11 @@ const ScriptSnippet = React.createClass({
         this.setState(
             { activeItem: name }
         );
+    },
+    componentDidMount() {
+        if (this.refs.fountain) {
+            this.refs.fountain.getCodeMirror().refresh();
+        }
     },
     propTypes: {
         snippet: React.PropTypes.string.isRequired
@@ -37,8 +43,10 @@ const ScriptSnippet = React.createClass({
                             lineWrapping: true,
                             mode: 'fountain',
                             theme: 'storystation',
-                            readOnly: true
+                            readOnly: true,
+                            autoRefresh: true
                         }}
+                        ref="fountain"
                     />
                 </Segment>
             );
@@ -64,11 +72,11 @@ const ScriptSnippet = React.createClass({
             <div>
                 { this.renderContent() }
                 <Menu attached='bottom' tabular>
-                    <Menu.Item name='fountain' active={ activeItem=="fountain" } onClick={ this.handleItemClick }>
+                    <Menu.Item name='fountain' active={ activeItem=="fountain" } onClick={ this.handleItemClick } as="a">
                         .fountain
                     </Menu.Item>
 
-                    <Menu.Item name='rendered' active={ activeItem=="rendered" } onClick={ this.handleItemClick }>
+                    <Menu.Item name='rendered' active={ activeItem=="rendered" } onClick={ this.handleItemClick } as="a">
                         rendered
                     </Menu.Item>
                 </Menu>

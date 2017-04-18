@@ -62332,6 +62332,11 @@ var ScriptSnippet = _react2.default.createClass({
 
         this.setState({ activeItem: name });
     },
+    componentDidMount: function componentDidMount() {
+        if (this.refs.fountain) {
+            this.refs.fountain.getCodeMirror().refresh();
+        }
+    },
 
     propTypes: {
         snippet: _react2.default.PropTypes.string.isRequired
@@ -62352,8 +62357,10 @@ var ScriptSnippet = _react2.default.createClass({
                         lineWrapping: true,
                         mode: 'fountain',
                         theme: 'storystation',
-                        readOnly: true
-                    }
+                        readOnly: true,
+                        autoRefresh: true
+                    },
+                    ref: 'fountain'
                 })
             );
         } else {
@@ -62383,12 +62390,12 @@ var ScriptSnippet = _react2.default.createClass({
                 { attached: 'bottom', tabular: true },
                 _react2.default.createElement(
                     _semanticUiReact.Menu.Item,
-                    { name: 'fountain', active: activeItem == "fountain", onClick: this.handleItemClick },
+                    { name: 'fountain', active: activeItem == "fountain", onClick: this.handleItemClick, as: 'a' },
                     '.fountain'
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Menu.Item,
-                    { name: 'rendered', active: activeItem == "rendered", onClick: this.handleItemClick },
+                    { name: 'rendered', active: activeItem == "rendered", onClick: this.handleItemClick, as: 'a' },
                     'rendered'
                 )
             )
