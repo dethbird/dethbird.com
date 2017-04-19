@@ -62465,7 +62465,7 @@ var SidebarFountainHelp = _react2.default.createClass({
                 { basic: true, textAlign: 'right' },
                 _react2.default.createElement(
                     _semanticUiReact.Button,
-                    { as: 'a', href: content.documentation_link, target: '_blank' },
+                    { as: 'a', href: content.documentation_link, target: '_blank', size: 'mini' },
                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'external square' }),
                     ' Docs'
                 ),
@@ -62473,7 +62473,7 @@ var SidebarFountainHelp = _react2.default.createClass({
                     _semanticUiReact.Button,
                     { as: 'a', color: 'teal', onClick: function onClick(e) {
                             _this.handleClickInsert(e, content.example);
-                        } },
+                        }, size: 'mini' },
                     'Insert ',
                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'angle double right' })
                 )
@@ -62487,23 +62487,23 @@ var SidebarFountainHelp = _react2.default.createClass({
             title: "Title Page",
             content: renderContent({
                 title: "Title Page",
-                description: "The optional Title Page is always the first thing in a Fountain document. Information is encoding in the format `key`: `value`.",
+                description: "The title page is always the first thing in a **.fountain** document. Information is encoded in the format `key`: `value`.",
                 documentation_link: "https://fountain.io/syntax#section-titlepage",
-                example: "Title:\n\t_**BRICK & STEEL**_\n\t_**FULL RETIRED**_\nCredit: Written by\nAuthors: Stu Maschwitz, Don Dovip\nSource: Story by KTM\nNotes: Do not reproduce\nCopyright: 2017 Explosioncorp LLC\nDraft date: 1/20/2012\nContact:\n\tNext Level Productions\n\t1588 Mission Dr.\n\tSolvang, CA 93463"
+                example: "Title:\n\tMy Story\nCredit: Written by\nAuthors: Steve Writington\nSource: Story by Jen Storyman\nNotes: Do not reproduce\nCopyright: 2017 Company\nDraft date: Jan 1, 1997\nContact:\n\tMy Company\n\t555 Threve St.\n\tNowhere, CA 93463"
             })
         }, {
             title: "Sections",
             content: renderContent({
                 title: "Sections",
-                description: "Sections are optional markers for managing the structure of a story.",
+                description: "Sections are useful for helping you organize your story into:\n\n - `#` acts\n - `##` sequences\n - `###` scenes\n - `####` panels.\n\n\n Of these, the _panel_ is significant because you can also add an image and duration to it.",
                 documentation_link: "https://fountain.io/syntax#section-sections",
-                example: "# Act\n\n## Sequence\n\n### Scene\n\n## Another Sequence\n\n### Another scene\n\n# Another Act"
+                example: "# Act 1\n\n= Synopsis for act 1\n\n## Sequence 1\n\n### Scene 1\n\n#### Panel 1\nhttps://c2.staticflickr.com/8/7300/11734597503_525df4ce2d_c.jpg\n00:10\n\nINT. The office\n\nDAVE\nIs it time to go home yet?\n\n#### Panel 2\n00:15\n\n[[ Not sure what happens here yet ]]\n\n#### Panel 3\n00:12\n\n[[ Not sure what happens here yet ]]\n\n"
             })
         }, {
             title: "Character",
             content: renderContent({
                 title: "Character",
-                description: "A Character element is any line entirely in uppercase, with one empty line before it and without an empty line after it.\n\n Use the `@` symbol if you need to use lower case in the character name.",
+                description: "A Character element is any line entirely in uppercase, with one empty line before it and without an empty line after it.\n\nUse the `@` symbol if you need to use lower case in the character name.\n\nUse a `^` at the end of the line to indicate dual-dialogue.",
                 documentation_link: "https://fountain.io/syntax#section-character",
                 example: "MARTIN (Covered in bees)\nAaaaa!!! Get 'em off!\n\nBUTTHEAD\n(pointing at MARTIN)\nYea yea\n\nBEAVIS (Exhuberantly) ^\nHeh heh\n\n@McBain\nWhat's the point of all this?"
             })
@@ -62511,9 +62511,9 @@ var SidebarFountainHelp = _react2.default.createClass({
             title: "Dialogue",
             content: renderContent({
                 title: "Dialogue",
-                description: "Dialogue is any text following a Character or Parenthetical element.",
+                description: "Dialogue is any text following a Character name line.",
                 documentation_link: "https://fountain.io/syntax#section-dialogue",
-                example: "SANBORN\nA good 'ole boy. You know, loves the Army, blood runs green. Country boy. Seems solid."
+                example: "SANFORD\nDon't be a dummy."
             })
         }, {
             title: "Dual Dialogue",
