@@ -154,7 +154,7 @@ const panels = [
 const SidebarFountainHelp = React.createClass({
     getInitialState() {
         return {
-            selectedOption: null
+            selectedOption: ''
         };
     },
     propTypes: {
@@ -170,7 +170,14 @@ const SidebarFountainHelp = React.createClass({
             selectedOption: payload.value
         });
     },
+    handleClickClose() {
+        this.setState({
+            ... this.state,
+            selectedOption: ''
+        });
+    },
     renderContent(content) {
+        const { handleClickClose } = this;
         return (
             <Segment>
                 <Segment basic
@@ -180,6 +187,7 @@ const SidebarFountainHelp = React.createClass({
                 />
                 <ScriptSnippet snippet={ content.example } />
                 <Segment basic textAlign="right">
+                    <Button as="a" onClick={ handleClickClose } size="mini"><Icon name="close"/></Button>
                     <Button as="a" href={ content.documentation_link} target="_blank"  size="mini"><Icon name="external square"/> Docs</Button>
                     <Button as="a" color="teal" onClick={ (e)=> { this.handleClickInsert(e, content.example ) } }  size="mini">Insert <Icon name="angle double right"/></Button>
                 </Segment>
@@ -198,6 +206,7 @@ const SidebarFountainHelp = React.createClass({
     },
     render() {
         const { handleOnChange, renderSelectedOption } = this;
+        const { selectedOption } = this.state;
 
         const dropdownItems = panels.map(function(panel){
             return {
@@ -214,6 +223,7 @@ const SidebarFountainHelp = React.createClass({
                     selection
                     options={dropdownItems}
                     onChange={ handleOnChange }
+                    value={ selectedOption }
                 />
                 { renderSelectedOption() }
             </div>
