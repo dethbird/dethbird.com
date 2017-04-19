@@ -2,7 +2,6 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
-    Accordion,
     Button,
     Container,
     Form,
@@ -116,7 +115,11 @@ const StoryForm = React.createClass({
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
                                 </Container>
-                                <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                                <Container>
+                                    <br />
+                                    <Icon name="circle help"/><strong>.fountain language help</strong>
+                                    <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                                </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>
                                 <Form.Field placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>

@@ -13,7 +13,7 @@ import { parseFountainScript } from 'utility/fountain-parser';
 const ScriptSnippet = React.createClass({
     getInitialState() {
         return {
-            activeItem: "rendered"
+            activeItem: "fountain"
         }
     },
     handleItemClick(e, { name }) {
