@@ -1,5 +1,6 @@
 application:
     api_key: :APPLICATION_KEY
+    user_id: 5
 server:
     hostname: :SERVER_HOSTNAME
 email:

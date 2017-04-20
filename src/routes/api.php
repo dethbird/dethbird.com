@@ -176,4 +176,17 @@ $app->group('/api/0.1', function(){
             APPLICATION_PATH . 'configs/validation_schema/story-put.json') );
 
     });
+
+    $this->group('/homepage', function(){
+        $this->get('/news', function($request, $response, $args){
+
+            $userPocket = UserPocket::find_by_user_id($this->configs['application']['user_id']);
+            $pocketData = new PocketData(
+                $this->configs['service']['pocket']['key'],
+                $userPocket->access_token
+            );
+            $data = $pocketData->getArticlesByTag('storystation');
+            return $response->withJson(json_decode($data));
+        });
+    });
 });

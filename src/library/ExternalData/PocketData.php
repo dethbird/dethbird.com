@@ -54,7 +54,7 @@ class PocketData extends ExternalDataBase {
     }
 
 
-    public function getArticles()
+    public function getArticlesByTag($tag)
     {
         $response = $this->httpClient->post(
             'https://getpocket.com/v3/get',[
@@ -67,7 +67,8 @@ class PocketData extends ExternalDataBase {
                 'state' => 'all',
                 'sort' => 'newest',
                 'detailType' => 'complete',
-                'count' => 100
+                'count' => 100,
+                'tag' => $tag
             ]
         ]);
         return $response->getBody()->getContents();
