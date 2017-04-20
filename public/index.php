@@ -19,6 +19,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 
 require '../vendor/autoload.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/SetSecurityContext.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/RequestBodyValidation.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/ReadAccess.php';
@@ -81,6 +82,12 @@ ActiveRecord\Config::initialize(function($cfg)
         ]
     );
 });
+
+
+require_once APPLICATION_PATH . 'src/routes/api.php';
+require_once APPLICATION_PATH . 'src/routes/service.php';
+
+
 // ActiveRecord\Serialization::$DATETIME_FORMAT = 'Y-m-d g:i:s a';
 
 
@@ -185,9 +192,6 @@ $app->get("/logout",  function ($request, $response) {
         ->withHeader('Location', '/');
 });
 
-
-require_once APPLICATION_PATH . 'src/routes/api.php';
-// require_once APPLICATION_PATH . 'src/routes/service.php';
 
 
 $app->run();
