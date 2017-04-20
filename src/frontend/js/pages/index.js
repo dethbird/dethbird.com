@@ -4,7 +4,12 @@ import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
 import App from 'components/app';
+
+// External
 import Index from 'components/pages/index';
+import Newsfeed from 'components/pages/newsfeed';
+
+// Internal
 import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
 import Characters from 'components/pages/characters';
@@ -38,6 +43,7 @@ render((
         <Router history={browserHistory}>
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
+                <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
