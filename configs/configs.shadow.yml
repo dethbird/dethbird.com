@@ -3,6 +3,9 @@ application:
     user_id: 5
 server:
     hostname: :SERVER_HOSTNAME
+cache:
+    homepage:
+        news: homepage_news.json
 email:
     daily_email:
         from: :EMAIL_DAILY_EMAIL_FROM

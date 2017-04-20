@@ -180,13 +180,37 @@ $app->group('/api/0.1', function(){
     $this->group('/homepage', function(){
         $this->get('/news', function($request, $response, $args){
 
-            $userPocket = UserPocket::find_by_user_id($this->configs['application']['user_id']);
-            $pocketData = new PocketData(
-                $this->configs['service']['pocket']['key'],
-                $userPocket->access_token
+            $cacheManager = new CacheManager();
+
+            $items = $cacheManager->retrieve(
+                $this->configs['cache']['homepage']['news']
             );
-            $data = $pocketData->getArticlesByTag('storystation');
-            return $response->withJson(json_decode($data));
+
+            if (!$items) {
+
+                $userPocket = UserPocket::find_by_user_id($this->configs['application']['user_id']);
+                $pocketData = new PocketData(
+                    $this->configs['service']['pocket']['key'],
+                    $userPocket->access_token
+                );
+                $mercuryPostlightData = new MercuryPostlightData(
+                    $this->configs['service']['mercury_postlight']['key']
+                );
+                $data = $pocketData->getArticlesByTag('storystation');
+                $dataObj = json_decode($data);
+                $items = [];
+                foreach($dataObj->list as $item) {
+                    $scraped = $mercuryPostlightData->getArticle($item->given_url);
+                    $items[] = $scraped;
+                }
+                $items = json_encode($items);
+                $cacheManager->store (
+                    $this->configs['cache']['homepage']['news'],
+                    $items
+                );
+            }
+
+            return $response->withJson(json_decode($items));
         });
     });
 });

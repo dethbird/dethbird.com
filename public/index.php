@@ -19,7 +19,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 
 require '../vendor/autoload.php';
+require_once APPLICATION_PATH . 'src/library/Cache/Manager.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/MercuryPostlightData.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/SetSecurityContext.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/RequestBodyValidation.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/ReadAccess.php';
