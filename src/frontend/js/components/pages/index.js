@@ -20,7 +20,7 @@ const Index = React.createClass({
         this.setState({ visible: !this.state.visible });
     },
     render() {
-        console.log(this.props.route);
+        const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
         const { visible } = this.state;
 
@@ -30,7 +30,7 @@ const Index = React.createClass({
                     <LoginForm onClickCancel={ this.toggleVisibility } />
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
-                    <Masthead onClickLogin={ this.toggleVisibility } />
+                    <Masthead onClickLogin={ this.toggleVisibility } path={ path }/>
                     <Segment className="main-content">
                         <Container>
                             <Header as="h1">Features</Header>

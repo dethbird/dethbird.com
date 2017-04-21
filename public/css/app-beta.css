@@ -739,9 +739,15 @@ h6 {
 .hidden.menu {
   display: none;
 }
+.external-header {
+  min-height: 165px;
+  padding: .5em 0em;
+  background-image: url('/img/purple-space-landscape.jpg') !important;
+  background-position-y: -504px !important;
+}
 .masthead.segment {
   min-height: 620px;
-  padding: 1em 0em;
+  padding: .5em 0em;
   background-image: url('/img/purple-space-landscape.jpg') !important;
   background-position-y: -185px !important;
 }

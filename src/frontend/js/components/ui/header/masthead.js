@@ -12,15 +12,16 @@ import ExternalMainMenu from 'components/ui/menu/external-main-menu';
 
 const Masthead = React.createClass({
     propTypes: {
+        path: React.PropTypes.string,
         onClickLogin: React.PropTypes.func.isRequired
     },
     render() {
-        const { onClickLogin } = this.props;
+        const { path, onClickLogin } = this.props;
 
         return (
             <Segment inverted={ true } className="masthead">
                 <Container>
-                    <ExternalMainMenu onClickLogin={ onClickLogin }/>
+                    <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } />
                 </Container>
                 <Container text={ true } textAlign="center">
                     <Image src="/svg/storystation.svg" className="logo"/>
