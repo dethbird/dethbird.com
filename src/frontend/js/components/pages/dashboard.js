@@ -3,7 +3,7 @@ import {
     Segment,
 } from 'semantic-ui-react';
 import Footer from 'components/ui/footer';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
 const Dashboard = React.createClass({

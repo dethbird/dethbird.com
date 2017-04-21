@@ -5,7 +5,7 @@ import {
 
 import CharacterForm from 'components/form/character-form';
 import Footer from 'components/ui/footer';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
 const CharacterEdit = React.createClass({

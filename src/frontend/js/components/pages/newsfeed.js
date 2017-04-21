@@ -13,7 +13,7 @@ import { newsfeedGet } from 'actions/newsfeed';
 
 import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
-import Masthead from 'components/ui/masthead';
+import Masthead from 'components/ui/header/masthead';
 import NewsfeedCard from 'components/ui/card/newsfeed-card';
 
 const Newsfeed = React.createClass({
@@ -46,6 +46,7 @@ const Newsfeed = React.createClass({
         return nodes;
     },
     render() {
+        console.log(this.props.route);
         const { renderNewsFeedItems } = this;
         const { securityContext } = this.props.route.props;
         const { visible } = this.state;

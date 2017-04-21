@@ -5,7 +5,7 @@ import {
 
 import StoryForm from 'components/form/story-form';
 import Footer from 'components/ui/footer';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
 const StoryEdit = React.createClass({

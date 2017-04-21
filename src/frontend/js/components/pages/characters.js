@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 
 import CharactersList from 'components/ui/list/characters-list';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import LoggedInHeader from 'components/ui/header/logged-in-header';
 import Footer from 'components/ui/footer';
 
 

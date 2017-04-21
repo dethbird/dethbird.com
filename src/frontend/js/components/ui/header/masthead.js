@@ -8,6 +8,8 @@ import {
     Segment
 } from 'semantic-ui-react';
 
+import ExternalMainMenu from 'components/ui/menu/external-main-menu';
+
 const Masthead = React.createClass({
     propTypes: {
         onClickLogin: React.PropTypes.func.isRequired
@@ -18,16 +20,7 @@ const Masthead = React.createClass({
         return (
             <Segment inverted={ true } className="masthead">
                 <Container>
-                    <Menu size="large" secondary={ true } inverted={ true } pointing={ true }>
-                        <Menu.Item active={ true }>Overview</Menu.Item>
-                        <Menu.Item>Demo</Menu.Item>
-                        <Menu.Item>Docs</Menu.Item>
-                        <Menu.Item>Animation & Showbiz News</Menu.Item>
-                        <Menu.Item as="div" className="right">
-                            <Button inverted={ true } onClick={ onClickLogin }>Login</Button>
-                            <Button inverted={ true }>Signup</Button>
-                        </Menu.Item>
-                    </Menu>
+                    <ExternalMainMenu onClickLogin={ onClickLogin }/>
                 </Container>
                 <Container text={ true } textAlign="center">
                     <Image src="/svg/storystation.svg" className="logo"/>

@@ -8,7 +8,7 @@ import {
 
 import StoryPlayer from 'components/ui/story-player';
 import Footer from 'components/ui/footer';
-import LoggedInHeader from 'components/ui/logged-in-header';
+import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
 const StoryEdit = React.createClass({

@@ -8,7 +8,7 @@ import {
 
 import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
-import Masthead from 'components/ui/masthead';
+import Masthead from 'components/ui/header/masthead';
 
 const Index = React.createClass({
     getInitialState() {
@@ -20,6 +20,7 @@ const Index = React.createClass({
         this.setState({ visible: !this.state.visible });
     },
     render() {
+        console.log(this.props.route);
         const { securityContext } = this.props.route.props;
         const { visible } = this.state;
 
