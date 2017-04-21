@@ -7,7 +7,7 @@ class CacheManager {
         return APPLICATION_PATH . "cache/" . $filename;
     }
 
-    public function retrieve($filename, $cacheTime = 1800)
+    public function retrieve($filename, $cacheTime = 7200)
     {
         if(file_exists($this->filepath($filename))) {
             if (!is_null($cacheTime)) {

@@ -201,6 +201,9 @@ $app->group('/api/0.1', function(){
                 $items = [];
                 foreach($dataObj->list as $item) {
                     $scraped = $mercuryPostlightData->getArticle($item->given_url);
+                    if(is_null($scraped->date_published)) {
+                        $scraped->date_published = date('Y-m-d', $item->time_added);
+                    }
                     $items[] = $scraped;
                 }
                 $items = json_encode($items);

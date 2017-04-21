@@ -59,8 +59,10 @@ const Newsfeed = React.createClass({
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
                     <ExternalHeader onClickLogin={ this.toggleVisibility } path={ path } securityContext={ securityContext }/>
                     <Segment className="main-content">
+                        <Container textAlign="center">
+                            <Header as="h1" className='display-header'>Animation and Showbiz Newsfeed</Header>
+                        </Container>
                         <Container>
-                            <Header as="h1">Animation and Showbiz Newsfeed</Header>
                             <Container text textAlign="center">Showbiz and animation articles that we think are worth sharing.</Container>
                             <br />
                             <Grid columns={ 4 }>

@@ -14,7 +14,7 @@ const NewsfeedCard = React.createClass({
     render() {
         const { model } = this.props;
         return (
-            <Card>
+            <Card onClick={()=>{ window.open(model.url, '_blank')} }>
                 <Image centered={ true } src={ model.lead_image_url } />
                 <Card.Content>
                     <Card.Header>{ model.title }</Card.Header>
