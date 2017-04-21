@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
     Container,
     Header,
@@ -6,15 +7,24 @@ import {
     Sidebar,
 } from 'semantic-ui-react';
 
+import { UI_STATE } from 'constants/ui-state';
+import { newsfeedGet } from 'actions/newsfeed';
+
 import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
 import Masthead from 'components/ui/masthead';
 
-const Index = React.createClass({
+const Newsfeed = React.createClass({
     getInitialState() {
         return (
-            { visible: false }
+            {
+                visible: false
+            }
         );
+    },
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(newsfeedGet());
     },
     toggleVisibility() {
         this.setState({ visible: !this.state.visible });
@@ -42,4 +52,13 @@ const Index = React.createClass({
     }
 })
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { ui_state, errors, models } = state.newsfeedReducer;
+    return {
+        ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
+        errors,
+        models
+    }
+}
+
+export default connect(mapStateToProps)(Newsfeed);
