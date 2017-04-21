@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     Container,
+    Grid,
     Header,
     Segment,
     Sidebar,
@@ -13,6 +14,7 @@ import { newsfeedGet } from 'actions/newsfeed';
 import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
 import Masthead from 'components/ui/masthead';
+import NewsfeedCard from 'components/ui/card/newsfeed-card';
 
 const Newsfeed = React.createClass({
     getInitialState() {
@@ -29,7 +31,22 @@ const Newsfeed = React.createClass({
     toggleVisibility() {
         this.setState({ visible: !this.state.visible });
     },
+    renderNewsFeedItems() {
+        const { models } = this.props;
+        if (!models)
+            return null;
+
+        const nodes = models.map(function(item, i){
+            return (
+                <Grid.Column  key={ i }>
+                    <NewsfeedCard model={ item }/>
+                </Grid.Column>
+            );
+        });
+        return nodes;
+    },
     render() {
+        const { renderNewsFeedItems } = this;
         const { securityContext } = this.props.route.props;
         const { visible } = this.state;
 
@@ -42,7 +59,12 @@ const Newsfeed = React.createClass({
                     <Masthead onClickLogin={ this.toggleVisibility } />
                     <Segment className="main-content">
                         <Container>
-                            <Header as="h1">Newsfeed</Header>
+                            <Header as="h1">Animation and Showbiz Newsfeed</Header>
+                            <Container text textAlign="center">Showbiz and animation articles that we think are worth sharing.</Container>
+                            <br />
+                            <Grid columns={ 4 }>
+                                { renderNewsFeedItems() }
+                            </Grid>
                         </Container>
                     </Segment>
                     <Footer />
