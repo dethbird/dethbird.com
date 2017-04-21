@@ -61092,35 +61092,40 @@ var Index = _react2.default.createClass({
                                             _react2.default.createElement(
                                                 'li',
                                                 null,
-                                                'Create ',
+                                                'Use the ',
                                                 _react2.default.createElement(
                                                     'code',
                                                     null,
-                                                    'characters'
+                                                    'Character Editor'
                                                 ),
-                                                ', ',
-                                                _react2.default.createElement(
-                                                    'code',
-                                                    null,
-                                                    'scripts'
-                                                ),
-                                                ', ',
-                                                _react2.default.createElement(
-                                                    'code',
-                                                    null,
-                                                    'locations'
-                                                ),
-                                                ' and other assets as parts of narrative projects.'
+                                                ' to flesh out your characters and connect them to scripts later. Add side views, front views, different traits, and other information to give you a good picture.'
                                             ),
                                             _react2.default.createElement(
                                                 'li',
                                                 null,
-                                                'You can write your script, and our smart script-editor will keep track of new characters as you type that you can flesh out later.'
+                                                'The ',
+                                                _react2.default.createElement(
+                                                    'code',
+                                                    null,
+                                                    'Smart Script Editor'
+                                                ),
+                                                ' highlights character names, dialogue, acts, scenes, and other screenplay syntax to let you quickly write your story.'
                                             ),
                                             _react2.default.createElement(
                                                 'li',
                                                 null,
-                                                'Write your script and then hit play to preview it in storyboard form in real-time.'
+                                                'Once you have your story fleshed out, use the ',
+                                                _react2.default.createElement(
+                                                    'code',
+                                                    null,
+                                                    'Pitch Generator'
+                                                ),
+                                                ' to create a pitch for your show or movie that you can take to the studios.'
+                                            ),
+                                            _react2.default.createElement(
+                                                'li',
+                                                null,
+                                                'Once your storyboarding is complete, export your panels and get to work on your project in your animating / production tool of choice.'
                                             )
                                         )
                                     )
@@ -62229,12 +62234,12 @@ var NewsfeedCard = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Card.Meta,
                     null,
-                    model.author
+                    (0, _moment2.default)(model.date_published).format("dddd, MMMM Do YYYY")
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Meta,
                     null,
-                    (0, _moment2.default)(model.date_published).format("dddd, MMMM Do YYYY")
+                    model.author
                 )
             ),
             _react2.default.createElement(

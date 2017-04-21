@@ -27,8 +27,8 @@ const NewsfeedCard = React.createClass({
                     </Card.Description>
                 </Card.Content>
                 <Card.Content>
-                    <Card.Meta>{ model.author }</Card.Meta>
                     <Card.Meta>{ moment(model.date_published).format("dddd, MMMM Do YYYY") }</Card.Meta>
+                    <Card.Meta>{ model.author }</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                     <Card.Description as={ Container }  textAlign="right"><Label basic color="teal">{ model.domain }</Label></Card.Description>

@@ -70,9 +70,10 @@ const Index = React.createClass({
                                         <Grid.Column width={ 11 }>
                                             <Header as="h2">What does it do?</Header>
                                             <ul>
-                                                <li>Create <code>characters</code>, <code>scripts</code>, <code>locations</code> and other assets as parts of narrative projects.</li>
-                                                <li>You can write your script, and our smart script-editor will keep track of new characters as you type that you can flesh out later.</li>
-                                                <li>Write your script and then hit play to preview it in storyboard form in real-time.</li>
+                                                <li>Use the <code>Character Editor</code> to flesh out your characters and connect them to scripts later. Add side views, front views, different traits, and other information to give you a good picture.</li>
+                                                <li>The <code>Smart Script Editor</code> highlights character names, dialogue, acts, scenes, and other screenplay syntax to let you quickly write your story.</li>
+                                                <li>Once you have your story fleshed out, use the <code>Pitch Generator</code> to create a pitch for your show or movie that you can take to the studios.</li>
+                                                <li>Once your storyboarding is complete, export your panels and get to work on your project in your animating / production tool of choice.</li>
                                             </ul>
                                         </Grid.Column>
                                     </Grid>
