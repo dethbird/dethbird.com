@@ -61225,7 +61225,11 @@ var Newsfeed = _react2.default.createClass({
     renderNewsFeedItems: function renderNewsFeedItems() {
         var models = this.props.models;
 
-        if (!models) return null;
+        if (!models) return _react2.default.createElement(
+            _semanticUiReact.Loader,
+            { active: true },
+            'Loading'
+        );
 
         var nodes = models.map(function (item, i) {
             return _react2.default.createElement(

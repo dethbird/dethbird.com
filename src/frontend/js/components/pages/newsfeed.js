@@ -4,6 +4,7 @@ import {
     Container,
     Grid,
     Header,
+    Loader,
     Segment,
     Sidebar,
 } from 'semantic-ui-react';
@@ -34,7 +35,7 @@ const Newsfeed = React.createClass({
     renderNewsFeedItems() {
         const { models } = this.props;
         if (!models)
-            return null;
+            return <Loader active>Loading</Loader>;
 
         const nodes = models.map(function(item, i){
             return (
