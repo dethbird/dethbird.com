@@ -57,7 +57,7 @@ const Newsfeed = React.createClass({
                     <LoginForm onClickCancel={ this.toggleVisibility } />
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
-                    <ExternalHeader onClickLogin={ this.toggleVisibility } path={ path }/>
+                    <ExternalHeader onClickLogin={ this.toggleVisibility } path={ path } securityContext={ securityContext }/>
                     <Segment className="main-content">
                         <Container>
                             <Header as="h1">Animation and Showbiz Newsfeed</Header>

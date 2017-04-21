@@ -35109,12 +35109,14 @@ var Masthead = _react2.default.createClass({
 
     propTypes: {
         path: _react2.default.PropTypes.string,
-        onClickLogin: _react2.default.PropTypes.func.isRequired
+        onClickLogin: _react2.default.PropTypes.func.isRequired,
+        securityContext: _react2.default.PropTypes.object.isRequired
     },
     render: function render() {
         var _props = this.props,
             path = _props.path,
-            onClickLogin = _props.onClickLogin;
+            onClickLogin = _props.onClickLogin,
+            securityContext = _props.securityContext;
 
 
         return _react2.default.createElement(
@@ -35123,7 +35125,7 @@ var Masthead = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_externalMainMenu2.default, { onClickLogin: onClickLogin, path: path })
+                _react2.default.createElement(_externalMainMenu2.default, { onClickLogin: onClickLogin, path: path, securityContext: securityContext })
             ),
             _react2.default.createElement(
                 _semanticUiReact.Container,
@@ -60941,7 +60943,7 @@ var Index = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Sidebar.Pusher,
                 { as: _semanticUiReact.Segment.Group, dimmed: visible, className: 'main-content' },
-                _react2.default.createElement(_masthead2.default, { onClickLogin: this.toggleVisibility, path: path }),
+                _react2.default.createElement(_masthead2.default, { onClickLogin: this.toggleVisibility, path: path, securityContext: securityContext }),
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { className: 'main-content' },
@@ -61051,7 +61053,7 @@ var Newsfeed = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Sidebar.Pusher,
                 { as: _semanticUiReact.Segment.Group, dimmed: visible, className: 'main-content' },
-                _react2.default.createElement(_externalHeader2.default, { onClickLogin: this.toggleVisibility, path: path }),
+                _react2.default.createElement(_externalHeader2.default, { onClickLogin: this.toggleVisibility, path: path, securityContext: securityContext }),
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { className: 'main-content' },
@@ -62578,12 +62580,62 @@ var ExternalMainMenu = _react2.default.createClass({
 
     propTypes: {
         path: _react2.default.PropTypes.string,
-        onClickLogin: _react2.default.PropTypes.func.isRequired
+        onClickLogin: _react2.default.PropTypes.func.isRequired,
+        securityContext: _react2.default.PropTypes.object.isRequired
+    },
+    renderSecurityContext: function renderSecurityContext() {
+        var _props = this.props,
+            onClickLogin = _props.onClickLogin,
+            securityContext = _props.securityContext;
+
+
+        if (securityContext.application_user == 1) {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { onClick: onClickLogin, basic: true, inverted: true },
+                    'Login'
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { primary: true },
+                    'Signup'
+                )
+            );
+        } else {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Label,
+                    { as: 'a', image: true, color: 'black' },
+                    _react2.default.createElement('img', { src: securityContext.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
+                    securityContext.username
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { as: 'a', onClick: function onClick() {
+                            _reactRouter.browserHistory.push("/dashboard");
+                        }, basic: true, primary: true, size: 'mini' },
+                    'Dashboard'
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { as: 'a', onClick: function onClick() {
+                            window.location.href = "/logout";
+                        }, color: 'black', size: 'mini' },
+                    'Logout'
+                )
+            );
+        }
     },
     render: function render() {
-        var _props = this.props,
-            path = _props.path,
-            onClickLogin = _props.onClickLogin;
+        var renderSecurityContext = this.renderSecurityContext;
+        var _props2 = this.props,
+            path = _props2.path,
+            onClickLogin = _props2.onClickLogin;
 
         return _react2.default.createElement(
             _semanticUiReact.Menu,
@@ -62615,16 +62667,7 @@ var ExternalMainMenu = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Menu.Item,
                 { as: 'div', className: 'right' },
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { inverted: true, onClick: onClickLogin },
-                    'Login'
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { inverted: true },
-                    'Signup'
-                )
+                renderSecurityContext()
             )
         );
     }
@@ -101340,7 +101383,8 @@ var ExternalHeader = _react2.default.createClass({
 
     propTypes: {
         path: _react2.default.PropTypes.string,
-        onClickLogin: _react2.default.PropTypes.func.isRequired
+        onClickLogin: _react2.default.PropTypes.func.isRequired,
+        securityContext: _react2.default.PropTypes.object.isRequired
     },
     render: function render() {
         var _props = this.props,
@@ -101354,7 +101398,7 @@ var ExternalHeader = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_externalMainMenu2.default, { onClickLogin: onClickLogin, path: path })
+                _react2.default.createElement(_externalMainMenu2.default, { onClickLogin: onClickLogin, path: path, securityContext: securityContext })
             )
         );
     }

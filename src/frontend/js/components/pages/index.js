@@ -30,7 +30,7 @@ const Index = React.createClass({
                     <LoginForm onClickCancel={ this.toggleVisibility } />
                 </Sidebar>
                 <Sidebar.Pusher as={ Segment.Group } dimmed={ visible } className="main-content">
-                    <Masthead onClickLogin={ this.toggleVisibility } path={ path }/>
+                    <Masthead onClickLogin={ this.toggleVisibility } path={ path } securityContext={ securityContext }/>
                     <Segment className="main-content">
                         <Container>
                             <Header as="h1">Features</Header>

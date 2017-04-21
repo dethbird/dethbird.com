@@ -13,7 +13,8 @@ import ExternalMainMenu from 'components/ui/menu/external-main-menu';
 const ExternalHeader = React.createClass({
     propTypes: {
         path: React.PropTypes.string,
-        onClickLogin: React.PropTypes.func.isRequired
+        onClickLogin: React.PropTypes.func.isRequired,
+        securityContext: React.PropTypes.object.isRequired
     },
     render() {
         const { path, onClickLogin } = this.props;
@@ -21,7 +22,7 @@ const ExternalHeader = React.createClass({
         return (
             <Segment inverted={ true } className="external-header">
                 <Container>
-                    <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } />
+                    <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } securityContext={ securityContext } />
                 </Container>
             </Segment>
         )
