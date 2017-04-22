@@ -29,7 +29,7 @@ const ExternalMainMenu = React.createClass({
                         <img src={ securityContext.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
                         {  securityContext.username }
                     </Label>
-                    <Button as="a" onClick={ () => { browserHistory.push("/dashboard") } } basic primary size="mini">Dashboard</Button>
+                    <Button as="a" onClick={ () => { browserHistory.push("/dashboard") } } primary size="mini">Dashboard</Button>
                     <Button as="a" onClick={ () => { window.location.href = "/logout"} } color="black" size="mini">Logout</Button>
                 </div>
             )
@@ -41,8 +41,7 @@ const ExternalMainMenu = React.createClass({
         return (
             <Menu size="large" secondary={ true } inverted={ true } pointing={ true }>
                 <Menu.Item active={ !path } onClick={()=>{browserHistory.push('/')}} >Overview</Menu.Item>
-                <Menu.Item>Product</Menu.Item>
-                <Menu.Item>About Us</Menu.Item>
+                <Menu.Item onClick={()=>{browserHistory.push('/product')}} active={ path=='product' }>Product</Menu.Item>
                 <Menu.Item onClick={()=>{browserHistory.push('/newsfeed')}} active={ path=='newsfeed' }>Animation & Showbiz News</Menu.Item>
                 <Menu.Item as="div" className="right">
                     { renderSecurityContext()  }

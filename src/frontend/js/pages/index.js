@@ -8,6 +8,7 @@ import App from 'components/app';
 // External
 import Index from 'components/pages/index';
 import Newsfeed from 'components/pages/newsfeed';
+import Product from 'components/pages/product';
 
 // Internal
 import Dashboard from 'components/pages/dashboard';
@@ -44,6 +45,7 @@ render((
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
+                <Route path="product" component={ Product } props={ { securityContext } }/>
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
