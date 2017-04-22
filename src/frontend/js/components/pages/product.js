@@ -47,7 +47,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Project Manager</Header>
@@ -110,7 +110,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Pitch Generator</Header>

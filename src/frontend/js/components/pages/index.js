@@ -43,7 +43,7 @@ const Index = React.createClass({
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                         </Grid.Column>
                                         <Grid.Column width={ 11 }>
                                             <Header as="h2">What is it?</Header>
@@ -58,14 +58,14 @@ const Index = React.createClass({
                                             Imagine and write your stories in StoryStation before taking into your favorite storyboarding / animating / production tool.
                                         </Grid.Column>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                         </Grid.Column>
                                         <Grid.Column width={ 11 }>
                                             <Header as="h2">What does it do?</Header>
@@ -85,7 +85,7 @@ const Index = React.createClass({
                                              Using the <code>.fountain</code> script-writing format, quickly jot down and start developing your story.
                                         </Grid.Column>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>

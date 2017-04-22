@@ -61078,7 +61078,7 @@ var Index = _react2.default.createClass({
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
@@ -61111,7 +61111,7 @@ var Index = _react2.default.createClass({
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                                     )
                                 )
                             ),
@@ -61124,7 +61124,7 @@ var Index = _react2.default.createClass({
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
@@ -61204,7 +61204,7 @@ var Index = _react2.default.createClass({
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                                     )
                                 )
                             )
@@ -61451,7 +61451,7 @@ var Product = _react2.default.createClass({
                                     { as: 'a', color: 'teal', ribbon: true },
                                     'Coming Soon'
                                 ),
-                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
@@ -61760,7 +61760,7 @@ var Product = _react2.default.createClass({
                                     { as: 'a', color: 'teal', ribbon: true },
                                     'Coming Soon'
                                 ),
-                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
