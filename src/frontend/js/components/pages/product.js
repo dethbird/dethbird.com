@@ -5,6 +5,7 @@ import {
     Grid,
     Header,
     Image,
+    Label,
     Loader,
     Segment,
     Sidebar,
@@ -46,7 +47,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Project Manager</Header>
@@ -59,7 +60,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2880/33344910634_92504c88f7_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Story Editor</Header>
@@ -77,7 +78,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2906/33803223410_4113a4a19d_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Story Player</Header>
@@ -95,7 +96,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2807/34146694586_dc2289d0ce_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Character Editor</Header>
@@ -109,7 +110,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
+                                    <Label as='a' color='teal' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="http://react.semantic-ui.com/assets/images/wireframe/image.png" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h3">Pitch Generator</Header>

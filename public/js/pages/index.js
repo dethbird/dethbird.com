@@ -61446,6 +61446,11 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Label,
+                                    { as: 'a', color: 'teal', ribbon: true },
+                                    'Coming Soon'
+                                ),
                                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
                             ),
                             _react2.default.createElement(
@@ -61497,7 +61502,7 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
-                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2880/33344910634_92504c88f7_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
@@ -61594,7 +61599,7 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
-                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2906/33803223410_4113a4a19d_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
@@ -61690,7 +61695,7 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
-                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2807/34146694586_dc2289d0ce_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
@@ -61750,6 +61755,11 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Label,
+                                    { as: 'a', color: 'teal', ribbon: true },
+                                    'Coming Soon'
+                                ),
                                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'http://react.semantic-ui.com/assets/images/wireframe/image.png', size: 'large' })
                             ),
                             _react2.default.createElement(
