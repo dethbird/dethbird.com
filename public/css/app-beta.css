@@ -751,6 +751,9 @@ h6 {
   background-image: url('/img/purple-space-landscape.jpg') !important;
   background-position-y: -504px !important;
 }
+.label {
+  font-weight: bold;
+}
 .masthead.segment {
   min-height: 620px;
   padding: .5em 0em;

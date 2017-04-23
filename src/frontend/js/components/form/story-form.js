@@ -15,6 +15,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
+import ScriptCastList from 'components/ui/form/script-cast-list';
 import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';
 import { storyGet, storyPut, storyPost } from 'actions/story';
@@ -117,6 +118,7 @@ const StoryForm = React.createClass({
                                         <label><Icon name="circle help"/>.fountain language help</label>
                                         <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
                                     </div>
+                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } />
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>

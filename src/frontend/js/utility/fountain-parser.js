@@ -1,6 +1,7 @@
 import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 import pad from 'pad-left';
+import * as _ from 'underscore';
 
 export const SECTION_LEVELS = [
     "",
@@ -736,6 +737,48 @@ export const convertTokensToStory = (tokens) => {
         }
     }
     return story;
+}
+
+export const collateScriptCharactersWithCharacters = (script, characters) => {
+
+    if(!script)
+        return [];
+
+    const tokens = tokenizeLines(lexizeScript(script));
+
+    // extract the characters
+    let extracted = [];
+    for (const i in tokens) {
+        const token = tokens[i];
+        if (token.type=="character") {
+            if(!_.findWhere(extracted, {text:token.text}))
+                extracted.push(token);
+        }
+    };
+
+    extracted = _.sortBy(extracted, 'text');
+
+    // group into existing and non-existing
+    let not_found=[];
+    let existing=[];
+    for (const i in extracted){
+        const e = extracted[i];
+        for(const j in characters) {
+            const c = characters[j];
+            if(e.text == c.name.toUpperCase().trim()) {
+                if(!_.findWhere(existing, {name:e.text}))
+                    existing.push({
+                        name: e.text,
+                        existing: c
+                    });
+            } else {
+                if(!_.findWhere(not_found, {name:e.text}))
+                    not_found.push({ name: e.text })
+            }
+        }
+    }
+
+    return { not_found, existing };
 }
 
 export const parseFountainScript = (script) => {
