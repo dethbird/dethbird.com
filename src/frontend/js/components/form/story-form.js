@@ -113,12 +113,10 @@ const StoryForm = React.createClass({
 
                                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
-
-                                </Container>
-                                <Container>
-                                    <br />
-                                    <Icon name="circle help"/><strong>.fountain language help</strong>
-                                    <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                                    <div className="field">
+                                        <label><Icon name="circle help"/>.fountain language help</label>
+                                        <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                                    </div>
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>
