@@ -8159,8 +8159,8 @@ var REGEX = exports.REGEX = {
 
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
 
-    DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
-    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE: /^([A-Z][A-Z0-9'\- ]+)(\ \([A-Za-z0-9'\- ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9'\- ]+)(\ \([A-Za-z0-9'\- ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
     SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?(?:\n)?([0-9]?[0-9]:[0-9][0-9])?/i,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
@@ -8835,17 +8835,29 @@ var collateScriptCharactersWithCharacters = exports.collateScriptCharactersWithC
     // group into existing and non-existing
     var not_found = [];
     var existing = [];
+
     for (var _i3 in extracted) {
         var e = extracted[_i3];
+        var found = undefined;
+        var c = void 0;
         for (var j in characters) {
-            var c = characters[j];
+            c = characters[j];
             if (e.text == c.name.toUpperCase().trim()) {
-                if (!_.findWhere(existing, { name: e.text })) existing.push({
+                var _c = characters[j];
+                found = true;
+                break;
+            }
+        }
+        if (found === true) {
+            if (!_.findWhere(existing, { name: e.text })) {
+                existing.push({
                     name: e.text,
                     existing: c
                 });
-            } else {
-                if (!_.findWhere(not_found, { name: e.text })) not_found.push({ name: e.text });
+            }
+        } else {
+            if (!_.findWhere(not_found, { name: e.text })) {
+                not_found.push({ name: e.text });
             }
         }
     }
@@ -62904,20 +62916,50 @@ var ScriptCastList = _react2.default.createClass({
 
         dispatch((0, _character.charactersGet)());
     },
+    renderCharacters: function renderCharacters(chars) {
+        var renderButton = function renderButton(existing) {
+            if (existing) {
+                return _react2.default.createElement(_semanticUiReact.Button, { icon: 'edit', size: 'mini', basic: true });
+            } else {
+                return _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini', basic: true, color: 'green' });
+            }
+        };
+        var nodes = chars.map(function (char, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.Item,
+                { key: i },
+                renderButton(char.existing),
+                ' ',
+                _react2.default.createElement(_semanticUiReact.Image, { src: char.existing ? char.existing.avatar_image_url : 'https://myspace.com/common/images/user.png', avatar: true, spaced: true }),
+                ' ',
+                char.name
+            );
+        });
+        return nodes;
+    },
     render: function render() {
+        var renderCharacters = this.renderCharacters;
         var _props = this.props,
             models = _props.models,
             ui_state = _props.ui_state,
             errors = _props.errors,
             script = _props.script;
-        // cross check script characters with saved characters
 
+
+        if (!script) return null;
+
+        // cross check script characters with saved characters
         var collated = (0, _fountainParser.collateScriptCharactersWithCharacters)(script, models);
         console.log(collated);
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
-            'cast of chars'
+            _react2.default.createElement(
+                _semanticUiReact.Item.Group,
+                null,
+                renderCharacters(collated.existing),
+                renderCharacters(collated.not_found)
+            )
         );
     }
 });

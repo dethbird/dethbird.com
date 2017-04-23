@@ -28,8 +28,8 @@ export const REGEX = {
 
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/,
 
-    DIALOGUE: /^([A-Z][A-Z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
-    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9' ]+)(\ \([A-Za-z0-9 ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE: /^([A-Z][A-Z0-9'\- ]+)(\ \([A-Za-z0-9'\- ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
+    DIALOGUE_POWER_USER: /^(?:[@])([A-Za-z0-9'\- ]+)(\ \([A-Za-z0-9'\- ]+\))?(?:\ )?(\^)?(?:\n)(\([A-Za-z0-9 ]+\)(?:\n))?([\s\S]+)/,
 
     SECTION: /^(#{1,4})\ (.*)(?:\n)?(https:\/\/.*.(jpg|jpeg|gif|png|svg))?(?:\n)?([0-9]?[0-9]:[0-9][0-9])?/i,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
@@ -761,19 +761,29 @@ export const collateScriptCharactersWithCharacters = (script, characters) => {
     // group into existing and non-existing
     let not_found=[];
     let existing=[];
+
     for (const i in extracted){
         const e = extracted[i];
+        let found = undefined;
+        let c;
         for(const j in characters) {
-            const c = characters[j];
+            c = characters[j];
             if(e.text == c.name.toUpperCase().trim()) {
-                if(!_.findWhere(existing, {name:e.text}))
-                    existing.push({
-                        name: e.text,
-                        existing: c
-                    });
-            } else {
-                if(!_.findWhere(not_found, {name:e.text}))
-                    not_found.push({ name: e.text })
+                const c = characters[j];
+                found = true;
+                break;
+            }
+        }
+        if(found===true) {
+            if(!_.findWhere(existing, {name:e.text})) {
+                existing.push({
+                    name: e.text,
+                    existing: c
+                });
+            }
+        } else {
+            if(!_.findWhere(not_found, {name:e.text})) {
+                not_found.push({ name: e.text })
             }
         }
     }
