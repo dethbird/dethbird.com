@@ -24,7 +24,7 @@ const charactersRequestError = (errors) => {
 }
 
 
-export const charactersGet = (id) =>
+export const charactersGet = () =>
     dispatch => {
         dispatch(charactersRequestInit());
         request.get(`/api/0.1/characters`)
@@ -35,6 +35,16 @@ export const charactersGet = (id) =>
                     dispatch(charactersRequestError(res.body));
                 }
         });
+    };
+
+export const charactersPostOne = (fields) =>
+    dispatch => {
+        dispatch(charactersRequestInit());
+        request.post(`/api/0.1/character`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                dispatch(charactersGet());
+            });
     };
 
 const characterRequestInit = () => {

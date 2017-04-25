@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
     Button,
@@ -9,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 
 import { UI_STATE } from 'constants/ui-state';
-import { charactersGet } from 'actions/character';
+import { charactersGet, charactersPostOne } from 'actions/character';
 
 import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
 
@@ -26,17 +27,22 @@ const ScriptCastList = React.createClass({
         const { dispatch } = this.props;
         dispatch(charactersGet());
     },
+    handleClickCreateCharacter(e, payload){
+        const { dispatch } = this.props;
+        dispatch(charactersPostOne(payload));
+    },
     renderCharacters(chars) {
-        const renderButton = (existing) => {
+        const { handleClickCreateCharacter } = this;
+        const renderButton = (name, existing) => {
             if(existing) {
-                return <Button icon="edit" size="mini" basic></Button>
+                return <Button as="a" icon="edit" size="mini" basic onClick={()=>{ browserHistory.push(`/character/${existing.id}/edit`) }}></Button>
             } else {
-                return <Button icon="add" size="mini" basic color="green"></Button>
+                return <Button as="a" icon="add" size="mini" basic color="green" onClick={ (e)=>{ handleClickCreateCharacter(e, { name })} }></Button>
             }
         }
         const nodes = chars.map(function(char, i){
             return (
-                <Item key={ i }>{renderButton(char.existing)} <Image src={ char.existing ? char.existing.avatar_image_url : 'https://myspace.com/common/images/user.png' } avatar spaced /> { char.name }</Item>
+                <Item key={ i }>{renderButton(char.name, char.existing)} <Image src={ char.existing ? (char.existing.avatar_image_url ? char.existing.avatar_image_url : 'https://myspace.com/common/images/user.png')  : 'https://myspace.com/common/images/user.png' } avatar spaced /> { char.name }</Item>
             )
         });
         return nodes;
@@ -50,7 +56,6 @@ const ScriptCastList = React.createClass({
 
         // cross check script characters with saved characters
         const collated = collateScriptCharactersWithCharacters(script, models);
-        console.log(collated);
         return (
             <Container text={ true }>
                 <Item.Group>
