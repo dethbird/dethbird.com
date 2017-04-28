@@ -61459,6 +61459,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(28);
+
 var _semanticUiReact = __webpack_require__(9);
 
 var _loginForm = __webpack_require__(169);
@@ -61531,7 +61533,7 @@ var Product = _react2.default.createClass({
                                 { width: 6 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', color: 'teal', ribbon: true },
+                                    { as: 'a', color: 'yellow', ribbon: true },
                                     'Coming Soon'
                                 ),
                                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
@@ -61541,8 +61543,8 @@ var Product = _react2.default.createClass({
                                 { width: 10 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Header,
-                                    { as: 'h3' },
-                                    'Project Manager'
+                                    { as: 'h2' },
+                                    'ProjectManager'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Segment,
@@ -61592,8 +61594,8 @@ var Product = _react2.default.createClass({
                                 { width: 10 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Header,
-                                    { as: 'h3' },
-                                    'Story Editor'
+                                    { as: 'h2' },
+                                    'StoryEditor'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Segment,
@@ -61665,8 +61667,15 @@ var Product = _react2.default.createClass({
                                         null,
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
-                                            { color: 'green', size: 'mini' },
-                                            'Try the Demo'
+                                            {
+                                                as: 'a',
+                                                color: 'teal',
+                                                onClick: function onClick() {
+                                                    _reactRouter.browserHistory.push('/product/demo/storyeditor');
+                                                }
+                                            },
+                                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'rocket' }),
+                                            ' Launch StoryEditor'
                                         )
                                     )
                                 )
@@ -61689,8 +61698,8 @@ var Product = _react2.default.createClass({
                                 { width: 10 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Header,
-                                    { as: 'h3' },
-                                    'Story Player'
+                                    { as: 'h2' },
+                                    'StoryPlayer'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Segment,
@@ -61761,8 +61770,15 @@ var Product = _react2.default.createClass({
                                         null,
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
-                                            { color: 'green', size: 'mini' },
-                                            'Try the Demo'
+                                            {
+                                                as: 'a',
+                                                color: 'teal',
+                                                onClick: function onClick() {
+                                                    _reactRouter.browserHistory.push('/product/demo/storyplayer');
+                                                }
+                                            },
+                                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'rocket' }),
+                                            ' Launch StoryPlayer'
                                         )
                                     )
                                 )
@@ -61785,8 +61801,8 @@ var Product = _react2.default.createClass({
                                 { width: 10 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Header,
-                                    { as: 'h3' },
-                                    'Character Editor'
+                                    { as: 'h2' },
+                                    'CharacterEditor'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Segment,
@@ -61840,7 +61856,7 @@ var Product = _react2.default.createClass({
                                 { width: 6 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', color: 'teal', ribbon: true },
+                                    { as: 'a', color: 'yellow', ribbon: true },
                                     'Coming Soon'
                                 ),
                                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
@@ -61850,8 +61866,8 @@ var Product = _react2.default.createClass({
                                 { width: 10 },
                                 _react2.default.createElement(
                                     _semanticUiReact.Header,
-                                    { as: 'h3' },
-                                    'Pitch Generator'
+                                    { as: 'h2' },
+                                    'PitchGenerator'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Segment,
@@ -62017,8 +62033,6 @@ Object.defineProperty(exports, "__esModule", {
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(28);
 
 var _semanticUiReact = __webpack_require__(9);
 
