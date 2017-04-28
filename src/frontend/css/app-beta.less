@@ -10,6 +10,10 @@
     font-size: .85rem !important;
 }
 
+.CodeMirror-scroll {
+    max-height: 900px;
+}
+
 .cm-s-storystation span.cm-meta { color: #FF1717; }
 .cm-s-storystation span.cm-keyword { line-height: 1em; font-weight: bold; color: #7F0055; }
 .cm-s-storystation span.cm-atom { color: #219; }
@@ -278,8 +282,9 @@ code {
 }
 
 .fountain-container {
-    // background-color: #fffdf8 !important;
-    // font-size: 0.8em !important;
+    max-height: 900px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 h1,h2,h3,h4,h5,h6 {
