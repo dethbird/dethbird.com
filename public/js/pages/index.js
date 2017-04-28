@@ -64124,7 +64124,7 @@ var StoryPlayer = _react2.default.createClass({
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
-                        { width: 4 },
+                        { width: 4, className: 'story-player-column' },
                         _react2.default.createElement(_storyColumn2.default, { story: story, onSelectStoryItem: handleOnSelectStoryItem, selectedItem: selectedItem, playingPanel: playingPanel })
                     ),
                     _react2.default.createElement(

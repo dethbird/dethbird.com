@@ -837,6 +837,11 @@ div.script-input {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.story-player-column {
+  max-height: 986px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 .story-player .player {
   height: 480px;
   text-align: center;

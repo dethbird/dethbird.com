@@ -136,7 +136,7 @@ const StoryPlayer = React.createClass({
                             </Segment>
                             <ScriptInputBasic script={ inputFields.script || '' } onChange={ handleFieldChange } id='script'/>
                         </Grid.Column>
-                        <Grid.Column width={ 4 }>
+                        <Grid.Column width={ 4 } className='story-player-column'>
                             <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
                         </Grid.Column>
                         <Grid.Column width={ 8 }>
