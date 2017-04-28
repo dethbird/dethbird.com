@@ -92,7 +92,7 @@ const StoryForm = React.createClass({
                 <Container fluid>
                     <Segment basic>
                         <Grid>
-                            <Grid.Column width={ 4 }>
+                            <Grid.Column width={ 4 } className='story-form-column'>
                                 <Segment basic>
                                     <Button attached='left' disabled size='tiny'>
                                         <Icon name="edit" /> Editor
@@ -114,11 +114,12 @@ const StoryForm = React.createClass({
 
                                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
+
+                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } />
                                     <div className="field">
                                         <label><Icon name="circle help"/>.fountain language help</label>
                                         <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
                                     </div>
-                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } />
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>

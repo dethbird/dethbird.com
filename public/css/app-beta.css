@@ -832,6 +832,11 @@ div.script-input {
 .story-column .row.panel-item {
   margin-left: 32px;
 }
+.story-form-column {
+  max-height: 900px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 .story-player .player {
   height: 480px;
   text-align: center;

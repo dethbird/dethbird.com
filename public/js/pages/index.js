@@ -62612,7 +62612,7 @@ var StoryForm = _react2.default.createClass({
                         null,
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
-                            { width: 4 },
+                            { width: 4, className: 'story-form-column' },
                             _react2.default.createElement(
                                 _semanticUiReact.Segment,
                                 { basic: true },
@@ -62654,6 +62654,7 @@ var StoryForm = _react2.default.createClass({
                                         return _this.handleFieldChange(e, 'description');
                                     }, value: inputFields.description || '', autoHeight: true }),
                                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
+                                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Cast of Characters', placeholder: 'Cast', id: 'cast', control: _scriptCastList2.default, script: inputFields.script || '' }),
                                 _react2.default.createElement(
                                     'div',
                                     { className: 'field' },
@@ -62664,8 +62665,7 @@ var StoryForm = _react2.default.createClass({
                                         '.fountain language help'
                                     ),
                                     _react2.default.createElement(_sidebarFountainHelp2.default, { onClickSnippetInsert: this.handleClickSnippetInsert })
-                                ),
-                                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Cast of Characters', placeholder: 'Cast', id: 'cast', control: _scriptCastList2.default, script: inputFields.script || '' })
+                                )
                             )
                         ),
                         _react2.default.createElement(
