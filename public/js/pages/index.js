@@ -11884,7 +11884,20 @@ var LoggedInHeader = _react2.default.createClass({
                     _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Dashboard', className: path == "dashboard" ? "active" : null, onClick: function onClick(e) {
                             _reactRouter.browserHistory.push('/dashboard');
                         } }),
-                    _react2.default.createElement(_semanticUiReact.Item, { as: 'a', content: 'Projects', className: path == "projects" ? "active" : null }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Dropdown,
+                        { item: true, text: 'Projects' },
+                        _react2.default.createElement(
+                            _semanticUiReact.Dropdown.Menu,
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Dropdown.Item, { as: 'a', icon: 'list', text: 'List', onClick: function onClick(e) {
+                                    _reactRouter.browserHistory.push('/projects');
+                                } }),
+                            _react2.default.createElement(_semanticUiReact.Dropdown.Item, { as: 'a', icon: 'add', text: 'Create', onClick: function onClick(e) {
+                                    _reactRouter.browserHistory.push('/project/create');
+                                } })
+                        )
+                    ),
                     _react2.default.createElement(
                         _semanticUiReact.Dropdown,
                         { item: true, text: 'Stories' },
@@ -64975,6 +64988,14 @@ var _characters = __webpack_require__(609);
 
 var _characters2 = _interopRequireDefault(_characters);
 
+var _projectEdit = __webpack_require__(1118);
+
+var _projectEdit2 = _interopRequireDefault(_projectEdit);
+
+var _projects = __webpack_require__(1119);
+
+var _projects2 = _interopRequireDefault(_projects);
+
 var _storyEdit = __webpack_require__(615);
 
 var _storyEdit2 = _interopRequireDefault(_storyEdit);
@@ -65041,6 +65062,9 @@ var requireAuth = function requireAuth(nextState, replace, callback) {
             _react2.default.createElement(_reactRouter.Route, { path: 'product', component: _product2.default, props: { securityContext: securityContext } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'product/demo/storyplayer', component: _storyPlayDemo2.default, props: { securityContext: securityContext } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'product/demo/storyeditor', component: _storyEditDemo2.default, props: { securityContext: securityContext } }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'projects', component: _projects2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/create', component: _projectEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:id/edit', component: _projectEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'dashboard', component: _dashboard2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'characters', component: _characters2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'character/create', component: _characterEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
@@ -102504,6 +102528,115 @@ var StoryPlayDemo = _react2.default.createClass({
 });
 
 exports.default = StoryPlayDemo;
+
+/***/ }),
+/* 1118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(9);
+
+var _characterForm = __webpack_require__(622);
+
+var _characterForm2 = _interopRequireDefault(_characterForm);
+
+var _footer = __webpack_require__(43);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _loggedInHeader = __webpack_require__(76);
+
+var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProjectEdit = _react2.default.createClass({
+    displayName: 'ProjectEdit',
+    render: function render() {
+        var path = this.props.route.path;
+        var securityContext = this.props.route.props.securityContext;
+        var id = this.props.params.id;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Segment.Group,
+            null,
+            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
+            _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { className: 'main-content' },
+                _react2.default.createElement(_characterForm2.default, { id: id })
+            ),
+            _react2.default.createElement(_footer2.default, null)
+        );
+    }
+});
+
+exports.default = ProjectEdit;
+
+/***/ }),
+/* 1119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(9);
+
+var _charactersList = __webpack_require__(632);
+
+var _charactersList2 = _interopRequireDefault(_charactersList);
+
+var _loggedInHeader = __webpack_require__(76);
+
+var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
+
+var _footer = __webpack_require__(43);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Projects = _react2.default.createClass({
+    displayName: 'Projects',
+    render: function render() {
+        var path = this.props.route.path;
+        var securityContext = this.props.route.props.securityContext;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Segment.Group,
+            null,
+            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
+            _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { className: 'main-content' },
+                _react2.default.createElement(_charactersList2.default, null)
+            ),
+            _react2.default.createElement(_footer2.default, null)
+        );
+    }
+});
+
+exports.default = Projects;
 
 /***/ })
 /******/ ]);

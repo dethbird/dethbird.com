@@ -35,7 +35,12 @@ const LoggedInHeader = React.createClass({
                 <Container fluid>
                     <Menu size="large" inverted={ true } secondary={ true }>
                         <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
-                        <Item as="a" content="Projects" className={ path=="projects" ? "active" : null } />
+                        <Dropdown item text='Projects'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item as="a" icon='list' text='List' onClick={ (e) => { browserHistory.push('/projects'); } } />
+                                <Dropdown.Item as="a" icon='add' text='Create' onClick={ (e) => { browserHistory.push('/project/create'); } }  />
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Dropdown item text='Stories'>
                             <Dropdown.Menu>
                                 <Dropdown.Item as="a" icon='list' text='List' onClick={ (e) => { browserHistory.push('/stories'); } } />

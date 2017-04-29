@@ -14,6 +14,8 @@ import Product from 'components/pages/product';
 import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
 import Characters from 'components/pages/characters';
+import ProjectEdit from 'components/pages/project-edit';
+import Projects from 'components/pages/projects';
 import StoryEdit from 'components/pages/story-edit';
 import StoryEditDemo from 'components/pages/story-edit-demo';
 import StoryPlay from 'components/pages/story-play';
@@ -50,6 +52,9 @@ render((
                 <Route path="product" component={ Product } props={ { securityContext } }/>
                 <Route path="product/demo/storyplayer" component={ StoryPlayDemo } props={ { securityContext } }/>
                 <Route path="product/demo/storyeditor" component={ StoryEditDemo } props={ { securityContext } }/>
+                <Route path="projects" component={ Projects } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="project/create" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="project/:id/edit" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
