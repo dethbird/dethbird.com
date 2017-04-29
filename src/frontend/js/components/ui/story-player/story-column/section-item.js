@@ -50,7 +50,8 @@ const SectionItem = React.createClass({
         const className = classNames([
             selected && !playing ? 'card-selected' : null,
             playing ? 'card-playing' : null ,
-            highlighted && !playing ? 'card-highlighted' : null
+            highlighted && !playing ? 'card-highlighted' : null,
+            'story-player-column-item'
         ]);
 
         let color = highlighted ? 'purple' : null;
@@ -64,7 +65,6 @@ const SectionItem = React.createClass({
                 onClick={ (e) => onSelectStoryItem(e, item) }
                 className={ className }
             >
-                <Card.Content>
                     <Grid>
                         <Grid.Column width={ 6 } textAlign="left" >
                             { this.renderHeader() }
@@ -76,7 +76,6 @@ const SectionItem = React.createClass({
                             <Icon name="time" /><span>{ item.duration }</span>
                         </Grid.Column>
                     </Grid>
-                </Card.Content>
             </Card>
         )
     }

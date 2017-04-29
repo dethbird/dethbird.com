@@ -64547,7 +64547,7 @@ var SectionItem = _react2.default.createClass({
             highlighted = _props2.highlighted,
             playing = _props2.playing;
 
-        var className = (0, _classnames2.default)([selected && !playing ? 'card-selected' : null, playing ? 'card-playing' : null, highlighted && !playing ? 'card-highlighted' : null]);
+        var className = (0, _classnames2.default)([selected && !playing ? 'card-selected' : null, playing ? 'card-playing' : null, highlighted && !playing ? 'card-highlighted' : null, 'story-player-column-item']);
 
         var color = highlighted ? 'purple' : null;
         color = playing ? 'orange' : color;
@@ -64564,30 +64564,26 @@ var SectionItem = _react2.default.createClass({
                 className: className
             },
             _react2.default.createElement(
-                _semanticUiReact.Card.Content,
+                _semanticUiReact.Grid,
                 null,
                 _react2.default.createElement(
-                    _semanticUiReact.Grid,
-                    null,
+                    _semanticUiReact.Grid.Column,
+                    { width: 6, textAlign: 'left' },
+                    this.renderHeader()
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Grid.Column,
+                    { width: 3, textAlign: 'right' },
+                    this.renderImage()
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Grid.Column,
+                    { width: 7, textAlign: 'right' },
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
                     _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 6, textAlign: 'left' },
-                        this.renderHeader()
-                    ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 3, textAlign: 'right' },
-                        this.renderImage()
-                    ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 7, textAlign: 'right' },
-                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
-                        _react2.default.createElement(
-                            'span',
-                            null,
-                            item.duration
-                        )
+                        'span',
+                        null,
+                        item.duration
                     )
                 )
             )

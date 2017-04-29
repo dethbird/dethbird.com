@@ -211,7 +211,7 @@ $app->group('/api/0.1', function(){
     $this->group('/story', function(){
         $this->get('/{id}', function($request, $response, $args){
             $headers = $request->getHeaders();
-            $model = Story::find_by_id(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $args['id']);
+            $model = Story::find_by_id(isset($headers['HTTP_X_DEMO_REQUEST']) ? 4 : $args['id']);
 
             if (!$model) {
                 return $response
@@ -305,6 +305,10 @@ $app->group('/api/0.1', function(){
                     $items []= json_decode($articleJson);
                 }
             }
+
+            $sorted = usort($items, function($a, $b){
+                return strtotime($a->date_published) < strtotime($b->date_published);
+            });
 
             return $response->withJson($items);
         });
