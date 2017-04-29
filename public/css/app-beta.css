@@ -632,8 +632,8 @@ code {
   font-size: 1.4em !important;
 }
 .fountain .dialogue-container {
-  text-align: center;
-  margin: 1.5em 20% 1.5em 20%;
+  text-align: left;
+  margin: 1.5em 10% 1.5em 20%;
 }
 .fountain .dialogue-container.dual .character::after {
   content: " (together)";
@@ -683,7 +683,7 @@ code {
 }
 .fountain .character,
 .fountain .parenthetical {
-  text-align: center;
+  text-align: left;
   margin: .3em 0 .3em 0;
 }
 .fountain .section-duration {
