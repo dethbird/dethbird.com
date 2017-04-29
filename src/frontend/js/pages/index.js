@@ -15,7 +15,9 @@ import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
 import Characters from 'components/pages/characters';
 import StoryEdit from 'components/pages/story-edit';
+import StoryEditDemo from 'components/pages/story-edit-demo';
 import StoryPlay from 'components/pages/story-play';
+import StoryPlayDemo from 'components/pages/story-play-demo';
 import Stories from 'components/pages/stories';
 import store from 'store/store';
 
@@ -46,6 +48,8 @@ render((
                 <IndexRoute component={ Index } props={ { securityContext } } />
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="product" component={ Product } props={ { securityContext } }/>
+                <Route path="product/demo/storyplayer" component={ StoryPlayDemo } props={ { securityContext } }/>
+                <Route path="product/demo/storyeditor" component={ StoryEditDemo } props={ { securityContext } }/>
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>

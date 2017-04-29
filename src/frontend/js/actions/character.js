@@ -37,6 +37,20 @@ export const charactersGet = () =>
         });
     };
 
+export const charactersGetDemo = () =>
+    dispatch => {
+        dispatch(charactersRequestInit());
+        request.get(`/api/0.1/characters`)
+            .set('X-Demo-Request', 'true')
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(charactersRequestSuccess(res.body));
+                } else {
+                    dispatch(charactersRequestError(res.body));
+                }
+        });
+    };
+
 export const charactersPostOne = (fields) =>
     dispatch => {
         dispatch(charactersRequestInit());
@@ -45,6 +59,12 @@ export const charactersPostOne = (fields) =>
             .end(function(err, res){
                 dispatch(charactersGet());
             });
+    };
+
+export const charactersPostOneDemo = (characters, fields) =>
+    dispatch => {
+        characters.push(fields);
+        dispatch(charactersRequestSuccess( characters ));
     };
 
 const characterRequestInit = () => {

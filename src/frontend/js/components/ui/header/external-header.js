@@ -14,9 +14,22 @@ const ExternalHeader = React.createClass({
     propTypes: {
         path: React.PropTypes.string,
         onClickLogin: React.PropTypes.func.isRequired,
-        securityContext: React.PropTypes.object.isRequired
+        securityContext: React.PropTypes.object.isRequired,
+        subheader: React.PropTypes.string
+    },
+    renderSubheader() {
+        const { subheader } = this.props;
+        if (!subheader)
+            return null;
+
+        return (
+            <Container textAlign="center" text>
+                <Header as="h3" className='display-header'>{ subheader }</Header>
+            </Container>
+        )
     },
     render() {
+        const { renderSubheader } = this;
         const { path, onClickLogin } = this.props;
 
         return (
@@ -24,6 +37,7 @@ const ExternalHeader = React.createClass({
                 <Container>
                     <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } securityContext={ securityContext } />
                 </Container>
+                { renderSubheader() }
             </Segment>
         )
     }

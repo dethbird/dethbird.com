@@ -10,13 +10,14 @@ import {
 } from 'semantic-ui-react';
 
 import { UI_STATE } from 'constants/ui-state';
-import { charactersGet, charactersPostOne } from 'actions/character';
+import { charactersGet, charactersGetDemo, charactersPostOne, charactersPostOneDemo } from 'actions/character';
 
 import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
 
 const ScriptCastList = React.createClass({
     propTypes: {
-        script: React.PropTypes.string.isRequired
+        script: React.PropTypes.string.isRequired,
+        demo: React.PropTypes.bool
     },
     getInitialState() {
         return {
@@ -24,12 +25,20 @@ const ScriptCastList = React.createClass({
         }
     },
     componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch(charactersGet());
+        const { demo, dispatch } = this.props;
+        if(demo===true){
+            dispatch(charactersGetDemo());
+        } else {
+            dispatch(charactersGet());
+        }
     },
     handleClickCreateCharacter(e, payload){
-        const { dispatch } = this.props;
-        dispatch(charactersPostOne(payload));
+        const { demo, dispatch, models } = this.props;
+        if (demo===true) {
+            dispatch(charactersPostOneDemo(models, payload));
+        } else {
+            dispatch(charactersPostOne(payload));
+        }
     },
     renderCharacters(chars) {
         const { handleClickCreateCharacter } = this;

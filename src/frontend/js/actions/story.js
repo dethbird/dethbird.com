@@ -71,6 +71,20 @@ export const storyGet = (id) =>
         });
     };
 
+export const storyGetDemo = () =>
+    dispatch => {
+        dispatch(storyRequestInit());
+        request.get(`/api/0.1/story/1`)
+            .set('X-Demo-Request', 'true')
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storyRequestSuccess(res.body));
+                } else {
+                    dispatch(storyRequestError(res.body));
+                }
+        });
+    };
+
 
 export const storyPut = (id, fields) =>
     dispatch => {
@@ -80,6 +94,20 @@ export const storyPut = (id, fields) =>
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(storyRequestSuccess(res.body));
+                } else {
+                    dispatch(storyRequestError(res.body));
+                }
+        });
+    };
+
+export const storyPutDemo = (fields) =>
+    dispatch => {
+        dispatch(storyRequestInit());
+        request.get(`/api/0.1/story/1`)
+            .set('X-Demo-Request', 'true')
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(storyRequestSuccess({ ... res.body, ... fields }));
                 } else {
                     dispatch(storyRequestError(res.body));
                 }

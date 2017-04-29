@@ -10,7 +10,7 @@ import Footer from 'components/ui/footer';
 import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
-const StoryEdit = React.createClass({
+const StoryPlay = React.createClass({
     render() {
         const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
@@ -28,4 +28,4 @@ const StoryEdit = React.createClass({
     }
 })
 
-export default StoryEdit;
+export default StoryPlay;

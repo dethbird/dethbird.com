@@ -41,8 +41,10 @@ $app->group('/api/0.1', function(){
 
     # characters
     $this->get('/characters', function($request, $response, $args){
+        $headers = $request->getHeaders();
+
         $models = [];
-        $models = Character::find_all_by_created_by($_SESSION['securityContext']->id);
+        $models = Character::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
         $_arr = [];
         foreach ($models as $model) {
             $_arr[] = $model->to_array();
@@ -136,7 +138,9 @@ $app->group('/api/0.1', function(){
 
     $this->group('/story', function(){
         $this->get('/{id}', function($request, $response, $args){
-            $model = Story::find_by_id($args['id']);
+            $headers = $request->getHeaders();
+            $model = Story::find_by_id(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $args['id']);
+
             if (!$model) {
                 return $response
                     ->withStatus(404)
