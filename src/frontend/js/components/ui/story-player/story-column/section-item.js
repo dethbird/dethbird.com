@@ -37,11 +37,15 @@ const SectionItem = React.createClass({
         const { item } = this.props;
         if (item.type == 'story') {
             return (
-                <Image src={ item.image || '' } size='medium' verticalAlign='middle' shape='circular' />
+                item.image ? <Image src={ item.image } size='small' verticalAlign='middle' shape='circular' /> : null
+            )
+        } else if (item.level_text.length == 4) {
+            return (
+                <Image src={ item.image || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } size='medium' verticalAlign='middle' shape={ (item.level_text.length == 4) ? null : 'circular' } />
             )
         } else {
             return (
-                <Image src={ item.image || '' } size='medium' verticalAlign='middle' shape={ (item.level_text.length == 4) ? null : 'circular' } />
+                item.image ? <Image src={ item.image } size='small' verticalAlign='middle' shape='circular' /> : null
             )
         }
     },

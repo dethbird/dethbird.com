@@ -58,8 +58,17 @@ const Player = React.createClass({
         });
         onClickPause(e);
     },
+    renderImage() {
+        const { panels } = this.props;
+        const { panelIndex } = this.state;
+        if (!panels[panelIndex])
+            return null;
+        return (
+            <Image src={ panels[panelIndex].image ? panels[panelIndex].image : 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+        )
+    },
     render() {
-        const { handleClickPlay, handleClickPause } = this;
+        const { handleClickPlay, handleClickPause, renderImage } = this;
         const { panels, onClickPause, durationInMiliseconds } = this.props;
         const { panelIndex, playing } = this.state;
         if (panels.length==0) {
@@ -75,7 +84,7 @@ const Player = React.createClass({
         return (
             <Segment.Group as={ Container } text>
                 <Segment inverted  className="player">
-                    <Image src={ panels[panelIndex] ? panels[panelIndex].image : null } />
+                    { renderImage() }
                 </Segment>
                 <Segment>
                     <Grid>

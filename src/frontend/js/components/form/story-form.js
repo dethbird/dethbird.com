@@ -124,6 +124,7 @@ const StoryForm = React.createClass({
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
                                     <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } demo={ demo }/>
+
                                     <div className="field">
                                         <label><Icon name="circle help"/>.fountain language help</label>
                                         <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />

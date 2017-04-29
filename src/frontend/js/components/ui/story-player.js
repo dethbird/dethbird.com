@@ -61,7 +61,7 @@ const StoryPlayer = React.createClass({
             this.setState({
                  ... this.state,
                  model: nextProps.model,
-                 story: convertTokensToStory(tokenizeLines(lexizeScript(nextProps.model.script)))
+                 story: nextProps.model.script ? convertTokensToStory(tokenizeLines(lexizeScript(nextProps.model.script))) : ''
             });
         }
     },
