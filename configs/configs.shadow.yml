@@ -4,6 +4,10 @@ application:
 server:
     hostname: :SERVER_HOSTNAME
 cache:
+    pocket:
+        articles: pocket_articles.json
+    mercury_postlight:
+        article: mercury_postlight.CACHE_KEY.json
     homepage:
         news: homepage_news.json
 email:

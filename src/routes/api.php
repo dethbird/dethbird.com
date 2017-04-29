@@ -257,39 +257,56 @@ $app->group('/api/0.1', function(){
         $this->get('/news', function($request, $response, $args){
 
             $cacheManager = new CacheManager();
-
-            $items = $cacheManager->retrieve(
-                $this->configs['cache']['homepage']['news']
+            $userPocket = UserPocket::find_by_user_id($this->configs['application']['user_id']);
+            $pocketData = new PocketData(
+                $this->configs['service']['pocket']['key'],
+                $userPocket->access_token
             );
+            $mercuryPostlightData = new MercuryPostlightData(
+                $this->configs['service']['mercury_postlight']['key']
+            );
+            $items = [];
 
-            if (!$items) {
-
-                $userPocket = UserPocket::find_by_user_id($this->configs['application']['user_id']);
-                $pocketData = new PocketData(
-                    $this->configs['service']['pocket']['key'],
-                    $userPocket->access_token
-                );
-                $mercuryPostlightData = new MercuryPostlightData(
-                    $this->configs['service']['mercury_postlight']['key']
-                );
-                $data = $pocketData->getArticlesByTag('storystation');
-                $dataObj = json_decode($data);
-                $items = [];
-                foreach($dataObj->list as $item) {
-                    $scraped = $mercuryPostlightData->getArticle($item->given_url);
-                    if(is_null($scraped->date_published)) {
-                        $scraped->date_published = date('Y-m-d', $item->time_added);
-                    }
-                    $items[] = $scraped;
-                }
-                $items = json_encode($items);
+            // check request cache from pocket
+            $articlesJson = $cacheManager->retrieve(
+                $this->configs['cache']['pocket']['articles']
+            );
+            if (!$articlesJson) {
+                $articlesJson = $pocketData->getArticlesByTag('storystation');
                 $cacheManager->store (
-                    $this->configs['cache']['homepage']['news'],
-                    $items
+                    $this->configs['cache']['pocket']['articles'],
+                    $articlesJson
                 );
             }
+            $articles = json_decode($articlesJson);
 
-            return $response->withJson(json_decode($items));
+            // check each individual article cache
+            foreach ($articles->list as $article) {
+                $articleCacheFilename = str_replace("CACHE_KEY", $article->item_id, $this->configs['cache']['mercury_postlight']['article']);
+                $articleJson = $cacheManager->retrieve(
+                    $articleCacheFilename,
+                    null
+                );
+                if (!$articleJson) {
+                    $scraped = $mercuryPostlightData->getArticle($article->given_url);
+
+                    if($scraped) {
+                        if(is_null($scraped->date_published)) {
+                            $scraped->date_published = date('Y-m-d', $article->time_added);
+                        }
+                        $articleJson = json_encode($scraped);
+                        $cacheManager->store (
+                            $articleCacheFilename,
+                            $articleJson
+                        );
+                    }
+                }
+                if($articleJson){
+                    $items []= json_decode($articleJson);
+                }
+            }
+
+            return $response->withJson($items);
         });
     });
 });
