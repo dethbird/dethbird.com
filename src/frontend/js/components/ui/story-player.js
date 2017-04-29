@@ -12,7 +12,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
-import { storyGet, storyPut, storyPost } from 'actions/story';
+import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actions/story';
 import * as jsonSchema from 'utility/json-schema';
 import {
     convertTokensToStory,
@@ -47,10 +47,13 @@ const StoryPlayer = React.createClass({
         }
     },
     componentWillMount() {
-        const { dispatch } = this.props;
-        const { id } = this.props;
-        if (id) {
-            dispatch(storyGet(id));
+        const { id, demo, dispatch } = this.props;
+        if (demo===true) {
+            dispatch(storyGetDemo());
+        } else {
+            if (id) {
+                dispatch(storyGet(id, demo));
+            }
         }
     },
     componentWillReceiveProps(nextProps){
@@ -96,17 +99,21 @@ const StoryPlayer = React.createClass({
         });
     },
     onClickSubmit() {
-        const { id, dispatch } = this.props;
+        const { id, demo, dispatch } = this.props;
         const { changedFields } = this.state;
-        if (id) {
-            dispatch(storyPut(id, changedFields));
+        if (demo===true) {
+            dispatch(storyPutDemo(changedFields));
         } else {
-            dispatch(storyPost(changedFields));
+            if (id) {
+                dispatch(storyPut(id, changedFields));
+            } else {
+                dispatch(storyPost(changedFields));
+            }
         }
     },
     render() {
         const { handleFieldChange, handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
-        const { id, ui_state, errors, onCliCkPause } = this.props;
+        const { id, ui_state, errors, onCliCkPause, demo } = this.props;
         const { model, selectedItem, story, playingPanel, changedFields } = this.state;
 
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
@@ -123,7 +130,7 @@ const StoryPlayer = React.createClass({
                         <Grid.Column width={ 4 }>
                             <Segment basic>
 
-                                <Button as="a" onClick={()=>{browserHistory.push(`/story/${id}/edit`)}} attached="left" size='tiny'>
+                                <Button as="a" onClick={()=>{browserHistory.push(demo===true ? `/product/demo/storyeditor` : `/story/${id}/edit`)}} attached="left" size='tiny'>
                                     <Icon name="edit" /> Editor
                                 </Button>
                                 <Button attached='right' disabled size='tiny'>

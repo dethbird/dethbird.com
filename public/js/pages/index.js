@@ -35721,11 +35721,17 @@ var StoryPlayer = _react2.default.createClass({
         };
     },
     componentWillMount: function componentWillMount() {
-        var dispatch = this.props.dispatch;
-        var id = this.props.id;
+        var _props = this.props,
+            id = _props.id,
+            demo = _props.demo,
+            dispatch = _props.dispatch;
 
-        if (id) {
-            dispatch((0, _story.storyGet)(id));
+        if (demo === true) {
+            dispatch((0, _story.storyGetDemo)());
+        } else {
+            if (id) {
+                dispatch((0, _story.storyGet)(id, demo));
+            }
         }
     },
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -35767,15 +35773,20 @@ var StoryPlayer = _react2.default.createClass({
         }));
     },
     onClickSubmit: function onClickSubmit() {
-        var _props = this.props,
-            id = _props.id,
-            dispatch = _props.dispatch;
+        var _props2 = this.props,
+            id = _props2.id,
+            demo = _props2.demo,
+            dispatch = _props2.dispatch;
         var changedFields = this.state.changedFields;
 
-        if (id) {
-            dispatch((0, _story.storyPut)(id, changedFields));
+        if (demo === true) {
+            dispatch((0, _story.storyPutDemo)(changedFields));
         } else {
-            dispatch((0, _story.storyPost)(changedFields));
+            if (id) {
+                dispatch((0, _story.storyPut)(id, changedFields));
+            } else {
+                dispatch((0, _story.storyPost)(changedFields));
+            }
         }
     },
     render: function render() {
@@ -35783,11 +35794,12 @@ var StoryPlayer = _react2.default.createClass({
             handleOnSelectStoryItem = this.handleOnSelectStoryItem,
             handleClickPlay = this.handleClickPlay,
             handleClickPause = this.handleClickPause;
-        var _props2 = this.props,
-            id = _props2.id,
-            ui_state = _props2.ui_state,
-            errors = _props2.errors,
-            onCliCkPause = _props2.onCliCkPause;
+        var _props3 = this.props,
+            id = _props3.id,
+            ui_state = _props3.ui_state,
+            errors = _props3.errors,
+            onCliCkPause = _props3.onCliCkPause,
+            demo = _props3.demo;
         var _state2 = this.state,
             model = _state2.model,
             selectedItem = _state2.selectedItem,
@@ -35821,7 +35833,7 @@ var StoryPlayer = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Button,
                                 { as: 'a', onClick: function onClick() {
-                                        _reactRouter.browserHistory.push('/story/' + id + '/edit');
+                                        _reactRouter.browserHistory.push(demo === true ? '/product/demo/storyeditor' : '/story/' + id + '/edit');
                                     }, attached: 'left', size: 'tiny' },
                                 _react2.default.createElement(_semanticUiReact.Icon, { name: 'edit' }),
                                 ' Editor'
@@ -62663,30 +62675,52 @@ var _footer = __webpack_require__(35);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _loggedInHeader = __webpack_require__(51);
+var _loginForm = __webpack_require__(169);
 
-var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
+var _loginForm2 = _interopRequireDefault(_loginForm);
+
+var _externalHeader = __webpack_require__(274);
+
+var _externalHeader2 = _interopRequireDefault(_externalHeader);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var StoryPlayDemo = _react2.default.createClass({
     displayName: 'StoryPlayDemo',
+    getInitialState: function getInitialState() {
+        return {
+            visible: false
+        };
+    },
+    toggleVisibility: function toggleVisibility() {
+        this.setState({ visible: !this.state.visible });
+    },
     render: function render() {
         var path = this.props.route.path;
         var securityContext = this.props.route.props.securityContext;
         var id = this.props.params.id;
+        var visible = this.state.visible;
 
 
         return _react2.default.createElement(
-            _semanticUiReact.Segment.Group,
+            _semanticUiReact.Sidebar.Pushable,
             null,
-            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
             _react2.default.createElement(
-                _semanticUiReact.Segment,
-                { className: 'main-content' },
-                _react2.default.createElement(_storyPlayer2.default, { id: id })
+                _semanticUiReact.Sidebar,
+                { as: _semanticUiReact.Segment, animation: 'overlay', direction: 'top', visible: visible, inverted: true },
+                _react2.default.createElement(_loginForm2.default, { onClickCancel: this.toggleVisibility })
             ),
-            _react2.default.createElement(_footer2.default, null)
+            _react2.default.createElement(
+                _semanticUiReact.Sidebar.Pusher,
+                { as: _semanticUiReact.Segment.Group, dimmed: visible, className: 'main-content' },
+                _react2.default.createElement(_externalHeader2.default, { onClickLogin: this.toggleVisibility, path: path, securityContext: securityContext, subheader: 'StoryPlayer Demo' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_storyPlayer2.default, { id: '1', demo: true })
+                ),
+                _react2.default.createElement(_footer2.default, null)
+            )
         );
     }
 });
