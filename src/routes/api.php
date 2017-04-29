@@ -110,6 +110,78 @@ $app->group('/api/0.1', function(){
 
     });
 
+    # projects
+    $this->get('/projects', function($request, $response, $args){
+        $headers = $request->getHeaders();
+
+        $models = [];
+        $models = Project::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
+        $_arr = [];
+        foreach ($models as $model) {
+            $_arr[] = $model->to_array();
+        }
+        return $response
+            ->withJson($_arr);
+    })
+    ->add( new ReadAccess($_SESSION['securityContext']) );
+
+    $this->post('/project', function($request, $response, $args){
+        $params = $request->getParsedBody();
+        $params['created_by'] = $_SESSION['securityContext']->id;
+        $model = new Project($params);
+        $model->save();
+
+        return $response
+            ->withJson($model->to_array());
+    })
+    ->add( new WriteAccess($_SESSION['securityContext']) )
+    ->add( new RequestBodyValidation(
+        APPLICATION_PATH . 'configs/validation_schema/project-post.json') );
+
+    $this->group('/project', function(){
+        $this->get('/{id}', function($request, $response, $args){
+            $model = Project::find_by_id($args['id']);
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new ReadAccess($_SESSION['securityContext']) );
+
+        $this->put('/{id}', function($request, $response, $args){
+            $params = $request->getParsedBody();
+            $params['updated_by'] = $_SESSION['securityContext']->id;
+            $model = Project::find_by_id($args['id']);
+
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
+
+            if ($_SESSION['securityContext']->application_user!==1) {
+                if ($model->created_by != $_SESSION['securityContext']->id) {
+                    return $response
+                        ->withStatus(403)
+                        ->withJson(["global" => ["message" => "Ownership check failed"]]);
+                }
+            }
+
+            $model->update_attributes($params);
+
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new WriteAccess($_SESSION['securityContext']) )
+        ->add( new RequestBodyValidation(
+            APPLICATION_PATH . 'configs/validation_schema/project-put.json') );
+
+    });
+
+
     # stories
     $this->get('/stories', function($request, $response, $args){
         $models = [];

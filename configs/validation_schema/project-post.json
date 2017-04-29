@@ -1,0 +1,21 @@
+{
+	"properties": {
+		"name": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"header_image_url": {
+            "minLength": 1,
+            "type": "string"
+		},
+		"description": {
+            "minLength": 1,
+            "type": "string"
+		},
+		"tags": {
+            "minLength": 1,
+            "type": "string"
+		}
+	}
+}

@@ -3,7 +3,7 @@ import {
     Segment,
 } from 'semantic-ui-react';
 
-import CharacterForm from 'components/form/character-form';
+import ProjectForm from 'components/form/project-form';
 import Footer from 'components/ui/footer';
 import LoggedInHeader from 'components/ui/header/logged-in-header';
 
@@ -18,7 +18,7 @@ const ProjectEdit = React.createClass({
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
                 <Segment className="main-content">
-                    <CharacterForm id={ id } />
+                    <ProjectForm id={ id } />
                 </Segment>
                 <Footer />
             </Segment.Group>
