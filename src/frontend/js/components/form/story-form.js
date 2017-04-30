@@ -16,6 +16,7 @@ import {
 import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
 import ScriptCastList from 'components/ui/form/script-cast-list';
+import StoryProject from 'components/ui/form/story-project';
 import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';
 import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actions/story';
@@ -109,7 +110,7 @@ const StoryForm = React.createClass({
                                         <Icon name="play" /> Player
                                     </Button>
 
-                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' floated='right'>
+                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' className="right floated">
                                         <Icon name="save" /> { id ? "Save" : "Create" }
                                     </Button>
                                 </Segment>
@@ -123,7 +124,9 @@ const StoryForm = React.createClass({
                                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } demo={ demo }/>
+                                    <Form.Field label="Project" id="project_id" control={ StoryProject } projectId={ inputFields.projectId || '' } demo={ demo } />
+
+                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } demo={ demo } />
 
                                     <div className="field">
                                         <label><Icon name="circle help"/>.fountain language help</label>

@@ -137,7 +137,7 @@ const StoryPlayer = React.createClass({
                                     <Icon name="play" /> Player
                                 </Button>
 
-                                <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } size='tiny'  floated='right'>
+                                <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } size='tiny' className="right floated">
                                     <Icon name="save" /> { id ? "Save" : "Create" }
                                 </Button>
                             </Segment>

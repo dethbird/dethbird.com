@@ -4,6 +4,10 @@
             "minLength": 1,
 		    "type": "string"
 		},
+		"project_id": {
+            "minLength": 1,
+            "type": "string"
+		},
 		"script": {
             "minLength": 1,
             "type": "string"
