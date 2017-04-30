@@ -6533,6 +6533,12 @@ var CHARACTER = exports.CHARACTER = {
     SUCCESS: "CHARACTER_SUCCESS"
 };
 
+var CHANGELOG = exports.CHANGELOG = {
+    REQUEST: "CHANGELOG_REQUEST",
+    ERROR: "CHANGELOG_ERROR",
+    SUCCESS: "CHANGELOG_SUCCESS"
+};
+
 var PROJECTS = exports.PROJECTS = {
     REQUEST: "PROJECTS_REQUEST",
     ERROR: "PROJECTS_ERROR",
@@ -61945,6 +61951,10 @@ var _loggedInHeader = __webpack_require__(51);
 
 var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
 
+var _changelogList = __webpack_require__(1129);
+
+var _changelogList2 = _interopRequireDefault(_changelogList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Dashboard = _react2.default.createClass({
@@ -61961,7 +61971,20 @@ var Dashboard = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Segment,
                 { className: 'main-content' },
-                'Dashboard'
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { textAlign: 'center' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Header,
+                        { className: 'display-header' },
+                        'Dashboard'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { text: true },
+                    _react2.default.createElement(_changelogList2.default, null)
+                )
             ),
             _react2.default.createElement(_footer2.default, null)
         );
@@ -66101,6 +66124,15 @@ Object.defineProperty(exports, 'charactersReducer', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_characters).default;
+  }
+});
+
+var _changelog = __webpack_require__(1131);
+
+Object.defineProperty(exports, 'changelogReducer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_changelog).default;
   }
 });
 
@@ -103384,6 +103416,333 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1128 */,
+/* 1129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(33);
+
+var _semanticUiReact = __webpack_require__(8);
+
+var _uiState = __webpack_require__(21);
+
+var _changelog = __webpack_require__(1130);
+
+var _changelogItem = __webpack_require__(1132);
+
+var _changelogItem2 = _interopRequireDefault(_changelogItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ChangelogList = _react2.default.createClass({
+    displayName: 'ChangelogList',
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _changelog.changelogGet)());
+    },
+    render: function render() {
+        var models = this.props.models;
+
+
+        var nodes = models ? models.map(function (model, i) {
+            return _react2.default.createElement(_changelogItem2.default, { key: i, item: model });
+        }) : [];
+
+        return _react2.default.createElement(
+            _semanticUiReact.Item.Group,
+            { divided: true },
+            nodes
+        );
+    }
+});
+
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$changelogReduc = state.changelogReducer,
+        ui_state = _state$changelogReduc.ui_state,
+        errors = _state$changelogReduc.errors,
+        models = _state$changelogReduc.models;
+
+    return {
+        ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
+        errors: errors,
+        models: models
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ChangelogList);
+
+/***/ }),
+/* 1130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changelogGet = undefined;
+
+var _superagent = __webpack_require__(116);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _reactRouter = __webpack_require__(25);
+
+var _actions = __webpack_require__(30);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var changelogRequestInit = function changelogRequestInit() {
+    return {
+        type: _actions.CHANGELOG.REQUEST
+    };
+};
+
+var changelogRequestSuccess = function changelogRequestSuccess(models) {
+    return {
+        type: _actions.CHANGELOG.SUCCESS,
+        models: models
+    };
+};
+
+var changelogRequestError = function changelogRequestError(errors) {
+    return {
+        type: _actions.CHANGELOG.ERROR,
+        errors: errors
+    };
+};
+
+var changelogGet = exports.changelogGet = function changelogGet() {
+    return function (dispatch) {
+        dispatch(changelogRequestInit());
+        _superagent2.default.get('/api/0.1/changelog').end(function (err, res) {
+            if (res.ok) {
+                dispatch(changelogRequestSuccess(res.body));
+            } else {
+                dispatch(changelogRequestError(res.body));
+            }
+        });
+    };
+};
+
+/***/ }),
+/* 1131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__(30);
+
+var _uiState = __webpack_require__(21);
+
+var changelogReducer = function changelogReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case _actions.CHANGELOG.REQUEST:
+            return {
+                ui_state: _uiState.UI_STATE.REQUESTING
+            };
+        case _actions.CHANGELOG.ERROR:
+            return {
+                ui_state: _uiState.UI_STATE.ERROR,
+                errors: action.errors
+            };
+        case _actions.CHANGELOG.SUCCESS:
+            return {
+                ui_state: _uiState.UI_STATE.SUCCESS,
+                models: action.models
+            };
+        default:
+            return state;
+    }
+};
+
+exports.default = changelogReducer;
+
+/***/ }),
+/* 1132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(25);
+
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _semanticUiReact = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ChangelogItem = _react2.default.createClass({
+    displayName: 'ChangelogItem',
+
+    propTypes: {
+        item: _react2.default.PropTypes.object.isRequired
+    },
+    render: function render() {
+        var item = this.props.item;
+
+        if (item.model == 'character') {
+            return _react2.default.createElement(
+                _semanticUiReact.Item,
+                null,
+                _react2.default.createElement(_semanticUiReact.Item.Image, { shape: 'circular', size: 'tiny', spaced: true, centered: true, src: item.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Item.Content,
+                    { verticalAlign: 'middle' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a', size: 'mini', basic: true, className: 'right floated', onClick: function onClick() {
+                                _reactRouter.browserHistory.push('/character/' + item.character_id + '/edit');
+                            } },
+                        'Edit'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Header,
+                        null,
+                        item.name
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Description,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { color: item.type == 'create' ? 'green' : 'blue', size: 'mini' },
+                            item.model,
+                            ': ',
+                            item.type
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Extra,
+                        null,
+                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                    )
+                )
+            );
+        }
+        if (item.model == 'story') {
+            return _react2.default.createElement(
+                _semanticUiReact.Item,
+                null,
+                _react2.default.createElement(_semanticUiReact.Item.Image, { shape: 'rounded', size: 'tiny', spaced: true, centered: true, src: item.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Item.Content,
+                    { verticalAlign: 'middle' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a', size: 'mini', basic: true, className: 'right floated', onClick: function onClick() {
+                                _reactRouter.browserHistory.push('/story/' + item.story_id + '/edit');
+                            } },
+                        'Edit'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Header,
+                        null,
+                        item.name
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Description,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { color: item.type == 'create' ? 'green' : 'blue', size: 'mini' },
+                            item.model,
+                            ': ',
+                            item.type
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Extra,
+                        null,
+                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                    )
+                )
+            );
+        }
+
+        if (item.model == 'project') {
+            return _react2.default.createElement(
+                _semanticUiReact.Item,
+                null,
+                _react2.default.createElement(_semanticUiReact.Item.Image, { shape: 'rounded', size: 'tiny', spaced: true, centered: true, src: item.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Item.Content,
+                    { verticalAlign: 'middle' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a', size: 'mini', basic: true, className: 'right floated', onClick: function onClick() {
+                                _reactRouter.browserHistory.push('/project/' + item.project_id + '/edit');
+                            } },
+                        'Edit'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Header,
+                        null,
+                        item.name
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Description,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { color: item.type == 'create' ? 'green' : 'blue', size: 'mini' },
+                            item.model,
+                            ': ',
+                            item.type
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Item.Extra,
+                        null,
+                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                    )
+                )
+            );
+        }
+        return _react2.default.createElement(
+            _semanticUiReact.Item,
+            null,
+            item.id
+        );
+    }
+});
+
+exports.default = ChangelogItem;
 
 /***/ })
 /******/ ]);

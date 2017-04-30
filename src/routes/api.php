@@ -110,6 +110,52 @@ $app->group('/api/0.1', function(){
 
     });
 
+    # changelog
+    $this->get('/changelog', function($request, $response, $args){
+        $headers = $request->getHeaders();
+
+        # characters
+        $models = [];
+        $models = CharacterChangelog::find_all_by_created_by($_SESSION['securityContext']->id, ['limit' => 20, 'order' =>'date_updated desc']);
+        $characters = [];
+        foreach ($models as $model) {
+            $characters[] = array_merge($model->to_array(), ['model' => 'character']);
+
+        }
+
+        # projects
+        $models = [];
+        $models = ProjectChangelog::find_all_by_created_by($_SESSION['securityContext']->id, ['limit' => 20, 'order' =>'date_updated desc']);
+        $projects = [];
+        foreach ($models as $model) {
+            $projects[] = array_merge($model->to_array(), ['model' => 'project']);
+
+        }
+
+        # stories
+        $models = [];
+        $models = StoryChangelog::find_all_by_created_by($_SESSION['securityContext']->id, ['limit' => 20, 'order' =>'date_updated desc']);
+        $stories = [];
+        foreach ($models as $model) {
+            $stories[] = array_merge($model->to_array(), ['model' => 'story']);
+
+        }
+
+        $items = array_merge(
+            $characters,
+            $stories,
+            $projects
+        );
+
+        $sorted = usort($items, function($a, $b){
+            return strtotime($a['date_updated']) < strtotime($b['date_updated']);
+        });
+
+        return $response
+            ->withJson($items);
+    })
+    ->add( new ReadAccess($_SESSION['securityContext']) );
+
     # projects
     $this->get('/projects', function($request, $response, $args){
         $headers = $request->getHeaders();
