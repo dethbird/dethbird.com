@@ -64685,6 +64685,11 @@ var Masthead = _react2.default.createClass({
             _semanticUiReact.Segment,
             { inverted: true, className: 'masthead' },
             _react2.default.createElement(
+                _semanticUiReact.Label,
+                { as: 'a', color: 'yellow', size: 'large', attached: 'top left' },
+                'Beta'
+            ),
+            _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
                 _react2.default.createElement(_externalMainMenu2.default, { onClickLogin: onClickLogin, path: path, securityContext: securityContext })

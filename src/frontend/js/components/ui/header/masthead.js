@@ -4,6 +4,7 @@ import {
     Container,
     Header,
     Image,
+    Label,
     Menu,
     Segment
 } from 'semantic-ui-react';
@@ -21,11 +22,12 @@ const Masthead = React.createClass({
 
         return (
             <Segment inverted={ true } className="masthead">
+                <Label as='a' color='yellow' size='large' attached='top left'>Beta</Label>
                 <Container>
                     <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } securityContext={ securityContext }/>
                 </Container>
                 <Container text={ true } textAlign="center">
-                    <Image src="/svg/storystation.svg" className="logo"/>
+                     <Image src="/svg/storystation.svg" className="logo"/>
                     <Header as='h2' inverted={ true }>Get that story written and produced.</Header>
                     <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge"/>
                 </Container>
