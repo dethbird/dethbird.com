@@ -4,6 +4,7 @@ import {
     Container,
     Header,
     Image,
+    Label,
     Menu,
     Segment
 } from 'semantic-ui-react';
@@ -34,6 +35,7 @@ const ExternalHeader = React.createClass({
 
         return (
             <Segment inverted={ true } className="external-header">
+                <Label as='a' color='yellow' size='large' attached='top left'>Beta</Label>
                 <Container>
                     <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } securityContext={ securityContext } />
                 </Container>
