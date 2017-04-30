@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
+import ReactGA from 'react-ga';
 
 import App from 'components/app';
 
@@ -23,6 +24,13 @@ import StoryPlayDemo from 'components/pages/story-play-demo';
 import Stories from 'components/pages/stories';
 import store from 'store/store';
 
+// Google Analytics
+ReactGA.initialize('UA-98286537-1', {
+    titleCase: false,
+    gaOptions: {
+        userId: securityContext.id
+    }
+});
 
 if (lastRequestUri !== '/favicon.ico') {
     browserHistory.replace(lastRequestUri);
@@ -43,9 +51,14 @@ const requireAuth = (nextState, replace, callback) => {
     return callback();
 };
 
+const logPageView = () => {
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
+}
+
 render((
     <Provider store={ store }>
-        <Router history={browserHistory}>
+        <Router history={browserHistory} onUpdate={ logPageView }>
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
