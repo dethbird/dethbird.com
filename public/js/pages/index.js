@@ -35605,13 +35605,7 @@ var StoryForm = _react2.default.createClass({
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'play' }),
                                     ' Player'
                                 ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Button,
-                                    { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', className: 'right floated' },
-                                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
-                                    ' ',
-                                    id ? "Save" : "Create"
-                                )
+                                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', className: 'right floated', labelPosition: 'right', content: id ? "Save" : "Create", icon: 'save' })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Container,
@@ -35629,7 +35623,7 @@ var StoryForm = _react2.default.createClass({
                                         return _this.handleFieldChange(e, 'description');
                                     }, value: inputFields.description || '', autoHeight: true }),
                                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
-                                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Project', id: 'project_id', control: _storyProject2.default, projectId: inputFields.projectId || '', demo: demo }),
+                                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Project', id: 'project_id', control: _storyProject2.default, projectId: inputFields.project_id ? '' + inputFields.project_id : '', demo: demo, onSelectProject: this.handleFieldChange }),
                                 _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Cast of Characters', placeholder: 'Cast', id: 'cast', control: _scriptCastList2.default, script: inputFields.script || '', demo: demo }),
                                 _react2.default.createElement(
                                     'div',
@@ -64357,6 +64351,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -64386,14 +64382,100 @@ var StoryProject = _react2.default.createClass({
 
     propTypes: {
         projectId: _react2.default.PropTypes.string,
-        demo: _react2.default.PropTypes.bool
+        demo: _react2.default.PropTypes.bool,
+        onSelectProject: _react2.default.PropTypes.func.isRequired
+    },
+    getInitialState: function getInitialState() {
+        return {
+            modalVisible: false,
+            selectedOption: null
+        };
     },
     componentWillMount: function componentWillMount() {
         var dispatch = this.props.dispatch;
 
         dispatch((0, _project.projectsGet)());
     },
+    toggleModalVisible: function toggleModalVisible() {
+        this.setState(_extends({}, this.state, {
+            modalVisible: !this.state.modalVisible
+        }));
+    },
+    handleClickAddToProject: function handleClickAddToProject(e) {
+        var toggleModalVisible = this.toggleModalVisible;
+        var onSelectProject = this.props.onSelectProject;
+        var selectedOption = this.state.selectedOption;
+
+        onSelectProject({ currentTarget: { value: '' + selectedOption } }, 'project_id');
+        setTimeout(function () {
+            toggleModalVisible();
+        }, 0);
+    },
+    handleOnChange: function handleOnChange(e, payload) {
+
+        this.setState(_extends({}, this.state, {
+            selectedOption: payload.value
+        }));
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        this.setState(_extends({}, this.state, {
+            selectedOption: nextProps.projectId
+        }));
+    },
+    renderModal: function renderModal() {
+        var toggleModalVisible = this.toggleModalVisible,
+            handleOnChange = this.handleOnChange,
+            handleClickAddToProject = this.handleClickAddToProject;
+        var models = this.props.models;
+        var _state = this.state,
+            modalVisible = _state.modalVisible,
+            selectedOption = _state.selectedOption;
+
+
+        if (!models) return null;
+
+        var dropdownItems = models.map(function (model, i) {
+            return {
+                value: model.id,
+                text: model.name
+            };
+        });
+        return _react2.default.createElement(
+            _semanticUiReact.Modal,
+            { dimmer: 'blurring', open: modalVisible, onClose: toggleModalVisible },
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Header,
+                null,
+                'Select Project'
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Dropdown, {
+                    placeholder: 'Select a project',
+                    search: true,
+                    fluid: true,
+                    selection: true,
+                    options: dropdownItems,
+                    onChange: handleOnChange,
+                    value: selectedOption
+                })
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Actions,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { as: 'a', onClick: toggleModalVisible },
+                    'Cancel'
+                ),
+                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', positive: true, icon: 'checkmark', labelPosition: 'right', content: 'Add to project', onClick: handleClickAddToProject, disabled: !selectedOption })
+            )
+        );
+    },
     render: function render() {
+        var toggleModalVisible = this.toggleModalVisible,
+            renderModal = this.renderModal;
         var _props = this.props,
             projectId = _props.projectId,
             models = _props.models;
@@ -64401,9 +64483,14 @@ var StoryProject = _react2.default.createClass({
 
         if (!projectId) {
             return _react2.default.createElement(
-                _semanticUiReact.Button,
-                { basic: true, as: 'a', size: 'mini', fluid: true },
-                'Add to project'
+                'div',
+                null,
+                renderModal(),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { basic: true, as: 'a', size: 'mini', fluid: true, onClick: toggleModalVisible },
+                    'Add to project'
+                )
             );
         }
 
@@ -64414,31 +64501,19 @@ var StoryProject = _react2.default.createClass({
         return _react2.default.createElement(
             'div',
             null,
-            project.name,
-            ' ',
+            renderModal(),
             _react2.default.createElement(
-                _semanticUiReact.Button,
-                { as: 'a', basic: true, size: 'mini', className: 'right floated' },
-                'Change'
+                'div',
+                null,
+                project.name,
+                ' ',
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { as: 'a', basic: true, size: 'mini', className: 'right floated' },
+                    'Change'
+                )
             )
         );
-
-        console.log(project);
-
-        // const projectNodes = models ? models.map(function(project, i){
-        //     return (
-        //         <ProjectCard project={ project } key={ i } />
-        //     );
-        // }) : [];
-        //
-        // return (
-        //     <Container>
-        //         <Card.Group itemsPerRow={ 4 } >
-        //             { projectNodes }
-        //         </Card.Group>
-        //     </Container>
-        // );
-        return null;
     }
 });
 

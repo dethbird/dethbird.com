@@ -110,9 +110,7 @@ const StoryForm = React.createClass({
                                         <Icon name="play" /> Player
                                     </Button>
 
-                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' className="right floated">
-                                        <Icon name="save" /> { id ? "Save" : "Create" }
-                                    </Button>
+                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' className="right floated" labelPosition="right" content={ id ? "Save" : "Create" } icon="save"/>
                                 </Segment>
                                 <Container >
                                     <Container>
@@ -124,7 +122,7 @@ const StoryForm = React.createClass({
                                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                                    <Form.Field label="Project" id="project_id" control={ StoryProject } projectId={ inputFields.projectId || '' } demo={ demo } />
+                                    <Form.Field label="Project" id="project_id" control={ StoryProject } projectId={ inputFields.project_id ? `${inputFields.project_id}` : '' } demo={ demo } onSelectProject={ this.handleFieldChange }/>
 
                                     <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } demo={ demo } />
 
