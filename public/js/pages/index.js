@@ -103683,7 +103683,7 @@ var ChangelogItem = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Item.Extra,
                         null,
-                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                        (0, _moment2.default)(item.date_updated).fromNow()
                     )
                 )
             );
@@ -103722,7 +103722,7 @@ var ChangelogItem = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Item.Extra,
                         null,
-                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                        (0, _moment2.default)(item.date_updated).fromNow()
                     )
                 )
             );
@@ -103762,7 +103762,7 @@ var ChangelogItem = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Item.Extra,
                         null,
-                        (0, _moment2.default)(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a")
+                        (0, _moment2.default)(item.date_updated).fromNow()
                     )
                 )
             );

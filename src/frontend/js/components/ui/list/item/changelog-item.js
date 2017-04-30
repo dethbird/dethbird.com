@@ -24,7 +24,7 @@ const ChangelogItem = React.createClass({
                         <Item.Description>
                             <Label color={ item.type=='create' ? 'green' : 'blue' } size="mini">{ item.model }: { item.type }</Label>
                         </Item.Description>
-                        <Item.Extra>{ moment(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a") }</Item.Extra>
+                        <Item.Extra>{ moment(item.date_updated).fromNow() }</Item.Extra>
                     </Item.Content>
 
                 </Item>
@@ -40,7 +40,7 @@ const ChangelogItem = React.createClass({
                         <Item.Description>
                             <Label color={ item.type=='create' ? 'green' : 'blue' } size="mini">{ item.model }: { item.type }</Label>
                         </Item.Description>
-                        <Item.Extra>{ moment(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a") }</Item.Extra>
+                        <Item.Extra>{ moment(item.date_updated).fromNow() }</Item.Extra>
                     </Item.Content>
 
                 </Item>
@@ -57,7 +57,7 @@ const ChangelogItem = React.createClass({
                         <Item.Description>
                             <Label color={ item.type=='create' ? 'green' : 'blue' } size="mini">{ item.model }: { item.type }</Label>
                         </Item.Description>
-                        <Item.Extra>{ moment(item.date_updated).format("dddd, MMMM Do YYYY h:mm:ss a") }</Item.Extra>
+                        <Item.Extra>{ moment(item.date_updated).fromNow() }</Item.Extra>
                     </Item.Content>
 
                 </Item>
