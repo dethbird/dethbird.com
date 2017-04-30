@@ -46,7 +46,7 @@ const Product = React.createClass({
                             <Header as="h1" className='display-header'>Private Beta Access</Header>
                         </Container>
                         <Container text>
-                            <p>We want <code>StoryStation</code> to be the very best product it can be. We will soon open up to the public, but for now, please apply for beta access using the button below.</p>
+                            <p>We want <code>StoryStation</code> to be the very best product it can be. We will soon open up to the public, but for now, please apply for <code>Private Beta</code> access using the button below.</p>
                             <Header as="h3" textAlign="center">About the program</Header>
                             <p>Our <code>Private Beta</code> program is for anyone trying to write stories and looking for a new tool to streamline their work.</p>
                             <p>We would especially like you to apply if you are open to providing some feedback about future enhancements.</p>

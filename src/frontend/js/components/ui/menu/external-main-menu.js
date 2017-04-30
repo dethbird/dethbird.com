@@ -19,7 +19,7 @@ const ExternalMainMenu = React.createClass({
             return (
                 <div>
                     <Button onClick={ onClickLogin } basic inverted>Login</Button>
-                    <Button primary>Signup</Button>
+                    <Button primary  onClick={()=>{ browserHistory.push('/private-beta')}}>Signup</Button>
                 </div>
             )
         } else {

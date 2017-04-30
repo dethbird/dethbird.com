@@ -23636,7 +23636,7 @@ var ExternalHeader = _react2.default.createClass({
             { inverted: true, className: 'external-header' },
             _react2.default.createElement(
                 _semanticUiReact.Label,
-                { as: 'a', color: 'yellow', size: 'large', attached: 'top left' },
+                { color: 'yellow', size: 'large', attached: 'top left' },
                 'Beta'
             ),
             _react2.default.createElement(
@@ -35914,7 +35914,9 @@ var ExternalMainMenu = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Button,
-                    { primary: true },
+                    { primary: true, onClick: function onClick() {
+                            _reactRouter.browserHistory.push('/private-beta');
+                        } },
                     'Signup'
                 )
             );
@@ -62476,7 +62478,13 @@ var Product = _react2.default.createClass({
                                 null,
                                 'StoryStation'
                             ),
-                            ' to be the very best product it can be. We will soon open up to the public, but for now, please apply for beta access using the button below.'
+                            ' to be the very best product it can be. We will soon open up to the public, but for now, please apply for ',
+                            _react2.default.createElement(
+                                'code',
+                                null,
+                                'Private Beta'
+                            ),
+                            ' access using the button below.'
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.Header,
@@ -65332,6 +65340,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(22);
+
 var _semanticUiReact = __webpack_require__(7);
 
 var _externalMainMenu = __webpack_require__(278);
@@ -65360,7 +65370,7 @@ var Masthead = _react2.default.createClass({
             { inverted: true, className: 'masthead' },
             _react2.default.createElement(
                 _semanticUiReact.Label,
-                { as: 'a', color: 'yellow', size: 'large', attached: 'top left' },
+                { color: 'yellow', size: 'large', attached: 'top left' },
                 'Beta'
             ),
             _react2.default.createElement(
@@ -65377,7 +65387,9 @@ var Masthead = _react2.default.createClass({
                     { as: 'h2', inverted: true },
                     'Get that story written and produced.'
                 ),
-                _react2.default.createElement(_semanticUiReact.Button, { content: 'Get Started', icon: 'right arrow', labelPosition: 'right', primary: true, size: 'huge' })
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Get Started', icon: 'right arrow', labelPosition: 'right', primary: true, size: 'huge', onClick: function onClick() {
+                        _reactRouter.browserHistory.push('/private-beta');
+                    } })
             )
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import {
     Button,
     Container,
@@ -22,14 +23,14 @@ const Masthead = React.createClass({
 
         return (
             <Segment inverted={ true } className="masthead">
-                <Label as='a' color='yellow' size='large' attached='top left'>Beta</Label>
+                <Label color='yellow' size='large' attached='top left'>Beta</Label>
                 <Container>
                     <ExternalMainMenu onClickLogin={ onClickLogin } path={ path } securityContext={ securityContext }/>
                 </Container>
                 <Container text={ true } textAlign="center">
-                     <Image src="/svg/storystation.svg" className="logo"/>
+                    <Image src="/svg/storystation.svg" className="logo"/>
                     <Header as='h2' inverted={ true }>Get that story written and produced.</Header>
-                    <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge"/>
+                    <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge" onClick={()=>{ browserHistory.push('/private-beta')}} />
                 </Container>
             </Segment>
         )
