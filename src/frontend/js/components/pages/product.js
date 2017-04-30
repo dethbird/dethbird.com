@@ -49,7 +49,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Label as='a' color='yellow' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                    <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h2">ProjectManager</Header>
@@ -117,6 +117,19 @@ const Product = React.createClass({
                                     <Segment basic>
                                         <p>The <strong>Character Editor</strong> just lets you give a <code>Character</code> properties like age, sex, occupation, personality traits, description, and additional images (side view, front view, etc.) to bring your <code>Character</code> to life.</p>
                                         <p>A character is ultimately connected to a <code>Story</code> but you can create one and not have it attached to any story, whenever you are inspired.</p>
+                                    </Segment>
+                                </Grid.Column>
+                            </Grid>
+                        </Segment>
+                        <Segment as={ Container } text>
+                            <Grid>
+                                <Grid.Column width={ 6 }>
+                                    <Label as='a' color='yellow' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                </Grid.Column>
+                                <Grid.Column width={ 10 }>
+                                    <Header as="h2">PanelMilestones</Header>
+                                    <Segment basic>
+                                        A panel, denoted with a <code>####</code>, can have milestones in it. These are key moments, also known as story beats. They let you shape your arcs while you write.
                                     </Segment>
                                 </Grid.Column>
                             </Grid>

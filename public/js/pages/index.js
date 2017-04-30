@@ -62448,11 +62448,6 @@ var Product = _react2.default.createClass({
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
                                 { width: 6 },
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', color: 'yellow', ribbon: true },
-                                    'Coming Soon'
-                                ),
                                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
                             ),
                             _react2.default.createElement(
@@ -62758,6 +62753,44 @@ var Product = _react2.default.createClass({
                                         ),
                                         ' but you can create one and not have it attached to any story, whenever you are inspired.'
                                     )
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        { as: _semanticUiReact.Container, text: true },
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 6 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Label,
+                                    { as: 'a', color: 'yellow', ribbon: true },
+                                    'Coming Soon'
+                                ),
+                                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 10 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Header,
+                                    { as: 'h2' },
+                                    'PanelMilestones'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    { basic: true },
+                                    'A panel, denoted with a ',
+                                    _react2.default.createElement(
+                                        'code',
+                                        null,
+                                        '####'
+                                    ),
+                                    ', can have milestones in it. These are key moments, also known as story beats. They let you shape your arcs while you write.'
                                 )
                             )
                         )
