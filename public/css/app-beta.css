@@ -603,6 +603,9 @@ code {
 .external-header h6 {
   color: white !important;
 }
+.external-main-menu {
+  background-color: rgba(34, 34, 34, 0.25) !important;
+}
 .fountain {
   color: #000 !important;
   font-family: 'Crimson Text', serif;

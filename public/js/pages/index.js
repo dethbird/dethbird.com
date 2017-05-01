@@ -35955,12 +35955,13 @@ var ExternalMainMenu = _react2.default.createClass({
 
         return _react2.default.createElement(
             _semanticUiReact.Menu,
-            { size: 'large', secondary: true, inverted: true, pointing: true },
+            { size: 'large', secondary: true, inverted: true, pointing: true, className: 'external-main-menu' },
             _react2.default.createElement(
                 _semanticUiReact.Menu.Item,
                 { active: !path, onClick: function onClick() {
                         _reactRouter.browserHistory.push('/');
                     } },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: 'home' }),
                 'Overview'
             ),
             _react2.default.createElement(
@@ -35971,6 +35972,7 @@ var ExternalMainMenu = _react2.default.createClass({
                     },
                     active: path == 'product' || path == 'product/demo/storyeditor' || path == 'product/demo/storyplayer'
                 },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: 'television' }),
                 'Product'
             ),
             _react2.default.createElement(
@@ -35978,6 +35980,7 @@ var ExternalMainMenu = _react2.default.createClass({
                 { onClick: function onClick() {
                         _reactRouter.browserHistory.push('/newsfeed');
                     }, active: path == 'newsfeed' },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: 'newspaper' }),
                 'Animation & Showbiz News'
             ),
             _react2.default.createElement(
@@ -62404,6 +62407,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -62424,22 +62429,37 @@ var _externalHeader = __webpack_require__(100);
 
 var _externalHeader2 = _interopRequireDefault(_externalHeader);
 
+var _privateBetaAccessModal = __webpack_require__(1142);
+
+var _privateBetaAccessModal2 = _interopRequireDefault(_privateBetaAccessModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Product = _react2.default.createClass({
     displayName: 'Product',
     getInitialState: function getInitialState() {
         return {
+            modalVisible: false,
             visible: false
         };
     },
     toggleVisibility: function toggleVisibility() {
-        this.setState({ visible: !this.state.visible });
+        this.setState(_extends({}, this.state, {
+            visible: !this.state.visible
+        }));
+    },
+    toggleModalVisible: function toggleModalVisible() {
+        this.setState(_extends({}, this.state, {
+            modalVisible: !this.state.modalVisible
+        }));
     },
     render: function render() {
+        var toggleModalVisible = this.toggleModalVisible;
         var path = this.props.route.path;
         var securityContext = this.props.route.props.securityContext;
-        var visible = this.state.visible;
+        var _state = this.state,
+            modalVisible = _state.modalVisible,
+            visible = _state.visible;
 
 
         return _react2.default.createElement(
@@ -62527,10 +62547,11 @@ var Product = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Container,
                         { textAlign: 'center' },
+                        _react2.default.createElement(_privateBetaAccessModal2.default, { modalVisible: modalVisible, toggleModalVisible: toggleModalVisible }),
                         _react2.default.createElement(
                             _semanticUiReact.Segment,
                             { basic: true },
-                            _react2.default.createElement(_semanticUiReact.Button, { size: 'large', as: 'a', color: 'yellow', content: 'Apply for Private Beta Access', labelPosition: 'right', icon: 'id card' })
+                            _react2.default.createElement(_semanticUiReact.Button, { size: 'large', as: 'a', color: 'yellow', content: 'Apply for Private Beta Access', labelPosition: 'right', icon: 'id card', onClick: toggleModalVisible })
                         )
                     )
                 ),
@@ -104644,6 +104665,66 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PrivateBetaAccessModal = _react2.default.createClass({
+    displayName: 'PrivateBetaAccessModal',
+
+    propTypes: {
+        modalVisible: _react2.default.PropTypes.bool,
+        toggleModalVisible: _react2.default.PropTypes.func.isRequired
+    },
+    render: function render() {
+        var _props = this.props,
+            modalVisible = _props.modalVisible,
+            toggleModalVisible = _props.toggleModalVisible;
+
+        return _react2.default.createElement(
+            _semanticUiReact.Modal,
+            { dimmer: 'blurring', open: modalVisible, onClose: toggleModalVisible },
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Header,
+                null,
+                'Application for Private Beta Access'
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Content,
+                null,
+                'Form'
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Modal.Actions,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { as: 'a', onClick: toggleModalVisible },
+                    'Cancel'
+                ),
+                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', positive: true, icon: 'checkmark', labelPosition: 'right', content: 'Add to project', onClick: function onClick() {}, disabled: false })
+            )
+        );
+    }
+});
+
+exports.default = PrivateBetaAccessModal;
 
 /***/ })
 /******/ ]);

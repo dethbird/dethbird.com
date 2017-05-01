@@ -17,22 +17,34 @@ import {
 import LoginForm from 'components/form/login-form';
 import Footer from 'components/ui/footer';
 import ExternalHeader from 'components/ui/header/external-header';
+import PrivateBetaAccessModal from 'components/ui/modal/private-beta-access-modal';
 
 const Product = React.createClass({
     getInitialState() {
         return (
             {
+                modalVisible: false,
                 visible: false
             }
         );
     },
     toggleVisibility() {
-        this.setState({ visible: !this.state.visible });
+        this.setState({
+            ... this.state,
+            visible: !this.state.visible
+        });
+    },
+    toggleModalVisible() {
+        this.setState({
+            ... this.state,
+            modalVisible: !this.state.modalVisible
+        })
     },
     render() {
+        const { toggleModalVisible } = this;
         const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
-        const { visible } = this.state;
+        const { modalVisible, visible } = this.state;
 
         return (
             <Sidebar.Pushable>
@@ -54,8 +66,9 @@ const Product = React.createClass({
                             <p>Once <code>Private Beta</code> is open, we will be asking our Private Beta users to vote on which features to roll out next.</p>
                         </Container>
                         <Container textAlign="center">
+                            <PrivateBetaAccessModal modalVisible={ modalVisible } toggleModalVisible={ toggleModalVisible }/>
                             <Segment basic>
-                                <Button size="large" as="a" color="yellow" content="Apply for Private Beta Access" labelPosition="right" icon="id card"/>
+                                <Button size="large" as="a" color="yellow" content="Apply for Private Beta Access" labelPosition="right" icon="id card" onClick={ toggleModalVisible }/>
                             </Segment>
                         </Container>
                     </Segment>
