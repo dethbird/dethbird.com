@@ -156,6 +156,22 @@ $app->group('/api/0.1', function(){
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 
+    # private beta application
+    $this->post('/privatebeta', function($request, $response, $args){
+        $params = $request->getParsedBody();
+        $params['created_by'] = $_SESSION['securityContext']->id;
+        return $response
+            ->withJson($params);
+        // $model = new Character($params);
+        // $model->save();
+
+        // return $response
+        //     ->withJson($model->to_array());
+    })
+    ->add( new RequestBodyValidation(
+        APPLICATION_PATH . 'configs/validation_schema/private-beta-post.json') );
+
+
     # projects
     $this->get('/projects', function($request, $response, $args){
         $headers = $request->getHeaders();

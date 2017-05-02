@@ -64335,11 +64335,11 @@ var privatebetaRequestError = function privatebetaRequestError(errors) {
 
 var privatebetaPost = exports.privatebetaPost = function privatebetaPost(fields) {
     return function (dispatch) {
+        console.log(fields);
         dispatch(privatebetaRequestInit());
         _superagent2.default.post('/api/0.1/privatebeta').send(_extends({}, fields)).end(function (err, res) {
             if (res.ok) {
                 dispatch(privatebetaRequestSuccess(res.body));
-                _reactRouter.browserHistory.replace('/privatebeta/' + res.body.id + '/edit');
             } else {
                 dispatch(privatebetaRequestError(res.body));
             }
@@ -65949,9 +65949,9 @@ var _uiState = __webpack_require__(19);
 
 var _privateBeta = __webpack_require__(637);
 
-var _characterPost = __webpack_require__(274);
+var _privateBetaPost = __webpack_require__(1145);
 
-var _characterPost2 = _interopRequireDefault(_characterPost);
+var _privateBetaPost2 = _interopRequireDefault(_privateBetaPost);
 
 var _jsonSchema = __webpack_require__(79);
 
@@ -65974,17 +65974,32 @@ var PrivateBetaAccessModal = _react2.default.createClass({
         modalVisible: _react2.default.PropTypes.bool,
         toggleModalVisible: _react2.default.PropTypes.func.isRequired
     },
-    handleFieldChange: function handleFieldChange(e, elementId) {
+    componentWillReceiveProps: function componentWillReceiveProps() {
+        this.setState(_extends({}, this.state, {
+            changedFields: {}
+        }));
+    },
+    handleFieldChange: function handleFieldChange(e, payload) {
         var changedFields = this.state.changedFields;
 
-        changedFields[elementId] = e.currentTarget.value;
+        if (payload.type == "checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.id] = payload.value;
+        }
         this.setState(_extends({}, this.state, {
             changedFields: changedFields
         }));
     },
-    render: function render() {
-        var _this = this;
+    onClickSubmit: function onClickSubmit() {
+        var dispatch = this.props.dispatch;
+        var changedFields = this.state.changedFields;
 
+        dispatch((0, _privateBeta.privatebetaPost)(changedFields));
+    },
+    render: function render() {
+        var handleFieldChange = this.handleFieldChange,
+            onClickSubmit = this.onClickSubmit;
         var _props = this.props,
             modalVisible = _props.modalVisible,
             toggleModalVisible = _props.toggleModalVisible;
@@ -65996,7 +66011,8 @@ var PrivateBetaAccessModal = _react2.default.createClass({
             changedFields = _state.changedFields,
             model = _state.model;
 
-        var inputFields = jsonSchema.buildInputFields(model, changedFields, _characterPost2.default);
+        var inputFields = jsonSchema.buildInputFields(model, changedFields, _privateBetaPost2.default);
+
         return _react2.default.createElement(
             _semanticUiReact.Modal,
             { dimmer: 'blurring', open: modalVisible, onClose: toggleModalVisible },
@@ -66028,40 +66044,36 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                 _react2.default.createElement(
                                     'label',
                                     null,
-                                    'Field(s) of Interest'
-                                ),
-                                _react2.default.createElement(
-                                    'p',
-                                    null,
                                     'Are you a student or professional or just interested in any of these fields?'
                                 ),
+                                _react2.default.createElement('br', null),
                                 _react2.default.createElement(
                                     _semanticUiReact.Grid,
                                     { as: _semanticUiReact.Container },
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Row,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Animation', id: 'field_animation' })
+                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Animation', id: 'field_animation', onChange: handleFieldChange, value: '1' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Row,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Screenwriting', id: 'field_screenwriting' })
+                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Screenwriting', id: 'field_screenwriting', onChange: handleFieldChange, value: '1' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Row,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Advertising', id: 'field_advertising' })
+                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Advertising', id: 'field_advertising', onChange: handleFieldChange, value: '1' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Row,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Video Games', id: 'field_video_games' })
+                                        _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'Video Games', id: 'field_video_games', onChange: handleFieldChange, value: '1' })
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Row,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'field_other', placeholder: 'Other' })
+                                        _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'field_other', placeholder: 'Other', onChange: handleFieldChange })
                                     )
                                 )
                             ),
@@ -66073,7 +66085,7 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                     null,
                                     'What do you hope StoryStation will be able to do for you?'
                                 ),
-                                _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'field_other', placeholder: 'Make storywriting much quicker and simpler ... ' })
+                                _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'intent', placeholder: 'Make storywriting much quicker and simpler ... ', onChange: handleFieldChange })
                             )
                         ),
                         _react2.default.createElement(
@@ -66088,22 +66100,17 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                     'Username'
                                 ),
                                 _react2.default.createElement(_semanticUiReact.Input, {
+                                    id: 'username',
                                     required: true,
                                     label: { basic: true, content: '@' },
                                     labelPosition: 'left',
                                     placeholder: 'choose a username',
-                                    onChange: function onChange(e) {
-                                        return _this.handleFieldChange(e, 'username');
-                                    },
+                                    onChange: handleFieldChange,
                                     value: inputFields.username || ''
                                 })
                             ),
-                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Email', placeholder: 'joeschmoe@joeschmoestudios.com', id: 'email', type: 'email', onChange: function onChange(e) {
-                                    return _this.handleFieldChange(e, 'email');
-                                }, value: inputFields.email || '', required: true }),
-                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Joe Schmoe', id: 'name', type: 'text', onChange: function onChange(e) {
-                                    return _this.handleFieldChange(e, 'name');
-                                }, value: inputFields.name || '' }),
+                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Email', placeholder: 'joeschmoe@joeschmoestudios.com', id: 'email', type: 'email', onChange: handleFieldChange, required: true }),
+                            _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Joe Schmoe', id: 'name', type: 'text', onChange: handleFieldChange }),
                             _react2.default.createElement(
                                 _semanticUiReact.Form.Field,
                                 null,
@@ -66112,7 +66119,7 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                     null,
                                     'We would love to see your work. Do you have a portfolio or other links?'
                                 ),
-                                _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'field_other', placeholder: 'https://portfolios.com/joeschmoe' })
+                                _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'portfolio', placeholder: 'https://portfolios.com/joeschmoe', onChange: handleFieldChange })
                             )
                         )
                     )
@@ -66126,7 +66133,7 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                     { as: 'a', onClick: toggleModalVisible },
                     'Cancel'
                 ),
-                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', positive: true, icon: 'checkmark', labelPosition: 'right', content: 'Apply', onClick: function onClick() {}, disabled: false })
+                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', positive: true, icon: 'checkmark', labelPosition: 'right', content: 'Apply', onClick: onClickSubmit, disabled: Object.keys(changedFields).length === 0, loading: ui_state == _uiState.UI_STATE.REQUESTING })
             )
         );
     }
@@ -105003,6 +105010,73 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1145 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	"properties": {
+		"email": {
+			"required": true,
+			"minLength": 1,
+			"type": "string"
+		},
+		"field_advertising": {
+			"minLength": 1,
+			"type": [
+				"boolean"
+			]
+		},
+		"field_animation": {
+			"minLength": 1,
+			"type": [
+				"boolean"
+			]
+		},
+		"field_other": {
+			"minLength": 1,
+			"type": [
+				"string"
+			]
+		},
+		"field_screenwriting": {
+			"minLength": 1,
+			"type": [
+				"boolean"
+			]
+		},
+		"field_video_games": {
+			"minLength": 1,
+			"type": [
+				"boolean"
+			]
+		},
+		"intent": {
+			"minLength": 1,
+			"type": [
+				"string"
+			]
+		},
+		"name": {
+			"minLength": 1,
+			"type": [
+				"string"
+			]
+		},
+		"portfolio": {
+			"minLength": 1,
+			"type": [
+				"string"
+			]
+		},
+		"username": {
+			"required": true,
+			"minLength": 1,
+			"type": "string"
+		}
+	}
+};
 
 /***/ })
 /******/ ]);

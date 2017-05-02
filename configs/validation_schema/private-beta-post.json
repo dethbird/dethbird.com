@@ -1,0 +1,46 @@
+{
+	"properties": {
+		"email": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"field_advertising": {
+            "minLength": 1,
+            "type": ["boolean"]
+		},
+		"field_animation": {
+            "minLength": 1,
+            "type": ["boolean"]
+		},
+		"field_other": {
+            "minLength": 1,
+            "type": ["string"]
+		},
+		"field_screenwriting": {
+            "minLength": 1,
+            "type": ["boolean"]
+		},
+		"field_video_games": {
+            "minLength": 1,
+            "type": ["boolean"]
+		},
+		"intent": {
+            "minLength": 1,
+            "type": ["string"]
+		},
+		"name": {
+            "minLength": 1,
+            "type": ["string"]
+		},
+		"portfolio": {
+            "minLength": 1,
+            "type": ["string"]
+		},
+		"username": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		}
+	}
+}
