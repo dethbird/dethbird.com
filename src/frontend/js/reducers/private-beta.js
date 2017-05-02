@@ -18,6 +18,11 @@ const privatebetaReducer = (state = {}, action) => {
                 ui_state: UI_STATE.SUCCESS,
                 model: action.model
             }
+        case PRIVATEBETA.RESET:
+            return {
+                ui_state: UI_STATE.INITIALIZING,
+                errors: null
+            }
         default:
             return state;
     }

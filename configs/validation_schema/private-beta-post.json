@@ -3,7 +3,8 @@
 		"email": {
             "required": true,
             "minLength": 1,
-		    "type": "string"
+		    "type": "string",
+            "pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 		},
 		"field_advertising": {
             "minLength": 1,
@@ -40,7 +41,8 @@
 		"username": {
             "required": true,
             "minLength": 1,
-		    "type": "string"
+		    "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9.-_]+"
 		}
 	}
 }

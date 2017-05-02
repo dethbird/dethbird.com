@@ -12,8 +12,9 @@ import {
     TextArea
 } from 'semantic-ui-react';
 
+import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
-import { privatebetaPost } from 'actions/private-beta';
+import { privatebetaPost, privatebetaReset } from 'actions/private-beta';
 import privatebetaPostSchema from 'validation_schema/private-beta-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
@@ -28,11 +29,9 @@ const PrivateBetaAccessModal = React.createClass({
         modalVisible: React.PropTypes.bool,
         toggleModalVisible: React.PropTypes.func.isRequired
     },
-    componentWillReceiveProps() {
-        this.setState({
-            ... this.state,
-            changedFields: {}
-        });
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(privatebetaReset());
     },
     handleFieldChange(e, payload) {
         const { changedFields } = this.state;
@@ -97,6 +96,7 @@ const PrivateBetaAccessModal = React.createClass({
                                         </Form.Field>
                                     </Grid.Column>
                                     <Grid.Column width={ 8 } as={ Container }>
+
                                         <Form.Field required>
                                             <label>Username</label>
                                             <Input
@@ -109,7 +109,11 @@ const PrivateBetaAccessModal = React.createClass({
                                                 value={ inputFields.username || '' }
                                             />
                                         </Form.Field>
+                                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('username', errors)} />
+
                                         <Form.Input label="Email" placeholder="joeschmoe@joeschmoestudios.com" id="email" type="email" onChange={ handleFieldChange }  required={ true }/>
+                                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('email', errors)} />
+
                                         <Form.Input label="Name" placeholder="Joe Schmoe" id="name" type="text" onChange={ handleFieldChange }  />
                                         <Form.Field>
                                             <label>We would love to see your work. Do you have a portfolio or other links?</label>

@@ -22,7 +22,6 @@ const privatebetaRequestError = (errors) => {
     }
 }
 
-
 export const privatebetaPost = (fields) =>
     dispatch => {
         console.log(fields);
@@ -37,3 +36,9 @@ export const privatebetaPost = (fields) =>
                 }
         });
     };
+
+export const privatebetaReset = (fields) => {
+    return {
+        type: PRIVATEBETA.RESET
+    }
+}

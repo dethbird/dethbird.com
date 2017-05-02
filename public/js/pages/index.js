@@ -6241,6 +6241,7 @@ var CHANGELOG = exports.CHANGELOG = {
 };
 
 var PRIVATEBETA = exports.PRIVATEBETA = {
+    RESET: "PRIVATEBETA_RESET",
     REQUEST: "PRIVATEBETA_REQUEST",
     ERROR: "PRIVATEBETA_ERROR",
     SUCCESS: "PRIVATEBETA_SUCCESS"
@@ -64299,7 +64300,7 @@ var newsfeedGet = exports.newsfeedGet = function newsfeedGet() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.privatebetaPost = undefined;
+exports.privatebetaReset = exports.privatebetaPost = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -64344,6 +64345,12 @@ var privatebetaPost = exports.privatebetaPost = function privatebetaPost(fields)
                 dispatch(privatebetaRequestError(res.body));
             }
         });
+    };
+};
+
+var privatebetaReset = exports.privatebetaReset = function privatebetaReset(fields) {
+    return {
+        type: _actions.PRIVATEBETA.RESET
     };
 };
 
@@ -65945,6 +65952,10 @@ var _reactRedux = __webpack_require__(28);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _errorMessage = __webpack_require__(100);
+
+var _errorMessage2 = _interopRequireDefault(_errorMessage);
+
 var _uiState = __webpack_require__(19);
 
 var _privateBeta = __webpack_require__(637);
@@ -65974,10 +65985,10 @@ var PrivateBetaAccessModal = _react2.default.createClass({
         modalVisible: _react2.default.PropTypes.bool,
         toggleModalVisible: _react2.default.PropTypes.func.isRequired
     },
-    componentWillReceiveProps: function componentWillReceiveProps() {
-        this.setState(_extends({}, this.state, {
-            changedFields: {}
-        }));
+    componentWillUnmount: function componentWillUnmount() {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _privateBeta.privatebetaReset)());
     },
     handleFieldChange: function handleFieldChange(e, payload) {
         var changedFields = this.state.changedFields;
@@ -66109,7 +66120,9 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                     value: inputFields.username || ''
                                 })
                             ),
+                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('username', errors) }),
                             _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Email', placeholder: 'joeschmoe@joeschmoestudios.com', id: 'email', type: 'email', onChange: handleFieldChange, required: true }),
+                            _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('email', errors) }),
                             _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Joe Schmoe', id: 'name', type: 'text', onChange: handleFieldChange }),
                             _react2.default.createElement(
                                 _semanticUiReact.Form.Field,
@@ -67698,6 +67711,11 @@ var privatebetaReducer = function privatebetaReducer() {
             return {
                 ui_state: _uiState.UI_STATE.SUCCESS,
                 model: action.model
+            };
+        case _actions.PRIVATEBETA.RESET:
+            return {
+                ui_state: _uiState.UI_STATE.INITIALIZING,
+                errors: null
             };
         default:
             return state;
@@ -105020,7 +105038,8 @@ module.exports = {
 		"email": {
 			"required": true,
 			"minLength": 1,
-			"type": "string"
+			"type": "string",
+			"pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 		},
 		"field_advertising": {
 			"minLength": 1,
@@ -105073,7 +105092,8 @@ module.exports = {
 		"username": {
 			"required": true,
 			"minLength": 1,
-			"type": "string"
+			"type": "string",
+			"pattern": "^[A-Za-z][A-Za-z0-9.-_]+"
 		}
 	}
 };
