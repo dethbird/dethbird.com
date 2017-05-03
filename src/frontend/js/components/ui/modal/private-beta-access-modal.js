@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { connect } from 'react-redux';
 import {
     Button,
@@ -48,6 +49,12 @@ const PrivateBetaAccessModal = React.createClass({
     onClickSubmit() {
         const { dispatch } = this.props;
         const { changedFields } = this.state;
+
+        ReactGA.event({
+            category: 'Form Submit',
+            action: 'Private Beta Application'
+        });
+
         dispatch(privatebetaPost(changedFields));
     },
     render() {
@@ -67,6 +74,9 @@ const PrivateBetaAccessModal = React.createClass({
                                 error={ ui_state == UI_STATE.ERROR }
                                 success={ ui_state == UI_STATE.SUCCESS }
                             >
+                                <Container>
+                                    <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
+                                </Container>
                                 <Grid>
                                     <Grid.Column width={ 8 } as={ Container }>
                                         <Form.Field>
@@ -118,6 +128,10 @@ const PrivateBetaAccessModal = React.createClass({
                                         <Form.Field>
                                             <label>We would love to see your work. Do you have a portfolio or other links?</label>
                                             <TextArea autoHeight id="portfolio" placeholder="https://portfolios.com/joeschmoe" onChange={ handleFieldChange } ></TextArea>
+                                        </Form.Field>
+                                        <Form.Field>
+                                            <label>Anything else you'd like to comment or on or ask about?</label>
+                                            <TextArea autoHeight id="comments" placeholder="Additional comments ..." onChange={ handleFieldChange } ></TextArea>
                                         </Form.Field>
                                     </Grid.Column>
                                 </Grid>

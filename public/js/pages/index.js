@@ -62462,6 +62462,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactGa = __webpack_require__(631);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
+
 var _reactRouter = __webpack_require__(21);
 
 var _semanticUiReact = __webpack_require__(7);
@@ -62498,6 +62502,9 @@ var Product = _react2.default.createClass({
         }));
     },
     toggleModalVisible: function toggleModalVisible() {
+        if (!this.state.modalVisible === true) {
+            _reactGa2.default.modalview('/private-beta-access-modal');
+        }
         this.setState(_extends({}, this.state, {
             modalVisible: !this.state.modalVisible
         }));
@@ -64336,7 +64343,6 @@ var privatebetaRequestError = function privatebetaRequestError(errors) {
 
 var privatebetaPost = exports.privatebetaPost = function privatebetaPost(fields) {
     return function (dispatch) {
-        console.log(fields);
         dispatch(privatebetaRequestInit());
         _superagent2.default.post('/api/0.1/privatebeta').send(_extends({}, fields)).end(function (err, res) {
             if (res.ok) {
@@ -65948,6 +65954,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactGa = __webpack_require__(631);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
+
 var _reactRedux = __webpack_require__(28);
 
 var _semanticUiReact = __webpack_require__(7);
@@ -66006,6 +66016,12 @@ var PrivateBetaAccessModal = _react2.default.createClass({
         var dispatch = this.props.dispatch;
         var changedFields = this.state.changedFields;
 
+
+        _reactGa2.default.event({
+            category: 'Form Submit',
+            action: 'Private Beta Application'
+        });
+
         dispatch((0, _privateBeta.privatebetaPost)(changedFields));
     },
     render: function render() {
@@ -66043,6 +66059,11 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                         error: ui_state == _uiState.UI_STATE.ERROR,
                         success: ui_state == _uiState.UI_STATE.SUCCESS
                     },
+                    _react2.default.createElement(
+                        _semanticUiReact.Container,
+                        null,
+                        _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
+                    ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid,
                         null,
@@ -66133,6 +66154,16 @@ var PrivateBetaAccessModal = _react2.default.createClass({
                                     'We would love to see your work. Do you have a portfolio or other links?'
                                 ),
                                 _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'portfolio', placeholder: 'https://portfolios.com/joeschmoe', onChange: handleFieldChange })
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Form.Field,
+                                null,
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Anything else you\'d like to comment or on or ask about?'
+                                ),
+                                _react2.default.createElement(_semanticUiReact.TextArea, { autoHeight: true, id: 'comments', placeholder: 'Additional comments ...', onChange: handleFieldChange })
                             )
                         )
                     )
@@ -105084,6 +105115,12 @@ module.exports = {
 			]
 		},
 		"portfolio": {
+			"minLength": 1,
+			"type": [
+				"string"
+			]
+		},
+		"comments": {
 			"minLength": 1,
 			"type": [
 				"string"

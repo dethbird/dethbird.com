@@ -24,7 +24,6 @@ const privatebetaRequestError = (errors) => {
 
 export const privatebetaPost = (fields) =>
     dispatch => {
-        console.log(fields);
         dispatch(privatebetaRequestInit());
         request.post(`/api/0.1/privatebeta`)
             .send( { ... fields } )

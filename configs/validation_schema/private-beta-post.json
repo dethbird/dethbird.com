@@ -38,6 +38,10 @@
             "minLength": 1,
             "type": ["string"]
 		},
+		"comments": {
+            "minLength": 1,
+            "type": ["string"]
+		},
 		"username": {
             "required": true,
             "minLength": 1,

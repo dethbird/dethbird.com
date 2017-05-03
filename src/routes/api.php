@@ -19,6 +19,12 @@ $app->post("/api/0.1/login", function ($request, $response){
             ->withJson([ "global" => [ "message" => "User not found" ] ]);
     }
 
+    if (!$user->date_verified) {
+        return $response
+            ->withStatus(404)
+            ->withJson([ "global" => [ "message" => "Email address " . $user->email . " not verified" ] ]);
+    }
+
     $model = json_decode(
         $user->to_json([
             'except'=>[
@@ -160,13 +166,63 @@ $app->group('/api/0.1', function(){
     $this->post('/privatebeta', function($request, $response, $args){
         $params = $request->getParsedBody();
         $params['created_by'] = $_SESSION['securityContext']->id;
-        return $response
-            ->withJson($params);
-        // $model = new Character($params);
-        // $model->save();
 
-        // return $response
-        //     ->withJson($model->to_array());
+        $user = User::find('one', array('conditions' => array('UPPER(username) = ?', strtoupper($params['username']))));
+        if ($user) {
+            return $response
+                ->withStatus(409)
+                ->withJson(['global' => ['message'=>'Username already exists']]);
+        }
+        $user = User::find('one', array('conditions' => array('UPPER(email) = ?', strtoupper($params['email']))));
+        if ($user) {
+            return $response
+                ->withStatus(409)
+                ->withJson(['global' => ['message'=>'Email already exists']]);
+        }
+
+        # create the user
+        $user = new User();
+        $user->email = $params['email'];
+        $user->username = $params['username'];
+        $user->name = isset($params['name']) ? $params['name'] : null;
+        $user->password = md5(uniqid(null, true));
+        $user->api_key = Ramsey\Uuid\Uuid::uuid4()->toString();
+        $user->read = true;
+        $user->write = true;
+        $user->verify_token = Ramsey\Uuid\Uuid::uuid4()->toString();
+        $user->save();
+
+        $beta = new UserBetaAccess();
+        $beta->user_id = $user->id;
+        $beta->field_advertising = isset($params['field_advertising']) ? $params['field_advertising'] : 0;
+        $beta->field_animation = isset($params['field_animation']) ? $params['field_animation'] : 0;
+        $beta->field_other = isset($params['field_other']) ? $params['field_other'] : null;
+        $beta->field_screenwriting = isset($params['field_screenwriting']) ? $params['field_screenwriting'] : 0;
+        $beta->field_video_games = isset($params['field_video_games']) ? $params['field_video_games'] : 0;
+        $beta->intent = isset($params['intent']) ? $params['intent'] : null;
+        $beta->portfolio = isset($params['portfolio']) ? $params['portfolio'] : null;
+        $beta->save();
+
+        # send the email
+        $templateVars = [
+            "user" => $user
+        ];
+
+        $mail = new PHPMailer;
+        $mail->setFrom('info@storystation.io', 'StoryStation');
+        $mail->addAddress($user->email);
+        $mail->isHTML(true);
+        $mail->Subject = 'StoryStation: Verify Email';
+        $mailBody    = $this['view']->render(
+            $response,
+            'email/private-beta-apply-response.html.twig',
+            $templateVars
+        );
+        $mail->Body = implode("\n", array_slice(explode("\n", $mailBody), 3));;
+        $mail->send();
+
+        return $response
+            ->withJson($user->to_array());
     })
     ->add( new RequestBodyValidation(
         APPLICATION_PATH . 'configs/validation_schema/private-beta-post.json') );

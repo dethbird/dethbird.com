@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { browserHistory } from 'react-router';
 import {
     Button,
@@ -35,6 +36,9 @@ const Product = React.createClass({
         });
     },
     toggleModalVisible() {
+        if (!this.state.modalVisible===true) {
+            ReactGA.modalview('/private-beta-access-modal');
+        }
         this.setState({
             ... this.state,
             modalVisible: !this.state.modalVisible

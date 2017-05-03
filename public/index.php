@@ -31,7 +31,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Symfony\Component\Yaml\Yaml;
 use Guzzle\Http\Client;
-
+use Ramsey\Uuid\Uuid;
 
 $app = new \Slim\App([
     'settings' => [
