@@ -66033,12 +66033,84 @@ var PrivateBetaAccessModal = _react2.default.createClass({
         var _props2 = this.props,
             id = _props2.id,
             ui_state = _props2.ui_state,
-            errors = _props2.errors;
-        var _state = this.state,
-            changedFields = _state.changedFields,
-            model = _state.model;
+            errors = _props2.errors,
+            model = _props2.model;
+        var changedFields = this.state.changedFields;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _privateBetaPost2.default);
+
+        if (ui_state == _uiState.UI_STATE.SUCCESS) {
+            return _react2.default.createElement(
+                _semanticUiReact.Modal,
+                { dimmer: 'blurring', open: modalVisible, onClose: toggleModalVisible },
+                _react2.default.createElement(
+                    _semanticUiReact.Modal.Header,
+                    null,
+                    'Application for Private Beta Access'
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Modal.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Message,
+                        { positive: true },
+                        _react2.default.createElement(
+                            _semanticUiReact.Message.Header,
+                            null,
+                            'Success!!'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'Your application was submitted successfully.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Please check your email for a verification link sent to ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            model.email
+                        ),
+                        ' and click to verify your account.'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'This will secure the username ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            '@',
+                            model.username
+                        ),
+                        '. '
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Once ',
+                        _react2.default.createElement(
+                            'code',
+                            null,
+                            'Private Beta'
+                        ),
+                        ' is officially open, you will receive another message to let you know your account has been activated.'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Modal.Actions,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a', onClick: toggleModalVisible },
+                        'Close'
+                    )
+                )
+            );
+        }
 
         return _react2.default.createElement(
             _semanticUiReact.Modal,

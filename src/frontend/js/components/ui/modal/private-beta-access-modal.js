@@ -9,6 +9,7 @@ import {
     Input,
     Form,
     Grid,
+    Message,
     Modal,
     TextArea
 } from 'semantic-ui-react';
@@ -60,9 +61,29 @@ const PrivateBetaAccessModal = React.createClass({
     render() {
         const { handleFieldChange, onClickSubmit } = this;
         const { modalVisible, toggleModalVisible } = this.props;
-        const { id, ui_state, errors } = this.props;
-        const { changedFields, model } = this.state;
+        const { id, ui_state, errors, model } = this.props;
+        const { changedFields } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, privatebetaPostSchema);
+
+        if (ui_state == UI_STATE.SUCCESS) {
+            return (
+                <Modal dimmer='blurring' open={modalVisible} onClose={ toggleModalVisible }>
+                    <Modal.Header>Application for Private Beta Access</Modal.Header>
+                    <Modal.Content>
+                        <Message positive>
+                            <Message.Header>Success!!</Message.Header>
+                            <p>Your application was submitted successfully.</p>
+                        </Message>
+                        <p>Please check your email for a verification link sent to <strong>{ model.email }</strong> and click to verify your account.</p>
+                        <p>This will secure the username <strong>@{ model.username }</strong>. </p>
+                        <p>Once <code>Private Beta</code> is officially open, you will receive another message to let you know your account has been activated.</p>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button as="a" onClick={ toggleModalVisible }>Close</Button>
+                    </Modal.Actions>
+                </Modal>
+            )
+        }
 
         return (
                 <Modal dimmer='blurring' open={modalVisible} onClose={ toggleModalVisible }>
