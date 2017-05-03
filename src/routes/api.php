@@ -201,11 +201,14 @@ $app->group('/api/0.1', function(){
         $beta->field_video_games = isset($params['field_video_games']) ? $params['field_video_games'] : 0;
         $beta->intent = isset($params['intent']) ? $params['intent'] : null;
         $beta->portfolio = isset($params['portfolio']) ? $params['portfolio'] : null;
+        $beta->comments = isset($params['comments']) ? $params['comments'] : null;
+        $beta->client_ip = $_SERVER['REMOTE_ADDR'];
         $beta->save();
 
         # send the email
         $templateVars = [
-            "user" => $user
+            "user" => $user,
+            "server" => $_SERVER
         ];
 
         $mail = new PHPMailer;
