@@ -71,7 +71,7 @@ const PrivateBetaAccessModal = React.createClass({
                     <Modal.Header>Application for Private Beta Access</Modal.Header>
                     <Modal.Content>
                         <Message positive>
-                            <Message.Header>Success!!</Message.Header>
+                            <Message.Header>Success!</Message.Header>
                             <p>Your application was submitted successfully.</p>
                         </Message>
                         <p>Please check your email for a verification link sent to <strong>{ model.email }</strong> and click to verify your account.</p>

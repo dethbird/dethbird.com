@@ -30,7 +30,7 @@ const Masthead = React.createClass({
                 <Container text={ true } textAlign="center">
                     <Image src="/svg/storystation.svg" className="logo"/>
                     <Header as='h2' inverted={ true }>Get that story written and produced.</Header>
-                    <Button content='Get Started' icon='right arrow' labelPosition='right' primary={ true } size="huge" onClick={()=>{ browserHistory.push('/private-beta')}} />
+                    <Button content='Apply for Private Beta' icon='right arrow' labelPosition='right' primary={ true } size="huge" onClick={()=>{ browserHistory.push('/private-beta')}} />
                 </Container>
             </Segment>
         )

@@ -10,6 +10,7 @@ import App from 'components/app';
 import Index from 'components/pages/index';
 import Newsfeed from 'components/pages/newsfeed';
 import PrivateBeta from 'components/pages/private-beta';
+import Verify from 'components/pages/verify';
 import Product from 'components/pages/product';
 
 // Internal
@@ -78,6 +79,7 @@ render((
                 <Route path="story/create" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/edit" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/play" component={ StoryPlay } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="verify" component={ Verify } props={ { securityContext, verifyUser } } />
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>
         </Router>

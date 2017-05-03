@@ -172,7 +172,47 @@ $app->get('/', function ($request, $response){
         "configs" => $configs,
         'securityContext' => $securityContext,
         'lastRequestUri' => $lastRequestUri,
-        "section" => "index"
+    ];
+
+    return $this['view']->render(
+        $response,
+        'pages/index.html.twig',
+        $templateVars
+    );
+
+})
+->add( new SetSecurityContext($container) );
+
+# verify email
+$app->get('/verify', function ($request, $response, $args){
+    $configs = $this['configs'];
+    $view = $this['view'];
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
+    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
+    $params = $request->getQueryParams();
+
+    $user = User::find_by_verify_token($params['token']);
+    $model = new stdClass();
+    if ($user) {
+        $user->date_verified = date('Y-m-d g:i:s a');
+        $user->verify_token = null;
+        $user->save();
+        $model = json_decode(
+            $user->to_json([
+                'except'=>[
+                    'api_key',
+                    'password',
+                    'notifications',
+                    'date_added',
+                    'date_updated']
+        ]));
+    }
+
+    $templateVars = [
+        "configs" => $configs,
+        'securityContext' => $securityContext,
+        'lastRequestUri' => $lastRequestUri,
+        "verifyUser" => $model
     ];
 
     return $this['view']->render(
