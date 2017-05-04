@@ -162,6 +162,20 @@ $app->group('/api/0.1', function(){
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 
+    # contact
+    $this->post('/contact', function($request, $response, $args){
+        $params = $request->getParsedBody();
+        // $params['created_by'] = $_SESSION['securityContext']->id;
+        // $model = new Character($params);
+        // $model->save();
+
+        return $response
+            ->withJson($params);
+    })
+    ->add( new WriteAccess($_SESSION['securityContext']) )
+    ->add( new RequestBodyValidation(
+        APPLICATION_PATH . 'configs/validation_schema/contact-post.json') );
+
     # private beta application
     $this->post('/privatebeta', function($request, $response, $args){
         $params = $request->getParsedBody();

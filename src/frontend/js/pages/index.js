@@ -8,6 +8,7 @@ import App from 'components/app';
 
 // External
 import Index from 'components/pages/index';
+import Contact from 'components/pages/contact';
 import Newsfeed from 'components/pages/newsfeed';
 import PrivateBeta from 'components/pages/private-beta';
 import Verify from 'components/pages/verify';
@@ -63,6 +64,7 @@ render((
         <Router history={browserHistory} onUpdate={ logPageView }>
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
+                <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="private-beta" component={ PrivateBeta } props={ { securityContext } }/>
                 <Route path="product" component={ Product } props={ { securityContext } }/>

@@ -53,6 +53,7 @@ const ExternalMainMenu = React.createClass({
                     <Icon name="television" />Product
                 </Menu.Item>
                 <Menu.Item onClick={()=>{browserHistory.push('/newsfeed')}} active={ path=='newsfeed' }><Icon name="newspaper" />Animation & Showbiz News</Menu.Item>
+                <Menu.Item onClick={()=>{browserHistory.push('/contact')}} active={ path=='contact' }><Icon name="chat" />Contact Us</Menu.Item>
                 <Menu.Item as="div" className="right">
                     { renderSecurityContext()  }
                 </Menu.Item>

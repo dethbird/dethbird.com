@@ -1,0 +1,23 @@
+{
+	"properties": {
+		"name": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"email": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"organization": {
+            "minLength": 1,
+            "type": "string"
+		},
+		"message": {
+            "required": true,
+            "minLength": 1,
+            "type": "string"
+		}
+	}
+}
