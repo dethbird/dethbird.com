@@ -165,14 +165,37 @@ $app->group('/api/0.1', function(){
     # contact
     $this->post('/contact', function($request, $response, $args){
         $params = $request->getParsedBody();
-        // $params['created_by'] = $_SESSION['securityContext']->id;
-        // $model = new Character($params);
-        // $model->save();
+
+        $message = new ContactMessage();
+        $message->email = $params['email'];
+        $message->name = $params['name'];
+        $message->organization = $params['organization'];
+        $message->message = $params['message'];
+        $message->client_ip = $_SERVER['REMOTE_ADDR'];
+        $message->save();
+
+        # send the email
+        $templateVars = [
+            "message" => $message->to_array(),
+            "server" => $_SERVER
+        ];
+
+        $mail = new PHPMailer;
+        $mail->setFrom('info@storystation.io', 'StoryStation');
+        $mail->addAddress('rishi.satsangi@gmail.com');
+        $mail->isHTML(true);
+        $mail->Subject = 'StoryStation: Contact Form';
+        $mailBody    = $this['view']->render(
+            $response,
+            'email/contact-message.html.twig',
+            $templateVars
+        );
+        $mail->Body = implode("\n", array_slice(explode("\n", $mailBody), 3));;
+        $mail->send();
 
         return $response
             ->withJson($params);
     })
-    ->add( new WriteAccess($_SESSION['securityContext']) )
     ->add( new RequestBodyValidation(
         APPLICATION_PATH . 'configs/validation_schema/contact-post.json') );
 

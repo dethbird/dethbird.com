@@ -8,7 +8,8 @@ import {
     Image,
     Label,
     Menu,
-    Message
+    Message,
+    Segment
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
@@ -47,8 +48,21 @@ const ContactForm = React.createClass({
         const { id, ui_state, errors, model } = this.props;
         const { changedFields } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, contactPostSchema);
+
+        if (ui_state == UI_STATE.SUCCESS) {
+            return (
+                <Segment as={ Container } text>
+                    <Message positive>
+                        <Message.Header>Success!</Message.Header>
+                        <p>Your message has been sent successfully.</p>
+                    </Message>
+                    <Container textAlign='center'><p>We'll get back to you ASAP!</p></Container>
+                </Segment>
+            )
+        }
+
         return (
-            <Container text={ true }>
+            <Segment as={ Container } text>
                 <Form
                     size="large"
                     loading={ ui_state == UI_STATE.REQUESTING }
@@ -75,7 +89,7 @@ const ContactForm = React.createClass({
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } labelPosition="right" icon="send" content="Send" />
                     </Container>
                 </Form>
-            </Container>
+            </Segment>
         )
     }
 })

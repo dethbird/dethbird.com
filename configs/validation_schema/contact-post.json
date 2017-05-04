@@ -8,7 +8,8 @@
 		"email": {
             "required": true,
             "minLength": 1,
-		    "type": "string"
+		    "type": "string",
+            "pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 		},
 		"organization": {
             "minLength": 1,

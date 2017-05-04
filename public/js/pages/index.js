@@ -64398,7 +64398,8 @@ module.exports = {
 		"email": {
 			"required": true,
 			"minLength": 1,
-			"type": "string"
+			"type": "string",
+			"pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 		},
 		"organization": {
 			"minLength": 1,
@@ -65101,9 +65102,40 @@ var ContactForm = _react2.default.createClass({
         var changedFields = this.state.changedFields;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _contactPost2.default);
+
+        if (ui_state == _uiState.UI_STATE.SUCCESS) {
+            return _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { as: _semanticUiReact.Container, text: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { positive: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Message.Header,
+                        null,
+                        'Success!'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Your message has been sent successfully.'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { textAlign: 'center' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'We\'ll get back to you ASAP!'
+                    )
+                )
+            );
+        }
+
         return _react2.default.createElement(
-            _semanticUiReact.Container,
-            { text: true },
+            _semanticUiReact.Segment,
+            { as: _semanticUiReact.Container, text: true },
             _react2.default.createElement(
                 _semanticUiReact.Form,
                 {
