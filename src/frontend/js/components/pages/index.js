@@ -43,7 +43,7 @@ const Index = React.createClass({
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="http://www.mikroskopie-ph.de/SSM-Echin.jpg"/>
                                         </Grid.Column>
                                         <Grid.Column width={ 11 }>
                                             <Header as="h2">What is it?</Header>

@@ -49,7 +49,7 @@ const Product = React.createClass({
                         <Segment as={ Container } text>
                             <Grid>
                                 <Grid.Column width={ 6 }>
-                                    <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                    <Label as='a' color='yellow' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
                                 </Grid.Column>
                                 <Grid.Column width={ 10 }>
                                     <Header as="h2">ProjectManager</Header>
