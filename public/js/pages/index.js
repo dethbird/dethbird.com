@@ -62705,7 +62705,7 @@ var Index = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Header,
                             { as: 'h1', className: 'display-header' },
-                            'Focus on story development'
+                            'Storywriting tools for a workflow upgrade.'
                         )
                     ),
                     _react2.default.createElement('br', null),
@@ -62723,41 +62723,18 @@ var Index = _react2.default.createClass({
                                     { verticalAlign: 'middle' },
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
-                                        { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'http://www.mikroskopie-ph.de/SSM-Echin.jpg' })
-                                    ),
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Grid.Column,
-                                        { width: 11 },
+                                        { width: 11, textAlign: 'right' },
                                         _react2.default.createElement(
                                             _semanticUiReact.Header,
                                             { as: 'h2' },
                                             'What is it?'
                                         ),
                                         'StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.'
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                _semanticUiReact.Grid.Row,
-                                null,
-                                _react2.default.createElement(
-                                    _semanticUiReact.Grid,
-                                    { verticalAlign: 'middle' },
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Grid.Column,
-                                        { width: 11, textAlign: 'right' },
-                                        _react2.default.createElement(
-                                            _semanticUiReact.Header,
-                                            { as: 'h2' },
-                                            'What is it for?'
-                                        ),
-                                        'Imagine and write your stories in StoryStation before taking into your favorite storyboarding / animating / production tool.'
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' })
                                     )
                                 )
                             ),
@@ -66114,9 +66091,13 @@ var Masthead = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Header,
                     { as: 'h2', inverted: true },
-                    'Get that story written and produced.'
+                    'Start writing your script ',
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'pointing right' })
                 ),
-                _react2.default.createElement(_semanticUiReact.Button, { content: 'Apply for Private Beta', icon: 'right arrow', labelPosition: 'right', primary: true, size: 'huge', onClick: function onClick() {
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Product Features', icon: 'tags', labelPosition: 'right', color: 'teal', size: 'huge', onClick: function onClick() {
+                        _reactRouter.browserHistory.push('/product');
+                    } }),
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Apply for Beta Access', icon: 'right arrow', labelPosition: 'right', color: 'yellow', size: 'huge', onClick: function onClick() {
                         _reactRouter.browserHistory.push('/private-beta');
                     } })
             )

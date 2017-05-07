@@ -35,30 +35,19 @@ const Index = React.createClass({
                     <Masthead onClickLogin={ this.toggleVisibility } path={ path } securityContext={ securityContext }/>
                     <Segment className="main-content" as={ Container }>
                         <Container textAlign="center">
-                            <Header as="h1" className="display-header">Focus on story development</Header>
+                            <Header as="h1" className="display-header">Storywriting tools for a workflow upgrade.</Header>
                         </Container>
                         <br />
                         <Container text>
                             <Grid>
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
-                                        <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="http://www.mikroskopie-ph.de/SSM-Echin.jpg"/>
-                                        </Grid.Column>
-                                        <Grid.Column width={ 11 }>
+                                        <Grid.Column width={ 11 }  textAlign="right">
                                             <Header as="h2">What is it?</Header>
                                             StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.
                                         </Grid.Column>
-                                    </Grid>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid verticalAlign='middle'>
-                                        <Grid.Column width={ 11 } textAlign="right">
-                                            <Header as="h2">What is it for?</Header>
-                                            Imagine and write your stories in StoryStation before taking into your favorite storyboarding / animating / production tool.
-                                        </Grid.Column>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg"/>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>
