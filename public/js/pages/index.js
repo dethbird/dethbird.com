@@ -62753,7 +62753,7 @@ var Index = _react2.default.createClass({
                                 null,
                                 _react2.default.createElement(
                                     _semanticUiReact.Grid,
-                                    { verticalAlign: 'middle' },
+                                    { verticalAlign: 'top' },
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
@@ -62768,46 +62768,50 @@ var Index = _react2.default.createClass({
                                             'What does it do?'
                                         ),
                                         _react2.default.createElement(
-                                            'ul',
+                                            'p',
                                             null,
+                                            'StoryStation is primarily a tool for writing and editing screenplays. It has a number of additional features to help you write and manage story assets like characters and locations.'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'In the end, you should be able to pitch your show or movie using a nicely formatted one-sheet generated from your created assets.'
+                                        ),
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Header,
+                                            { as: 'h3' },
+                                            'Smart ScriptEditor'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'At it\'s heart is the ScriptEditor, which is best described as a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax. More about .fountain below.'
+                                        ),
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Header,
+                                            { as: 'h3' },
+                                            'Organize with ProjectManager'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'In StoryStation lingo, a Project is basically a show or a movie. Under that you will have episodes, characters, and other assets that make up the world you have created. You will use the ProjectManager to keep your project well-defined an on-track.'
+                                        ),
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Header,
+                                            { as: 'h3' },
+                                            'Pitch with PitchGenerator'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'Once you have your story fleshed out, use the ',
                                             _react2.default.createElement(
-                                                'li',
+                                                'code',
                                                 null,
-                                                'Use the ',
-                                                _react2.default.createElement(
-                                                    'code',
-                                                    null,
-                                                    'Character Editor'
-                                                ),
-                                                ' to flesh out your characters and connect them to scripts later. Add side views, front views, different traits, and other information to give you a good picture.'
+                                                'Pitch Generator'
                                             ),
-                                            _react2.default.createElement(
-                                                'li',
-                                                null,
-                                                'The ',
-                                                _react2.default.createElement(
-                                                    'code',
-                                                    null,
-                                                    'Smart Script Editor'
-                                                ),
-                                                ' highlights character names, dialogue, acts, scenes, and other screenplay syntax to let you quickly write your story.'
-                                            ),
-                                            _react2.default.createElement(
-                                                'li',
-                                                null,
-                                                'Once you have your story fleshed out, use the ',
-                                                _react2.default.createElement(
-                                                    'code',
-                                                    null,
-                                                    'Pitch Generator'
-                                                ),
-                                                ' to create a pitch for your show or movie that you can take to the studios.'
-                                            ),
-                                            _react2.default.createElement(
-                                                'li',
-                                                null,
-                                                'Once your storyboarding is complete, export your panels and get to work on your project in your animating / production tool of choice.'
-                                            )
+                                            ' to create a pitch for your show or movie that you can take to the studios.'
                                         )
                                     )
                                 )
@@ -62836,7 +62840,7 @@ var Index = _react2.default.createClass({
                                                 null,
                                                 '.fountain'
                                             ),
-                                            ' script-writing format. Our ScriptEditor is like a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax.'
+                                            ' script-writing format. ScriptEditor is like a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax.'
                                         ),
                                         _react2.default.createElement(
                                             _semanticUiReact.Header,
