@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 
 import StoryCard from 'components/ui/card/story-card';
+import StoriesFilter from 'components/ui/list/filter/stories-filter';
 import { UI_STATE } from 'constants/ui-state';
 import { storiesGet } from 'actions/story';
 
@@ -25,6 +26,7 @@ const StoriesList = React.createClass({
 
         return (
             <Container>
+                <StoriesFilter onFilter={()=>{}} />
                 <Card.Group itemsPerRow={ 4 } >
                     { storyNodes }
                 </Card.Group>

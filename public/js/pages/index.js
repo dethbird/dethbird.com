@@ -66563,6 +66563,10 @@ var _storyCard = __webpack_require__(648);
 
 var _storyCard2 = _interopRequireDefault(_storyCard);
 
+var _storiesFilter = __webpack_require__(1152);
+
+var _storiesFilter2 = _interopRequireDefault(_storiesFilter);
+
 var _uiState = __webpack_require__(15);
 
 var _story = __webpack_require__(171);
@@ -66587,6 +66591,7 @@ var StoriesList = _react2.default.createClass({
         return _react2.default.createElement(
             _semanticUiReact.Container,
             null,
+            _react2.default.createElement(_storiesFilter2.default, { onFilter: function onFilter() {} }),
             _react2.default.createElement(
                 _semanticUiReact.Card.Group,
                 { itemsPerRow: 4 },
@@ -105871,6 +105876,51 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StoriesFilter = _react2.default.createClass({
+    displayName: 'StoriesFilter',
+
+    propTypes: {
+        onFilter: _react2.default.PropTypes.func.isRequired
+    },
+    render: function render() {
+        var _props = this.props,
+            onChange = _props.onChange,
+            onFilter = _props.onFilter;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Segment,
+            { raised: true },
+            _react2.default.createElement(
+                _semanticUiReact.Form,
+                null,
+                'Filter Form'
+            )
+        );
+    }
+});
+
+exports.default = StoriesFilter;
 
 /***/ })
 /******/ ]);
