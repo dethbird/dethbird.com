@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Container,
+    Divider,
     Header,
     Image,
     Grid,
@@ -44,13 +45,15 @@ const Index = React.createClass({
                                     <Grid verticalAlign='middle'>
                                         <Grid.Column width={ 11 }  textAlign="right">
                                             <Header as="h2">What is it?</Header>
-                                            StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.
+                                            <p>StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.</p>
+                                            <p>It is designed for rapid iteration and development of your narrative projects.</p>
                                         </Grid.Column>
                                         <Grid.Column width={ 5 }>
                                             <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg"/>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>
+                                <Divider />
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
                                         <Grid.Column width={ 5 }>
@@ -67,14 +70,20 @@ const Index = React.createClass({
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>
+                                <Divider />
                                 <Grid.Row>
-                                    <Grid verticalAlign='middle'>
+                                    <Grid verticalAlign='top'>
                                         <Grid.Column width={ 11 } textAlign="right">
                                             <Header as="h2">How does it work?</Header>
-                                             Using the <code>.fountain</code> script-writing format, quickly jot down and start developing your story.
+                                            <p>Under the hood, StoryStation uses the <code>.fountain</code> script-writing format. Our ScriptEditor is like a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax.</p>
+                                            <Header as="h3">About .fountain</Header>
+                                            <p>Fountain is a simple markup syntax for writing, editing and sharing screenplays in plain, human-readable text.</p>
+                                            <p>Even when <a href="https://fountain.io/_downloads/Big-Fish.fountain" target="_blank">viewed as plain text</a>, your screenplay <em>feels</em> like a screenplay.</p>
+                                            <Header as="h3">Learn more</Header>
+                                            <p>Learn more at <a href="https://fountain.io" target="_blank">fountain.io</a>.</p>
                                         </Grid.Column>
                                         <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                            <Image spaced verticalAlign="middle" src="/img/icon/fountain.png" size="large"/>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Row>

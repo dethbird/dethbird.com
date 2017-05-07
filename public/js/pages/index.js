@@ -62729,7 +62729,16 @@ var Index = _react2.default.createClass({
                                             { as: 'h2' },
                                             'What is it?'
                                         ),
-                                        'StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.'
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'It is designed for rapid iteration and development of your narrative projects.'
+                                        )
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
@@ -62738,6 +62747,7 @@ var Index = _react2.default.createClass({
                                     )
                                 )
                             ),
+                            _react2.default.createElement(_semanticUiReact.Divider, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Row,
                                 null,
@@ -62802,12 +62812,13 @@ var Index = _react2.default.createClass({
                                     )
                                 )
                             ),
+                            _react2.default.createElement(_semanticUiReact.Divider, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Row,
                                 null,
                                 _react2.default.createElement(
                                     _semanticUiReact.Grid,
-                                    { verticalAlign: 'middle' },
+                                    { verticalAlign: 'top' },
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 11, textAlign: 'right' },
@@ -62816,18 +62827,65 @@ var Index = _react2.default.createClass({
                                             { as: 'h2' },
                                             'How does it work?'
                                         ),
-                                        'Using the ',
                                         _react2.default.createElement(
-                                            'code',
+                                            'p',
                                             null,
-                                            '.fountain'
+                                            'Under the hood, StoryStation uses the ',
+                                            _react2.default.createElement(
+                                                'code',
+                                                null,
+                                                '.fountain'
+                                            ),
+                                            ' script-writing format. Our ScriptEditor is like a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax.'
                                         ),
-                                        ' script-writing format, quickly jot down and start developing your story.'
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Header,
+                                            { as: 'h3' },
+                                            'About .fountain'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'Fountain is a simple markup syntax for writing, editing and sharing screenplays in plain, human-readable text.'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'Even when ',
+                                            _react2.default.createElement(
+                                                'a',
+                                                { href: 'https://fountain.io/_downloads/Big-Fish.fountain', target: '_blank' },
+                                                'viewed as plain text'
+                                            ),
+                                            ', your screenplay ',
+                                            _react2.default.createElement(
+                                                'em',
+                                                null,
+                                                'feels'
+                                            ),
+                                            ' like a screenplay.'
+                                        ),
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Header,
+                                            { as: 'h3' },
+                                            'Learn more'
+                                        ),
+                                        _react2.default.createElement(
+                                            'p',
+                                            null,
+                                            'Learn more at ',
+                                            _react2.default.createElement(
+                                                'a',
+                                                { href: 'https://fountain.io', target: '_blank' },
+                                                'fountain.io'
+                                            ),
+                                            '.'
+                                        )
                                     ),
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 5 },
-                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, shape: 'circular', verticalAlign: 'middle', src: 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg', size: 'large' })
+                                        _react2.default.createElement(_semanticUiReact.Image, { spaced: true, verticalAlign: 'middle', src: '/img/icon/fountain.png', size: 'large' })
                                     )
                                 )
                             )
