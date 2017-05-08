@@ -88,6 +88,8 @@ const ProjectForm = React.createClass({
                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
+                    <Form.Field label="Genres" placeholder="Genres" control={ TagEditor } onChange={ this.handleFieldChange }/>
+
                     <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ this.handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 

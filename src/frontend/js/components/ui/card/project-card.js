@@ -2,7 +2,10 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import {
     Card,
-    Image
+    Grid,
+    Image,
+    Label,
+    List
 } from 'semantic-ui-react';
 
 import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
@@ -24,20 +27,48 @@ const ProjectCard = React.createClass({
         }
         return Object.keys(characters).length;
     },
-    render() {
-        const { characterCount } = this;
+    renderGenreLabels() {
         const { project } = this.props;
+        if (project.subgenres.length==0)
+            return null;
+
+        const nodes = project.subgenres.map(function(subgenre, i){
+            return (
+                <List.Item key={ i } >
+                    <List.Content>
+                        <Label color='yellow' size='small'>
+                            { subgenre.genre.name }
+                            <Label.Detail>{ subgenre.name }</Label.Detail>
+                        </Label>
+                    </List.Content>
+                </List.Item>
+
+            );
+        });
+        return nodes;
+    },
+    render() {
+        const { characterCount, renderGenreLabels } = this;
+        const { project } = this.props;
+
         return (
             <Card onClick={ (e) => { browserHistory.push(`/project/${project.id}/edit`)} } >
-                <Card.Content className="center aligned">
-                    <Image shape="rounded" spaced={ true } centered={ true } src={ project.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+                <Image shape="rounded" src={ project.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+                <Card.Content>
                     <Card.Header>{ project.name }</Card.Header>
+                    <List>
+                        { renderGenreLabels() }
+                    </List>
                 </Card.Content>
-                <Card.Content className="left aligned">
-                    <Card.Meta>
-                        { project.stories.length } Stories<br />
-                    { characterCount() } Characters
-                    </Card.Meta>
+                <Card.Content>
+                    <Grid>
+                        <Grid.Column width={ 8 } floated='left'>
+                            { project.stories.length } Stories
+                        </Grid.Column>
+                        <Grid.Column width={ 8 } floated='right' className='right aligned'>
+                            { characterCount() } Characters
+                        </Grid.Column>
+                    </Grid>
                 </Card.Content>
             </Card>
         );

@@ -301,6 +301,8 @@ $app->group('/api/0.1', function(){
         $_arr = [];
         foreach ($models as $model) {
             $a = $model->to_array();
+
+            # stories
             $stories = Story::find_all_by_project_id($model->id);
             $_arr_stories = [];
             foreach($stories as $story) {
@@ -308,6 +310,22 @@ $app->group('/api/0.1', function(){
                 $_arr_stories[] = $_s;
             }
             $a['stories'] = $_arr_stories;
+
+            # genres
+            $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
+            $_projectSubgenres = [];
+            foreach($projectSubgenres as $ps) {
+
+                $subgenre = Subgenre::find_by_id($ps->subgenre_id);
+                $genre = Genre::find_by_id($subgenre->genre_id);
+
+                $_subgenre = $subgenre->to_array();
+                $_subgenre['genre'] = $genre->to_array();
+
+                $_projectSubgenres[] = $_subgenre;
+            }
+            $a['subgenres'] = $_projectSubgenres;
+
             $_arr[] = $a;
         }
         return $response
