@@ -13,9 +13,12 @@ const ProjectsFilter = React.createClass({
         const { onChange, onFilter } = this.props;
 
         return (
-            <Segment raised>
-                <Form>
-                    Filter Form
+            <Segment>
+                <Form size="small">
+                    <Form.Group>
+                        <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ ()=>{} } width={ 3 } />
+                        <Form.Input label="Genre" placeholder="Genre" id="genre" type="text" onChange={ ()=>{} } width={ 3 } />
+                    </Form.Group>
                 </Form>
             </Segment>
         )

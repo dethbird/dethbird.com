@@ -66371,11 +66371,16 @@ var ProjectsFilter = _react2.default.createClass({
 
         return _react2.default.createElement(
             _semanticUiReact.Segment,
-            { raised: true },
+            null,
             _react2.default.createElement(
                 _semanticUiReact.Form,
-                null,
-                'Filter Form'
+                { size: 'small' },
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Group,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange() {}, width: 3 }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Genre', placeholder: 'Genre', id: 'genre', type: 'text', onChange: function onChange() {}, width: 3 })
+                )
             )
         );
     }
