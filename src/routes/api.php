@@ -199,6 +199,30 @@ $app->group('/api/0.1', function(){
     ->add( new RequestBodyValidation(
         APPLICATION_PATH . 'configs/validation_schema/contact-post.json') );
 
+    # genres
+    $this->get('/genres', function($request, $response, $args){
+        $headers = $request->getHeaders();
+
+        # genres
+        $models = [];
+        $models = Genre::all(['order' =>'name asc']);
+        foreach ($models as $model) {
+
+            #subgenres
+            $g = $model->to_array();
+            $g['subgenres'] = array();
+            $smodels = Subgenre::find('all', ['conditions' => ['genre_id = ?', $model->id], 'order'=>'name asc']);
+            foreach($smodels as $smodel) {
+                $g['subgenres'][] = $smodel->to_array();
+            }
+            $genres[] = $g;
+        }
+
+        return $response
+            ->withJson($genres);
+    })
+    ->add( new ReadAccess($_SESSION['securityContext']) );
+
     # private beta application
     $this->post('/privatebeta', function($request, $response, $args){
         $params = $request->getParsedBody();
