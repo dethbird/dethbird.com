@@ -276,7 +276,15 @@ $app->group('/api/0.1', function(){
         $models = Project::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
         $_arr = [];
         foreach ($models as $model) {
-            $_arr[] = $model->to_array();
+            $a = $model->to_array();
+            $stories = Story::find_all_by_project_id($model->id);
+            $_arr_stories = [];
+            foreach($stories as $story) {
+                $_s = $story->to_array();
+                $_arr_stories[] = $_s;
+            }
+            $a['stories'] = $_arr_stories;
+            $_arr[] = $a;
         }
         return $response
             ->withJson($_arr);

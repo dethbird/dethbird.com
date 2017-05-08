@@ -5,17 +5,39 @@ import {
     Image
 } from 'semantic-ui-react';
 
+import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
+
 const ProjectCard = React.createClass({
     propTypes: {
         project: React.PropTypes.object.isRequired
     },
+    characterCount() {
+        const { project } = this.props;
+        if (project.stories.length == 0)
+            return 0;
+
+        let characters = [];
+        for (const i in project.stories) {
+            const extracted = collateScriptCharactersWithCharacters(project.stories[i].script, []);
+            characters = { ... characters, ... extracted.not_found };
+            characters = { ... characters, ... extracted.existing };
+        }
+        return Object.keys(characters).length;
+    },
     render() {
+        const { characterCount } = this;
         const { project } = this.props;
         return (
             <Card onClick={ (e) => { browserHistory.push(`/project/${project.id}/edit`)} } >
                 <Card.Content className="center aligned">
                     <Image shape="rounded" spaced={ true } centered={ true } src={ project.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                     <Card.Header>{ project.name }</Card.Header>
+                </Card.Content>
+                <Card.Content className="left aligned">
+                    <Card.Meta>
+                        { project.stories.length } Stories<br />
+                    { characterCount() } Characters
+                    </Card.Meta>
                 </Card.Content>
             </Card>
         );

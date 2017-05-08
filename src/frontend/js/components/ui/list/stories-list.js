@@ -26,7 +26,6 @@ const StoriesList = React.createClass({
 
         return (
             <Container>
-                <StoriesFilter onFilter={()=>{}} />
                 <Card.Group itemsPerRow={ 4 } >
                     { storyNodes }
                 </Card.Group>

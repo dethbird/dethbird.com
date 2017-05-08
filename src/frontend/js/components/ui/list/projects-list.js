@@ -5,6 +5,7 @@ import {
     Container
 } from 'semantic-ui-react';
 
+import ProjectsFilter from 'components/ui/list/filter/projects-filter';
 import ProjectCard from 'components/ui/card/project-card';
 import { UI_STATE } from 'constants/ui-state';
 import { projectsGet } from 'actions/project';
@@ -25,6 +26,7 @@ const ProjectsList = React.createClass({
 
         return (
             <Container>
+                <ProjectsFilter onFilter={()=>{}} />
                 <Card.Group itemsPerRow={ 4 } >
                     { projectNodes }
                 </Card.Group>
