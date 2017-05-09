@@ -36,8 +36,8 @@ const ProjectCard = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color='yellow' size='small'>
-                            { subgenre.genre.name }
+                        <Label color='teal' size='small'>
+                            { subgenre.genre.name }:
                             <Label.Detail>{ subgenre.name }</Label.Detail>
                         </Label>
                     </List.Content>
@@ -53,14 +53,14 @@ const ProjectCard = React.createClass({
 
         return (
             <Card onClick={ (e) => { browserHistory.push(`/project/${project.id}/edit`)} } >
-                <Image shape="rounded" src={ project.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+                <Image shape="rounded" src={ project.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                 <Card.Content>
                     <Card.Header>{ project.name }</Card.Header>
                     <List>
                         { renderGenreLabels() }
                     </List>
                 </Card.Content>
-                <Card.Content>
+                <Card.Content extra>
                     <Grid>
                         <Grid.Column width={ 8 } floated='left'>
                             { project.stories.length } Stories

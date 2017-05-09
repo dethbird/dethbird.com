@@ -31,7 +31,7 @@ const TagEditor = React.createClass({
             newTag: e.currentTarget.value
         });
     },
-    addTag() {
+    addTag(e) {
         const { tags, newTag } = this.state;
         const { onChange } = this.props;
         const newTags = tags;
@@ -43,12 +43,10 @@ const TagEditor = React.createClass({
                 newTag: null
             });
 
-            const e = {
-                currentTarget: {
-                    value: JSON.stringify(newTags)
-                }
-            };
-            onChange(e, 'tags');
+            onChange(e, {
+                id: 'tags',
+                value: JSON.stringify(newTags)
+            });
         }
     },
     removeTag(tag) {
@@ -64,13 +62,10 @@ const TagEditor = React.createClass({
             newTag: null
         });
 
-        const e = {
-            currentTarget: {
-                value: JSON.stringify(newTags)
-            }
-        };
-        onChange(e, 'tags');
-
+        onChange(null, {
+            id: 'tags',
+            value: JSON.stringify(newTags)
+        });
     },
     render() {
         const { removeTag } = this;

@@ -45,9 +45,13 @@ const ProjectForm = React.createClass({
             });
         }
     },
-    handleFieldChange(e, elementId) {
+    handleFieldChange(e, payload) {
         const { changedFields } = this.state;
-        changedFields[elementId] = e.currentTarget.value;
+        if (payload.type=="checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.id] = payload.value;
+        }
         this.setState({
             ... this.state,
             changedFields
@@ -63,6 +67,7 @@ const ProjectForm = React.createClass({
         }
     },
     render() {
+        const { handleFieldChange } = this;
         const { id, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, projectPostSchema);
@@ -78,19 +83,17 @@ const ProjectForm = React.createClass({
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
 
-                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
+                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
-                    <Image shape="rounded" size="large" centered={ true } src={ inputFields.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
-                    <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('avatar_image_url', errors)} />
+                    <Image shape="rounded" size="large" centered={ true } src={ inputFields.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+                    <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" id="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('header_image_url', errors)} />
 
-                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
+                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                    <Form.Field label="Genres" placeholder="Genres" control={ TagEditor } onChange={ this.handleFieldChange }/>
-
-                    <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ this.handleFieldChange }/>
+                    <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 
                     <Container textAlign="right">

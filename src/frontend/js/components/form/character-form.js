@@ -45,9 +45,13 @@ const CharacterForm = React.createClass({
             });
         }
     },
-    handleFieldChange(e, elementId) {
+    handleFieldChange(e, payload) {
         const { changedFields } = this.state;
-        changedFields[elementId] = e.currentTarget.value;
+        if (payload.type=="checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.id] = payload.value;
+        }
         this.setState({
             ... this.state,
             changedFields
@@ -63,6 +67,7 @@ const CharacterForm = React.createClass({
         }
     },
     render() {
+        const { handleFieldChange } = this;
         const { id, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, characterPostSchema);
@@ -78,32 +83,32 @@ const CharacterForm = React.createClass({
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
 
-                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ (e) => this.handleFieldChange(e, 'name') } value={ inputFields.name || '' } required={ true }/>
+                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
                     <Image shape="circular" size="large" centered={ true } src={ inputFields.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
-                    <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ (e) => this.handleFieldChange(e, 'avatar_image_url') } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
+                    <Form.Input label="Avatar Image URL" placeholder="https://image.com/image.jpg" id="avatar_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.avatar_image_url || '' } icon='image' iconPosition='left' />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('avatar_image_url', errors)} />
 
                     <Form.Group>
-                        <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ (e) => this.handleFieldChange(e, 'occupation') } value={ inputFields.occupation || '' } width={ 8 } />
+                        <Form.Input label="Occupation" placeholder="Occupation" id="occupation" type="text" onChange={ handleFieldChange } value={ inputFields.occupation || '' } width={ 8 } />
                         <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('occupation', errors)} />
-                        <Form.Input label="Gender" placeholder="Gender" id="gender" type="text" onChange={ (e) => this.handleFieldChange(e, 'gender') } value={ inputFields.gender || '' }  width={ 8 } />
+                        <Form.Input label="Gender" placeholder="Gender" id="gender" type="text" onChange={ handleFieldChange } value={ inputFields.gender || '' }  width={ 8 } />
                         <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('gender', errors)} />
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ (e) => this.handleFieldChange(e, 'age') } value={ inputFields.age || '' } width={ 3 } />
+                        <Form.Input label="Age" placeholder="Age" id="age" type="text" onChange={ handleFieldChange } value={ inputFields.age || '' } width={ 3 } />
                         <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('age', errors)} />
 
-                        <Form.Input label="Location" placeholder="Location" id="location" type="text" onChange={ (e) => this.handleFieldChange(e, 'location') } value={ inputFields.location || '' } width={ 13 } icon='location arrow' iconPosition='left' />
+                        <Form.Input label="Location" placeholder="Location" id="location" type="text" onChange={ handleFieldChange } value={ inputFields.location || '' } width={ 13 } icon='location arrow' iconPosition='left' />
                         <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('location', errors)} />
                     </Form.Group>
 
-                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ (e) => this.handleFieldChange(e, 'description') } value={ inputFields.description || '' } autoHeight={ true }/>
+                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                    <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ this.handleFieldChange }/>
+                    <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 
                     <Container textAlign="right">

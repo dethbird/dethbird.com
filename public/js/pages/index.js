@@ -36250,8 +36250,9 @@ var ProjectCard = _react2.default.createClass({
                     null,
                     _react2.default.createElement(
                         _semanticUiReact.Label,
-                        { color: 'yellow', size: 'small' },
+                        { color: 'teal', size: 'small' },
                         subgenre.genre.name,
+                        ':',
                         _react2.default.createElement(
                             _semanticUiReact.Label.Detail,
                             null,
@@ -36274,7 +36275,7 @@ var ProjectCard = _react2.default.createClass({
             { onClick: function onClick(e) {
                     _reactRouter.browserHistory.push('/project/' + project.id + '/edit');
                 } },
-            _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', src: project.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
+            _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', src: project.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
                 null,
@@ -36291,7 +36292,7 @@ var ProjectCard = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
-                null,
+                { extra: true },
                 _react2.default.createElement(
                     _semanticUiReact.Grid,
                     null,
@@ -36367,7 +36368,7 @@ var TagEditor = _react2.default.createClass({
             newTag: e.currentTarget.value
         }));
     },
-    addTag: function addTag() {
+    addTag: function addTag(e) {
         var _state = this.state,
             tags = _state.tags,
             newTag = _state.newTag;
@@ -36382,12 +36383,10 @@ var TagEditor = _react2.default.createClass({
                 newTag: null
             });
 
-            var e = {
-                currentTarget: {
-                    value: JSON.stringify(newTags)
-                }
-            };
-            onChange(e, 'tags');
+            onChange(e, {
+                id: 'tags',
+                value: JSON.stringify(newTags)
+            });
         }
     },
     removeTag: function removeTag(tag) {
@@ -36404,12 +36403,10 @@ var TagEditor = _react2.default.createClass({
             newTag: null
         });
 
-        var e = {
-            currentTarget: {
-                value: JSON.stringify(newTags)
-            }
-        };
-        onChange(e, 'tags');
+        onChange(null, {
+            id: 'tags',
+            value: JSON.stringify(newTags)
+        });
     },
     render: function render() {
         var removeTag = this.removeTag;
@@ -65016,10 +65013,14 @@ var CharacterForm = _react2.default.createClass({
             }));
         }
     },
-    handleFieldChange: function handleFieldChange(e, elementId) {
+    handleFieldChange: function handleFieldChange(e, payload) {
         var changedFields = this.state.changedFields;
 
-        changedFields[elementId] = e.currentTarget.value;
+        if (payload.type == "checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.id] = payload.value;
+        }
         this.setState(_extends({}, this.state, {
             changedFields: changedFields
         }));
@@ -65037,8 +65038,7 @@ var CharacterForm = _react2.default.createClass({
         }
     },
     render: function render() {
-        var _this = this;
-
+        var handleFieldChange = this.handleFieldChange;
         var _props2 = this.props,
             id = _props2.id,
             ui_state = _props2.ui_state,
@@ -65064,44 +65064,30 @@ var CharacterForm = _react2.default.createClass({
                     null,
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
                 ),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'name');
-                    }, value: inputFields.name || '', required: true }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: handleFieldChange, value: inputFields.name || '', required: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
                 _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', size: 'large', centered: true, src: inputFields.avatar_image_url || 'https://myspace.com/common/images/user.png' }),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Avatar Image URL', placeholder: 'https://image.com/image.jpg', id: 'avatar_image_url', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'avatar_image_url');
-                    }, value: inputFields.avatar_image_url || '', icon: 'image', iconPosition: 'left' }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Avatar Image URL', placeholder: 'https://image.com/image.jpg', id: 'avatar_image_url', type: 'text', onChange: handleFieldChange, value: inputFields.avatar_image_url || '', icon: 'image', iconPosition: 'left' }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('avatar_image_url', errors) }),
                 _react2.default.createElement(
                     _semanticUiReact.Form.Group,
                     null,
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Occupation', placeholder: 'Occupation', id: 'occupation', type: 'text', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'occupation');
-                        }, value: inputFields.occupation || '', width: 8 }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Occupation', placeholder: 'Occupation', id: 'occupation', type: 'text', onChange: handleFieldChange, value: inputFields.occupation || '', width: 8 }),
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('occupation', errors) }),
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Gender', placeholder: 'Gender', id: 'gender', type: 'text', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'gender');
-                        }, value: inputFields.gender || '', width: 8 }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Gender', placeholder: 'Gender', id: 'gender', type: 'text', onChange: handleFieldChange, value: inputFields.gender || '', width: 8 }),
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('gender', errors) })
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Form.Group,
                     null,
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Age', placeholder: 'Age', id: 'age', type: 'text', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'age');
-                        }, value: inputFields.age || '', width: 3 }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Age', placeholder: 'Age', id: 'age', type: 'text', onChange: handleFieldChange, value: inputFields.age || '', width: 3 }),
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('age', errors) }),
-                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Location', placeholder: 'Location', id: 'location', type: 'text', onChange: function onChange(e) {
-                            return _this.handleFieldChange(e, 'location');
-                        }, value: inputFields.location || '', width: 13, icon: 'location arrow', iconPosition: 'left' }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Location', placeholder: 'Location', id: 'location', type: 'text', onChange: handleFieldChange, value: inputFields.location || '', width: 13, icon: 'location arrow', iconPosition: 'left' }),
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('location', errors) })
                 ),
-                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'description');
-                    }, value: inputFields.description || '', autoHeight: true }),
+                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: handleFieldChange, value: inputFields.description || '', autoHeight: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Tags', placeholder: 'Tags', id: 'tags', control: _tagEditor2.default, tagsArrayAsJson: inputFields.tags || '', onChange: this.handleFieldChange }),
+                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Tags', placeholder: 'Tags', id: 'tags', control: _tagEditor2.default, tagsArrayAsJson: inputFields.tags || '', onChange: handleFieldChange }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('tags', errors) }),
                 _react2.default.createElement(
                     _semanticUiReact.Container,
@@ -65366,10 +65352,14 @@ var ProjectForm = _react2.default.createClass({
             }));
         }
     },
-    handleFieldChange: function handleFieldChange(e, elementId) {
+    handleFieldChange: function handleFieldChange(e, payload) {
         var changedFields = this.state.changedFields;
 
-        changedFields[elementId] = e.currentTarget.value;
+        if (payload.type == "checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.id] = payload.value;
+        }
         this.setState(_extends({}, this.state, {
             changedFields: changedFields
         }));
@@ -65387,8 +65377,7 @@ var ProjectForm = _react2.default.createClass({
         }
     },
     render: function render() {
-        var _this = this;
-
+        var handleFieldChange = this.handleFieldChange;
         var _props2 = this.props,
             id = _props2.id,
             ui_state = _props2.ui_state,
@@ -65414,21 +65403,14 @@ var ProjectForm = _react2.default.createClass({
                     null,
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
                 ),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'name');
-                    }, value: inputFields.name || '', required: true }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: handleFieldChange, value: inputFields.name || '', required: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('name', errors) }),
-                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', size: 'large', centered: true, src: inputFields.avatar_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Header Image URL', placeholder: 'https://image.com/image.jpg', id: 'avatar_image_url', type: 'text', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'avatar_image_url');
-                    }, value: inputFields.avatar_image_url || '', icon: 'image', iconPosition: 'left' }),
-                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('avatar_image_url', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: function onChange(e) {
-                        return _this.handleFieldChange(e, 'description');
-                    }, value: inputFields.description || '', autoHeight: true }),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', size: 'large', centered: true, src: inputFields.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Header Image URL', placeholder: 'https://image.com/image.jpg', id: 'header_image_url', type: 'text', onChange: handleFieldChange, value: inputFields.header_image_url || '', icon: 'image', iconPosition: 'left' }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('header_image_url', errors) }),
+                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: handleFieldChange, value: inputFields.description || '', autoHeight: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Genres', placeholder: 'Genres', control: _tagEditor2.default, onChange: this.handleFieldChange }),
-                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Tags', placeholder: 'Tags', id: 'tags', control: _tagEditor2.default, tagsArrayAsJson: inputFields.tags || '', onChange: this.handleFieldChange }),
+                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Tags', placeholder: 'Tags', id: 'tags', control: _tagEditor2.default, tagsArrayAsJson: inputFields.tags || '', onChange: handleFieldChange }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('tags', errors) }),
                 _react2.default.createElement(
                     _semanticUiReact.Container,
