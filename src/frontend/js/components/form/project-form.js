@@ -12,11 +12,13 @@ import {
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
-import TagEditor from 'components/ui/form/tag-editor';
 import { UI_STATE } from 'constants/ui-state';
 import { projectGet, projectPut, projectPost } from 'actions/project';
 import projectPostSchema from 'validation_schema/project-post.json';
 import * as jsonSchema from 'utility/json-schema';
+
+import TagEditor from 'components/ui/form/tag-editor';
+import ProjectSubgenreInput from 'components/ui/form/input/project-subgenre-input';
 
 
 const ProjectForm = React.createClass({
@@ -57,7 +59,8 @@ const ProjectForm = React.createClass({
             changedFields
         });
     },
-    onClickSubmit() {
+    onClickSubmit(e) {
+        e.preventDefault();
         const { id, dispatch } = this.props;
         const { changedFields } = this.state;
         if (id) {
@@ -71,13 +74,18 @@ const ProjectForm = React.createClass({
         const { id, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, projectPostSchema);
+
+        console.log(inputFields);
+        console.log(model);
+        console.log(changedFields);
+
         return (
             <Container text={ true }>
                 <Form
-                    size="large"
                     loading={ ui_state == UI_STATE.REQUESTING }
                     error={ ui_state == UI_STATE.ERROR }
                     success={ ui_state == UI_STATE.SUCCESS }
+                    onSubmit={ this.onClickSubmit }
                 >
                     <Container>
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
@@ -93,12 +101,16 @@ const ProjectForm = React.createClass({
                     <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
+                    <Form.Field label="Genres" placeholder="Genres" id="subgenres" control={ ProjectSubgenreInput }  subgenres={ inputFields.subgenres || [] } onChange={ handleFieldChange }/>
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
+
                     <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 
-                    <Container textAlign="right">
+                    <Form.Field>
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> { id ? "Save" : "Create" }</Button>
-                    </Container>
+                    </Form.Field>
+
                 </Form>
             </Container>
         )

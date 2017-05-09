@@ -5,7 +5,8 @@ import {
     Divider,
     Icon,
     Input,
-    Label
+    Label,
+    List
 } from 'semantic-ui-react';
 
 const TagEditor = React.createClass({
@@ -72,13 +73,19 @@ const TagEditor = React.createClass({
         const { tags, newTag } = this.state;
         const tagNodes = tags.map(function(tag, i){
             return (
-                <Label color="teal" tag={ true } size="large" key={ i }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
+                <List.Item key={ i } >
+                    <List.Content>
+                        <Label color="teal" tag={ true }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
+                    </List.Content>
+                </List.Item>
             );
         });
 
         return (
             <Container>
-                { tagNodes }
+                <List horizontal>
+                    { tagNodes }
+                </List>
                 <Divider clearing={ true } hidden/>
                 <Input
                     placeholder="New tag"

@@ -36416,16 +36416,24 @@ var TagEditor = _react2.default.createClass({
 
         var tagNodes = tags.map(function (tag, i) {
             return _react2.default.createElement(
-                _semanticUiReact.Label,
-                { color: 'teal', tag: true, size: 'large', key: i },
-                tag,
-                ' ',
+                _semanticUiReact.List.Item,
+                { key: i },
                 _react2.default.createElement(
-                    'a',
+                    _semanticUiReact.List.Content,
                     null,
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'trash', onClick: function onClick(e) {
-                            removeTag(tag);
-                        } })
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { color: 'teal', tag: true },
+                        tag,
+                        ' ',
+                        _react2.default.createElement(
+                            'a',
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'trash', onClick: function onClick(e) {
+                                    removeTag(tag);
+                                } })
+                        )
+                    )
                 )
             );
         });
@@ -36433,7 +36441,11 @@ var TagEditor = _react2.default.createClass({
         return _react2.default.createElement(
             _semanticUiReact.Container,
             null,
-            tagNodes,
+            _react2.default.createElement(
+                _semanticUiReact.List,
+                { horizontal: true },
+                tagNodes
+            ),
             _react2.default.createElement(_semanticUiReact.Divider, { clearing: true, hidden: true }),
             _react2.default.createElement(_semanticUiReact.Input, {
                 placeholder: 'New tag',
@@ -65304,10 +65316,6 @@ var _errorMessage = __webpack_require__(69);
 
 var _errorMessage2 = _interopRequireDefault(_errorMessage);
 
-var _tagEditor = __webpack_require__(278);
-
-var _tagEditor2 = _interopRequireDefault(_tagEditor);
-
 var _uiState = __webpack_require__(15);
 
 var _project = __webpack_require__(170);
@@ -65319,6 +65327,14 @@ var _projectPost2 = _interopRequireDefault(_projectPost);
 var _jsonSchema = __webpack_require__(71);
 
 var jsonSchema = _interopRequireWildcard(_jsonSchema);
+
+var _tagEditor = __webpack_require__(278);
+
+var _tagEditor2 = _interopRequireDefault(_tagEditor);
+
+var _projectSubgenreInput = __webpack_require__(1154);
+
+var _projectSubgenreInput2 = _interopRequireDefault(_projectSubgenreInput);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -65364,7 +65380,8 @@ var ProjectForm = _react2.default.createClass({
             changedFields: changedFields
         }));
     },
-    onClickSubmit: function onClickSubmit() {
+    onClickSubmit: function onClickSubmit(e) {
+        e.preventDefault();
         var _props = this.props,
             id = _props.id,
             dispatch = _props.dispatch;
@@ -65387,16 +65404,21 @@ var ProjectForm = _react2.default.createClass({
             model = _state.model;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _projectPost2.default);
+
+        console.log(inputFields);
+        console.log(model);
+        console.log(changedFields);
+
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
             _react2.default.createElement(
                 _semanticUiReact.Form,
                 {
-                    size: 'large',
                     loading: ui_state == _uiState.UI_STATE.REQUESTING,
                     error: ui_state == _uiState.UI_STATE.ERROR,
-                    success: ui_state == _uiState.UI_STATE.SUCCESS
+                    success: ui_state == _uiState.UI_STATE.SUCCESS,
+                    onSubmit: this.onClickSubmit
                 },
                 _react2.default.createElement(
                     _semanticUiReact.Container,
@@ -65410,11 +65432,13 @@ var ProjectForm = _react2.default.createClass({
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('header_image_url', errors) }),
                 _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Description', id: 'description', onChange: handleFieldChange, value: inputFields.description || '', autoHeight: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('description', errors) }),
+                _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Genres', placeholder: 'Genres', id: 'subgenres', control: _projectSubgenreInput2.default, subgenres: inputFields.subgenres || [], onChange: handleFieldChange }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('tags', errors) }),
                 _react2.default.createElement(_semanticUiReact.Form.Field, { label: 'Tags', placeholder: 'Tags', id: 'tags', control: _tagEditor2.default, tagsArrayAsJson: inputFields.tags || '', onChange: handleFieldChange }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('tags', errors) }),
                 _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    { textAlign: 'right' },
+                    _semanticUiReact.Form.Field,
+                    null,
                     _react2.default.createElement(
                         _semanticUiReact.Button,
                         { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
@@ -106030,6 +106054,88 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _underscore = __webpack_require__(67);
+
+var _ = _interopRequireWildcard(_underscore);
+
+var _semanticUiReact = __webpack_require__(7);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProjectSubgenreInput = _react2.default.createClass({
+    displayName: 'ProjectSubgenreInput',
+
+    propTypes: {
+        subgenres: _react2.default.PropTypes.array
+    },
+    renderGenreLabels: function renderGenreLabels() {
+        var subgenres = this.props.subgenres;
+
+        if (subgenres.length == 0) return null;
+
+        var nodes = subgenres.map(function (subgenre, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { color: 'teal' },
+                        subgenre.genre.name,
+                        ':',
+                        _react2.default.createElement(
+                            _semanticUiReact.Label.Detail,
+                            null,
+                            subgenre.name
+                        )
+                    )
+                )
+            );
+        });
+        nodes.push(_react2.default.createElement(
+            _semanticUiReact.List.Item,
+            { key: nodes.length },
+            _react2.default.createElement(
+                _semanticUiReact.List.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini' })
+            )
+        ));
+        return nodes;
+    },
+    render: function render() {
+        var renderGenreLabels = this.renderGenreLabels;
+        var subgenres = this.props.subgenres;
+
+        return _react2.default.createElement(
+            _semanticUiReact.List,
+            { horizontal: true },
+            renderGenreLabels()
+        );
+    }
+});
+
+exports.default = ProjectSubgenreInput;
 
 /***/ })
 /******/ ]);
