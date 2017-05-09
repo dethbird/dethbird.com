@@ -99,3 +99,10 @@ export const projectPost = (fields) =>
                 }
         });
     };
+
+export const projectReset = () => {
+    return {
+        type: PROJECT.RESET,
+        model: null
+    }
+}

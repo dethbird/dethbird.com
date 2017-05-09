@@ -6267,6 +6267,7 @@ var PROJECTS = exports.PROJECTS = {
 };
 
 var PROJECT = exports.PROJECT = {
+    RESET: "PROJECT_RESET",
     REQUEST: "PROJECT_REQUEST",
     ERROR: "PROJECT_ERROR",
     SUCCESS: "PROJECT_SUCCESS"
@@ -28042,7 +28043,7 @@ var characterPost = exports.characterPost = function characterPost(fields) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.projectPost = exports.projectPut = exports.projectGet = exports.projectsGet = undefined;
+exports.projectReset = exports.projectPost = exports.projectPut = exports.projectGet = exports.projectsGet = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -28146,6 +28147,13 @@ var projectPost = exports.projectPost = function projectPost(fields) {
                 dispatch(projectRequestError(res.body));
             }
         });
+    };
+};
+
+var projectReset = exports.projectReset = function projectReset() {
+    return {
+        type: _actions.PROJECT.RESET,
+        model: null
     };
 };
 
@@ -65402,12 +65410,18 @@ var ProjectForm = _react2.default.createClass({
         var dispatch = this.props.dispatch;
         var id = this.props.id;
 
+
         if (id) {
             dispatch((0, _project.projectGet)(id));
         }
     },
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        if (nextProps.model !== undefined) {
+        if (nextProps.id == undefined) {
+            this.setState(_extends({}, this.state, {
+                model: undefined,
+                changedFields: {}
+            }));
+        } else if (nextProps.model !== undefined) {
             this.setState(_extends({}, this.state, {
                 model: nextProps.model,
                 changedFields: {}
@@ -65415,7 +65429,6 @@ var ProjectForm = _react2.default.createClass({
         }
     },
     handleFieldChange: function handleFieldChange(e, payload) {
-        console.log(payload);
         var changedFields = this.state.changedFields;
 
         if (payload.type == "checkbox") {
@@ -65451,10 +65464,6 @@ var ProjectForm = _react2.default.createClass({
             model = _state.model;
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _projectPost2.default);
-
-        // console.log(inputFields);
-        // console.log(model);
-        // console.log(changedFields);
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
@@ -68840,6 +68849,11 @@ var projectReducer = function projectReducer() {
         case _actions.PROJECT.SUCCESS:
             return {
                 ui_state: _uiState.UI_STATE.SUCCESS,
+                model: action.model
+            };
+        case _actions.PROJECT.RESET:
+            return {
+                ui_state: _uiState.UI_STATE.INITIALIZING,
                 model: action.model
             };
         default:

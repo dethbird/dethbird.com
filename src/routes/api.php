@@ -336,11 +336,49 @@ $app->group('/api/0.1', function(){
     $this->post('/project', function($request, $response, $args){
         $params = $request->getParsedBody();
         $params['created_by'] = $_SESSION['securityContext']->id;
-        $model = new Project($params);
+        $attributes = $params;
+        unset($attributes['subgenres']);
+        $model = new Project($attributes);
         $model->save();
 
+        # delete then add subgenres
+        if (isset($params['subgenres'])) {
+            foreach ($params['subgenres'] as $k => $subgenre) {
+                $ps = new ProjectSubgenre();
+                $ps->project_id = $model->id;
+                $ps->subgenre_id = $subgenre['id'];
+                $ps->save();
+            }
+        }
+
+        $a = $model->to_array();
+
+        # stories
+        $stories = Story::find_all_by_project_id($model->id);
+        $_arr_stories = [];
+        foreach($stories as $story) {
+            $_s = $story->to_array();
+            $_arr_stories[] = $_s;
+        }
+        $a['stories'] = $_arr_stories;
+
+        # genres
+        $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
+        $_projectSubgenres = [];
+        foreach($projectSubgenres as $ps) {
+
+            $subgenre = Subgenre::find_by_id($ps->subgenre_id);
+            $genre = Genre::find_by_id($subgenre->genre_id);
+
+            $_subgenre = $subgenre->to_array();
+            $_subgenre['genre'] = $genre->to_array();
+
+            $_projectSubgenres[] = $_subgenre;
+        }
+        $a['subgenres'] = $_projectSubgenres;
+
         return $response
-            ->withJson($model->to_array());
+            ->withJson($a);
     })
     ->add( new WriteAccess($_SESSION['securityContext']) )
     ->add( new RequestBodyValidation(

@@ -49,6 +49,7 @@ export const PROJECTS = {
 };
 
 export const PROJECT = {
+    RESET: "PROJECT_RESET",
     REQUEST: "PROJECT_REQUEST",
     ERROR: "PROJECT_ERROR",
     SUCCESS: "PROJECT_SUCCESS"

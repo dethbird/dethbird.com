@@ -18,6 +18,11 @@ const projectReducer = (state = {}, action) => {
                 ui_state: UI_STATE.SUCCESS,
                 model: action.model
             }
+        case PROJECT.RESET:
+            return {
+                ui_state: UI_STATE.INITIALIZING,
+                model: action.model
+            }
         default:
             return state;
     }

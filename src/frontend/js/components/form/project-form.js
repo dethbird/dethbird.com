@@ -13,7 +13,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
-import { projectGet, projectPut, projectPost } from 'actions/project';
+import { projectGet, projectPut, projectPost, projectReset } from 'actions/project';
 import projectPostSchema from 'validation_schema/project-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
@@ -34,12 +34,19 @@ const ProjectForm = React.createClass({
     componentWillMount() {
         const { dispatch } = this.props;
         const { id } = this.props;
+
         if (id) {
             dispatch(projectGet(id));
         }
     },
     componentWillReceiveProps(nextProps){
-        if(nextProps.model!==undefined) {
+        if(nextProps.id==undefined) {
+            this.setState({
+                 ... this.state,
+                 model: undefined,
+                 changedFields: {}
+            });
+        } else if(nextProps.model!==undefined) {
             this.setState({
                  ... this.state,
                  model: nextProps.model,
@@ -48,7 +55,6 @@ const ProjectForm = React.createClass({
         }
     },
     handleFieldChange(e, payload) {
-        console.log(payload);
         const { changedFields } = this.state;
         if (payload.type=="checkbox") {
             changedFields[payload.id] = payload.checked;
@@ -75,10 +81,6 @@ const ProjectForm = React.createClass({
         const { id, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, projectPostSchema);
-
-        // console.log(inputFields);
-        // console.log(model);
-        // console.log(changedFields);
 
         return (
             <Container text={ true }>
