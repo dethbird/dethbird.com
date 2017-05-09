@@ -6247,6 +6247,12 @@ var CONTACT = exports.CONTACT = {
     SUCCESS: "CONTACT_SUCCESS"
 };
 
+var GENRES = exports.GENRES = {
+    REQUEST: "GENRES_REQUEST",
+    ERROR: "GENRES_ERROR",
+    SUCCESS: "GENRES_SUCCESS"
+};
+
 var PRIVATEBETA = exports.PRIVATEBETA = {
     RESET: "PRIVATEBETA_RESET",
     REQUEST: "PRIVATEBETA_REQUEST",
@@ -68605,6 +68611,15 @@ Object.defineProperty(exports, 'contactReducer', {
   }
 });
 
+var _genres = __webpack_require__(1157);
+
+Object.defineProperty(exports, 'genresReducer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_genres).default;
+  }
+});
+
 var _newsfeed = __webpack_require__(676);
 
 Object.defineProperty(exports, 'newsfeedReducer', {
@@ -106113,6 +106128,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(28);
+
 var _reactGa = __webpack_require__(118);
 
 var _reactGa2 = _interopRequireDefault(_reactGa);
@@ -106122,6 +106139,10 @@ var _underscore = __webpack_require__(67);
 var _ = _interopRequireWildcard(_underscore);
 
 var _semanticUiReact = __webpack_require__(7);
+
+var _uiState = __webpack_require__(15);
+
+var _genre = __webpack_require__(1156);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -106137,6 +106158,11 @@ var ProjectSubgenreInput = _react2.default.createClass({
 
     propTypes: {
         subgenres: _react2.default.PropTypes.array
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _genre.genresGet)());
     },
     toggleModalVisible: function toggleModalVisible(e) {
         e.preventDefault();
@@ -106185,8 +106211,59 @@ var ProjectSubgenreInput = _react2.default.createClass({
         ));
         return nodes;
     },
+    renderGenres: function renderGenres() {
+        var renderSubgenres = this.renderSubgenres;
+        var models = this.props.models;
+
+        if (!models) return null;
+
+        var nodes = models.map(function (genre, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Header,
+                        { as: 'h3' },
+                        genre.name
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.List,
+                        { horizontal: true },
+                        renderSubgenres(genre.subgenres)
+                    )
+                )
+            );
+        });
+
+        return nodes;
+    },
+    renderSubgenres: function renderSubgenres(subgenres) {
+        if (!subgenres) return null;
+
+        var nodes = subgenres.map(function (subgenre, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { size: 'small' },
+                        subgenre.name
+                    )
+                )
+            );
+        });
+
+        return nodes;
+    },
     render: function render() {
         var renderGenreLabels = this.renderGenreLabels,
+            renderGenres = this.renderGenres,
             toggleModalVisible = this.toggleModalVisible;
         var subgenres = this.props.subgenres;
         var modalVisible = this.state.modalVisible;
@@ -106201,18 +106278,133 @@ var ProjectSubgenreInput = _react2.default.createClass({
             ),
             _react2.default.createElement(
                 _semanticUiReact.Modal,
-                { open: modalVisible, dimmer: 'blurring', onClose: toggleModalVisible },
+                { open: modalVisible, dimmer: 'blurring', onClose: toggleModalVisible, size: 'small' },
                 _react2.default.createElement(
                     _semanticUiReact.Modal.Content,
                     null,
-                    'Farts'
+                    _react2.default.createElement(
+                        _semanticUiReact.List,
+                        { divided: true },
+                        renderGenres()
+                    )
                 )
             )
         );
     }
 });
 
-exports.default = ProjectSubgenreInput;
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$genresReducer = state.genresReducer,
+        ui_state = _state$genresReducer.ui_state,
+        errors = _state$genresReducer.errors,
+        models = _state$genresReducer.models;
+
+    return {
+        ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
+        errors: errors,
+        models: models
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProjectSubgenreInput);
+
+/***/ }),
+/* 1155 */,
+/* 1156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.genresGet = undefined;
+
+var _superagent = __webpack_require__(66);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _reactRouter = __webpack_require__(21);
+
+var _actions = __webpack_require__(23);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var genresRequestInit = function genresRequestInit() {
+    return {
+        type: _actions.GENRES.REQUEST
+    };
+};
+
+var genresRequestSuccess = function genresRequestSuccess(models) {
+    return {
+        type: _actions.GENRES.SUCCESS,
+        models: models
+    };
+};
+
+var genresRequestError = function genresRequestError(errors) {
+    return {
+        type: _actions.GENRES.ERROR,
+        errors: errors
+    };
+};
+
+var genresGet = exports.genresGet = function genresGet() {
+    return function (dispatch) {
+        dispatch(genresRequestInit());
+        _superagent2.default.get('/api/0.1/genres').end(function (err, res) {
+            if (res.ok) {
+                dispatch(genresRequestSuccess(res.body));
+            } else {
+                dispatch(genresRequestError(res.body));
+            }
+        });
+    };
+};
+
+/***/ }),
+/* 1157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__(23);
+
+var _uiState = __webpack_require__(15);
+
+var genresReducer = function genresReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case _actions.GENRES.REQUEST:
+            return {
+                ui_state: _uiState.UI_STATE.REQUESTING
+            };
+        case _actions.GENRES.ERROR:
+            return {
+                ui_state: _uiState.UI_STATE.ERROR,
+                errors: action.errors
+            };
+        case _actions.GENRES.SUCCESS:
+            return {
+                ui_state: _uiState.UI_STATE.SUCCESS,
+                models: action.models
+            };
+        default:
+            return state;
+    }
+};
+
+exports.default = genresReducer;
 
 /***/ })
 /******/ ]);
