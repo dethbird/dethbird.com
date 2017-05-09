@@ -68,7 +68,7 @@ const TagEditor = React.createClass({
 
             setTimeout(function(){
                 toggleModalVisible(new Event('addTag'));
-            }, 100)
+            }, 10)
         }
     },
     removeTag(tag) {

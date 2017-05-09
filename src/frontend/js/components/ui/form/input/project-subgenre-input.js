@@ -6,6 +6,7 @@ import {
     Button,
     Container,
     Header,
+    Icon,
     Label,
     List,
     Modal
@@ -39,6 +40,7 @@ const ProjectSubgenreInput = React.createClass({
         });
     },
     handleSelectGenre(e, payload) {
+        const { toggleModalVisible } = this;
         const { onChange, subgenres } = this.props;
 
         subgenres.push(payload);
@@ -46,12 +48,32 @@ const ProjectSubgenreInput = React.createClass({
             id: 'subgenres',
             value: subgenres
         });
+        setTimeout(function(){
+            toggleModalVisible(new Event('handleSelectGenre'));
+        }, 10)
+    },
+    removeSubgenre(subgenreId) {
+        const { subgenres, onChange } = this.props;
+
+        const newSubgenres = _.filter(subgenres, function(subgenre){
+            return subgenre.id != subgenreId
+        });
+        onChange(null, {
+            id: 'subgenres',
+            value: newSubgenres
+        });
     },
     renderGenreLabels() {
-        const { toggleModalVisible } = this;
+        const { toggleModalVisible, removeSubgenre } = this;
         const { subgenres } = this.props;
         if (subgenres.length==0)
-            return null;
+            return (
+                <List.Item>
+                    <List.Content>
+                        <Button icon='add' size='mini' onClick={ toggleModalVisible }/>
+                    </List.Content>
+                </List.Item>
+            );
 
         const nodes = subgenres.map(function(subgenre, i){
             return (
@@ -59,7 +81,7 @@ const ProjectSubgenreInput = React.createClass({
                     <List.Content>
                         <Label color='teal' size='large'>
                             { subgenre.genre.name }:
-                            <Label.Detail>{ subgenre.name }</Label.Detail>
+                            <Label.Detail>{ subgenre.name } <Icon name="trash" onClick={ (e) => { removeSubgenre(subgenre.id) } }/></Label.Detail>
                         </Label>
                     </List.Content>
                 </List.Item>

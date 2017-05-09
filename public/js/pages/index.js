@@ -36412,7 +36412,7 @@ var TagEditor = _react2.default.createClass({
 
             setTimeout(function () {
                 toggleModalVisible(new Event('addTag'));
-            }, 100);
+            }, 10);
         }
     },
     removeTag: function removeTag(tag) {
@@ -106176,6 +106176,7 @@ var ProjectSubgenreInput = _react2.default.createClass({
         }));
     },
     handleSelectGenre: function handleSelectGenre(e, payload) {
+        var toggleModalVisible = this.toggleModalVisible;
         var _props = this.props,
             onChange = _props.onChange,
             subgenres = _props.subgenres;
@@ -106186,12 +106187,38 @@ var ProjectSubgenreInput = _react2.default.createClass({
             id: 'subgenres',
             value: subgenres
         });
+        setTimeout(function () {
+            toggleModalVisible(new Event('handleSelectGenre'));
+        }, 10);
+    },
+    removeSubgenre: function removeSubgenre(subgenreId) {
+        var _props2 = this.props,
+            subgenres = _props2.subgenres,
+            onChange = _props2.onChange;
+
+
+        var newSubgenres = _.filter(subgenres, function (subgenre) {
+            return subgenre.id != subgenreId;
+        });
+        onChange(null, {
+            id: 'subgenres',
+            value: newSubgenres
+        });
     },
     renderGenreLabels: function renderGenreLabels() {
-        var toggleModalVisible = this.toggleModalVisible;
+        var toggleModalVisible = this.toggleModalVisible,
+            removeSubgenre = this.removeSubgenre;
         var subgenres = this.props.subgenres;
 
-        if (subgenres.length == 0) return null;
+        if (subgenres.length == 0) return _react2.default.createElement(
+            _semanticUiReact.List.Item,
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.List.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini', onClick: toggleModalVisible })
+            )
+        );
 
         var nodes = subgenres.map(function (subgenre, i) {
             return _react2.default.createElement(
@@ -106208,7 +106235,11 @@ var ProjectSubgenreInput = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Label.Detail,
                             null,
-                            subgenre.name
+                            subgenre.name,
+                            ' ',
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'trash', onClick: function onClick(e) {
+                                    removeSubgenre(subgenre.id);
+                                } })
                         )
                     )
                 )

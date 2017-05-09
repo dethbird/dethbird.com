@@ -765,6 +765,9 @@ h6 {
 .hidden.menu {
   display: none;
 }
+i.trash {
+  cursor: pointer;
+}
 .external-header {
   min-height: 165px;
   padding: .5em 0em;
