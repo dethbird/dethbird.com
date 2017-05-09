@@ -65415,6 +65415,7 @@ var ProjectForm = _react2.default.createClass({
         }
     },
     handleFieldChange: function handleFieldChange(e, payload) {
+        console.log(payload);
         var changedFields = this.state.changedFields;
 
         if (payload.type == "checkbox") {
@@ -65451,9 +65452,9 @@ var ProjectForm = _react2.default.createClass({
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _projectPost2.default);
 
-        console.log(inputFields);
-        console.log(model);
-        console.log(changedFields);
+        // console.log(inputFields);
+        // console.log(model);
+        // console.log(changedFields);
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
@@ -106157,7 +106158,8 @@ var ProjectSubgenreInput = _react2.default.createClass({
     },
 
     propTypes: {
-        subgenres: _react2.default.PropTypes.array
+        subgenres: _react2.default.PropTypes.array,
+        onChange: _react2.default.PropTypes.func.isRequired
     },
     componentWillMount: function componentWillMount() {
         var dispatch = this.props.dispatch;
@@ -106172,6 +106174,18 @@ var ProjectSubgenreInput = _react2.default.createClass({
         this.setState(_extends({}, this.state, {
             modalVisible: !this.state.modalVisible
         }));
+    },
+    handleSelectGenre: function handleSelectGenre(e, payload) {
+        var _props = this.props,
+            onChange = _props.onChange,
+            subgenres = _props.subgenres;
+
+
+        subgenres.push(payload);
+        onChange(e, {
+            id: 'subgenres',
+            value: subgenres
+        });
     },
     renderGenreLabels: function renderGenreLabels() {
         var toggleModalVisible = this.toggleModalVisible;
@@ -106232,7 +106246,7 @@ var ProjectSubgenreInput = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.List,
                         { horizontal: true },
-                        renderSubgenres(genre.subgenres)
+                        renderSubgenres(genre)
                     )
                 )
             );
@@ -106240,10 +106254,17 @@ var ProjectSubgenreInput = _react2.default.createClass({
 
         return nodes;
     },
-    renderSubgenres: function renderSubgenres(subgenres) {
-        if (!subgenres) return null;
+    renderSubgenres: function renderSubgenres(genre) {
+        var handleSelectGenre = this.handleSelectGenre;
 
-        var nodes = subgenres.map(function (subgenre, i) {
+
+        if (!genre.subgenres) return null;
+
+        var nodes = genre.subgenres.map(function (subgenre, i) {
+            subgenre.genre = {
+                id: genre.id,
+                name: genre.name
+            };
             return _react2.default.createElement(
                 _semanticUiReact.List.Item,
                 { key: i },
@@ -106252,7 +106273,9 @@ var ProjectSubgenreInput = _react2.default.createClass({
                     null,
                     _react2.default.createElement(
                         _semanticUiReact.Button,
-                        { size: 'small' },
+                        { size: 'small', onClick: function onClick(e) {
+                                handleSelectGenre(e, subgenre);
+                            } },
                         subgenre.name
                     )
                 )

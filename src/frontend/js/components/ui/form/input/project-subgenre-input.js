@@ -21,7 +21,8 @@ const ProjectSubgenreInput = React.createClass({
         }
     },
     propTypes: {
-        subgenres: React.PropTypes.array
+        subgenres: React.PropTypes.array,
+        onChange: React.PropTypes.func.isRequired
     },
     componentWillMount() {
         const { dispatch } = this.props;
@@ -35,6 +36,15 @@ const ProjectSubgenreInput = React.createClass({
         this.setState({
             ... this.state,
             modalVisible: !this.state.modalVisible
+        });
+    },
+    handleSelectGenre(e, payload) {
+        const { onChange, subgenres } = this.props;
+
+        subgenres.push(payload);
+        onChange(e, {
+            id: 'subgenres',
+            value: subgenres
         });
     },
     renderGenreLabels() {
@@ -77,7 +87,7 @@ const ProjectSubgenreInput = React.createClass({
                     <List.Content>
                         <Header as="h3">{ genre.name }</Header>
                         <List horizontal>
-                            { renderSubgenres(genre.subgenres) }
+                            { renderSubgenres(genre) }
                         </List>
                     </List.Content>
                 </List.Item>
@@ -86,15 +96,21 @@ const ProjectSubgenreInput = React.createClass({
 
         return nodes;
     },
-    renderSubgenres(subgenres) {
-        if (!subgenres)
+    renderSubgenres(genre) {
+        const { handleSelectGenre } = this;
+
+        if (!genre.subgenres)
             return null;
 
-        const nodes = subgenres.map(function(subgenre,i){
+        const nodes = genre.subgenres.map(function(subgenre,i){
+            subgenre.genre = {
+                id: genre.id,
+                name: genre.name
+            };
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Button size='small'>
+                        <Button size='small' onClick={ (e)=>{ handleSelectGenre(e, subgenre) } }>
                             { subgenre.name }
                         </Button>
                     </List.Content>

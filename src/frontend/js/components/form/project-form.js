@@ -48,6 +48,7 @@ const ProjectForm = React.createClass({
         }
     },
     handleFieldChange(e, payload) {
+        console.log(payload);
         const { changedFields } = this.state;
         if (payload.type=="checkbox") {
             changedFields[payload.id] = payload.checked;
@@ -75,9 +76,9 @@ const ProjectForm = React.createClass({
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, projectPostSchema);
 
-        console.log(inputFields);
-        console.log(model);
-        console.log(changedFields);
+        // console.log(inputFields);
+        // console.log(model);
+        // console.log(changedFields);
 
         return (
             <Container text={ true }>
