@@ -298,38 +298,12 @@ $app->group('/api/0.1', function(){
 
         $models = [];
         $models = Project::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
-        $_arr = [];
+        $_models = [];
         foreach ($models as $model) {
-            $a = $model->to_array();
-
-            # stories
-            $stories = Story::find_all_by_project_id($model->id);
-            $_arr_stories = [];
-            foreach($stories as $story) {
-                $_s = $story->to_array();
-                $_arr_stories[] = $_s;
-            }
-            $a['stories'] = $_arr_stories;
-
-            # genres
-            $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
-            $_projectSubgenres = [];
-            foreach($projectSubgenres as $ps) {
-
-                $subgenre = Subgenre::find_by_id($ps->subgenre_id);
-                $genre = Genre::find_by_id($subgenre->genre_id);
-
-                $_subgenre = $subgenre->to_array();
-                $_subgenre['genre'] = $genre->to_array();
-
-                $_projectSubgenres[] = $_subgenre;
-            }
-            $a['subgenres'] = $_projectSubgenres;
-
-            $_arr[] = $a;
+            $_models[] = $model->to_hydrated_array();
         }
         return $response
-            ->withJson($_arr);
+            ->withJson($_models);
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 
@@ -351,34 +325,8 @@ $app->group('/api/0.1', function(){
             }
         }
 
-        $a = $model->to_array();
-
-        # stories
-        $stories = Story::find_all_by_project_id($model->id);
-        $_arr_stories = [];
-        foreach($stories as $story) {
-            $_s = $story->to_array();
-            $_arr_stories[] = $_s;
-        }
-        $a['stories'] = $_arr_stories;
-
-        # genres
-        $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
-        $_projectSubgenres = [];
-        foreach($projectSubgenres as $ps) {
-
-            $subgenre = Subgenre::find_by_id($ps->subgenre_id);
-            $genre = Genre::find_by_id($subgenre->genre_id);
-
-            $_subgenre = $subgenre->to_array();
-            $_subgenre['genre'] = $genre->to_array();
-
-            $_projectSubgenres[] = $_subgenre;
-        }
-        $a['subgenres'] = $_projectSubgenres;
-
         return $response
-            ->withJson($a);
+            ->withJson($model->to_hydrated_array());
     })
     ->add( new WriteAccess($_SESSION['securityContext']) )
     ->add( new RequestBodyValidation(
@@ -393,34 +341,8 @@ $app->group('/api/0.1', function(){
                     ->withJson(["global" => ["message" => "Not found"]]);
             }
 
-            $_model = $model->to_array();
-
-            # stories
-            $stories = Story::find_all_by_project_id($model->id);
-            $_arr_stories = [];
-            foreach($stories as $story) {
-                $_s = $story->to_array();
-                $_arr_stories[] = $_s;
-            }
-            $_model['stories'] = $_arr_stories;
-
-            # genres
-            $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
-            $_projectSubgenres = [];
-            foreach($projectSubgenres as $ps) {
-
-                $subgenre = Subgenre::find_by_id($ps->subgenre_id);
-                $genre = Genre::find_by_id($subgenre->genre_id);
-
-                $_subgenre = $subgenre->to_array();
-                $_subgenre['genre'] = $genre->to_array();
-
-                $_projectSubgenres[] = $_subgenre;
-            }
-            $_model['subgenres'] = $_projectSubgenres;
-
             return $response
-                ->withJson($_model);
+                ->withJson($model->to_hydrated_array());
         })
         ->add( new ReadAccess($_SESSION['securityContext']) );
 
@@ -458,34 +380,8 @@ $app->group('/api/0.1', function(){
                 }
             }
 
-            $_model = $model->to_array();
-
-            # stories
-            $stories = Story::find_all_by_project_id($model->id);
-            $_arr_stories = [];
-            foreach($stories as $story) {
-                $_s = $story->to_array();
-                $_arr_stories[] = $_s;
-            }
-            $_model['stories'] = $_arr_stories;
-
-            # genres
-            $projectSubgenres = ProjectSubgenre::find_all_by_project_id($model->id);
-            $_projectSubgenres = [];
-            foreach($projectSubgenres as $ps) {
-
-                $subgenre = Subgenre::find_by_id($ps->subgenre_id);
-                $genre = Genre::find_by_id($subgenre->genre_id);
-
-                $_subgenre = $subgenre->to_array();
-                $_subgenre['genre'] = $genre->to_array();
-
-                $_projectSubgenres[] = $_subgenre;
-            }
-            $_model['subgenres'] = $_projectSubgenres;
-
             return $response
-                ->withJson($_model);
+                ->withJson($model->to_hydrated_array());
         })
         ->add( new WriteAccess($_SESSION['securityContext']) )
         ->add( new RequestBodyValidation(
