@@ -1,20 +1,35 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import * as _ from 'underscore';
 import {
+    Button,
     Container,
     Divider,
     Icon,
     Input,
     Label,
-    List
+    List,
+    Modal
 } from 'semantic-ui-react';
 
 const TagEditor = React.createClass({
     getInitialState() {
         return {
+            modalVisible: false,
             tags: [],
             newTag: undefined
         }
+    },
+    toggleModalVisible(e) {
+        e.preventDefault();
+        if (!this.state.modalVisible===true) {
+            ReactGA.modalview('/tag-input-modal');
+        }
+        this.setState({
+            ... this.state,
+            modalVisible: !this.state.modalVisible,
+            newTag: !this.state.modalVisible===true ? null : this.state.newTag
+        });
     },
     propTypes: {
         tagsArrayAsJson: React.PropTypes.string,
@@ -23,6 +38,7 @@ const TagEditor = React.createClass({
     componentWillReceiveProps(nextProps){
         const { tagsArrayAsJson } = nextProps;
         this.setState({
+            ... this.state,
             tags: tagsArrayAsJson ? JSON.parse(tagsArrayAsJson) : []
         });
     },
@@ -33,6 +49,7 @@ const TagEditor = React.createClass({
         });
     },
     addTag(e) {
+        const { toggleModalVisible } = this;
         const { tags, newTag } = this.state;
         const { onChange } = this.props;
         const newTags = tags;
@@ -48,6 +65,10 @@ const TagEditor = React.createClass({
                 id: 'tags',
                 value: JSON.stringify(newTags)
             });
+
+            setTimeout(function(){
+                toggleModalVisible(new Event('addTag'));
+            }, 100)
         }
     },
     removeTag(tag) {
@@ -69,8 +90,8 @@ const TagEditor = React.createClass({
         });
     },
     render() {
-        const { removeTag } = this;
-        const { tags, newTag } = this.state;
+        const { removeTag, toggleModalVisible } = this;
+        const { tags, newTag, modalVisible } = this.state;
         const tagNodes = tags.map(function(tag, i){
             return (
                 <List.Item key={ i } >
@@ -81,23 +102,36 @@ const TagEditor = React.createClass({
             );
         });
 
+        tagNodes.push(
+            <List.Item key={ tagNodes.length } >
+                <List.Content>
+                    <Button icon='add' size='mini' onClick={ toggleModalVisible }/>
+                </List.Content>
+            </List.Item>
+        );
+
         return (
-            <Container>
+            <Container className='tags-input'>
                 <List horizontal>
                     { tagNodes }
                 </List>
-                <Divider clearing={ true } hidden/>
-                <Input
-                    placeholder="New tag"
-                    id="new_tag"
-                    type="text"
-                    icon="tags"
-                    iconPosition="left"
-                    label={{ tag: true, content: 'Add', color: "teal", onClick: this.addTag, as: "a" }}
-                    labelPosition="right"
-                    onChange={ this.handleFieldChange }
-                    value={ newTag || '' }
-                />
+                <Modal open={ modalVisible } dimmer='blurring' onClose={ toggleModalVisible } size='small'>
+                    <Modal.Content>
+                        <Input
+                            placeholder="New tag"
+                            id="new_tag"
+                            type="text"
+                            icon="tags"
+                            iconPosition="left"
+                            label={{ tag: true, content: 'Add', color: "teal", onClick: this.addTag, as: "a" }}
+                            labelPosition="right"
+                            onChange={ this.handleFieldChange }
+                            value={ newTag || '' }
+                            fluid
+                        />
+                    </Modal.Content>
+                </Modal>
+
             </Container>
         )
     }

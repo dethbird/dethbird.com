@@ -36333,6 +36333,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactGa = __webpack_require__(118);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
+
 var _underscore = __webpack_require__(67);
 
 var _ = _interopRequireWildcard(_underscore);
@@ -36347,9 +36351,20 @@ var TagEditor = _react2.default.createClass({
     displayName: 'TagEditor',
     getInitialState: function getInitialState() {
         return {
+            modalVisible: false,
             tags: [],
             newTag: undefined
         };
+    },
+    toggleModalVisible: function toggleModalVisible(e) {
+        e.preventDefault();
+        if (!this.state.modalVisible === true) {
+            _reactGa2.default.modalview('/tag-input-modal');
+        }
+        this.setState(_extends({}, this.state, {
+            modalVisible: !this.state.modalVisible,
+            newTag: !this.state.modalVisible === true ? null : this.state.newTag
+        }));
     },
 
     propTypes: {
@@ -36359,9 +36374,9 @@ var TagEditor = _react2.default.createClass({
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
         var tagsArrayAsJson = nextProps.tagsArrayAsJson;
 
-        this.setState({
+        this.setState(_extends({}, this.state, {
             tags: tagsArrayAsJson ? JSON.parse(tagsArrayAsJson) : []
-        });
+        }));
     },
     handleFieldChange: function handleFieldChange(e) {
         this.setState(_extends({}, this.state, {
@@ -36369,6 +36384,7 @@ var TagEditor = _react2.default.createClass({
         }));
     },
     addTag: function addTag(e) {
+        var toggleModalVisible = this.toggleModalVisible;
         var _state = this.state,
             tags = _state.tags,
             newTag = _state.newTag;
@@ -36387,6 +36403,10 @@ var TagEditor = _react2.default.createClass({
                 id: 'tags',
                 value: JSON.stringify(newTags)
             });
+
+            setTimeout(function () {
+                toggleModalVisible(new Event('addTag'));
+            }, 100);
         }
     },
     removeTag: function removeTag(tag) {
@@ -36409,10 +36429,12 @@ var TagEditor = _react2.default.createClass({
         });
     },
     render: function render() {
-        var removeTag = this.removeTag;
+        var removeTag = this.removeTag,
+            toggleModalVisible = this.toggleModalVisible;
         var _state2 = this.state,
             tags = _state2.tags,
-            newTag = _state2.newTag;
+            newTag = _state2.newTag,
+            modalVisible = _state2.modalVisible;
 
         var tagNodes = tags.map(function (tag, i) {
             return _react2.default.createElement(
@@ -36438,26 +36460,44 @@ var TagEditor = _react2.default.createClass({
             );
         });
 
+        tagNodes.push(_react2.default.createElement(
+            _semanticUiReact.List.Item,
+            { key: tagNodes.length },
+            _react2.default.createElement(
+                _semanticUiReact.List.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini', onClick: toggleModalVisible })
+            )
+        ));
+
         return _react2.default.createElement(
             _semanticUiReact.Container,
-            null,
+            { className: 'tags-input' },
             _react2.default.createElement(
                 _semanticUiReact.List,
                 { horizontal: true },
                 tagNodes
             ),
-            _react2.default.createElement(_semanticUiReact.Divider, { clearing: true, hidden: true }),
-            _react2.default.createElement(_semanticUiReact.Input, {
-                placeholder: 'New tag',
-                id: 'new_tag',
-                type: 'text',
-                icon: 'tags',
-                iconPosition: 'left',
-                label: { tag: true, content: 'Add', color: "teal", onClick: this.addTag, as: "a" },
-                labelPosition: 'right',
-                onChange: this.handleFieldChange,
-                value: newTag || ''
-            })
+            _react2.default.createElement(
+                _semanticUiReact.Modal,
+                { open: modalVisible, dimmer: 'blurring', onClose: toggleModalVisible, size: 'small' },
+                _react2.default.createElement(
+                    _semanticUiReact.Modal.Content,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Input, {
+                        placeholder: 'New tag',
+                        id: 'new_tag',
+                        type: 'text',
+                        icon: 'tags',
+                        iconPosition: 'left',
+                        label: { tag: true, content: 'Add', color: "teal", onClick: this.addTag, as: "a" },
+                        labelPosition: 'right',
+                        onChange: this.handleFieldChange,
+                        value: newTag || '',
+                        fluid: true
+                    })
+                )
+            )
         );
     }
 });
