@@ -36445,7 +36445,7 @@ var TagEditor = _react2.default.createClass({
                     null,
                     _react2.default.createElement(
                         _semanticUiReact.Label,
-                        { color: 'teal', tag: true },
+                        { size: 'large', color: 'teal', tag: true },
                         tag,
                         ' ',
                         _react2.default.createElement(
@@ -65455,6 +65455,7 @@ var ProjectForm = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Form,
                 {
+                    size: 'large',
                     loading: ui_state == _uiState.UI_STATE.REQUESTING,
                     error: ui_state == _uiState.UI_STATE.ERROR,
                     success: ui_state == _uiState.UI_STATE.SUCCESS,
@@ -106106,9 +106107,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactGa = __webpack_require__(118);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
 
 var _underscore = __webpack_require__(67);
 
@@ -106122,11 +106129,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ProjectSubgenreInput = _react2.default.createClass({
     displayName: 'ProjectSubgenreInput',
+    getInitialState: function getInitialState() {
+        return {
+            modalVisible: false
+        };
+    },
 
     propTypes: {
         subgenres: _react2.default.PropTypes.array
     },
+    toggleModalVisible: function toggleModalVisible(e) {
+        e.preventDefault();
+        if (!this.state.modalVisible === true) {
+            _reactGa2.default.modalview('/project-subgenre-input-modal');
+        }
+        this.setState(_extends({}, this.state, {
+            modalVisible: !this.state.modalVisible
+        }));
+    },
     renderGenreLabels: function renderGenreLabels() {
+        var toggleModalVisible = this.toggleModalVisible;
         var subgenres = this.props.subgenres;
 
         if (subgenres.length == 0) return null;
@@ -106140,7 +106162,7 @@ var ProjectSubgenreInput = _react2.default.createClass({
                     null,
                     _react2.default.createElement(
                         _semanticUiReact.Label,
-                        { color: 'teal' },
+                        { color: 'teal', size: 'large' },
                         subgenre.genre.name,
                         ':',
                         _react2.default.createElement(
@@ -106158,19 +106180,34 @@ var ProjectSubgenreInput = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.List.Content,
                 null,
-                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini' })
+                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', size: 'mini', onClick: toggleModalVisible })
             )
         ));
         return nodes;
     },
     render: function render() {
-        var renderGenreLabels = this.renderGenreLabels;
+        var renderGenreLabels = this.renderGenreLabels,
+            toggleModalVisible = this.toggleModalVisible;
         var subgenres = this.props.subgenres;
+        var modalVisible = this.state.modalVisible;
 
         return _react2.default.createElement(
-            _semanticUiReact.List,
-            { horizontal: true },
-            renderGenreLabels()
+            _semanticUiReact.Container,
+            { className: 'project-subgenre-input' },
+            _react2.default.createElement(
+                _semanticUiReact.List,
+                { horizontal: true },
+                renderGenreLabels()
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Modal,
+                { open: modalVisible, dimmer: 'blurring', onClose: toggleModalVisible },
+                _react2.default.createElement(
+                    _semanticUiReact.Modal.Content,
+                    null,
+                    'Farts'
+                )
+            )
         );
     }
 });

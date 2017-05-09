@@ -96,7 +96,7 @@ const TagEditor = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color="teal" tag={ true }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
+                        <Label size="large" color="teal" tag={ true }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
                     </List.Content>
                 </List.Item>
             );

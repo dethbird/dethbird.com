@@ -82,6 +82,7 @@ const ProjectForm = React.createClass({
         return (
             <Container text={ true }>
                 <Form
+                    size="large"
                     loading={ ui_state == UI_STATE.REQUESTING }
                     error={ ui_state == UI_STATE.ERROR }
                     success={ ui_state == UI_STATE.SUCCESS }
