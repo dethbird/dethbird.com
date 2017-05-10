@@ -19,6 +19,7 @@ import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
 import Characters from 'components/pages/characters';
 import ProjectEdit from 'components/pages/project-edit';
+import Project from 'components/pages/project';
 import Projects from 'components/pages/projects';
 import StoryEdit from 'components/pages/story-edit';
 import StoryEditDemo from 'components/pages/story-edit-demo';
@@ -73,6 +74,7 @@ render((
                 <Route path="projects" component={ Projects } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/create" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/:id/edit" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="project/:id" component={ Project } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="dashboard" component={ Dashboard } props={ { securityContext } } onEnter={ requireAuth }/>
                 <Route path="characters" component={ Characters } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="character/create" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>

@@ -52,7 +52,7 @@ const ProjectCard = React.createClass({
         const { project } = this.props;
 
         return (
-            <Card onClick={ (e) => { browserHistory.push(`/project/${project.id}/edit`)} } >
+            <Card onClick={ (e) => { browserHistory.push(`/project/${project.id}`)} } >
                 <Image shape="rounded" src={ project.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                 <Card.Content>
                     <Card.Header>{ project.name }</Card.Header>

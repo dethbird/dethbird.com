@@ -36287,7 +36287,7 @@ var ProjectCard = _react2.default.createClass({
         return _react2.default.createElement(
             _semanticUiReact.Card,
             { onClick: function onClick(e) {
-                    _reactRouter.browserHistory.push('/project/' + project.id + '/edit');
+                    _reactRouter.browserHistory.push('/project/' + project.id);
                 } },
             _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', src: project.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
             _react2.default.createElement(
@@ -68630,6 +68630,10 @@ var _projectEdit = __webpack_require__(624);
 
 var _projectEdit2 = _interopRequireDefault(_projectEdit);
 
+var _project = __webpack_require__(1157);
+
+var _project2 = _interopRequireDefault(_project);
+
 var _projects = __webpack_require__(625);
 
 var _projects2 = _interopRequireDefault(_projects);
@@ -68661,18 +68665,18 @@ var _store2 = _interopRequireDefault(_store);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Google Analytics
+
+
+// Internal
+
+
+// External
 _reactGa2.default.initialize('UA-98286537-1', {
     titleCase: false,
     gaOptions: {
         userId: securityContext.id
     }
 });
-
-// Internal
-
-
-// External
-
 
 if (lastRequestUri !== '/favicon.ico') {
     _reactRouter.browserHistory.replace(lastRequestUri);
@@ -68720,6 +68724,7 @@ var logPageView = function logPageView() {
             _react2.default.createElement(_reactRouter.Route, { path: 'projects', component: _projects2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/create', component: _projectEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'project/:id/edit', component: _projectEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'project/:id', component: _project2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'dashboard', component: _dashboard2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'characters', component: _characters2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
             _react2.default.createElement(_reactRouter.Route, { path: 'character/create', component: _characterEdit2.default, props: { securityContext: securityContext }, onEnter: requireAuth }),
@@ -106509,6 +106514,129 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(7);
+
+var _projectDetail = __webpack_require__(1158);
+
+var _projectDetail2 = _interopRequireDefault(_projectDetail);
+
+var _footer = __webpack_require__(26);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _loggedInHeader = __webpack_require__(55);
+
+var _loggedInHeader2 = _interopRequireDefault(_loggedInHeader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Project = _react2.default.createClass({
+    displayName: 'Project',
+    render: function render() {
+        var path = this.props.route.path;
+        var securityContext = this.props.route.props.securityContext;
+        var id = this.props.params.id;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Segment.Group,
+            null,
+            _react2.default.createElement(_loggedInHeader2.default, { path: path, securityContext: securityContext }),
+            _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { className: 'main-content' },
+                _react2.default.createElement(_projectDetail2.default, { id: id })
+            ),
+            _react2.default.createElement(_footer2.default, null)
+        );
+    }
+});
+
+exports.default = Project;
+
+/***/ }),
+/* 1158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(25);
+
+var _semanticUiReact = __webpack_require__(7);
+
+var _uiState = __webpack_require__(15);
+
+var _project = __webpack_require__(170);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProjectDetail = _react2.default.createClass({
+    displayName: 'ProjectDetail',
+
+    propTypes: {
+        id: _react2.default.PropTypes.string.isRequired
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
+        var id = this.props.id;
+
+        dispatch((0, _project.projectGet)(id));
+    },
+    render: function render() {
+        var _props = this.props,
+            id = _props.id,
+            ui_state = _props.ui_state,
+            errors = _props.errors,
+            model = _props.model;
+
+
+        return _react2.default.createElement(
+            _semanticUiReact.Container,
+            { text: true },
+            'farts'
+        );
+    }
+});
+
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$projectReducer = state.projectReducer,
+        ui_state = _state$projectReducer.ui_state,
+        errors = _state$projectReducer.errors,
+        model = _state$projectReducer.model;
+
+    return {
+        ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
+        errors: errors,
+        model: model
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProjectDetail);
 
 /***/ })
 /******/ ]);
