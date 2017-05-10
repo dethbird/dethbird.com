@@ -63,6 +63,7 @@ const TagEditor = React.createClass({
 
             onChange(e, {
                 id: 'tags',
+                name: 'tags',
                 value: JSON.stringify(newTags)
             });
 
@@ -86,6 +87,7 @@ const TagEditor = React.createClass({
 
         onChange(null, {
             id: 'tags',
+            name: 'tags',
             value: JSON.stringify(newTags)
         });
     },

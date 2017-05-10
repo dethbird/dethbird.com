@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     Button,
+    Checkbox,
     Container,
     Form,
     Icon,
@@ -56,11 +57,7 @@ const ProjectForm = React.createClass({
     },
     handleFieldChange(e, payload) {
         const { changedFields } = this.state;
-        if (payload.type=="checkbox") {
-            changedFields[payload.id] = payload.checked;
-        } else {
-            changedFields[payload.id] = payload.value;
-        }
+        changedFields[payload.name] = payload.value;
         this.setState({
             ... this.state,
             changedFields
@@ -95,21 +92,50 @@ const ProjectForm = React.createClass({
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
 
-                    <Form.Input label="Name" placeholder="Name" id="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
+                    <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
                     <Image shape="rounded" size="large" centered={ true } src={ inputFields.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
-                    <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" id="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />
+                    <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" name="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('header_image_url', errors)} />
 
-                    <Form.TextArea label="Description" placeholder="Description" id="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
+                    <Form.TextArea label="Description" placeholder="Description" name="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
 
-                    <Form.Field label="Genres" placeholder="Genres" id="subgenres" control={ ProjectSubgenreInput }  subgenres={ inputFields.subgenres || [] } onChange={ handleFieldChange }/>
+                    <Form.Field label="Genres" placeholder="Genres" name="subgenres" control={ ProjectSubgenreInput }  subgenres={ inputFields.subgenres || [] } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
 
-                    <Form.Field label="Tags" placeholder="Tags" id="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ handleFieldChange }/>
+                    <Form.Field label="Tags" placeholder="Tags" name="tags" control={ TagEditor }  tagsArrayAsJson={ inputFields.tags || '' } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />
+
+                    <Form.Group>
+                        <Form.Field>
+                            <label>Format</label>
+                        </Form.Field>
+
+                        <Form.Field>
+                            <Checkbox
+                                radio
+                                label='Live Action'
+                                name='format'
+                                id='format-live_action'
+                                value='live_action'
+                                checked={ inputFields.format === 'live_action'}
+                                onChange={ handleFieldChange }
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <Checkbox
+                                radio
+                                label='Animated'
+                                name='format'
+                                id='format-animated'
+                                value='animated'
+                                checked={ inputFields.format === 'animated'}
+                                onChange={ handleFieldChange }
+                            />
+                        </Form.Field>
+                    </Form.Group>
 
                     <Form.Field>
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> { id ? "Save" : "Create" }</Button>
