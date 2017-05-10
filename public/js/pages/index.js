@@ -106585,6 +106585,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(20);
+
 var _reactRedux = __webpack_require__(25);
 
 var _semanticUiReact = __webpack_require__(7);
@@ -106607,7 +106609,60 @@ var ProjectDetail = _react2.default.createClass({
 
         dispatch((0, _project.projectGet)(id));
     },
+    renderGenreLabels: function renderGenreLabels() {
+        var model = this.props.model;
+
+        if (model.subgenres.length == 0) return null;
+
+        var nodes = model.subgenres.map(function (subgenre, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { color: 'teal' },
+                        subgenre.genre.name,
+                        ':',
+                        _react2.default.createElement(
+                            _semanticUiReact.Label.Detail,
+                            null,
+                            subgenre.name
+                        )
+                    )
+                )
+            );
+        });
+        return nodes;
+    },
+    renderTags: function renderTags() {
+        var model = this.props.model;
+
+        var tags = model.tags ? JSON.parse(model.tags) : [];
+        if (tags.length == 0) return null;
+
+        var nodes = tags.map(function (tag, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { color: 'teal', tag: true },
+                        tag
+                    )
+                )
+            );
+        });
+        return nodes;
+    },
     render: function render() {
+        var renderGenreLabels = this.renderGenreLabels,
+            renderTags = this.renderTags;
         var _props = this.props,
             id = _props.id,
             ui_state = _props.ui_state,
@@ -106615,10 +106670,59 @@ var ProjectDetail = _react2.default.createClass({
             model = _props.model;
 
 
+        if (!model) return _react2.default.createElement(_semanticUiReact.Loader, null);
+
         return _react2.default.createElement(
-            _semanticUiReact.Container,
-            { text: true },
-            'farts'
+            'div',
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', onClick: function onClick() {
+                        _reactRouter.browserHistory.push('/project/' + model.id + '/edit');
+                    }, content: 'Edit' })
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'center' },
+                _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h1' },
+                    model.name
+                ),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'rounded', centered: true, spaced: true, size: 'large', src: model.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    { as: _semanticUiReact.Container, text: true, textAlign: 'left' },
+                    model.description
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'center' },
+                _react2.default.createElement(
+                    _semanticUiReact.List,
+                    { horizontal: true },
+                    renderGenreLabels()
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'center' },
+                _react2.default.createElement(
+                    _semanticUiReact.List,
+                    { horizontal: true },
+                    renderTags()
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'center' },
+                model.format
+            )
         );
     }
 });
