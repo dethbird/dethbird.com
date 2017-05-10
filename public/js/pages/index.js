@@ -106660,9 +106660,37 @@ var ProjectDetail = _react2.default.createClass({
         });
         return nodes;
     },
+    renderStoryCards: function renderStoryCards() {
+        var model = this.props.model;
+
+        if (model.stories.length == 0) return null;
+
+        var nodes = model.stories.map(function (story, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.Card,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Header,
+                        { as: 'h3' },
+                        story.name
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Card.Description,
+                        null,
+                        story.description
+                    )
+                )
+            );
+        });
+        return nodes;
+    },
     render: function render() {
         var renderGenreLabels = this.renderGenreLabels,
-            renderTags = this.renderTags;
+            renderTags = this.renderTags,
+            renderStoryCards = this.renderStoryCards;
         var _props = this.props,
             id = _props.id,
             ui_state = _props.ui_state,
@@ -106722,6 +106750,26 @@ var ProjectDetail = _react2.default.createClass({
                 _semanticUiReact.Container,
                 { text: true, textAlign: 'center' },
                 model.format
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true, textAlign: 'left' },
+                _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h3' },
+                    'Stories'
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Group,
+                    { itemsPerRow: 3 },
+                    renderStoryCards()
+                )
             )
         );
     }

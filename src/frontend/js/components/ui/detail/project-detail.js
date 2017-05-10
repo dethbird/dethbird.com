@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
     Button,
+    Card,
     Container,
     Header,
     Image,
@@ -62,8 +63,27 @@ const ProjectDetail = React.createClass({
         });
         return nodes;
     },
+    renderStoryCards(){
+        const { model } = this.props;
+        if (model.stories.length==0)
+            return null;
+
+        const nodes = model.stories.map(function(story, i){
+            return (
+                <Card key={ i } >
+                    <Card.Content>
+                        <Header as="h3">{ story.name }</Header>
+                        <Card.Description>
+                            { story.description }
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
+            );
+        });
+        return nodes;
+    },
     render() {
-        const { renderGenreLabels, renderTags } = this;
+        const { renderGenreLabels, renderTags, renderStoryCards } = this;
         const { id, ui_state, errors, model } = this.props;
 
         if (!model)
@@ -96,6 +116,16 @@ const ProjectDetail = React.createClass({
                 <br />
                 <Container text textAlign="center">
                     { model.format }
+                </Container>
+                <br />
+                <Container text textAlign="left">
+                    <Header as="h3">Stories</Header>
+                </Container>
+                <br />
+                <Container text>
+                    <Card.Group itemsPerRow={ 3 }>
+                        { renderStoryCards() }
+                    </Card.Group>
                 </Container>
             </div>
         )
