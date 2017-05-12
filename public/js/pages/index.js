@@ -66185,6 +66185,16 @@ var ProjectDetail = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Header,
+                        { as: 'h4' },
+                        'Cast'
+                    ),
+                    _react2.default.createElement(_scriptCastList2.default, { script: story.script, displayMode: true })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Content,
                     { extra: true },
                     _react2.default.createElement(
                         _semanticUiReact.Grid,
@@ -66204,6 +66214,7 @@ var ProjectDetail = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
                             { width: 6, textAlign: 'right' },
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
                             stats.display_duration
                         )
                     )
@@ -66211,19 +66222,9 @@ var ProjectDetail = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Card.Content,
                     null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Header,
-                        { as: 'h4' },
-                        'Cast'
-                    ),
-                    _react2.default.createElement(_scriptCastList2.default, { script: story.script, displayMode: true })
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Card.Content,
-                    null,
                     _react2.default.createElement(_semanticUiReact.Button, { onClick: function onClick() {
                             _reactRouter.browserHistory.push('/story/' + story.id + '/edit');
-                        }, content: 'Edit', size: 'mini' })
+                        }, content: 'Edit', size: 'small' })
                 )
             );
         });
@@ -107620,27 +107621,32 @@ var ProjectDetailCharacters = _react2.default.createClass({
     renderCharacterCardNotFound: function renderCharacterCardNotFound(character, i) {
         return _react2.default.createElement(
             _semanticUiReact.Card,
-            { key: i },
+            { key: i, color: 'grey' },
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
                 { className: 'center aligned' },
-                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', spaced: true, centered: true, src: 'https://myspace.com/common/images/user.png' }),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', size: 'small', spaced: true, centered: true, src: 'https://myspace.com/common/images/user.png' }),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Header,
                     null,
                     character.name
                 )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Create', size: 'small' })
             )
         );
     },
     renderCharacterCardExisting: function renderCharacterCardExisting(character, i) {
         return _react2.default.createElement(
             _semanticUiReact.Card,
-            { key: i },
+            { key: i, color: 'teal' },
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
                 { className: 'center aligned' },
-                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', spaced: true, centered: true, src: character.existing.avatar_image_url ? character.existing.avatar_image_url : 'https://myspace.com/common/images/user.png' }),
+                _react2.default.createElement(_semanticUiReact.Image, { shape: 'circular', size: 'small', spaced: true, centered: true, src: character.existing.avatar_image_url ? character.existing.avatar_image_url : 'https://myspace.com/common/images/user.png' }),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Header,
                     null,
@@ -107660,6 +107666,13 @@ var ProjectDetailCharacters = _react2.default.createClass({
                         return val;
                     }).join(', ')
                 )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                null,
+                _react2.default.createElement(_semanticUiReact.Button, { onClick: function onClick() {
+                        browserHistory.push('/character/' + character.existing.id + '/edit');
+                    }, content: 'Edit', size: 'small' })
             )
         );
     },
@@ -107672,7 +107685,7 @@ var ProjectDetailCharacters = _react2.default.createClass({
 
         if (!models) return false;
         var characters = (0, _fountainParser.collateProjectScriptCharactersWithCharacters)(project, models);
-        console.log(characters);
+
         var existingNodes = characters.existing.map(function (character, i) {
             return renderCharacterCardExisting(character, i);
         });
@@ -107687,11 +107700,32 @@ var ProjectDetailCharacters = _react2.default.createClass({
                 _semanticUiReact.Container,
                 null,
                 _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h3' },
+                    'Created'
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(
                     _semanticUiReact.Card.Group,
                     { itemsPerRow: 4 },
                     existingNodes
                 )
             ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h3' },
+                    'Not Created'
+                )
+            ),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+    Button,
     Card,
     Container,
+    Header,
     Image
 } from 'semantic-ui-react';
 
@@ -24,22 +26,28 @@ const ProjectDetailCharacters = React.createClass({
     },
     renderCharacterCardNotFound(character, i) {
         return (
-            <Card key={ i }>
+            <Card key={ i } color='grey'>
                 <Card.Content className="center aligned">
-                    <Image shape="circular" spaced={ true } centered={ true } src={ 'https://myspace.com/common/images/user.png' } />
+                    <Image shape="circular" size="small" spaced={ true } centered={ true } src={ 'https://myspace.com/common/images/user.png' } />
                     <Card.Header>{ character.name }</Card.Header>
+                </Card.Content>
+                <Card.Content>
+                    <Button content="Create" size="small"/>
                 </Card.Content>
             </Card>
         );
     },
     renderCharacterCardExisting(character, i) {
         return (
-            <Card key={ i }>
+            <Card key={ i } color='teal'>
                 <Card.Content className="center aligned">
-                    <Image shape="circular" spaced={ true } centered={ true } src={ character.existing.avatar_image_url ? character.existing.avatar_image_url : 'https://myspace.com/common/images/user.png' } />
+                    <Image shape="circular" size="small" spaced={ true } centered={ true } src={ character.existing.avatar_image_url ? character.existing.avatar_image_url : 'https://myspace.com/common/images/user.png' } />
                     <Card.Header>{ character.name }</Card.Header>
                     <Card.Meta>{ [character.existing.age, character.existing.gender ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
                     <Card.Description>{ [character.existing.occupation, character.existing.location ].filter(function (val) {return val;}).join(', ') }</Card.Description>
+                </Card.Content>
+                <Card.Content>
+                    <Button onClick={()=>{browserHistory.push(`/character/${character.existing.id}/edit`)}} content="Edit" size="small" />
                 </Card.Content>
             </Card>
         );
@@ -53,7 +61,7 @@ const ProjectDetailCharacters = React.createClass({
             project,
             models
         );
-        console.log(characters);
+
         const existingNodes = characters.existing.map(function(character, i){
             return (
                 renderCharacterCardExisting(character, i)
@@ -68,10 +76,19 @@ const ProjectDetailCharacters = React.createClass({
         return (
             <div>
                 <Container>
+                    <Header as="h3">Created</Header>
+                </Container>
+                <br />
+                <Container>
                     <Card.Group itemsPerRow={ 4 } >
                         { existingNodes }
                     </Card.Group>
                 </Container>
+                <br />
+                <Container>
+                    <Header as="h3">Not Created</Header>
+                </Container>
+                <br />
                 <Container>
                     <Card.Group itemsPerRow={ 4 } >
                         { notFoundNodes }
