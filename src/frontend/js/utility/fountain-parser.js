@@ -2,6 +2,7 @@ import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 import pad from 'pad-left';
 import * as _ from 'underscore';
+import { log } from 'utility/logger';
 
 export const SECTION_LEVELS = [
     "",
@@ -791,8 +792,58 @@ export const collateScriptCharactersWithCharacters = (script, characters) => {
     return { not_found, existing };
 }
 
+export const collateProjectScriptCharactersWithCharacters = (project, characters) => {
+    let existing = [];
+    let not_found = [];
+    for (const i in project.stories){
+        const story = project.stories[i];
+        const collated = collateScriptCharactersWithCharacters(
+            story.script,
+            characters
+        );
+        existing = existing.concat(collated.existing);
+        not_found = not_found.concat(collated.not_found);
+    }
+    return {
+        not_found: _.sortBy(not_found, 'name'),
+        existing: _.sortBy(existing, 'name')
+    };
+}
+
+export const getScriptStats = (script) => {
+    const tokens = tokenizeLines(lexizeScript(script));
+    const story = convertTokensToStory(tokens);
+
+    let stats = {
+        acts: story.acts.length,
+        panels: 0,
+        duration_in_miliseconds: 0
+    }
+
+    let panelCount = 0;
+
+    for (const actIndex in story.acts) {
+        const act = story.acts[actIndex];
+        for (const sequenceIndex in act.sequences){
+            const sequence = act.sequences[sequenceIndex];
+            for (const sceneIndex in sequence.scenes){
+                const scene = sequence.scenes[sceneIndex];
+                for (const panelIndex in scene.panels){
+                    const panel = scene.panels[sceneIndex];
+                    stats.panels++;
+                    stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                }
+            }
+        }
+    }
+    stats.display_duration = milisecondsToDuration(stats.duration_in_miliseconds);
+    return stats;
+
+}
+
 export const parseFountainScript = (script) => {
     const tokens = tokenizeLines(lexizeScript(script));
     const markup = compileTokens(tokens);
+
     return { tokens, markup };
 }

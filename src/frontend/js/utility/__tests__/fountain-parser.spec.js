@@ -4,7 +4,8 @@ import {
     compileTokens,
     lexizeScript,
     parseFountainScript,
-    tokenizeLines
+    tokenizeLines,
+    getScriptStats
 } from 'utility/fountain-parser';
 import { log } from 'utility/logger';
 
@@ -21,6 +22,7 @@ const exampleSections = fs.readFileSync(dataDir + '/sections.fountain', 'utf8');
 const exampleSectionsWithMetadata = fs.readFileSync(dataDir + '/sections-metadata.fountain', 'utf8');
 const exampleTitlePage = fs.readFileSync(dataDir + '/title_page.fountain', 'utf8');
 const exampleTransitions = fs.readFileSync(dataDir + '/transitions.fountain', 'utf8');
+const scratchScript = fs.readFileSync(dataDir + '/scratch.fountain', 'utf8');
 
 describe('fountainParser.tokenizeLines()', () => {
     test('tokenize dialogue', () => {
@@ -78,9 +80,8 @@ describe('fountainParser.tokenizeLines()', () => {
     });
 
 
-    test.only('convert tokens to project', () => {
-        const story = convertTokensToStory(
-            tokenizeLines(lexizeScript(exampleSectionsWithMetadata)));
-        log(story);
+    test.only('convert tokens to story', () => {
+        const story = getScriptStats(scratchScript);
+        // log(story);
     });
 });

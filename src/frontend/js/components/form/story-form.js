@@ -15,7 +15,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
-import ScriptCastList from 'components/ui/form/script-cast-list';
+import ScriptCastList from 'components/ui/list/script-cast-list';
 import StoryProject from 'components/ui/form/story-project';
 import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';

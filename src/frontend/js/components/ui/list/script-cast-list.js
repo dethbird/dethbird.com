@@ -45,7 +45,6 @@ const ScriptCastList = React.createClass({
         const { handleClickCreateCharacter } = this;
         const { displayMode } = this.props;
         const renderButton = (name, existing) => {
-            console.log(displayMode);
             if (displayMode===true)
                 return null;
 
@@ -72,7 +71,7 @@ const ScriptCastList = React.createClass({
         // cross check script characters with saved characters
         const collated = collateScriptCharactersWithCharacters(script, models);
         return (
-            <Container text={ true }>
+            <Container text={ true } className='script-cast-list'>
                 <Item.Group>
                     { renderCharacters(collated.existing) }
                     { renderCharacters(collated.not_found) }

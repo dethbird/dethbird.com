@@ -17,8 +17,7 @@ import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
 const ScriptCastList = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
-        demo: React.PropTypes.bool,
-        displayMode: React.PropTypes.bool
+        demo: React.PropTypes.bool
     },
     getInitialState() {
         return {
@@ -43,12 +42,7 @@ const ScriptCastList = React.createClass({
     },
     renderCharacters(chars) {
         const { handleClickCreateCharacter } = this;
-        const { displayMode } = this.props;
         const renderButton = (name, existing) => {
-            console.log(displayMode);
-            if (displayMode===true)
-                return null;
-
             if(existing) {
                 return <Button as="a" icon="edit" size="mini" basic onClick={()=>{ browserHistory.push(`/character/${existing.id}/edit`) }}></Button>
             } else {

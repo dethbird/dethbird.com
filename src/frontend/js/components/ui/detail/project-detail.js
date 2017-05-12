@@ -5,6 +5,7 @@ import {
     Button,
     Card,
     Container,
+    Grid,
     Header,
     Image,
     Label,
@@ -15,6 +16,10 @@ import {
 
 import { UI_STATE } from 'constants/ui-state';
 import { projectGet } from 'actions/project';
+import { getScriptStats } from 'utility/fountain-parser';
+
+import ScriptCastList from 'components/ui/list/script-cast-list';
+import ProjectDetailCharacters from 'components/ui/detail/cards/project-detail-characters';
 
 
 const ProjectDetail = React.createClass({
@@ -56,7 +61,7 @@ const ProjectDetail = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color="teal" tag={ true }>{ tag }</Label>
+                        <Label color="yellow" tag={ true }>{ tag }</Label>
                     </List.Content>
                 </List.Item>
             );
@@ -69,13 +74,34 @@ const ProjectDetail = React.createClass({
             return null;
 
         const nodes = model.stories.map(function(story, i){
+            const stats = getScriptStats(story.script);
             return (
-                <Card key={ i } >
+                <Card key={ i } color='teal'>
                     <Card.Content>
                         <Header as="h3">{ story.name }</Header>
                         <Card.Description>
-                            { story.description }
+                        { story.description }
                         </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Grid>
+                            <Grid.Column width={ 5 }>
+                                { stats.acts } Acts
+                            </Grid.Column>
+                            <Grid.Column width={ 5 } textAlign='center'>
+                                { stats.acts } Panels
+                            </Grid.Column>
+                            <Grid.Column width={ 6 } textAlign='right'>
+                                { stats.display_duration }
+                            </Grid.Column>
+                        </Grid>
+                    </Card.Content>
+                    <Card.Content>
+                        <Header as="h4">Cast</Header>
+                        <ScriptCastList script={ story.script } displayMode={ true } />
+                    </Card.Content>
+                    <Card.Content>
+                        <Button onClick={()=>{browserHistory.push(`/story/${story.id}/edit`)}} content="Edit" size="mini"/>
                     </Card.Content>
                 </Card>
             );
@@ -91,7 +117,7 @@ const ProjectDetail = React.createClass({
 
         return (
             <div>
-                <Container text>
+                <Container>
                     <Button as="a" onClick={ ()=>{ browserHistory.push(`/project/${model.id}/edit`)} } content="Edit"/>
                 </Container>
                 <Container text textAlign="center">
@@ -102,30 +128,41 @@ const ProjectDetail = React.createClass({
                     </Segment>
                 </Container>
                 <br />
-                <Container text textAlign="center">
+                <Container text textAlign='center'>
                     <List horizontal>
                         { renderGenreLabels() }
                     </List>
                 </Container>
                 <br />
-                <Container text textAlign="center">
+                <Container text textAlign='center'>
                     <List horizontal>
                         { renderTags() }
                     </List>
                 </Container>
                 <br />
-                <Container text textAlign="center">
-                    { model.format }
+                <Container text textAlign='center'>
+                    <Label>
+                        Format:
+                        <Label.Detail>{ model.format }</Label.Detail>
+                    </Label>
                 </Container>
                 <br />
-                <Container text textAlign="left">
-                    <Header as="h3">Stories</Header>
+                <Container textAlign="left">
+                    <Header as="h2">Stories</Header>
                 </Container>
                 <br />
-                <Container text>
+                <Container>
                     <Card.Group itemsPerRow={ 3 }>
                         { renderStoryCards() }
                     </Card.Group>
+                </Container>
+                <br />
+                <Container textAlign="left">
+                    <Header as="h2">Characters</Header>
+                </Container>
+                <br />
+                <Container>
+                    <ProjectDetailCharacters project={ model } />
                 </Container>
             </div>
         )
