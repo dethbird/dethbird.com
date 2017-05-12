@@ -84,10 +84,6 @@ const ProjectDetail = React.createClass({
                         { story.description }
                         </Card.Description>
                     </Card.Content>
-                    <Card.Content>
-                        <Header as="h4">Cast</Header>
-                        <ScriptCastList script={ story.script } displayMode={ true } />
-                    </Card.Content>
                     <Card.Content extra>
                         <Grid>
                             <Grid.Column width={ 5 }>
@@ -100,6 +96,10 @@ const ProjectDetail = React.createClass({
                                 <Icon name="time" />{ stats.display_duration }
                             </Grid.Column>
                         </Grid>
+                    </Card.Content>
+                    <Card.Content>
+                        <Header as="h4">Cast</Header>
+                        <ScriptCastList script={ story.script } displayMode={ true } />
                     </Card.Content>
                     <Card.Content>
                         <Button onClick={()=>{browserHistory.push(`/story/${story.id}/edit`)}} content="Edit" size="small"/>

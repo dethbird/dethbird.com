@@ -66185,16 +66185,6 @@ var ProjectDetail = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Content,
-                    null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Header,
-                        { as: 'h4' },
-                        'Cast'
-                    ),
-                    _react2.default.createElement(_scriptCastList2.default, { script: story.script, displayMode: true })
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Card.Content,
                     { extra: true },
                     _react2.default.createElement(
                         _semanticUiReact.Grid,
@@ -66218,6 +66208,16 @@ var ProjectDetail = _react2.default.createClass({
                             stats.display_duration
                         )
                     )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Header,
+                        { as: 'h4' },
+                        'Cast'
+                    ),
+                    _react2.default.createElement(_scriptCastList2.default, { script: story.script, displayMode: true })
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Content,
