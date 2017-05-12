@@ -114,7 +114,7 @@ const ProjectDetail = React.createClass({
         const { id, ui_state, errors, model } = this.props;
 
         if (!model)
-            return <Loader />;
+            return <Loader active/>;
 
         return (
             <div>

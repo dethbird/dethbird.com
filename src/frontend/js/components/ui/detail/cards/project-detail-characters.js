@@ -1,16 +1,18 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
     Button,
     Card,
     Container,
     Header,
-    Image
+    Image,
+    Loader
 } from 'semantic-ui-react';
 
 import CharacterCard from 'components/ui/card/character-card';
 import { UI_STATE } from 'constants/ui-state';
-import { charactersGet } from 'actions/character';
+import { charactersGet, charactersPostOne } from 'actions/character';
 
 import {
     collateProjectScriptCharactersWithCharacters
@@ -24,7 +26,12 @@ const ProjectDetailCharacters = React.createClass({
         const { dispatch } = this.props;
         dispatch(charactersGet());
     },
+    handleClickCreateCharacter(e, payload){
+        const { dispatch } = this.props;
+        dispatch(charactersPostOne(payload));
+    },
     renderCharacterCardNotFound(character, i) {
+        const { handleClickCreateCharacter } = this;
         return (
             <Card key={ i } color='grey'>
                 <Card.Content className="center aligned">
@@ -32,7 +39,7 @@ const ProjectDetailCharacters = React.createClass({
                     <Card.Header>{ character.name }</Card.Header>
                 </Card.Content>
                 <Card.Content>
-                    <Button content="Create" size="small"/>
+                    <Button content="Create" size="small" onClick={ (e)=>{ handleClickCreateCharacter(e, { name: character.name })} }/>
                 </Card.Content>
             </Card>
         );
@@ -56,7 +63,8 @@ const ProjectDetailCharacters = React.createClass({
         const { renderCharacterCardExisting, renderCharacterCardNotFound } = this;
         const { project, models } = this.props;
         if (!models)
-            return false;
+            return <Loader active/>;
+
         const characters = collateProjectScriptCharactersWithCharacters(
             project,
             models

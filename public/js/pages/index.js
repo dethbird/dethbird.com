@@ -66241,7 +66241,7 @@ var ProjectDetail = _react2.default.createClass({
             model = _props.model;
 
 
-        if (!model) return _react2.default.createElement(_semanticUiReact.Loader, null);
+        if (!model) return _react2.default.createElement(_semanticUiReact.Loader, { active: true });
 
         return _react2.default.createElement(
             'div',
@@ -107591,6 +107591,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(17);
+
 var _reactRedux = __webpack_require__(24);
 
 var _semanticUiReact = __webpack_require__(7);
@@ -107618,7 +107620,14 @@ var ProjectDetailCharacters = _react2.default.createClass({
 
         dispatch((0, _character.charactersGet)());
     },
+    handleClickCreateCharacter: function handleClickCreateCharacter(e, payload) {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _character.charactersPostOne)(payload));
+    },
     renderCharacterCardNotFound: function renderCharacterCardNotFound(character, i) {
+        var handleClickCreateCharacter = this.handleClickCreateCharacter;
+
         return _react2.default.createElement(
             _semanticUiReact.Card,
             { key: i, color: 'grey' },
@@ -107635,7 +107644,9 @@ var ProjectDetailCharacters = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
                 null,
-                _react2.default.createElement(_semanticUiReact.Button, { content: 'Create', size: 'small' })
+                _react2.default.createElement(_semanticUiReact.Button, { content: 'Create', size: 'small', onClick: function onClick(e) {
+                        handleClickCreateCharacter(e, { name: character.name });
+                    } })
             )
         );
     },
@@ -107671,7 +107682,7 @@ var ProjectDetailCharacters = _react2.default.createClass({
                 _semanticUiReact.Card.Content,
                 null,
                 _react2.default.createElement(_semanticUiReact.Button, { onClick: function onClick() {
-                        browserHistory.push('/character/' + character.existing.id + '/edit');
+                        _reactRouter.browserHistory.push('/character/' + character.existing.id + '/edit');
                     }, content: 'Edit', size: 'small' })
             )
         );
@@ -107683,7 +107694,8 @@ var ProjectDetailCharacters = _react2.default.createClass({
             project = _props.project,
             models = _props.models;
 
-        if (!models) return false;
+        if (!models) return _react2.default.createElement(_semanticUiReact.Loader, { active: true });
+
         var characters = (0, _fountainParser.collateProjectScriptCharactersWithCharacters)(project, models);
 
         var existingNodes = characters.existing.map(function (character, i) {
