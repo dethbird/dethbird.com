@@ -102,7 +102,8 @@ const ProjectDetail = React.createClass({
                         <ScriptCastList script={ story.script } displayMode={ true } />
                     </Card.Content>
                     <Card.Content>
-                        <Button onClick={()=>{browserHistory.push(`/story/${story.id}/edit`)}} content="Edit" size="small"/>
+                        <Button onClick={()=>{browserHistory.push(`/story/${story.id}/edit`)}} content="Editor" icon="edit" labelPosition="right" size="mini"/>
+                        <Button onClick={()=>{browserHistory.push(`/story/${story.id}/play`)}} content="Player" icon="play" labelPosition="right" size="mini"/>
                     </Card.Content>
                 </Card>
             );
@@ -119,7 +120,7 @@ const ProjectDetail = React.createClass({
         return (
             <div>
                 <Container>
-                    <Button as="a" onClick={ ()=>{ browserHistory.push(`/project/${model.id}/edit`)} } content="Edit"/>
+                    <Button as="a" onClick={ ()=>{ browserHistory.push(`/project/${model.id}/edit`)} } content="Edit" icon="edit" labelPosition="right" size="small"/>
                 </Container>
                 <Container text textAlign="center">
                     <Header as="h1">{ model.name }</Header>

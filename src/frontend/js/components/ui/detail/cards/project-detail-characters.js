@@ -6,6 +6,7 @@ import {
     Card,
     Container,
     Header,
+    Icon,
     Image,
     Loader
 } from 'semantic-ui-react';
@@ -39,7 +40,7 @@ const ProjectDetailCharacters = React.createClass({
                     <Card.Header>{ character.name }</Card.Header>
                 </Card.Content>
                 <Card.Content>
-                    <Button content="Create" size="small" onClick={ (e)=>{ handleClickCreateCharacter(e, { name: character.name })} }/>
+                    <Button content="Create" onClick={ (e)=>{ handleClickCreateCharacter(e, { name: character.name })} } icon="add" labelPosition="right" size="mini"/>
                 </Card.Content>
             </Card>
         );
@@ -54,7 +55,7 @@ const ProjectDetailCharacters = React.createClass({
                     <Card.Description>{ [character.existing.occupation, character.existing.location ].filter(function (val) {return val;}).join(', ') }</Card.Description>
                 </Card.Content>
                 <Card.Content>
-                    <Button onClick={()=>{browserHistory.push(`/character/${character.existing.id}/edit`)}} content="Edit" size="small" />
+                    <Button onClick={()=>{browserHistory.push(`/character/${character.existing.id}/edit`)}} content="Edit" icon="edit" labelPosition="right" size="mini"/>
                 </Card.Content>
             </Card>
         );

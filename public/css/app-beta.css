@@ -807,6 +807,7 @@ i.trash {
   padding-bottom: 5em;
 }
 .footer.segment {
+  margin-top: 3em !important;
   padding: 5em 0em;
 }
 .main-content {
