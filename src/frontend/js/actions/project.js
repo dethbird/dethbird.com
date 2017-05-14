@@ -23,10 +23,11 @@ const projectsRequestError = (errors) => {
     }
 }
 
-export const projectsGet = () =>
+export const projectsGet = (filter) =>
     dispatch => {
         dispatch(projectsRequestInit());
         request.get(`/api/0.1/projects`)
+            .query(filter ? filter : {})
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(projectsRequestSuccess(res.body));

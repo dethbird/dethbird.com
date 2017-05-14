@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     Card,
-    Container
+    Container,
+    Loader
 } from 'semantic-ui-react';
 
 import ProjectsFilter from 'components/ui/list/filter/projects-filter';
@@ -15,18 +16,25 @@ const ProjectsList = React.createClass({
         const { dispatch } = this.props;
         dispatch(projectsGet());
     },
+    handleFilter(e, payload) {
+        const { dispatch } = this.props;
+        dispatch(projectsGet(payload));
+    },
     render() {
+        const { handleFilter } = this;
         const { models } = this.props;
+
+
 
         const projectNodes = models ? models.map(function(project, i){
             return (
                 <ProjectCard project={ project } key={ i } />
             );
-        }) : [];
+        }) : <Loader active />;
 
         return (
             <Container>
-                <ProjectsFilter onFilter={()=>{}} />
+                <ProjectsFilter onFilter={ handleFilter } />
                 <Card.Group itemsPerRow={ 4 } >
                     { projectNodes }
                 </Card.Group>

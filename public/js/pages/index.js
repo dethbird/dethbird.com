@@ -25377,10 +25377,10 @@ var projectsRequestError = function projectsRequestError(errors) {
     };
 };
 
-var projectsGet = exports.projectsGet = function projectsGet() {
+var projectsGet = exports.projectsGet = function projectsGet(filter) {
     return function (dispatch) {
         dispatch(projectsRequestInit());
-        _superagent2.default.get('/api/0.1/projects').end(function (err, res) {
+        _superagent2.default.get('/api/0.1/projects').query(filter ? filter : {}).end(function (err, res) {
             if (res.ok) {
                 dispatch(projectsRequestSuccess(res.body));
             } else {
@@ -67390,6 +67390,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -67404,7 +67406,42 @@ var ProjectsFilter = _react2.default.createClass({
     propTypes: {
         onFilter: _react2.default.PropTypes.func.isRequired
     },
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {}
+        };
+    },
+    handleFieldChange: function handleFieldChange(e, payload) {
+        var changedFields = this.state.changedFields;
+
+        if (payload.type == "checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.name] = payload.value;
+        }
+        this.setState(_extends({}, this.state, {
+            changedFields: changedFields
+        }));
+    },
+    handleSubmit: function handleSubmit(e) {
+        e.preventDefault();
+        var onFilter = this.props.onFilter;
+        var changedFields = this.state.changedFields;
+
+        onFilter(e, changedFields);
+    },
+    handleReset: function handleReset(e) {
+        var onFilter = this.props.onFilter;
+
+        this.setState(_extends({}, this.state, {
+            changedFields: {}
+        }));
+        onFilter(e, {});
+    },
     render: function render() {
+        var handleFieldChange = this.handleFieldChange,
+            handleSubmit = this.handleSubmit,
+            handleReset = this.handleReset;
         var _props = this.props,
             onChange = _props.onChange,
             onFilter = _props.onFilter;
@@ -67415,19 +67452,23 @@ var ProjectsFilter = _react2.default.createClass({
             null,
             _react2.default.createElement(
                 _semanticUiReact.Form,
-                { size: 'small' },
+                {
+                    size: 'small',
+                    onSubmit: handleSubmit
+                },
                 _react2.default.createElement(
                     _semanticUiReact.Grid,
                     { verticalAlign: 'bottom' },
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4 },
-                        _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', id: 'name', type: 'text', onChange: function onChange() {} })
+                        _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', name: 'name', type: 'text', onChange: handleFieldChange })
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
-                        { width: 2 },
-                        _react2.default.createElement(_semanticUiReact.Button, { type: 'submit', icon: 'filter', labelPosition: 'right', content: 'Filter' })
+                        { width: 3 },
+                        _react2.default.createElement(_semanticUiReact.Button, { type: 'submit', icon: 'filter', basic: true, color: 'teal' }),
+                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', icon: 'remove', basic: true, onClick: handleReset })
                     )
                 )
             )
@@ -67684,18 +67725,24 @@ var ProjectsList = _react2.default.createClass({
 
         dispatch((0, _project.projectsGet)());
     },
+    handleFilter: function handleFilter(e, payload) {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _project.projectsGet)(payload));
+    },
     render: function render() {
+        var handleFilter = this.handleFilter;
         var models = this.props.models;
 
 
         var projectNodes = models ? models.map(function (project, i) {
             return _react2.default.createElement(_projectCard2.default, { project: project, key: i });
-        }) : [];
+        }) : _react2.default.createElement(_semanticUiReact.Loader, { active: true });
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
             null,
-            _react2.default.createElement(_projectsFilter2.default, { onFilter: function onFilter() {} }),
+            _react2.default.createElement(_projectsFilter2.default, { onFilter: handleFilter }),
             _react2.default.createElement(
                 _semanticUiReact.Card.Group,
                 { itemsPerRow: 4 },
