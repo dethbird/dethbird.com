@@ -44,6 +44,53 @@ class Project extends ActiveRecord\Model
         $this->date_updated = date('Y-m-d g:i:s a');
     }
 
+    public static function find_all_filtered($filterParams) {
+
+        $conditions = [];
+        $conditionValues = [];
+
+        $orderByValue = 'name asc';
+
+        foreach ($filterParams as $k => $v) {
+            switch($k) {
+                case 'created_by':
+                    if($v) {
+                        $conditions[] = 'created_by = ?';
+                        $conditionValues[] = $v;
+                    }
+                    break;
+                case 'name':
+                    if(trim($v)!=='') {
+                        $conditions[] = 'TRIM(UPPER(name)) LIKE CONCAT("%", ? ,"%")';
+                        $conditionValues[] = strtoupper(trim($v));
+                    }
+                    break;
+                case 'order_by':
+                    if(trim($v)!=='') {
+                        $orderByValue = $v;
+                    }
+                    break;
+
+            }
+        }
+        // $p = new Project();
+        // var_dump($p);
+        // die();
+        // $projects = [];
+        // try {
+            $projects = Project::all([
+                'conditions' => array_merge([implode(' AND ', $conditions)], $conditionValues),
+                'order' => $orderByValue
+            ]);
+        // } catch (Exception $e) {
+        //     // var_dump($e);
+        //     var_dump($projects);
+        //     die();
+        // }
+
+        return $projects;
+    }
+
     public function to_hydrated_array() {
 
         $_model = $this->to_array();

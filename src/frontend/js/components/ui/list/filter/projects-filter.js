@@ -3,7 +3,8 @@ import {
     Button,
     Form,
     Grid,
-    Segment
+    Segment,
+    Select
 } from 'semantic-ui-react';
 
 
@@ -28,6 +29,14 @@ const ProjectsFilter = React.createClass({
             changedFields
         });
     },
+    handleSelectChange(e, payload) {
+        const { handleFieldChange, handleSubmit } = this;
+        const { onFilter } = this.props;
+        handleFieldChange(e, payload);
+        setTimeout(function(){
+            handleSubmit(new Event('handleSelectChange'));
+        }, 100);
+    },
     handleSubmit(e){
         e.preventDefault();
         const { onFilter } = this.props;
@@ -43,8 +52,9 @@ const ProjectsFilter = React.createClass({
         onFilter(e, {});
     },
     render() {
-        const { handleFieldChange, handleSubmit, handleReset } = this;
+        const { handleFieldChange, handleSelectChange, handleSubmit, handleReset } = this;
         const { onChange, onFilter } = this.props;
+        const { changedFields } = this.state;
 
         return (
             <Segment>
@@ -54,7 +64,44 @@ const ProjectsFilter = React.createClass({
                 >
                     <Grid verticalAlign='bottom'>
                         <Grid.Column width={ 4 } >
-                            <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } />
+                            <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ changedFields.name || ''}/>
+                        </Grid.Column>
+                        <Grid.Column width={ 4 } >
+                            <Form.Field>
+                                <label>Order</label>
+                                <Select placeholder="Order by" onChange={ handleSelectChange } name="order_by" options={[
+                                    {
+                                        key: "name_asc",
+                                        value: "name asc",
+                                        text: "Name A-Z"
+                                    },
+                                    {
+                                        key: "name_desc",
+                                        value: "name desc",
+                                        text: "Name Z-A"
+                                    },
+                                    {
+                                        key: "date_created_desc",
+                                        value: "date_created desc",
+                                        text: "Created (latest first)"
+                                    },
+                                    {
+                                        key: "date_updated_desc",
+                                        value: "date_updated desc",
+                                        text: "Updated (latest first)"
+                                    },
+                                    {
+                                        key: "date_created_asc",
+                                        value: "date_created asc",
+                                        text: "Created (oldest first)"
+                                    },
+                                    {
+                                        key: "date_updated_asc",
+                                        value: "date_updated asc",
+                                        text: "Updated (oldest first)"
+                                    }
+                                ]}/>
+                            </Form.Field>
                         </Grid.Column>
                         <Grid.Column width={ 3 } >
                             <Button type='submit' icon='filter' basic color='teal' />

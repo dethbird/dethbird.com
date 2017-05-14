@@ -67423,6 +67423,16 @@ var ProjectsFilter = _react2.default.createClass({
             changedFields: changedFields
         }));
     },
+    handleSelectChange: function handleSelectChange(e, payload) {
+        var handleFieldChange = this.handleFieldChange,
+            handleSubmit = this.handleSubmit;
+        var onFilter = this.props.onFilter;
+
+        handleFieldChange(e, payload);
+        setTimeout(function () {
+            handleSubmit(new Event('handleSelectChange'));
+        }, 100);
+    },
     handleSubmit: function handleSubmit(e) {
         e.preventDefault();
         var onFilter = this.props.onFilter;
@@ -67440,11 +67450,13 @@ var ProjectsFilter = _react2.default.createClass({
     },
     render: function render() {
         var handleFieldChange = this.handleFieldChange,
+            handleSelectChange = this.handleSelectChange,
             handleSubmit = this.handleSubmit,
             handleReset = this.handleReset;
         var _props = this.props,
             onChange = _props.onChange,
             onFilter = _props.onFilter;
+        var changedFields = this.state.changedFields;
 
 
         return _react2.default.createElement(
@@ -67462,7 +67474,45 @@ var ProjectsFilter = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4 },
-                        _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', name: 'name', type: 'text', onChange: handleFieldChange })
+                        _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', name: 'name', type: 'text', onChange: handleFieldChange, value: changedFields.name || '' })
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 4 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Form.Field,
+                            null,
+                            _react2.default.createElement(
+                                'label',
+                                null,
+                                'Order'
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Select, { placeholder: 'Order by', onChange: handleSelectChange, name: 'order_by', options: [{
+                                    key: "name_asc",
+                                    value: "name asc",
+                                    text: "Name A-Z"
+                                }, {
+                                    key: "name_desc",
+                                    value: "name desc",
+                                    text: "Name Z-A"
+                                }, {
+                                    key: "date_created_desc",
+                                    value: "date_created desc",
+                                    text: "Created (latest first)"
+                                }, {
+                                    key: "date_updated_desc",
+                                    value: "date_updated desc",
+                                    text: "Updated (latest first)"
+                                }, {
+                                    key: "date_created_asc",
+                                    value: "date_created asc",
+                                    text: "Created (oldest first)"
+                                }, {
+                                    key: "date_updated_asc",
+                                    value: "date_updated asc",
+                                    text: "Updated (oldest first)"
+                                }] })
+                        )
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,

@@ -296,8 +296,10 @@ $app->group('/api/0.1', function(){
     $this->get('/projects', function($request, $response, $args){
         $headers = $request->getHeaders();
 
-        $models = [];
-        $models = Project::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
+        $filters = $request->getQueryParams();
+        $filters['created_by'] = isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id;
+
+        $models = Project::find_all_filtered($filters);
         $_models = [];
         foreach ($models as $model) {
             $_models[] = $model->to_hydrated_array();
