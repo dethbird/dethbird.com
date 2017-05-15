@@ -229,6 +229,8 @@ $app->group('/api/0.1', function(){
     $this->post('/privatebeta', function($request, $response, $args){
         $params = $request->getParsedBody();
         $params['created_by'] = $_SESSION['securityContext']->id;
+        $captcha = $params['captcha'];
+        unset($params['captcha']);
 
         $user = User::find('one', array('conditions' => array('UPPER(username) = ?', strtoupper($params['username']))));
         if ($user) {
@@ -241,6 +243,25 @@ $app->group('/api/0.1', function(){
             return $response
                 ->withStatus(409)
                 ->withJson(['global' => ['message'=>'Email already exists']]);
+        }
+        # captcha
+        $httpClient = new GuzzleHttp\Client();
+        $captchaResponse = $httpClient->request(
+            'POST',
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'query' => [
+                    'secret' => "6LchDiAUAAAAAGKQ1l46D4NovpRCCN83s2vrdV5I",
+                    'response' => 'farts',
+                    'remoteip' => $_SERVER['REMOTE_ADDR']
+                ]
+            ]
+        );
+        $body = json_decode($captchaResponse->getBody()->getContents());
+        if (!$body->success) {
+            return $response
+                ->withStatus(409)
+                ->withJson(['global' => ['message'=>'Please verify you are not a robot.']]);
         }
 
         # create the user

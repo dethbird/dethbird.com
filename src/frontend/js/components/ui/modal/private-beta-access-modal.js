@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { connect } from 'react-redux';
 import {
     Button,
@@ -47,6 +48,13 @@ const PrivateBetaAccessModal = React.createClass({
             changedFields
         });
     },
+    handleCaptchaChange(value){
+        const { handleFieldChange } = this;
+        handleFieldChange(new Event('handleCaptchaChange'), {
+            id: 'captcha',
+            value
+        });
+    },
     onClickSubmit() {
         const { dispatch } = this.props;
         const { changedFields } = this.state;
@@ -59,7 +67,7 @@ const PrivateBetaAccessModal = React.createClass({
         dispatch(privatebetaPost(changedFields));
     },
     render() {
-        const { handleFieldChange, onClickSubmit } = this;
+        const { handleFieldChange, onClickSubmit, handleCaptchaChange } = this;
         const { modalVisible, toggleModalVisible } = this.props;
         const { id, ui_state, errors, model } = this.props;
         const { changedFields } = this.state;
@@ -153,6 +161,14 @@ const PrivateBetaAccessModal = React.createClass({
                                         <Form.Field>
                                             <label>Anything else you'd like to comment or on or ask about?</label>
                                             <TextArea autoHeight id="comments" placeholder="Additional comments ..." onChange={ handleFieldChange } ></TextArea>
+                                        </Form.Field>
+                                        <Form.Field>
+                                            <ReCAPTCHA
+                                                ref="recaptcha"
+                                                sitekey="6LchDiAUAAAAAO73Wy0P0WoBT_Xjvul9aGhGuIvN"
+                                                onChange={ handleCaptchaChange }
+                                            />
+                                            <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('captcha', errors)} />
                                         </Form.Field>
                                     </Grid.Column>
                                 </Grid>
