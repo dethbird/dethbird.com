@@ -24,10 +24,11 @@ const charactersRequestError = (errors) => {
 }
 
 
-export const charactersGet = () =>
+export const charactersGet = (filter) =>
     dispatch => {
         dispatch(charactersRequestInit());
         request.get(`/api/0.1/characters`)
+            .query(filter ? filter : {})
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(charactersRequestSuccess(res.body));

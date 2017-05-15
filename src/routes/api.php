@@ -49,8 +49,10 @@ $app->group('/api/0.1', function(){
     $this->get('/characters', function($request, $response, $args){
         $headers = $request->getHeaders();
 
-        $models = [];
-        $models = Character::find_all_by_created_by(isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id);
+        $filters = $request->getQueryParams();
+        $filters['created_by'] = isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id;
+        $models = Character::find_all_filtered($filters);
+
         $_arr = [];
         foreach ($models as $model) {
             $_arr[] = $model->to_array();

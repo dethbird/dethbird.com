@@ -2,8 +2,11 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import {
     Card,
-    Image
+    Icon,
+    Image,
+    List
 } from 'semantic-ui-react';
+import moment from 'moment';
 
 const CharacterCard = React.createClass({
     propTypes: {
@@ -18,6 +21,16 @@ const CharacterCard = React.createClass({
                     <Card.Header>{ character.name }</Card.Header>
                     <Card.Meta>{ [character.age, character.gender ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
                     <Card.Description>{ [character.occupation, character.location ].filter(function (val) {return val;}).join(', ') }</Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <List divided size='small' relaxed>
+                        <List.Item>
+                            <Icon name='add to calendar' />{ moment(character.date_created).format("MMM Do YY, h:mm a") }
+                        </List.Item>
+                        <List.Item>
+                            <Icon name='calendar' />{ moment(character.date_updated).format("MMM Do YY, h:mm a") }
+                        </List.Item>
+                    </List>
                 </Card.Content>
             </Card>
         );

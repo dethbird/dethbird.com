@@ -25241,10 +25241,10 @@ var charactersRequestError = function charactersRequestError(errors) {
     };
 };
 
-var charactersGet = exports.charactersGet = function charactersGet() {
+var charactersGet = exports.charactersGet = function charactersGet(filter) {
     return function (dispatch) {
         dispatch(charactersRequestInit());
-        _superagent2.default.get('/api/0.1/characters').end(function (err, res) {
+        _superagent2.default.get('/api/0.1/characters').query(filter ? filter : {}).end(function (err, res) {
             if (res.ok) {
                 dispatch(charactersRequestSuccess(res.body));
             } else {
@@ -36283,6 +36283,10 @@ var _reactRouter = __webpack_require__(16);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CharacterCard = _react2.default.createClass({
@@ -36321,6 +36325,26 @@ var CharacterCard = _react2.default.createClass({
                     [character.occupation, character.location].filter(function (val) {
                         return val;
                     }).join(', ')
+                )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                { extra: true },
+                _react2.default.createElement(
+                    _semanticUiReact.List,
+                    { divided: true, size: 'small', relaxed: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'add to calendar' }),
+                        (0, _moment2.default)(character.date_created).format("MMM Do YY, h:mm a")
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'calendar' }),
+                        (0, _moment2.default)(character.date_updated).format("MMM Do YY, h:mm a")
+                    )
                 )
             )
         );
@@ -67466,6 +67490,10 @@ var _reactRedux = __webpack_require__(24);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _storiesFilter = __webpack_require__(662);
+
+var _storiesFilter2 = _interopRequireDefault(_storiesFilter);
+
 var _characterCard = __webpack_require__(277);
 
 var _characterCard2 = _interopRequireDefault(_characterCard);
@@ -67483,17 +67511,24 @@ var CharactersList = _react2.default.createClass({
 
         dispatch((0, _character.charactersGet)());
     },
+    handleFilter: function handleFilter(e, payload) {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _character.charactersGet)(payload));
+    },
     render: function render() {
+        var handleFilter = this.handleFilter;
         var models = this.props.models;
 
 
         var characterNodes = models ? models.map(function (character, i) {
             return _react2.default.createElement(_characterCard2.default, { character: character, key: i });
-        }) : [];
+        }) : _react2.default.createElement(_semanticUiReact.Loader, { active: true });
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
             null,
+            _react2.default.createElement(_storiesFilter2.default, { onFilter: handleFilter }),
             _react2.default.createElement(
                 _semanticUiReact.Card.Group,
                 { itemsPerRow: 4 },
