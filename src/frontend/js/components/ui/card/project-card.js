@@ -3,10 +3,12 @@ import { browserHistory } from 'react-router';
 import {
     Card,
     Grid,
+    Icon,
     Image,
     Label,
     List
 } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
 
@@ -63,12 +65,28 @@ const ProjectCard = React.createClass({
                 <Card.Content extra>
                     <Grid>
                         <Grid.Column width={ 8 } floated='left'>
-                            { project.stories.length } Stories
+                            <Label>Stories:
+                                <Label.Detail>{ project.stories.length } </Label.Detail>
+                            </Label>
                         </Grid.Column>
                         <Grid.Column width={ 8 } floated='right' className='right aligned'>
-                            { characterCount() } Characters
+                            <Label>
+                                Characters:
+                                <Label.Detail>{ characterCount() } </Label.Detail>
+                            </Label>
                         </Grid.Column>
                     </Grid>
+                </Card.Content>
+                <Card.Content extra>
+                    <List divided size='small' relaxed>
+                        <List.Item>
+                            <Icon name='add to calendar' />{ moment(project.date_created).format("MMM Do YY, h:mm a") }
+                        </List.Item>
+                        <List.Item>
+                            <Icon name='calendar' />{ moment(project.date_updated).format("MMM Do YY, h:mm a") }
+                        </List.Item>
+                    </List>
+
                 </Card.Content>
             </Card>
         );

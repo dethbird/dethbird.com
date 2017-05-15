@@ -36340,6 +36340,10 @@ var _reactRouter = __webpack_require__(16);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _fountainParser = __webpack_require__(38);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -36426,14 +36430,52 @@ var ProjectCard = _react2.default.createClass({
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 8, floated: 'left' },
-                        project.stories.length,
-                        ' Stories'
+                        _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            null,
+                            'Stories:',
+                            _react2.default.createElement(
+                                _semanticUiReact.Label.Detail,
+                                null,
+                                project.stories.length,
+                                ' '
+                            )
+                        )
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 8, floated: 'right', className: 'right aligned' },
-                        characterCount(),
-                        ' Characters'
+                        _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            null,
+                            'Characters:',
+                            _react2.default.createElement(
+                                _semanticUiReact.Label.Detail,
+                                null,
+                                characterCount(),
+                                ' '
+                            )
+                        )
+                    )
+                )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                { extra: true },
+                _react2.default.createElement(
+                    _semanticUiReact.List,
+                    { divided: true, size: 'small', relaxed: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'add to calendar' }),
+                        (0, _moment2.default)(project.date_created).format("MMM Do YY, h:mm a")
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'calendar' }),
+                        (0, _moment2.default)(project.date_updated).format("MMM Do YY, h:mm a")
                     )
                 )
             )
