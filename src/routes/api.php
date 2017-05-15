@@ -251,8 +251,8 @@ $app->group('/api/0.1', function(){
             'https://www.google.com/recaptcha/api/siteverify',
             [
                 'query' => [
-                    'secret' => "6LchDiAUAAAAAGKQ1l46D4NovpRCCN83s2vrdV5I",
-                    'response' => 'farts',
+                    'secret' => $this->configs['service']['recaptcha']['secret'],
+                    'response' => $captcha,
                     'remoteip' => $_SERVER['REMOTE_ADDR']
                 ]
             ]

@@ -42,3 +42,6 @@ service:
     vimeo:
         client_key: :VIMEO_CLIENT_ID
         client_secret: :VIMEO_CLIENT_SECRET
+    recaptcha:
+        key: :RECAPTCHA_KEY
+        secret: :RECAPTCHA_SECRET
