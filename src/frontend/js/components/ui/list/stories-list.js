@@ -26,7 +26,7 @@ const StoriesList = React.createClass({
 
         return (
             <Container>
-                <Card.Group itemsPerRow={ 4 } >
+                <Card.Group itemsPerRow={ 3 } >
                     { storyNodes }
                 </Card.Group>
             </Container>

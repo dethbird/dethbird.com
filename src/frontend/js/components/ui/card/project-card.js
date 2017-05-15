@@ -86,7 +86,6 @@ const ProjectCard = React.createClass({
                             <Icon name='calendar' />{ moment(project.date_updated).format("MMM Do YY, h:mm a") }
                         </List.Item>
                     </List>
-
                 </Card.Content>
             </Card>
         );

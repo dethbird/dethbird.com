@@ -7930,7 +7930,15 @@ var getScriptStats = exports.getScriptStats = function getScriptStats(script) {
         duration_in_miliseconds: 0
     };
 
-    var panelCount = 0;
+    var characters = [];
+    for (var i in tokens) {
+        var token = tokens[i];
+        // console.log(token);
+        if (token.type == 'character') {
+            if (!_.findWhere(characters, { name: token.text })) characters.push({ name: token.text });
+        }
+    }
+    stats.characters = _.sortBy(characters, 'name');
 
     for (var actIndex in story.acts) {
         var act = story.acts[actIndex];
@@ -7939,9 +7947,11 @@ var getScriptStats = exports.getScriptStats = function getScriptStats(script) {
             for (var sceneIndex in sequence.scenes) {
                 var scene = sequence.scenes[sceneIndex];
                 for (var panelIndex in scene.panels) {
-                    var panel = scene.panels[sceneIndex];
-                    stats.panels++;
-                    stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                    var panel = scene.panels[panelIndex];
+                    if (panel !== undefined) {
+                        stats.panels++;
+                        stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                    }
                 }
             }
         }
@@ -66065,6 +66075,12 @@ var _reactRouter = __webpack_require__(16);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _fountainParser = __webpack_require__(38);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var StoryCard = _react2.default.createClass({
@@ -66073,9 +66089,35 @@ var StoryCard = _react2.default.createClass({
     propTypes: {
         story: _react2.default.PropTypes.object.isRequired
     },
+    renderCharacters: function renderCharacters(characters) {
+        if (!characters) return null;
+        var nodes = characters.map(function (character, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { size: 'small', basic: true, color: 'teal' },
+                        character.name
+                    )
+                )
+            );
+        });
+        return _react2.default.createElement(
+            _semanticUiReact.List,
+            { horizontal: true },
+            nodes
+        );
+    },
     render: function render() {
+        var renderCharacters = this.renderCharacters;
         var story = this.props.story;
 
+        var stats = (0, _fountainParser.getScriptStats)(story.script);
+        console.log(stats);
         return _react2.default.createElement(
             _semanticUiReact.Card,
             { onClick: function onClick(e) {
@@ -66085,9 +66127,65 @@ var StoryCard = _react2.default.createClass({
                 _semanticUiReact.Card.Content,
                 { className: 'center aligned' },
                 _react2.default.createElement(
-                    _semanticUiReact.Card.Header,
-                    null,
+                    _semanticUiReact.Header,
+                    { as: 'h3' },
                     story.name
+                )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Header,
+                    { as: 'h4' },
+                    'Characters'
+                ),
+                renderCharacters(stats.characters)
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                { extra: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Grid,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 5 },
+                        stats.acts,
+                        ' Acts'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 5, textAlign: 'center' },
+                        stats.panels,
+                        ' Panels'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 6, textAlign: 'right' },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'time' }),
+                        stats.display_duration
+                    )
+                )
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Card.Content,
+                { extra: true },
+                _react2.default.createElement(
+                    _semanticUiReact.List,
+                    { divided: true, size: 'small', relaxed: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'add to calendar' }),
+                        (0, _moment2.default)(story.date_created).format("MMM Do YY, h:mm a")
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'calendar' }),
+                        (0, _moment2.default)(story.date_updated).format("MMM Do YY, h:mm a")
+                    )
                 )
             )
         );
@@ -66425,7 +66523,7 @@ var ProjectDetail = _react2.default.createClass({
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
                             { width: 5, textAlign: 'center' },
-                            stats.acts,
+                            stats.panels,
                             ' Panels'
                         ),
                         _react2.default.createElement(
@@ -67912,7 +68010,7 @@ var StoriesList = _react2.default.createClass({
             null,
             _react2.default.createElement(
                 _semanticUiReact.Card.Group,
-                { itemsPerRow: 4 },
+                { itemsPerRow: 3 },
                 storyNodes
             )
         );

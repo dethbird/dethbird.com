@@ -820,7 +820,16 @@ export const getScriptStats = (script) => {
         duration_in_miliseconds: 0
     }
 
-    let panelCount = 0;
+    let characters = [];
+    for(const i in tokens) {
+        const token = tokens[i];
+        // console.log(token);
+        if (token.type=='character') {
+            if (!_.findWhere(characters, {name: token.text}))
+                characters.push({name: token.text});
+        }
+    }
+    stats.characters = _.sortBy(characters, 'name');
 
     for (const actIndex in story.acts) {
         const act = story.acts[actIndex];
@@ -829,9 +838,11 @@ export const getScriptStats = (script) => {
             for (const sceneIndex in sequence.scenes){
                 const scene = sequence.scenes[sceneIndex];
                 for (const panelIndex in scene.panels){
-                    const panel = scene.panels[sceneIndex];
-                    stats.panels++;
-                    stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                    const panel = scene.panels[panelIndex];
+                    if(panel!==undefined) {
+                        stats.panels++;
+                        stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                    }
                 }
             }
         }

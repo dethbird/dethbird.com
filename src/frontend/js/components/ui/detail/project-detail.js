@@ -90,7 +90,7 @@ const ProjectDetail = React.createClass({
                                 { stats.acts } Acts
                             </Grid.Column>
                             <Grid.Column width={ 5 } textAlign='center'>
-                                { stats.acts } Panels
+                                { stats.panels } Panels
                             </Grid.Column>
                             <Grid.Column width={ 6 } textAlign='right'>
                                 <Icon name="time" />{ stats.display_duration }
