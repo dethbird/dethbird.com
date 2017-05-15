@@ -73,22 +73,12 @@ class Project extends ActiveRecord\Model
 
             }
         }
-        // $p = new Project();
-        // var_dump($p);
-        // die();
-        // $projects = [];
-        // try {
-            $projects = Project::all([
-                'conditions' => array_merge([implode(' AND ', $conditions)], $conditionValues),
-                'order' => $orderByValue
-            ]);
-        // } catch (Exception $e) {
-        //     // var_dump($e);
-        //     var_dump($projects);
-        //     die();
-        // }
+        $models = Project::all([
+            'conditions' => array_merge([implode(' AND ', $conditions)], $conditionValues),
+            'order' => $orderByValue
+        ]);
 
-        return $projects;
+        return $models;
     }
 
     public function to_hydrated_array() {

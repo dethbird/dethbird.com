@@ -28259,10 +28259,10 @@ var storiesRequestError = function storiesRequestError(errors) {
     };
 };
 
-var storiesGet = exports.storiesGet = function storiesGet(id) {
+var storiesGet = exports.storiesGet = function storiesGet(filter) {
     return function (dispatch) {
         dispatch(storiesRequestInit());
-        _superagent2.default.get('/api/0.1/stories').end(function (err, res) {
+        _superagent2.default.get('/api/0.1/stories').query(filter ? filter : {}).end(function (err, res) {
             if (res.ok) {
                 dispatch(storiesRequestSuccess(res.body));
             } else {
@@ -67678,6 +67678,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -67686,31 +67688,133 @@ var _semanticUiReact = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var StoriesFilter = _react2.default.createClass({
-    displayName: 'StoriesFilter',
+var StriesFilter = _react2.default.createClass({
+    displayName: 'StriesFilter',
 
     propTypes: {
         onFilter: _react2.default.PropTypes.func.isRequired
     },
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {}
+        };
+    },
+    handleFieldChange: function handleFieldChange(e, payload) {
+        var changedFields = this.state.changedFields;
+
+        if (payload.type == "checkbox") {
+            changedFields[payload.id] = payload.checked;
+        } else {
+            changedFields[payload.name] = payload.value;
+        }
+        this.setState(_extends({}, this.state, {
+            changedFields: changedFields
+        }));
+    },
+    handleSelectChange: function handleSelectChange(e, payload) {
+        var handleFieldChange = this.handleFieldChange,
+            handleSubmit = this.handleSubmit;
+        var onFilter = this.props.onFilter;
+
+        handleFieldChange(e, payload);
+        setTimeout(function () {
+            handleSubmit(new Event('handleSelectChange'));
+        }, 100);
+    },
+    handleSubmit: function handleSubmit(e) {
+        e.preventDefault();
+        var onFilter = this.props.onFilter;
+        var changedFields = this.state.changedFields;
+
+        onFilter(e, changedFields);
+    },
+    handleReset: function handleReset(e) {
+        var onFilter = this.props.onFilter;
+
+        this.setState(_extends({}, this.state, {
+            changedFields: {}
+        }));
+        onFilter(e, {});
+    },
     render: function render() {
+        var handleFieldChange = this.handleFieldChange,
+            handleSelectChange = this.handleSelectChange,
+            handleSubmit = this.handleSubmit,
+            handleReset = this.handleReset;
         var _props = this.props,
             onChange = _props.onChange,
             onFilter = _props.onFilter;
+        var changedFields = this.state.changedFields;
 
 
         return _react2.default.createElement(
             _semanticUiReact.Segment,
-            { raised: true },
+            null,
             _react2.default.createElement(
                 _semanticUiReact.Form,
-                null,
-                'Filter Form'
+                {
+                    size: 'small',
+                    onSubmit: handleSubmit
+                },
+                _react2.default.createElement(
+                    _semanticUiReact.Grid,
+                    { verticalAlign: 'bottom' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 4 },
+                        _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Name', placeholder: 'Name', name: 'name', type: 'text', onChange: handleFieldChange, value: changedFields.name || '' })
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 4 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Form.Field,
+                            null,
+                            _react2.default.createElement(
+                                'label',
+                                null,
+                                'Order'
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Select, { placeholder: 'Order by', onChange: handleSelectChange, name: 'order_by', options: [{
+                                    key: "name_asc",
+                                    value: "name asc",
+                                    text: "Name A-Z"
+                                }, {
+                                    key: "name_desc",
+                                    value: "name desc",
+                                    text: "Name Z-A"
+                                }, {
+                                    key: "date_created_desc",
+                                    value: "date_created desc",
+                                    text: "Created (latest first)"
+                                }, {
+                                    key: "date_updated_desc",
+                                    value: "date_updated desc",
+                                    text: "Updated (latest first)"
+                                }, {
+                                    key: "date_created_asc",
+                                    value: "date_created asc",
+                                    text: "Created (oldest first)"
+                                }, {
+                                    key: "date_updated_asc",
+                                    value: "date_updated asc",
+                                    text: "Updated (oldest first)"
+                                }] })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 3 },
+                        _react2.default.createElement(_semanticUiReact.Button, { type: 'submit', icon: 'filter', basic: true, color: 'teal' }),
+                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', icon: 'remove', basic: true, onClick: handleReset })
+                    )
+                )
             )
         );
     }
 });
 
-exports.default = StoriesFilter;
+exports.default = StriesFilter;
 
 /***/ }),
 /* 663 */
@@ -67996,17 +68100,24 @@ var StoriesList = _react2.default.createClass({
 
         dispatch((0, _story.storiesGet)());
     },
+    handleFilter: function handleFilter(e, payload) {
+        var dispatch = this.props.dispatch;
+
+        dispatch((0, _story.storiesGet)(payload));
+    },
     render: function render() {
+        var handleFilter = this.handleFilter;
         var models = this.props.models;
 
 
         var storyNodes = models ? models.map(function (story, i) {
             return _react2.default.createElement(_storyCard2.default, { story: story, key: i });
-        }) : [];
+        }) : _react2.default.createElement(_semanticUiReact.Loader, { active: true });
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
             null,
+            _react2.default.createElement(_storiesFilter2.default, { onFilter: handleFilter }),
             _react2.default.createElement(
                 _semanticUiReact.Card.Group,
                 { itemsPerRow: 3 },

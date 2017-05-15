@@ -24,10 +24,11 @@ const storiesRequestError = (errors) => {
 }
 
 
-export const storiesGet = (id) =>
+export const storiesGet = (filter) =>
     dispatch => {
         dispatch(storiesRequestInit());
         request.get(`/api/0.1/stories`)
+            .query(filter ? filter : {})
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(storiesRequestSuccess(res.body));

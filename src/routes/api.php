@@ -395,13 +395,17 @@ $app->group('/api/0.1', function(){
     # stories
     $this->get('/stories', function($request, $response, $args){
         $models = [];
-        $models = Story::find_all_by_created_by($_SESSION['securityContext']->id);
-        $_arr = [];
+
+        $filters = $request->getQueryParams();
+        $filters['created_by'] = isset($headers['HTTP_X_DEMO_REQUEST']) ? 1 : $_SESSION['securityContext']->id;
+        $models = Story::find_all_filtered($filters);
+
+        $_models = [];
         foreach ($models as $model) {
-            $_arr[] = $model->to_array();
+            $_models[] = $model->to_array();
         }
         return $response
-            ->withJson($_arr);
+            ->withJson($_models);
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 

@@ -25,7 +25,6 @@ const ProjectsList = React.createClass({
         const { models } = this.props;
 
 
-
         const projectNodes = models ? models.map(function(project, i){
             return (
                 <ProjectCard project={ project } key={ i } />

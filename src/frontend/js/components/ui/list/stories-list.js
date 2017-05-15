@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     Card,
-    Container
+    Container,
+    Loader
 } from 'semantic-ui-react';
 
 import StoryCard from 'components/ui/card/story-card';
@@ -15,17 +16,23 @@ const StoriesList = React.createClass({
         const { dispatch } = this.props;
         dispatch(storiesGet());
     },
+    handleFilter(e, payload) {
+        const { dispatch } = this.props;
+        dispatch(storiesGet(payload));
+    },
     render() {
+        const { handleFilter } = this;
         const { models } = this.props;
 
         const storyNodes = models ? models.map(function(story, i){
             return (
                 <StoryCard story={ story } key={ i } />
             );
-        }) : [];
+        }) : <Loader active />;
 
         return (
             <Container>
+                <StoriesFilter onFilter={ handleFilter } />
                 <Card.Group itemsPerRow={ 3 } >
                     { storyNodes }
                 </Card.Group>
