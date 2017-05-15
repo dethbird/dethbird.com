@@ -39,7 +39,6 @@ const StoryCard = React.createClass({
         const { renderCharacters } = this;
         const { story } = this.props;
         const stats = getScriptStats(story.script);
-        console.log(stats);
         return (
             <Card onClick={ (e) => { browserHistory.push(`/story/${story.id}/edit`)} } >
                 <Card.Content className="center aligned">
