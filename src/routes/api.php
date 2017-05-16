@@ -536,7 +536,6 @@ $app->group('/api/0.1', function(){
 
         $this->put('/{id}', function($request, $response, $args){
             $params = $request->getParsedBody();
-            $params['updated_by'] = $_SESSION['securityContext']->id;
             $model = User::find_by_id($args['id']);
 
             if (!$model) {

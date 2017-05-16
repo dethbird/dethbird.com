@@ -104,6 +104,7 @@ const AdminUserForm = React.createClass({
 
                     <Form.Field>
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> { id ? "Save" : "Create" }</Button>
+                        <Button as="a">Send Activation Email</Button>
                     </Form.Field>
 
                 </Form>

@@ -66187,6 +66187,11 @@ var AdminUserForm = _react2.default.createClass({
                         _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
                         ' ',
                         id ? "Save" : "Create"
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a' },
+                        'Send Activation Email'
                     )
                 )
             )
@@ -67022,7 +67027,6 @@ var UserCard = _react2.default.createClass({
     render: function render() {
         var user = this.props.user;
 
-
         return _react2.default.createElement(
             _semanticUiReact.Card,
             { onClick: function onClick(e) {
@@ -67036,6 +67040,11 @@ var UserCard = _react2.default.createClass({
                     _semanticUiReact.Card.Header,
                     null,
                     user.username
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Meta,
+                    null,
+                    user.email
                 )
             ),
             _react2.default.createElement(
@@ -67044,6 +67053,36 @@ var UserCard = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.List,
                     { divided: true, size: 'small', relaxed: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        user.date_verified !== null ? _react2.default.createElement(
+                            'span',
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'checked calendar' }),
+                            (0, _moment2.default)(user.date_verified).format("MMM Do YY, h:mm a")
+                        ) : _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { color: 'red', basic: true, horizontal: true, size: 'small' },
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'checked calendar' }),
+                            ' Not Verified'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.List.Item,
+                        null,
+                        user.date_activated !== null ? _react2.default.createElement(
+                            'span',
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'checked calendar' }),
+                            (0, _moment2.default)(user.date_activated).format("MMM Do YY, h:mm a")
+                        ) : _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { color: 'red', basic: true, horizontal: true, size: 'small' },
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'checked calendar' }),
+                            ' Not Activated'
+                        )
+                    ),
                     _react2.default.createElement(
                         _semanticUiReact.List.Item,
                         null,
