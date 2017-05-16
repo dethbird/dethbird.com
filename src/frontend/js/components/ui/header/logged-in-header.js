@@ -28,7 +28,19 @@ const LoggedInHeader = React.createClass({
             </Container>
         );
     },
+    renderAdminUsersMenuItem() {
+        const { securityContext } = this.props;
+        const { path } = this.props;
+
+        if(securityContext.admin_user!==1)
+            return null;
+
+        return (
+            <Item as="a" onClick={()=>{browserHistory.push('/admin/users')}} className={ path=="/admin/users" ? "active" : null } content="Users"/>
+        )
+    },
     render() {
+        const { renderAdminUsersMenuItem } = this;
         const { path } = this.props;
         return (
             <Segment inverted={ true } >
@@ -53,6 +65,7 @@ const LoggedInHeader = React.createClass({
                                 <Dropdown.Item as="a" icon='add' text='Create' onClick={ (e) => { browserHistory.push('/character/create'); } }  />
                             </Dropdown.Menu>
                         </Dropdown>
+                        {  renderAdminUsersMenuItem() }
                         <Item content={ this.renderSecurityContext() } className="right" />
                     </Menu>
                 </Container>

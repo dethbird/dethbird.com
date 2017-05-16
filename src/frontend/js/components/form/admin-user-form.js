@@ -92,7 +92,10 @@ const AdminUserForm = React.createClass({
                     <Form.Input label="Username" placeholder="Username" name="username" type="text" onChange={ handleFieldChange } value={ inputFields.username || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('username', errors)} />
 
-                    <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
+                    <Form.Input label="Email" placeholder="joeschmoe@joeschmoestudios.com" id="email" type="email" onChange={ handleFieldChange } value={ inputFields.email || '' }  required={ true }/>
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('email', errors)} />
+
+                    <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
 
                     <Image shape="rounded" size="large" centered={ true } src={ inputFields.avatar_image_url || 'https://myspace.com/common/images/user.png' } />

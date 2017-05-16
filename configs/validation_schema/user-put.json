@@ -4,6 +4,11 @@
             "minLength": 1,
 		    "type": "string"
 		},
+		"email": {
+            "minLength": 1,
+		    "type": "string",
+            "pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+		},
 		"name": {
             "minLength": 1,
 		    "type": "string"
