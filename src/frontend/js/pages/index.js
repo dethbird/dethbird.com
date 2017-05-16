@@ -14,6 +14,9 @@ import PrivateBeta from 'components/pages/private-beta';
 import Verify from 'components/pages/verify';
 import Product from 'components/pages/product';
 
+// Admin
+import AdminUsers from 'components/pages/admin-users';
+
 // Internal
 import Dashboard from 'components/pages/dashboard';
 import CharacterEdit from 'components/pages/character-edit';
@@ -55,6 +58,13 @@ const requireAuth = (nextState, replace, callback) => {
     return callback();
 };
 
+const requireAdmin = (nextState, replace, callback) => {
+    if (securityContext.admin_user !== 1) {
+        replace('/');
+    }
+    return callback();
+};
+
 const logPageView = () => {
     ReactGA.set({ page: window.location.pathname });
     ReactGA.pageview(window.location.pathname);
@@ -65,6 +75,7 @@ render((
         <Router history={browserHistory} onUpdate={ logPageView }>
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
+                <Route path="admin/users" component={ AdminUsers } props={ { securityContext } } onEnter={ requireAdmin } />
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="private-beta" component={ PrivateBeta } props={ { securityContext } }/>

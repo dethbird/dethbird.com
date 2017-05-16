@@ -73,3 +73,10 @@ export const STORY = {
     ERROR: "STORY_ERROR",
     SUCCESS: "STORY_SUCCESS"
 };
+
+
+export const USERS = {
+    REQUEST: "USERS_REQUEST",
+    ERROR: "USERS_ERROR",
+    SUCCESS: "USERS_SUCCESS"
+};

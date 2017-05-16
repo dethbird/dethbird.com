@@ -490,6 +490,22 @@ $app->group('/api/0.1', function(){
 
     });
 
+    # projects
+    $this->get('/users', function($request, $response, $args){
+        $headers = $request->getHeaders();
+
+        $filters = $request->getQueryParams();
+
+        $models = User::find_all_filtered($filters);
+        $_models = [];
+        foreach ($models as $model) {
+            $_models[] = $model->to_array();
+        }
+        return $response
+            ->withJson($_models);
+    })
+    ->add( new ReadAccess($_SESSION['securityContext']) );
+
     $this->group('/homepage', function(){
         $this->get('/news', function($request, $response, $args){
 
