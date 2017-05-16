@@ -1,0 +1,7 @@
+<p>Welcome to StoryStation, <strong>{{ user.username }}</strong>!</p>
+<br />
+
+Click here to activate your account and get started:<br />
+https://{{server.SERVER_NAME}}/activate?token={{ user.verify_token_activation }}
+
+<p>You will be asked to choose a password</p>

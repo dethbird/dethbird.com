@@ -14,7 +14,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
-import { userGet, userPut, userPost, userReset } from 'actions/user';
+import { userGet, userPut, userPost, userReset, userSendActivationEmail } from 'actions/user';
 import userPostSchema from 'validation_schema/user-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
@@ -60,6 +60,10 @@ const AdminUserForm = React.createClass({
             changedFields
         });
     },
+    handleClickSendActivationEmail() {
+        const { id, dispatch } = this.props;
+        dispatch(userSendActivationEmail(id));
+    },
     onClickSubmit(e) {
         e.preventDefault();
         const { id, dispatch } = this.props;
@@ -71,7 +75,7 @@ const AdminUserForm = React.createClass({
         }
     },
     render() {
-        const { handleFieldChange } = this;
+        const { handleFieldChange, handleClickSendActivationEmail } = this;
         const { id, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, userPostSchema);
@@ -104,7 +108,7 @@ const AdminUserForm = React.createClass({
 
                     <Form.Field>
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> { id ? "Save" : "Create" }</Button>
-                        <Button as="a">Send Activation Email</Button>
+                        <Button as="a" onClick={ handleClickSendActivationEmail }>Send Activation Email</Button>
                     </Form.Field>
 
                 </Form>

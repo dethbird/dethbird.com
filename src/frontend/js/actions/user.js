@@ -100,3 +100,16 @@ export const userPost = (fields) =>
                 }
         });
     };
+
+export const userSendActivationEmail = (id) =>
+    dispatch => {
+        dispatch(userRequestInit());
+        request.post(`/api/0.1/user/${id}/activation_email`)
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(userRequestSuccess(res.body));
+                } else {
+                    dispatch(userRequestError(res.body));
+                }
+        });
+    };

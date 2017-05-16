@@ -36285,7 +36285,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.userPost = exports.userPut = exports.userGet = exports.usersGet = undefined;
+exports.userSendActivationEmail = exports.userPost = exports.userPut = exports.userGet = exports.usersGet = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -36385,6 +36385,19 @@ var userPost = exports.userPost = function userPost(fields) {
             if (res.ok) {
                 dispatch(userRequestSuccess(res.body));
                 _reactRouter.browserHistory.replace('/user/' + res.body.id + '/edit');
+            } else {
+                dispatch(userRequestError(res.body));
+            }
+        });
+    };
+};
+
+var userSendActivationEmail = exports.userSendActivationEmail = function userSendActivationEmail(id) {
+    return function (dispatch) {
+        dispatch(userRequestInit());
+        _superagent2.default.post('/api/0.1/user/' + id + '/activation_email').end(function (err, res) {
+            if (res.ok) {
+                dispatch(userRequestSuccess(res.body));
             } else {
                 dispatch(userRequestError(res.body));
             }
@@ -66127,11 +66140,18 @@ var AdminUserForm = _react2.default.createClass({
             changedFields: changedFields
         }));
     },
-    onClickSubmit: function onClickSubmit(e) {
-        e.preventDefault();
+    handleClickSendActivationEmail: function handleClickSendActivationEmail() {
         var _props = this.props,
             id = _props.id,
             dispatch = _props.dispatch;
+
+        dispatch((0, _user.userSendActivationEmail)(id));
+    },
+    onClickSubmit: function onClickSubmit(e) {
+        e.preventDefault();
+        var _props2 = this.props,
+            id = _props2.id,
+            dispatch = _props2.dispatch;
         var changedFields = this.state.changedFields;
 
         if (id) {
@@ -66141,11 +66161,12 @@ var AdminUserForm = _react2.default.createClass({
         }
     },
     render: function render() {
-        var handleFieldChange = this.handleFieldChange;
-        var _props2 = this.props,
-            id = _props2.id,
-            ui_state = _props2.ui_state,
-            errors = _props2.errors;
+        var handleFieldChange = this.handleFieldChange,
+            handleClickSendActivationEmail = this.handleClickSendActivationEmail;
+        var _props3 = this.props,
+            id = _props3.id,
+            ui_state = _props3.ui_state,
+            errors = _props3.errors;
         var _state = this.state,
             changedFields = _state.changedFields,
             model = _state.model;
@@ -66190,7 +66211,7 @@ var AdminUserForm = _react2.default.createClass({
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Button,
-                        { as: 'a' },
+                        { as: 'a', onClick: handleClickSendActivationEmail },
                         'Send Activation Email'
                     )
                 )

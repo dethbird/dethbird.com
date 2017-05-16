@@ -506,19 +506,6 @@ $app->group('/api/0.1', function(){
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
 
-    $this->post('/user', function($request, $response, $args){
-        $params = $request->getParsedBody();
-        $params['created_by'] = $_SESSION['securityContext']->id;
-        $attributes = $params;
-        $model = new Project($attributes);
-        $model->save();
-
-        return $response
-            ->withJson($model->to_array());
-    })
-    ->add( new WriteAccess($_SESSION['securityContext']) )
-    ->add( new RequestBodyValidation(
-        APPLICATION_PATH . 'configs/validation_schema/user-post.json') );
 
     $this->group('/user', function(){
         $this->get('/{id}', function($request, $response, $args){
@@ -561,6 +548,35 @@ $app->group('/api/0.1', function(){
         ->add( new WriteAccess($_SESSION['securityContext']) )
         ->add( new RequestBodyValidation(
             APPLICATION_PATH . 'configs/validation_schema/user-put.json') );
+
+        $this->post('/{id}/activation_email', function($request, $response, $args){
+            $model = User::find_by_id($args['id']);
+            $model->verify_token_activation = Ramsey\Uuid\Uuid::uuid4()->toString();
+            $model->save();
+
+            # send the email
+            $templateVars = [
+                "user" => $model,
+                "server" => $_SERVER
+            ];
+
+            $mail = new PHPMailer;
+            $mail->setFrom('info@storystation.io', 'StoryStation');
+            $mail->addAddress($model->email);
+            $mail->isHTML(true);
+            $mail->Subject = 'StoryStation: Welcome! Please Activate Your Account';
+            $mailBody    = $this['view']->render(
+                $response,
+                'email/activation-email.html.twig',
+                $templateVars
+            );
+            $mail->Body = implode("\n", array_slice(explode("\n", $mailBody), 3));;
+            $mail->send();
+
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new WriteAccess($_SESSION['securityContext']) );
 
     });
 
