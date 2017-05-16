@@ -490,7 +490,7 @@ $app->group('/api/0.1', function(){
 
     });
 
-    # projects
+    # users
     $this->get('/users', function($request, $response, $args){
         $headers = $request->getHeaders();
 
@@ -505,6 +505,65 @@ $app->group('/api/0.1', function(){
             ->withJson($_models);
     })
     ->add( new ReadAccess($_SESSION['securityContext']) );
+
+    $this->post('/user', function($request, $response, $args){
+        $params = $request->getParsedBody();
+        $params['created_by'] = $_SESSION['securityContext']->id;
+        $attributes = $params;
+        $model = new Project($attributes);
+        $model->save();
+
+        return $response
+            ->withJson($model->to_array());
+    })
+    ->add( new WriteAccess($_SESSION['securityContext']) )
+    ->add( new RequestBodyValidation(
+        APPLICATION_PATH . 'configs/validation_schema/user-post.json') );
+
+    $this->group('/user', function(){
+        $this->get('/{id}', function($request, $response, $args){
+            $model = User::find_by_id($args['id']);
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
+
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new ReadAccess($_SESSION['securityContext']) );
+
+        $this->put('/{id}', function($request, $response, $args){
+            $params = $request->getParsedBody();
+            $params['updated_by'] = $_SESSION['securityContext']->id;
+            $model = User::find_by_id($args['id']);
+
+            if (!$model) {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "Not found"]]);
+            }
+
+            if ($_SESSION['securityContext']->admin_user!==1) {
+                if ($model->created_by != $_SESSION['securityContext']->id) {
+                    return $response
+                        ->withStatus(403)
+                        ->withJson(["global" => ["message" => "Ownership check failed"]]);
+                }
+            }
+
+            $attributes = $params;
+            $model->update_attributes($attributes);
+
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new WriteAccess($_SESSION['securityContext']) )
+        ->add( new RequestBodyValidation(
+            APPLICATION_PATH . 'configs/validation_schema/user-put.json') );
+
+    });
 
     $this->group('/homepage', function(){
         $this->get('/news', function($request, $response, $args){

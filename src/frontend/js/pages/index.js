@@ -16,6 +16,7 @@ import Product from 'components/pages/product';
 
 // Admin
 import AdminUsers from 'components/pages/admin-users';
+import AdminUserEdit from 'components/pages/admin-user-edit';
 
 // Internal
 import Dashboard from 'components/pages/dashboard';
@@ -75,13 +76,18 @@ render((
         <Router history={browserHistory} onUpdate={ logPageView }>
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
+
                 <Route path="admin/users" component={ AdminUsers } props={ { securityContext } } onEnter={ requireAdmin } />
+                <Route path="admin/user/:id/edit" component={ AdminUserEdit } props={ { securityContext } } onEnter={ requireAdmin } />
+
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="private-beta" component={ PrivateBeta } props={ { securityContext } }/>
                 <Route path="product" component={ Product } props={ { securityContext } }/>
                 <Route path="product/demo/storyplayer" component={ StoryPlayDemo } props={ { securityContext } }/>
                 <Route path="product/demo/storyeditor" component={ StoryEditDemo } props={ { securityContext } }/>
+                <Route path="verify" component={ Verify } props={ { securityContext, verifyUser } } />
+
                 <Route path="projects" component={ Projects } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/create" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/:id/edit" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
@@ -94,7 +100,7 @@ render((
                 <Route path="story/create" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/edit" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/play" component={ StoryPlay } props={ { securityContext } }  onEnter={ requireAuth }/>
-                <Route path="verify" component={ Verify } props={ { securityContext, verifyUser } } />
+
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>
         </Router>

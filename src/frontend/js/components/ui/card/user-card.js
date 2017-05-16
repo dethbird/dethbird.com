@@ -18,7 +18,7 @@ const UserCard = React.createClass({
         const { user } = this.props;
 
         return (
-            <Card onClick={ (e) => { browserHistory.push(`/admin/user/${user.id}`)} } >
+            <Card onClick={ (e) => { browserHistory.push(`/admin/user/${user.id}/edit`)} } >
                 <Image shape="rounded" src={ user.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
                 <Card.Content>
                     <Card.Header>{ user.username }</Card.Header>

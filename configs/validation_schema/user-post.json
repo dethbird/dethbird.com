@@ -1,0 +1,17 @@
+{
+	"properties": {
+		"username": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"name": {
+            "minLength": 1,
+		    "type": "string"
+		},
+		"avatar_image_url": {
+            "minLength": 1,
+            "type": "string"
+		}
+	}
+}
