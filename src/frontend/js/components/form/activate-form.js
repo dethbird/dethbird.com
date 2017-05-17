@@ -14,7 +14,7 @@ import {
 
 import ErrorMessage from 'components/ui/error-message';
 import { UI_STATE } from 'constants/ui-state';
-import { userGet, userPut, userPost, userReset, userSendActivationEmail } from 'actions/user';
+import { userActivate } from 'actions/user';
 import userPostSchema from 'validation_schema/user-post.json';
 import * as jsonSchema from 'utility/json-schema';
 
@@ -54,22 +54,20 @@ const ActivateForm = React.createClass({
     },
     onClickSubmit(e) {
         e.preventDefault();
-        const { id, dispatch } = this.props;
+        const { activationUser, id, dispatch } = this.props;
         const { changedFields } = this.state;
-        // if (id) {
-        //     dispatch(userPut(id, changedFields));
-        // } else {
-        //     dispatch(userPost(changedFields));
-        // }
-        console.log('submit!');
+
+        dispatch(userActivate({
+            ... changedFields,
+            token: activationUser.verify_token_activation
+        }));
     },
     render() {
-        const { handleFieldChange, handleClickSendActivationEmail } = this;
+        const { handleFieldChange, onClickSubmit } = this;
         const { activationUser, ui_state, errors } = this.props;
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, userPostSchema);
-        console.log(activationUser);
-        console.log(model);
+
         return (
             <Container text={ true }>
                 <Form
@@ -77,7 +75,7 @@ const ActivateForm = React.createClass({
                     loading={ ui_state == UI_STATE.REQUESTING }
                     error={ ui_state == UI_STATE.ERROR }
                     success={ ui_state == UI_STATE.SUCCESS }
-                    onSubmit={ this.onClickSubmit }
+                    onSubmit={ onClickSubmit }
                 >
                     <Container>
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
@@ -90,7 +88,7 @@ const ActivateForm = React.createClass({
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('password_repeat', errors)} />
 
                     <Form.Field>
-                        <Button as="a" color="green" onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> Activate</Button>
+                        <Button as="a" color="green" onClick={ onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> Activate</Button>
                     </Form.Field>
 
                 </Form>

@@ -113,3 +113,19 @@ export const userSendActivationEmail = (id) =>
                 }
         });
     };
+
+export const userActivate = (fields) =>
+    dispatch => {
+        console.log(fields);
+        dispatch(userRequestInit());
+        request.post(`/api/0.1/user/activate`)
+            .send( { ... fields } )
+            .end(function(err, res){
+                if(res.ok) {
+                    dispatch(userRequestSuccess(res.body));
+                    browserHistory.replace(`/user/${res.body.id}/edit`);
+                } else {
+                    dispatch(userRequestError(res.body));
+                }
+        });
+    };

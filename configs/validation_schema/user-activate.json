@@ -1,0 +1,19 @@
+{
+	"properties": {
+		"token": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"password": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		},
+		"password_repeat": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		}
+	}
+}

@@ -578,6 +578,41 @@ $app->group('/api/0.1', function(){
         })
         ->add( new WriteAccess($_SESSION['securityContext']) );
 
+        $this->post('/activate', function($request, $response, $args){
+            $params = $request->getParsedBody();
+
+            if ($params['password'] !== $params['password_repeat']) {
+                return $response
+                    ->withStatus(401)
+                    ->withJson(["global" => ["message" => "Passwords do not match"]]);
+            }
+
+            $user = User::find_by_verify_token_activation($params['token']);
+            $model = new stdClass();
+            if ($user) {
+                $user->verify_token_activation = null;
+                $user->date_activated = date('Y-m-d g:i:s a');
+                // $user->save();
+                $model = json_decode(
+                    $user->to_json([
+                        'except'=>[
+                            'api_key',
+                            'password',
+                            'notifications',
+                            'date_added',
+                            'date_updated']
+                ]));
+            } else {
+                return $response
+                    ->withStatus(404)
+                    ->withJson(["global" => ["message" => "User not found"]]);
+            }
+            return $response
+                ->withJson($model->to_array());
+        })
+        ->add( new RequestBodyValidation(
+            APPLICATION_PATH . 'configs/validation_schema/user-activate.json') );
+
     });
 
     $this->group('/homepage', function(){
