@@ -7,6 +7,7 @@ import ReactGA from 'react-ga';
 import App from 'components/app';
 
 // External
+import Activate from 'components/pages/activate';
 import Index from 'components/pages/index';
 import Contact from 'components/pages/contact';
 import Newsfeed from 'components/pages/newsfeed';
@@ -80,6 +81,8 @@ render((
                 <Route path="admin/users" component={ AdminUsers } props={ { securityContext } } onEnter={ requireAdmin } />
                 <Route path="admin/user/:id/edit" component={ AdminUserEdit } props={ { securityContext } } onEnter={ requireAdmin } />
 
+
+                <Route path="activate" component={ Activate } props={ { securityContext, activationUser } } />
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
                 <Route path="private-beta" component={ PrivateBeta } props={ { securityContext } }/>

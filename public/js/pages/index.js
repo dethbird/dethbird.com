@@ -70586,6 +70586,10 @@ var _app = __webpack_require__(629);
 
 var _app2 = _interopRequireDefault(_app);
 
+var _activate = __webpack_require__(1192);
+
+var _activate2 = _interopRequireDefault(_activate);
+
 var _index = __webpack_require__(636);
 
 var _index2 = _interopRequireDefault(_index);
@@ -70675,15 +70679,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 // Admin
-
-
-// External
 _reactGa2.default.initialize('UA-98286537-1', {
     titleCase: false,
     gaOptions: {
         userId: securityContext.id
     }
 });
+
+// External
+
 
 if (lastRequestUri !== '/favicon.ico') {
     _reactRouter.browserHistory.replace(lastRequestUri);
@@ -70731,6 +70735,7 @@ var logPageView = function logPageView() {
             _react2.default.createElement(_reactRouter.IndexRoute, { component: _index2.default, props: { securityContext: securityContext } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'admin/users', component: _adminUsers2.default, props: { securityContext: securityContext }, onEnter: requireAdmin }),
             _react2.default.createElement(_reactRouter.Route, { path: 'admin/user/:id/edit', component: _adminUserEdit2.default, props: { securityContext: securityContext }, onEnter: requireAdmin }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'activate', component: _activate2.default, props: { securityContext: securityContext, activationUser: activationUser } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'contact', component: _contact2.default, props: { securityContext: securityContext } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'newsfeed', component: _newsfeed2.default, props: { securityContext: securityContext } }),
             _react2.default.createElement(_reactRouter.Route, { path: 'private-beta', component: _privateBeta2.default, props: { securityContext: securityContext } }),
@@ -110015,6 +110020,261 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactGa = __webpack_require__(86);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
+
+var _reactRouter = __webpack_require__(16);
+
+var _semanticUiReact = __webpack_require__(7);
+
+var _loginForm = __webpack_require__(59);
+
+var _loginForm2 = _interopRequireDefault(_loginForm);
+
+var _activateForm = __webpack_require__(1193);
+
+var _activateForm2 = _interopRequireDefault(_activateForm);
+
+var _footer = __webpack_require__(25);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _externalHeader = __webpack_require__(74);
+
+var _externalHeader2 = _interopRequireDefault(_externalHeader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Activate = _react2.default.createClass({
+    displayName: 'Activate',
+
+    propTypes: {
+        activationUser: _react2.default.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            visible: false
+        };
+    },
+    toggleVisibility: function toggleVisibility() {
+        this.setState(_extends({}, this.state, {
+            visible: !this.state.visible
+        }));
+    },
+    render: function render() {
+        var toggleModalVisible = this.toggleModalVisible,
+            renderContent = this.renderContent;
+        var path = this.props.route.path;
+        var _props$route$props = this.props.route.props,
+            securityContext = _props$route$props.securityContext,
+            activationUser = _props$route$props.activationUser;
+        var visible = this.state.visible;
+
+        return _react2.default.createElement(
+            _semanticUiReact.Sidebar.Pushable,
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.Sidebar,
+                { as: _semanticUiReact.Segment, animation: 'overlay', direction: 'top', visible: visible, inverted: true },
+                _react2.default.createElement(_loginForm2.default, { onClickCancel: this.toggleVisibility })
+            ),
+            _react2.default.createElement(
+                _semanticUiReact.Sidebar.Pusher,
+                { as: _semanticUiReact.Segment.Group, dimmed: visible, className: 'main-content' },
+                _react2.default.createElement(_externalHeader2.default, { onClickLogin: this.toggleVisibility, path: path, securityContext: securityContext }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    { className: 'main-content' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Container,
+                        { textAlign: 'center' },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h1', className: 'display-header' },
+                            'Account Activation'
+                        )
+                    ),
+                    _react2.default.createElement(_activateForm2.default, { activationUser: activationUser })
+                ),
+                _react2.default.createElement(_footer2.default, null)
+            )
+        );
+    }
+});
+
+exports.default = Activate;
+
+/***/ }),
+/* 1193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(23);
+
+var _semanticUiReact = __webpack_require__(7);
+
+var _errorMessage = __webpack_require__(60);
+
+var _errorMessage2 = _interopRequireDefault(_errorMessage);
+
+var _uiState = __webpack_require__(10);
+
+var _user = __webpack_require__(283);
+
+var _userPost = __webpack_require__(655);
+
+var _userPost2 = _interopRequireDefault(_userPost);
+
+var _jsonSchema = __webpack_require__(61);
+
+var jsonSchema = _interopRequireWildcard(_jsonSchema);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ActivateForm = _react2.default.createClass({
+    displayName: 'ActivateForm',
+
+    propTypes: {
+        activationUser: _react2.default.PropTypes.object.isRequired
+    },
+    getInitialState: function getInitialState() {
+        return {
+            changedFields: {},
+            model: undefined
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        if (nextProps.id == undefined) {
+            this.setState(_extends({}, this.state, {
+                model: undefined,
+                changedFields: {}
+            }));
+        } else if (nextProps.model !== undefined) {
+            this.setState(_extends({}, this.state, {
+                model: nextProps.model,
+                changedFields: {}
+            }));
+        }
+    },
+    handleFieldChange: function handleFieldChange(e, payload) {
+        var changedFields = this.state.changedFields;
+
+        changedFields[payload.name] = payload.value;
+        this.setState(_extends({}, this.state, {
+            changedFields: changedFields
+        }));
+    },
+    onClickSubmit: function onClickSubmit(e) {
+        e.preventDefault();
+        var _props = this.props,
+            id = _props.id,
+            dispatch = _props.dispatch;
+        var changedFields = this.state.changedFields;
+        // if (id) {
+        //     dispatch(userPut(id, changedFields));
+        // } else {
+        //     dispatch(userPost(changedFields));
+        // }
+
+        console.log('submit!');
+    },
+    render: function render() {
+        var handleFieldChange = this.handleFieldChange,
+            handleClickSendActivationEmail = this.handleClickSendActivationEmail;
+        var _props2 = this.props,
+            activationUser = _props2.activationUser,
+            ui_state = _props2.ui_state,
+            errors = _props2.errors;
+        var _state = this.state,
+            changedFields = _state.changedFields,
+            model = _state.model;
+
+        var inputFields = jsonSchema.buildInputFields(model, changedFields, _userPost2.default);
+        console.log(activationUser);
+        console.log(model);
+        return _react2.default.createElement(
+            _semanticUiReact.Container,
+            { text: true },
+            _react2.default.createElement(
+                _semanticUiReact.Form,
+                {
+                    size: 'large',
+                    loading: ui_state == _uiState.UI_STATE.REQUESTING,
+                    error: ui_state == _uiState.UI_STATE.ERROR,
+                    success: ui_state == _uiState.UI_STATE.SUCCESS,
+                    onSubmit: this.onClickSubmit
+                },
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    null,
+                    _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
+                ),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password', placeholder: 'Password', name: 'password', type: 'password', onChange: handleFieldChange, value: inputFields.password || '', required: true }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('password', errors) }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password Repeat', placeholder: 'Password Repeat', name: 'password_repeat', type: 'password_repeat', onChange: handleFieldChange, value: inputFields.password_repeat || '', required: true }),
+                _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('password_repeat', errors) }),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { as: 'a', color: 'green', onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
+                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
+                        ' Activate'
+                    )
+                )
+            )
+        );
+    }
+});
+
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$userReducer = state.userReducer,
+        ui_state = _state$userReducer.ui_state,
+        errors = _state$userReducer.errors,
+        model = _state$userReducer.model;
+
+    return {
+        ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
+        errors: errors,
+        model: model
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ActivateForm);
 
 /***/ })
 /******/ ]);
