@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ReCAPTCHA from 'react-google-recaptcha';
 import {
     Button,
     Container,
@@ -38,13 +39,20 @@ const ContactForm = React.createClass({
             changedFields
         });
     },
+    handleCaptchaChange(value){
+        const { handleFieldChange } = this;
+        handleFieldChange(new Event('handleCaptchaChange'), {
+            id: 'captcha',
+            value
+        });
+    },
     onClickSubmit() {
         const { id, dispatch } = this.props;
         const { changedFields } = this.state;
         dispatch(contactPost(changedFields));
     },
     render() {
-        const { handleFieldChange } = this;
+        const { handleFieldChange, handleCaptchaChange } = this;
         const { id, ui_state, errors, model } = this.props;
         const { changedFields } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, contactPostSchema);
@@ -84,6 +92,15 @@ const ContactForm = React.createClass({
 
                     <Form.TextArea label="Message" placeholder="Message" id="message" onChange={ handleFieldChange } autoHeight={ true } required/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('message', errors)} />
+
+                    <Form.Field>
+                        <ReCAPTCHA
+                            ref="recaptcha"
+                            sitekey="6LchDiAUAAAAAO73Wy0P0WoBT_Xjvul9aGhGuIvN"
+                            onChange={ handleCaptchaChange }
+                        />
+                        <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('captcha', errors)} />
+                    </Form.Field>
 
                     <Container textAlign="right">
                         <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 } labelPosition="right" icon="send" content="Send" />

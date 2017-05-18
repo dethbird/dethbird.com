@@ -173,6 +173,28 @@ $app->group('/api/0.1', function(){
     # contact
     $this->post('/contact', function($request, $response, $args){
         $params = $request->getParsedBody();
+        $captcha = $params['captcha'];
+        unset($params['captcha']);
+
+        # captcha
+        $httpClient = new GuzzleHttp\Client();
+        $captchaResponse = $httpClient->request(
+            'POST',
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'query' => [
+                    'secret' => $this->configs['service']['recaptcha']['secret'],
+                    'response' => $captcha,
+                    'remoteip' => $_SERVER['REMOTE_ADDR']
+                ]
+            ]
+        );
+        $body = json_decode($captchaResponse->getBody()->getContents());
+        if (!$body->success) {
+            return $response
+                ->withStatus(409)
+                ->withJson(['global' => ['message'=>'Please verify you are not a robot.']]);
+        }
 
         $message = new ContactMessage();
         $message->email = $params['email'];
