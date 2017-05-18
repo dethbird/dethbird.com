@@ -78,9 +78,7 @@ describe('fountainParser.tokenizeLines()', () => {
         const compiled = parseFountainScript(exampleSectionsWithMetadata);
         console.dir(compiled);
     });
-
-
-    test.only('convert tokens to story', () => {
+    test('convert tokens to story', () => {
         const story = getScriptStats(scratchScript);
         // log(story);
     });
