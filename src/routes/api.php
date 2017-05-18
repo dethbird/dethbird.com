@@ -592,7 +592,8 @@ $app->group('/api/0.1', function(){
             if ($user) {
                 $user->verify_token_activation = null;
                 $user->date_activated = date('Y-m-d g:i:s a');
-                // $user->save();
+                $user->password = md5($params['password']);
+                $user->save();
                 $model = json_decode(
                     $user->to_json([
                         'except'=>[
@@ -602,6 +603,7 @@ $app->group('/api/0.1', function(){
                             'date_added',
                             'date_updated']
                 ]));
+                $_SESSION['securityContext'] = $model;
             } else {
                 return $response
                     ->withStatus(404)

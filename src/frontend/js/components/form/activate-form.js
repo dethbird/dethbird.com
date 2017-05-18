@@ -68,6 +68,35 @@ const ActivateForm = React.createClass({
         const { changedFields, model } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, userPostSchema);
 
+        if (!activationUser.username)
+            return (
+                <div>
+                    <Container text>
+                        <Message negative>
+                            <Message.Header>Error.</Message.Header>
+                            <p>User not found, or perhaps already activated.</p>
+                        </Message>
+                    </Container>
+                </div>
+            );
+
+        if (ui_state == UI_STATE.SUCCESS)
+            return (
+                <div>
+                    <Container text>
+                        <Message positive>
+                            <Message.Header>Success!</Message.Header>
+                            <p>Your account has been activated successfully</p>
+                        </Message>
+                    </Container>
+                    <br />
+                    <Container text>
+                        <p>Welcome to StoryStation, <strong>{ activationUser.username }</strong>! Now seems like a good time to create a story:</p>
+                        <Button as="a" color="blue" href='/story/create' size='huge' icon='arrow right' labelPosition='right' content='Go!' />
+                    </Container>
+                </div>
+            );
+
         return (
             <Container text={ true }>
                 <Form
@@ -78,17 +107,21 @@ const ActivateForm = React.createClass({
                     onSubmit={ onClickSubmit }
                 >
                     <Container>
+                        Please choose a password to complete your account activation, <strong>{ activationUser.username }</strong>. You are moments away from writing the screenplay of your lifetime.
+                    </Container>
+                    <br />
+                    <Container>
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
 
                     <Form.Input label="Password" placeholder="Password" name="password" type="password" onChange={ handleFieldChange } value={ inputFields.password || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('password', errors)} />
 
-                    <Form.Input label="Password Repeat" placeholder="Password Repeat" name="password_repeat" type="password_repeat" onChange={ handleFieldChange } value={ inputFields.password_repeat || '' } required={ true }/>
+                    <Form.Input label="Password Repeat" placeholder="Password Repeat" name="password_repeat" type="password" onChange={ handleFieldChange } value={ inputFields.password_repeat || '' } required={ true }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('password_repeat', errors)} />
 
                     <Form.Field>
-                        <Button as="a" color="green" onClick={ onClickSubmit } disabled={ Object.keys(changedFields).length===0 }><Icon name="save" /> Activate</Button>
+                        <Button as="a" color="green" onClick={ onClickSubmit } disabled={ Object.keys(changedFields).length===0 } icon='checkmark' labelPosition='right' content='Activate' />
                     </Form.Field>
 
                 </Form>

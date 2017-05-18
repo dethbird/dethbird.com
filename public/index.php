@@ -93,47 +93,6 @@ require_once APPLICATION_PATH . 'src/routes/service.php';
 // ActiveRecord\Serialization::$DATETIME_FORMAT = 'Y-m-d g:i:s a';
 
 
-// # authorize the user by header auth token
-// $authorizeByHeaders = function ($app) {
-//
-//     return function () use ($app) {
-//
-//         # check cookie for securityContext
-//         $apiKey = $app->request->headers->get('X-Api-Key');
-//         if ($apiKey == "") {
-//             if (!isset($_SESSION['securityContext'])) {
-//                 $app->halt(400, json_encode(['X-Api-Key'=>'Invalid api key, no active session']));
-//             }
-//         } else {
-//             $user = Users::find_by_api_key($apiKey);
-//
-//             if(!$user) {
-//                 $app->halt(404, json_encode(['X-Api-Key'=>'Invalid api key, user not found']));
-//             } else {
-//                 $_SESSION['securityContext'] = json_decode($user->to_json([
-//                     'except' => ['api_key', 'password', 'email']
-//                 ]));
-//             }
-//         }
-//     };
-// };
-
-// # authorize the user by header auth token
-// $writeAccess = function ($app) {
-//
-//     return function () use ($app) {
-//         # check cookie for securityContext
-//         if (isset($_SESSION['securityContext'])) {
-//
-//             $user = $_SESSION['securityContext'];
-//             if (!$user->write) {
-//                 $app->halt(403);
-//             }
-//         }
-//     };
-// };
-//
-
 # mockup
 $app->get("/mockup/{section}", function ($request, $response, $args){
     $section = $args['section'];

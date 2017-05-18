@@ -28660,12 +28660,10 @@ var userSendActivationEmail = exports.userSendActivationEmail = function userSen
 
 var userActivate = exports.userActivate = function userActivate(fields) {
     return function (dispatch) {
-        console.log(fields);
         dispatch(userRequestInit());
         _superagent2.default.post('/api/0.1/user/activate').send(_extends({}, fields)).end(function (err, res) {
             if (res.ok) {
                 dispatch(userRequestSuccess(res.body));
-                _reactRouter.browserHistory.replace('/user/' + res.body.id + '/edit');
             } else {
                 dispatch(userRequestError(res.body));
             }
@@ -66274,6 +66272,69 @@ var ActivateForm = _react2.default.createClass({
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _userPost2.default);
 
+        if (!activationUser.username) return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { negative: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Message.Header,
+                        null,
+                        'Error.'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'User not found, or perhaps already activated.'
+                    )
+                )
+            )
+        );
+
+        if (ui_state == _uiState.UI_STATE.SUCCESS) return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { positive: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Message.Header,
+                        null,
+                        'Success!'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Your account has been activated successfully'
+                    )
+                )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _semanticUiReact.Container,
+                { text: true },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Welcome to StoryStation, ',
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        activationUser.username
+                    ),
+                    '! Now seems like a good time to create a story:'
+                ),
+                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: 'blue', href: '/story/create', size: 'huge', icon: 'arrow right', labelPosition: 'right', content: 'Go!' })
+            )
+        );
+
         return _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
@@ -66289,21 +66350,28 @@ var ActivateForm = _react2.default.createClass({
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
+                    'Please choose a password to complete your account activation, ',
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        activationUser.username
+                    ),
+                    '. You are moments away from writing the screenplay of your lifetime.'
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    null,
                     _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getGlobalErrorMessage(errors) })
                 ),
                 _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password', placeholder: 'Password', name: 'password', type: 'password', onChange: handleFieldChange, value: inputFields.password || '', required: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('password', errors) }),
-                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password Repeat', placeholder: 'Password Repeat', name: 'password_repeat', type: 'password_repeat', onChange: handleFieldChange, value: inputFields.password_repeat || '', required: true }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Password Repeat', placeholder: 'Password Repeat', name: 'password_repeat', type: 'password', onChange: handleFieldChange, value: inputFields.password_repeat || '', required: true }),
                 _react2.default.createElement(_errorMessage2.default, { message: jsonSchema.getErrorMessageForProperty('password_repeat', errors) }),
                 _react2.default.createElement(
                     _semanticUiReact.Form.Field,
                     null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Button,
-                        { as: 'a', color: 'green', onClick: onClickSubmit, disabled: Object.keys(changedFields).length === 0 },
-                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'save' }),
-                        ' Activate'
-                    )
+                    _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: 'green', onClick: onClickSubmit, disabled: Object.keys(changedFields).length === 0, icon: 'checkmark', labelPosition: 'right', content: 'Activate' })
                 )
             )
         );
