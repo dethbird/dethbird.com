@@ -21,8 +21,14 @@ $app->post("/api/0.1/login", function ($request, $response){
 
     if (!$user->date_verified) {
         return $response
-            ->withStatus(404)
+            ->withStatus(403)
             ->withJson([ "global" => [ "message" => "Email address " . $user->email . " not verified" ] ]);
+    }
+
+    if (!$user->date_activated) {
+        return $response
+            ->withStatus(403)
+            ->withJson([ "global" => [ "message" => "User " . $user->username . " not activated" ] ]);
     }
 
     $model = json_decode(
