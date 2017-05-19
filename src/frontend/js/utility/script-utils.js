@@ -13,7 +13,9 @@ export const REGEX = {
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     SECTION: /^(#{1,4})\ (.*)/,
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
-    DURATION: /^([0-9]?[0-9]:[0-9][0-9])/
+    DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
+    SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
+    SCENE_NUMBER: /( *#(.+)# *)/
 }
 
 export const tokenizeScript = (script) => {
@@ -64,6 +66,7 @@ export const tokenizeScript = (script) => {
             }
         }
 
+        // sections
         match = line.text.match(REGEX.SECTION);
         if(match) {
             token.lines.push(line);
@@ -91,6 +94,23 @@ export const tokenizeScript = (script) => {
                         }
                         i = nextIndex;
                     }
+                }
+            }
+        }
+
+        // scene
+        match = line.text.match(REGEX.SCENE);
+        if(match){
+            token.lines.push(line);
+            token.type = 'scene';
+            token.model = {
+                text: match[1] || match[2]
+            }
+            if (token.model.text.indexOf('  ') !== token.model.text.length - 2) {
+                let scene_number;
+                if (scene_number = token.model.text.match(REGEX.SCENE_NUMBER)) {
+                    token.model.scene_number = scene_number[2];
+                    token.model.text = token.model.text.replace(REGEX.SCENE_NUMBER, '');
                 }
             }
         }
