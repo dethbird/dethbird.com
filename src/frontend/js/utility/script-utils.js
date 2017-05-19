@@ -11,6 +11,7 @@ export const REGEX = {
 
     CHARACTER: /^([A-Z][A-Z0-9'\-. ]+)(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
+    CENTERED: /^(?:> *)(.+)(?: *<)(\n.+)*/g,
     SECTION: /^(#{1,4})\ (.*)/,
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
@@ -20,6 +21,7 @@ export const REGEX = {
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
     LYRICS: /^(?:~)([\S\s]+)/,
     BLANK_LINE: /(\n)/,
+    PAGE_BREAK: /^\={3,}$/,
 
     TITLE: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/i
@@ -51,12 +53,9 @@ export const tokenizeScript = (script) => {
             match = line.text.match(REGEX.CHARACTER_POWER_USER);
         if(match){
             let nextIndex = parseInt(i)+1;
-            // console.log(match[0]);
             if (lines.length > nextIndex) {
                 const nextLine = lines[nextIndex];
                 if (nextLine.text !== '\n') {
-                    // process dialogue
-                    tokenType = 'script';
                     token.lines.push(line);
                     token.type = 'dialogue';
                     token.model = {
@@ -75,12 +74,13 @@ export const tokenizeScript = (script) => {
                     i = nextIndex - 1;
                 }
             }
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
-
         // sections
         match = line.text.match(REGEX.SECTION);
         if(match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'section';
             token.model = {
@@ -108,12 +108,14 @@ export const tokenizeScript = (script) => {
                     }
                 }
             }
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         // scene
         match = line.text.match(REGEX.SCENE);
         if(match){
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'scene';
             token.model = {
@@ -126,51 +128,85 @@ export const tokenizeScript = (script) => {
                     token.model.text = token.model.text.replace(REGEX.SCENE_NUMBER, '');
                 }
             }
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.NOTE);
         if (match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'note';
             token.model = {
                 text: match[1].trim()
             };
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.SYNOPSIS);
         if (match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'synopsis';
             token.model = {
                 text: match[1].trim()
             };
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.BLANK_LINE);
         if (match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'blank_line';
             token.model = {
                 text: line
             };
+            scriptTokens.push(token);
+            i++;
+            continue;
+        }
+
+        match = line.text.match(REGEX.PAGE_BREAK);
+        if (match) {
+            token.lines.push(line);
+            token.type = 'page_break';
+            token.model = {
+                text: line
+            };
+            scriptTokens.push(token);
+            i++;
+            continue;
+        }
+
+        match = line.text.match(REGEX.CENTERED);
+        if (match) {
+            token.lines.push(line);
+            token.type = 'centered';
+            token.model = {
+                text: line
+            };
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.TRANSITION);
         if (match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'transition';
             token.model = {
                 text: line
             };
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.LYRICS);
         if (match) {
-            tokenType = 'script';
             token.lines.push(line);
             token.type = 'lyrics';
             token.model = {
@@ -191,11 +227,13 @@ export const tokenizeScript = (script) => {
                     i = nextIndex - 1;
                 }
             }
+            scriptTokens.push(token);
+            i++;
+            continue;
         }
 
         match = line.text.match(REGEX.TITLE);
         if (match) {
-            tokenType = 'title';
             token.lines.push(line);
             token.type = match[0].toLowerCase().replace(' ', '_');
             const text = line.text.replace(match[0], '') .trim();
@@ -211,21 +249,16 @@ export const tokenizeScript = (script) => {
                         token.lines.push(nextLine);
                         token.model.text.push(nextLine);
                         nextIndex++;
-                        nextLine = lines[nextIndex];
+                        nextLine = lines[nextIndex]
                         match = nextLine.text.match(REGEX.TITLE);
                     }
                     i = nextIndex - 1;
                 }
             }
-        }
-
-
-        if (tokenType == 'script')
-            scriptTokens.push(token);
-
-        if (tokenType == 'title')
             titleTokens.push(token);
-
+            i++;
+            continue;
+        }
         i++;
     }
     log(scriptTokens);
