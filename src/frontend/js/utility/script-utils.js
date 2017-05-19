@@ -1,4 +1,5 @@
 import { log } from 'utility/logger';
+import * as _ from 'underscore';
 
 export const REGEX = {
     LEXER: {
@@ -33,6 +34,7 @@ export const tokenizeScript = (script) => {
 
     let titleTokens = [];
     let scriptTokens = [];
+    let characterCounts = [];
     let state = {
         character: false
     };
@@ -283,8 +285,55 @@ export const tokenizeScript = (script) => {
         i++;
     }
 
-    log(scriptTokens);
-    log(titleTokens);
+    // dual dialogue and characters
+    scriptTokens.reverse();
+    let _scriptTokens = [];
+    i = 0;
+    while (i < scriptTokens.length) {
+        const token = scriptTokens[i];
+        if( token.type=='dialogue') {
+            _scriptTokens.push(token);
+
+            if (characterCounts[token.model.character]==undefined) {
+                characterCounts[token.model.character] = 1;
+            } else {
+                characterCounts[token.model.character]++;
+            }
+
+            if (token.model.dual) {
+                let nextIndex = parseInt(i) + 1;
+                if (scriptTokens.length > nextIndex) {
+                    let nextToken = scriptTokens[i];
+                    while (nextToken.type=='dialogue') {
+                        nextToken.model.dual = true;
+                        _scriptTokens.push(nextToken);
+                        nextIndex++;
+                        nextToken = scriptTokens[nextIndex];
+                    }
+                    i = nextIndex - 1;
+                }
+            }
+        } else {
+            _scriptTokens.push(token);
+        }
+        i++;
+    }
+    scriptTokens = _scriptTokens.reverse();
+
+    const keys = _.keys(characterCounts);
+    let characters = keys.map(function(key){
+        return {
+            name: key,
+            parts: characterCounts[key]
+        };
+    });
+    characters = _.sortBy(characters, 'name');
+
+    return {
+        scriptTokens,
+        titleTokens,
+        characters
+    };
 }
 
 
