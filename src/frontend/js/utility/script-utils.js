@@ -22,6 +22,7 @@ export const REGEX = {
     BLANK_LINE: /(\n)/,
 
     TITLE: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
+    TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/i
 }
 
 export const tokenizeScript = (script) => {
@@ -152,6 +153,16 @@ export const tokenizeScript = (script) => {
             tokenType = 'script';
             token.lines.push(line);
             token.type = 'blank_line';
+            token.model = {
+                text: line
+            };
+        }
+
+        match = line.text.match(REGEX.TRANSITION);
+        if (match) {
+            tokenType = 'script';
+            token.lines.push(line);
+            token.type = 'transition';
             token.model = {
                 text: line
             };
