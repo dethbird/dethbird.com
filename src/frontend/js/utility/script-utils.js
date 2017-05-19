@@ -11,6 +11,9 @@ export const REGEX = {
 
     CHARACTER: /^([A-Z][A-Z0-9'\-. ]+)(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
+    SECTION: /^(#{1,4})\ (.*)/,
+    IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
+    DURATION: /^([0-9]?[0-9]:[0-9][0-9])/
 }
 
 export const tokenizeScript = (script) => {
@@ -60,6 +63,38 @@ export const tokenizeScript = (script) => {
                 }
             }
         }
+
+        match = line.text.match(REGEX.SECTION);
+        if(match) {
+            token.lines.push(line);
+            token.type = 'section';
+            token.model = {
+                identifier: match[1],
+                level: match[1].length,
+                text: match[2]
+            }
+            let nextIndex = parseInt(i)+1;
+            if (lines.length >= nextIndex) {
+                let nextLine = lines[nextIndex];
+                if (nextLine.text !== '\n') {
+                    if (match[1].length == 4) {
+                        while (nextLine.text !== '\n') {
+                            token.lines.push(nextLine);
+                            if(REGEX.IMAGE.test(nextLine.text)){
+                                token.model.image = nextLine.text.trim()
+                            }
+                            if(REGEX.DURATION.test(nextLine.text)){
+                                token.model.duration = nextLine.text.trim()
+                            }
+                            nextIndex++;
+                            nextLine = lines[nextIndex];
+                        }
+                        i = nextIndex;
+                    }
+                }
+            }
+        }
+
         scriptTokens.push(token);
     }
     log(scriptTokens);
