@@ -9,20 +9,21 @@ export const REGEX = {
         WHITESPACER: /^\t+|^ {3,}/gm
     },
 
+    ACTION: /^(.+)/g,
+    ACTION_POWER_USER: /^(?:[!])(.*)/,
+    BLANK_LINE: /(\n)/,
     CHARACTER: /^([A-Z][A-Z0-9'\-. ]+)(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     CENTERED: /^(?:> *)(.+)(?: *<)(\n.+)*/g,
-    SECTION: /^(#{1,4})\ (.*)/,
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
+    LYRICS: /^(?:~)([\S\s]+)/,
+    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
+    PAGE_BREAK: /^\={3,}$/,
     SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
     SCENE_NUMBER: /( *#(.+)# *)/,
-    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
+    SECTION: /^(#{1,4})\ (.*)/,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
-    LYRICS: /^(?:~)([\S\s]+)/,
-    BLANK_LINE: /(\n)/,
-    PAGE_BREAK: /^\={3,}$/,
-
     TITLE: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
     TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/i
 }
@@ -259,6 +260,26 @@ export const tokenizeScript = (script) => {
             i++;
             continue;
         }
+
+        match = line.text.match(REGEX.ACTION);
+        if (!match)
+            match = line.text.match(REGEX.ACTION_POWER_USER);
+        if(match){
+            let text = line.text;
+            if (text.indexOf('!')==0) {
+                text = text.slice(1);
+                text = text.trim();
+            }
+            token.lines.push(line);
+            token.type = 'action';
+            token.model = {
+                text
+            };
+            scriptTokens.push(token);
+            i++;
+            continue;
+        }
+
         i++;
     }
     log(scriptTokens);
