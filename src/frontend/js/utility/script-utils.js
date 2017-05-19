@@ -15,7 +15,10 @@ export const REGEX = {
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
     SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
-    SCENE_NUMBER: /( *#(.+)# *)/
+    SCENE_NUMBER: /( *#(.+)# *)/,
+    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
+    SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
+    LYRICS: /^(?:~)([\S\s]+)/,
 }
 
 export const tokenizeScript = (script) => {
@@ -27,6 +30,7 @@ export const tokenizeScript = (script) => {
         character: false
     };
     for (let i in lines) {
+        console.log(i);
         const line = lines[i];
         let match = false;
         let token = {
@@ -42,7 +46,7 @@ export const tokenizeScript = (script) => {
         if(match){
             let nextIndex = parseInt(i)+1;
             // console.log(match[0]);
-            if (lines.length >= nextIndex) {
+            if (lines.length > nextIndex) {
                 const nextLine = lines[nextIndex];
                 if (nextLine.text !== '\n') {
                     // process dialogue
@@ -77,7 +81,7 @@ export const tokenizeScript = (script) => {
                 text: match[2]
             }
             let nextIndex = parseInt(i)+1;
-            if (lines.length >= nextIndex) {
+            if (lines.length > nextIndex) {
                 let nextLine = lines[nextIndex];
                 if (nextLine.text !== '\n') {
                     if (match[1].length == 4) {
@@ -93,6 +97,7 @@ export const tokenizeScript = (script) => {
                             nextLine = lines[nextIndex];
                         }
                         i = nextIndex;
+                        console.log('nextIndex', i);
                     }
                 }
             }
@@ -111,6 +116,52 @@ export const tokenizeScript = (script) => {
                 if (scene_number = token.model.text.match(REGEX.SCENE_NUMBER)) {
                     token.model.scene_number = scene_number[2];
                     token.model.text = token.model.text.replace(REGEX.SCENE_NUMBER, '');
+                }
+            }
+        }
+
+        match = line.text.match(REGEX.NOTE);
+        if (match) {
+            token.lines.push(line);
+            token.type = 'note';
+            token.model = {
+                text: match[1].trim()
+            };
+        }
+
+        match = line.text.match(REGEX.SYNOPSIS);
+        if (match) {
+            token.lines.push(line);
+            token.type = 'synopsis';
+            token.model = {
+                text: match[1].trim()
+            };
+        }
+
+        match = line.text.match(REGEX.LYRICS);
+        if (match) {
+            console.log(i);
+            console.log(line);
+            token.lines.push(line);
+            token.type = 'lyrics';
+            token.model = {
+                lyrics: [ match[1].trim() ]
+            };
+            let nextIndex = parseInt(i)+1;
+            if (lines.length > nextIndex) {
+                let nextLine = lines[nextIndex];
+                match = nextLine.text.match(REGEX.LYRICS);
+                console.log(nextLine);
+                if (match) {
+                    while (match) {
+                        token.lines.push(nextLine);
+                        token.model.lyrics.push(match[1].trim());
+                        nextIndex++;
+                        nextLine = lines[nextIndex];
+                        match = nextLine.text.match(REGEX.LYRICS);
+                        i = nextIndex;
+                        console.log('nextIndex', i);
+                    }
                 }
             }
         }
