@@ -1,6 +1,7 @@
 import fs from 'fs';
 import {
-    lexizeScript
+    lexizeScript,
+    tokenizeScript
 } from 'utility/script-utils';
 import { log } from 'utility/logger';
 
@@ -10,8 +11,12 @@ const dataDir = process.cwd() + '/src/frontend/js/utility/__tests__/data';
 const scratchScript = fs.readFileSync(dataDir + '/scratch.fountain', 'utf8');
 
 describe('fountainParser.tokenizeLines()', () => {
-    test.only('lexize script', () => {
+    test('lexize script', () => {
         const story = lexizeScript(scratchScript);
+        log(story);
+    });
+    test.only('tokenize script', () => {
+        const story = tokenizeScript(scratchScript);
         log(story);
     });
 });
