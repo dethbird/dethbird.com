@@ -19,6 +19,9 @@ export const REGEX = {
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
     SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
     LYRICS: /^(?:~)([\S\s]+)/,
+    BLANK_LINE: /(\n)/,
+
+    TITLE: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
 }
 
 export const tokenizeScript = (script) => {
@@ -29,8 +32,8 @@ export const tokenizeScript = (script) => {
     let state = {
         character: false
     };
-    for (let i in lines) {
-        console.log(i);
+    let i = 0;
+    while (i < lines.length) {
         const line = lines[i];
         let match = false;
         let token = {
@@ -38,6 +41,8 @@ export const tokenizeScript = (script) => {
             lines: [],
             model: undefined
         };
+
+        let tokenType = undefined;
 
         // character and dialogue
         match = line.text.match(REGEX.CHARACTER);
@@ -50,6 +55,7 @@ export const tokenizeScript = (script) => {
                 const nextLine = lines[nextIndex];
                 if (nextLine.text !== '\n') {
                     // process dialogue
+                    tokenType = 'script';
                     token.lines.push(line);
                     token.type = 'dialogue';
                     token.model = {
@@ -65,7 +71,7 @@ export const tokenizeScript = (script) => {
                         nextIndex++;
                         dialogueLine = lines[nextIndex];
                     }
-                    i = nextIndex;
+                    i = nextIndex - 1;
                 }
             }
         }
@@ -73,6 +79,7 @@ export const tokenizeScript = (script) => {
         // sections
         match = line.text.match(REGEX.SECTION);
         if(match) {
+            tokenType = 'script';
             token.lines.push(line);
             token.type = 'section';
             token.model = {
@@ -96,8 +103,7 @@ export const tokenizeScript = (script) => {
                             nextIndex++;
                             nextLine = lines[nextIndex];
                         }
-                        i = nextIndex;
-                        console.log('nextIndex', i);
+                        i = nextIndex - 1;
                     }
                 }
             }
@@ -106,6 +112,7 @@ export const tokenizeScript = (script) => {
         // scene
         match = line.text.match(REGEX.SCENE);
         if(match){
+            tokenType = 'script';
             token.lines.push(line);
             token.type = 'scene';
             token.model = {
@@ -122,6 +129,7 @@ export const tokenizeScript = (script) => {
 
         match = line.text.match(REGEX.NOTE);
         if (match) {
+            tokenType = 'script';
             token.lines.push(line);
             token.type = 'note';
             token.model = {
@@ -131,6 +139,7 @@ export const tokenizeScript = (script) => {
 
         match = line.text.match(REGEX.SYNOPSIS);
         if (match) {
+            tokenType = 'script';
             token.lines.push(line);
             token.type = 'synopsis';
             token.model = {
@@ -138,10 +147,19 @@ export const tokenizeScript = (script) => {
             };
         }
 
+        match = line.text.match(REGEX.BLANK_LINE);
+        if (match) {
+            tokenType = 'script';
+            token.lines.push(line);
+            token.type = 'blank_line';
+            token.model = {
+                text: line
+            };
+        }
+
         match = line.text.match(REGEX.LYRICS);
         if (match) {
-            console.log(i);
-            console.log(line);
+            tokenType = 'script';
             token.lines.push(line);
             token.type = 'lyrics';
             token.model = {
@@ -151,7 +169,6 @@ export const tokenizeScript = (script) => {
             if (lines.length > nextIndex) {
                 let nextLine = lines[nextIndex];
                 match = nextLine.text.match(REGEX.LYRICS);
-                console.log(nextLine);
                 if (match) {
                     while (match) {
                         token.lines.push(nextLine);
@@ -159,16 +176,49 @@ export const tokenizeScript = (script) => {
                         nextIndex++;
                         nextLine = lines[nextIndex];
                         match = nextLine.text.match(REGEX.LYRICS);
-                        i = nextIndex;
-                        console.log('nextIndex', i);
                     }
+                    i = nextIndex - 1;
                 }
             }
         }
 
-        scriptTokens.push(token);
+        match = line.text.match(REGEX.TITLE);
+        if (match) {
+            tokenType = 'title';
+            token.lines.push(line);
+            token.type = match[0].toLowerCase().replace(' ', '_');
+            const text = line.text.replace(match[0], '') .trim();
+            token.model = {
+                text: text ? [ text ] : []
+            };
+            let nextIndex = parseInt(i)+1;
+            if (lines.length > nextIndex) {
+                let nextLine = lines[nextIndex];
+                match = nextLine.text.match(REGEX.TITLE);
+                if (!match && nextLine.text !== '\n') {
+                    while (!match && nextLine.text !== '\n') {
+                        token.lines.push(nextLine);
+                        token.model.text.push(nextLine);
+                        nextIndex++;
+                        nextLine = lines[nextIndex];
+                        match = nextLine.text.match(REGEX.TITLE);
+                    }
+                    i = nextIndex - 1;
+                }
+            }
+        }
+
+
+        if (tokenType == 'script')
+            scriptTokens.push(token);
+
+        if (tokenType == 'title')
+            titleTokens.push(token);
+
+        i++;
     }
     log(scriptTokens);
+    log(titleTokens);
 }
 
 
