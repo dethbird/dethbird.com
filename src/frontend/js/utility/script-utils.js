@@ -73,11 +73,12 @@ export const tokenizeScript = (script) => {
                         dialogueLine = lines[nextIndex];
                     }
                     i = nextIndex - 1;
+                    scriptTokens.push(token);
+                    i++;
+                    continue;
                 }
+
             }
-            scriptTokens.push(token);
-            i++;
-            continue;
         }
         // sections
         match = line.text.match(REGEX.SECTION);
@@ -279,9 +280,9 @@ export const tokenizeScript = (script) => {
             i++;
             continue;
         }
-
         i++;
     }
+
     log(scriptTokens);
     log(titleTokens);
 }
@@ -295,7 +296,7 @@ export const lexizeScript = (script) => {
         .split(REGEX.LEXER.SPLITTER);
     const lex = lines.map(function(line, i){
         if (line)
-            return {text: line, index: i};
+            return {text: line.trim(), index: i};
         return {text: '\n', index: i};
     });
     return lex;

@@ -1,34 +1,55 @@
-Title: The Pants Store!!
-Credit: Written by
-Authors: Stu Maschwitz, Don Dovip
-Source: Story by KTM
-Notes: Do not reproduce
-Copyright: 2017 Explosioncorp LLC
-Draft date: 1/20/2012
-Contact:
-	Next Level Productions
-	1588 Mission Dr.
-	Solvang, CA 93463
+Title: Storystation Demo Video v1
 
-===
+### scene 1
+
+#### At a desk
+
+We see the back of the host and hear VIOLENT EATING SOUNDS.
+
+HOST
+(turns to the camera)
+Oh, hi!
+
+A bunch of candy falls out of his mouth and his clothes are covered in chocolate stains.
+
+#### close up
+
+HOST
+I'm here to tell you about StoryStation, a tool to get your stories written and with a little elbow grease, produced!
+
+#### even closer up
+
+HOST (winking)
+And hey, maybe one day people will be downloading YOUR movies from The Pirate Bay.
+
+(crickets)
 
 
-# Act 3
+#### wide shot
 
-= Set up the characters and the story.
+HOST walks to his desk, cranes his neck around (there are cracking sounds).
 
-EXT. BRICK'S PATIO - DAY
+HOST
+Let's take a look, shall we?!
 
-= This scene sets up Brick & Steel's new life as retirees. Warm sun, cold beer, and absolutely nothing to do.
+### scene 2
 
-A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.
+#### panel
+00:10
 
-Blah. !!!!
+MIKE
+Talking  sdfsdfsdfsdf
 
-! FARTS FARTS All around!
+Show shots of the computer screen with closups of the different fountain language features in the editor.
 
-===
+= The Storystation script editor uses the fountain scriptwriting format, a code-like text format that allows you to easily define characters, action, dialogue, scenes, cuts and other showbiz terms. You can find more info on that at fountain.io.
 
-> Banana Farts <
+= Fountain is a great open-community language for traditional screenwriting, but Storystation has added a few flavorings to take the functionality to the next level. Let's take a look at some of these features now.
 
-The end.
+= Fountain allows you to break your story down into sections using hashtags. These actually have some meaning in Storystation-flavored fountain. One is an Act, 2 is a sequence, 3 is a scene, and 4 is a panel. And number four is the one that really has significance.
+
+= On a panel, with we can define 2 additional properties whose significance you will see in just a minute. Those 2 things are 1) and image and 2) a duration. Let's add those in.
+
+Some time passes
+
+= Now we have a complete script and we've added images and durations to our panels, let's see the magic happen by now switching our editor over to "player" mode.
