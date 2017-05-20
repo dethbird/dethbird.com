@@ -3,16 +3,13 @@ import * as _ from 'underscore';
 import {
     Container,
     Grid,
-    Rail,
-    Segment,
-    TextArea
+    Segment
 } from 'semantic-ui-react';
 import CodeMirror from 'react-codemirror';
 import markdownMode from 'codemirror/mode/markdown/markdown';
 import fountainMode from 'codemirror-mode/fountain/fountain';
 
-
-import { parseFountainScript } from 'utility/fountain-parser';
+import ScriptPrintPreview from 'components/ui/script/script-print-preview';
 
 const ScriptInput = React.createClass({
     propTypes: {
@@ -29,7 +26,6 @@ const ScriptInput = React.createClass({
     render() {
         const { handleFieldChange } = this;
         const { script, onChange, id, placeholder } = this.props;
-        const parsed = parseFountainScript(script);
 
         return (
             <Grid>
@@ -47,13 +43,8 @@ const ScriptInput = React.createClass({
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>
-                    <Segment raised={ true } className="fountain-container">
-                        <div
-                            className="fountain"
-                            dangerouslySetInnerHTML={ {
-                                __html: parsed.markup
-                            } }
-                        />
+                    <Segment raised={ true } className="fountain">
+                        <ScriptPrintPreview script={ script } />
                     </Segment>
                 </Grid.Column>
             </Grid>
