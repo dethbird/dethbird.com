@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    Item
+    Item,
+    Loader
 } from 'semantic-ui-react';
 
 import { UI_STATE } from 'constants/ui-state';
@@ -16,6 +17,9 @@ const ChangelogList = React.createClass({
     },
     render() {
         const { models } = this.props;
+
+        if (!models)
+            return <Loader active>Loading</Loader>;
 
         const nodes = models ? models.map(function(model, i){
             return (

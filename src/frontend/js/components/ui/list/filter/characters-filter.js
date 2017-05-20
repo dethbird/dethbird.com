@@ -1,6 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import {
     Button,
+    Divider,
     Form,
     Grid,
     Segment,
@@ -106,6 +108,10 @@ const CharactersFilter = React.createClass({
                         <Grid.Column width={ 3 } >
                             <Button type='submit' icon='filter' basic color='teal' />
                             <Button as='a' icon='remove' basic onClick={ handleReset }/>
+                        </Grid.Column>
+                        <Grid.Column width={ 5 } textAlign='right'>
+                            <Divider vertical />
+                            <Button as='a' content='New' labelPosition='right' icon='add' color='green' onClick={()=>{browserHistory.push('/character/create')}} />
                         </Grid.Column>
                     </Grid>
                 </Form>
