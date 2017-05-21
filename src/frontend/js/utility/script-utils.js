@@ -96,20 +96,20 @@ export const tokenizeScript = (script) => {
             if (lines.length > nextIndex) {
                 let nextLine = lines[nextIndex];
                 if (nextLine.text !== '\n') {
-                    if (match[1].length == 4) {
-                        while (nextLine.text !== '\n') {
-                            token.lines.push(nextLine);
+                    while (nextLine.text !== '\n') {
+                        token.lines.push(nextLine);
+                        if (match[1].length == 4) {
                             if(REGEX.IMAGE.test(nextLine.text)){
                                 token.model.image = nextLine.text.trim()
                             }
                             if(REGEX.DURATION.test(nextLine.text)){
                                 token.model.duration = nextLine.text.trim()
                             }
-                            nextIndex++;
-                            nextLine = lines[nextIndex];
                         }
-                        i = nextIndex - 1;
+                        nextIndex++;
+                        nextLine = lines[nextIndex];
                     }
+                    i = nextIndex - 1;
                 }
             }
             scriptTokens.push(token);
@@ -166,7 +166,7 @@ export const tokenizeScript = (script) => {
             token.lines.push(line);
             token.type = 'blank_line';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -175,10 +175,11 @@ export const tokenizeScript = (script) => {
 
         match = line.text.match(REGEX.PAGE_BREAK);
         if (match) {
+            console.log(line);
             token.lines.push(line);
             token.type = 'page_break';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -190,7 +191,7 @@ export const tokenizeScript = (script) => {
             token.lines.push(line);
             token.type = 'centered';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -202,7 +203,7 @@ export const tokenizeScript = (script) => {
             token.lines.push(line);
             token.type = 'transition';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;

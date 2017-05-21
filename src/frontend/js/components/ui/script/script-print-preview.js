@@ -34,7 +34,7 @@ const ScriptPrintPreview = React.createClass({
         });
 
         return (
-            <Container>
+            <Container className='fountain'>
                 { titleNodes }
                 { scriptNodes }
             </Container>

@@ -68423,7 +68423,7 @@ var ScriptInput = _react2.default.createClass({
                 { width: 9 },
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
-                    { raised: true, className: 'fountain' },
+                    { raised: true, className: 'fountain-container' },
                     _react2.default.createElement(_scriptPrintPreview2.default, { script: script })
                 )
             )
@@ -70112,7 +70112,7 @@ var ScriptPrintPreview = _react2.default.createClass({
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
-            null,
+            { className: 'fountain' },
             titleNodes,
             scriptNodes
         );
@@ -70142,6 +70142,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _semanticUiReact = __webpack_require__(7);
 
+var _section = __webpack_require__(1197);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ScriptToken = _react2.default.createClass({
@@ -70162,45 +70164,78 @@ var ScriptToken = _react2.default.createClass({
 
         if (token.type == 'title') return _react2.default.createElement(
             'div',
-            { className: (0, _classnames2.default)(['token', 'title', token.type]) },
+            { className: (0, _classnames2.default)(['token', 'title-token', token.type]) },
             _react2.default.createElement(
-                'h1',
-                null,
+                _semanticUiReact.Header,
+                { as: 'h1' },
                 textNodes
             )
         );
 
         return _react2.default.createElement(
             'div',
-            { className: (0, _classnames2.default)(['token', 'title', token.type]) },
+            { className: (0, _classnames2.default)(['token', 'title-token', token.type]) },
             textNodes
         );
     },
     renderScriptToken: function renderScriptToken(token) {
-        console.log(token);
 
         var textNodes = token.model.text.map(function (t, i) {
             return _react2.default.createElement(
                 'div',
-                { className: 'token-text', key: i },
+                { className: (0, _classnames2.default)(['token-text', 'token-text-' + token.type]), key: i },
                 t
             );
         });
 
+        var sectionIcon = function sectionIcon(token) {
+            return _react2.default.createElement(_semanticUiReact.Image, { className: (0, _classnames2.default)(['section-icon', 'section-icon-' + _section.SECTION_LEVEL[token.model.level]]), src: '/svg/section/' + _section.SECTION_LEVEL[token.model.level] + '.svg' });
+        };
+
         if (token.type == 'dialogue') return _react2.default.createElement(
             'div',
-            { className: (0, _classnames2.default)(['token', 'script', token.type]) },
+            { className: (0, _classnames2.default)(['token', 'script-token', token.type]) },
             _react2.default.createElement(
-                'h1',
-                null,
+                _semanticUiReact.Header,
+                { as: 'h5' },
                 token.model.character
             ),
             textNodes
         );
 
+        if (token.type == 'section') {
+            return _react2.default.createElement(
+                'div',
+                { className: (0, _classnames2.default)(['token', 'script-token', token.type, 'section-' + _section.SECTION_LEVEL[token.model.level]]) },
+                _react2.default.createElement(
+                    _semanticUiReact.Grid,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 14 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            { as: 'h' + ('' + token.model.level) },
+                            sectionIcon(token),
+                            token.model.text[0]
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 2, textAlign: 'right', verticalAlign: 'middle' },
+                        token.model.duration && token.model.level == 4 ? _react2.default.createElement(
+                            'span',
+                            { className: 'panel-duration right floated' },
+                            token.model.duration
+                        ) : null
+                    )
+                ),
+                token.model.image && token.model.level == 4 ? _react2.default.createElement(_semanticUiReact.Image, { src: token.model.image }) : null
+            );
+        }
         return _react2.default.createElement(
             'div',
-            { className: (0, _classnames2.default)(['token', 'script', token.type]) },
+            { className: (0, _classnames2.default)(['token', 'scrip-tokent', token.type]) },
             textNodes
         );
     },
@@ -72201,20 +72236,20 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             if (lines.length > _nextIndex) {
                 var _nextLine = lines[_nextIndex];
                 if (_nextLine.text !== '\n') {
-                    if (match[1].length == 4) {
-                        while (_nextLine.text !== '\n') {
-                            token.lines.push(_nextLine);
+                    while (_nextLine.text !== '\n') {
+                        token.lines.push(_nextLine);
+                        if (match[1].length == 4) {
                             if (REGEX.IMAGE.test(_nextLine.text)) {
                                 token.model.image = _nextLine.text.trim();
                             }
                             if (REGEX.DURATION.test(_nextLine.text)) {
                                 token.model.duration = _nextLine.text.trim();
                             }
-                            _nextIndex++;
-                            _nextLine = lines[_nextIndex];
                         }
-                        i = _nextIndex - 1;
+                        _nextIndex++;
+                        _nextLine = lines[_nextIndex];
                     }
+                    i = _nextIndex - 1;
                 }
             }
             scriptTokens.push(token);
@@ -72271,7 +72306,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.lines.push(line);
             token.type = 'blank_line';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -72280,10 +72315,11 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
 
         match = line.text.match(REGEX.PAGE_BREAK);
         if (match) {
+            console.log(line);
             token.lines.push(line);
             token.type = 'page_break';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -72295,7 +72331,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.lines.push(line);
             token.type = 'centered';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -72307,7 +72343,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.lines.push(line);
             token.type = 'transition';
             token.model = {
-                text: [line]
+                text: [line.text.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -110913,6 +110949,23 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
+
+/***/ }),
+/* 1197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var SECTION_LEVEL = exports.SECTION_LEVEL = {
+    1: "act",
+    2: "sequence",
+    3: "scene",
+    4: "panel"
+};
 
 /***/ })
 /******/ ]);

@@ -43,8 +43,8 @@ const ScriptInput = React.createClass({
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>
-                    <Segment raised={ true } className="fountain">
-                        <ScriptPrintPreview script={ script } />
+                    <Segment raised={ true } className="fountain-container">
+                        <ScriptPrintPreview script={ script }/>
                     </Segment>
                 </Grid.Column>
             </Grid>

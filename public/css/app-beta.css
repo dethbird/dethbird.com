@@ -567,6 +567,14 @@ span.CodeMirror-selectedtext {
   outline: 1px solid grey;
   color: black !important;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Nobile', sans-serif;
+}
 .body {
   font-family: 'Hind Vadodara', sans-serif;
 }
@@ -611,6 +619,7 @@ code {
   font-family: 'Crimson Text', serif;
   font-size: 1.1rem !important;
   margin: 1em 2em 1em 2em;
+  text-align: left;
 }
 .fountain h1,
 .fountain h2,
@@ -619,21 +628,22 @@ code {
 .fountain h5,
 .fountain h6 {
   font-family: 'Crimson Text', serif;
-  margin: 0;
   color: #000 !important;
-  margin: .7em 0 .5em 0 !important;
 }
 .fountain h1 {
-  font-size: 2em !important;
+  font-size: 2.12em !important;
 }
 .fountain h2 {
-  font-size: 1.6em !important;
+  font-size: 2.0em !important;
 }
 .fountain h3 {
   font-size: 1.6em !important;
 }
 .fountain h4 {
-  font-size: 1.4em !important;
+  font-size: 1.3em !important;
+}
+.fountain h5 {
+  font-size: 1.1em !important;
 }
 .fountain .dialogue-container {
   text-align: left;
@@ -645,13 +655,6 @@ code {
 .fountain .centered {
   display: block;
   text-align: center;
-}
-.fountain .current {
-  border-left: 2px inset green;
-}
-.fountain .action {
-  display: block;
-  margin: 1.5em .5em 1.5em .5em;
 }
 .fountain .bold {
   font-weight: bold;
@@ -671,24 +674,8 @@ code {
   color: grey;
   display: block;
 }
-.fountain .dialogue,
-.fountain .parenthetical {
-  display: block;
-}
-.fountain .note {
-  padding: 5px;
-  color: #6f9034;
-  font-style: italic;
-  background-color: #f6ffdf;
-  display: inline-block;
-}
 .fountain .underline {
   text-decoration: underline;
-}
-.fountain .character,
-.fountain .parenthetical {
-  text-align: left;
-  margin: .3em 0 .3em 0;
 }
 .fountain .section-duration {
   display: block;
@@ -715,62 +702,84 @@ code {
   display: block;
   margin: 1.5em 0 1.5em 0;
 }
-.fountain .synopsis {
-  display: block;
-  padding: .5em;
-  background-color: #e6e6e6;
-  margin: .5em 0 .5em 0;
+.fountain .action {
+  margin: .5em 0 1.5em 0 !important;
+  padding: 0 7% 0 7% !important;
 }
-.fountain .title_page {
-  padding: 0 0 1em 0;
+.fountain .dialogue {
+  margin: .5em 0 1.5em 0 !important;
   text-align: center;
 }
-.fountain .title_page .date,
-.fountain .title_page .draft-date,
-.fountain .title_page .notes,
-.fountain .title_page .contact,
-.fountain .title_page .copyright,
-.fountain .title_page .source {
-  display: block;
+.fountain .header {
+  font-family: 'Crimson Text', serif;
+  margin: .3em 0 .3em 0 !important;
 }
-.fountain .title_page .date,
-.fountain .title_page .draft-date,
-.fountain .title_page .contact {
+.fountain .note {
+  margin: .5em 0 1.5em 0 !important;
+  color: #6f9034;
+  font-style: italic;
+  background-color: #f6ffdf;
+  display: inline-block;
+}
+.fountain .section {
+  border-bottom: 1px solid #ccc;
+  margin: 0.3em 0 0.3em 0 !important;
+}
+.fountain .section-icon {
+  display: inline-block !important;
+  margin: 0 .2em 0 0 !important;
+}
+.fountain .section-icon-act {
+  max-width: 0.9em;
+  height: auto;
+  margin-top: -0.4em !important;
+}
+.fountain .section-icon-sequence {
+  max-width: 0.9em;
+  height: auto;
+  margin-top: -0.3em !important;
+}
+.fountain .section-icon-scene {
+  max-width: 0.9em;
+  height: auto;
+  margin-top: -0.3em !important;
+}
+.fountain .section-icon-panel {
+  max-width: 0.9em;
+  height: auto;
+  margin-top: -0.4em !important;
+}
+.fountain .synopsis {
+  margin: .5em 0 1.5em 0 !important;
+  background-color: #e6e6e6;
+}
+.fountain .title-token {
+  margin-bottom: .2em;
+}
+.fountain .title,
+.fountain .credit,
+.fountain .author,
+.fountain .authors,
+.fountain .source {
+  margin-bottom: .3em;
+  text-align: center;
+}
+.fountain .token-text-dialogue {
+  padding: 0 25% 0 25% !important;
   text-align: left;
 }
-.fountain .title_page .notes {
-  font-style: italic;
-}
-.fountain .title_page .title {
-  margin: 1em 0 1em 0 !important;
+.fountain .token-text-section {
+  display: inline-block !important;
 }
 .fountain .transition {
   text-align: left;
   display: block;
-  margin: 1.5em 0 1.5em 0;
-}
-.fountain .authors,
-.fountain .credit {
-  display: inline-block;
-}
-.fountain .credit {
-  margin-right: 5px;
-}
-.fountain .token.title {
-  margin-bottom: 5px;
+  margin: 1.5em 0 1.5em 0 !important;
 }
 .fountain-container {
   max-height: 900px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Nobile', sans-serif;
 }
 .hidden.menu {
   display: none;
@@ -892,15 +901,6 @@ div.script-input {
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
-}
-.ui.vertical.stripe {
-  padding: 3em;
-}
-.ui.vertical.stripe .floated.image {
-  clear: both;
-}
-.ui.vertical.stripe .horizontal.divider {
-  margin: 3em 0em;
 }
 @media only screen and (max-width: 700px) {
   .ui.fixed.menu {
