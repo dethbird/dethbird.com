@@ -68,11 +68,16 @@ export const tokenizeScript = (script) => {
                         text: []
                     }
                     let dialogueLine = nextLine;
-                    while (dialogueLine.text !== '\n') {
-                        token.lines.push(dialogueLine);
-                        token.model.text.push(dialogueLine.text);
-                        nextIndex++;
-                        dialogueLine = lines[nextIndex];
+
+                    while (dialogueLine) {
+                        if (dialogueLine.text !== '\n') {
+                            token.lines.push(dialogueLine);
+                            token.model.text.push(dialogueLine.text);
+                            nextIndex++;
+                            dialogueLine = lines[nextIndex];
+                        } else {
+                            break;
+                        }
                     }
                     i = nextIndex - 1;
                     scriptTokens.push(token);
@@ -175,7 +180,6 @@ export const tokenizeScript = (script) => {
 
         match = line.text.match(REGEX.PAGE_BREAK);
         if (match) {
-            console.log(line);
             token.lines.push(line);
             token.type = 'page_break';
             token.model = {

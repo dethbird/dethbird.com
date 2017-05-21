@@ -2,9 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import {
     Container,
+    Divider,
     Grid,
     Header,
-    Image
+    Image,
+    Segment
 } from 'semantic-ui-react';
 import { SECTION_LEVEL } from 'constants/section';
 
@@ -45,6 +47,20 @@ const ScriptToken = React.createClass({
                 </div>
             );
 
+        if (token.type == 'scene' || token.type == 'transition')
+            return (
+                <div className={classNames(['token', 'script-token', token.type])}>
+                    <Header as="h4">{ token.model.text[0] }</Header>
+                </div>
+            );
+
+        if (token.type == 'page_break')
+            return (
+                <div className={classNames(['token', 'script-token', token.type])}>
+                    <Divider />
+                </div>
+            );
+
         if (token.type == 'section') {
             return (
                 <div className={classNames(['token', 'script-token', token.type, `section-${SECTION_LEVEL[token.model.level]}`])}>
@@ -56,11 +72,12 @@ const ScriptToken = React.createClass({
                             { token.model.duration && token.model.level==4 ? <span className='panel-duration right floated'>{ token.model.duration }</span> : null }
                         </Grid.Column>
                     </Grid>
-                    { token.model.image && token.model.level==4 ? <Image src={token.model.image} /> : null }
+                    <Divider />
+                    { token.model.image && token.model.level==4 ? <Segment inverted fluid><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
                 </div>
             );
         }
-        return <div className={classNames(['token', 'scrip-tokent', token.type])}>{ textNodes }</div>;
+        return <div className={classNames(['token', 'script-token', token.type])}>{ textNodes }</div>;
     },
     render() {
         const { renderScriptToken, renderTitleToken } = this;

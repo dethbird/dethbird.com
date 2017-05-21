@@ -669,38 +669,8 @@ code {
   display: block;
   margin: 1em;
 }
-.fountain .lyrics {
-  font-style: italic;
-  color: grey;
-  display: block;
-}
 .fountain .underline {
   text-decoration: underline;
-}
-.fountain .section-duration {
-  display: block;
-  text-align: right;
-  color: gray;
-  font-size: 1rem !important;
-  margin: 0 2em 0 2em;
-}
-.fountain .section-image-container {
-  text-align: center;
-  margin: 1em 2em 1em 2em;
-}
-.fountain .section-image {
-  max-width: 100%;
-  display: inline-block;
-}
-.fountain .section-image.act {
-  border-radius: 500rem;
-}
-.fountain .section.level-text {
-  margin-right: 0.2em;
-}
-.fountain .scene_heading {
-  display: block;
-  margin: 1.5em 0 1.5em 0;
 }
 .fountain .action {
   margin: .5em 0 1.5em 0 !important;
@@ -710,19 +680,32 @@ code {
   margin: .5em 0 1.5em 0 !important;
   text-align: center;
 }
+.fountain .divider {
+  margin: 0.3em 0 0.3em 0;
+}
 .fountain .header {
   font-family: 'Crimson Text', serif;
   margin: .3em 0 .3em 0 !important;
 }
+.fountain .lyrics {
+  font-style: italic;
+  color: grey;
+  padding: 0 7% 0 7% !important;
+}
 .fountain .note {
-  margin: .5em 0 1.5em 0 !important;
+  margin: .5em 7% 1.5em 7% !important;
   color: #6f9034;
   font-style: italic;
   background-color: #f6ffdf;
   display: inline-block;
 }
+.fountain .panel-image {
+  padding: 0 7% 0 7% !important;
+}
+.fountain .scene {
+  margin: 0.75em 7% .75em 7% !important;
+}
 .fountain .section {
-  border-bottom: 1px solid #ccc;
   margin: 0.3em 0 0.3em 0 !important;
 }
 .fountain .section-icon {
@@ -749,8 +732,12 @@ code {
   height: auto;
   margin-top: -0.4em !important;
 }
+.fountain .section-panel {
+  border: none !important;
+}
 .fountain .synopsis {
-  margin: .5em 0 1.5em 0 !important;
+  padding: 0.5em;
+  margin: 0.75em 7% .75em 7% !important;
   background-color: #e6e6e6;
 }
 .fountain .title-token {
@@ -772,9 +759,7 @@ code {
   display: inline-block !important;
 }
 .fountain .transition {
-  text-align: left;
-  display: block;
-  margin: 1.5em 0 1.5em 0 !important;
+  margin: 0.75em 7% .75em 7% !important;
 }
 .fountain-container {
   max-height: 900px;
