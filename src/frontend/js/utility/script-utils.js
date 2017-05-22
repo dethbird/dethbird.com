@@ -318,7 +318,7 @@ export const tokenizeScript = (script) => {
             if (token.model.dual) {
                 let nextIndex = parseInt(i) + 1;
                 if (scriptTokens.length > nextIndex) {
-                    let nextToken = scriptTokens[i];
+                    let nextToken = scriptTokens[nextIndex];
                     while (nextToken.type=='dialogue') {
                         nextToken.model.dual = true;
                         _scriptTokens.push(nextToken);

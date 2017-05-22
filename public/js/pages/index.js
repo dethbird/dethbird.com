@@ -72555,7 +72555,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             if (_token.model.dual) {
                 var _nextIndex5 = parseInt(i) + 1;
                 if (scriptTokens.length > _nextIndex5) {
-                    var nextToken = scriptTokens[i];
+                    var nextToken = scriptTokens[_nextIndex5];
                     while (nextToken.type == 'dialogue') {
                         nextToken.model.dual = true;
                         _scriptTokens.push(nextToken);
