@@ -645,13 +645,6 @@ code {
 .fountain h5 {
   font-size: 1.1em !important;
 }
-.fountain .dialogue-container {
-  text-align: left;
-  margin: 1.5em 10% 1.5em 20%;
-}
-.fountain .dialogue-container.dual .character::after {
-  content: " (together)";
-}
 .fountain hr {
   margin: 1.6em 0 1.6em 0 !important;
 }
@@ -671,6 +664,10 @@ code {
 }
 .fountain .divider {
   margin: 0.3em 0 0.3em 0;
+}
+.fountain .dual {
+  font-style: italic;
+  font-weight: normal;
 }
 .fountain .header {
   font-family: 'Crimson Text', serif;
@@ -701,6 +698,7 @@ code {
 }
 .fountain .parenthetical {
   font-style: italic;
+  font-weight: normal;
 }
 .fountain .scene {
   margin: 0.75em 7% .75em 7% !important;

@@ -62,9 +62,16 @@ const ScriptToken = React.createClass({
         }
 
         if (token.type == 'dialogue')
+            console.log(token)
+
+        if (token.type == 'dialogue')
             return (
                 <div className={classNames(['token', 'script-token', token.type])}>
-                    <Header as="h5">{ token.model.character }</Header>
+                    <Header as="h5">
+                        { token.model.character }
+                        { token.model.parenthetical ? <span className='parenthetical'> {token.model.parenthetical}</span> : null }
+                        { token.model.dual ? <span className='dual'> (together)</span> : null }
+                    </Header>
                     { renderInlineText(token) }
                 </div>
             );

@@ -70262,13 +70262,26 @@ var ScriptToken = _react2.default.createClass({
             return _react2.default.createElement(_semanticUiReact.Image, { className: (0, _classnames2.default)(['section-icon', 'section-icon-' + _section.SECTION_LEVEL[token.model.level]]), src: '/svg/section/' + _section.SECTION_LEVEL[token.model.level] + '.svg' });
         };
 
+        if (token.type == 'dialogue') console.log(token);
+
         if (token.type == 'dialogue') return _react2.default.createElement(
             'div',
             { className: (0, _classnames2.default)(['token', 'script-token', token.type]) },
             _react2.default.createElement(
                 _semanticUiReact.Header,
                 { as: 'h5' },
-                token.model.character
+                token.model.character,
+                token.model.parenthetical ? _react2.default.createElement(
+                    'span',
+                    { className: 'parenthetical' },
+                    ' ',
+                    token.model.parenthetical
+                ) : null,
+                token.model.dual ? _react2.default.createElement(
+                    'span',
+                    { className: 'dual' },
+                    ' (together)'
+                ) : null
             ),
             renderInlineText(token)
         );
@@ -72556,13 +72569,15 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                 var _nextIndex5 = parseInt(i) + 1;
                 if (scriptTokens.length > _nextIndex5) {
                     var nextToken = scriptTokens[_nextIndex5];
-                    while (nextToken.type == 'dialogue') {
-                        nextToken.model.dual = true;
+                    while (nextToken.type == 'dialogue' || nextToken.type == 'blank_line') {
+                        if (nextToken.type == 'dialogue') {
+                            nextToken.model.dual = true;
+                        }
                         _scriptTokens.push(nextToken);
                         _nextIndex5++;
                         nextToken = scriptTokens[_nextIndex5];
                     }
-                    i = _nextIndex5 - 1;
+                    i = _nextIndex5;
                 }
             }
         } else {
