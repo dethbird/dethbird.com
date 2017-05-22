@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import * as _ from 'underscore';
 import {
     Container,
     Divider,
@@ -14,7 +15,8 @@ import { SECTION_LEVEL } from 'constants/section';
 const ScriptToken = React.createClass({
     propTypes: {
         token: React.PropTypes.object.isRequired,
-        type: React.PropTypes.string.isRequired // title|script
+        type: React.PropTypes.string.isRequired, // title|script,
+        characters: React.PropTypes.array.isRequired
     },
     renderInlineText(token){
         let html = token.model.text.join('\n');
@@ -50,8 +52,8 @@ const ScriptToken = React.createClass({
         return <div className={classNames(['token', 'title-token', token.type])}>{ textNodes }</div>;
     },
     renderScriptToken(token){
-
         const { renderInlineText } = this;
+        const { characters } = this.props;
 
         const textNodes = token.model.text.map(function(t,i){
             return <div className={classNames(['token-text', `token-text-${token.type}`])} key={ i }>{ t }</div>
@@ -59,15 +61,29 @@ const ScriptToken = React.createClass({
 
         const sectionIcon = (token) => {
             return <Image className={classNames(['section-icon', `section-icon-${SECTION_LEVEL[token.model.level]}`])} src={`/svg/section/${SECTION_LEVEL[token.model.level]}.svg`} />;
-        }
+        };
 
-        if (token.type == 'dialogue')
-            console.log(token)
+        const characterAvater = (name) => {
+            let character = {
+                avatar_image_url: null
+            };
+            for(const i in characters) {
+                const c = characters[i];
+                if(name == c.name.toUpperCase().trim()) {
+                    character = c;
+                    break;
+                }
+            }
+            return (
+                <Image avatar size='tiny' src={ character.avatar_image_url || 'https://myspace.com/common/images/user.png' } className='character-avatar'/>
+            )
+        };
 
         if (token.type == 'dialogue')
             return (
                 <div className={classNames(['token', 'script-token', token.type])}>
                     <Header as="h5">
+                        { characterAvater(token.model.character) }
                         { token.model.character }
                         { token.model.parenthetical ? <span className='parenthetical'> {token.model.parenthetical}</span> : null }
                         { token.model.dual ? <span className='dual'> (together)</span> : null }

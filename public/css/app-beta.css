@@ -645,12 +645,24 @@ code {
 .fountain h5 {
   font-size: 1.1em !important;
 }
+.fountain .dialogue-container {
+  text-align: left;
+  margin: 1.5em 10% 1.5em 20%;
+}
+.fountain .dialogue-container.dual .character::after {
+  content: " (together)";
+}
 .fountain hr {
   margin: 1.6em 0 1.6em 0 !important;
 }
 .fountain .action {
   margin: .5em 0 1.5em 0 !important;
   padding: 0 7% 0 7% !important;
+}
+.fountain .character-avatar {
+  margin: -0.5em 0.5em 0 0 !important;
+  height: 24px !important;
+  width: 24px !important;
 }
 .fountain .bold {
   font-weight: bold;
@@ -659,15 +671,11 @@ code {
   text-align: center;
 }
 .fountain .dialogue {
-  margin: .5em 0 1.5em 0 !important;
+  margin: 2em 0 2.6em 0 !important;
   text-align: center;
 }
 .fountain .divider {
   margin: 0.3em 0 0.3em 0;
-}
-.fountain .dual {
-  font-style: italic;
-  font-weight: normal;
 }
 .fountain .header {
   font-family: 'Crimson Text', serif;
@@ -698,7 +706,6 @@ code {
 }
 .fountain .parenthetical {
   font-style: italic;
-  font-weight: normal;
 }
 .fountain .scene {
   margin: 0.75em 7% .75em 7% !important;

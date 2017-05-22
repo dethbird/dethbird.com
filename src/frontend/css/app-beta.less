@@ -184,6 +184,17 @@ code {
     h5 {
         font-size: 1.1em !important;
     }
+
+    .dialogue-container {
+        text-align: left;
+        margin: 1.5em 10% 1.5em 20%;
+    }
+
+    .dialogue-container.dual {
+        .character::after {
+            content: " (together)";
+        }
+    }
     hr {
         margin: 1.6em 0 1.6em 0 !important;
     }
@@ -192,6 +203,11 @@ code {
         margin: .5em 0 1.5em 0 !important;
         padding: 0 7% 0 7% !important;
     }
+    .character-avatar {
+        margin: -0.5em 0.5em 0 0 !important;
+        height: 24px !important;
+        width: 24px !important;
+    }
     .bold {
         font-weight: bold;
     }
@@ -199,15 +215,11 @@ code {
         text-align: center;
     }
     .dialogue {
-        margin: .5em 0 1.5em 0 !important;
+        margin: 2em 0 2.6em 0 !important;
         text-align: center;
     }
     .divider {
         margin: 0.3em 0 0.3em 0;
-    }
-    .dual {
-        font-style: italic;
-        font-weight: normal;
     }
     .header {
         font-family: 'Crimson Text', serif;
@@ -238,7 +250,6 @@ code {
     }
     .parenthetical {
         font-style: italic;
-        font-weight: normal;
     }
     .scene, {
         margin: 0.75em 7% .75em 7% !important;

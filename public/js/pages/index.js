@@ -70119,6 +70119,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(23);
+
 var _underscore = __webpack_require__(43);
 
 var _ = _interopRequireWildcard(_underscore);
@@ -70137,6 +70139,10 @@ var _fountain = __webpack_require__(125);
 
 var _fountain2 = _interopRequireDefault(_fountain);
 
+var _uiState = __webpack_require__(10);
+
+var _character = __webpack_require__(123);
+
 var _scriptToken = __webpack_require__(692);
 
 var _scriptToken2 = _interopRequireDefault(_scriptToken);
@@ -70153,19 +70159,32 @@ var ScriptPrintPreview = _react2.default.createClass({
     propTypes: {
         script: _react2.default.PropTypes.string.isRequired
     },
-    render: function render() {
-        var script = this.props.script;
+    getInitialState: function getInitialState() {
+        return {
+            characters: []
+        };
+    },
+    componentWillMount: function componentWillMount() {
+        var dispatch = this.props.dispatch;
 
+        dispatch((0, _character.charactersGet)());
+    },
+    render: function render() {
+        var _props = this.props,
+            script = _props.script,
+            characters = _props.characters;
+
+        if (!characters) return _react2.default.createElement(_semanticUiReact.Loader, { active: true });
 
         var tokens = (0, _scriptUtils.tokenizeScript)(script);
 
         var titleNodes = tokens.titleTokens.map(function (token, i) {
-            return _react2.default.createElement(_scriptToken2.default, { token: token, type: 'title', key: i });
+            return _react2.default.createElement(_scriptToken2.default, { token: token, characters: characters, type: 'title', key: i });
             return null;
         });
 
         var scriptNodes = tokens.scriptTokens.map(function (token, i) {
-            return _react2.default.createElement(_scriptToken2.default, { token: token, type: 'script', key: i });
+            return _react2.default.createElement(_scriptToken2.default, { token: token, characters: characters, type: 'script', key: i });
         });
 
         return _react2.default.createElement(
@@ -70177,7 +70196,20 @@ var ScriptPrintPreview = _react2.default.createClass({
     }
 });
 
-exports.default = ScriptPrintPreview;
+var mapStateToProps = function mapStateToProps(state) {
+    var _state$charactersRedu = state.charactersReducer,
+        ui_state = _state$charactersRedu.ui_state,
+        errors = _state$charactersRedu.errors,
+        models = _state$charactersRedu.models;
+
+    return {
+        ui_state: ui_state ? ui_state : _uiState.UI_STATE.INITIALIZING,
+        errors: errors,
+        characters: models
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ScriptPrintPreview);
 
 /***/ }),
 /* 692 */
@@ -70198,9 +70230,15 @@ var _classnames = __webpack_require__(4);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _underscore = __webpack_require__(43);
+
+var _ = _interopRequireWildcard(_underscore);
+
 var _semanticUiReact = __webpack_require__(7);
 
 var _section = __webpack_require__(293);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70209,7 +70247,8 @@ var ScriptToken = _react2.default.createClass({
 
     propTypes: {
         token: _react2.default.PropTypes.object.isRequired,
-        type: _react2.default.PropTypes.string.isRequired // title|script
+        type: _react2.default.PropTypes.string.isRequired, // title|script,
+        characters: _react2.default.PropTypes.array.isRequired
     },
     renderInlineText: function renderInlineText(token) {
         var html = token.model.text.join('\n');
@@ -70248,6 +70287,7 @@ var ScriptToken = _react2.default.createClass({
     },
     renderScriptToken: function renderScriptToken(token) {
         var renderInlineText = this.renderInlineText;
+        var characters = this.props.characters;
 
 
         var textNodes = token.model.text.map(function (t, i) {
@@ -70262,7 +70302,19 @@ var ScriptToken = _react2.default.createClass({
             return _react2.default.createElement(_semanticUiReact.Image, { className: (0, _classnames2.default)(['section-icon', 'section-icon-' + _section.SECTION_LEVEL[token.model.level]]), src: '/svg/section/' + _section.SECTION_LEVEL[token.model.level] + '.svg' });
         };
 
-        if (token.type == 'dialogue') console.log(token);
+        var characterAvater = function characterAvater(name) {
+            var character = {
+                avatar_image_url: null
+            };
+            for (var i in characters) {
+                var c = characters[i];
+                if (name == c.name.toUpperCase().trim()) {
+                    character = c;
+                    break;
+                }
+            }
+            return _react2.default.createElement(_semanticUiReact.Image, { avatar: true, size: 'tiny', src: character.avatar_image_url || 'https://myspace.com/common/images/user.png', className: 'character-avatar' });
+        };
 
         if (token.type == 'dialogue') return _react2.default.createElement(
             'div',
@@ -70270,6 +70322,7 @@ var ScriptToken = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Header,
                 { as: 'h5' },
+                characterAvater(token.model.character),
                 token.model.character,
                 token.model.parenthetical ? _react2.default.createElement(
                     'span',
