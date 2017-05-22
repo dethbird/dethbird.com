@@ -652,10 +652,6 @@ code {
 .fountain .dialogue-container.dual .character::after {
   content: " (together)";
 }
-.fountain .centered {
-  display: block;
-  text-align: center;
-}
 .fountain hr {
   margin: 1.6em 0 1.6em 0 !important;
 }
@@ -665,6 +661,9 @@ code {
 }
 .fountain .bold {
   font-weight: bold;
+}
+.fountain .centered {
+  text-align: center;
 }
 .fountain .dialogue {
   margin: .5em 0 1.5em 0 !important;
@@ -700,7 +699,7 @@ code {
 .fountain .panel-image {
   padding: 0 7% 0 7% !important;
 }
-.fountain .parenthetical-inline {
+.fountain .parenthetical {
   font-style: italic;
 }
 .fountain .scene {

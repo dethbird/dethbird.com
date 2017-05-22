@@ -37819,6 +37819,7 @@ var REGEX = exports.REGEX = {
 
 var REGEX_INLINE = exports.REGEX_INLINE = {
     NOTE: /(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))/g,
+    CENTERED: /(?:\>{1})(.+)(?:\<{1})/g,
     BOLD: /(?:\*{2})(.+)(?:\*{2})/g,
     ITALIC: /(?:\*{1})(.+)(?:\*{1})/g,
     UNDERLINE: /(?:\_{1})(.+)(?:\_{1})/g,
@@ -70212,7 +70213,7 @@ var ScriptToken = _react2.default.createClass({
     },
     renderInlineText: function renderInlineText(token) {
         var html = token.model.text.join('\n');
-        html = html.replace(_section.REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>').replace(_section.REGEX_INLINE.PARENTHETICAL, '<span class="parenthetical">($1)</span>').replace(_section.REGEX_INLINE.BOLD, '<span class="bold">$1</span>').replace(_section.REGEX_INLINE.ITALIC, '<span class="italic">$1</span>').replace(_section.REGEX_INLINE.UNDERLINE, '<span class="underline">$1</span>').replace(_section.REGEX_INLINE.TWO_SPACES, '<br /><br />').replace('\n', '<br/>');
+        html = html.replace(_section.REGEX_INLINE.CENTERED, '<span class="centered">$1</span>').replace(_section.REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>').replace(_section.REGEX_INLINE.PARENTHETICAL, '<span class="parenthetical">($1)</span>').replace(_section.REGEX_INLINE.BOLD, '<span class="bold">$1</span>').replace(_section.REGEX_INLINE.ITALIC, '<span class="italic">$1</span>').replace(_section.REGEX_INLINE.UNDERLINE, '<span class="underline">$1</span>').replace(_section.REGEX_INLINE.TWO_SPACES, '<br /><br />').replace('\n', '<br/>');
         return _react2.default.createElement('div', {
             className: (0, _classnames2.default)(['token-text', 'token-text-' + token.type]),
             dangerouslySetInnerHTML: {

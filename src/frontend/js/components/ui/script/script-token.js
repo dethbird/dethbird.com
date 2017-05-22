@@ -18,7 +18,8 @@ const ScriptToken = React.createClass({
     },
     renderInlineText(token){
         let html = token.model.text.join('\n');
-        html = html.replace(REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>')
+        html = html.replace(REGEX_INLINE.CENTERED, '<span class="centered">$1</span>')
+                    .replace(REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>')
                     .replace(REGEX_INLINE.PARENTHETICAL, '<span class="parenthetical">($1)</span>')
                     .replace(REGEX_INLINE.BOLD, '<span class="bold">$1</span>')
                     .replace(REGEX_INLINE.ITALIC, '<span class="italic">$1</span>')
