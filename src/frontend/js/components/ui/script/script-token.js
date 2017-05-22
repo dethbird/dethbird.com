@@ -21,6 +21,7 @@ const ScriptToken = React.createClass({
         html = html.replace(REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>')
                     .replace(REGEX_INLINE.PARENTHETICAL, '<span class="parenthetical">($1)</span>')
                     .replace(REGEX_INLINE.BOLD, '<span class="bold">$1</span>')
+                    .replace(REGEX_INLINE.UNDERLINE, '<span class="underline">$1</span>')
                     .replace(REGEX_INLINE.TWO_SPACES, '<br /><br />')
                     .replace('\n', '<br/>');
         return (

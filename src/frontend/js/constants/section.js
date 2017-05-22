@@ -32,6 +32,7 @@ export const REGEX = {
 export const REGEX_INLINE = {
     NOTE: /(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))/g,
     BOLD: /(?:\*{2})(.+)(?:\*{2})/g,
+    UNDERLINE: /(?:\_{1})(.+)(?:\_{1})/g,
     PARENTHETICAL: /(?:\({1})(.+)(?:\){1})/g,
     TWO_SPACES: /{two spaces}/g
 }
