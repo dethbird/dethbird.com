@@ -8,12 +8,29 @@ import {
     Image,
     Segment
 } from 'semantic-ui-react';
+import { REGEX_INLINE } from 'constants/section';
 import { SECTION_LEVEL } from 'constants/section';
 
 const ScriptToken = React.createClass({
     propTypes: {
         token: React.PropTypes.object.isRequired,
         type: React.PropTypes.string.isRequired // title|script
+    },
+    renderInlineText(token){
+        let html = token.model.text.join('\n');
+        html = html.replace(REGEX_INLINE.NOTE, '<span class="note-inline">$1</span>')
+                    .replace(REGEX_INLINE.PARENTHETICAL, '<span class="parenthetical">($1)</span>')
+                    .replace(REGEX_INLINE.BOLD, '<span class="bold">$1</span>')
+                    .replace(REGEX_INLINE.TWO_SPACES, '<br /><br />')
+                    .replace('\n', '<br/>');
+        return (
+            <div
+                className={classNames(['token-text', `token-text-${token.type}`])}
+                dangerouslySetInnerHTML={ {
+                    __html: html
+                } }
+            />
+        );
     },
     renderTitleToken(token){
         const textNodes = token.model.text.map(function(t,i){
@@ -31,6 +48,8 @@ const ScriptToken = React.createClass({
     },
     renderScriptToken(token){
 
+        const { renderInlineText } = this;
+
         const textNodes = token.model.text.map(function(t,i){
             return <div className={classNames(['token-text', `token-text-${token.type}`])} key={ i }>{ t }</div>
         });
@@ -43,7 +62,14 @@ const ScriptToken = React.createClass({
             return (
                 <div className={classNames(['token', 'script-token', token.type])}>
                     <Header as="h5">{ token.model.character }</Header>
-                    { textNodes }
+                    { renderInlineText(token) }
+                </div>
+            );
+
+        if (token.type == 'action')
+            return (
+                <div className={classNames(['token', 'script-token', token.type])}>
+                    { renderInlineText(token) }
                 </div>
             );
 

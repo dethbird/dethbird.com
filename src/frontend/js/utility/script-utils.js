@@ -1,35 +1,6 @@
 import { log } from 'utility/logger';
 import * as _ from 'underscore';
-
-export const REGEX = {
-    LEXER: {
-        BONEYARD: /(^\/\*|^\*\/)$/g,
-        SPLITTER: /\n/g,
-        CLEANER: /^\n+|\n+$/,
-        STANDARDIZER: /\r\n|\r/g,
-        WHITESPACER: /^\t+|^ {3,}/gm
-    },
-
-    ACTION: /^(.+)/g,
-    ACTION_POWER_USER: /^(?:[!])(.*)/,
-    BLANK_LINE: /(\n)/,
-    CHARACTER: /^([A-Z][A-Z0-9'\-. ]+)(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
-    CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
-    CENTERED: /^(?:> *)(.+)(?: *<)(\n.+)*/g,
-    IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
-    DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
-    LYRICS: /^(?:~)([\S\s]+)/,
-    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
-    NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
-    NOTE_MULTILINE: /^(?!\[{2})(.+[^\]{2})])$|^(.+)(?:\]{2})$/g,
-    PAGE_BREAK: /^\={3,}$/,
-    SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
-    SCENE_NUMBER: /( *#(.+)# *)/,
-    SECTION: /^(#{1,4})\ (.*)/,
-    SYNOPSIS: /^(?:\=(?!\=+) *)(.*)/,
-    TITLE: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
-    TRANSITION: /^((?:FADE (?:TO BLACK|OUT)|CUT TO BLACK)\.|.+ TO\:)|^(?:> *)(.+)/i
-}
+import { REGEX } from 'constants/section';
 
 export const tokenizeScript = (script) => {
     const lines = lexizeScript(script);
@@ -148,8 +119,10 @@ export const tokenizeScript = (script) => {
         if (match) {
             token.lines.push(line);
             token.type = 'note';
+            let note = match[0];
+            note = note.substring(2, note.length-2);
             token.model = {
-                text: [match[1].trim()]
+                text: [note.trim()]
             };
             scriptTokens.push(token);
             i++;
@@ -161,7 +134,7 @@ export const tokenizeScript = (script) => {
             token.lines.push(line);
             token.type = 'note';
             token.model = {
-                text: [match[0].trim()]
+                text: [match[0].substring(2, match[0].length).trim()]
             };
 
             let nextIndex = parseInt(i)+1;
@@ -171,9 +144,12 @@ export const tokenizeScript = (script) => {
                     while (nextLine.text !== '\n') {
                         token.lines.push(nextLine);
                         match = nextLine.text.match(REGEX.NOTE_MULTILINE);
-                        console.log(match);
                         if(match){
-                            token.model.text.push(match[0] || match[1]);
+                            token.model.text.push(match[0]);
+                        }
+                        match = nextLine.text.match(REGEX.NOTE_MULTILINE_END);
+                        if(match){
+                            token.model.text.push(match[0].substring(0, match[0].length - 2).trim());
                         }
                         nextIndex++;
                         nextLine = lines[nextIndex];
@@ -222,10 +198,10 @@ export const tokenizeScript = (script) => {
             continue;
         }
 
-        match = line.text.match(REGEX.CENTERED);
+        match = line.text.match(REGEX.TRANSITION);
         if (match) {
             token.lines.push(line);
-            token.type = 'centered';
+            token.type = 'transition';
             token.model = {
                 text: [line.text.trim()]
             };
@@ -234,12 +210,12 @@ export const tokenizeScript = (script) => {
             continue;
         }
 
-        match = line.text.match(REGEX.TRANSITION);
+        match = line.text.match(REGEX.TRANSITION_POWER_USER);
         if (match) {
             token.lines.push(line);
             token.type = 'transition';
             token.model = {
-                text: [line.text.trim()]
+                text: [line.text.substring(2, line.text.length).trim()]
             };
             scriptTokens.push(token);
             i++;

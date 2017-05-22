@@ -665,10 +665,6 @@ code {
 .fountain .italic {
   font-style: italic;
 }
-.fountain .lyrics-container {
-  display: block;
-  margin: 1em;
-}
 .fountain .underline {
   text-decoration: underline;
 }
@@ -699,8 +695,16 @@ code {
   background-color: #f6ffdf;
   display: inline-block;
 }
+.fountain .note-inline {
+  color: #6f9034;
+  font-style: italic;
+  background-color: #f6ffdf;
+}
 .fountain .panel-image {
   padding: 0 7% 0 7% !important;
+}
+.fountain .parenthetical-inline {
+  font-style: italic;
 }
 .fountain .scene {
   margin: 0.75em 7% .75em 7% !important;
