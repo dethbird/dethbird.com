@@ -19,7 +19,9 @@ export const REGEX = {
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
     LYRICS: /^(?:~)([\S\s]+)/,
-    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
+    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
+    NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
+    NOTE_MULTILINE: /^(?!\[{2})(.+[^\]{2})])$|^(.+)(?:\]{2})$/g,
     PAGE_BREAK: /^\={3,}$/,
     SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
     SCENE_NUMBER: /( *#(.+)# *)/,
@@ -149,6 +151,36 @@ export const tokenizeScript = (script) => {
             token.model = {
                 text: [match[1].trim()]
             };
+            scriptTokens.push(token);
+            i++;
+            continue;
+        }
+
+        match = line.text.match(REGEX.NOTE_MULTILINE_START);
+        if (match) {
+            token.lines.push(line);
+            token.type = 'note';
+            token.model = {
+                text: [match[0].trim()]
+            };
+
+            let nextIndex = parseInt(i)+1;
+            if (lines.length > nextIndex) {
+                let nextLine = lines[nextIndex];
+                if (nextLine.text !== '\n') {
+                    while (nextLine.text !== '\n') {
+                        token.lines.push(nextLine);
+                        match = nextLine.text.match(REGEX.NOTE_MULTILINE);
+                        console.log(match);
+                        if(match){
+                            token.model.text.push(match[0] || match[1]);
+                        }
+                        nextIndex++;
+                        nextLine = lines[nextIndex];
+                    }
+                    i = nextIndex - 1;
+                }
+            }
             scriptTokens.push(token);
             i++;
             continue;

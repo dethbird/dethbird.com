@@ -70249,7 +70249,7 @@ var ScriptToken = _react2.default.createClass({
                 _react2.default.createElement(_semanticUiReact.Divider, null),
                 token.model.image && token.model.level == 4 ? _react2.default.createElement(
                     _semanticUiReact.Segment,
-                    { inverted: true, fluid: true },
+                    { inverted: true },
                     _react2.default.createElement(_semanticUiReact.Image, { src: token.model.image, centered: true, className: 'panel-image' })
                 ) : null
             );
@@ -72199,7 +72199,9 @@ var REGEX = exports.REGEX = {
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
     LYRICS: /^(?:~)([\S\s]+)/,
-    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\[+))$/,
+    NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/,
+    NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
+    NOTE_MULTILINE: /^(?!\[{2})(.+[^\]{2})])$|^(.+)(?:\]{2})$/g,
     PAGE_BREAK: /^\={3,}$/,
     SCENE: /^((?:\*{0,3}_?)?(?:(?:int|ext|est|i\/e)[. ]).+)|^(?:\.(?!\.+))(.+)/i,
     SCENE_NUMBER: /( *#(.+)# *)/,
@@ -72332,6 +72334,38 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             continue;
         }
 
+        match = line.text.match(REGEX.NOTE_MULTILINE_START);
+        if (match) {
+            console.log(match);
+            token.lines.push(line);
+            token.type = 'note';
+            token.model = {
+                text: [match[0].trim()]
+            };
+
+            var _nextIndex2 = parseInt(i) + 1;
+            if (lines.length > _nextIndex2) {
+                var _nextLine2 = lines[_nextIndex2];
+                if (_nextLine2.text !== '\n') {
+                    while (_nextLine2.text !== '\n') {
+                        token.lines.push(_nextLine2);
+                        match = _nextLine2.text.match(REGEX.NOTE_MULTILINE);
+                        console.log(match);
+                        if (match) {
+                            token.model.text.push(match[0] || match[1]);
+                        }
+                        _nextIndex2++;
+                        _nextLine2 = lines[_nextIndex2];
+                    }
+                    i = _nextIndex2 - 1;
+                }
+            }
+            console.log(token);
+            scriptTokens.push(token);
+            i++;
+            continue;
+        }
+
         match = line.text.match(REGEX.SYNOPSIS);
         if (match) {
             token.lines.push(line);
@@ -72399,19 +72433,19 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.model = {
                 text: [match[1].trim()]
             };
-            var _nextIndex2 = parseInt(i) + 1;
-            if (lines.length > _nextIndex2) {
-                var _nextLine2 = lines[_nextIndex2];
-                match = _nextLine2.text.match(REGEX.LYRICS);
+            var _nextIndex3 = parseInt(i) + 1;
+            if (lines.length > _nextIndex3) {
+                var _nextLine3 = lines[_nextIndex3];
+                match = _nextLine3.text.match(REGEX.LYRICS);
                 if (match) {
                     while (match) {
-                        token.lines.push(_nextLine2);
+                        token.lines.push(_nextLine3);
                         token.model.text.push(match[1].trim());
-                        _nextIndex2++;
-                        _nextLine2 = lines[_nextIndex2];
-                        match = _nextLine2.text.match(REGEX.LYRICS);
+                        _nextIndex3++;
+                        _nextLine3 = lines[_nextIndex3];
+                        match = _nextLine3.text.match(REGEX.LYRICS);
                     }
-                    i = _nextIndex2 - 1;
+                    i = _nextIndex3 - 1;
                 }
             }
             scriptTokens.push(token);
@@ -72429,19 +72463,19 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.model = {
                 text: text ? [text] : []
             };
-            var _nextIndex3 = parseInt(i) + 1;
-            if (lines.length > _nextIndex3) {
-                var _nextLine3 = lines[_nextIndex3];
-                match = _nextLine3.text.match(REGEX.TITLE);
-                if (!match && _nextLine3.text !== '\n') {
-                    while (!match && _nextLine3.text !== '\n') {
-                        token.lines.push(_nextLine3);
-                        token.model.text.push(_nextLine3.text);
-                        _nextIndex3++;
-                        _nextLine3 = lines[_nextIndex3];
-                        match = _nextLine3.text.match(REGEX.TITLE);
+            var _nextIndex4 = parseInt(i) + 1;
+            if (lines.length > _nextIndex4) {
+                var _nextLine4 = lines[_nextIndex4];
+                match = _nextLine4.text.match(REGEX.TITLE);
+                if (!match && _nextLine4.text !== '\n') {
+                    while (!match && _nextLine4.text !== '\n') {
+                        token.lines.push(_nextLine4);
+                        token.model.text.push(_nextLine4.text);
+                        _nextIndex4++;
+                        _nextLine4 = lines[_nextIndex4];
+                        match = _nextLine4.text.match(REGEX.TITLE);
                     }
-                    i = _nextIndex3 - 1;
+                    i = _nextIndex4 - 1;
                 }
             }
             titleTokens.push(token);
@@ -72485,16 +72519,16 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             }
 
             if (_token.model.dual) {
-                var _nextIndex4 = parseInt(i) + 1;
-                if (scriptTokens.length > _nextIndex4) {
+                var _nextIndex5 = parseInt(i) + 1;
+                if (scriptTokens.length > _nextIndex5) {
                     var nextToken = scriptTokens[i];
                     while (nextToken.type == 'dialogue') {
                         nextToken.model.dual = true;
                         _scriptTokens.push(nextToken);
-                        _nextIndex4++;
-                        nextToken = scriptTokens[_nextIndex4];
+                        _nextIndex5++;
+                        nextToken = scriptTokens[_nextIndex5];
                     }
-                    i = _nextIndex4 - 1;
+                    i = _nextIndex5 - 1;
                 }
             }
         } else {

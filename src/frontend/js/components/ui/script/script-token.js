@@ -73,7 +73,7 @@ const ScriptToken = React.createClass({
                         </Grid.Column>
                     </Grid>
                     <Divider />
-                    { token.model.image && token.model.level==4 ? <Segment inverted fluid><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
+                    { token.model.image && token.model.level==4 ? <Segment inverted><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
                 </div>
             );
         }
