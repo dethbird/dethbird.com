@@ -656,21 +656,15 @@ code {
   display: block;
   text-align: center;
 }
-.fountain .bold {
-  font-weight: bold;
-}
 .fountain hr {
   margin: 1.6em 0 1.6em 0 !important;
-}
-.fountain .italic {
-  font-style: italic;
-}
-.fountain .underline {
-  text-decoration: underline;
 }
 .fountain .action {
   margin: .5em 0 1.5em 0 !important;
   padding: 0 7% 0 7% !important;
+}
+.fountain .bold {
+  font-weight: bold;
 }
 .fountain .dialogue {
   margin: .5em 0 1.5em 0 !important;
@@ -682,6 +676,9 @@ code {
 .fountain .header {
   font-family: 'Crimson Text', serif;
   margin: .3em 0 .3em 0 !important;
+}
+.fountain .italic {
+  font-style: italic;
 }
 .fountain .lyrics {
   font-style: italic;
@@ -764,6 +761,9 @@ code {
 }
 .fountain .transition {
   margin: 0.75em 7% .75em 7% !important;
+}
+.fountain .underline {
+  text-decoration: underline;
 }
 .fountain-container {
   max-height: 900px;
