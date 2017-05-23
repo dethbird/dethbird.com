@@ -32,7 +32,8 @@ const StoryForm = React.createClass({
     getInitialState() {
         return {
             changedFields: {},
-            model: undefined
+            model: undefined,
+            currentLine: undefined
         }
     },
     componentWillMount() {
@@ -62,6 +63,16 @@ const StoryForm = React.createClass({
             changedFields
         });
     },
+    handleScriptChange(value, line) {
+        const { handleFieldChange } = this;
+        const { changedFields } = this.state;
+        changedFields['script'] = value;
+        this.setState({
+            ... this.state,
+            changedFields,
+            currentLine: line
+        });
+    },
     handleClickSnippetInsert(e, snippet) {
         const { changedFields, model } = this.state;
         changedFields['script'] = changedFields['script']
@@ -87,8 +98,9 @@ const StoryForm = React.createClass({
         }
     },
     render() {
+        const { handleScriptChange } = this;
         const { id, ui_state, errors, demo } = this.props;
-        const { changedFields, model } = this.state;
+        const { changedFields, model, currentLine } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         return (
@@ -133,7 +145,7 @@ const StoryForm = React.createClass({
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>
-                                <Form.Field placeholder="Script" id="script" control={ ScriptInput }  script={ inputFields.script || '' } onChange={ this.handleFieldChange }/>
+                                <Form.Field placeholder="Script" id="script" control={ ScriptInput } currentLine={ currentLine }  script={ inputFields.script || '' } onChange={ handleScriptChange }/>
                                 <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
                             </Grid.Column>
                         </Grid>

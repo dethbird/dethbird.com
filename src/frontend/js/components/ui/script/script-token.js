@@ -16,7 +16,15 @@ const ScriptToken = React.createClass({
     propTypes: {
         token: React.PropTypes.object.isRequired,
         type: React.PropTypes.string.isRequired, // title|script,
-        characters: React.PropTypes.array.isRequired
+        characters: React.PropTypes.array.isRequired,
+        currentLine: React.PropTypes.number
+    },
+    componentWillReceiveProps(nextProps) {
+        const line = _.findWhere(nextProps.token.lines, {index: nextProps.currentLine});
+        if(line){
+            console.log(line);
+            console.log(this.token);
+        }
     },
     renderInlineText(token){
         let html = token.model.text.join('\n');
@@ -133,16 +141,16 @@ const ScriptToken = React.createClass({
     },
     render() {
         const { renderScriptToken, renderTitleToken } = this;
-        const { token, type } = this.props;
+        const { token, type, currentLine } = this.props;
 
         if (token.type=='blank_line')
             return null;
 
         if (type=='title')
-            return renderTitleToken(token);
+            return <div ref={(div) => { this.token = div; }} >{ renderTitleToken(token) }</div>;
 
         if (type=='script')
-            return renderScriptToken(token);
+            return <div ref={(div) => { this.token = div; }} >{ renderScriptToken(token) }</div>;
 
     }
 })

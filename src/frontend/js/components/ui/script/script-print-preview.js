@@ -17,19 +17,16 @@ import { tokenizeScript } from 'utility/script-utils';
 
 const ScriptPrintPreview = React.createClass({
     propTypes: {
-        script: React.PropTypes.string.isRequired
-    },
-    getInitialState() {
-        return {
-            characters: []
-        }
+        script: React.PropTypes.string.isRequired,
+        currentLine: React.PropTypes.number
     },
     componentWillMount() {
         const { dispatch } = this.props;
         dispatch(charactersGet());
     },
     render() {
-        const { script, characters } = this.props;
+        const { script, characters, currentLine } = this.props;
+
         if (!characters)
             return <Loader active />
 
@@ -37,14 +34,14 @@ const ScriptPrintPreview = React.createClass({
 
         const titleNodes = tokens.titleTokens.map(function(token, i){
             return (
-                <ScriptToken token={ token } characters={ characters } type='title' key={ i }/>
+                <ScriptToken token={ token } characters={ characters } currentLine={ currentLine } type='title' key={ i }/>
             )
             return null;
         });
 
         const scriptNodes = tokens.scriptTokens.map(function(token, i){
             return (
-                <ScriptToken token={ token } characters={ characters } type='script' key={ i }/>
+                <ScriptToken token={ token } characters={ characters } currentLine={ currentLine } type='script' key={ i }/>
             )
         });
 

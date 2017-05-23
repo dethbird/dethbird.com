@@ -14,37 +14,38 @@ import ScriptPrintPreview from 'components/ui/script/script-print-preview';
 const ScriptInput = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        currentLine: React.PropTypes.number
     },
-    handleFieldChange(value, id) {
+    handleFieldChange(value, e) {
         const { onChange } = this.props;
         onChange (
-            { currentTarget: { value }},
-            id
+            value,
+            e.to.line
         );
     },
     render() {
         const { handleFieldChange } = this;
-        const { script, onChange, id, placeholder } = this.props;
+        const { script, onChange, currentLine } = this.props;
 
         return (
             <Grid>
                 <Grid.Column width={ 7 }>
                     <CodeMirror
                         value={ script || '' }
-                        onChange={ (e) => { handleFieldChange(e, id) } }
+                        onChange={ handleFieldChange }
                         options={{
                             lineNumbers: true,
                             lineWrapping: true,
                             mode: 'fountain',
                             theme: 'storystation'
                         }}
-                        id={ id }
+                        id={ 'script' }
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>
                     <Segment raised={ true } className="fountain-container">
-                        <ScriptPrintPreview script={ script }/>
+                        <ScriptPrintPreview script={ script } currentLine={ currentLine } />
                     </Segment>
                 </Grid.Column>
             </Grid>
