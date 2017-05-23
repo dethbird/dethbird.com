@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'underscore';
+import { animateScroll } from 'react-scroll';
 import {
     Container,
     Grid,
@@ -10,6 +11,7 @@ import markdownMode from 'codemirror/mode/markdown/markdown';
 import fountainMode from 'codemirror-mode/fountain/fountain';
 
 import ScriptPrintPreview from 'components/ui/script/script-print-preview';
+
 
 const ScriptInput = React.createClass({
     propTypes: {
@@ -24,8 +26,13 @@ const ScriptInput = React.createClass({
             e.to.line
         );
     },
+    scrollToToken(token, el) {
+        console.log(el);
+        console.log(this.refs);
+        animateScroll.scrollTo(`token-${token.id}`, { containerId: 'fountainContainer'} );
+    },
     render() {
-        const { handleFieldChange } = this;
+        const { handleFieldChange, scrollToToken } = this;
         const { script, onChange, currentLine } = this.props;
 
         return (
@@ -44,8 +51,10 @@ const ScriptInput = React.createClass({
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>
-                    <Segment raised={ true } className="fountain-container">
-                        <ScriptPrintPreview script={ script } currentLine={ currentLine } />
+                    <Segment raised={ true } style={ { padding: '0' } }>
+                        <div className="fountain-container" ref="fountainContainer" id="fountainContainer">
+                            <ScriptPrintPreview script={ script } currentLine={ currentLine } onFindActiveToken={ scrollToToken }/>
+                        </div>
                     </Segment>
                 </Grid.Column>
             </Grid>
