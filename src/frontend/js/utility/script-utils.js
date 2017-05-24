@@ -1,7 +1,6 @@
 import { log } from 'utility/logger';
 import * as _ from 'underscore';
 import { REGEX } from 'constants/section';
-import uuidV4 from 'uuid/v4';
 
 export const tokenizeScript = (script) => {
     const lines = lexizeScript(script);
@@ -17,7 +16,7 @@ export const tokenizeScript = (script) => {
         const line = lines[i];
         let match = false;
         let token = {
-            id: uuidV4(),
+            id: 'token-' + i,
             type: undefined,
             lines: [],
             model: undefined

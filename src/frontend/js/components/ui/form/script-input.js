@@ -1,6 +1,5 @@
 import React from 'react';
 import * as _ from 'underscore';
-import { animateScroll } from 'react-scroll';
 import {
     Container,
     Grid,
@@ -27,9 +26,7 @@ const ScriptInput = React.createClass({
         );
     },
     scrollToToken(token, el) {
-        console.log(el);
-        console.log(this.refs);
-        animateScroll.scrollTo(`token-${token.id}`, { containerId: 'fountainContainer'} );
+        $(this.refs.fountainContainer).scrollTop(el.offsetTop - 100);
     },
     render() {
         const { handleFieldChange, scrollToToken } = this;

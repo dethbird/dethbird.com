@@ -146,13 +146,13 @@ const ScriptToken = React.createClass({
         const { token, type, currentLine } = this.props;
 
         if (token.type=='blank_line')
-            return null;
+            return <div id={ token.id } ref={(div) => { this.token = div; }} ></div>;
 
         if (type=='title')
-            return <div name={`token-${token.id}`} ref={(div) => { this.token = div; }} >{ renderTitleToken(token) }</div>;
+            return <div id={ token.id } ref={(div) => { this.token = div; }} >{ renderTitleToken(token) }</div>;
 
         if (type=='script')
-            return <div name={`token-${token.id}`} ref={(div) => { this.token = div; }} >{ renderScriptToken(token) }</div>;
+            return <div id={ token.id } ref={(div) => { this.token = div; }} >{ renderScriptToken(token) }</div>;
 
     }
 })
