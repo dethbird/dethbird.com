@@ -18,7 +18,8 @@ const ScriptToken = React.createClass({
         type: React.PropTypes.string.isRequired, // title|script,
         characters: React.PropTypes.array.isRequired,
         currentLine: React.PropTypes.number,
-        onFindActiveToken: React.PropTypes.func.isRequired
+        onFindActiveToken: React.PropTypes.func.isRequired,
+        onClickToken: React.PropTypes.func.isRequired
     },
     componentWillReceiveProps(nextProps) {
         const { token, onFindActiveToken } = this.props;
@@ -143,16 +144,29 @@ const ScriptToken = React.createClass({
     },
     render() {
         const { renderScriptToken, renderTitleToken } = this;
-        const { token, type, currentLine } = this.props;
+        const { token, type, currentLine, onClickToken } = this.props;
 
         if (token.type=='blank_line')
             return <div id={ token.id } ref={(div) => { this.token = div; }} ></div>;
 
         if (type=='title')
-            return <div id={ token.id } ref={(div) => { this.token = div; }} >{ renderTitleToken(token) }</div>;
+            return <div
+                        id={ token.id }
+                        ref={(div) => { this.token = div; }}
+                        onClick={ ()=>{ onClickToken(token) }}
+                    >
+                        { renderTitleToken(token) }
+                    </div>;
+
 
         if (type=='script')
-            return <div id={ token.id } ref={(div) => { this.token = div; }} >{ renderScriptToken(token) }</div>;
+            return <div
+                        id={ token.id }
+                        ref={(div) => { this.token = div; }}
+                        onClick={ ()=>{ onClickToken(token) }}
+                    >
+                        { renderScriptToken(token) }
+                    </div>;
 
     }
 })

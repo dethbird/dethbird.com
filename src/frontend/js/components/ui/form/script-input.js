@@ -38,9 +38,14 @@ const ScriptInput = React.createClass({
     scrollToToken(token, el) {
         $(this.refs.fountainContainer).scrollTop(el.offsetTop - 50);
     },
+    handleClickToken(token) {
+        if (this.refs.fountain) {
+            this.refs.fountain.getCodeMirror().setCursor({line:token.lines[0].index});
+        }
+    },
     render() {
-        const { handleFieldChange, scrollToToken } = this;
-        const { script, onChange, onCursorActivity, currentLine } = this.props;
+        const { handleFieldChange, scrollToToken, handleClickToken } = this;
+        const { script, onChange, onCursorActivity, currentLine, onClickToken } = this.props;
 
         return (
             <Grid>
@@ -63,7 +68,12 @@ const ScriptInput = React.createClass({
                 <Grid.Column width={ 9 }>
                     <Segment raised={ true } style={ { padding: '0' } }>
                         <div className="fountain-container" ref="fountainContainer" id="fountainContainer">
-                            <ScriptPrintPreview script={ script } currentLine={ currentLine } onFindActiveToken={ scrollToToken }/>
+                            <ScriptPrintPreview
+                                script={ script }
+                                currentLine={ currentLine }
+                                onFindActiveToken={ scrollToToken }
+                                onClickToken={ (token)=>{ handleClickToken(token) } }
+                            />
                         </div>
                     </Segment>
                 </Grid.Column>

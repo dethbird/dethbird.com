@@ -68580,14 +68580,21 @@ var ScriptInput = _react2.default.createClass({
     scrollToToken: function scrollToToken(token, el) {
         $(this.refs.fountainContainer).scrollTop(el.offsetTop - 50);
     },
+    handleClickToken: function handleClickToken(token) {
+        if (this.refs.fountain) {
+            this.refs.fountain.getCodeMirror().setCursor({ line: token.lines[0].index });
+        }
+    },
     render: function render() {
         var handleFieldChange = this.handleFieldChange,
-            scrollToToken = this.scrollToToken;
+            scrollToToken = this.scrollToToken,
+            handleClickToken = this.handleClickToken;
         var _props = this.props,
             script = _props.script,
             onChange = _props.onChange,
             onCursorActivity = _props.onCursorActivity,
-            currentLine = _props.currentLine;
+            currentLine = _props.currentLine,
+            onClickToken = _props.onClickToken;
 
 
         return _react2.default.createElement(
@@ -68620,7 +68627,14 @@ var ScriptInput = _react2.default.createClass({
                     _react2.default.createElement(
                         'div',
                         { className: 'fountain-container', ref: 'fountainContainer', id: 'fountainContainer' },
-                        _react2.default.createElement(_scriptPrintPreview2.default, { script: script, currentLine: currentLine, onFindActiveToken: scrollToToken })
+                        _react2.default.createElement(_scriptPrintPreview2.default, {
+                            script: script,
+                            currentLine: currentLine,
+                            onFindActiveToken: scrollToToken,
+                            onClickToken: function onClickToken(token) {
+                                handleClickToken(token);
+                            }
+                        })
                     )
                 )
             )
@@ -70298,7 +70312,8 @@ var ScriptPrintPreview = _react2.default.createClass({
     propTypes: {
         script: _react2.default.PropTypes.string.isRequired,
         currentLine: _react2.default.PropTypes.number,
-        onFindActiveToken: _react2.default.PropTypes.func.isRequired
+        onFindActiveToken: _react2.default.PropTypes.func.isRequired,
+        onClickToken: _react2.default.PropTypes.func.isRequired
     },
     componentWillMount: function componentWillMount() {
         var dispatch = this.props.dispatch;
@@ -70310,7 +70325,8 @@ var ScriptPrintPreview = _react2.default.createClass({
             script = _props.script,
             characters = _props.characters,
             currentLine = _props.currentLine,
-            onFindActiveToken = _props.onFindActiveToken;
+            onFindActiveToken = _props.onFindActiveToken,
+            onClickToken = _props.onClickToken;
 
 
         if (!characters) return _react2.default.createElement(_semanticUiReact.Loader, { active: true });
@@ -70318,12 +70334,28 @@ var ScriptPrintPreview = _react2.default.createClass({
         var tokens = (0, _scriptUtils.tokenizeScript)(script);
 
         var titleNodes = tokens.titleTokens.map(function (token, i) {
-            return _react2.default.createElement(_scriptToken2.default, { token: token, characters: characters, currentLine: currentLine, onFindActiveToken: onFindActiveToken, type: 'title', key: i });
+            return _react2.default.createElement(_scriptToken2.default, {
+                token: token,
+                characters: characters,
+                currentLine: currentLine,
+                onFindActiveToken: onFindActiveToken,
+                type: 'title',
+                key: i,
+                onClickToken: onClickToken
+            });
             return null;
         });
 
         var scriptNodes = tokens.scriptTokens.map(function (token, i) {
-            return _react2.default.createElement(_scriptToken2.default, { token: token, characters: characters, currentLine: currentLine, onFindActiveToken: onFindActiveToken, type: 'script', key: i });
+            return _react2.default.createElement(_scriptToken2.default, {
+                token: token,
+                characters: characters,
+                currentLine: currentLine,
+                onFindActiveToken: onFindActiveToken,
+                type: 'script',
+                key: i,
+                onClickToken: onClickToken
+            });
         });
 
         return _react2.default.createElement(
@@ -70389,7 +70421,8 @@ var ScriptToken = _react2.default.createClass({
         type: _react2.default.PropTypes.string.isRequired, // title|script,
         characters: _react2.default.PropTypes.array.isRequired,
         currentLine: _react2.default.PropTypes.number,
-        onFindActiveToken: _react2.default.PropTypes.func.isRequired
+        onFindActiveToken: _react2.default.PropTypes.func.isRequired,
+        onClickToken: _react2.default.PropTypes.func.isRequired
     },
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
         var _props = this.props,
@@ -70561,7 +70594,8 @@ var ScriptToken = _react2.default.createClass({
         var _props2 = this.props,
             token = _props2.token,
             type = _props2.type,
-            currentLine = _props2.currentLine;
+            currentLine = _props2.currentLine,
+            onClickToken = _props2.onClickToken;
 
 
         if (token.type == 'blank_line') return _react2.default.createElement('div', { id: token.id, ref: function ref(div) {
@@ -70570,17 +70604,29 @@ var ScriptToken = _react2.default.createClass({
 
         if (type == 'title') return _react2.default.createElement(
             'div',
-            { id: token.id, ref: function ref(div) {
+            {
+                id: token.id,
+                ref: function ref(div) {
                     _this.token = div;
-                } },
+                },
+                onClick: function onClick() {
+                    onClickToken(token);
+                }
+            },
             renderTitleToken(token)
         );
 
         if (type == 'script') return _react2.default.createElement(
             'div',
-            { id: token.id, ref: function ref(div) {
+            {
+                id: token.id,
+                ref: function ref(div) {
                     _this.token = div;
-                } },
+                },
+                onClick: function onClick() {
+                    onClickToken(token);
+                }
+            },
             renderScriptToken(token)
         );
     }
