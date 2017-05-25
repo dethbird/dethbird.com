@@ -16,6 +16,7 @@ const ScriptInput = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func,
+        onCursorActivity: React.PropTypes.func,
         currentLine: React.PropTypes.number
     },
     handleFieldChange(value, e) {
@@ -25,12 +26,21 @@ const ScriptInput = React.createClass({
             e.to.line
         );
     },
+    componentWillUpdate(nextProps) {
+        const { script } = this.props;
+        if (this.refs.fountain) {
+            if(nextProps.script && !script) {
+                this.refs.fountain.getCodeMirror().setValue(nextProps.script);
+                this.refs.fountain.getCodeMirror().refresh();
+            }
+        }
+    },
     scrollToToken(token, el) {
         $(this.refs.fountainContainer).scrollTop(el.offsetTop - 100);
     },
     render() {
         const { handleFieldChange, scrollToToken } = this;
-        const { script, onChange, currentLine } = this.props;
+        const { script, onChange, onCursorActivity, currentLine } = this.props;
 
         return (
             <Grid>
@@ -38,13 +48,16 @@ const ScriptInput = React.createClass({
                     <CodeMirror
                         value={ script || '' }
                         onChange={ handleFieldChange }
+                        onCursorActivity={ onCursorActivity }
                         options={{
                             lineNumbers: true,
                             lineWrapping: true,
+                            autoRefresh: true,
                             mode: 'fountain',
                             theme: 'storystation'
                         }}
                         id={ 'script' }
+                        ref="fountain"
                     />
                 </Grid.Column>
                 <Grid.Column width={ 9 }>

@@ -63,6 +63,12 @@ const StoryForm = React.createClass({
             changedFields
         });
     },
+    handleCursorActivity(cm) {
+        this.setState({
+            ... this.state,
+            currentLine: cm.doc.sel.ranges[0].head.line
+        });
+    },
     handleScriptChange(value, line) {
         const { handleFieldChange } = this;
         const { changedFields } = this.state;
@@ -98,7 +104,7 @@ const StoryForm = React.createClass({
         }
     },
     render() {
-        const { handleScriptChange } = this;
+        const { handleScriptChange, handleCursorActivity } = this;
         const { id, ui_state, errors, demo } = this.props;
         const { changedFields, model, currentLine } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
@@ -145,7 +151,15 @@ const StoryForm = React.createClass({
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={ 12 }>
-                                <Form.Field placeholder="Script" id="script" control={ ScriptInput } currentLine={ currentLine }  script={ inputFields.script || '' } onChange={ handleScriptChange }/>
+                                <Form.Field
+                                    placeholder="Script"
+                                    id="script"
+                                    control={ ScriptInput }
+                                    currentLine={ currentLine }
+                                    script={ inputFields.script || '' }
+                                    onChange={ handleScriptChange }
+                                    onCursorActivity={ handleCursorActivity }
+                                />
                                 <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('script', errors)} />
                             </Grid.Column>
                         </Grid>

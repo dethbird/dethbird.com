@@ -11,7 +11,7 @@
     "react": "^15.5.4",
     "react-addons-transition-group": "^15.4.2",
     "react-async-script": "^0.9.1",
-    "react-codemirror": "^0.3.0",
+    "react-codemirror": "^1.0.0",
     "react-custom-scroll": "^1.8.0",
     "react-datepicker": "^0.29.0",
     "react-dom": "^15.3.1",
