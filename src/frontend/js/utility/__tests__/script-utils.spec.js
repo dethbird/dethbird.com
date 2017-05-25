@@ -17,6 +17,6 @@ describe('fountainParser.tokenizeLines()', () => {
     });
     test.only('tokenize script', () => {
         const story = tokenizeScript(scratchScript);
-        log(story);
+        // log(story);
     });
 });

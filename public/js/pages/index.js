@@ -68578,7 +68578,7 @@ var ScriptInput = _react2.default.createClass({
         }
     },
     scrollToToken: function scrollToToken(token, el) {
-        $(this.refs.fountainContainer).scrollTop(el.offsetTop - 100);
+        $(this.refs.fountainContainer).scrollTop(el.offsetTop - 50);
     },
     render: function render() {
         var handleFieldChange = this.handleFieldChange,
@@ -72799,7 +72799,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                         _nextIndex5++;
                         nextToken = scriptTokens[_nextIndex5];
                     }
-                    i = _nextIndex5;
+                    i = _nextIndex5 - 1;
                 }
             }
         } else {

@@ -36,7 +36,7 @@ const ScriptInput = React.createClass({
         }
     },
     scrollToToken(token, el) {
-        $(this.refs.fountainContainer).scrollTop(el.offsetTop - 100);
+        $(this.refs.fountainContainer).scrollTop(el.offsetTop - 50);
     },
     render() {
         const { handleFieldChange, scrollToToken } = this;

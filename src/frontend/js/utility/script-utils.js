@@ -328,7 +328,7 @@ export const tokenizeScript = (script) => {
                         nextIndex++;
                         nextToken = scriptTokens[nextIndex];
                     }
-                    i = nextIndex;
+                    i = nextIndex - 1;
                 }
             }
         } else {
