@@ -38265,7 +38265,12 @@ var StoryPlayer = _react2.default.createClass({
                                 id ? "Save" : "Create"
                             )
                         ),
-                        _react2.default.createElement(_scriptInputBasic2.default, { script: inputFields.script || '', onChange: handleFieldChange, id: 'script' })
+                        _react2.default.createElement(_scriptInputBasic2.default, {
+                            script: inputFields.script || '',
+                            onChange: handleFieldChange,
+                            id: 'script',
+                            onCursorActivity: function onCursorActivity() {}
+                        })
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
@@ -68465,7 +68470,10 @@ var ProjectDetail = _react2.default.createClass({
                         { as: 'h4' },
                         'Cast'
                     ),
-                    _react2.default.createElement(_scriptCastList2.default, { script: story.script, displayMode: true })
+                    _react2.default.createElement(_scriptCastList2.default, {
+                        script: story.script,
+                        displayMode: true
+                    })
                 ),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Content,
@@ -68884,10 +68892,6 @@ var _reactCodemirror = __webpack_require__(164);
 
 var _reactCodemirror2 = _interopRequireDefault(_reactCodemirror);
 
-var _markdown = __webpack_require__(133);
-
-var _markdown2 = _interopRequireDefault(_markdown);
-
 var _fountain = __webpack_require__(125);
 
 var _fountain2 = _interopRequireDefault(_fountain);
@@ -68901,12 +68905,23 @@ var ScriptInputBasic = _react2.default.createClass({
 
     propTypes: {
         script: _react2.default.PropTypes.string.isRequired,
-        onChange: _react2.default.PropTypes.func
+        onChange: _react2.default.PropTypes.func,
+        onCursorActivity: _react2.default.PropTypes.func
     },
-    handleFieldChange: function handleFieldChange(value, id) {
+    handleFieldChange: function handleFieldChange(value, e) {
         var onChange = this.props.onChange;
 
-        onChange({ currentTarget: { value: value } }, id);
+        onChange(value, e.to.line);
+    },
+    componentWillUpdate: function componentWillUpdate(nextProps) {
+        var script = this.props.script;
+
+        if (this.refs.fountain) {
+            if (nextProps.script && !script) {
+                this.refs.fountain.getCodeMirror().setValue(nextProps.script);
+                this.refs.fountain.getCodeMirror().refresh();
+            }
+        }
     },
     render: function render() {
         var handleFieldChange = this.handleFieldChange;
@@ -68914,21 +68929,23 @@ var ScriptInputBasic = _react2.default.createClass({
             script = _props.script,
             onChange = _props.onChange,
             id = _props.id,
-            placeholder = _props.placeholder;
+            placeholder = _props.placeholder,
+            onCursorActivity = _props.onCursorActivity;
 
 
         return _react2.default.createElement(_reactCodemirror2.default, {
             value: script || '',
-            onChange: function onChange(e) {
-                handleFieldChange(e, id);
-            },
+            onChange: handleFieldChange,
+            onCursorActivity: onCursorActivity,
             options: {
                 lineNumbers: true,
                 lineWrapping: true,
+                autoRefresh: true,
                 mode: 'fountain',
                 theme: 'storystation'
             },
-            id: id
+            id: 'script',
+            ref: 'fountain'
         });
     }
 });
@@ -68959,10 +68976,6 @@ var _semanticUiReact = __webpack_require__(7);
 var _reactCodemirror = __webpack_require__(164);
 
 var _reactCodemirror2 = _interopRequireDefault(_reactCodemirror);
-
-var _markdown = __webpack_require__(133);
-
-var _markdown2 = _interopRequireDefault(_markdown);
 
 var _fountain = __webpack_require__(125);
 

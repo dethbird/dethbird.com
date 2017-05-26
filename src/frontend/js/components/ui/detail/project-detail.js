@@ -99,7 +99,10 @@ const ProjectDetail = React.createClass({
                     </Card.Content>
                     <Card.Content>
                         <Header as="h4">Cast</Header>
-                        <ScriptCastList script={ story.script } displayMode={ true } />
+                        <ScriptCastList
+                            script={ story.script }
+                            displayMode={ true }
+                        />
                     </Card.Content>
                     <Card.Content>
                         <Button onClick={()=>{browserHistory.push(`/story/${story.id}/edit`)}} content="Editor" icon="edit" labelPosition="right" size="mini"/>

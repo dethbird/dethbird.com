@@ -8,36 +8,48 @@ import {
     TextArea
 } from 'semantic-ui-react';
 import CodeMirror from 'react-codemirror';
-import markdownMode from 'codemirror/mode/markdown/markdown';
 import fountainMode from 'codemirror-mode/fountain/fountain';
 
 const ScriptInputBasic = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        onCursorActivity: React.PropTypes.func
     },
-    handleFieldChange(value, id) {
+    handleFieldChange(value, e) {
         const { onChange } = this.props;
         onChange (
-            { currentTarget: { value }},
-            id
+            value,
+            e.to.line
         );
+    },
+    componentWillUpdate(nextProps) {
+        const { script } = this.props;
+        if (this.refs.fountain) {
+            if(nextProps.script && !script) {
+                this.refs.fountain.getCodeMirror().setValue(nextProps.script);
+                this.refs.fountain.getCodeMirror().refresh();
+            }
+        }
     },
     render() {
         const { handleFieldChange } = this;
-        const { script, onChange, id, placeholder } = this.props;
+        const { script, onChange, id, placeholder, onCursorActivity } = this.props;
 
         return (
             <CodeMirror
                 value={ script || '' }
-                onChange={ (e) => { handleFieldChange(e, id) } }
+                onChange={ handleFieldChange }
+                onCursorActivity={ onCursorActivity }
                 options={{
                     lineNumbers: true,
                     lineWrapping: true,
+                    autoRefresh: true,
                     mode: 'fountain',
                     theme: 'storystation'
                 }}
-                id={ id }
+                id={ 'script' }
+                ref="fountain"
             />
         )
     }

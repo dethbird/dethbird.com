@@ -141,7 +141,12 @@ const StoryPlayer = React.createClass({
                                     <Icon name="save" /> { id ? "Save" : "Create" }
                                 </Button>
                             </Segment>
-                            <ScriptInputBasic script={ inputFields.script || '' } onChange={ handleFieldChange } id='script'/>
+                            <ScriptInputBasic
+                                script={ inputFields.script || '' }
+                                onChange={ handleFieldChange }
+                                id='script'
+                                onCursorActivity={()=>{}}
+                            />
                         </Grid.Column>
                         <Grid.Column width={ 4 } className='story-player-column'>
                             <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />

@@ -6,7 +6,6 @@ import {
     Segment
 } from 'semantic-ui-react';
 import CodeMirror from 'react-codemirror';
-import markdownMode from 'codemirror/mode/markdown/markdown';
 import fountainMode from 'codemirror-mode/fountain/fountain';
 
 import ScriptPrintPreview from 'components/ui/script/script-print-preview';
