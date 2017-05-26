@@ -22,6 +22,7 @@ import { UI_STATE } from 'constants/ui-state';
 import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actions/story';
 import storyPostSchema from 'validation_schema/story-post.json';
 import * as jsonSchema from 'utility/json-schema';
+import { tokenizeScript } from 'utility/script-utils';
 
 
 const StoryForm = React.createClass({
@@ -109,6 +110,8 @@ const StoryForm = React.createClass({
         const { changedFields, model, currentLine } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
+        const tokens = tokenizeScript(inputFields.script || '');
+
         return (
             <Form
                 size="large"
@@ -157,6 +160,7 @@ const StoryForm = React.createClass({
                                     control={ ScriptInput }
                                     currentLine={ currentLine }
                                     script={ inputFields.script || '' }
+                                    tokens={ tokens }
                                     onChange={ handleScriptChange }
                                     onCursorActivity={ handleCursorActivity }
                                 />

@@ -17,7 +17,7 @@ import { tokenizeScript } from 'utility/script-utils';
 
 const ScriptPrintPreview = React.createClass({
     propTypes: {
-        script: React.PropTypes.string.isRequired,
+        tokens: React.PropTypes.object.isRequired,
         currentLine: React.PropTypes.number,
         onFindActiveToken: React.PropTypes.func.isRequired,
         onClickToken: React.PropTypes.func.isRequired
@@ -27,12 +27,10 @@ const ScriptPrintPreview = React.createClass({
         dispatch(charactersGet());
     },
     render() {
-        const { script, characters, currentLine, onFindActiveToken, onClickToken } = this.props;
+        const { tokens, characters, currentLine, onFindActiveToken, onClickToken } = this.props;
 
         if (!characters)
             return <Loader active />
-
-        const tokens = tokenizeScript(script);
 
         const titleNodes = tokens.titleTokens.map(function(token, i){
             return (

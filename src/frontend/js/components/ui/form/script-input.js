@@ -15,6 +15,7 @@ import ScriptPrintPreview from 'components/ui/script/script-print-preview';
 const ScriptInput = React.createClass({
     propTypes: {
         script: React.PropTypes.string.isRequired,
+        tokens: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func,
         onCursorActivity: React.PropTypes.func,
         currentLine: React.PropTypes.number
@@ -45,7 +46,7 @@ const ScriptInput = React.createClass({
     },
     render() {
         const { handleFieldChange, scrollToToken, handleClickToken } = this;
-        const { script, onChange, onCursorActivity, currentLine, onClickToken } = this.props;
+        const { script, tokens, onChange, onCursorActivity, currentLine, onClickToken } = this.props;
 
         return (
             <Grid>
@@ -69,7 +70,7 @@ const ScriptInput = React.createClass({
                     <Segment raised={ true } style={ { padding: '0' } }>
                         <div className="fountain-container" ref="fountainContainer" id="fountainContainer">
                             <ScriptPrintPreview
-                                script={ script }
+                                tokens={ tokens }
                                 currentLine={ currentLine }
                                 onFindActiveToken={ scrollToToken }
                                 onClickToken={ (token)=>{ handleClickToken(token) } }
