@@ -145,7 +145,14 @@ const StoryForm = React.createClass({
 
                                     <Form.Field label="Project" id="project_id" control={ StoryProject } projectId={ inputFields.project_id ? `${inputFields.project_id}` : '' } demo={ demo } onSelectProject={ this.handleFieldChange }/>
 
-                                    <Form.Field label="Cast of Characters" placeholder="Cast" id="cast" control={ ScriptCastList }  script={ inputFields.script || '' } demo={ demo } />
+                                    <Form.Field
+                                        label="Cast of Characters"
+                                        placeholder="Cast"
+                                        id="cast"
+                                        control={ ScriptCastList }
+                                        scriptCharacters={ tokens.characters }
+                                        demo={ demo }
+                                    />
 
                                     <div className="field">
                                         <label><Icon name="circle help"/>.fountain language help</label>

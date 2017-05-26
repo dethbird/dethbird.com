@@ -6,17 +6,19 @@ import {
     Container,
     Image,
     Item,
-    Icon
+    Icon,
+    Loader
 } from 'semantic-ui-react';
 
 import { UI_STATE } from 'constants/ui-state';
 import { charactersGet, charactersGetDemo, charactersPostOne, charactersPostOneDemo } from 'actions/character';
 
-import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
+// import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
+import { collateScriptCharacterTokensWithCharacters } from 'utility/script-utils';
 
 const ScriptCastList = React.createClass({
     propTypes: {
-        script: React.PropTypes.string.isRequired,
+        scriptCharacters: React.PropTypes.array.isRequired,
         demo: React.PropTypes.bool,
         displayMode: React.PropTypes.bool
     },
@@ -63,13 +65,15 @@ const ScriptCastList = React.createClass({
     },
     render() {
         const { renderCharacters } = this;
-        const { models, ui_state, errors, script } = this.props;
+        const { models, ui_state, errors, scriptCharacters } = this.props;
+        // console.log(scriptCharacters);
 
-        if(!script)
-            return null;
+        if ( scriptCharacters.length < 1)
+            return <Loader active />;
 
         // cross check script characters with saved characters
-        const collated = collateScriptCharactersWithCharacters(script, models);
+        // const collated = collateScriptCharactersWithCharacters(script, models);
+        const collated = collateScriptCharacterTokensWithCharacters(scriptCharacters, models);
         return (
             <Container text={ true } className='script-cast-list'>
                 <Item.Group>

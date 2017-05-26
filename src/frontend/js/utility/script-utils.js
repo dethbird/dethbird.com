@@ -2,6 +2,40 @@ import { log } from 'utility/logger';
 import * as _ from 'underscore';
 import { REGEX } from 'constants/section';
 
+export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, characters) => {
+
+    let not_found=[];
+    let existing=[];
+
+    for (const i in scriptCharacters){
+        const e = scriptCharacters[i];
+        let found = undefined;
+        let c;
+        for(const j in characters) {
+            c = characters[j];
+            if(e.name == c.name.toUpperCase().trim()) {
+                const c = characters[j];
+                found = true;
+                break;
+            }
+        }
+        if(found===true) {
+            if(!_.findWhere(existing, {name:e.name})) {
+                existing.push({
+                    name: e.name,
+                    existing: c
+                });
+            }
+        } else {
+            if(!_.findWhere(not_found, {name:e.name})) {
+                not_found.push({ name: e.name })
+            }
+        }
+    }
+
+    return { not_found, existing };
+}
+
 export const tokenizeScript = (script) => {
     const lines = lexizeScript(script);
 
