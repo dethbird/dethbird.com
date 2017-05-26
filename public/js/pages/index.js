@@ -30145,33 +30145,26 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
     scriptTokens.reverse();
     var _scriptTokens = [];
     i = 0;
+    var lastDual = false;
     while (i < scriptTokens.length) {
         var _token = scriptTokens[i];
-        if (_token.type == 'dialogue') {
+        if (_token.type == 'dialogue' || _token.type == 'blank_line') {
             _scriptTokens.push(_token);
 
-            if (characterCounts[_token.model.character] == undefined) {
-                characterCounts[_token.model.character] = 1;
-            } else {
-                characterCounts[_token.model.character]++;
-            }
-
-            if (_token.model.dual) {
-                var _nextIndex5 = parseInt(i) + 1;
-                if (scriptTokens.length > _nextIndex5) {
-                    var nextToken = scriptTokens[_nextIndex5];
-                    while (nextToken.type == 'dialogue' || nextToken.type == 'blank_line') {
-                        if (nextToken.type == 'dialogue') {
-                            nextToken.model.dual = true;
-                        }
-                        _scriptTokens.push(nextToken);
-                        _nextIndex5++;
-                        nextToken = scriptTokens[_nextIndex5];
-                    }
-                    i = _nextIndex5 - 1;
+            if (_token.type == 'dialogue') {
+                if (characterCounts[_token.model.character] == undefined) {
+                    characterCounts[_token.model.character] = 1;
+                } else {
+                    characterCounts[_token.model.character]++;
                 }
+                var isDual = _token.model.dual;
+                if (lastDual) {
+                    _token.model.dual = true;
+                }
+                lastDual = isDual;
             }
         } else {
+            lastDual = false;
             _scriptTokens.push(_token);
         }
         i++;

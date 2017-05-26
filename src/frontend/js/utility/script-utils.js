@@ -339,33 +339,26 @@ export const tokenizeScript = (script) => {
     scriptTokens.reverse();
     let _scriptTokens = [];
     i = 0;
+    let lastDual = false;
     while (i < scriptTokens.length) {
         const token = scriptTokens[i];
-        if( token.type=='dialogue') {
+        if( token.type=='dialogue' || token.type=='blank_line') {
             _scriptTokens.push(token);
 
-            if (characterCounts[token.model.character]==undefined) {
-                characterCounts[token.model.character] = 1;
-            } else {
-                characterCounts[token.model.character]++;
-            }
-
-            if (token.model.dual) {
-                let nextIndex = parseInt(i) + 1;
-                if (scriptTokens.length > nextIndex) {
-                    let nextToken = scriptTokens[nextIndex];
-                    while (nextToken.type=='dialogue' || nextToken.type=='blank_line') {
-                        if (nextToken.type=='dialogue') {
-                            nextToken.model.dual = true;
-                        }
-                        _scriptTokens.push(nextToken);
-                        nextIndex++;
-                        nextToken = scriptTokens[nextIndex];
-                    }
-                    i = nextIndex - 1;
+            if ( token.type == 'dialogue' ) {
+                if (characterCounts[token.model.character]==undefined) {
+                    characterCounts[token.model.character] = 1;
+                } else {
+                    characterCounts[token.model.character]++;
                 }
+                let isDual = token.model.dual;
+                if (lastDual) {
+                    token.model.dual = true;
+                }
+                lastDual = isDual;
             }
         } else {
+            lastDual = false;
             _scriptTokens.push(token);
         }
         i++;
