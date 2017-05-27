@@ -1,5 +1,6 @@
 import fs from 'fs';
 import {
+    convertTokensToStory,
     lexizeScript,
     tokenizeScript
 } from 'utility/script-utils';
@@ -15,8 +16,13 @@ describe('fountainParser.tokenizeLines()', () => {
         const story = lexizeScript(scratchScript);
         log(story);
     });
-    test.only('tokenize script', () => {
+    test('tokenize script', () => {
         const story = tokenizeScript(scratchScript);
-        // log(story);
+        log(story);
+    });
+    test.only('tokenize script', () => {
+        const tokens = tokenizeScript(scratchScript);
+        const story = convertTokensToStory(tokens);
+        log(story);
     });
 });

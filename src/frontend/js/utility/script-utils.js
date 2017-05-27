@@ -36,6 +36,201 @@ export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, cha
     return { not_found, existing };
 }
 
+export const convertTokensToStory = (tokens) => {
+    let story = {
+        acts: [],
+        duration: 0
+    };
+    let currentSection = 'act';
+
+    for (const i in tokens.scriptTokens) {
+        const token = tokens.scriptTokens[i];
+        if (token.type == 'section') {
+            if(token.model.level == 1) {
+                story.acts.push({
+                    tokens: [token],
+                    duration: 0,
+                    sequences: []
+                });
+                currentSection = 'act';
+            }
+            if (token.model.level == 2) {
+                // new act
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        tokens: [],
+                        duration: 0,
+                        sequences: []
+                    });
+                }
+
+                story.acts[
+                    story.acts.length - 1
+                ].sequences.push({
+                    tokens: [token],
+                    duration: 0,
+                    scenes: []
+                });
+                currentSection = 'sequence';
+            }
+            if (token.model.level == 3) {
+                token.panels = [];
+
+                // new act
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        tokens: [],
+                        duration: 0,
+                        sequences: []
+                    });
+                }
+
+                // new sequence
+                if (story.acts[story.acts.length - 1].sequences.length < 1) {
+                    story.acts[story.acts.length - 1].sequences.push({
+                        tokens: [],
+                        duration: 0,
+                        scenes: []
+                    });
+                }
+
+                story.acts[
+                    story.acts.length - 1
+                ].sequences[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes.push({
+                    tokens: [token],
+                    duration: 0,
+                    panels: []
+                });
+
+                currentSection = 'scene';
+            }
+            if (token.model.level == 4) {
+
+                // new act
+                if (story.acts.length < 1) {
+                    story.acts.push({
+                        tokens: [],
+                        duration: 0,
+                        sequences: []
+                    });
+                }
+
+                // new sequence
+                if (story.acts[story.acts.length - 1].sequences.length < 1) {
+                    story.acts[story.acts.length - 1].sequences.push({
+                        tokens: [],
+                        duration: 0,
+                        scenes: []
+                    });
+                }
+
+                // new scene
+                if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
+                    story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        tokens: [],
+                        duration: 0,
+                        panels: []
+                    });
+                }
+
+                story.acts[
+                    story.acts.length - 1
+                ].sequences[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences[
+                        story.acts[
+                            story.acts.length - 1
+                        ].sequences.length - 1
+                    ].scenes.length - 1
+                ].panels.push({
+                    tokens: [token],
+                    duration: 0
+                });
+
+                currentSection = 'panel';
+            }
+        } else {
+            if(currentSection == 'act'){
+                if(story.acts[story.acts.length - 1]){
+                    story.acts[
+                        story.acts.length - 1
+                    ].tokens.push(token);
+                }
+            }
+            if(currentSection == 'sequence'){
+                story.acts[
+                    story.acts.length - 1
+                ].sequences[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences.length - 1
+                ].tokens.push(token);
+            }
+            if(currentSection == 'scene'){
+                story.acts[
+                    story.acts.length - 1
+                ].sequences[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences[
+                        story.acts[
+                            story.acts.length - 1
+                        ].sequences.length - 1
+                    ].scenes.length - 1
+                ].tokens.push(token);
+            }
+            if(currentSection == 'panel'){
+                story.acts[
+                    story.acts.length - 1
+                ].sequences[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences.length - 1
+                ].scenes[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences[
+                        story.acts[
+                            story.acts.length - 1
+                        ].sequences.length - 1
+                    ].scenes.length - 1
+                ].panels[
+                    story.acts[
+                        story.acts.length - 1
+                    ].sequences[
+                        story.acts[
+                            story.acts.length - 1
+                        ].sequences.length - 1
+                    ].scenes[
+                        story.acts[
+                            story.acts.length - 1
+                        ].sequences[
+                            story.acts[
+                                story.acts.length - 1
+                            ].sequences.length - 1
+                        ].scenes.length - 1
+                    ].panels.length - 1
+                ].tokens.push(token);
+            }
+        }
+    }
+
+    return story;
+}
+
 export const tokenizeScript = (script) => {
     const lines = lexizeScript(script);
 
