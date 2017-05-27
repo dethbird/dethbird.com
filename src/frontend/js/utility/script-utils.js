@@ -1,6 +1,25 @@
 import { log } from 'utility/logger';
 import * as _ from 'underscore';
 import { REGEX } from 'constants/section';
+import moment from 'moment';
+
+export const durationToMilliseconds = (duration) => {
+    if(typeof duration !== 'string')
+        return 0;
+
+    const parts = duration.split(':').reverse();
+    let seconds = 0, i;
+
+    for(i in parts)
+        seconds = seconds + (parseInt(parts[i]) * Math.pow(60, i));
+
+    return seconds * 1000;
+}
+
+export const milisecondsToDuration = (miliseconds) => {
+    let duration = moment.duration(miliseconds);
+    return [pad(duration.get('hours'), 2, '0'), pad(duration.get('minutes'), 2, '0'), pad(duration.get('seconds'), 2, '0')].join(':');
+}
 
 export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, characters) => {
 
@@ -38,8 +57,7 @@ export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, cha
 
 export const convertTokensToStory = (tokens) => {
     let story = {
-        acts: [],
-        duration: 0
+        acts: []
     };
     let currentSection = 'act';
 
@@ -153,7 +171,7 @@ export const convertTokensToStory = (tokens) => {
                     ].scenes.length - 1
                 ].panels.push({
                     tokens: [token],
-                    duration: 0
+                    duration: durationToMilliseconds(token.model.duration)
                 });
 
                 currentSection = 'panel';
@@ -228,7 +246,37 @@ export const convertTokensToStory = (tokens) => {
         }
     }
 
-    return story;
+    // calculate durations
+    let _story = {
+        acts: [],
+        duration: 0
+    };
+    for (const actIndex in story.acts) {
+        let act = story.acts[actIndex];
+        let _act = { ... act, sequences: [], duration: 0};
+        for (const sequenceIndex in story.acts[actIndex].sequences) {
+            let sequence = story.acts[actIndex].sequences[sequenceIndex];
+            let _sequence = { ... sequence, scenes: [], duration: 0};
+            for (const sceneIndex in story.acts[actIndex].sequences[sequenceIndex].scenes) {
+                let scene = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex];
+                let _scene = { ... scene, panels: [], duration: 0};
+                for (const panelIndex in story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels) {
+                    let panel = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels[panelIndex];
+                    let _panel = { ... panel, duration_in_miliseconds: durationToMilliseconds(panel.duration)};
+                    _scene.duration = _scene.duration + _panel.duration;
+                    _scene.panels.push(panel);
+                }
+                _sequence.duration = _sequence.duration + _scene.duration;
+                _sequence.scenes.push(_scene);
+            }
+            _act.duration = _act.duration + _sequence.duration;
+            _act.sequences.push(_sequence);
+        }
+        _story.duration = _story.duration + _act.duration;
+        _story.acts.push(_act);
+    }
+
+    return _story;
 }
 
 export const tokenizeScript = (script) => {
