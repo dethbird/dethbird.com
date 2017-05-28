@@ -13,7 +13,6 @@ import {
 import { UI_STATE } from 'constants/ui-state';
 import { charactersGet, charactersGetDemo, charactersPostOne, charactersPostOneDemo } from 'actions/character';
 
-// import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
 import { collateScriptCharacterTokensWithCharacters } from 'utility/script-utils';
 
 const ScriptCastList = React.createClass({
@@ -66,13 +65,11 @@ const ScriptCastList = React.createClass({
     render() {
         const { renderCharacters } = this;
         const { models, ui_state, errors, scriptCharacters } = this.props;
-        // console.log(scriptCharacters);
 
         if ( scriptCharacters.length < 1)
             return <Loader active />;
 
         // cross check script characters with saved characters
-        // const collated = collateScriptCharactersWithCharacters(script, models);
         const collated = collateScriptCharacterTokensWithCharacters(scriptCharacters, models);
         return (
             <Container text={ true } className='script-cast-list'>
