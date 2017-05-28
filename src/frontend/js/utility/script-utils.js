@@ -1,5 +1,6 @@
 import { log } from 'utility/logger';
 import * as _ from 'underscore';
+import pad from 'pad-left';
 import { REGEX } from 'constants/section';
 import moment from 'moment';
 
@@ -57,6 +58,7 @@ export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, cha
 
 export const convertTokensToStory = (tokens) => {
     let story = {
+        id: 'story-0',
         acts: [],
         duration_in_milliseconds: 0
     };
@@ -78,7 +80,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts.length < 1) {
                     story.acts.push({
                         tokens: [],
-                        duration: 0,
                         sequences: []
                     });
                 }
@@ -99,7 +100,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts.length < 1) {
                     story.acts.push({
                         tokens: [],
-                        duration: 0,
                         sequences: []
                     });
                 }
@@ -108,7 +108,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
                         tokens: [],
-                        duration: 0,
                         scenes: []
                     });
                 }
@@ -133,7 +132,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts.length < 1) {
                     story.acts.push({
                         tokens: [],
-                        duration: 0,
                         sequences: []
                     });
                 }
@@ -142,7 +140,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
                         tokens: [],
-                        duration: 0,
                         scenes: []
                     });
                 }
@@ -151,7 +148,6 @@ export const convertTokensToStory = (tokens) => {
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
                         tokens: [],
-                        duration: 0,
                         panels: []
                     });
                 }
@@ -249,18 +245,19 @@ export const convertTokensToStory = (tokens) => {
 
     // calculate durations
     let _story = {
-        acts: [],
-        duration: 0
+        ... story,
+        duration_in_milliseconds: 0,
+        acts: []
     };
     for (const actIndex in story.acts) {
         let act = story.acts[actIndex];
-        let _act = { ... act, sequences: [], duration: 0};
+        let _act = { ... act, sequences: [], duration_in_milliseconds: 0};
         for (const sequenceIndex in story.acts[actIndex].sequences) {
             let sequence = story.acts[actIndex].sequences[sequenceIndex];
-            let _sequence = { ... sequence, scenes: [], duration: 0};
+            let _sequence = { ... sequence, scenes: [], duration_in_milliseconds: 0};
             for (const sceneIndex in story.acts[actIndex].sequences[sequenceIndex].scenes) {
                 let scene = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex];
-                let _scene = { ... scene, panels: [], duration: 0};
+                let _scene = { ... scene, panels: [], duration_in_milliseconds: 0};
                 for (const panelIndex in story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels) {
                     let panel = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels[panelIndex];
                     let _panel = panel;
@@ -277,7 +274,6 @@ export const convertTokensToStory = (tokens) => {
         _story.duration_in_milliseconds = _story.duration_in_milliseconds + _act.duration_in_milliseconds;
         _story.acts.push(_act);
     }
-
     return _story;
 }
 

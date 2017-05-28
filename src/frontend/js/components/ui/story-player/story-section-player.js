@@ -72,7 +72,7 @@ const StorySectionPlayer = React.createClass({
                         panels={ panels }
                         onClickPlay={ onClickPlay }
                         onClickPause={ onClickPause }
-                        durationInMiliseconds={ duration_in_milliseconds }
+                        durationInMilliseconds={ duration_in_milliseconds }
                     />
                 </Grid.Row>
                 <Grid.Row>

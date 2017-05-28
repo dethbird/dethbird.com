@@ -16,9 +16,8 @@ import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actio
 import * as jsonSchema from 'utility/json-schema';
 import {
     convertTokensToStory,
-    lexizeScript,
-    tokenizeLines
-} from 'utility/fountain-parser';
+    tokenizeScript
+} from 'utility/script-utils';
 
 
 import StoryColumn from 'components/ui/story-player/story-column';
@@ -61,7 +60,7 @@ const StoryPlayer = React.createClass({
             this.setState({
                  ... this.state,
                  model: nextProps.model,
-                 story: nextProps.model.script ? convertTokensToStory(tokenizeLines(lexizeScript(nextProps.model.script))) : ''
+                 story: nextProps.model.script ? convertTokensToStory(tokenizeScript(nextProps.model.script)) : ''
             });
         }
     },
@@ -89,7 +88,7 @@ const StoryPlayer = React.createClass({
         const { changedFields, story } = this.state;
         changedFields[elementId] = e.currentTarget.value;
         const newStory = elementId == 'script'
-             ? convertTokensToStory(tokenizeLines(lexizeScript(e.currentTarget.value)))
+             ? convertTokensToStory(tokenizeScript(e.currentTarget.value))
              : story;
 
         this.setState({
@@ -117,7 +116,7 @@ const StoryPlayer = React.createClass({
         const { model, selectedItem, story, playingPanel, changedFields } = this.state;
 
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
-
+        // console.log(story);
         return (
             <Form
                 size="large"
@@ -149,7 +148,12 @@ const StoryPlayer = React.createClass({
                             />
                         </Grid.Column>
                         <Grid.Column width={ 4 } className='story-player-column'>
-                            <StoryColumn story={ story } onSelectStoryItem={ handleOnSelectStoryItem } selectedItem={ selectedItem } playingPanel={ playingPanel } />
+                            <StoryColumn
+                                story={ story }
+                                onSelectStoryItem={ handleOnSelectStoryItem }
+                                selectedItem={ selectedItem }
+                                playingPanel={ playingPanel }
+                            />
                         </Grid.Column>
                         <Grid.Column width={ 8 }>
                             <StorySectionPlayer

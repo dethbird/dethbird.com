@@ -32,30 +32,21 @@ const StoryColumn = React.createClass({
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex, key = 0;
         let activeSelection = false;
-        story.duration_in_milliseconds = 0;
 
         let actNodes = [];
         for (actIndex in story.acts) {
             const act = story.acts[actIndex];
-            act.duration_in_milliseconds = 0;
             let sequenceNodes = [];
             for (sequenceIndex in act.sequences) {
                 const sequence = act.sequences[sequenceIndex];
-                sequence.duration_in_milliseconds = 0;
                 let sceneNodes = [];
                 for (sceneIndex in sequence.scenes) {
                     const scene = sequence.scenes[sceneIndex];
-                    scene.duration_in_milliseconds = 0;
                     let panelNodes = [];
                     for (panelIndex in scene.panels) {
                         key++;
                         const panel = scene.panels[panelIndex];
-                        scene.duration_in_milliseconds = scene.duration_in_milliseconds + panel.duration_in_milliseconds;
-                        sequence.duration_in_milliseconds = sequence.duration_in_milliseconds + panel.duration_in_milliseconds;
-                        act.duration_in_milliseconds = act.duration_in_milliseconds + panel.duration_in_milliseconds;
-                        story.duration_in_milliseconds = story.duration_in_milliseconds + panel.duration_in_milliseconds;
 
-                        panel.duration = millisecondsToDuration(panel.duration_in_milliseconds);
                         panelNodes.push(
                             <Grid.Row key={ key } className="panel-item">
                                 <SectionItem
@@ -69,7 +60,6 @@ const StoryColumn = React.createClass({
                         );
                     }
                     key++;
-                    scene.duration = millisecondsToDuration(scene.duration_in_milliseconds);
                     sceneNodes.push(
                         <Grid.Row key={ key } className="scene-item">
                             <SectionItem
@@ -83,7 +73,6 @@ const StoryColumn = React.createClass({
                     sceneNodes.push(panelNodes);
                 }
                 key++;
-                sequence.duration = millisecondsToDuration(sequence.duration_in_milliseconds);
                 sequenceNodes.push(
                     <Grid.Row key={ key } className="sequence-item">
                         <SectionItem
@@ -97,7 +86,6 @@ const StoryColumn = React.createClass({
                 sequenceNodes.push(sceneNodes);
             }
             key ++;
-            act.duration = millisecondsToDuration(act.duration_in_milliseconds);
             actNodes.push(
                 <Grid.Row key={ key } className="act-item">
                     <SectionItem
@@ -112,7 +100,6 @@ const StoryColumn = React.createClass({
 
         }
         key++;
-        story.duration = millisecondsToDuration(story.duration_in_milliseconds);
         nodes.push(
             <Grid.Row key={ key } className="story-item">
                 <SectionItem

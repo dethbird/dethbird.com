@@ -20,7 +20,7 @@ const Player = React.createClass({
     },
     propTypes: {
         panels: React.PropTypes.array.isRequired,
-        durationInMiliseconds: React.PropTypes.number.isRequired,
+        durationInMilliseconds: React.PropTypes.number.isRequired,
         onClickPlay: React.PropTypes.func.isRequired,
         onClickPause: React.PropTypes.func.isRequired
     },
@@ -69,7 +69,7 @@ const Player = React.createClass({
     },
     render() {
         const { handleClickPlay, handleClickPause, renderImage } = this;
-        const { panels, onClickPause, durationInMiliseconds } = this.props;
+        const { panels, onClickPause, durationInMilliseconds } = this.props;
         const { panelIndex, playing } = this.state;
         if (panels.length==0) {
             return (
@@ -90,7 +90,7 @@ const Player = React.createClass({
                     <Grid>
                         <Grid.Column width={ 4 }><Icon name="grid layout" /><span>{ panels.length } panel(s)</span></Grid.Column>
                         <Grid.Column width={ 8 } textAlign="center"></Grid.Column>
-                        <Grid.Column width={ 4 } textAlign="right"><Icon name="time" />{ millisecondsToDuration(durationInMiliseconds) }</Grid.Column>
+                        <Grid.Column width={ 4 } textAlign="right"><Icon name="time" />{ millisecondsToDuration(durationInMilliseconds) }</Grid.Column>
                     </Grid>
                 </Segment>
                 <Segment textAlign='center'>
