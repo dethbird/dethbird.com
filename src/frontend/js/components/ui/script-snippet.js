@@ -4,10 +4,11 @@ import {
     Segment
 } from 'semantic-ui-react';
 import CodeMirror from 'react-codemirror';
-import markdownMode from 'codemirror/mode/markdown/markdown';
 import fountainMode from 'codemirror-mode/fountain/fountain';
 
-import { parseFountainScript } from 'utility/fountain-parser';
+import ScriptToken from 'components/ui/script/script-token';
+
+import { tokenizeScript } from 'utility/script-utils';
 
 
 const ScriptSnippet = React.createClass({
@@ -51,15 +52,42 @@ const ScriptSnippet = React.createClass({
                 </Segment>
             );
         } else {
-            const parsed = parseFountainScript(snippet);
+            const tokens = tokenizeScript(snippet);
+
+            const scriptNodes = tokens.scriptTokens.map(function(token, i){
+                return (
+                    <ScriptToken
+                        token={ token }
+                        characters={ [] }
+                        currentLine={ 0 }
+                        onFindActiveToken={ ()=>{} }
+                        type='script'
+                        key={ i }
+                        onClickToken={ ()=>{} }
+                    />
+                )
+            });
+
+            const titleNodes = tokens.titleTokens.map(function(token, i){
+                return (
+                    <ScriptToken
+                        token={ token }
+                        characters={ [] }
+                        currentLine={ 0 }
+                        onFindActiveToken={ ()=>{} }
+                        type='title'
+                        key={ i }
+                        onClickToken={ ()=>{} }
+                    />
+                )
+            });
+
             return (
                 <Segment attached="top" className="fountain-container">
-                    <div
-                        className="fountain"
-                        dangerouslySetInnerHTML={ {
-                            __html: parsed.markup
-                        } }
-                    />
+                    <div className='fountain'>
+                        { titleNodes }
+                        { scriptNodes }
+                    </div>
                 </Segment>
             );
         }

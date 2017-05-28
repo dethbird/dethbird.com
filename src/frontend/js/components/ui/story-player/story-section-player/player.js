@@ -8,7 +8,7 @@ import {
     Segment
 } from 'semantic-ui-react';
 
-import { millisecondsToDuration } from 'utility/fountain-parser';
+import { millisecondsToDuration } from 'utility/script-utils';
 
 const Player = React.createClass({
     getInitialState() {
