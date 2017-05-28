@@ -24507,6 +24507,10 @@ exports.lexizeScript = exports.tokenizeScript = exports.convertTokensToStory = e
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _v = __webpack_require__(1198);
+
+var _v2 = _interopRequireDefault(_v);
+
 var _logger = __webpack_require__(296);
 
 var _underscore = __webpack_require__(39);
@@ -24523,9 +24527,9 @@ var _moment = __webpack_require__(5);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var durationToMilliseconds = exports.durationToMilliseconds = function durationToMilliseconds(duration) {
     if (typeof duration !== 'string') return 0;
@@ -24600,6 +24604,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -24617,6 +24627,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -24625,6 +24641,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new sequence
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '##',
+                            level: 2,
+                            text: ['Seqence']
+                        },
                         tokens: [],
                         scenes: []
                     });
@@ -24642,6 +24664,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -24650,6 +24678,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new sequence
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '##',
+                            level: 2,
+                            text: ['Seqence']
+                        },
                         tokens: [],
                         scenes: []
                     });
@@ -24658,6 +24692,12 @@ var convertTokensToStory = exports.convertTokensToStory = function convertTokens
                 // new scene
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        id: (0, _v2.default)(),
+                        model: {
+                            identifier: '###',
+                            level: 3,
+                            text: ['Scene']
+                        },
                         tokens: [],
                         panels: []
                     });
@@ -37858,7 +37898,7 @@ var StoryPlayer = _react2.default.createClass({
 
 
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _storyPost2.default);
-
+        console.log(story);
         return _react2.default.createElement(
             _semanticUiReact.Form,
             {

@@ -127,7 +127,7 @@ const StoryPlayer = React.createClass({
         const { model, selectedItem, story, playingPanel, changedFields } = this.state;
 
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
-
+        console.log(story);
         return (
             <Form
                 size="large"

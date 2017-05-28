@@ -1,3 +1,4 @@
+import uuidV4 from 'uuid/v4';
 import { log } from 'utility/logger';
 import * as _ from 'underscore';
 import pad from 'pad-left';
@@ -79,6 +80,12 @@ export const convertTokensToStory = (tokens) => {
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -99,6 +106,12 @@ export const convertTokensToStory = (tokens) => {
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -107,6 +120,12 @@ export const convertTokensToStory = (tokens) => {
                 // new sequence
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '##',
+                            level: 2,
+                            text: ['Seqence']
+                        },
                         tokens: [],
                         scenes: []
                     });
@@ -131,6 +150,12 @@ export const convertTokensToStory = (tokens) => {
                 // new act
                 if (story.acts.length < 1) {
                     story.acts.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '#',
+                            level: 1,
+                            text: ['Act']
+                        },
                         tokens: [],
                         sequences: []
                     });
@@ -139,6 +164,12 @@ export const convertTokensToStory = (tokens) => {
                 // new sequence
                 if (story.acts[story.acts.length - 1].sequences.length < 1) {
                     story.acts[story.acts.length - 1].sequences.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '##',
+                            level: 2,
+                            text: ['Seqence']
+                        },
                         tokens: [],
                         scenes: []
                     });
@@ -147,6 +178,12 @@ export const convertTokensToStory = (tokens) => {
                 // new scene
                 if (story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.length < 1) {
                     story.acts[story.acts.length - 1].sequences[story.acts[story.acts.length - 1].sequences.length - 1].scenes.push({
+                        id: uuidV4(),
+                        model: {
+                            identifier: '###',
+                            level: 3,
+                            text: ['Scene']
+                        },
                         tokens: [],
                         panels: []
                     });
