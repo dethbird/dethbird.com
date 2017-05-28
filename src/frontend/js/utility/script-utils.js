@@ -57,7 +57,8 @@ export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, cha
 
 export const convertTokensToStory = (tokens) => {
     let story = {
-        acts: []
+        acts: [],
+        duration_in_milliseconds: 0
     };
     let currentSection = 'act';
 
@@ -66,8 +67,8 @@ export const convertTokensToStory = (tokens) => {
         if (token.type == 'section') {
             if(token.model.level == 1) {
                 story.acts.push({
+                    ... token,
                     tokens: [token],
-                    duration: 0,
                     sequences: []
                 });
                 currentSection = 'act';
@@ -85,8 +86,8 @@ export const convertTokensToStory = (tokens) => {
                 story.acts[
                     story.acts.length - 1
                 ].sequences.push({
+                    ... token,
                     tokens: [token],
-                    duration: 0,
                     scenes: []
                 });
                 currentSection = 'sequence';
@@ -119,8 +120,8 @@ export const convertTokensToStory = (tokens) => {
                         story.acts.length - 1
                     ].sequences.length - 1
                 ].scenes.push({
+                    ... token,
                     tokens: [token],
-                    duration: 0,
                     panels: []
                 });
 
@@ -170,8 +171,8 @@ export const convertTokensToStory = (tokens) => {
                         ].sequences.length - 1
                     ].scenes.length - 1
                 ].panels.push({
-                    tokens: [token],
-                    duration_in_milliseconds: durationToMilliseconds(token.model.duration)
+                    ... token,
+                    tokens: [token]
                 });
 
                 currentSection = 'panel';
@@ -262,17 +263,18 @@ export const convertTokensToStory = (tokens) => {
                 let _scene = { ... scene, panels: [], duration: 0};
                 for (const panelIndex in story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels) {
                     let panel = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels[panelIndex];
-                    let _panel = { ... panel, duration_in_milliseconds: durationToMilliseconds(panel.duration)};
-                    _scene.duration = _scene.duration + _panel.duration;
-                    _scene.panels.push(panel);
+                    let _panel = panel;
+                    _panel.duration_in_milliseconds = durationToMilliseconds(panel.model.duration);
+                    _scene.duration_in_milliseconds = _scene.duration_in_milliseconds + _panel.duration_in_milliseconds;
+                    _scene.panels.push(_panel);
                 }
-                _sequence.duration = _sequence.duration + _scene.duration;
+                _sequence.duration_in_milliseconds = _sequence.duration_in_milliseconds + _scene.duration_in_milliseconds;
                 _sequence.scenes.push(_scene);
             }
-            _act.duration = _act.duration + _sequence.duration;
+            _act.duration_in_milliseconds = _act.duration_in_milliseconds + _sequence.duration_in_milliseconds;
             _act.sequences.push(_sequence);
         }
-        _story.duration = _story.duration + _act.duration;
+        _story.duration_in_milliseconds = _story.duration_in_milliseconds + _act.duration_in_milliseconds;
         _story.acts.push(_act);
     }
 
