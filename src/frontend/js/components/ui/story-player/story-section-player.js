@@ -22,7 +22,7 @@ const StorySectionPlayer = React.createClass({
         let nodes = [];
         let actIndex, sequenceIndex, sceneIndex, panelIndex;
         let activeSelection = false;
-        let duration_in_miliseconds = 0;
+        let duration_in_milliseconds = 0;
 
         activeSelection = selectedItem.id == story.id;
         for (actIndex in story.acts) {
@@ -39,7 +39,7 @@ const StorySectionPlayer = React.createClass({
                         const panel = scene.panels[panelIndex];
                         activeSelection = activeSelection ? activeSelection : selectedItem.id == panel.id;
                         if (activeSelection) {
-                            duration_in_miliseconds = duration_in_miliseconds + panel.duration_in_miliseconds;
+                            duration_in_milliseconds = duration_in_milliseconds + panel.duration_in_milliseconds;
                             nodes.push(panel);
                         }
                     }
@@ -47,7 +47,7 @@ const StorySectionPlayer = React.createClass({
             }
         }
         return {
-            duration_in_miliseconds,
+            duration_in_milliseconds,
             panels: nodes
         };
     },
@@ -62,7 +62,7 @@ const StorySectionPlayer = React.createClass({
         // extract panels to play
         const {
             panels,
-            duration_in_miliseconds
+            duration_in_milliseconds
         } = extractPanelsToPlay(story, selectedItem);
 
         return (
@@ -72,7 +72,7 @@ const StorySectionPlayer = React.createClass({
                         panels={ panels }
                         onClickPlay={ onClickPlay }
                         onClickPause={ onClickPause }
-                        durationInMiliseconds={ duration_in_miliseconds }
+                        durationInMiliseconds={ duration_in_milliseconds }
                     />
                 </Grid.Row>
                 <Grid.Row>

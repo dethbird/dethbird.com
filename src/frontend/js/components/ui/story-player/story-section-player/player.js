@@ -8,7 +8,7 @@ import {
     Segment
 } from 'semantic-ui-react';
 
-import { milisecondsToDuration } from 'utility/fountain-parser';
+import { millisecondsToDuration } from 'utility/fountain-parser';
 
 const Player = React.createClass({
     getInitialState() {
@@ -37,7 +37,7 @@ const Player = React.createClass({
             playing: true,
             timeout: setTimeout(function(){
                 play(nextIndex);
-            }, panels[index].duration_in_miliseconds)
+            }, panels[index].duration_in_milliseconds)
         });
 
     },
@@ -90,7 +90,7 @@ const Player = React.createClass({
                     <Grid>
                         <Grid.Column width={ 4 }><Icon name="grid layout" /><span>{ panels.length } panel(s)</span></Grid.Column>
                         <Grid.Column width={ 8 } textAlign="center"></Grid.Column>
-                        <Grid.Column width={ 4 } textAlign="right"><Icon name="time" />{ milisecondsToDuration(durationInMiliseconds) }</Grid.Column>
+                        <Grid.Column width={ 4 } textAlign="right"><Icon name="time" />{ millisecondsToDuration(durationInMiliseconds) }</Grid.Column>
                     </Grid>
                 </Segment>
                 <Segment textAlign='center'>

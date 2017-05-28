@@ -16,8 +16,8 @@ export const durationToMilliseconds = (duration) => {
     return seconds * 1000;
 }
 
-export const milisecondsToDuration = (miliseconds) => {
-    let duration = moment.duration(miliseconds);
+export const millisecondsToDuration = (milliseconds) => {
+    let duration = moment.duration(milliseconds);
     return [pad(duration.get('hours'), 2, '0'), pad(duration.get('minutes'), 2, '0'), pad(duration.get('seconds'), 2, '0')].join(':');
 }
 
@@ -171,7 +171,7 @@ export const convertTokensToStory = (tokens) => {
                     ].scenes.length - 1
                 ].panels.push({
                     tokens: [token],
-                    duration: durationToMilliseconds(token.model.duration)
+                    duration_in_milliseconds: durationToMilliseconds(token.model.duration)
                 });
 
                 currentSection = 'panel';
@@ -262,7 +262,7 @@ export const convertTokensToStory = (tokens) => {
                 let _scene = { ... scene, panels: [], duration: 0};
                 for (const panelIndex in story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels) {
                     let panel = story.acts[actIndex].sequences[sequenceIndex].scenes[sceneIndex].panels[panelIndex];
-                    let _panel = { ... panel, duration_in_miliseconds: durationToMilliseconds(panel.duration)};
+                    let _panel = { ... panel, duration_in_milliseconds: durationToMilliseconds(panel.duration)};
                     _scene.duration = _scene.duration + _panel.duration;
                     _scene.panels.push(panel);
                 }

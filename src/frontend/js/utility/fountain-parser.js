@@ -84,8 +84,8 @@ export const durationToMilliseconds = (duration) => {
     return seconds * 1000;
 }
 
-export const milisecondsToDuration = (miliseconds) => {
-    let duration = moment.duration(miliseconds);
+export const millisecondsToDuration = (milliseconds) => {
+    let duration = moment.duration(milliseconds);
     return [pad(duration.get('hours'), 2, '0'), pad(duration.get('minutes'), 2, '0'), pad(duration.get('seconds'), 2, '0')].join(':');
 }
 
@@ -217,7 +217,7 @@ export const tokenizeLines = (lines) => {
                 level: match[1].length,
                 image: match[3],
                 duration: match[1].length == 4 ? match[5] : false,
-                duration_in_miliseconds: match[1].length == 4 ? durationToMilliseconds(match[5]) : false
+                duration_in_milliseconds: match[1].length == 4 ? durationToMilliseconds(match[5]) : false
             };
             tokens.push(token);
             continue;
@@ -817,7 +817,7 @@ export const getScriptStats = (script) => {
     let stats = {
         acts: story.acts.length,
         panels: 0,
-        duration_in_miliseconds: 0
+        duration_in_milliseconds: 0
     }
 
     let characters = [];
@@ -841,13 +841,13 @@ export const getScriptStats = (script) => {
                     const panel = scene.panels[panelIndex];
                     if(panel!==undefined) {
                         stats.panels++;
-                        stats.duration_in_miliseconds += panel.duration_in_miliseconds;
+                        stats.duration_in_milliseconds += panel.duration_in_milliseconds;
                     }
                 }
             }
         }
     }
-    stats.display_duration = milisecondsToDuration(stats.duration_in_miliseconds);
+    stats.display_duration = millisecondsToDuration(stats.duration_in_milliseconds);
     return stats;
 
 }
