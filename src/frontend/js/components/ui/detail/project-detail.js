@@ -81,7 +81,7 @@ const ProjectDetail = React.createClass({
 
             const tokens = tokenizeScript(story.script);
             const model = convertTokensToStory(tokens);
-            console.log(tokens);
+
             return (
                 <Card key={ i } color='teal'>
                     <Card.Content>

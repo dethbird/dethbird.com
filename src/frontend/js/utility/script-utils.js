@@ -23,6 +23,26 @@ export const millisecondsToDuration = (milliseconds) => {
     return [pad(duration.get('hours'), 2, '0'), pad(duration.get('minutes'), 2, '0'), pad(duration.get('seconds'), 2, '0')].join(':');
 }
 
+export const collateProjectScriptCharactersWithCharacters = (stories, characters) => {
+    let existing = [];
+    let not_found = [];
+    for (const i in stories){
+        const story = stories[i];
+        const tokens = tokenizeScript(story.script);
+        const collated = collateScriptCharacterTokensWithCharacters(
+            tokens.characters,
+            characters
+        );
+        existing = existing.concat(collated.existing);
+        not_found = not_found.concat(collated.not_found);
+    }
+    return {
+        not_found: _.sortBy(not_found, 'name'),
+        existing: _.sortBy(existing, 'name')
+    };
+}
+
+
 export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, characters) => {
 
     let not_found=[];

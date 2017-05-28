@@ -17,7 +17,7 @@ import { charactersGet, charactersPostOne } from 'actions/character';
 
 import {
     collateProjectScriptCharactersWithCharacters
-} from 'utility/fountain-parser';
+} from 'utility/script-utils';
 
 const ProjectDetailCharacters = React.createClass({
     propTypes: {
@@ -67,7 +67,7 @@ const ProjectDetailCharacters = React.createClass({
             return <Loader active/>;
 
         const characters = collateProjectScriptCharactersWithCharacters(
-            project,
+            project.stories,
             models
         );
 
