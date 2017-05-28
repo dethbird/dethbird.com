@@ -97,6 +97,17 @@ const StoryPlayer = React.createClass({
             story: newStory
         });
     },
+    handleScriptChange(value) {
+        const { handleFieldChange } = this;
+        const { changedFields } = this.state;
+        const newStory = convertTokensToStory(tokenizeScript(value));
+        changedFields['script'] = value;
+        this.setState({
+            ... this.state,
+            changedFields,
+            story: newStory
+        });
+    },
     onClickSubmit() {
         const { id, demo, dispatch } = this.props;
         const { changedFields } = this.state;
@@ -111,7 +122,7 @@ const StoryPlayer = React.createClass({
         }
     },
     render() {
-        const { handleFieldChange, handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
+        const { handleFieldChange, handleScriptChange, handleOnSelectStoryItem, handleClickPlay, handleClickPause } = this;
         const { id, ui_state, errors, onCliCkPause, demo } = this.props;
         const { model, selectedItem, story, playingPanel, changedFields } = this.state;
 
@@ -142,7 +153,7 @@ const StoryPlayer = React.createClass({
                             </Segment>
                             <ScriptInputBasic
                                 script={ inputFields.script || '' }
-                                onChange={ handleFieldChange }
+                                onChange={ handleScriptChange }
                                 id='script'
                                 onCursorActivity={()=>{}}
                             />
