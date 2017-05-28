@@ -64,7 +64,7 @@ const Player = React.createClass({
         if (!panels[panelIndex])
             return null;
         return (
-            <Image src={ panels[panelIndex].image ? panels[panelIndex].image : 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
+            <Image src={ panels[panelIndex].model.image ? panels[panelIndex].model.image : 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
         )
     },
     render() {

@@ -6,44 +6,35 @@ import {
     Segment
 } from 'semantic-ui-react';
 
-import { compileTokens } from 'utility/fountain-parser';
+import ScriptToken from 'components/ui/script/script-token';
 
 const SelectedItem = React.createClass({
     propTypes: {
         selectedItem: React.PropTypes.object.isRequired
     },
-
-    renderHeader() {
-        const { selectedItem } = this.props;
-        if (selectedItem.type == 'story') {
-            return (
-                <Header>{ selectedItem.title }</Header>
-            )
-        } else {
-            return (
-                <Header>{ selectedItem.level_text + ' ' + selectedItem.text }</Header>
-            )
-        }
-    },
     render() {
         const { selectedItem } = this.props;
 
+        const scriptNodes = selectedItem.tokens.map(function(token, i){
+            return (
+                <ScriptToken
+                    token={ token }
+                    characters={ [] }
+                    currentLine={ 0 }
+                    onFindActiveToken={ ()=>{} }
+                    type='script'
+                    key={ i }
+                    onClickToken={ ()=>{} }
+                    hideImage={ true }
+                />
+            )
+        });
+
         return (
             <Container text>
-
                 <Card fluid className="fountain-container">
-                    <Card.Header>
-                        <Segment basic>
-                            { this.renderHeader() }
-                        </Segment>
-                    </Card.Header>
-                    <Card.Content>
-                        <div
-                            className="fountain"
-                            dangerouslySetInnerHTML={ {
-                                __html: compileTokens(selectedItem.tokens)
-                            } }
-                        />
+                    <Card.Content className='fountain'>
+                        { scriptNodes }
                     </Card.Content>
                 </Card>
             </Container>

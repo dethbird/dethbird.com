@@ -19,7 +19,8 @@ const ScriptToken = React.createClass({
         characters: React.PropTypes.array.isRequired,
         currentLine: React.PropTypes.number,
         onFindActiveToken: React.PropTypes.func.isRequired,
-        onClickToken: React.PropTypes.func.isRequired
+        onClickToken: React.PropTypes.func.isRequired,
+        hideImage: React.PropTypes.bool
     },
     componentWillReceiveProps(nextProps) {
         const { token, onFindActiveToken } = this.props;
@@ -64,7 +65,7 @@ const ScriptToken = React.createClass({
     },
     renderScriptToken(token){
         const { renderInlineText } = this;
-        const { characters } = this.props;
+        const { characters, hideImage } = this.props;
 
         const textNodes = token.model.text.map(function(t,i){
             return <div className={classNames(['token-text', `token-text-${token.type}`])} key={ i }>{ t }</div>
@@ -136,7 +137,7 @@ const ScriptToken = React.createClass({
                         </Grid.Column>
                     </Grid>
                     <Divider />
-                    { token.model.image && token.model.level==4 ? <Segment inverted><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
+                    { token.model.image && token.model.level==4 && hideImage!==true ?  <Segment inverted><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
                 </div>
             );
         }

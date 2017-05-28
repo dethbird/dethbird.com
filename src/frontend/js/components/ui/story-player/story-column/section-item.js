@@ -26,7 +26,7 @@ const SectionItem = React.createClass({
         if(item.model) {
             return (
                 <Header as={ 'h' + (item.model.level + 1) }>
-                    farts
+                    { item.model.text[0] }
                 </Header>
             )
         }
@@ -51,7 +51,6 @@ const SectionItem = React.createClass({
 
         let color = highlighted ? 'purple' : null;
         color = playing ? 'orange' : color;
-        console.log(item);
         return (
             <Card
                 raised={ selected===false }

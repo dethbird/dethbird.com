@@ -71069,7 +71069,8 @@ var ScriptToken = _react2.default.createClass({
         characters: _react2.default.PropTypes.array.isRequired,
         currentLine: _react2.default.PropTypes.number,
         onFindActiveToken: _react2.default.PropTypes.func.isRequired,
-        onClickToken: _react2.default.PropTypes.func.isRequired
+        onClickToken: _react2.default.PropTypes.func.isRequired,
+        hideImage: _react2.default.PropTypes.bool
     },
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
         var _props = this.props,
@@ -71118,7 +71119,9 @@ var ScriptToken = _react2.default.createClass({
     },
     renderScriptToken: function renderScriptToken(token) {
         var renderInlineText = this.renderInlineText;
-        var characters = this.props.characters;
+        var _props2 = this.props,
+            characters = _props2.characters,
+            hideImage = _props2.hideImage;
 
 
         var textNodes = token.model.text.map(function (t, i) {
@@ -71220,7 +71223,7 @@ var ScriptToken = _react2.default.createClass({
                     )
                 ),
                 _react2.default.createElement(_semanticUiReact.Divider, null),
-                token.model.image && token.model.level == 4 ? _react2.default.createElement(
+                token.model.image && token.model.level == 4 && hideImage !== true ? _react2.default.createElement(
                     _semanticUiReact.Segment,
                     { inverted: true },
                     _react2.default.createElement(_semanticUiReact.Image, { src: token.model.image, centered: true, className: 'panel-image' })
@@ -71238,11 +71241,11 @@ var ScriptToken = _react2.default.createClass({
 
         var renderScriptToken = this.renderScriptToken,
             renderTitleToken = this.renderTitleToken;
-        var _props2 = this.props,
-            token = _props2.token,
-            type = _props2.type,
-            currentLine = _props2.currentLine,
-            onClickToken = _props2.onClickToken;
+        var _props3 = this.props,
+            token = _props3.token,
+            type = _props3.type,
+            currentLine = _props3.currentLine,
+            onClickToken = _props3.onClickToken;
 
 
         if (token.type == 'blank_line') return _react2.default.createElement('div', { id: token.id, ref: function ref(div) {
@@ -71749,7 +71752,7 @@ var SectionItem = _react2.default.createClass({
             return _react2.default.createElement(
                 _semanticUiReact.Header,
                 { as: 'h' + (item.model.level + 1) },
-                'farts'
+                item.model.text[0]
             );
         }
     },
@@ -71772,7 +71775,6 @@ var SectionItem = _react2.default.createClass({
 
         var color = highlighted ? 'purple' : null;
         color = playing ? 'orange' : color;
-        console.log(item);
         return _react2.default.createElement(
             _semanticUiReact.Card,
             {
@@ -72017,7 +72019,7 @@ var Player = _react2.default.createClass({
         var panelIndex = this.state.panelIndex;
 
         if (!panels[panelIndex]) return null;
-        return _react2.default.createElement(_semanticUiReact.Image, { src: panels[panelIndex].image ? panels[panelIndex].image : 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' });
+        return _react2.default.createElement(_semanticUiReact.Image, { src: panels[panelIndex].model.image ? panels[panelIndex].model.image : 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' });
     },
     render: function render() {
         var handleClickPlay = this.handleClickPlay,
@@ -72116,7 +72118,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(7);
 
-var _fountainParser = __webpack_require__(54);
+var _scriptToken = __webpack_require__(694);
+
+var _scriptToken2 = _interopRequireDefault(_scriptToken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72126,27 +72130,22 @@ var SelectedItem = _react2.default.createClass({
     propTypes: {
         selectedItem: _react2.default.PropTypes.object.isRequired
     },
-
-    renderHeader: function renderHeader() {
-        var selectedItem = this.props.selectedItem;
-
-        if (selectedItem.type == 'story') {
-            return _react2.default.createElement(
-                _semanticUiReact.Header,
-                null,
-                selectedItem.title
-            );
-        } else {
-            return _react2.default.createElement(
-                _semanticUiReact.Header,
-                null,
-                selectedItem.level_text + ' ' + selectedItem.text
-            );
-        }
-    },
     render: function render() {
         var selectedItem = this.props.selectedItem;
 
+
+        var scriptNodes = selectedItem.tokens.map(function (token, i) {
+            return _react2.default.createElement(_scriptToken2.default, {
+                token: token,
+                characters: [],
+                currentLine: 0,
+                onFindActiveToken: function onFindActiveToken() {},
+                type: 'script',
+                key: i,
+                onClickToken: function onClickToken() {},
+                hideImage: true
+            });
+        });
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
@@ -72155,23 +72154,9 @@ var SelectedItem = _react2.default.createClass({
                 _semanticUiReact.Card,
                 { fluid: true, className: 'fountain-container' },
                 _react2.default.createElement(
-                    _semanticUiReact.Card.Header,
-                    null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Segment,
-                        { basic: true },
-                        this.renderHeader()
-                    )
-                ),
-                _react2.default.createElement(
                     _semanticUiReact.Card.Content,
-                    null,
-                    _react2.default.createElement('div', {
-                        className: 'fountain',
-                        dangerouslySetInnerHTML: {
-                            __html: (0, _fountainParser.compileTokens)(selectedItem.tokens)
-                        }
-                    })
+                    { className: 'fountain' },
+                    scriptNodes
                 )
             )
         );
