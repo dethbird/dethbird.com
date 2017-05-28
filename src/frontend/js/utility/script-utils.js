@@ -284,11 +284,16 @@ export const convertTokensToStory = (tokens) => {
     let _story = {
         ... story,
         duration_in_milliseconds: 0,
-        acts: []
+        acts: [],
+        stats: {
+            acts: 0,
+            panels: 0
+        }
     };
     for (const actIndex in story.acts) {
         let act = story.acts[actIndex];
         let _act = { ... act, sequences: [], duration_in_milliseconds: 0};
+        _story.stats.acts += 1;
         for (const sequenceIndex in story.acts[actIndex].sequences) {
             let sequence = story.acts[actIndex].sequences[sequenceIndex];
             let _sequence = { ... sequence, scenes: [], duration_in_milliseconds: 0};
@@ -301,6 +306,7 @@ export const convertTokensToStory = (tokens) => {
                     _panel.duration_in_milliseconds = durationToMilliseconds(panel.model.duration);
                     _scene.duration_in_milliseconds = _scene.duration_in_milliseconds + _panel.duration_in_milliseconds;
                     _scene.panels.push(_panel);
+                    _story.stats.panels += 1;
                 }
                 _sequence.duration_in_milliseconds = _sequence.duration_in_milliseconds + _scene.duration_in_milliseconds;
                 _sequence.scenes.push(_scene);
@@ -311,6 +317,7 @@ export const convertTokensToStory = (tokens) => {
         _story.duration_in_milliseconds = _story.duration_in_milliseconds + _act.duration_in_milliseconds;
         _story.acts.push(_act);
     }
+
     return _story;
 }
 
@@ -320,9 +327,6 @@ export const tokenizeScript = (script) => {
     let titleTokens = [];
     let scriptTokens = [];
     let characterCounts = [];
-    let state = {
-        character: false
-    };
     let i = 0;
     while (i < lines.length) {
         const line = lines[i];

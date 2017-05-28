@@ -19,6 +19,8 @@ import { UI_STATE } from 'constants/ui-state';
 import { projectGet } from 'actions/project';
 import { getScriptStats } from 'utility/fountain-parser';
 
+import { convertTokensToStory, tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
+
 import ScriptCastList from 'components/ui/list/script-cast-list';
 import ProjectDetailCharacters from 'components/ui/detail/cards/project-detail-characters';
 
@@ -76,6 +78,10 @@ const ProjectDetail = React.createClass({
 
         const nodes = model.stories.map(function(story, i){
             const stats = getScriptStats(story.script);
+
+            const tokens = tokenizeScript(story.script);
+            const model = convertTokensToStory(tokens);
+            console.log(tokens);
             return (
                 <Card key={ i } color='teal'>
                     <Card.Content>
@@ -87,20 +93,20 @@ const ProjectDetail = React.createClass({
                     <Card.Content extra>
                         <Grid>
                             <Grid.Column width={ 5 }>
-                                { stats.acts } Acts
+                                { model.stats.acts } Acts
                             </Grid.Column>
                             <Grid.Column width={ 5 } textAlign='center'>
-                                { stats.panels } Panels
+                                { model.stats.panels } Panels
                             </Grid.Column>
                             <Grid.Column width={ 6 } textAlign='right'>
-                                <Icon name="time" />{ stats.display_duration }
+                                <Icon name="time" />{ millisecondsToDuration(model.duration_in_milliseconds) }
                             </Grid.Column>
                         </Grid>
                     </Card.Content>
                     <Card.Content>
                         <Header as="h4">Cast</Header>
                         <ScriptCastList
-                            script={ story.script }
+                            scriptCharacters={ tokens.characters }
                             displayMode={ true }
                         />
                     </Card.Content>
