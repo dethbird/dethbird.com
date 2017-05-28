@@ -17,7 +17,6 @@ import {
 
 import { UI_STATE } from 'constants/ui-state';
 import { projectGet } from 'actions/project';
-import { getScriptStats } from 'utility/fountain-parser';
 
 import { convertTokensToStory, tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
 

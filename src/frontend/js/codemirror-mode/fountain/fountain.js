@@ -1,4 +1,4 @@
-import { REGEX } from 'utility/fountain-parser';
+import { REGEX } from 'constants/section';
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -69,13 +69,13 @@ CodeMirror.defineMode("fountain", function() {
                 }
             }
             // title
-            if (stream.match(REGEX.TITLE_PAGE)){
+            if (stream.match(REGEX.TITLE)){
                 stream.skipTo(':');
                 stream.next();
                 return "title-keyword";
             }
             // scene heading
-            if (stream.match(REGEX.SCENE_HEADING)){
+            if (stream.match(REGEX.SCENE)){
                 state.section = true;
                 stream.skipToEnd();
                 return "heading";
