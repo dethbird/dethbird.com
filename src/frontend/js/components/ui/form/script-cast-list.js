@@ -45,7 +45,6 @@ const ScriptCastList = React.createClass({
         const { handleClickCreateCharacter } = this;
         const { displayMode } = this.props;
         const renderButton = (name, existing) => {
-            console.log(displayMode);
             if (displayMode===true)
                 return null;
 

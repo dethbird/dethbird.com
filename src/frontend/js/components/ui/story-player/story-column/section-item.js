@@ -22,7 +22,6 @@ const SectionItem = React.createClass({
     },
     renderHeader() {
         const { item } = this.props;
-        console.log(item);
         if(item.model) {
             return (
                 <Header as={ 'h' + (item.model.level + 1) }>
