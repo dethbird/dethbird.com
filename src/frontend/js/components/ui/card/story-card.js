@@ -12,7 +12,6 @@ import {
 import moment from 'moment';
 
 import { convertTokensToStory, tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
-// import { getScriptStats } from 'utility/fountain-parser';
 
 const StoryCard = React.createClass({
     propTypes: {
