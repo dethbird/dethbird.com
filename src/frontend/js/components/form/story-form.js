@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
@@ -13,16 +14,17 @@ import {
     Segment
 } from 'semantic-ui-react';
 
-import ErrorMessage from 'components/ui/error-message';
-import ScriptInput from 'components/ui/form/script-input';
-import ScriptCastList from 'components/ui/list/script-cast-list';
-import StoryProject from 'components/ui/form/story-project';
-import SidebarFountainHelp from 'components/ui/sidebar/sidebar-fountain-help';
 import { UI_STATE } from 'constants/ui-state';
 import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actions/story';
 import storyPostSchema from 'validation_schema/story-post.json';
 import * as jsonSchema from 'utility/json-schema';
 import { tokenizeScript } from 'utility/script-utils';
+
+import ErrorMessage from 'components/ui/error-message';
+import ScriptInput from 'components/ui/form/script-input';
+import ScriptCastList from 'components/ui/list/script-cast-list';
+import StoryProject from 'components/ui/form/story-project';
+import FountainHelpModal from 'components/ui/modal/fountain-help-modal';
 
 
 const StoryForm = React.createClass({
@@ -34,8 +36,18 @@ const StoryForm = React.createClass({
         return {
             changedFields: {},
             model: undefined,
-            currentLine: undefined
+            currentLine: undefined,
+            helpModalVisible: false
         }
+    },
+    toggleModalVisible() {
+        if (!this.state.modalVisible===true) {
+            ReactGA.modalview('/fountain-help-modal');
+        }
+        this.setState({
+            ... this.state,
+            helpModalVisible: !this.state.helpModalVisible
+        })
     },
     componentWillMount() {
         const { id, demo, dispatch } = this.props;
@@ -105,9 +117,9 @@ const StoryForm = React.createClass({
         }
     },
     render() {
-        const { handleScriptChange, handleCursorActivity } = this;
+        const { handleScriptChange, handleCursorActivity, toggleModalVisible } = this;
         const { id, ui_state, errors, demo } = this.props;
-        const { changedFields, model, currentLine } = this.state;
+        const { changedFields, model, currentLine, helpModalVisible } = this.state;
         const inputFields = jsonSchema.buildInputFields(model, changedFields, storyPostSchema);
 
         const tokens = tokenizeScript(inputFields.script || '');
@@ -151,8 +163,12 @@ const StoryForm = React.createClass({
                                     />
 
                                     <div className="field">
-                                        <label><Icon name="circle help"/>.fountain language help</label>
-                                        <SidebarFountainHelp onClickSnippetInsert={ this.handleClickSnippetInsert } />
+                                        <Button as="a" content=".fountain syntax sheet" icon="circle help" labelPosition="left" onClick={ toggleModalVisible } />
+                                        <FountainHelpModal
+                                            onClickSnippetInsert={ this.handleClickSnippetInsert }
+                                            modalVisible={ helpModalVisible }
+                                            toggleModalVisible={ toggleModalVisible }
+                                        />
                                     </div>
                                 </Container>
                             </Grid.Column>

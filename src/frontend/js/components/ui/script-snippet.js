@@ -14,7 +14,7 @@ import { tokenizeScript } from 'utility/script-utils';
 const ScriptSnippet = React.createClass({
     getInitialState() {
         return {
-            activeItem: "fountain"
+            activeItem: "rendered"
         }
     },
     handleItemClick(e, { name }) {
@@ -36,7 +36,7 @@ const ScriptSnippet = React.createClass({
 
         if (activeItem=="fountain") {
             return (
-                <Segment attached="top">
+                <Segment attached="bottom">
                     <CodeMirror
                         value={ snippet || '' }
                         options={{
@@ -52,6 +52,7 @@ const ScriptSnippet = React.createClass({
                 </Segment>
             );
         } else {
+            console.log(snippet);
             const tokens = tokenizeScript(snippet);
 
             const scriptNodes = tokens.scriptTokens.map(function(token, i){
@@ -83,7 +84,7 @@ const ScriptSnippet = React.createClass({
             });
 
             return (
-                <Segment attached="top" className="fountain-container">
+                <Segment attached="bottom">
                     <div className='fountain'>
                         { titleNodes }
                         { scriptNodes }
@@ -98,8 +99,7 @@ const ScriptSnippet = React.createClass({
         const { activeItem } = this.state;
         return (
             <div>
-                { this.renderContent() }
-                <Menu attached='bottom' tabular>
+                <Menu attached='top' tabular>
                     <Menu.Item name='fountain' active={ activeItem=="fountain" } onClick={ this.handleItemClick } as="a">
                         .fountain
                     </Menu.Item>
@@ -108,6 +108,7 @@ const ScriptSnippet = React.createClass({
                         rendered
                     </Menu.Item>
                 </Menu>
+                { this.renderContent() }
             </div>
         )
     }

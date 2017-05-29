@@ -423,6 +423,8 @@ export const tokenizeScript = (script) => {
                         }
                         nextIndex++;
                         nextLine = lines[nextIndex];
+                        if (nextLine==undefined)
+                            break;
                     }
                     i = nextIndex - 1;
                 }
@@ -490,6 +492,8 @@ export const tokenizeScript = (script) => {
                         }
                         nextIndex++;
                         nextLine = lines[nextIndex];
+                        if (nextLine==undefined)
+                            break;
                     }
                     i = nextIndex - 1;
                 }
@@ -576,6 +580,8 @@ export const tokenizeScript = (script) => {
                         token.model.text.push(match[1].trim());
                         nextIndex++;
                         nextLine = lines[nextIndex];
+                        if (nextLine==undefined)
+                            break;
                         match = nextLine.text.match(REGEX.LYRICS);
                     }
                     i = nextIndex - 1;
@@ -606,8 +612,12 @@ export const tokenizeScript = (script) => {
                         token.model.text.push(nextLine.text);
                         nextIndex++;
                         nextLine = lines[nextIndex]
+                        if (nextLine==undefined)
+                            break;
+
                         match = nextLine.text.match(REGEX.TITLE);
                     }
+
                     i = nextIndex - 1;
                 }
             }
