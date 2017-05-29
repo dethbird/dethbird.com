@@ -76,8 +76,6 @@ const ProjectDetail = React.createClass({
             return null;
 
         const nodes = model.stories.map(function(story, i){
-            const stats = getScriptStats(story.script);
-
             const tokens = tokenizeScript(story.script);
             const model = convertTokensToStory(tokens);
 

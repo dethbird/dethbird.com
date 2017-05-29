@@ -10,7 +10,10 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { collateScriptCharactersWithCharacters } from 'utility/fountain-parser';
+import {
+    tokenizeScript,
+    collateScriptCharacterTokensWithCharacters
+} from 'utility/script-utils';
 
 const ProjectCard = React.createClass({
     propTypes: {
@@ -23,7 +26,8 @@ const ProjectCard = React.createClass({
 
         let characters = [];
         for (const i in project.stories) {
-            const extracted = collateScriptCharactersWithCharacters(project.stories[i].script, []);
+            const tokens = tokenizeScript(project.stories[i].script);
+            const extracted = collateScriptCharacterTokensWithCharacters(tokens.characters, []);
             characters = { ... characters, ... extracted.not_found };
             characters = { ... characters, ... extracted.existing };
         }

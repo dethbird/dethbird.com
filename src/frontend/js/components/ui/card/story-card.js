@@ -11,7 +11,8 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { getScriptStats } from 'utility/fountain-parser';
+import { convertTokensToStory, tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
+// import { getScriptStats } from 'utility/fountain-parser';
 
 const StoryCard = React.createClass({
     propTypes: {
@@ -38,7 +39,9 @@ const StoryCard = React.createClass({
     render() {
         const { renderCharacters } = this;
         const { story } = this.props;
-        const stats = getScriptStats(story.script);
+        // const stats = getScriptStats(story.script);
+        const tokens = tokenizeScript(story.script);
+        const model = convertTokensToStory(tokens);
         return (
             <Card onClick={ (e) => { browserHistory.push(`/story/${story.id}/edit`)} } >
                 <Card.Content className="center aligned">
@@ -46,18 +49,18 @@ const StoryCard = React.createClass({
                 </Card.Content>
                 <Card.Content>
                     <Header as="h4">Characters</Header>
-                    { renderCharacters(stats.characters) }
+                    { renderCharacters(tokens.characters) }
                 </Card.Content>
                 <Card.Content extra>
                     <Grid>
                         <Grid.Column width={ 5 }>
-                            { stats.acts } Acts
+                            { model.stats.acts } Acts
                         </Grid.Column>
                         <Grid.Column width={ 5 } textAlign='center'>
-                            { stats.panels } Panels
+                            { model.stats.panels } Panels
                         </Grid.Column>
                         <Grid.Column width={ 6 } textAlign='right'>
-                            <Icon name="time" />{ stats.display_duration }
+                            <Icon name="time" />{ millisecondsToDuration(model.duration_in_milliseconds) }
                         </Grid.Column>
                     </Grid>
                 </Card.Content>
