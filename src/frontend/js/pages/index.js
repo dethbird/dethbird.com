@@ -12,6 +12,7 @@ import Index from 'components/pages/index';
 import Contact from 'components/pages/contact';
 import Newsfeed from 'components/pages/newsfeed';
 import PrivateBeta from 'components/pages/private-beta';
+import PrivateBetaApply from 'components/pages/private-beta-apply';
 import Verify from 'components/pages/verify';
 import Product from 'components/pages/product';
 
@@ -85,6 +86,7 @@ render((
                 <Route path="activate" component={ Activate } props={ { securityContext, activationUser } } />
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
+                <Route path="private-beta/apply" component={ PrivateBetaApply } props={ { securityContext } }/>
                 <Route path="private-beta" component={ PrivateBeta } props={ { securityContext } }/>
                 <Route path="product" component={ Product } props={ { securityContext } }/>
                 <Route path="product/demo/storyplayer" component={ StoryPlayDemo } props={ { securityContext } }/>
