@@ -66,7 +66,7 @@ const ScriptCastList = React.createClass({
         const { renderCharacters } = this;
         const { models, ui_state, errors, scriptCharacters } = this.props;
 
-        if ( scriptCharacters.length < 1)
+        if (models==undefined)
             return <Loader active />;
 
         // cross check script characters with saved characters
