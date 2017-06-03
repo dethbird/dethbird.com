@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
     Button,
     Container,
+    Divider,
     Form,
     Grid,
     Icon,
@@ -18,7 +19,7 @@ import { UI_STATE } from 'constants/ui-state';
 import { storyGet, storyGetDemo, storyPut, storyPutDemo, storyPost } from 'actions/story';
 import storyPostSchema from 'validation_schema/story-post.json';
 import * as jsonSchema from 'utility/json-schema';
-import { tokenizeScript } from 'utility/script-utils';
+import { tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
 
 import ErrorMessage from 'components/ui/error-message';
 import ScriptInput from 'components/ui/form/script-input';
@@ -124,6 +125,8 @@ const StoryForm = React.createClass({
 
         const tokens = tokenizeScript(inputFields.script || '');
 
+        console.log(tokens);
+
         return (
             <Form
                 size="large"
@@ -135,13 +138,21 @@ const StoryForm = React.createClass({
                     <Segment basic>
                         <Grid>
                             <Grid.Column width={ 4 } className='story-form-column'>
-                                <Segment basic>
-                                    <Button as='a' attached='left' disabled size='tiny' icon='edit' content='Editor' labelPosition='left'/>
-                                    <Button as='a' onClick={()=>{browserHistory.push(demo===true ? `/product/demo/storyplayer` : `/story/${id}/play`)}} attached='right' size='tiny' icon='play' labelPosition='left' content='Player' />
-
-                                    <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' labelPosition="right" content={ id ? "Save" : "Create" } icon="save"/>
-                                </Segment>
-                                <Container >
+                                <Container>
+                                    <Grid>
+                                        <Grid.Column width={ 8 }>
+                                            <Button as='a' attached='left' disabled size='tiny' icon='edit' content='Editor' labelPosition='left'/>
+                                            <Button as='a' onClick={()=>{browserHistory.push(demo===true ? `/product/demo/storyplayer` : `/story/${id}/play`)}} attached='right' size='tiny' icon='play' labelPosition='left' content='Player' />
+                                            <br />
+                                            <span className='duration'>{ millisecondsToDuration(tokens.duration_in_milliseconds) }</span>
+                                        </Grid.Column>
+                                        <Grid.Column width={ 8 } textAlign='right'>
+                                            <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' labelPosition="right" content={ id ? "Save" : "Create" } icon="save"/>
+                                        </Grid.Column>
+                                    </Grid>
+                                    <br />
+                                </Container>
+                                <Container>
                                     <Container>
                                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                                     </Container>

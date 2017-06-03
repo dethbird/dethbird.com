@@ -7352,6 +7352,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
     var titleTokens = [];
     var scriptTokens = [];
     var characterCounts = [];
+    var duration_in_milliseconds = 0;
     var i = 0;
     while (i < lines.length) {
         var line = lines[i];
@@ -7422,6 +7423,7 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                             }
                             if (_section.REGEX.DURATION.test(_nextLine.text)) {
                                 token.model.duration = _nextLine.text.trim();
+                                duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
                         }
                         _nextIndex++;
@@ -7687,7 +7689,8 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
     return {
         scriptTokens: scriptTokens,
         titleTokens: titleTokens,
-        characters: characters
+        characters: characters,
+        duration_in_milliseconds: duration_in_milliseconds
     };
 };
 
@@ -36003,6 +36006,8 @@ var StoryForm = _react2.default.createClass({
 
         var tokens = (0, _scriptUtils.tokenizeScript)(inputFields.script || '');
 
+        console.log(tokens);
+
         return _react2.default.createElement(
             _semanticUiReact.Form,
             {
@@ -36024,13 +36029,32 @@ var StoryForm = _react2.default.createClass({
                             _semanticUiReact.Grid.Column,
                             { width: 4, className: 'story-form-column' },
                             _react2.default.createElement(
-                                _semanticUiReact.Segment,
-                                { basic: true },
-                                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', attached: 'left', disabled: true, size: 'tiny', icon: 'edit', content: 'Editor', labelPosition: 'left' }),
-                                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', onClick: function onClick() {
-                                        _reactRouter.browserHistory.push(demo === true ? '/product/demo/storyplayer' : '/story/' + id + '/play');
-                                    }, attached: 'right', size: 'tiny', icon: 'play', labelPosition: 'left', content: 'Player' }),
-                                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', labelPosition: 'right', content: id ? "Save" : "Create", icon: 'save' })
+                                _semanticUiReact.Container,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Grid,
+                                    null,
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Grid.Column,
+                                        { width: 8 },
+                                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', attached: 'left', disabled: true, size: 'tiny', icon: 'edit', content: 'Editor', labelPosition: 'left' }),
+                                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', onClick: function onClick() {
+                                                _reactRouter.browserHistory.push(demo === true ? '/product/demo/storyplayer' : '/story/' + id + '/play');
+                                            }, attached: 'right', size: 'tiny', icon: 'play', labelPosition: 'left', content: 'Player' }),
+                                        _react2.default.createElement('br', null),
+                                        _react2.default.createElement(
+                                            'span',
+                                            { className: 'duration' },
+                                            (0, _scriptUtils.millisecondsToDuration)(tokens.duration_in_milliseconds)
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Grid.Column,
+                                        { width: 8, textAlign: 'right' },
+                                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', labelPosition: 'right', content: id ? "Save" : "Create", icon: 'save' })
+                                    )
+                                ),
+                                _react2.default.createElement('br', null)
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Container,

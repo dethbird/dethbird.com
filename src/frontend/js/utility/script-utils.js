@@ -347,6 +347,7 @@ export const tokenizeScript = (script) => {
     let titleTokens = [];
     let scriptTokens = [];
     let characterCounts = [];
+    let duration_in_milliseconds = 0;
     let i = 0;
     while (i < lines.length) {
         const line = lines[i];
@@ -419,6 +420,7 @@ export const tokenizeScript = (script) => {
                             }
                             if(REGEX.DURATION.test(nextLine.text)){
                                 token.model.duration = nextLine.text.trim()
+                                duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
                         }
                         nextIndex++;
@@ -689,7 +691,8 @@ export const tokenizeScript = (script) => {
     return {
         scriptTokens,
         titleTokens,
-        characters
+        characters,
+        duration_in_milliseconds
     };
 }
 
