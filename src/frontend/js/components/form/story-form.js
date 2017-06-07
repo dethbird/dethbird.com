@@ -125,8 +125,6 @@ const StoryForm = React.createClass({
 
         const tokens = tokenizeScript(inputFields.script || '');
 
-        console.log(tokens);
-
         return (
             <Form
                 size="large"

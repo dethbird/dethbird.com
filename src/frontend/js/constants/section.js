@@ -14,6 +14,7 @@ export const REGEX = {
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
+    IMAGE_AND_DURATION: /^(https:\/\/.+?.[jpg|jpeg|gif|png|svg]),([0-9]?[0-9]:[0-9][0-9])/i,
     LYRICS: /^(?:~)([\S\s]+)/,
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
     NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,

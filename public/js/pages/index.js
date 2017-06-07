@@ -7418,13 +7418,19 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                     while (_nextLine.text !== '\n') {
                         token.lines.push(_nextLine);
                         if (match[1].length == 4) {
-                            if (_section.REGEX.IMAGE.test(_nextLine.text)) {
-                                token.model.image = _nextLine.text.trim();
-                            }
-                            if (_section.REGEX.DURATION.test(_nextLine.text)) {
-                                token.model.duration = _nextLine.text.trim();
+                            var lineMatch = _nextLine.text.match(_section.REGEX.IMAGE_AND_DURATION);
+                            if (lineMatch) {
+                                token.model.image = lineMatch[1];
+                                token.model.duration = lineMatch[2];
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
+                            // if(REGEX.IMAGE.test(nextLine.text)){
+                            //     token.model.image = nextLine.text.trim()
+                            // }
+                            // if(REGEX.DURATION.test(nextLine.text)){
+                            //     token.model.duration = nextLine.text.trim()
+                            //     duration_in_milliseconds += durationToMilliseconds(token.model.duration);
+                            // }
                         }
                         _nextIndex++;
                         _nextLine = lines[_nextIndex];
@@ -29092,6 +29098,7 @@ var REGEX = exports.REGEX = {
     CHARACTER_POWER_USER: /^(?:\@)([A-Za-z0-9'\-. ][A-Za-z0-9'\-.]+)(?:\ )?(\([A-Za-z0-9'\-. ]+\))?(?:\ )?(\^)?/,
     IMAGE: /^(https:\/\/(.+)?.(jpg|jpeg|gif|png|svg))/i,
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
+    IMAGE_AND_DURATION: /^(https:\/\/.+?.[jpg|jpeg|gif|png|svg]),([0-9]?[0-9]:[0-9][0-9])/i,
     LYRICS: /^(?:~)([\S\s]+)/,
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
     NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
@@ -36005,8 +36012,6 @@ var StoryForm = _react2.default.createClass({
         var inputFields = jsonSchema.buildInputFields(model, changedFields, _storyPost2.default);
 
         var tokens = (0, _scriptUtils.tokenizeScript)(inputFields.script || '');
-
-        console.log(tokens);
 
         return _react2.default.createElement(
             _semanticUiReact.Form,
