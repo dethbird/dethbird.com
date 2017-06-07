@@ -421,13 +421,13 @@ export const tokenizeScript = (script) => {
                                 token.model.duration = lineMatch[2];
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
-                            // if(REGEX.IMAGE.test(nextLine.text)){
-                            //     token.model.image = nextLine.text.trim()
-                            // }
-                            // if(REGEX.DURATION.test(nextLine.text)){
-                            //     token.model.duration = nextLine.text.trim()
-                            //     duration_in_milliseconds += durationToMilliseconds(token.model.duration);
-                            // }
+                            if(REGEX.IMAGE.test(nextLine.text)){
+                                token.model.image = nextLine.text.trim()
+                            }
+                            if(REGEX.DURATION.test(nextLine.text)){
+                                token.model.duration = nextLine.text.trim()
+                                duration_in_milliseconds += durationToMilliseconds(token.model.duration);
+                            }
                         }
                         nextIndex++;
                         nextLine = lines[nextIndex];

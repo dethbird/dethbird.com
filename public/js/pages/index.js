@@ -7424,13 +7424,13 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                                 token.model.duration = lineMatch[2];
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
-                            // if(REGEX.IMAGE.test(nextLine.text)){
-                            //     token.model.image = nextLine.text.trim()
-                            // }
-                            // if(REGEX.DURATION.test(nextLine.text)){
-                            //     token.model.duration = nextLine.text.trim()
-                            //     duration_in_milliseconds += durationToMilliseconds(token.model.duration);
-                            // }
+                            if (_section.REGEX.IMAGE.test(_nextLine.text)) {
+                                token.model.image = _nextLine.text.trim();
+                            }
+                            if (_section.REGEX.DURATION.test(_nextLine.text)) {
+                                token.model.duration = _nextLine.text.trim();
+                                duration_in_milliseconds += durationToMilliseconds(token.model.duration);
+                            }
                         }
                         _nextIndex++;
                         _nextLine = lines[_nextIndex];
@@ -25467,12 +25467,14 @@ var _section = __webpack_require__(183);
 
                 // section subelements
                 if (state.section) {
-                    if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
-                        stream.skipToEnd();
+                    if (stream.match(_section.REGEX.IMAGE)) {
+                        nextChar = stream.peek();
                         return 'section-image';
                     } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                         stream.skipToEnd();
                         return 'section-duration';
+                    } else if (stream.match(/^,/) && state.section_level == 4) {
+                        return null;
                     } else {
                         state.section = false;
                         state.section_level = false;

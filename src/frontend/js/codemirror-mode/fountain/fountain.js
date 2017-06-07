@@ -56,12 +56,14 @@ CodeMirror.defineMode("fountain", function() {
 
             // section subelements
             if (state.section) {
-                if (stream.match(/^https:\/\/.*.(jpg|jpeg|gif|png|svg)/i)) {
-                    stream.skipToEnd();
+                if (stream.match(REGEX.IMAGE)) {
+                    nextChar = stream.peek();
                     return 'section-image';
                 } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                     stream.skipToEnd();
                     return 'section-duration';
+                } else if (stream.match(/^,/) && state.section_level == 4) {
+                    return null;
                 } else {
                     state.section = false;
                     state.section_level = false;
