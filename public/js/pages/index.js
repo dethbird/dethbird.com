@@ -7409,7 +7409,10 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
             token.model = {
                 identifier: match[1],
                 level: match[1].length,
-                text: [match[2]]
+                text: [match[2]],
+                image: undefined,
+                duration: undefined,
+                milestones: []
             };
             var _nextIndex = parseInt(i) + 1;
             if (lines.length > _nextIndex) {
@@ -7431,7 +7434,9 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
                             lineMatch = _nextLine.text.match(_section.REGEX.MILESTONE);
-                            console.log(lineMatch);
+                            if (lineMatch) {
+                                token.model.milestones.push(lineMatch[1]);
+                            }
                         }
                         _nextIndex++;
                         _nextLine = lines[_nextIndex];
@@ -25469,8 +25474,10 @@ var _section = __webpack_require__(183);
                 // section subelements
                 if (state.section) {
                     if (stream.match(_section.REGEX.IMAGE)) {
-                        nextChar = stream.peek();
                         return 'section-image';
+                    } else if (stream.match(_section.REGEX.MILESTONE)) {
+                        stream.skipToEnd();
+                        return 'section-milestone';
                     } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                         stream.skipToEnd();
                         return 'section-duration';
@@ -29103,7 +29110,7 @@ var REGEX = exports.REGEX = {
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
     IMAGE_AND_DURATION: /^(https:\/\/.+?.[jpg|jpeg|gif|png|svg]),([0-9]?[0-9]:[0-9][0-9])/i,
     LYRICS: /^(?:~)([\S\s]+)/,
-    MILESTONE: /^\ -\ (.+)/,
+    MILESTONE: /^(?:\ +)?-\ (.+)/,
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
     NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
     NOTE_MULTILINE: /^(?!\[{2})(.+[^\]{2})])$/g,

@@ -57,8 +57,10 @@ CodeMirror.defineMode("fountain", function() {
             // section subelements
             if (state.section) {
                 if (stream.match(REGEX.IMAGE)) {
-                    nextChar = stream.peek();
                     return 'section-image';
+                } else if (stream.match(REGEX.MILESTONE)) {
+                    stream.skipToEnd();
+                    return 'section-milestone';
                 } else if (stream.match(/^[0-9]?[0-9]:[0-9][0-9]/) && state.section_level == 4) {
                     stream.skipToEnd();
                     return 'section-duration';
