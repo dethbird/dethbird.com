@@ -7418,19 +7418,20 @@ var tokenizeScript = exports.tokenizeScript = function tokenizeScript(script) {
                     while (_nextLine.text !== '\n') {
                         token.lines.push(_nextLine);
                         if (match[1].length == 4) {
-                            var lineMatch = _nextLine.text.match(_section.REGEX.IMAGE_AND_DURATION);
+                            var lineMatch = void 0;
+                            lineMatch = _nextLine.text.match(_section.REGEX.IMAGE_AND_DURATION);
                             if (lineMatch) {
                                 token.model.image = lineMatch[1];
                                 token.model.duration = lineMatch[2];
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
-                            }
-                            if (_section.REGEX.IMAGE.test(_nextLine.text)) {
+                            } else if (_section.REGEX.IMAGE.test(_nextLine.text)) {
                                 token.model.image = _nextLine.text.trim();
-                            }
-                            if (_section.REGEX.DURATION.test(_nextLine.text)) {
+                            } else if (_section.REGEX.DURATION.test(_nextLine.text)) {
                                 token.model.duration = _nextLine.text.trim();
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
                             }
+                            lineMatch = _nextLine.text.match(_section.REGEX.MILESTONE);
+                            console.log(lineMatch);
                         }
                         _nextIndex++;
                         _nextLine = lines[_nextIndex];
@@ -29102,6 +29103,7 @@ var REGEX = exports.REGEX = {
     DURATION: /^([0-9]?[0-9]:[0-9][0-9])/,
     IMAGE_AND_DURATION: /^(https:\/\/.+?.[jpg|jpeg|gif|png|svg]),([0-9]?[0-9]:[0-9][0-9])/i,
     LYRICS: /^(?:~)([\S\s]+)/,
+    MILESTONE: /^\ -\ (.+)/,
     NOTE: /^(?:\[{2}(?!\[+))(.+)(?:\]{2}(?!\]+))$/g,
     NOTE_MULTILINE_START: /^(?:\[{2})([\S\s]+)$/g,
     NOTE_MULTILINE: /^(?!\[{2})(.+[^\]{2})])$/g,

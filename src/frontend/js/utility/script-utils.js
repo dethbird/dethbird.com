@@ -406,7 +406,10 @@ export const tokenizeScript = (script) => {
             token.model = {
                 identifier: match[1],
                 level: match[1].length,
-                text: [ match[2] ]
+                text: [ match[2] ],
+                image: undefined,
+                duration: undefined,
+                milestones: []
             }
             let nextIndex = parseInt(i)+1;
             if (lines.length > nextIndex) {
@@ -415,18 +418,21 @@ export const tokenizeScript = (script) => {
                     while (nextLine.text !== '\n') {
                         token.lines.push(nextLine);
                         if (match[1].length == 4) {
-                            let lineMatch = nextLine.text.match(REGEX.IMAGE_AND_DURATION);
+                            let lineMatch;
+                            lineMatch = nextLine.text.match(REGEX.IMAGE_AND_DURATION);
                             if(lineMatch) {
                                 token.model.image = lineMatch[1];
                                 token.model.duration = lineMatch[2];
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
-                            }
-                            if(REGEX.IMAGE.test(nextLine.text)){
+                            } else if (REGEX.IMAGE.test(nextLine.text)){
                                 token.model.image = nextLine.text.trim()
-                            }
-                            if(REGEX.DURATION.test(nextLine.text)){
+                            } else if(REGEX.DURATION.test(nextLine.text)){
                                 token.model.duration = nextLine.text.trim()
                                 duration_in_milliseconds += durationToMilliseconds(token.model.duration);
+                            }
+                            lineMatch = nextLine.text.match(REGEX.MILESTONE);
+                            if(lineMatch) {
+                                token.model.milestones.push(lineMatch[1]);
                             }
                         }
                         nextIndex++;
