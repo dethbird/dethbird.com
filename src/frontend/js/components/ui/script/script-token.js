@@ -7,6 +7,7 @@ import {
     Grid,
     Header,
     Image,
+    List,
     Segment
 } from 'semantic-ui-react';
 import { REGEX_INLINE } from 'constants/section';
@@ -75,6 +76,18 @@ const ScriptToken = React.createClass({
             return <Image className={classNames(['section-icon', `section-icon-${SECTION_LEVEL[token.model.level]}`])} src={`/svg/section/${SECTION_LEVEL[token.model.level]}.svg`} />;
         };
 
+        const sectionMilestones = (token) => {
+            if(token.model.milestones.length==0)
+                return null;
+
+            const nodes = token.model.milestones.map(function(milestone,i) {
+                return <List.Item icon='idea' content={ milestone } key={ i }/>
+            });
+
+            return <List>{ nodes }</List>
+
+        };
+
         const characterAvater = (name) => {
             let character = {
                 avatar_image_url: null
@@ -138,6 +151,7 @@ const ScriptToken = React.createClass({
                     </Grid>
                     <Divider />
                     { token.model.image && token.model.level==4 && hideImage!==true ?  <Segment inverted><Image src={token.model.image} centered className='panel-image'/></Segment> : null }
+                    { sectionMilestones(token) }
                 </div>
             );
         }

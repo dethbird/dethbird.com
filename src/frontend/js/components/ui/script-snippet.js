@@ -52,7 +52,6 @@ const ScriptSnippet = React.createClass({
                 </Segment>
             );
         } else {
-            console.log(snippet);
             const tokens = tokenizeScript(snippet);
 
             const scriptNodes = tokens.scriptTokens.map(function(token, i){

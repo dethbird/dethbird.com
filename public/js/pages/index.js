@@ -28934,6 +28934,20 @@ var ScriptToken = _react2.default.createClass({
             return _react2.default.createElement(_semanticUiReact.Image, { className: (0, _classnames2.default)(['section-icon', 'section-icon-' + _section.SECTION_LEVEL[token.model.level]]), src: '/svg/section/' + _section.SECTION_LEVEL[token.model.level] + '.svg' });
         };
 
+        var sectionMilestones = function sectionMilestones(token) {
+            if (token.model.milestones.length == 0) return null;
+
+            var nodes = token.model.milestones.map(function (milestone, i) {
+                return _react2.default.createElement(_semanticUiReact.List.Item, { icon: 'idea', content: milestone, key: i });
+            });
+
+            return _react2.default.createElement(
+                _semanticUiReact.List,
+                null,
+                nodes
+            );
+        };
+
         var characterAvater = function characterAvater(name) {
             var character = {
                 avatar_image_url: null
@@ -29025,7 +29039,8 @@ var ScriptToken = _react2.default.createClass({
                     _semanticUiReact.Segment,
                     { inverted: true },
                     _react2.default.createElement(_semanticUiReact.Image, { src: token.model.image, centered: true, className: 'panel-image' })
-                ) : null
+                ) : null,
+                sectionMilestones(token)
             );
         }
         return _react2.default.createElement(
@@ -69844,7 +69859,6 @@ var ScriptSnippet = _react2.default.createClass({
                 })
             );
         } else {
-            console.log(snippet);
             var tokens = (0, _scriptUtils.tokenizeScript)(snippet);
 
             var scriptNodes = tokens.scriptTokens.map(function (token, i) {
