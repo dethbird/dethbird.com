@@ -8,7 +8,8 @@ import {
     Header,
     Icon,
     Image,
-    Loader
+    Loader,
+    Message
 } from 'semantic-ui-react';
 
 import CharacterCard from 'components/ui/card/character-card';
@@ -81,6 +82,15 @@ const ProjectDetailCharacters = React.createClass({
                 renderCharacterCardNotFound(character, i)
             );
         });
+
+        if ( existingNodes.length + notFoundNodes.length == 0 ) {
+            return (
+                <Message info>
+                    <Message.Header>No characters found for this project.</Message.Header>
+                    <p>Create your first story and your characters will appear here.</p>
+                </Message>
+            )
+        }
 
         return (
             <div>

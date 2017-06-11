@@ -67576,6 +67576,23 @@ var ProjectDetailCharacters = _react2.default.createClass({
             return renderCharacterCardNotFound(character, i);
         });
 
+        if (existingNodes.length + notFoundNodes.length == 0) {
+            return _react2.default.createElement(
+                _semanticUiReact.Message,
+                { info: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Message.Header,
+                    null,
+                    'No characters found for this project.'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Create your first story and your characters will appear here.'
+                )
+            );
+        }
+
         return _react2.default.createElement(
             'div',
             null,
