@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "classnames": "^2.2.5",
-    "fountain-js": "0.0.1",
     "gasp": "0.0.2",
     "gsap": "^1.19.1",
     "marked": "^0.3.6",
@@ -18,7 +17,6 @@
     "react-ga": "^2.2.0",
     "react-google-recaptcha": "^0.8.1",
     "react-modal": "^1.4.0",
-    "react-motion": "^0.4.7",
     "react-redux": "^4.4.5",
     "react-router": "3.*",
     "react-sortable-component": "^1.0.0",
@@ -32,7 +30,6 @@
     "semantic-ui-react": "^0.67.1",
     "superagent": "^2.3.0",
     "timeago": "^1.4.3",
-    "uglify-js": "^2.5.0",
     "underscore": "^1.8.3",
     "uuid": "^3.0.1"
   },
@@ -50,7 +47,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^14.1.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "^12.0.0",
