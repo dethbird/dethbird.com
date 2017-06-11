@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
     entry: {
         index: './src/frontend/js/pages/index.js'
@@ -11,6 +13,14 @@ module.exports = {
             }
         ]
     },
+    // plugins: [
+    //     new webpack.DefinePlugin({ //<--key to reduce React's size
+    //         'process.env': {
+    //             'NODE_ENV': JSON.stringify('production')
+    //         }
+    //     }),
+    //     new webpack.optimize.UglifyJsPlugin()
+    // ],
     resolve: {
         modules: [
             './node_modules',

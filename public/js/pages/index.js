@@ -67578,17 +67578,21 @@ var ProjectDetailCharacters = _react2.default.createClass({
 
         if (existingNodes.length + notFoundNodes.length == 0) {
             return _react2.default.createElement(
-                _semanticUiReact.Message,
-                { info: true },
+                _semanticUiReact.Container,
+                { text: true },
                 _react2.default.createElement(
-                    _semanticUiReact.Message.Header,
-                    null,
-                    'No characters found for this project.'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    'Create your first story and your characters will appear here.'
+                    _semanticUiReact.Message,
+                    { info: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Message.Header,
+                        null,
+                        'No characters found for this project.'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Create your first story and your characters will appear here.'
+                    )
                 )
             );
         }
@@ -67757,7 +67761,11 @@ var ProjectDetail = _react2.default.createClass({
     renderStoryCards: function renderStoryCards() {
         var model = this.props.model;
 
-        if (model.stories.length == 0) return null;
+        if (model.stories.length == 0) return _react2.default.createElement(
+            _semanticUiReact.Container,
+            { text: true },
+            _react2.default.createElement(_semanticUiReact.Button, { as: 'a', icon: 'add', labelPosition: 'right', color: 'green', content: 'Create Story / Episode' })
+        );
 
         var nodes = model.stories.map(function (story, i) {
             var tokens = (0, _scriptUtils.tokenizeScript)(story.script);

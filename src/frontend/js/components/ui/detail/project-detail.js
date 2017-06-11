@@ -12,6 +12,7 @@ import {
     Label,
     List,
     Loader,
+    Message,
     Segment
 } from 'semantic-ui-react';
 
@@ -73,7 +74,11 @@ const ProjectDetail = React.createClass({
     renderStoryCards(){
         const { model } = this.props;
         if (model.stories.length==0)
-            return null;
+            return (
+                <Container text>
+                    <Button as="a" icon="add" labelPosition="right" color="green" content="Create Story / Episode" />
+                </Container>
+            );
 
         const nodes = model.stories.map(function(story, i){
             const tokens = tokenizeScript(story.script);

@@ -85,10 +85,12 @@ const ProjectDetailCharacters = React.createClass({
 
         if ( existingNodes.length + notFoundNodes.length == 0 ) {
             return (
-                <Message info>
-                    <Message.Header>No characters found for this project.</Message.Header>
-                    <p>Create your first story and your characters will appear here.</p>
-                </Message>
+                <Container text>
+                    <Message info>
+                        <Message.Header>No characters found for this project.</Message.Header>
+                        <p>Create your first story and your characters will appear here.</p>
+                    </Message>
+                </Container>
             )
         }
 
