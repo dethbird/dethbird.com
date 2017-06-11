@@ -13,14 +13,16 @@ module.exports = {
             }
         ]
     },
-    // plugins: [
-    //     new webpack.DefinePlugin({ //<--key to reduce React's size
-    //         'process.env': {
-    //             'NODE_ENV': JSON.stringify('production')
-    //         }
-    //     }),
-    //     new webpack.optimize.UglifyJsPlugin()
-    // ],
+    plugins: [
+        new webpack.DefinePlugin({ //<--key to reduce React's size
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: true
+        })
+    ],
     resolve: {
         modules: [
             './node_modules',
