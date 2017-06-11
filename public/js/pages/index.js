@@ -7070,7 +7070,7 @@ exports.lexizeScript = exports.tokenizeScript = exports.convertTokensToStory = e
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _v = __webpack_require__(1198);
+var _v = __webpack_require__(1199);
 
 var _v2 = _interopRequireDefault(_v);
 
@@ -36082,7 +36082,7 @@ var StoryForm = _react2.default.createClass({
                                     _react2.default.createElement(
                                         _semanticUiReact.Grid.Column,
                                         { width: 8, textAlign: 'right' },
-                                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', labelPosition: 'right', content: id ? "Save" : "Create", icon: 'save' })
+                                        _react2.default.createElement(_semanticUiReact.Button, { as: 'a', color: id ? "blue" : "green", onClick: this.onClickSubmit, disabled: Object.keys(changedFields).length === 0, size: 'tiny', labelPosition: 'right', content: "Save", icon: 'save' })
                                     )
                                 ),
                                 _react2.default.createElement('br', null)
@@ -68011,12 +68011,13 @@ var ProjectSubgenreInput = _react2.default.createClass({
         var toggleModalVisible = this.toggleModalVisible;
         var _props = this.props,
             onChange = _props.onChange,
-            subgenres = _props.subgenres;
+            subgenres = _props.subgenres,
+            name = _props.name;
 
 
         subgenres.push(payload);
         onChange(e, {
-            id: 'subgenres',
+            name: name,
             value: subgenres
         });
         setTimeout(function () {
@@ -68151,12 +68152,14 @@ var ProjectSubgenreInput = _react2.default.createClass({
         var renderGenreLabels = this.renderGenreLabels,
             renderGenres = this.renderGenres,
             toggleModalVisible = this.toggleModalVisible;
-        var subgenres = this.props.subgenres;
+        var _props3 = this.props,
+            subgenres = _props3.subgenres,
+            name = _props3.name;
         var modalVisible = this.state.modalVisible;
 
         return _react2.default.createElement(
             _semanticUiReact.Container,
-            { className: 'project-subgenre-input' },
+            { className: 'project-subgenre-input', name: name },
             _react2.default.createElement(
                 _semanticUiReact.List,
                 { horizontal: true },
@@ -68298,6 +68301,10 @@ var _underscore = __webpack_require__(44);
 
 var _ = _interopRequireWildcard(_underscore);
 
+var _throttle = __webpack_require__(1193);
+
+var _throttle2 = _interopRequireDefault(_throttle);
+
 var _semanticUiReact = __webpack_require__(7);
 
 var _reactCodemirror = __webpack_require__(163);
@@ -68370,8 +68377,8 @@ var ScriptInput = _react2.default.createClass({
                 { width: 7 },
                 _react2.default.createElement(_reactCodemirror2.default, {
                     value: script || '',
-                    onChange: handleFieldChange,
-                    onCursorActivity: onCursorActivity,
+                    onChange: (0, _throttle2.default)(300, handleFieldChange),
+                    onCursorActivity: (0, _throttle2.default)(300, onCursorActivity),
                     options: {
                         lineNumbers: true,
                         lineWrapping: true,
@@ -71659,7 +71666,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.log = undefined;
 
-var _util = __webpack_require__(1195);
+var _util = __webpack_require__(1196);
 
 var _util2 = _interopRequireDefault(_util);
 
@@ -112064,6 +112071,103 @@ function symbolObservablePonyfill(root) {
 /* 1193 */
 /***/ (function(module, exports) {
 
+/* eslint-disable no-undefined,no-param-reassign,no-shadow */
+
+/**
+ * Throttle execution of a function. Especially useful for rate limiting
+ * execution of handlers on events like resize and scroll.
+ *
+ * @param  {Number}    delay          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param  {Boolean}   noTrailing     Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
+ *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
+ *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
+ *                                    the internal counter is reset)
+ * @param  {Function}  callback       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                    to `callback` when the throttled-function is executed.
+ * @param  {Boolean}   debounceMode   If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
+ *                                    schedule `callback` to execute after `delay` ms.
+ *
+ * @return {Function}  A new, throttled, function.
+ */
+module.exports = function ( delay, noTrailing, callback, debounceMode ) {
+
+	// After wrapper has stopped being called, this timeout ensures that
+	// `callback` is executed at the proper times in `throttle` and `end`
+	// debounce modes.
+	var timeoutID;
+
+	// Keep track of the last time `callback` was executed.
+	var lastExec = 0;
+
+	// `noTrailing` defaults to falsy.
+	if ( typeof noTrailing !== 'boolean' ) {
+		debounceMode = callback;
+		callback = noTrailing;
+		noTrailing = undefined;
+	}
+
+	// The `wrapper` function encapsulates all of the throttling / debouncing
+	// functionality and when executed will limit the rate at which `callback`
+	// is executed.
+	function wrapper () {
+
+		var self = this;
+		var elapsed = Number(new Date()) - lastExec;
+		var args = arguments;
+
+		// Execute `callback` and update the `lastExec` timestamp.
+		function exec () {
+			lastExec = Number(new Date());
+			callback.apply(self, args);
+		}
+
+		// If `debounceMode` is true (at begin) this is used to clear the flag
+		// to allow future `callback` executions.
+		function clear () {
+			timeoutID = undefined;
+		}
+
+		if ( debounceMode && !timeoutID ) {
+			// Since `wrapper` is being called for the first time and
+			// `debounceMode` is true (at begin), execute `callback`.
+			exec();
+		}
+
+		// Clear any existing timeout.
+		if ( timeoutID ) {
+			clearTimeout(timeoutID);
+		}
+
+		if ( debounceMode === undefined && elapsed > delay ) {
+			// In throttle mode, if `delay` time has been exceeded, execute
+			// `callback`.
+			exec();
+
+		} else if ( noTrailing !== true ) {
+			// In trailing throttle mode, since `delay` time has not been
+			// exceeded, schedule `callback` to execute `delay` ms after most
+			// recent execution.
+			//
+			// If `debounceMode` is true (at begin), schedule `clear` to execute
+			// after `delay` ms.
+			//
+			// If `debounceMode` is false (at end), schedule `callback` to
+			// execute after `delay` ms.
+			timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+		}
+
+	}
+
+	// Return the wrapper function.
+	return wrapper;
+
+};
+
+
+/***/ }),
+/* 1194 */
+/***/ (function(module, exports) {
+
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -112090,7 +112194,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 1194 */
+/* 1195 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -112101,7 +112205,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 1195 */
+/* 1196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -112629,7 +112733,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(1194);
+exports.isBuffer = __webpack_require__(1195);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -112673,7 +112777,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(1193);
+exports.inherits = __webpack_require__(1194);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -112694,7 +112798,7 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(75), __webpack_require__(0)))
 
 /***/ }),
-/* 1196 */
+/* 1197 */
 /***/ (function(module, exports) {
 
 /**
@@ -112723,7 +112827,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 1197 */
+/* 1198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
@@ -112763,11 +112867,11 @@ module.exports = rng;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(75)))
 
 /***/ }),
-/* 1198 */
+/* 1199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(1197);
-var bytesToUuid = __webpack_require__(1196);
+var rng = __webpack_require__(1198);
+var bytesToUuid = __webpack_require__(1197);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;

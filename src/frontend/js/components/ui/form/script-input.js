@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'underscore';
+import debounce from 'throttle-debounce/throttle';
 import {
     Container,
     Grid,
@@ -52,8 +53,8 @@ const ScriptInput = React.createClass({
                 <Grid.Column width={ 7 }>
                     <CodeMirror
                         value={ script || '' }
-                        onChange={ handleFieldChange }
-                        onCursorActivity={ onCursorActivity }
+                        onChange={ debounce(300, handleFieldChange) }
+                        onCursorActivity={ debounce(300, onCursorActivity) }
                         options={{
                             lineNumbers: true,
                             lineWrapping: true,

@@ -41,11 +41,11 @@ const ProjectSubgenreInput = React.createClass({
     },
     handleSelectGenre(e, payload) {
         const { toggleModalVisible } = this;
-        const { onChange, subgenres } = this.props;
+        const { onChange, subgenres, name } = this.props;
 
         subgenres.push(payload);
         onChange(e, {
-            id: 'subgenres',
+            name,
             value: subgenres
         });
         setTimeout(function(){
@@ -144,10 +144,10 @@ const ProjectSubgenreInput = React.createClass({
     },
     render() {
         const { renderGenreLabels, renderGenres, toggleModalVisible } = this;
-        const { subgenres } = this.props;
+        const { subgenres, name } = this.props;
         const { modalVisible } = this.state;
         return (
-            <Container className='project-subgenre-input'>
+            <Container className='project-subgenre-input' name={ name }>
                 <List horizontal>
                     { renderGenreLabels() }
                 </List>

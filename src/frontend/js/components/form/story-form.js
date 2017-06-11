@@ -145,7 +145,7 @@ const StoryForm = React.createClass({
                                             <span className='duration'>{ millisecondsToDuration(tokens.duration_in_milliseconds) }</span>
                                         </Grid.Column>
                                         <Grid.Column width={ 8 } textAlign='right'>
-                                            <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' labelPosition="right" content={ id ? "Save" : "Create" } icon="save"/>
+                                            <Button as="a" color={ id ? "blue" : "green" } onClick={ this.onClickSubmit } disabled={ Object.keys(changedFields).length===0 }  size='tiny' labelPosition="right" content={ "Save" } icon="save"/>
                                         </Grid.Column>
                                     </Grid>
                                     <br />
