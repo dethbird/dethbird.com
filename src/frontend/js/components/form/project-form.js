@@ -99,8 +99,8 @@ const ProjectForm = React.createClass({
                     <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" name="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('header_image_url', errors)} />
 
-                    <Form.TextArea label="Description" placeholder="Description" name="description" onChange={ handleFieldChange } value={ inputFields.description || '' } autoHeight={ true }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('description', errors)} />
+                    <Form.TextArea label="Logline" placeholder="Logline" name="logline" onChange={ handleFieldChange } value={ inputFields.logline || '' } autoHeight={ true }/>
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('logline', errors)} />
 
                     <Form.Field label="Genres" placeholder="Genres" name="subgenres" control={ ProjectSubgenreInput }  subgenres={ inputFields.subgenres || [] } onChange={ handleFieldChange }/>
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('tags', errors)} />

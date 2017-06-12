@@ -8,7 +8,7 @@
             "minLength": 1,
             "type": "string"
 		},
-		"description": {
+		"logline": {
             "minLength": 1,
             "type": "string"
 		},
