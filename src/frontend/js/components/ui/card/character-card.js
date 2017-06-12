@@ -4,6 +4,7 @@ import {
     Card,
     Icon,
     Image,
+    Label,
     List
 } from 'semantic-ui-react';
 import moment from 'moment';
@@ -12,8 +13,26 @@ const CharacterCard = React.createClass({
     propTypes: {
         character: React.PropTypes.object.isRequired
     },
+    renderTags(){
+        const { character } = this.props;
+        const tags = character.tags ? JSON.parse(character.tags) : []
+        if (tags.length==0)
+            return null;
+
+        const nodes = tags.map(function(tag, i){
+            return (
+                <List.Item key={ i } >
+                    <List.Content>
+                        <Label color="orange" tag={ true }>{ tag }</Label>
+                    </List.Content>
+                </List.Item>
+            );
+        });
+        return nodes;
+    },
     render() {
         const { character } = this.props;
+        const { renderTags } = this;
         return (
             <Card onClick={ (e) => { browserHistory.push(`/character/${character.id}/edit`)} } >
                 <Card.Content className="center aligned">
@@ -21,6 +40,7 @@ const CharacterCard = React.createClass({
                     <Card.Header>{ character.name }</Card.Header>
                     <Card.Meta>{ [character.age, character.gender ].filter(function (val) {return val;}).join(', ') }</Card.Meta>
                     <Card.Description>{ [character.occupation, character.location ].filter(function (val) {return val;}).join(', ') }</Card.Description>
+                    { renderTags() }
                 </Card.Content>
                 <Card.Content extra>
                     <List divided size='small' relaxed>

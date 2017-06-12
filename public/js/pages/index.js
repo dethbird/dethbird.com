@@ -36133,8 +36133,32 @@ var CharacterCard = _react2.default.createClass({
     propTypes: {
         character: _react2.default.PropTypes.object.isRequired
     },
+    renderTags: function renderTags() {
+        var character = this.props.character;
+
+        var tags = character.tags ? JSON.parse(character.tags) : [];
+        if (tags.length == 0) return null;
+
+        var nodes = tags.map(function (tag, i) {
+            return _react2.default.createElement(
+                _semanticUiReact.List.Item,
+                { key: i },
+                _react2.default.createElement(
+                    _semanticUiReact.List.Content,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Label,
+                        { color: 'orange', tag: true },
+                        tag
+                    )
+                )
+            );
+        });
+        return nodes;
+    },
     render: function render() {
         var character = this.props.character;
+        var renderTags = this.renderTags;
 
         return _react2.default.createElement(
             _semanticUiReact.Card,
@@ -36163,7 +36187,8 @@ var CharacterCard = _react2.default.createClass({
                     [character.occupation, character.location].filter(function (val) {
                         return val;
                     }).join(', ')
-                )
+                ),
+                renderTags()
             ),
             _react2.default.createElement(
                 _semanticUiReact.Card.Content,
