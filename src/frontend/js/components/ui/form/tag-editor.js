@@ -98,7 +98,7 @@ const TagEditor = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label size="large" color="teal" tag={ true }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
+                        <Label size="large" color="yellow" tag={ true }>{ tag } <a><Icon name="trash" onClick={ (e) => { removeTag(tag) } }/></a></Label>
                     </List.Content>
                 </List.Item>
             );
@@ -125,7 +125,7 @@ const TagEditor = React.createClass({
                             type="text"
                             icon="tags"
                             iconPosition="left"
-                            label={{ tag: true, content: 'Add', color: "teal", onClick: this.addTag, as: "a" }}
+                            label={{ tag: true, content: 'Add', color: "green", onClick: this.addTag, as: "a" }}
                             labelPosition="right"
                             onChange={ this.handleFieldChange }
                             value={ newTag || '' }
