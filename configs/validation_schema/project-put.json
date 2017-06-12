@@ -1,6 +1,6 @@
 {
 	"properties": {
-		"name": {
+		"title": {
             "minLength": 1,
 		    "type": "string"
 		},

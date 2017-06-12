@@ -49,7 +49,7 @@ class Project extends ActiveRecord\Model
         $conditions = [];
         $conditionValues = [];
 
-        $orderByValue = 'name asc';
+        $orderByValue = 'title asc';
 
         foreach ($filterParams as $k => $v) {
             switch($k) {
@@ -59,9 +59,9 @@ class Project extends ActiveRecord\Model
                         $conditionValues[] = $v;
                     }
                     break;
-                case 'name':
+                case 'title':
                     if(trim($v)!=='') {
-                        $conditions[] = 'TRIM(UPPER(name)) LIKE CONCAT("%", ? ,"%")';
+                        $conditions[] = 'TRIM(UPPER(title)) LIKE CONCAT("%", ? ,"%")';
                         $conditionValues[] = strtoupper(trim($v));
                     }
                     break;

@@ -92,8 +92,8 @@ const ProjectForm = React.createClass({
                         <ErrorMessage message={ jsonSchema.getGlobalErrorMessage(errors)} />
                     </Container>
 
-                    <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ inputFields.name || '' } required={ true }/>
-                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('name', errors)} />
+                    <Form.Input label="Title" placeholder="Title" name="title" type="text" onChange={ handleFieldChange } value={ inputFields.title || '' } required={ true }/>
+                    <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('title', errors)} />
 
                     <Image shape="rounded" size="large" centered={ true } src={ inputFields.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                     <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" name="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />

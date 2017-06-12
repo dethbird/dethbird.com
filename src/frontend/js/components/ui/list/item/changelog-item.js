@@ -53,7 +53,7 @@ const ChangelogItem = React.createClass({
                     <Item.Image shape="rounded" size="tiny" spaced={ true } centered={ true } src={ item.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                     <Item.Content verticalAlign="middle">
                         <Button as="a" size="mini" basic className="right floated" onClick={()=>{ browserHistory.push(`/project/${item.project_id}/edit`)}}>Edit</Button>
-                        <Item.Header>{ item.name }</Item.Header>
+                        <Item.Header>{ item.title }</Item.Header>
                         <Item.Description>
                             <Label color={ item.type=='create' ? 'green' : 'blue' } size="mini">{ item.model }: { item.type }</Label>
                         </Item.Description>

@@ -141,7 +141,7 @@ const ProjectDetail = React.createClass({
                     </Dropdown>
                 </Container>
                 <Container text textAlign="center">
-                    <Header as="h1">{ model.name }</Header>
+                    <Header as="h1">{ model.title }</Header>
                     <Image shape="rounded" centered spaced size="large" src={ model.header_image_url || 'https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg' } />
                     <Segment as={Container} text textAlign="left">
                         { model.description }

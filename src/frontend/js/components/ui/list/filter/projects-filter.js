@@ -66,21 +66,21 @@ const ProjectsFilter = React.createClass({
                 >
                     <Grid verticalAlign='bottom'>
                         <Grid.Column width={ 4 } >
-                            <Form.Input label="Name" placeholder="Name" name="name" type="text" onChange={ handleFieldChange } value={ changedFields.name || ''}/>
+                            <Form.Input label="Title" placeholder="Title" name="title" type="text" onChange={ handleFieldChange } value={ changedFields.title || ''}/>
                         </Grid.Column>
                         <Grid.Column width={ 4 } >
                             <Form.Field>
                                 <label>Order</label>
                                 <Select placeholder="Order by" onChange={ handleSelectChange } name="order_by" options={[
                                     {
-                                        key: "name_asc",
-                                        value: "name asc",
-                                        text: "Name A-Z"
+                                        key: "title_asc",
+                                        value: "title asc",
+                                        text: "Title A-Z"
                                     },
                                     {
-                                        key: "name_desc",
-                                        value: "name desc",
-                                        text: "Name Z-A"
+                                        key: "title_desc",
+                                        value: "title desc",
+                                        text: "Title Z-A"
                                     },
                                     {
                                         key: "date_created_desc",
