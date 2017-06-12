@@ -35,7 +35,7 @@
     "uuid": "^3.0.1"
   },
   "scripts": {
-    "build": "webpack --progress --colors",
+    "build": "NODE_ENV=production webpack --progress --colors",
     "build-style": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
     "test-watch": "jest --color --watch",
