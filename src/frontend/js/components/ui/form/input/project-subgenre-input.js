@@ -79,7 +79,7 @@ const ProjectSubgenreInput = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color='teal' size='large'>
+                        <Label color='violet' size='large'>
                             { subgenre.genre.name }:
                             <Label.Detail>{ subgenre.name } <Icon name="trash" onClick={ (e) => { removeSubgenre(subgenre.id) } }/></Label.Detail>
                         </Label>

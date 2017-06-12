@@ -42,7 +42,7 @@ const ProjectCard = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color='teal' size='small'>
+                        <Label color='violet' size='small'>
                             { subgenre.genre.name }:
                             <Label.Detail>{ subgenre.name }</Label.Detail>
                         </Label>

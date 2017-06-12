@@ -45,7 +45,7 @@ const ProjectDetail = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color='teal'>
+                        <Label color='violet'>
                             { subgenre.genre.name }:
                             <Label.Detail>{ subgenre.name }</Label.Detail>
                         </Label>
@@ -66,7 +66,7 @@ const ProjectDetail = React.createClass({
             return (
                 <List.Item key={ i } >
                     <List.Content>
-                        <Label color="yellow" tag={ true }>{ tag }</Label>
+                        <Label color="orange" tag={ true }>{ tag }</Label>
                     </List.Content>
                 </List.Item>
             );
