@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-    Button,
-    Icon,
-    Segment
-} from 'semantic-ui-react';
 
+import InternalLayout from 'components/layout/internal';
 import StoryPlayer from 'components/ui/story-player';
-import Footer from 'components/ui/footer';
-import LoggedInHeader from 'components/ui/header/logged-in-header';
 
 
 const StoryPlay = React.createClass({
@@ -17,13 +11,9 @@ const StoryPlay = React.createClass({
         const { id } = this.props.params;
 
         return (
-            <Segment.Group>
-                <LoggedInHeader path={ path } securityContext={ securityContext } />
-                <Segment className="main-content">
-                    <StoryPlayer id={ id } />
-                </Segment>
-                <Footer />
-            </Segment.Group>
+            <InternalLayout path={ path } securityContext={ securityContext }>
+                <StoryPlayer id={ id } />
+            </InternalLayout>
         );
     }
 })

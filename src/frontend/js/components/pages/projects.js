@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-    Segment,
-} from 'semantic-ui-react';
 
+import InternalLayout from 'components/layout/internal';
 import ProjectsList from 'components/ui/list/projects-list';
-import LoggedInHeader from 'components/ui/header/logged-in-header';
-import Footer from 'components/ui/footer';
 
 
 const Projects = React.createClass({
@@ -14,13 +10,9 @@ const Projects = React.createClass({
         const { securityContext } = this.props.route.props;
 
         return (
-            <Segment.Group>
-                <LoggedInHeader path={ path } securityContext={ securityContext } />
-                <Segment className="main-content">
-                    <ProjectsList />
-                </Segment>
-                <Footer />
-            </Segment.Group>
+            <InternalLayout path={ path } securityContext={ securityContext }>
+                <ProjectsList />
+            </InternalLayout>
         );
     }
 })

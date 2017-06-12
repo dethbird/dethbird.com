@@ -79,9 +79,11 @@ render((
             <Route path="/" component={ App } props={ { securityContext } }>
                 <IndexRoute component={ Index } props={ { securityContext } } />
 
+                /** admin */
                 <Route path="admin/users" component={ AdminUsers } props={ { securityContext } } onEnter={ requireAdmin } />
                 <Route path="admin/user/:id/edit" component={ AdminUserEdit } props={ { securityContext } } onEnter={ requireAdmin } />
 
+                /** external */
                 <Route path="activate" component={ Activate } props={ { securityContext, activationUser } } />
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
@@ -92,6 +94,7 @@ render((
                 <Route path="product/demo/storyeditor" component={ StoryEditDemo } props={ { securityContext } }/>
                 <Route path="verify" component={ Verify } props={ { securityContext, verifyUser } } />
 
+                /** internal */
                 <Route path="projects" component={ Projects } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/create" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="project/:id/edit" component={ ProjectEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
