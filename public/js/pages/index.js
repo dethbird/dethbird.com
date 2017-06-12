@@ -67701,9 +67701,20 @@ var ProjectDetail = _react2.default.createClass({
             _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_semanticUiReact.Button, { as: 'a', onClick: function onClick() {
-                        _reactRouter.browserHistory.push('/project/' + model.id + '/edit');
-                    }, content: 'Edit', icon: 'edit', labelPosition: 'right', size: 'small' })
+                _react2.default.createElement(
+                    _semanticUiReact.Dropdown,
+                    { text: 'Menu' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Dropdown.Menu,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Dropdown.Item, { onClick: function onClick() {
+                                _reactRouter.browserHistory.push('/project/' + model.id + '/edit');
+                            }, text: 'Edit', icon: 'edit' }),
+                        _react2.default.createElement(_semanticUiReact.Dropdown.Item, { onClick: function onClick() {
+                                _reactRouter.browserHistory.push('/story/create/project/' + model.id);
+                            }, text: 'Create Story / Episode', icon: 'add', color: 'green' })
+                    )
+                )
             ),
             _react2.default.createElement(
                 _semanticUiReact.Container,

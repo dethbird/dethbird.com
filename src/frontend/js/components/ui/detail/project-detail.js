@@ -5,6 +5,7 @@ import {
     Button,
     Card,
     Container,
+    Dropdown,
     Grid,
     Header,
     Icon,
@@ -12,6 +13,7 @@ import {
     Label,
     List,
     Loader,
+    Menu,
     Message,
     Segment
 } from 'semantic-ui-react';
@@ -131,7 +133,12 @@ const ProjectDetail = React.createClass({
         return (
             <div>
                 <Container>
-                    <Button as="a" onClick={ ()=>{ browserHistory.push(`/project/${model.id}/edit`)} } content="Edit" icon="edit" labelPosition="right" size="small"/>
+                    <Dropdown text="Menu">
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={ ()=>{ browserHistory.push(`/project/${model.id}/edit`)} } text="Edit" icon="edit" />
+                            <Dropdown.Item onClick={ ()=>{ browserHistory.push(`/story/create/project/${model.id}`)} } text="Create Story / Episode" icon="add" color='green' />
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Container>
                 <Container text textAlign="center">
                     <Header as="h1">{ model.name }</Header>
