@@ -3,11 +3,9 @@ import { browserHistory } from 'react-router';
 import {
     Button,
     Container,
-    Dropdown,
     Item,
     Label,
-    Menu,
-    Segment
+    Menu
 } from 'semantic-ui-react';
 
 const LoggedInHeader = React.createClass({
@@ -19,7 +17,7 @@ const LoggedInHeader = React.createClass({
         const { securityContext } = this.props;
 
         return (
-            <Container textAlign="right" fluid={ true }>
+            <Container textAlign="left">
                 <Label as='a' image color="black">
                     <img src={ securityContext.avatar_image_url || 'https://myspace.com/common/images/user.png' } />
                     {  securityContext.username }
@@ -42,18 +40,14 @@ const LoggedInHeader = React.createClass({
         const { renderAdminUsersMenuItem } = this;
         const { path } = this.props;
         return (
-            <Segment inverted={ true } >
-                <Container fluid>
-                    <Menu size="large" inverted={ true } secondary={ true }>
-                        <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
-                        <Item as="a" content="Projects" className={ ['projects', 'project/:id', 'project/:id/edit', 'project/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/projects'); } }/>
-                        <Item as="a" content="Stories" className={ ['stories', 'story/:id/edit', 'story/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/stories'); } }/>
-                        <Item as="a" content="Characters" className={ ['characters', 'character/:id/edit', 'character/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/characters'); } }/>
-                        {  renderAdminUsersMenuItem() }
-                        <Item content={ this.renderSecurityContext() } className="right" />
-                    </Menu>
-                </Container>
-            </Segment>
+            <Menu size="large" inverted vertical>
+                <Item as="a" content="Dashboard" className={ path=="dashboard" ? "active" : null } onClick={ (e) => { browserHistory.push('/dashboard'); } }/>
+                <Item as="a" content="Projects" className={ ['projects', 'project/:id', 'project/:id/edit', 'project/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/projects'); } }/>
+                <Item as="a" content="Stories" className={ ['stories', 'story/:id/edit', 'story/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/stories'); } }/>
+                <Item as="a" content="Characters" className={ ['characters', 'character/:id/edit', 'character/create'].indexOf(path) > -1 ? "active" : null } onClick={ (e) => { browserHistory.push('/characters'); } }/>
+                {  renderAdminUsersMenuItem() }
+                <Item content={ this.renderSecurityContext() } className="right" />
+            </Menu>
         )
     }
 })
