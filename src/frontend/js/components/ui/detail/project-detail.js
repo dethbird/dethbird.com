@@ -78,7 +78,7 @@ const ProjectDetail = React.createClass({
         if (model.stories.length==0)
             return (
                 <Container text>
-                    <Button as="a" icon="add" labelPosition="right" color="green" content="Create Story / Episode" />
+                    <Button as="a" icon="add" labelPosition="right" color="green" content="Create Story / Episode" onClick={ ()=>{ browserHistory.push(`/story/create/project/${model.id}`)} }/>
                 </Container>
             );
 
@@ -161,7 +161,7 @@ const ProjectDetail = React.createClass({
                 </Container>
                 <br />
                 <Container text textAlign='center'>
-                    <Label>
+                    <Label color='purple'>
                         Format:
                         <Label.Detail>{ model.format }</Label.Detail>
                     </Label>

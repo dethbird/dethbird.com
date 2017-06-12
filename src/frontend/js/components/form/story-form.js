@@ -31,11 +31,13 @@ import FountainHelpModal from 'components/ui/modal/fountain-help-modal';
 const StoryForm = React.createClass({
     propTypes: {
         id: React.PropTypes.string,
+        projectId: React.PropTypes.string,
         demo: React.PropTypes.bool
     },
     getInitialState() {
+        const { projectId } = this.props;
         return {
-            changedFields: {},
+            changedFields: { project_id: projectId },
             model: undefined,
             currentLine: undefined,
             helpModalVisible: false

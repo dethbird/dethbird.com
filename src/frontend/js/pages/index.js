@@ -82,7 +82,6 @@ render((
                 <Route path="admin/users" component={ AdminUsers } props={ { securityContext } } onEnter={ requireAdmin } />
                 <Route path="admin/user/:id/edit" component={ AdminUserEdit } props={ { securityContext } } onEnter={ requireAdmin } />
 
-
                 <Route path="activate" component={ Activate } props={ { securityContext, activationUser } } />
                 <Route path="contact" component={ Contact } props={ { securityContext } }/>
                 <Route path="newsfeed" component={ Newsfeed } props={ { securityContext } }/>
@@ -103,6 +102,7 @@ render((
                 <Route path="character/:id/edit" component={ CharacterEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="stories" component={ Stories } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/create" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="story/create/project/:projectId" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/edit" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/play" component={ StoryPlay } props={ { securityContext } }  onEnter={ requireAuth }/>
 

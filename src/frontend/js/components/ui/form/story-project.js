@@ -112,7 +112,7 @@ const StoryProject = React.createClass({
         return (
             <div>
                 { renderModal() }
-                <div>{ project.name } <Button as="a" basic size="mini" className="right floated">Change</Button></div>
+                <div>{ project.name } <Button as="a" basic size="mini" className="right floated" onClick={ toggleModalVisible }>Change</Button></div>
             </div>
         )
     }

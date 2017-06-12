@@ -12,12 +12,12 @@ const StoryEdit = React.createClass({
     render() {
         const { path } = this.props.route;
         const { securityContext } = this.props.route.props;
-        const { id } = this.props.params;
+        const { id, projectId } = this.props.params;
 
         return (
             <Segment.Group>
                 <LoggedInHeader path={ path } securityContext={ securityContext } />
-                <StoryForm id={ id } className="main-content"/>
+                <StoryForm id={ id } projectId={ projectId } className="main-content"/>
                 <Footer />
             </Segment.Group>
         );
