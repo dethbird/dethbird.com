@@ -5,11 +5,13 @@ import {
     Checkbox,
     Container,
     Form,
+    Header,
     Icon,
     Image,
     Label,
     Menu,
-    Message
+    Message,
+    Popup
 } from 'semantic-ui-react';
 
 import ErrorMessage from 'components/ui/error-message';
@@ -99,7 +101,34 @@ const ProjectForm = React.createClass({
                     <Form.Input label="Header Image URL" placeholder="https://image.com/image.jpg" name="header_image_url" type="text" onChange={ handleFieldChange } value={ inputFields.header_image_url || '' } icon='image' iconPosition='left' />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('header_image_url', errors)} />
 
-                    <Form.TextArea label="Logline" placeholder="Logline" name="logline" onChange={ handleFieldChange } value={ inputFields.logline || '' } autoHeight={ true }/>
+                    <Popup
+                        trigger={
+                            <Form.TextArea label="Logline" placeholder="Logline" name="logline" onChange={ handleFieldChange } value={ inputFields.logline || '' } autoHeight={ true }/>
+                        }
+                        header='Writing a Logline'
+                        content={
+                            <div className='content'>
+                                <p>The basic format for a logline is:</p>
+                                <p><strong>When</strong> [a major event happens], [the hero], <strong><em>must</em></strong> [do the main action].</p>
+                                <Header as="h4">Basic Components</Header>
+                                <ul>
+                                    <li>the story's first major event or 'Inciting Incident'</li>
+                                    <li>the hero's role in the story (e.g. a mother, a cop, a scientist)</li>
+                                    <li>the hero's goal or main action in the story</li>
+                                </ul>
+                                <Header as="h4">Additional Components</Header>
+                                <ul>
+                                    <li>the hero's weakness/flaw (e.g. headstrong, timid, solitary, cocky, depressed)</li>
+                                    <li>the obstacle(s) and/or the Antagonist</li>
+                                    <li>the stakes</li>
+                                </ul>
+                                <Header as="h4">Example</Header>
+                                <p><strong>When a swimmer is brutally killed by a shark, a small-town sheriff must stop the killing monster.</strong></p>
+                            </div>
+                        }
+                        wide
+                        on='click'
+                    />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('logline', errors)} />
 
                     <Form.Field label="Genres" placeholder="Genres" name="subgenres" control={ ProjectSubgenreInput }  subgenres={ inputFields.subgenres || [] } onChange={ handleFieldChange }/>
