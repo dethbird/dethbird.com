@@ -103,7 +103,7 @@ const ProjectForm = React.createClass({
 
                     <Popup
                         trigger={
-                            <Form.TextArea label="Logline" placeholder="Logline" name="logline" onChange={ handleFieldChange } value={ inputFields.logline || '' } autoHeight={ true }/>
+                            <Form.TextArea label="Logline" placeholder="When [a major event happens], [the hero], must [do the main action]." name="logline" onChange={ handleFieldChange } value={ inputFields.logline || '' } autoHeight={ true }/>
                         }
                         header='Writing a Logline'
                         content={
@@ -127,7 +127,8 @@ const ProjectForm = React.createClass({
                             </div>
                         }
                         wide
-                        on='click'
+                        flowing
+                        on='focus'
                     />
                     <ErrorMessage message={ jsonSchema.getErrorMessageForProperty('logline', errors)} />
 

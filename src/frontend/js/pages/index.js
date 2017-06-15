@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 
 import App from 'components/app';
+import store from 'store/store';
 
 // External
 import Activate from 'components/pages/activate';
@@ -32,7 +33,7 @@ import StoryEditDemo from 'components/pages/story-edit-demo';
 import StoryPlay from 'components/pages/story-play';
 import StoryPlayDemo from 'components/pages/story-play-demo';
 import Stories from 'components/pages/stories';
-import store from 'store/store';
+import Welcome from 'components/pages/welcome';
 
 // Google Analytics
 ReactGA.initialize('UA-98286537-1', {
@@ -108,6 +109,7 @@ render((
                 <Route path="story/create/project/:projectId" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/edit" component={ StoryEdit } props={ { securityContext } }  onEnter={ requireAuth }/>
                 <Route path="story/:id/play" component={ StoryPlay } props={ { securityContext } }  onEnter={ requireAuth }/>
+                <Route path="welcome" component={ Welcome } props={ { securityContext } }  onEnter={ requireAuth }/>
 
                 <Route path="*" component={ Index } props={ { securityContext } } />
             </Route>

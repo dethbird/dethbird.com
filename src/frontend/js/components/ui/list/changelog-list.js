@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import {
     Item,
@@ -20,6 +21,11 @@ const ChangelogList = React.createClass({
 
         if (!models)
             return <Loader active>Loading</Loader>;
+
+
+        if (models.length==0)
+            browserHistory.push(`/welcome`);
+
 
         const nodes = models ? models.map(function(model, i){
             return (
