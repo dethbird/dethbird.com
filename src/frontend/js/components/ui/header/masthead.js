@@ -31,7 +31,6 @@ const Masthead = React.createClass({
                 <Container text={ true } textAlign="center">
                     <Image src="/svg/storystation.svg" className="logo"/>
                     <Header as='h2' inverted={ true }>Start writing your script <Icon name="pointing right"/></Header>
-                    <Button content='Product Features' icon='tags' labelPosition='right' color="teal" size="huge" onClick={()=>{ browserHistory.push('/product')}} />
                     <Button content='Apply for Beta Access' icon='right arrow' labelPosition='right' color="yellow" size="huge" onClick={()=>{ browserHistory.push('/private-beta')}} />
                 </Container>
             </Segment>

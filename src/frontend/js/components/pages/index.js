@@ -1,10 +1,13 @@
 import React from 'react';
 import {
+    Button,
     Container,
     Divider,
     Header,
+    Icon,
     Image,
     Grid,
+    Label,
     Segment,
     Sidebar,
 } from 'semantic-ui-react';
@@ -43,55 +46,123 @@ const Index = React.createClass({
                             <Grid>
                                 <Grid.Row>
                                     <Grid verticalAlign='middle'>
-                                        <Grid.Column width={ 11 }  textAlign="right">
+                                        <Grid.Column width={ 5 }>
+                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg"/>
+                                        </Grid.Column>
+                                        <Grid.Column width={ 11 }  textAlign="left">
                                             <Header as="h2">What is it?</Header>
                                             <p>StoryStation is a tool for pre-pre-pre-production, a.k.a. story development.</p>
                                             <p>It is designed for rapid iteration and development of your narrative projects.</p>
                                         </Grid.Column>
-                                        <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg"/>
-                                        </Grid.Column>
                                     </Grid>
                                 </Grid.Row>
                                 <Divider />
                                 <Grid.Row>
-                                    <Grid verticalAlign='top'>
-                                        <Grid.Column width={ 5 }>
-                                            <Image spaced shape="circular" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
-                                        </Grid.Column>
-                                        <Grid.Column width={ 11 }>
-
-                                            <Header as="h2">What does it do?</Header>
-                                            <p>StoryStation is primarily a tool for writing and editing screenplays. It has a number of additional features to help you write and manage story assets like characters and locations.</p>
-                                            <p>In the end, you should be able to pitch your show or movie using a nicely formatted one-sheet generated from your created assets.</p>
-
-                                            <Header as="h3">Smart ScriptEditor</Header>
-                                            <p>At it's heart is the ScriptEditor, which is best described as a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax. More about .fountain below.</p>
-
-                                            <Header as="h3">Organize with ProjectManager</Header>
-                                            <p>In StoryStation lingo, a Project is basically a show or a movie. Under that you will have episodes, characters, and other assets that make up the world you have created. You will use the ProjectManager to keep your project well-defined an on-track.</p>
-
-                                            <Header as="h3">Pitch with PitchGenerator</Header>
-                                            <p>Once you have your story fleshed out, use the <code>Pitch Generator</code> to create a pitch for your show or movie that you can take to the studios.</p>
-                                        </Grid.Column>
-                                    </Grid>
-                                </Grid.Row>
-                                <Divider />
-                                <Grid.Row>
-                                    <Grid verticalAlign='top'>
-                                        <Grid.Column width={ 11 } textAlign="right">
-                                            <Header as="h2">How does it work?</Header>
-                                            <p>Under the hood, StoryStation uses the <code>.fountain</code> script-writing format. ScriptEditor is like a code-editor for screenplay writing, providing syntax-highlighting for .fountain keywords and syntax.</p>
-                                            <Header as="h3">About .fountain</Header>
-                                            <p>Fountain is a simple markup syntax for writing, editing and sharing screenplays in plain, human-readable text.</p>
-                                            <p>Even when <a href="https://fountain.io/_downloads/Big-Fish.fountain" target="_blank">viewed as plain text</a>, your screenplay <em>feels</em> like a screenplay.</p>
-                                            <Header as="h3">Learn more</Header>
-                                            <p>Learn more at <a href="https://fountain.io" target="_blank">fountain.io</a>.</p>
-                                        </Grid.Column>
-                                        <Grid.Column width={ 5 }>
-                                            <Image spaced verticalAlign="middle" src="/img/icon/fountain.png" size="large"/>
-                                        </Grid.Column>
-                                    </Grid>
+                                    <Container textAlign="center">
+                                        <Header as="h1" className='display-header'>Product and Features</Header>
+                                        <p>A closer look at StoryStation and it's features.</p>
+                                    </Container>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/5/4175/34225033960_0ac2227d54_h.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">ProjectManager</Header>
+                                                <Segment basic>
+                                                    A <code>Project</code> is how a movie or show is classified. It contains a single or sequence of <code>Stories</code>, as well as <code>Characters</code> and any other assets that pertain to a single project. The <strong>Project Manager</strong> simply lets you track and manage these assets.
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2880/33344910634_92504c88f7_b.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">StoryEditor</Header>
+                                                <Segment basic>
+                                                    <p>In StoryStation, a <code>Story</code> represents an episode or prequels / sequels of a project. For example, <em>Return of the Jedi</em> or <em>Simpsons Season 5, Episide 8</em> are both <code>Stories</code>.</p>
+                                                    <p>The <strong>Story Editor</strong> itself consists of a "code editor" which highlights syntax in the <code>.fountain</code> script writing language. A live preview of the script can be seen on the right in print-mode. On the left, the cast of characters is listed and added to live, as the script is being written.</p>
+                                                    <p>More info on <code>.fountain</code> can be found at <a href="http://fountain.io" target="_blank">http://fountain.io</a></p>
+                                                    <p>
+                                                        <Button
+                                                            as="a"
+                                                            color="teal"
+                                                            onClick={ ()=>{ browserHistory.push(`/product/demo/storyeditor`)} }
+                                                        >
+                                                            <Icon name='rocket' /> Launch StoryEditor
+                                                        </Button>
+                                                    </p>
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2906/33803223410_4113a4a19d_b.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">StoryPlayer</Header>
+                                                <Segment basic>
+                                                    <p>The <strong>Story Editor</strong> and <strong>Story Player</strong> are based around the script you have written in <code>.fountain</code> format. However, StoryStation has extended <code>.fountain</code> with a few flavorings of it's own. Namely, you can define a <code>Image</code> and <code>Duration</code> on a <code>Panel</code></p>
+                                                    <p>Once you have written some dialogue and action and given their panels images and durations, you're ready to hit PLAY and watch your story play in storyboard form in the <strong>Story Player.</strong></p>
+                                                    <p>This allows you to get a feel for the overall length of your acts, scenes, and panels.</p>
+                                                    <p>
+                                                        <Button
+                                                            as="a"
+                                                            color="teal"
+                                                            onClick={ ()=>{ browserHistory.push(`/product/demo/storyplayer`)} }
+                                                        >
+                                                            <Icon name='rocket' /> Launch StoryPlayer
+                                                        </Button>
+                                                    </p>
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2807/34146694586_dc2289d0ce_b.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">CharacterEditor</Header>
+                                                <Segment basic>
+                                                    <p>The <strong>Character Editor</strong> just lets you give a <code>Character</code> properties like age, sex, occupation, personality traits, description, and additional images (side view, front view, etc.) to bring your <code>Character</code> to life.</p>
+                                                    <p>A character is ultimately connected to a <code>Story</code> but you can create one and not have it attached to any story, whenever you are inspired.</p>
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Label as='a' color='yellow' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">PanelMilestones</Header>
+                                                <Segment basic>
+                                                    A panel, denoted with a <code>####</code>, can have milestones in it. These are key moments, also known as story beats. They let you shape your arcs while you write.
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
+                                    <Segment as={ Container } text>
+                                        <Grid>
+                                            <Grid.Column width={ 6 }>
+                                                <Label as='a' color='yellow' ribbon>Coming Soon</Label><Image shape="rounded" verticalAlign="middle" src="https://c1.staticflickr.com/3/2843/34030429372_0fce46646f_b.jpg" size="large"/>
+                                            </Grid.Column>
+                                            <Grid.Column width={ 10 }>
+                                                <Header as="h2">PitchGenerator</Header>
+                                                <Segment basic>
+                                                    <p>We believe the entire point of writing a <code>Story</code> is to get it made. Once your project is ready to shop around, you can use the <strong>Pitch Generator</strong> to assemble your assets into a pitch you can take the the studios. For an example, see the pitch-sheet for the hit animated show <em>Adventure Time</em>, available <a href="https://www.scribd.com/document/3122798/Adventure-Time-series-presentation" target="_blank">here</a>.</p>
+                                                </Segment>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Segment>
                                 </Grid.Row>
                             </Grid>
                         </Container>

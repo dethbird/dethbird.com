@@ -41,16 +41,15 @@ const ExternalMainMenu = React.createClass({
         const { path, onClickLogin } = this.props;
         return (
             <Menu size="large" secondary={ true } inverted={ true } pointing={ true } className='external-main-menu'>
-                <Menu.Item active={ !path } onClick={()=>{browserHistory.push('/')}} ><Icon name="home" />Overview</Menu.Item>
                 <Menu.Item
-                    onClick={()=>{browserHistory.push('/product')}}
+                    onClick={()=>{browserHistory.push('/')}}
                     active={
-                        path=='product'
+                        !path
                         || path=='product/demo/storyeditor'
                         || path=='product/demo/storyplayer'
                     }
                 >
-                    <Icon name="television" />Product
+                    <Icon name="home" />Overview
                 </Menu.Item>
                 <Menu.Item onClick={()=>{browserHistory.push('/newsfeed')}} active={ path=='newsfeed' }><Icon name="newspaper" />Animation & Showbiz News</Menu.Item>
                 <Menu.Item onClick={()=>{browserHistory.push('/contact')}} active={ path=='contact' }><Icon name="chat" />Contact Us</Menu.Item>
