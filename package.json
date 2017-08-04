@@ -36,6 +36,7 @@
     "uuid": "^3.0.1"
   },
   "scripts": {
+    "setup": "sh scripts/composer.sh && sh scripts/node.sh && sh scripts/configs.sh && sh scripts/css.sh && sh scripts/frontend.sh",
     "build": "NODE_ENV=production webpack --progress --colors",
     "build-style": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
