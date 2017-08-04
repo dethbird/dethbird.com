@@ -5,4 +5,5 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install | php
 rm -rf composer.phar
 rm composer.lock
-echo "Composer Complete"
+chmod 755 public
+chmod 644 public/.htaccess public/index.php
