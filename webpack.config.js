@@ -25,7 +25,7 @@ function getPlugins() {
 
 module.exports = {
     entry: {
-        index: './src/frontend/js/pages/index.js'
+        index: './src/frontend/js/pages/*.js'
     },
     module: {
         loaders: [
