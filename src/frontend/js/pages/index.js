@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { 
     BrowserRouter as Router,
-    Route,
-    browserHistory
+    Route
 } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 import { Layout } from 'react-toolbox';
@@ -23,44 +23,36 @@ ReactGA.initialize('UA-98286537-1', {
     }
 });
 
+const history = createBrowserHistory();
+
 if (lastRequestUri !== '/favicon.ico') {
-    browserHistory.replace(lastRequestUri);
+    history.push(lastRequestUri);
 }
 
-const NoMatch = React.createClass({
-    render() {
-        return (
-            <div>Whachhu talkin about?</div>
-        );
+function requireAuth(securityContext, WrappedComponent) {
+    return class extends Component {
+        componentWillMount() {
+            if (securityContext.id === 0) {
+                history.replace('/login');
+            }
+        }
+        render() {
+            return <WrappedComponent { ... this.props } />
+        }
     }
-});
-
-const requireAuth = (nextState, replace, callback) => {
-    if (securityContext.application_user === 1) {
-        replace('/');
-    }
-    return callback();
-};
-
-const requireAdmin = (nextState, replace, callback) => {
-    if (securityContext.admin_user !== 1) {
-        replace('/');
-    }
-    return callback();
-};
+}
 
 const logPageView = () => {
     ReactGA.set({ page: window.location.pathname });
     ReactGA.pageview(window.location.pathname);
 }
-console.log(Index);
-console.log(Login);
+
 render((
     <Provider store={ store }>
-        <Router history={ browserHistory } onUpdate={ logPageView }>
+        <Router history={ history } onUpdate={ logPageView }>
             <Layout>
-                <Route path="/" component={ Index } props={ { securityContext } } />
-                <Route path="/login" component={ Login } props={ { securityContext } } />
+                <Route path="/login" component={Login} props={{ securityContext }} />
+                <Route path="/" component={requireAuth(securityContext, Index) } props={{ securityContext }} />
             </Layout>
         </Router>
     </Provider>

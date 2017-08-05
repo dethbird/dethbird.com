@@ -23,15 +23,9 @@ class SetSecurityContext
 
         # if no user session, set to default user: application
         if(!isset( $_SESSION['securityContext'])) {
-            $user = User::find_by_api_key($configs['application']['api_key']);
-            $_SESSION['securityContext'] = json_decode($user->to_json([
-                'except' => [
-                    'api_key',
-                    'password',
-                    'notifications',
-                    'date_added',
-                    'date_updated']
-            ]));
+            $user = new stdClass();
+            $user->id = 0;
+            $_SESSION['securityContext'] = $user;
         }
 
         # store current path in session for smart login
