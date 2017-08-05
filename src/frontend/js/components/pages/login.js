@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Login = React.createClass({
-    render() {
-        return (
-            <div>login</div>
-        )
+
+class Login extends Component {
+    componentWillMount() {
+        console.log('login');
     }
-})
-
+    render() {
+        return <div>login</div>
+    }
+}
 export default Login;

@@ -33,11 +33,15 @@ function requireAuth(securityContext, WrappedComponent) {
     return class extends Component {
         componentWillMount() {
             if (securityContext.id === 0) {
-                history.replace('/login');
+                document.location = '/login';
             }
         }
         render() {
-            return <WrappedComponent { ... this.props } />
+            if (securityContext.id === 0) {
+                return null;
+            } else {
+                return <WrappedComponent { ... this.props } />
+            }
         }
     }
 }
@@ -51,8 +55,8 @@ render((
     <Provider store={ store }>
         <Router history={ history } onUpdate={ logPageView }>
             <Layout>
-                <Route path="/login" component={Login} props={{ securityContext }} />
-                <Route path="/" component={requireAuth(securityContext, Index) } props={{ securityContext }} />
+                <Route path="/login" component={ Login } props={{ securityContext }} />
+                <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
             </Layout>
         </Router>
     </Provider>
