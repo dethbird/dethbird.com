@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
+import { Layout } from 'react-toolbox';
 
 import store from 'store/store';
 
@@ -57,10 +58,10 @@ console.log(Login);
 render((
     <Provider store={ store }>
         <Router history={ browserHistory } onUpdate={ logPageView }>
-            <div>
+            <Layout>
                 <Route path="/" component={ Index } props={ { securityContext } } />
                 <Route path="/login" component={ Login } props={ { securityContext } } />
-            </div>
+            </Layout>
         </Router>
     </Provider>
 ), document.getElementById('mount'));

@@ -11,6 +11,10 @@ function getPlugins() {
         }
     }));
 
+    plugins.push(new webpack.LoaderOptionsPlugin({
+        debug: true
+    }))
+
     // Conditionally add plugins for Production builds.
     if (isProd) {
         plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -27,25 +31,52 @@ module.exports = {
     entry: {
         index: './src/frontend/js/pages/index.js'
     },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            }
-        ]
+    output: {
+        path: process.cwd() + '/public/js/pages',
+        filename: "[name].js"
     },
-    plugins: getPlugins(),
     resolve: {
+        extensions: [".js", ".json", ".css"],
         modules: [
             './node_modules',
             './src/frontend/js',
             './configs'
         ]
     },
-    output: {
-        path: process.cwd() + '/public/js/pages',
-        filename: "[name].js"
-    }
+    devtool: "eval-source-map",
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        ["es2015", { modules: false }],
+                        "stage-2",
+                        "react"
+                    ],
+                    plugins: [
+                        "transform-node-env-inline"
+                    ]
+                }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                            importLoaders: 1,
+                            localIdentName: "[name]--[local]--[hash:base64:8]"
+                        }
+                    },
+                    "postcss-loader" // has separate config, see postcss.config.js nearby
+                ]
+            },
+        ]
+    },
+    plugins: getPlugins()
 }

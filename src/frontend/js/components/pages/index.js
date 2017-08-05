@@ -1,9 +1,12 @@
 import React from 'react';
+import { Button } from 'react-toolbox';
 
 const Index = React.createClass({
     render() {
         return (
-            <div>index</div>
+            <div>
+                <Button icon='bookmark' label='Bookmark' />
+            </div>
         )
     }
 })
