@@ -8,6 +8,13 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
@@ -47,18 +54,48 @@ function requireAuth(securityContext, WrappedComponent) {
             }
         }
     }
-}
+};
 
 const logPageView = () => {
     ReactGA.set({ page: window.location.pathname });
     ReactGA.pageview(window.location.pathname);
 }
 
+class MenuLogin extends Component {
+    static muiName = 'FlatButton';
+
+    render() {
+        return (
+            <FlatButton {...this.props} label="Login" />
+        );
+    }
+}
+
+const MenuLogged = (props) => (
+    <IconMenu
+        {...props}
+        iconButtonElement={
+            <IconButton><MoreVertIcon /></IconButton>
+        }
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+    >
+        <MenuItem primaryText="Projects" onTouchTap={() => { history.push('/projects') }} />
+        <MenuItem primaryText="Logout" onTouchTap={()=>{ document.location='/logout'}}/>
+    </IconMenu>
+);
+
+MenuLogged.muiName = 'MenuLogged';
+
 render((
     <MuiThemeProvider>
         <Provider store={ store }>
             <Router history={ history } onUpdate={ logPageView }>
                 <div>
+                    <AppBar
+                        title="storystation"
+                        iconElementRight={securityContext.id !== 0 ? <MenuLogged /> : <MenuLogin />}
+                    />
                     <Route path="/login" component={ Login } props={{ securityContext }} />
                     <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
                 </div>
