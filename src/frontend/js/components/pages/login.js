@@ -7,6 +7,8 @@ import TextField from 'material-ui/TextField';
 import Devices from 'material-ui/svg-icons/device/devices';
 
 import Container from 'components/layout/container';
+import FormWrapper from 'components/form/form-wrapper';
+import UiStateButton from 'components/form/ui-state-button';
 import { UI_STATE } from 'constants/ui-state';
 import { loginAttempt } from 'actions/login';
 import loginPostSchema from 'validation_schema/login-post.json';
@@ -23,7 +25,6 @@ class Login extends Component {
         this.onClickSubmit = this.onClickSubmit.bind(this);
     }
     handleFieldChange(e, elementId) {
-        // console.log(e.currentTarget.id, elementId);
         const { changedFields } = this.state;
         changedFields[e.currentTarget.id] = e.currentTarget.value;
         this.setState({
@@ -41,37 +42,41 @@ class Login extends Component {
         const { changedFields } = this.state;
         return (
             <Container>
-                <Card>
-                    <CardTitle title="Login, Honcho" />
-                    <CardText>
-                        <TextField 
-                            type='username'
-                            floatingLabelText='Username'
-                            name='username'
-                            id='username'
-                            fullWidth
-                            value={changedFields.username || ''}
-                            onChange={this.handleFieldChange}
-                            errorText={jsonSchema.getErrorMessageForProperty('username', errors)}
-                            hintText='joe.schmoe'
-                        />
-                        <br />
-                        <TextField
-                            type='password'
-                            floatingLabelText='Password'
-                            name='password'
-                            id='password'
-                            fullWidth
-                            value={changedFields.password || ''}
-                            onChange={this.handleFieldChange}
-                            errorText={jsonSchema.getErrorMessageForProperty('password', errors)}
-                            hintText='letmein'
-                        />
-                    </CardText>
-                    <CardActions>
-                        <FlatButton icon={<Devices /> } label='Login' labelPosition='before' primary onClick={ this.onClickSubmit } />
-                    </CardActions>
-                </Card>
+                <FormWrapper onSubmit={ this.onClickSubmit } >
+                    <Card>
+                        <CardTitle title="Login, Honcho" />
+                        <CardText>
+                            <TextField 
+                                type='username'
+                                floatingLabelText='Username'
+                                name='username'
+                                id='username'
+                                fullWidth
+                                value={changedFields.username || ''}
+                                onChange={this.handleFieldChange}
+                                errorText={jsonSchema.getErrorMessageForProperty('username', errors)}
+                                hintText='joe.schmoe'
+                            />
+                            <br />
+                            <TextField
+                                type='password'
+                                floatingLabelText='Password'
+                                name='password'
+                                id='password'
+                                fullWidth
+                                value={changedFields.password || ''}
+                                onChange={this.handleFieldChange}
+                                errorText={jsonSchema.getErrorMessageForProperty('password', errors)}
+                                hintText='letmein'
+                            />
+                        </CardText>
+                        <CardActions style={ { textAlign: 'right' } }>
+                            <UiStateButton uiState={ ui_state } successMessage={ 'Login successful' } >
+                                <FlatButton icon={<Devices /> } label='Login' labelPosition='before' primary onClick={ this.onClickSubmit } type='submit'/>
+                            </UiStateButton>
+                        </CardActions>
+                    </Card>
+                </FormWrapper>
             </Container>
         )
     }
