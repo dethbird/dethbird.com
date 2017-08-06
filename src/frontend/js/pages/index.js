@@ -7,7 +7,10 @@ import {
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
-import { Layout } from 'react-toolbox';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 import store from 'store/store';
 
@@ -52,12 +55,14 @@ const logPageView = () => {
 }
 
 render((
-    <Provider store={ store }>
-        <Router history={ history } onUpdate={ logPageView }>
-            <Layout>
-                <Route path="/login" component={ Login } props={{ securityContext }} />
-                <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
-            </Layout>
-        </Router>
-    </Provider>
+    <MuiThemeProvider>
+        <Provider store={ store }>
+            <Router history={ history } onUpdate={ logPageView }>
+                <div>
+                    <Route path="/login" component={ Login } props={{ securityContext }} />
+                    <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
+                </div>
+            </Router>
+        </Provider>
+    </MuiThemeProvider>
 ), document.getElementById('mount'));

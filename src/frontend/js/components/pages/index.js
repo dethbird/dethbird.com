@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-toolbox';
+import { FlatButton } from 'material-ui/FlatButton';
 
 
 class Index extends Component {
@@ -9,7 +9,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Button icon='bookmark' label='Bookmark' />
+                <FlatButton icon='bookmark' label='Bookmark' />
             </div>
         );
     }
