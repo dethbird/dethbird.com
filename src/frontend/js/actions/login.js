@@ -31,7 +31,7 @@ export const loginAttempt = (fields) =>
                 if(res.ok) {
                     dispatch(loginAttemptSuccess());
                     securityContext = res.body;
-                    window.location.href="/projects";
+                    window.location.href="/";
                 } else {
                     dispatch(loginAttemptError(res.body));
                 }

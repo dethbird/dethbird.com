@@ -104,7 +104,13 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
             ->withJson(json_decode($e->getResponse()->getBody()->getContents()));
     }
     
-    $body = json_decode($apiResponse->getBody()->getContents());
+    $body = json_decode($apiResponse->getBody()->getContents(), true);
+
+    if ($path['path']=='api/0.1/login') {
+        $_SESSION['authToken'] = $body['auth_token'];
+        unset($body['auth_token']);
+        $_SESSION['securityContext'] = $body;
+    }
 
     return $response
         ->withJson($body);
@@ -112,6 +118,7 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
 
 # logout
 $app->get("/logout",  function ($request, $response) {
+    $_SESSION['authToken'] = null;
     $_SESSION['securityContext'] = null;
     $_SESSION['lastRequestUri'] = '/';
     return $response
