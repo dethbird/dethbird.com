@@ -52,7 +52,8 @@ class Login extends Component {
                             fullWidth
                             value={changedFields.username || ''}
                             onChange={this.handleFieldChange}
-                            hintText='joe.schmoe@email.com'
+                            errorText={jsonSchema.getErrorMessageForProperty('username', errors)}
+                            hintText='joe.schmoe'
                         />
                         <br />
                         <TextField
@@ -63,6 +64,7 @@ class Login extends Component {
                             fullWidth
                             value={changedFields.password || ''}
                             onChange={this.handleFieldChange}
+                            errorText={jsonSchema.getErrorMessageForProperty('password', errors)}
                             hintText='letmein'
                         />
                     </CardText>

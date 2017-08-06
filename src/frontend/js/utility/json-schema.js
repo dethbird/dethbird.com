@@ -1,4 +1,4 @@
-import { forEach } from 'lodash';
+import { forEach, find } from 'lodash';
 
 export const initialFields = (schema) => {
     let fields = {};
@@ -21,7 +21,7 @@ export const buildInputFields = (model, changedFields, schema) => {
 export const getErrorMessageForProperty = (property, errors) => {
     if (errors) {
         if (errors.properties) {
-            const error = _.findWhere(errors.properties, {
+            const error = _.find(errors.properties, {
                 property
             });
 

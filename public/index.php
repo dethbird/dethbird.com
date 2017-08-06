@@ -68,8 +68,6 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-// require_once APPLICATION_PATH . 'src/routes/api.php';
-
 # index
 $app->get('/', function ($request, $response){
     $configs = $this['configs'];
@@ -107,7 +105,6 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
     }
     
     $body = json_decode($apiResponse->getBody()->getContents());
-    
 
     return $response
         ->withJson($body);
