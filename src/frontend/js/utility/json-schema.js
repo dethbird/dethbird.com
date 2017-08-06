@@ -1,8 +1,8 @@
-import * as _ from 'underscore';
+import { forEach } from 'lodash';
 
 export const initialFields = (schema) => {
     let fields = {};
-    _.each(schema.properties, function(def, field) {
+    forEach(schema.properties, function(def, field) {
         fields[field] = def.default==undefined ? null : def.default;
     });
     return fields;
@@ -24,6 +24,7 @@ export const getErrorMessageForProperty = (property, errors) => {
             const error = _.findWhere(errors.properties, {
                 property
             });
+
             if (error) {
                 return error.message;
             }

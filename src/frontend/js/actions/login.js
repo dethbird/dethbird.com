@@ -25,13 +25,13 @@ const loginAttemptError = (errors) => {
 export const loginAttempt = (fields) =>
     dispatch => {
         dispatch(loginAttemptInit());
-        request.post('/api/0.1/login')
+        request.post('/proxy/api/0.1/login')
             .send( { ... fields } )
             .end(function(err, res){
                 if(res.ok) {
                     dispatch(loginAttemptSuccess());
                     securityContext = res.body;
-                    window.location.href="/dashboard";
+                    window.location.href="/projects";
                 } else {
                     dispatch(loginAttemptError(res.body));
                 }

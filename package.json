@@ -4,6 +4,7 @@
     "gasp": "0.0.2",
     "gsap": "^1.19.1",
     "history": "^4.6.3",
+    "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "material-ui": "^0.18.7",
     "moment": "^2.18.1",
@@ -28,7 +29,6 @@
     "throttle-debounce": "^1.0.1",
     "timeago": "^1.4.3",
     "uglify-js": "^3.0.15",
-    "underscore": "^1.8.3",
     "uuid": "^3.0.1"
   },
   "scripts": {

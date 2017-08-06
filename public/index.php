@@ -68,7 +68,7 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-require_once APPLICATION_PATH . 'src/routes/api.php';
+// require_once APPLICATION_PATH . 'src/routes/api.php';
 
 # index
 $app->get('/', function ($request, $response){
@@ -91,6 +91,27 @@ $app->get('/', function ($request, $response){
 
 })
 ->add( new SetSecurityContext($container) );
+
+$app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
+
+    $configs = $this['configs'];
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
+
+    $client = new GuzzleHttp\Client(['base_uri' => 'https://api-dev.storystation.io']);
+    try {
+        $apiResponse = $client->request($request->getMethod(), '/' . $path['path'], ['json' => $request->getParsedBody()]);
+    } catch (Exception $e) {
+        return $response
+            ->withStatus($e->getResponse()->getStatusCode())
+            ->withJson(json_decode($e->getResponse()->getBody()->getContents()));
+    }
+    
+    $body = json_decode($apiResponse->getBody()->getContents());
+    
+
+    return $response
+        ->withJson($body);
+});
 
 # logout
 $app->get("/logout",  function ($request, $response) {
