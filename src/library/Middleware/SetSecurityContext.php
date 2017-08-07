@@ -26,6 +26,7 @@ class SetSecurityContext
             $user = new stdClass();
             $user->id = 0;
             $_SESSION['securityContext'] = $user;
+            $_SESSION['authToken'] = null;
         }
 
         # store current path in session for smart login

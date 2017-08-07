@@ -70,6 +70,7 @@ $container['notFoundHandler'] = function ($c) {
 
 # index
 $app->get('/', function ($request, $response){
+    // var_dump($_SESSION); die();
     $configs = $this['configs'];
     $view = $this['view'];
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
@@ -97,13 +98,20 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
 
     $client = new GuzzleHttp\Client(['base_uri' => 'https://api-dev.storystation.io']);
     try {
-        $apiResponse = $client->request($request->getMethod(), '/' . $path['path'], ['json' => $request->getParsedBody()]);
+        $options = [];
+        $body = $request->getParsedBody();
+        if ($body) {
+            $options['json'] = $body;
+        }
+        if (!is_null($_SESSION['authToken'])) {
+            $options['headers'] = ['Auth-Token' => $_SESSION['authToken']];
+        }
+        $apiResponse = $client->request($request->getMethod(), '/' . $path['path'], $options);
     } catch (Exception $e) {
         return $response
             ->withStatus($e->getResponse()->getStatusCode())
             ->withJson(json_decode($e->getResponse()->getBody()->getContents()));
     }
-    
     $body = json_decode($apiResponse->getBody()->getContents(), true);
 
     if ($path['path']=='api/0.1/login') {
