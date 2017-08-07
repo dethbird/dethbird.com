@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
 import { UI_STATE } from 'constants/ui-state';
-import { projectsGet } from 'actions/projects'
+import { projectsGet } from 'actions/projects';
 
 import Container from 'components/layout/container';
 import UiStateContainer from 'components/ui/ui-state-container';

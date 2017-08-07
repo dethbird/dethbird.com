@@ -87,7 +87,8 @@ const palette = {
 
 const muiTheme = getMuiTheme({
     appBar: {
-        color: palette.baseColor
+        color: palette.baseColor,
+        textColor: '#FFFFFF'
     },
     floatingActionButton: {
         color: palette.baseButtonColor,

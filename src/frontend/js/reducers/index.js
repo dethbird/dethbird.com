@@ -1,14 +1,3 @@
 export { default as loginReducer } from 'reducers/login';
-export { default as characterReducer } from 'reducers/character';
-export { default as charactersReducer } from 'reducers/characters';
-export { default as changelogReducer } from 'reducers/changelog';
-export { default as contactReducer } from 'reducers/contact';
-export { default as genresReducer } from 'reducers/genres';
-export { default as newsfeedReducer } from 'reducers/newsfeed';
-export { default as privatebetaReducer } from 'reducers/private-beta';
-export { default as projectReducer } from 'reducers/project';
 export { default as projectsReducer } from 'reducers/projects';
-export { default as storyReducer } from 'reducers/story';
-export { default as storiesReducer } from 'reducers/stories';
-export { default as userReducer } from 'reducers/user';
-export { default as usersReducer } from 'reducers/users';
+export { default as projectStoryboardReducer } from 'reducers/project-storyboard';
