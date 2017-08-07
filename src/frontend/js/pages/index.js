@@ -22,7 +22,7 @@ injectTapEventPlugin();
 import store from 'store/store';
 
 // External
-import Index from 'components/pages/index';
+import Projects from 'components/pages/projects';
 import Login from 'components/pages/login';
 
 // Google Analytics
@@ -83,12 +83,13 @@ render((
             <Router history={ history } onUpdate={ logPageView }>
                 <div>
                     <AppBar
-                        title="storystation"
+                        title={securityContext.username ? securityContext.username : 'storystation // clients'}
                         iconElementRight={ securityContext.id !== 0 ? <MenuLogged /> : null }
                     />
                     <br />
                     <Route path="/login" component={ Login } props={{ securityContext }} />
-                    <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
+                    <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
+                    <Route exact path="/" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
                 </div>
             </Router>
         </Provider>

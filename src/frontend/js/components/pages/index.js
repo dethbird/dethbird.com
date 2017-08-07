@@ -4,9 +4,6 @@ import Devices from 'material-ui/svg-icons/device/devices';
 
 
 class Index extends Component {
-    componentWillMount() {
-        console.log('index');
-    }
     render() {
         return (
             <div>
