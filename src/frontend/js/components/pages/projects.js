@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory();
 
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,11 +12,17 @@ import Container from 'components/layout/container';
 import UiStateContainer from 'components/ui/ui-state-container';
 
 class Projects extends Component {
+    constructor(props) {
+        super(props);
+        this.renderStoryboards = this.renderStoryboards.bind(this);
+        this.renderProjects = this.renderProjects.bind(this);
+    }
     componentWillMount() {
         const { dispatch } = this.props;
         dispatch(projectsGet());
     }
     renderStoryboards(storyboards) {
+        const { history } = this.props;
         return storyboards.map(function(model,i){
             return <div className="col-xs-3" key={ i }>
                 <Card>

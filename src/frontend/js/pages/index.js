@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { 
-    BrowserRouter as Router,
+    Router,
     Route
 } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -25,6 +25,7 @@ import store from 'store/store';
 
 // External
 import Projects from 'components/pages/projects';
+import ProjectStoryboard from 'components/pages/project-storyboard';
 import Login from 'components/pages/login';
 
 // Google Analytics
@@ -36,7 +37,7 @@ ReactGA.initialize('UA-98286537-1', {
 });
 
 if (lastRequestUri !== '/favicon.ico') {
-    history.push(lastRequestUri);
+    history.replace(lastRequestUri);
 }
 
 function requireAuth(securityContext, WrappedComponent) {
@@ -113,20 +114,21 @@ const muiTheme = getMuiTheme({
 });
 
 render((
-    <MuiThemeProvider muiTheme={muiTheme}>
-        <Provider store={ store }>
-            <Router history={ history } onUpdate={ logPageView }>
-                <div>
-                    <AppBar
-                        title={securityContext.username ? securityContext.username : 'storystation // clients'}
-                        iconElementRight={ securityContext.id !== 0 ? <MenuLogged /> : null }
-                    />
-                    <br />
-                    <Route path="/login" component={ Login } props={{ securityContext }} />
-                    <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
-                    <Route exact path="/" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
-                </div>
-            </Router>
-        </Provider>
-    </MuiThemeProvider>
+    <Router history={ history }>
+        <MuiThemeProvider muiTheme={muiTheme}>
+            <Provider store={ store }>
+                    <div>
+                        <AppBar
+                            title={securityContext.username ? securityContext.username : 'storystation // clients'}
+                            iconElementRight={ securityContext.id !== 0 ? <MenuLogged /> : null }
+                        />
+                        <br />
+                        <Route path="/login" component={ Login } props={{ securityContext }} />
+                        <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
+                        <Route exact path="/project/:projectId/storyboard/:storyboardId" component={requireAuth(securityContext, ProjectStoryboard)} props={{ securityContext }} />
+                        <Route exact path="/" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
+                    </div>
+            </Provider>
+        </MuiThemeProvider>
+    </Router>
 ), document.getElementById('mount'));
