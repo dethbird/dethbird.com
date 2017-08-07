@@ -5,9 +5,11 @@ import {
     Route
 } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+const history = createBrowserHistory();
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';   
 import AppBar from 'material-ui/AppBar';;
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -32,8 +34,6 @@ ReactGA.initialize('UA-98286537-1', {
         userId: securityContext.id
     }
 });
-
-const history = createBrowserHistory();
 
 if (lastRequestUri !== '/favicon.ico') {
     history.push(lastRequestUri);
@@ -77,8 +77,43 @@ const MenuLogged = (props) => (
 
 MenuLogged.muiName = 'MenuLogged';
 
+const palette = {
+    baseColor: '#2F2137',
+    baseButtonColor: '#F2F2F2',
+    primaryColor: '#0449A3',
+    secondaryColor: '#A3038C'
+}
+
+const muiTheme = getMuiTheme({
+    appBar: {
+        color: palette.baseColor
+    },
+    floatingActionButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    flatButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    floatingActionButton: {
+        color: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    raisedButton: {
+        color: palette.baseButtonColor,
+        primaryColor: palette.primaryColor,
+        secondaryColor: palette.secondaryColor
+    },
+    ripple: {
+        color: 'rgba(0,0,0,0.25)'
+    }
+});
+
 render((
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={ store }>
             <Router history={ history } onUpdate={ logPageView }>
                 <div>

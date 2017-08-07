@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createBrowserHistory } from 'history';
+const history = createBrowserHistory();
 
 import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
 import { UI_STATE } from 'constants/ui-state';
@@ -17,11 +20,16 @@ class Projects extends Component {
     }
     renderStoryboards(storyboards) {
         return storyboards.map(function(model,i){
-            return <Paper key={ i }>
-                <Container>
-                    { model.name }
-                </Container>
-            </Paper>
+            return <div className="col-xs-3" key={ i }>
+                <Card>
+                    <CardTitle>
+                        { model.name }
+                    </CardTitle>
+                    <CardActions>
+                        <FlatButton label="Details" primary fullWidth onTouchTap={() => { history.push(`/project/${model.project_id}/storyboard/${model.id}`)}}/>
+                    </CardActions>
+                </Card>
+            </div>
         });
     }
     renderProjects() {
@@ -30,14 +38,15 @@ class Projects extends Component {
         if (!models)
             return null;
         const nodes = models.map(function(model, i){
-            console.log(model.storyboards);
             return (
                 <Container key={i}>
                     <Card>
                         <CardTitle><h2>{model.name}</h2></CardTitle>
                         <CardText>
                             <h4>Storyboards</h4>
-                            { renderStoryboards(model.storyboards) }
+                            <Container>
+                                { renderStoryboards(model.storyboards) }
+                            </Container>
                         </CardText>
                     </Card>
                     <br />
