@@ -14,6 +14,7 @@ class ProjectStoryboard extends Component {
         super(props);
         this.renderProject = this.renderProject.bind(this);
         this.renderStoryboard = this.renderStoryboard.bind(this);
+        this.renderPanels = this.renderPanels.bind(this);
     }
     componentWillMount() {
         const { dispatch, match } = this.props;
@@ -27,9 +28,9 @@ class ProjectStoryboard extends Component {
         return (
             <Container>
                 <Card>
-                    <CardTitle>
+                    <CardText>
                         <h2>{project.name}</h2>
-                    </CardTitle>
+                    </CardText>
                 </Card>
                 <br />
             </Container>
@@ -42,13 +43,43 @@ class ProjectStoryboard extends Component {
         return (
             <Container>
                 <Card>
-                    <CardTitle>
+                    <CardText>
                         <h3>{storyboard.name}</h3>
-                    </CardTitle>
+                    </CardText>
+                    <CardText>
+                        { this.renderPanels() }
+                    </CardText>
                 </Card>
                 <br />
             </Container>
         );
+    }
+    renderPanels() {
+        const { storyboard } = this.props;
+        if (!storyboard)
+            return null;
+
+        let panels = storyboard.panels;
+        let rows = [];
+        while (panels.length > 0){
+            rows.push(panels.splice(0, 4));
+        }
+
+        const nodes = rows.map(function(row, i){
+            const panelNodes = row.map(function(panel, j){
+                return (
+                    <div className="col-xs-3" key={ j }>
+                        {panel.id}
+                    </div>
+                );
+            });
+            return (
+                <div className="row" key={ i }>
+                    { panelNodes }
+                </div>
+            );
+        });     
+        return nodes;
     }
     render() {
         const { ui_state } = this.props;
