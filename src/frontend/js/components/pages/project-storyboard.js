@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { UI_STATE } from 'constants/ui-state';
 import { projectStoryboardGet } from 'actions/project-storyboard';
 
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+
 import Container from 'components/layout/container';
 import UiStateContainer from 'components/ui/ui-state-container';
 
@@ -22,22 +24,38 @@ class ProjectStoryboard extends Component {
         const { project } = this.props;
         if(!project)
             return null;
-        return <div>{ project.name }</div>
+        return (
+            <Container>
+                <Card>
+                    <CardTitle>
+                        <h2>{project.name}</h2>
+                    </CardTitle>
+                </Card>
+                <br />
+            </Container>
+        );
     }
     renderStoryboard() {
         const { storyboard } = this.props;
         if (!storyboard)
             return null;
-        return <div>{storyboard.name}</div>
+        return (
+            <Container>
+                <Card>
+                    <CardTitle>
+                        <h3>{storyboard.name}</h3>
+                    </CardTitle>
+                </Card>
+                <br />
+            </Container>
+        );
     }
     render() {
         const { ui_state } = this.props;
         return (
             <UiStateContainer uiState={ui_state} >
-                <Container>
                     { this.renderProject() }
                     { this.renderStoryboard() }
-                </Container>
             </UiStateContainer>
         );
     }
