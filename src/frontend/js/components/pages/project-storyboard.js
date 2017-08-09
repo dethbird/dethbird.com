@@ -7,6 +7,7 @@ import { projectStoryboardGet } from 'actions/project-storyboard';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { GridList, GridTile } from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
+import Drawer from 'material-ui/Drawer';
 
 import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
@@ -18,9 +19,15 @@ import { tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
 class ProjectStoryboard extends Component {
     constructor(props) {
         super(props);
+        this.state = { openPanel: null };
         this.renderProject = this.renderProject.bind(this);
         this.renderStoryboard = this.renderStoryboard.bind(this);
         this.renderPanels = this.renderPanels.bind(this);
+        this.setOpenPanel = this.setOpenPanel.bind(this);
+        this.renderPanelDrawer = this.renderPanelDrawer.bind(this);
+    }
+    setOpenPanel(panelId) {
+        this.setState({openPanel: panelId});
     }
     componentWillMount() {
         const { dispatch, match } = this.props;
@@ -63,6 +70,9 @@ class ProjectStoryboard extends Component {
 
     renderPanels() {
         const { storyboard, history } = this.props;
+        const { setOpenPanel } = this;
+        const { openPanel } = this.state;
+        const that = this;
         if (!storyboard)
             return null;
 
@@ -77,7 +87,7 @@ class ProjectStoryboard extends Component {
                 >
                     <Card>
                         <CardMedia>
-                            <a onClick={()=>{history.push(`/project/${storyboard.project_id}/storyboard/${storyboard.id}/panel/${panel.id}`)}}>
+                            <a onClick={ ()=> { setOpenPanel(panel) } }>
                                 <PanelImage panel={ panel } />
                             </a>
                         </CardMedia>
@@ -95,12 +105,32 @@ class ProjectStoryboard extends Component {
             </GridList>
         );
     }
+    renderPanelDrawer() {
+        const { openPanel } = this.state;
+        const { setState } = this;
+        if (openPanel) {
+            return <Drawer
+                open={true}
+                docked={false}
+                width={ '95%' }
+                onRequestChange={(open) => {
+                    if (open === false) {
+                        this.setState({ openPanel: null })
+                    }
+                }}
+            >
+                farts
+            </Drawer>
+        }
+        return null;
+    }
     render() {
         const { ui_state } = this.props;
         return (
             <UiStateContainer uiState={ui_state} >
                 { this.renderProject() }
-                { this.renderStoryboard() }
+                {this.renderStoryboard()}
+                {this.renderPanelDrawer()}
             </UiStateContainer>
         );
     }
@@ -116,3 +146,19 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ProjectStoryboard);
+
+/**
+
+                            <Drawer
+                                open={ openPanel === panel.id }
+                                docked={ false }
+                                width={ '100%' }
+                                onRequestChange={(open)=>{
+                                    if(open===false){
+                                        that.setState({openPanel: null})
+                                    }
+                                }}
+                            >
+                                farts
+                            </Drawer>
+ */
