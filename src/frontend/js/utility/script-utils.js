@@ -1,6 +1,6 @@
 import uuidV4 from 'uuid/v4';
 import { log } from 'utility/logger';
-import * as _ from 'underscore';
+import { keys, sortBy, find } from 'lodash';
 import pad from 'pad-left';
 import { REGEX } from 'constants/section';
 import moment from 'moment';
@@ -37,8 +37,8 @@ export const collateProjectScriptCharactersWithCharacters = (stories, characters
         not_found = not_found.concat(collated.not_found);
     }
     return {
-        not_found: _.sortBy(not_found, 'name'),
-        existing: _.sortBy(existing, 'name')
+        not_found: sortBy(not_found, 'name'),
+        existing: sortBy(existing, 'name')
     };
 }
 
@@ -61,14 +61,14 @@ export const collateScriptCharacterTokensWithCharacters = (scriptCharacters, cha
             }
         }
         if(found===true) {
-            if(!_.findWhere(existing, {name:e.name})) {
+            if(!find(existing, {name:e.name})) {
                 existing.push({
                     name: e.name,
                     existing: c
                 });
             }
         } else {
-            if(!_.findWhere(not_found, {name:e.name})) {
+            if(!find(not_found, {name:e.name})) {
                 not_found.push({ name: e.name })
             }
         }
@@ -691,15 +691,18 @@ export const tokenizeScript = (script) => {
     }
     scriptTokens = _scriptTokens.reverse();
 
-    const keys = _.keys(characterCounts);
-    let characters = keys.map(function(key){
-        return {
-            name: key,
-            parts: characterCounts[key]
-        };
-    });
-    characters = _.sortBy(characters, 'name');
-
+    let characters = [];
+    if (characterCounts.length > 0){
+        const keys = keys(characterCounts);
+        characters = keys.map(function (key) {
+            return {
+                name: key,
+                parts: characterCounts[key]
+            };
+        });
+        characters = sortBy(characters, [function (o) { return o.name; }]);
+    }
+    
     return {
         scriptTokens,
         titleTokens,
@@ -710,6 +713,8 @@ export const tokenizeScript = (script) => {
 
 
 export const lexizeScript = (script) => {
+    if (!script || script==='')
+        return [];
     const lines = script
         .replace(REGEX.LEXER.STANDARDIZER, '\n')
         .replace(REGEX.LEXER.CLEANER, '')

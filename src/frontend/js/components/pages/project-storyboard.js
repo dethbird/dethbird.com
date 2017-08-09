@@ -5,9 +5,15 @@ import { UI_STATE } from 'constants/ui-state';
 import { projectStoryboardGet } from 'actions/project-storyboard';
 
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { GridList, GridTile } from 'material-ui/GridList';
+import FlatButton from 'material-ui/FlatButton';
 
 import Container from 'components/layout/container';
+import PanelImage from 'components/ui/panel-image';
 import UiStateContainer from 'components/ui/ui-state-container';
+
+import { tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
+
 
 class ProjectStoryboard extends Component {
     constructor(props) {
@@ -54,39 +60,47 @@ class ProjectStoryboard extends Component {
             </Container>
         );
     }
+
     renderPanels() {
-        const { storyboard } = this.props;
+        const { storyboard, history } = this.props;
         if (!storyboard)
             return null;
 
-        let panels = storyboard.panels;
-        let rows = [];
-        while (panels.length > 0){
-            rows.push(panels.splice(0, 4));
-        }
-
-        const nodes = rows.map(function(row, i){
-            const panelNodes = row.map(function(panel, j){
-                return (
-                    <div className="col-xs-3" key={ j }>
-                        {panel.id}
-                    </div>
-                );
-            });
+        const nodes = storyboard.panels.map(function (panel, i) {
             return (
-                <div className="row" key={ i }>
-                    { panelNodes }
-                </div>
+                <GridTile
+                    key={i}
+                    title={ i }
+                    titlePosition='top'
+                    titleStyle={{color:'#fff'}}
+                    titleBackground='rgba(0, 0, 0, 0)'
+                >
+                    <Card>
+                        <CardMedia>
+                            <a onClick={()=>{history.push(`/project/${storyboard.project_id}/storyboard/${storyboard.id}/panel/${panel.id}`)}}>
+                                <PanelImage panel={ panel } />
+                            </a>
+                        </CardMedia>
+                    </Card>
+                </GridTile>
             );
-        });     
-        return nodes;
+        });
+        return (
+            <GridList
+                cols={ 2 }
+                padding={ 10 }
+                cellHeight={ 'auto' }
+            >
+                {nodes}
+            </GridList>
+        );
     }
     render() {
         const { ui_state } = this.props;
         return (
             <UiStateContainer uiState={ui_state} >
-                    { this.renderProject() }
-                    { this.renderStoryboard() }
+                { this.renderProject() }
+                { this.renderStoryboard() }
             </UiStateContainer>
         );
     }
