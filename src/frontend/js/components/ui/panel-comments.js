@@ -7,6 +7,7 @@ class PanelComments extends Component {
         if (panel.comments.length < 1)
             return <div>No Comments</div>;
         const nodes = panel.comments.map(function(comment,i){
+            console.log(comment);
             return (
                 <div key={i}>{comment.id}</div>
             );
