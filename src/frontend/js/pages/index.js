@@ -52,7 +52,7 @@ function requireAuth(securityContext, WrappedComponent) {
             if (securityContext.id === 0) {
                 return null;
             } else {
-                return <WrappedComponent { ... this.props } />
+                return <WrappedComponent securityContext={ securityContext } { ...this.props } />
             }
         }
     }

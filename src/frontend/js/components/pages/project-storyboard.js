@@ -10,7 +10,7 @@ import Badge from 'material-ui/Badge';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
-import { CommunicationForum, ImagePhotoLibrary, AvMovie } from 'material-ui/svg-icons';
+import { CommunicationForum, ImagePhotoLibrary, AvMovie, ContentCreate } from 'material-ui/svg-icons';
 
 import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
@@ -69,12 +69,28 @@ class ProjectStoryboard extends Component {
     }
 
     renderPanels() {
-        const { storyboard, history } = this.props;
+        const { project, storyboard, history, securityContext } = this.props;
         const { setOpenPanel } = this;
         const { openPanel } = this.state;
         const that = this;
         if (!storyboard)
             return null;
+
+        const renderEditButton = (project, securityContext) => {
+            if (project.user_id == securityContext.id) {
+                console.log('edit');
+                return (
+                    <IconButton title="Edit">
+                        <Badge
+                            badgeContent={''}
+                        >
+                            <ContentCreate />
+                        </Badge>
+                    </IconButton>
+                )
+            }
+            return null;
+        };
 
         const nodes = storyboard.panels.map(function (panel, i) {
             return (
@@ -113,15 +129,16 @@ class ProjectStoryboard extends Component {
                                         </Badge>
                                     </IconButton>
                                 </div>
-                                <div className="col-sm-2" style={{ textAlign: 'right', verticalAlign: 'bottom'}}>
+                                <div className="col-sm-2" style={{ textAlign: 'right'}}>
                                     <IconButton title="Panel Script">
                                         <Badge
-                                            badgeContent={null}
+                                            badgeContent={''}
                                         >
                                             <AvMovie />
                                         </Badge>
                                     </IconButton>
                                 </div>
+                                { renderEditButton(project, securityContext) }
                             </div>
                         </CardActions>
                     </Card>
