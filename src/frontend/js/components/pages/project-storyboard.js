@@ -14,20 +14,26 @@ import { CommunicationForum, ImagePhotoLibrary, AvMovie, ContentCreate } from 'm
 
 import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
+import PanelComments from 'components/ui/panel-comments';
 import UiStateContainer from 'components/ui/ui-state-container';
 
 class ProjectStoryboard extends Component {
     constructor(props) {
         super(props);
-        this.state = { openPanel: null };
+        this.state = { panelDetailItem: null };
         this.renderProject = this.renderProject.bind(this);
         this.renderStoryboard = this.renderStoryboard.bind(this);
         this.renderPanels = this.renderPanels.bind(this);
-        this.setOpenPanel = this.setOpenPanel.bind(this);
-        this.renderPanelDrawer = this.renderPanelDrawer.bind(this);
+        this.clickPanelDetailButton = this.clickPanelDetailButton.bind(this);
+        this.renderPanelDetailDrawer = this.renderPanelDetailDrawer.bind(this);
     }
-    setOpenPanel(panelId) {
-        this.setState({openPanel: panelId});
+    clickPanelDetailButton(index, panel, type) {
+        console.log(index, panel, type);
+        this.setState({ panelDetailItem: {
+            index,
+            panel,
+            type
+        } });
     }
     componentWillMount() {
         const { dispatch, match } = this.props;
@@ -70,15 +76,11 @@ class ProjectStoryboard extends Component {
 
     renderPanels() {
         const { project, storyboard, history, securityContext } = this.props;
-        const { setOpenPanel } = this;
-        const { openPanel } = this.state;
-        const that = this;
+        const { clickPanelDetailButton } = this;
         if (!storyboard)
             return null;
-
         const renderEditButton = (project, securityContext) => {
             if (project.user_id == securityContext.id) {
-                console.log('edit');
                 return (
                     <IconButton title="Edit">
                         <Badge
@@ -103,14 +105,14 @@ class ProjectStoryboard extends Component {
                 >
                     <Card>
                         <CardMedia>
-                            <a onClick={ ()=> { setOpenPanel(panel) } }>
+                            <a>
                                 <PanelImage panel={ panel } />
                             </a>
                         </CardMedia>
                         <CardActions>
                             <div className="row" style={{textAlign: 'center'}}>
                                 <div className="col-sm-2" style={{ textAlign: 'right' }}>
-                                    <IconButton title="Comments">
+                                    <IconButton title="Comments" onClick={() => { clickPanelDetailButton(i, panel, 'comments') }}>
                                         <Badge
                                             badgeContent={panel.comments.length}
                                             primary={true}
@@ -120,7 +122,7 @@ class ProjectStoryboard extends Component {
                                     </IconButton>
                                 </div>
                                 <div className="col-sm-2" style={{ textAlign: 'right' }}>
-                                    <IconButton title="Revisions">
+                                    <IconButton title="Revisions" onClick={() => { clickPanelDetailButton(i, panel, 'revisions') }}>
                                         <Badge
                                             badgeContent={panel.revisions.length}
                                             primary={true}
@@ -129,7 +131,7 @@ class ProjectStoryboard extends Component {
                                         </Badge>
                                     </IconButton>
                                 </div>
-                                <div className="col-sm-2" style={{ textAlign: 'right'}}>
+                                <div className="col-sm-2" style={{ textAlign: 'right' }} onClick={() => { clickPanelDetailButton(i, panel, 'script') }}>
                                     <IconButton title="Panel Script">
                                         <Badge
                                             badgeContent={''}
@@ -155,21 +157,38 @@ class ProjectStoryboard extends Component {
             </GridList>
         );
     }
-    renderPanelDrawer() {
-        const { openPanel } = this.state;
+    renderPanelDetailDrawer() {
+        const { panelDetailItem } = this.state;
         const { setState } = this;
-        if (openPanel) {
+        if (panelDetailItem) {
+
+            const renderDetails = (panelDetailItem) => {
+                if (panelDetailItem.type == 'comments') {
+                    return (
+                        <Card>
+                            <CardText><h2>Comments</h2></CardText>
+                            <CardText>
+                                <PanelComments panel={ panelDetailItem.panel } />
+                            </CardText>
+                        </Card>
+                    )
+                }
+            };
+
             return <Drawer
                 open={true}
                 docked={false}
-                width={ '95%' }
+                width={ '100%' }
                 onRequestChange={(open) => {
                     if (open === false) {
-                        this.setState({ openPanel: null })
+                        this.setState({ panelDetailItem: null })
                     }
                 }}
             >
-                farts
+                <br />
+                <Container>
+                    {renderDetails(panelDetailItem)}
+                </Container>
             </Drawer>
         }
         return null;
@@ -180,6 +199,7 @@ class ProjectStoryboard extends Component {
             <UiStateContainer uiState={ui_state} >
                 { this.renderProject() }
                 {this.renderStoryboard()}
+                {this.renderPanelDetailDrawer()}
             </UiStateContainer>
         );
     }
