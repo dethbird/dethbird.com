@@ -28,7 +28,6 @@ class ProjectStoryboard extends Component {
         this.renderPanelDetailDrawer = this.renderPanelDetailDrawer.bind(this);
     }
     clickPanelDetailButton(index, panel, type) {
-        console.log(index, panel, type);
         this.setState({ panelDetailItem: {
             index,
             panel,

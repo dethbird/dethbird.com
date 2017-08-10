@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
+import TimeAgo from 'react-timeago';
+import ReactMarkdown from 'react-markdown';
+import { List, ListItem } from 'material-ui/List';
 
 
 class PanelComments extends Component {
@@ -7,13 +11,16 @@ class PanelComments extends Component {
         if (panel.comments.length < 1)
             return <div>No Comments</div>;
         const nodes = panel.comments.map(function(comment,i){
-            console.log(comment);
             return (
-                <div key={i}>{comment.id}</div>
+                <ListItem key={i} className={classNames(['comment', comment.status])}>
+                    <ReactMarkdown source={ comment.comment || '' } />
+                    <div style={{ textAlign: 'right' }} className="username">{comment.user.username}</div>
+                    <div style={{ textAlign: 'right' }} className="timestamp"><TimeAgo date={comment.date_added} /></div>
+                </ListItem>
             );
         });
         return (
-            <div>{ nodes }</div>
+            <List>{nodes}</List>
         )
     }
 };
