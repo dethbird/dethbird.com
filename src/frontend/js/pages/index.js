@@ -9,7 +9,8 @@ const history = createBrowserHistory();
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';   
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { grey500 } from 'material-ui/styles/colors';   
 import AppBar from 'material-ui/AppBar';;
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -103,6 +104,9 @@ const muiTheme = getMuiTheme({
     floatingActionButton: {
         color: palette.primaryColor,
         secondaryColor: palette.secondaryColor
+    }, 
+    svgIcon: {
+        color: grey500
     },
     raisedButton: {
         color: palette.baseButtonColor,

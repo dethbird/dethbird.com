@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import Devices from 'material-ui/svg-icons/device/devices';
+import { ActionHttps } from 'material-ui/svg-icons';
 
 import Container from 'components/layout/container';
 import FormWrapper from 'components/form/form-wrapper';
@@ -72,7 +72,7 @@ class Login extends Component {
                         </CardText>
                         <CardActions style={ { textAlign: 'right' } }>
                             <UiStateButton uiState={ ui_state } successMessage={ 'Login successful' } >
-                                <FlatButton icon={<Devices /> } label='Login' labelPosition='before' primary onClick={ this.onClickSubmit } type='submit'/>
+                                <FlatButton icon={<ActionHttps /> } label='Login' labelPosition='before' primary onClick={ this.onClickSubmit } type='submit'/>
                             </UiStateButton>
                         </CardActions>
                     </Card>

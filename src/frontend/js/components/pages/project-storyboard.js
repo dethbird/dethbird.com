@@ -6,15 +6,15 @@ import { projectStoryboardGet } from 'actions/project-storyboard';
 
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { GridList, GridTile } from 'material-ui/GridList';
+import Badge from 'material-ui/Badge';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
+import { CommunicationForum, ImagePhotoLibrary, AvMovie } from 'material-ui/svg-icons';
 
 import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
 import UiStateContainer from 'components/ui/ui-state-container';
-
-import { tokenizeScript, millisecondsToDuration } from 'utility/script-utils';
-
 
 class ProjectStoryboard extends Component {
     constructor(props) {
@@ -91,6 +91,39 @@ class ProjectStoryboard extends Component {
                                 <PanelImage panel={ panel } />
                             </a>
                         </CardMedia>
+                        <CardActions>
+                            <div className="row" style={{textAlign: 'center'}}>
+                                <div className="col-sm-2" style={{ textAlign: 'right' }}>
+                                    <IconButton title="Comments">
+                                        <Badge
+                                            badgeContent={panel.comments.length}
+                                            primary={true}
+                                        >
+                                            <CommunicationForum />
+                                        </Badge>
+                                    </IconButton>
+                                </div>
+                                <div className="col-sm-2" style={{ textAlign: 'right' }}>
+                                    <IconButton title="Revisions">
+                                        <Badge
+                                            badgeContent={panel.revisions.length}
+                                            primary={true}
+                                        >
+                                            <ImagePhotoLibrary />
+                                        </Badge>
+                                    </IconButton>
+                                </div>
+                                <div className="col-sm-2" style={{ textAlign: 'right', verticalAlign: 'bottom'}}>
+                                    <IconButton title="Panel Script">
+                                        <Badge
+                                            badgeContent={null}
+                                        >
+                                            <AvMovie />
+                                        </Badge>
+                                    </IconButton>
+                                </div>
+                            </div>
+                        </CardActions>
                     </Card>
                 </GridTile>
             );
@@ -130,7 +163,6 @@ class ProjectStoryboard extends Component {
             <UiStateContainer uiState={ui_state} >
                 { this.renderProject() }
                 {this.renderStoryboard()}
-                {this.renderPanelDrawer()}
             </UiStateContainer>
         );
     }
@@ -146,19 +178,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ProjectStoryboard);
-
-/**
-
-                            <Drawer
-                                open={ openPanel === panel.id }
-                                docked={ false }
-                                width={ '100%' }
-                                onRequestChange={(open)=>{
-                                    if(open===false){
-                                        that.setState({openPanel: null})
-                                    }
-                                }}
-                            >
-                                farts
-                            </Drawer>
- */
