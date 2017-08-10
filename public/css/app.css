@@ -933,6 +933,9 @@ div.script-input {
     font-size: 1.5em;
   }
 }
+.comment {
+  border: 1px inset solid #CCC;
+}
 .timestamp {
   font-size: 0.8em;
   color: #AAA;
@@ -943,6 +946,7 @@ div.script-input {
 }
 .resolved p {
   opacity: 0.8;
+  color: #777;
   text-decoration: line-through;
 }
 [class^="theme--cardActions"] {
