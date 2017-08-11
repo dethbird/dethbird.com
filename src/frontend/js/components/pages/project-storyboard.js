@@ -171,7 +171,7 @@ class ProjectStoryboard extends Component {
                                 <h2>Panel {panelDetailItem.index} Comments</h2>
                             </CardText>
                             <CardMedia>
-                                <PanelImage panel={panelDetailItem.panel} maxWidth="640" />
+                                <PanelImage panel={panelDetailItem.panel} maxWidth={640} />
                             </CardMedia>
                             <CardText>
                                 <PanelComments panel={ panelDetailItem.panel } />
@@ -186,7 +186,7 @@ class ProjectStoryboard extends Component {
                                 <h2>Panel {panelDetailItem.index} Revisions</h2>
                             </CardText>
                             <CardMedia>
-                                <PanelImage panel={panelDetailItem.panel} maxWidth="640"/>
+                                <PanelImage panel={panelDetailItem.panel} maxWidth={640}/>
                             </CardMedia>
                             <CardText>
                                 <PanelRevisions panel={panelDetailItem.panel} />
@@ -202,7 +202,7 @@ class ProjectStoryboard extends Component {
                                 <h2>Panel {panelDetailItem.index} Script</h2>
                             </CardText>
                             <CardMedia>
-                                <PanelImage panel={panelDetailItem.panel} maxWidth="640" />
+                                <PanelImage panel={panelDetailItem.panel} maxWidth={ 640  } />
                             </CardMedia>
                             <CardText>
                                 <ScriptPrintPreview script={ panelDetailItem.panel.script || '' } />

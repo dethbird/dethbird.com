@@ -5,12 +5,22 @@ import ReactMarkdown from 'react-markdown';
 import { List, ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 
+import PanelCommentInline from 'components/form/panel-comment-inline';
+
 
 class PanelComments extends Component {
     render() {
         const { panel } = this.props;
         if (panel.comments.length < 1)
-            return <div>No Comments</div>;
+            return (
+                <div>
+                    <div style={{textAlign: 'center'}}>No Comments</div>
+                    <List>
+                        <ListItem><PanelCommentInline /></ListItem>
+                    </List>
+                </div>
+            );
+            
         const nodes = panel.comments.map(function(comment,i){
             return (
                 <ListItem key={i} className={classNames(['comment', comment.status])}>
@@ -22,6 +32,7 @@ class PanelComments extends Component {
                 </ListItem>
             );
         });
+        nodes.push(<ListItem key={nodes.length + 1}><PanelCommentInline/></ListItem>);
         return (
             <List>{nodes}</List>
         )
