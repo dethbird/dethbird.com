@@ -159,6 +159,7 @@ class ProjectStoryboard extends Component {
         );
     }
     renderPanelDetailDrawer() {
+        const { securityContext } = this.props;
         const { panelDetailItem } = this.state;
         const { setState } = this;
 
@@ -174,7 +175,7 @@ class ProjectStoryboard extends Component {
                                 <PanelImage panel={panelDetailItem.panel} maxWidth={640} />
                             </CardMedia>
                             <CardText>
-                                <PanelComments panel={ panelDetailItem.panel } />
+                                <PanelComments panel={ panelDetailItem.panel } securityContext={securityContext} />
                             </CardText>
                         </Card>
                     )
