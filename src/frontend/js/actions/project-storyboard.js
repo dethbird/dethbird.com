@@ -26,10 +26,9 @@ const projectStoryboardGetError = () => {
 export const projectStoryboardGet = (projectId, storyboardId) =>
     dispatch => {
         dispatch(projectStoryboardGetInit());
-        request.get('/proxy/api/0.1/projects')
+        request.get(`/proxy/api/0.1/project/${projectId}`)
             .then((res) => {
-                const projects = res.body;
-                const project = find(projects, {id: parseInt(projectId)});
+                const project = res.body;
                 if (!project)
                     dispatch(projectStoryboardGetError());
                 const storyboard = find(project.storyboards, {id: parseInt(storyboardId)});
