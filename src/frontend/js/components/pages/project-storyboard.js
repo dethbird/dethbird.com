@@ -15,6 +15,7 @@ import { CommunicationForum, ImagePhotoLibrary, AvMovie, ContentCreate } from 'm
 import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
 import PanelComments from 'components/ui/panel-comments';
+import PanelRevisions from 'components/ui/panel-revisions';
 import UiStateContainer from 'components/ui/ui-state-container';
 
 class ProjectStoryboard extends Component {
@@ -159,8 +160,8 @@ class ProjectStoryboard extends Component {
     renderPanelDetailDrawer() {
         const { panelDetailItem } = this.state;
         const { setState } = this;
-        if (panelDetailItem) {
 
+        if (panelDetailItem) {
             const renderDetails = (panelDetailItem) => {
                 if (panelDetailItem.type == 'comments') {
                     return (
@@ -177,6 +178,18 @@ class ProjectStoryboard extends Component {
                             </CardText>
                             <CardText>
                                 <PanelComments panel={ panelDetailItem.panel } />
+                            </CardText>
+                        </Card>
+                    )
+                }
+                if (panelDetailItem.type == 'revisions') {
+                    return (
+                        <Card>
+                            <CardText>
+                                <h2>Panel {panelDetailItem.index} Revisions</h2>
+                            </CardText>
+                            <CardText>
+                                <PanelRevisions panel={panelDetailItem.panel} />
                             </CardText>
                         </Card>
                     )
