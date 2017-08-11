@@ -8,8 +8,8 @@ class PanelImage extends Component {
         if (panel.revisions.length > 0)
             src = panel.revisions[0].content;
         return (
-            <div>
-                <img src={ src } style={ { maxWidth: '100%', height: 'auto' } } />
+            <div style={{textAlign: 'center'}}>
+                <img src={ src } style={ { maxWidth: '100%', height: 'auto', display: 'inline-block' } } />
             </div>
         );
     }

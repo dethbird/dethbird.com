@@ -16,6 +16,7 @@ import Container from 'components/layout/container';
 import PanelImage from 'components/ui/panel-image';
 import PanelComments from 'components/ui/panel-comments';
 import PanelRevisions from 'components/ui/panel-revisions';
+import ScriptPrintPreview from 'components/script/script-print-preview';
 import UiStateContainer from 'components/ui/ui-state-container';
 
 class ProjectStoryboard extends Component {
@@ -167,15 +168,11 @@ class ProjectStoryboard extends Component {
                     return (
                         <Card>
                             <CardText>
-                                <div className="row">
-                                    <div className="col-sm-5">
-                                        <PanelImage panel={panelDetailItem.panel} />
-                                    </div>
-                                    <div className="col-sm-5">
-                                        <h2>Panel {panelDetailItem.index} Comments</h2>
-                                    </div>
-                                </div>
+                                <h2>Panel {panelDetailItem.index} Comments</h2>
                             </CardText>
+                            <CardMedia>
+                                <PanelImage panel={panelDetailItem.panel} />
+                            </CardMedia>
                             <CardText>
                                 <PanelComments panel={ panelDetailItem.panel } />
                             </CardText>
@@ -188,8 +185,27 @@ class ProjectStoryboard extends Component {
                             <CardText>
                                 <h2>Panel {panelDetailItem.index} Revisions</h2>
                             </CardText>
+                            <CardMedia>
+                                <PanelImage panel={panelDetailItem.panel} />
+                            </CardMedia>
                             <CardText>
                                 <PanelRevisions panel={panelDetailItem.panel} />
+                            </CardText>
+                        </Card>
+                    )
+                }
+                if (panelDetailItem.type == 'script') {
+                    console.log(panelDetailItem);
+                    return (
+                        <Card>
+                            <CardText>
+                                <h2>Panel {panelDetailItem.index} Script</h2>
+                            </CardText>
+                            <CardMedia>
+                                <PanelImage panel={panelDetailItem.panel} />
+                            </CardMedia>
+                            <CardText>
+                                <ScriptPrintPreview script={ panelDetailItem.panel.script || '' } />
                             </CardText>
                         </Card>
                     )
