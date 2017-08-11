@@ -165,7 +165,16 @@ class ProjectStoryboard extends Component {
                 if (panelDetailItem.type == 'comments') {
                     return (
                         <Card>
-                            <CardText><h2>Panel { panelDetailItem.index } Comments</h2></CardText>
+                            <CardText>
+                                <div className="row">
+                                    <div className="col-sm-5">
+                                        <PanelImage panel={panelDetailItem.panel} />
+                                    </div>
+                                    <div className="col-sm-5">
+                                        <h2>Panel {panelDetailItem.index} Comments</h2>
+                                    </div>
+                                </div>
+                            </CardText>
                             <CardText>
                                 <PanelComments panel={ panelDetailItem.panel } />
                             </CardText>
