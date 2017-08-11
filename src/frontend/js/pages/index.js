@@ -80,9 +80,9 @@ const MenuLogged = (props) => (
 MenuLogged.muiName = 'MenuLogged';
 
 const palette = {
-    baseColor: '#2F2137',
+    baseColor: '#880E69',
     baseButtonColor: '#F2F2F2',
-    primaryColor: '#0449A3',
+    primaryColor: '#15A599',
     secondaryColor: '#A3038C'
 }
 
