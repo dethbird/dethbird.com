@@ -6,7 +6,8 @@ const commentReducer = (state = {}, action) => {
      {
         case COMMENT.REQUEST:
             return {
-                ui_state: UI_STATE.REQUESTING
+                ui_state: UI_STATE.REQUESTING,
+                uuid: action.uuid
             }
         case COMMENT.ERROR:
             return {

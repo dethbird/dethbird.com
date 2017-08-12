@@ -26,7 +26,7 @@ class UiStateButton extends Component {
 };
 
 UiStateButton.propTypes = {
-    uiState: PropTypes.string.isRequired,
+    uiState: PropTypes.string,
     successMessage: PropTypes.string.isRequired
 };
 

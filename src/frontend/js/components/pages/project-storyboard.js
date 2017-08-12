@@ -27,6 +27,7 @@ class ProjectStoryboard extends Component {
         this.renderStoryboard = this.renderStoryboard.bind(this);
         this.renderPanels = this.renderPanels.bind(this);
         this.clickPanelDetailButton = this.clickPanelDetailButton.bind(this);
+        this.onAddPanelComment = this.onAddPanelComment.bind(this);
         this.renderPanelDetailDrawer = this.renderPanelDetailDrawer.bind(this);
     }
     clickPanelDetailButton(index, panel, type) {
@@ -36,8 +37,16 @@ class ProjectStoryboard extends Component {
             type
         } });
     }
+    onAddPanelComment() {
+        const { dispatch } = this.props;
+        const { projectId, storyboardId } = this.props.match.params;
+        this.setState({
+            panelDetailItem: null
+        });
+        dispatch(projectStoryboardGet(projectId, storyboardId));
+    }
     componentWillMount() {
-        const { dispatch, match } = this.props;
+        const { dispatch } = this.props;
         const { projectId, storyboardId } = this.props.match.params;
         dispatch(projectStoryboardGet(projectId, storyboardId));
     }
@@ -161,7 +170,7 @@ class ProjectStoryboard extends Component {
     renderPanelDetailDrawer() {
         const { securityContext } = this.props;
         const { panelDetailItem } = this.state;
-        const { setState } = this;
+        const { setState, onAddPanelComment } = this;
 
         if (panelDetailItem) {
             const renderDetails = (panelDetailItem) => {
@@ -175,7 +184,7 @@ class ProjectStoryboard extends Component {
                                 <PanelImage panel={panelDetailItem.panel} maxWidth={640} />
                             </CardMedia>
                             <CardText>
-                                <PanelComments panel={ panelDetailItem.panel } securityContext={securityContext} />
+                                <PanelComments panel={panelDetailItem.panel} securityContext={securityContext} onAddPanelComment={onAddPanelComment} />
                             </CardText>
                         </Card>
                     )

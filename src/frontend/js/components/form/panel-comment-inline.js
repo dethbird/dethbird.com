@@ -7,10 +7,12 @@ import TimeAgo from 'react-timeago';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
 import FormWrapper from 'components/form/form-wrapper';
 
+import UiStateButton from 'components/form/ui-state-button';
 import { UI_STATE } from 'constants/ui-state';
 import commentPostSchema from 'validation_schema/comment-post.json';
 import * as jsonSchema from 'utility/json-schema';
@@ -35,12 +37,12 @@ class PanelCommentInline extends Component {
     }
     onClickSubmit(e) {
         e.preventDefault();
-        const { dispatch, panelId, uuid } = this.props;
+        const { dispatch, panelId, uuid, onAddPanelComment } = this.props;
         const { changedFields } = this.state;
-        dispatch(commentPost({ ... changedFields, entity_id: panelId}, uuid));
+        dispatch(commentPost({ ...changedFields, entity_id: panelId }, uuid, onAddPanelComment));
     }
     render() {
-        const { comment, errors } = this.props;
+        const { ui_state, comment, errors } = this.props;
         const { changedFields } = this.state;
         if (comment) {
             return (
@@ -49,6 +51,11 @@ class PanelCommentInline extends Component {
                     <ReactMarkdown source={comment.comment || ''} />
                     <div style={{ textAlign: 'right' }} className="username">{comment.user.username}</div>
                     <div style={{ textAlign: 'right' }} className="timestamp"><TimeAgo date={comment.date_added} /></div>
+                    <Snackbar
+                        open={ui_state == UI_STATE.SUCCESS}
+                        action="refreshing ..."
+                        message={"Comment added"}
+                    />
                 </Paper>
             );
         } else {
@@ -70,7 +77,9 @@ class PanelCommentInline extends Component {
                             />
                         </CardText>
                         <CardActions style={{ textAlign: 'right' }}>
-                            <FlatButton icon={<ContentSend />} label='Add' labelPosition='before' primary onClick={this.onClickSubmit} type='submit' />
+                            <UiStateButton uiState={ui_state} successMessage={'Comment added successfully'} >
+                                <FlatButton icon={<ContentSend />} label='Add' labelPosition='before' primary onClick={this.onClickSubmit} type='submit' />
+                            </UiStateButton>
                         </CardActions>
                     </Card>
                 </FormWrapper>
