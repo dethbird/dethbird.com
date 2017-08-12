@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { List, ListItem } from 'material-ui/List';
+import uuidV4 from 'uuid/v4';
 
 import PanelCommentInline from 'components/form/panel-comment-inline';
 
@@ -13,7 +14,7 @@ class PanelComments extends Component {
                 <div>
                     <div style={{textAlign: 'center'}}>No Comments</div>
                     <List>
-                        <ListItem><PanelCommentInline comment={ null } panelId={panel.id} /></ListItem>
+                        <ListItem><PanelCommentInline comment={ null } panelId={panel.id} uuid={uuidV4()}/></ListItem>
                     </List>
                 </div>
             );
@@ -21,11 +22,11 @@ class PanelComments extends Component {
         const nodes = panel.comments.map(function(comment,i){
             return (
                 <ListItem key={i} className={classNames(['comment', comment.status])}>
-                    <PanelCommentInline comment={comment} panelId={panel.id} />
+                    <PanelCommentInline comment={comment} panelId={panel.id} uuid={uuidV4()}/>
                 </ListItem>
             );
         });
-        nodes.push(<ListItem key={nodes.length + 1}><PanelCommentInline comment={null} panelId={panel.id} /></ListItem>);
+        nodes.push(<ListItem key={nodes.length + 1}><PanelCommentInline comment={null} panelId={panel.id} uuid={uuidV4()}/></ListItem>);
         return (
             <List>{nodes}</List>
         )

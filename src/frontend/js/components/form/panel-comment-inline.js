@@ -35,14 +35,13 @@ class PanelCommentInline extends Component {
     }
     onClickSubmit(e) {
         e.preventDefault();
-        const { dispatch, panelId } = this.props;
+        const { dispatch, panelId, uuid } = this.props;
         const { changedFields } = this.state;
-        dispatch(commentPost({ ... changedFields, entity_id: panelId}));
+        dispatch(commentPost({ ... changedFields, entity_id: panelId}, uuid));
     }
     render() {
         const { comment, errors } = this.props;
         const { changedFields } = this.state;
-        console.log(comment);
         if (comment) {
             return (
 
@@ -80,16 +79,16 @@ class PanelCommentInline extends Component {
     }
 };
 
-const mapStateToProps = (state) => {
-    const { ui_state, model, errors } = state.commentReducer;
-    let props = {
-        ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
-        errors
+const mapStateToProps = (state, ownProps) => {
+    const { ui_state, model, errors, uuid } = state.commentReducer;
+    if (ownProps.uuid == uuid) {
+        return {
+            ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
+            errors,
+            comment: model
+        }
     }
-    if (model) {
-        props.comment = model;
-    }
-    return props;
+    return ownProps;
 }
 
 export default connect(mapStateToProps)(PanelCommentInline);

@@ -8,21 +8,23 @@ const commentRequestInit = () => {
     }
 }
 
-const commentPostSuccess = (model) => {
+const commentPostSuccess = (model, uuid) => {
     return {
         type: COMMENT.SUCCESS,
-        model
+        model,
+        uuid
     }
 }
 
-const commentPostError = (errors) => {
+const commentPostError = (errors, uuid) => {
     return {
         type: COMMENT.ERROR,
-        errors
+        errors,
+        uuid
     }
 }
 
-export const commentPost = (fields) => 
+export const commentPost = (fields, uuid) => 
     dispatch => {
         let payload = { 
             ...fields,
@@ -33,10 +35,10 @@ export const commentPost = (fields) =>
             .send({ ...payload })
             .end(function (err, res) {
                 if (res.ok) {
-                    dispatch(commentPostSuccess(res.body));
+                    dispatch(commentPostSuccess(res.body, uuid));
                 } else {
                     console.log('error!', res.body);
-                    dispatch(commentPostError(res.body));
+                    dispatch(commentPostError(res.body, uuid));
                 }
             });
     }
