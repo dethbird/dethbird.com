@@ -39,7 +39,7 @@ class PanelCommentInline extends Component {
         e.preventDefault();
         const { dispatch, panelId, uuid, onAddPanelComment } = this.props;
         const { changedFields } = this.state;
-        dispatch(commentPost({ ...changedFields, entity_id: panelId }, uuid, onAddPanelComment));
+        dispatch(commentPost({ ...changedFields, entity_id: panelId, entity_table_name: "project_storyboard_panels" }, uuid, onAddPanelComment));
     }
     render() {
         const { ui_state, comment, errors } = this.props;

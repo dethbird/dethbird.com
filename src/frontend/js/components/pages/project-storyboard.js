@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { find } from 'lodash';
 
 import { UI_STATE } from 'constants/ui-state';
 import { projectStoryboardGet } from 'actions/project-storyboard';
@@ -37,12 +38,9 @@ class ProjectStoryboard extends Component {
             type
         } });
     }
-    onAddPanelComment() {
+    onAddPanelComment(panel) {
         const { dispatch } = this.props;
         const { projectId, storyboardId } = this.props.match.params;
-        this.setState({
-            panelDetailItem: null
-        });
         dispatch(projectStoryboardGet(projectId, storyboardId));
     }
     componentWillMount() {
@@ -168,11 +166,14 @@ class ProjectStoryboard extends Component {
         );
     }
     renderPanelDetailDrawer() {
-        const { securityContext } = this.props;
+        const { securityContext, storyboard } = this.props;
         const { panelDetailItem } = this.state;
         const { setState, onAddPanelComment } = this;
 
-        if (panelDetailItem) {
+        if (panelDetailItem && storyboard) {
+
+            let panel = find(storyboard.panels, { id: panelDetailItem.panel.id });
+            
             const renderDetails = (panelDetailItem) => {
                 if (panelDetailItem.type == 'comments') {
                     return (
@@ -234,7 +235,7 @@ class ProjectStoryboard extends Component {
             >
                 <br />
                 <Container>
-                    {renderDetails(panelDetailItem)}
+                    {renderDetails({ ... panelDetailItem, panel} )}
                 </Container>
             </Drawer>
         }

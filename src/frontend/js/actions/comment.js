@@ -25,21 +25,16 @@ const commentPostError = (errors, uuid) => {
     }
 }
 
-export const commentPost = (fields, uuid, onAddPanelComment) => 
+export const commentPost = (payload, uuid, onAddPanelComment) => 
     dispatch => {
-        let payload = { 
-            ...fields,
-            entity_table_name: 'project_storyboard_panels'
-        };
         dispatch(commentRequestInit(uuid));
         request.post('/proxy/api/0.1/comment')
-            .send({ ...payload })
+            .send(payload)
             .end(function (err, res) {
                 if (res.ok) {
                     dispatch(commentPostSuccess(res.body, uuid));
                     setTimeout(onAddPanelComment, 1200);
                 } else {
-                    console.log('error!', res.body);
                     dispatch(commentPostError(res.body, uuid));
                 }
             });
