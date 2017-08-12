@@ -1,0 +1,9 @@
+{
+	"properties": {
+		"comment": {
+            "required": true,
+            "minLength": 1,
+		    "type": "string"
+		}
+	}
+}

@@ -13,7 +13,7 @@ class PanelComments extends Component {
                 <div>
                     <div style={{textAlign: 'center'}}>No Comments</div>
                     <List>
-                        <ListItem><PanelCommentInline comment={ null } /></ListItem>
+                        <ListItem><PanelCommentInline comment={ null } panelId={panel.id} /></ListItem>
                     </List>
                 </div>
             );
@@ -21,11 +21,11 @@ class PanelComments extends Component {
         const nodes = panel.comments.map(function(comment,i){
             return (
                 <ListItem key={i} className={classNames(['comment', comment.status])}>
-                    <PanelCommentInline comment={comment} />
+                    <PanelCommentInline comment={comment} panelId={panel.id} />
                 </ListItem>
             );
         });
-        nodes.push(<ListItem key={nodes.length + 1}><PanelCommentInline comment={ null } /></ListItem>);
+        nodes.push(<ListItem key={nodes.length + 1}><PanelCommentInline comment={null} panelId={panel.id} /></ListItem>);
         return (
             <List>{nodes}</List>
         )

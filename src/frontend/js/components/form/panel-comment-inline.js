@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import Paper from 'material-ui/Paper';
 import TimeAgo from 'react-timeago';
@@ -10,10 +11,37 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 import FormWrapper from 'components/form/form-wrapper';
 
+import { UI_STATE } from 'constants/ui-state';
+import commentPostSchema from 'validation_schema/comment-post.json';
+import * as jsonSchema from 'utility/json-schema';
+import { commentPost } from 'actions/comment';
+
 
 class PanelCommentInline extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            changedFields: jsonSchema.initialFields(commentPostSchema)
+        };
+        this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.onClickSubmit = this.onClickSubmit.bind(this);
+    }
+    handleFieldChange(e, elementId) {
+        const { changedFields } = this.state;
+        changedFields[e.currentTarget.id] = e.currentTarget.value;
+        this.setState({
+            ...changedFields
+        });
+    }
+    onClickSubmit(e) {
+        e.preventDefault();
+        const { dispatch, panelId } = this.props;
+        const { changedFields } = this.state;
+        dispatch(commentPost({ ... changedFields, entity_id: panelId}));
+    }
     render() {
-        const { comment } = this.props;
+        const { comment, errors } = this.props;
+        const { changedFields } = this.state;
         console.log(comment);
         if (comment) {
             return (
@@ -26,27 +54,42 @@ class PanelCommentInline extends Component {
             );
         } else {
             return (
-                    <FormWrapper onSubmit={()=>{}}>
-                        <Card>
-                            <CardText>
-                                <h5>New Comment</h5>
-                                <TextField
-                                    type='text'
-                                    floatingLabelText='Comment'
-                                    name='comment'
-                                    id='comment'
-                                    fullWidth
-                                    hintText="Here's what I think ..."
-                                />
-                            </CardText>
-                            <CardActions style={{ textAlign: 'right' }}>
-                                <FlatButton icon={<ContentSend />} label='Add' labelPosition='before' primary onClick={()=>{}} type='submit' />
-                            </CardActions>
-                        </Card>
-                    </FormWrapper>
+                <FormWrapper onSubmit={this.onClickSubmit} >
+                    <Card>
+                        <CardText>
+                            <h5>New Comment</h5>
+                            <TextField
+                                type='text'
+                                floatingLabelText='Comment'
+                                name='comment'
+                                id='comment'
+                                fullWidth
+                                value={changedFields.comment || ''}
+                                onChange={this.handleFieldChange}
+                                hintText="Here's what I think ..."
+                                errorText={jsonSchema.getErrorMessageForProperty('comment', errors)}
+                            />
+                        </CardText>
+                        <CardActions style={{ textAlign: 'right' }}>
+                            <FlatButton icon={<ContentSend />} label='Add' labelPosition='before' primary onClick={this.onClickSubmit} type='submit' />
+                        </CardActions>
+                    </Card>
+                </FormWrapper>
             )
         }
     }
 };
 
-export default PanelCommentInline;
+const mapStateToProps = (state) => {
+    const { ui_state, model, errors } = state.commentReducer;
+    let props = {
+        ui_state: ui_state ? ui_state : UI_STATE.INITIALIZING,
+        errors
+    }
+    if (model) {
+        props.comment = model;
+    }
+    return props;
+}
+
+export default connect(mapStateToProps)(PanelCommentInline);
