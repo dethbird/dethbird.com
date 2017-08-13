@@ -2,3 +2,5 @@ server:
     hostname: :SERVER_HOSTNAME
 security:
     secret: :SECURITY_SECRET
+api:
+    base_url: :API_BASE_URL

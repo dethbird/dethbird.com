@@ -70,7 +70,6 @@ $container['notFoundHandler'] = function ($c) {
 
 # index
 $app->get('/', function ($request, $response){
-    // var_dump($_SESSION); die();
     $configs = $this['configs'];
     $view = $this['view'];
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
@@ -96,7 +95,7 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
     $configs = $this['configs'];
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
 
-    $client = new GuzzleHttp\Client(['base_uri' => 'https://api-dev.storystation.io']);
+    $client = new GuzzleHttp\Client(['base_uri' => $configs['api']['base_url']]);
     try {
         $options = [];
         $body = $request->getParsedBody();
