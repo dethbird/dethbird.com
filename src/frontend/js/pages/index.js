@@ -7,10 +7,9 @@ import {
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 import { Provider } from 'react-redux';
-import ReactGA from 'react-ga';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { grey500, grey800 } from 'material-ui/styles/colors';   
+import { grey500, grey800 } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';;
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -25,17 +24,10 @@ injectTapEventPlugin();
 import store from 'store/store';
 
 // External
+import Index from 'components/pages/index';
 import Projects from 'components/pages/projects';
 import ProjectStoryboard from 'components/pages/project-storyboard';
 import Login from 'components/pages/login';
-
-// Google Analytics
-ReactGA.initialize('UA-98286537-1', {
-    titleCase: false,
-    gaOptions: {
-        userId: securityContext.id
-    }
-});
 
 if (lastRequestUri !== '/favicon.ico') {
     history.replace(lastRequestUri);
@@ -58,11 +50,6 @@ function requireAuth(securityContext, WrappedComponent) {
     }
 };
 
-const logPageView = () => {
-    ReactGA.set({ page: window.location.pathname });
-    ReactGA.pageview(window.location.pathname);
-}
-
 const MenuLogged = (props) => (
     <IconMenu
         {...props}
@@ -80,7 +67,7 @@ const MenuLogged = (props) => (
 MenuLogged.muiName = 'MenuLogged';
 
 const palette = {
-    baseColor: '#880E69',
+    baseColor: '#3E43C9',
     baseButtonColor: '#F2F2F2',
     primaryColor: '#15A599',
     secondaryColor: '#A3038C'
@@ -127,14 +114,14 @@ render((
             <Provider store={ store }>
                     <div>
                         <AppBar
-                            title={securityContext.username ? securityContext.username : 'storystation // clients'}
+                            title={securityContext.username ? securityContext.username : 'today'}
                             iconElementRight={ securityContext.id !== 0 ? <MenuLogged /> : null }
                         />
                         <br />
                         <Route path="/login" component={ Login } props={{ securityContext }} />
                         <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
                         <Route exact path="/project/:projectId/storyboard/:storyboardId" component={requireAuth(securityContext, ProjectStoryboard)} props={{ securityContext }} />
-                        <Route exact path="/" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
+                        <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
                     </div>
             </Provider>
         </MuiThemeProvider>
