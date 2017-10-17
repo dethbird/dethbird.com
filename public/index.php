@@ -99,24 +99,22 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
     $configs = $this['configs'];
     $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
 
-    $client = new GuzzleHttp\Client(['base_uri' => $configs['api']['base_url']]);
-    try {
-        $options = [];
-        $body = $request->getParsedBody();
-        if ($body) {
-            $options['json'] = $body;
-        }
-        if (!is_null($_SESSION['authToken'])) {
-            $options['headers'] = ['Auth-Token' => $_SESSION['authToken']];
-        }
-        $apiResponse = $client->request($request->getMethod(), '/' . $path['path'], $options);
-    } catch (Exception $e) {
-        return $response
-            ->withStatus($e->getResponse()->getStatusCode())
-            ->withJson(json_decode($e->getResponse()->getBody()->getContents()));
-    }
-    $body = json_decode($apiResponse->getBody()->getContents(), true);
+    $api = new ExplosioncorpApi(
+                $this->configs['api']['base_url'],
+                isset($_SESSION['authToken']) ? $_SESSION['authToken'] : null);
+            
+    $apiResponse = $api->request(
+        $request->getMethod(),
+        '/' . $path['path'],
+        $request->getParsedBody());
 
+    if(!$apiResponse->isOk()){
+        return $response
+            ->withStatus($apiResponse->getStatusCode())
+            ->withJson(json_decode($apiResponse->getBody()));
+    }
+
+    $body =  json_decode($apiResponse->getBody(), true);
     if ($path['path']=='api/0.1/login') {
         $_SESSION['authToken'] = $body['auth_token'];
         unset($body['auth_token']);

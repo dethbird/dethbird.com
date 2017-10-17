@@ -32,7 +32,7 @@ $app->group('/service', function(){
             $api->request(
                 'POST',
                 '/api/0.1/service/pocket/auth',
-                json_encode($accessToken));
+                $accessToken);
 
             return $response
                 ->withStatus(302)

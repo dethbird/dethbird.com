@@ -12,7 +12,7 @@ class ApiResponse {
 
     public function setStatusCode($code)
     {
-        $this->statusCode = $code;
+        $this->statusCode = (int) $code;
     }
 
     public function getStatusCode()
@@ -28,6 +28,10 @@ class ApiResponse {
     public function getBody()
     {
         return $this->body;
+    }
+
+    public function isOk() {
+        return $this->statusCode >= 200 && $this->statusCode < 300;
     }
 }
 
@@ -57,8 +61,8 @@ class ExplosioncorpApi {
         $apiResponse = null;
         try {
             $options = [];
-            if ($body) {
-                $options['json'] = json_decode($body) ? json_decode($body) : $body;
+            if (is_object($body) || is_array($body)) {
+                $options['json'] = $body;
             }
             if (!is_null($this->authToken)) {
                 $options['headers'] = ['Auth-Token' => $this->authToken];
