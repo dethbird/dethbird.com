@@ -7,3 +7,6 @@ api:
 service:
     pocket:
         key: :POCKET_KEY
+    todoist:
+        key: :TODOIST_KEY
+        secret: :TODOIST_SECRET
