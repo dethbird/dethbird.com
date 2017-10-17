@@ -4,3 +4,6 @@ security:
     secret: :SECURITY_SECRET
 api:
     base_url: :API_BASE_URL
+service:
+    pocket:
+        key: :POCKET_KEY

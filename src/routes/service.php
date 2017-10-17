@@ -4,7 +4,6 @@
 $app->group('/service', function(){
 
     $this->group('/pocket', function(){
-
         $this->get('/authorize', function($request, $response, $args){
             $pocketData = new PocketData(
                 $this->configs['service']['pocket']['key']);
@@ -22,9 +21,22 @@ $app->group('/service', function(){
         $this->get('/redirect', function($request, $response, $args){
             $pocketData = new PocketData(
                 $this->configs['service']['pocket']['key']);
+        
+            $accessToken = $pocketData->fetchAccessTokenData($_SESSION['pocketCode']);
 
-            return $response->withJson($pocketData->fetchAccessTokenData(
-                $_SESSION['pocketCode']));
+            # save access token at Explosioncorp
+            $api = new ExplosioncorpApi(
+                $this->configs['api']['base_url'],
+                $_SESSION['authToken']);
+            
+            $api->request(
+                'POST',
+                '/api/0.1/service/pocket/auth',
+                json_encode($accessToken));
+
+            return $response
+                ->withStatus(302)
+                ->withHeader('Location', '/');
         });
     });
 });

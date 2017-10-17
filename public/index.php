@@ -20,6 +20,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require '../vendor/autoload.php';
 require_once APPLICATION_PATH . 'src/library/Cache/Manager.php';
+require_once APPLICATION_PATH . 'src/library/ExternalData/ExplosioncorpApi.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/MercuryPostlightData.php';
 require_once APPLICATION_PATH . 'src/library/Middleware/SetSecurityContext.php';
@@ -67,6 +68,9 @@ $container['notFoundHandler'] = function ($c) {
             ->withHeader('Location', '/');
     };
 };
+
+
+require_once APPLICATION_PATH . 'src/routes/service.php';
 
 # index
 $app->get('/', function ($request, $response){
