@@ -52,25 +52,4 @@ class PocketData extends ExternalDataBase {
         );
         return json_decode($response->getBody()->getContents());
     }
-
-
-    public function getArticlesByTag($tag)
-    {
-        $response = $this->httpClient->post(
-            'https://getpocket.com/v3/get',[
-            'headers' => [
-                'X-Accept' => 'application/json'
-            ],
-            'json' => [
-                'consumer_key' => $this->consumerKey,
-                'access_token' => $this->accessToken,
-                'state' => 'all',
-                'sort' => 'newest',
-                'detailType' => 'complete',
-                'count' => 100,
-                'tag' => $tag
-            ]
-        ]);
-        return $response->getBody()->getContents();
-    }
 }

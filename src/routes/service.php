@@ -4,7 +4,7 @@
 $app->group('/service', function(){
 
     $this->group('/pocket', function(){
-        $this->get('/authorize', function($request, $response, $args){
+        $this->get('/authorize', function($request, $response){
             $pocketData = new PocketData(
                 $this->configs['service']['pocket']['key']);
             $code = $pocketData->fetchRequestCode(
@@ -18,7 +18,7 @@ $app->group('/service', function(){
                 ));
         });
 
-        $this->get('/redirect', function($request, $response, $args){
+        $this->get('/redirect', function($request, $response){
             $pocketData = new PocketData(
                 $this->configs['service']['pocket']['key']);
         
@@ -61,4 +61,34 @@ $app->group('/service', function(){
                 ->withHeader('Location', '/');
         });
     });
+
+    $this->group('/wunderlist', function(){
+        $this->get('/authorize', function($request, $response){
+            $wunderlist = new WunderlistData(
+                $this->configs['service']['wunderlist']['key'],
+                $this->configs['service']['wunderlist']['secret']);
+
+            return $response
+                ->withStatus(302)
+                ->withHeader('Location', $wunderlist->getAuthorizeScreenUri(
+                    "https://".$_SERVER['HTTP_HOST']."/service/wunderlist/redirect"
+                ));
+        });
+
+        $this->get('/redirect', function($request, $response){
+            $wunderlist = new WunderlistData(
+                $this->configs['service']['wunderlist']['key'],
+                $this->configs['service']['wunderlist']['secret']);
+        
+            $accessToken = $wunderlist->fetchAccessToken($request->getQueryParams()['code']);
+
+            # save access token at Explosioncorp
+            $api = new ExplosioncorpApi($this->configs['api']['base_url'], $_SESSION['authToken']);
+            $api->request('POST', '/api/0.1/service/wunderlist/auth', $accessToken);
+
+            return $response
+                ->withStatus(302)
+                ->withHeader('Location', '/');
+        });
+    });    
 });

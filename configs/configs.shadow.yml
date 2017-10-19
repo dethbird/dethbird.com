@@ -10,3 +10,6 @@ service:
     todoist:
         key: :TODOIST_KEY
         secret: :TODOIST_SECRET
+    wunderlist:
+        key: :WUNDERLIST_KEY
+        secret: :WUNDERLIST_SECRET
