@@ -4,12 +4,14 @@ import Devices from 'material-ui/svg-icons/device/devices';
 
 import Container from 'components/layout/container';
 
+import WunderlistList from 'components/list/wunderlist';
+
 
 class Index extends Component {
     render() {
         return (
             <Container>
-                <FlatButton icon={ <Devices />} label='Bookmark' />
+                <WunderlistList />
             </Container>
         );
     }

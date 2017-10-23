@@ -6,7 +6,7 @@
     "history": "^4.6.3",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
-    "material-ui": "^0.18.7",
+    "material-ui": "^0.19.4",
     "moment": "^2.18.1",
     "pad-left": "^2.1.0",
     "pluralize": "^3.1.0",
