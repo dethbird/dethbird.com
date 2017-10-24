@@ -28,15 +28,19 @@ class WunderlistList extends Component {
         if (!data)
             return null;
         const nodes = data.tasks.map(function (task, i) {
-            console.log(task);
             const list = find(data.lists, { id: parseInt(task.list_id) });
-            console.log(list);
+            console.log(task);
             return (
                 <ListItem 
                     key={i}
-                    primaryText={task.title}
-                    secondaryText={list.title}
-                    children={<div>{ task.due_date }</div>}
+                    children={
+                        <div>
+                            <div className='item_date'>{ task.due_date }</div>
+                            <div className='item_title'>{ task.title }</div>
+                            <div className='item_subtitle'>{ list.title }</div>
+                        </div>
+
+                    }
                 />
             );
         });
