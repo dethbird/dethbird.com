@@ -29,6 +29,7 @@
     "throttle-debounce": "^1.0.1",
     "timeago": "^1.4.3",
     "uglify-js": "^3.0.15",
+    "url-parse": "^1.1.9",
     "uuid": "^3.0.1"
   },
   "scripts": {

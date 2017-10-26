@@ -124,6 +124,13 @@ h1,h2,h3,h4,h5,h6 {
     font-family: 'Roboto', sans-serif;
 }
 
+h5 {
+    margin: .3em 0 .5em 0 !important;
+}
+h3 {
+    margin: .3em 0 .5em 0 !important;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #FCFCFC;
@@ -336,6 +343,16 @@ i.trash {
     cursor: pointer;
 }
 
+.item {
+    .item_image {
+        width: 100%;
+        height: auto;
+    }
+    .item_date {
+        font-size: .8em;
+    }
+}
+
 .external-header {
     min-height: 165px;
     padding: .5em 0em;
@@ -406,6 +423,7 @@ i.trash {
     text-shadow: 2px 2px 10px rgba(115, 255, 229, 0.66) !important;
     white-space: pre-wrap !important;
 }
+
 div.script-input {
     white-space: pre;
     white-space: pre-wrap !important;
@@ -455,6 +473,10 @@ div.script-input {
             display: inline-block;
         }
     }
+}
+
+.subdued {
+    color: rgb(139, 139, 139);
 }
 
 .tags-input {

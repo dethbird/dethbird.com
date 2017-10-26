@@ -7,17 +7,11 @@ import {
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 import { Provider } from 'react-redux';
+
+/** Material UI */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { grey500, grey800 } from 'material-ui/styles/colors';
-import AppBar from 'material-ui/AppBar';;
-import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import Devices from 'material-ui/svg-icons/device/devices';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
@@ -29,6 +23,8 @@ import Index from 'components/pages/index';
 import Projects from 'components/pages/projects';
 import ProjectStoryboard from 'components/pages/project-storyboard';
 import Login from 'components/pages/login';
+
+import NavigationHeader from 'components/navigation/header';
 
 if (lastRequestUri !== '/favicon.ico') {
     history.replace(lastRequestUri);
@@ -51,22 +47,6 @@ function requireAuth(securityContext, WrappedComponent) {
     }
 };
 
-const MenuLogged = (props) => (
-    <IconMenu
-        {...props}
-        iconButtonElement={
-            <IconButton><MoreVertIcon /></IconButton>
-        }
-        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    >
-        <MenuItem primaryText="Projects" onTouchTap={() => { history.push('/projects') }} />
-        <MenuItem primaryText="Logout" onTouchTap={()=>{ document.location='/logout'}}/>
-    </IconMenu>
-);
-
-MenuLogged.muiName = 'MenuLogged';
-
 const palette = {
     baseColor: '#3E43C9',
     baseButtonColor: '#F2F2F2',
@@ -78,9 +58,6 @@ const muiTheme = getMuiTheme({
     appBar: {
         color: palette.baseColor,
         textColor: '#FFFFFF'
-    },
-    drawer: {
-        color: 'rgba(0,0,0,0.25)'
     },
     floatingActionButton: {
         color: palette.baseButtonColor,
@@ -103,9 +80,6 @@ const muiTheme = getMuiTheme({
         color: palette.baseButtonColor,
         primaryColor: palette.primaryColor,
         secondaryColor: palette.secondaryColor
-    },
-    ripple: {
-        color: 'rgba(0,0,0,0.25)'
     }
 });
 
@@ -114,11 +88,7 @@ render((
         <MuiThemeProvider muiTheme={muiTheme}>
             <Provider store={ store }>
                     <div>
-                        <AppBar
-                            title={securityContext.username ? securityContext.username : 'today'}
-                            iconElementRight={ securityContext.id !== 0 ? <MenuLogged /> : null }
-                        />
-                        <br />
+                        <NavigationHeader securityContext={securityContext} />
                         <Route path="/login" component={ Login } props={{ securityContext }} />
                         <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
                         <Route exact path="/project/:projectId/storyboard/:storyboardId" component={requireAuth(securityContext, ProjectStoryboard)} props={{ securityContext }} />

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { forOwn } from 'lodash';
+import urlParse from 'url-parse';
+import moment from 'moment';
+
+import { forOwn, sortBy } from 'lodash';
 
 /** Material UI */
 import FlatButton from 'material-ui/FlatButton';
@@ -33,12 +36,26 @@ class PocketList extends Component {
             list.push(item);
             return item; 
         });
+        list = sortBy(list, ['time_added']).reverse();
         const nodes = list.map(function (item, i) {
-            console.log(i);
+            const url = urlParse(item.resolved_url);
+            const timestamp = moment.unix(item.time_added);
             return (
-                <ListItem 
+                <ListItem
                     key={i}
-                    primaryText={item.resolved_title}
+                    children={
+                        <div className='item row' key={i}>
+                            <div className='col-xs-12 col-sm-4'>
+                                <img className='item_prop item_image' src={item.image ? item.image.src : 'https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png'} />
+                            </div>
+                            <div className='col-xs-12 col-sm-7'>
+                                <h3 className='item_prop item_title'>{item.resolved_title}</h3>
+                                <h5 className='item_prop item_subtitle subdued'>{url.origin}</h5>
+                                <div className='item_prop item_date'>{timestamp.format('YYYY-MM-DD')}</div>
+                            </div>
+                        </div>
+
+                    }
                 />
             );
         });

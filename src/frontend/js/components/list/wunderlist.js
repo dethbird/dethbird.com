@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { find } from 'lodash';
+import { find, sortBy } from 'lodash';
+import moment from 'moment';
 
 /** Material UI */
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
+/** Components */
 import { UI_STATE } from 'constants/ui-state';
 import { getAllTasks } from 'actions/wunderlist';
 
@@ -27,17 +29,18 @@ class WunderlistList extends Component {
         const { data } = this.props;
         if (!data)
             return null;
-        const nodes = data.tasks.map(function (task, i) {
+        const tasks = sortBy(data.tasks, ['due_date']);
+        
+        const nodes = tasks.map(function (task, i) {
             const list = find(data.lists, { id: parseInt(task.list_id) });
-            console.log(task);
             return (
                 <ListItem 
                     key={i}
                     children={
-                        <div>
-                            <div className='item_date'>{ task.due_date }</div>
-                            <div className='item_title'>{ task.title }</div>
-                            <div className='item_subtitle'>{ list.title }</div>
+                        <div className='item' key={i}>
+                            <h3 className='item_prop item_title'>{ task.title }</h3>
+                            <h5 className='item_prop item_subtitle subdued'>{list.title}</h5>
+                            <div className='item_prop item_date'>{task.due_date}</div>
                         </div>
 
                     }
