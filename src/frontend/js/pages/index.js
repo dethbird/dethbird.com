@@ -20,8 +20,8 @@ import store from 'store/store';
 
 // External
 import Index from 'components/pages/index';
-import Projects from 'components/pages/projects';
-import ProjectStoryboard from 'components/pages/project-storyboard';
+import Pocket from 'components/pages/pocket';
+import Wunderlist from 'components/pages/wunderlist';
 import Login from 'components/pages/login';
 
 import NavigationHeader from 'components/navigation/header';
@@ -88,11 +88,11 @@ render((
         <MuiThemeProvider muiTheme={muiTheme}>
             <Provider store={ store }>
                     <div>
-                        <NavigationHeader securityContext={securityContext} />
+                        <NavigationHeader securityContext={securityContext} history={ history } />
                         <Route path="/login" component={ Login } props={{ securityContext }} />
-                        <Route exact path="/projects" component={requireAuth(securityContext, Projects)} props={{ securityContext }} />
-                        <Route exact path="/project/:projectId/storyboard/:storyboardId" component={requireAuth(securityContext, ProjectStoryboard)} props={{ securityContext }} />
-                        <Route exact path="/" component={requireAuth(securityContext, Index)} props={{ securityContext }} />
+                        <Route exact path="/pocket" component={requireAuth(securityContext, Pocket)} props={{ securityContext }} />
+                        <Route exact path="/wunderlist" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
+                        <Route exact path="/" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
                     </div>
             </Provider>
         </MuiThemeProvider>
