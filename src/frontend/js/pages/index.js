@@ -89,7 +89,6 @@ render((
         <MuiThemeProvider muiTheme={muiTheme}>
             <Provider store={ store }>
                 <div>
-                    <NavigationHeader securityContext={securityContext} history={ history } />
                     <Route path="/login" component={ Login } props={{ securityContext }} />
                     <Route exact path="/pocket" component={requireAuth(securityContext, Pocket)} props={{ securityContext }} />
                     <Route exact path="/wunderlist" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
