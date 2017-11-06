@@ -7,8 +7,8 @@ canvas:
 elements:
     -
         id: sun_with_sunglasses
-        type: markdown
-        src: /img/layout/cabo/ear_herpes_center_building.png
+        type: image
+        src: /img/layout/cabo/sun_with_sunglasses.png
         markdown: |
             Sun with sunglasses
         position:
@@ -17,8 +17,6 @@ elements:
         dimensions:
             width: 280
             height: 280
-        classes:
-            - element-placeholder
     -
         id: ear_herpes_center_building
         type: image
