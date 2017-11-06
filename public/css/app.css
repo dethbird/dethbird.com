@@ -57,6 +57,12 @@
 .cm-fat-cursor div.CodeMirror-cursors {
   z-index: 1;
 }
+.cm-fat-cursor-mark {
+  background-color: rgba(20, 255, 20, 0.5);
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+}
 .cm-animate-fat-cursor {
   width: auto;
   border: 0;
@@ -594,20 +600,10 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #FCFCFC;
 }
-.card.card-highlighted {
-  background-color: #F9EAFF !important;
-}
-.card.card-playing {
-  background-color: #FF9651 !important;
-}
-.card.card-selected {
-  background-color: #EFC1FF !important;
-}
-.display-header {
-  margin: .5em 0 1em 0 !important;
-  font-family: 'Roboto', sans-serif;
-  font-size: 2.8rem !important;
-  color: #777 !important;
+.canvas {
+  overflow: hidden;
+  position: absolute;
+  background-color: #DBDBDB;
 }
 code {
   font-size: .85em;
@@ -625,16 +621,26 @@ code {
   background-color: #f6fff8;
   padding: 0 2px 0 2px;
 }
-.external-header h1,
-.external-header h2,
-.external-header h3,
-.external-header h4,
-.external-header h5,
-.external-header h6 {
-  color: white !important;
+.element {
+  position: absolute;
+  display: block;
+  user-select: none;
 }
-.external-main-menu {
-  background-color: rgba(34, 34, 34, 0.25) !important;
+.element .element-image {
+  width: 100%;
+  height: auto;
+}
+.element-placeholder {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 15px;
+}
+.element-placeholder ul {
+  list-style: circle;
+}
+.element-placeholder ul li {
+  margin-left: 20px;
+  padding: 5px;
 }
 .fountain {
   color: #000 !important;
@@ -809,36 +815,8 @@ i.trash {
 .item .item_date {
   font-size: .8em;
 }
-.external-header {
-  min-height: 165px;
-  padding: .5em 0em;
-  background-image: url('/img/purple-space-landscape.jpg') !important;
-  background-position-y: -504px !important;
-}
 .label {
   font-weight: bold;
-}
-.masthead.segment {
-  min-height: 620px;
-  padding: .5em 0em;
-  background-image: url('/img/purple-space-landscape.jpg') !important;
-  background-position-y: -185px !important;
-}
-.masthead img.logo {
-  margin-top: 5.5em;
-}
-.masthead .ui.menu .ui.button {
-  margin-left: 0.5em;
-}
-.masthead h1.ui.header {
-  margin-top: 3em;
-  margin-bottom: 0em;
-  font-size: 4em;
-  font-weight: normal;
-}
-.masthead h2 {
-  font-size: 1.7em;
-  font-weight: normal;
 }
 .quote.stripe.segment {
   padding: 0em;
@@ -926,29 +904,6 @@ div.script-input {
 }
 .ui.spaced.image {
   margin: 0 .5em .5em .5em;
-}
-@media only screen and (max-width: 700px) {
-  .ui.fixed.menu {
-    display: none !important;
-  }
-  .secondary.pointing.menu .item,
-  .secondary.pointing.menu .menu {
-    display: none;
-  }
-  .secondary.pointing.menu .toc.item {
-    display: block;
-  }
-  .masthead.segment {
-    min-height: 350px;
-  }
-  .masthead h1.ui.header {
-    font-size: 2em;
-    margin-top: 1.5em;
-  }
-  .masthead h2 {
-    margin-top: 0.5em;
-    font-size: 1.5em;
-  }
 }
 .timestamp {
   font-size: 0.8em;

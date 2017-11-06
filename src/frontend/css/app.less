@@ -136,21 +136,10 @@ body {
     background-color: #FCFCFC;
 }
 
-.card.card-highlighted {
-    background-color: #F9EAFF !important;
-}
-.card.card-playing {
-    background-color: #FF9651 !important;
-}
-.card.card-selected {
-    background-color: #EFC1FF !important;
-}
-
-.display-header {
-    margin: .5em 0 1em 0 !important;
-    font-family: 'Roboto', sans-serif;
-    font-size: 2.8rem !important;
-    color: #777 !important;
+.canvas {
+    overflow: hidden;
+    position: absolute;
+    background-color: #DBDBDB;
 }
 
 code {
@@ -164,20 +153,36 @@ code {
 .CodeMirror {
     height: auto;
 }
+
 .duration {
     color: #1c8c36;
     font-size: 0.9em;
     background-color: #f6fff8;
     padding: 0 2px 0 2px;
 }
-.external-header {
-    h1,h2,h3,h4,h5,h6 {
-        color: white !important;
+
+.element {
+    position: absolute;
+    display: block;
+    user-select: none;
+    .element-image {
+        width: 100%;
+        height: auto;
     }
 }
-.external-main-menu {
-    background-color: rgba(34,34,34,.25) !important;
+.element-placeholder {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    ul {
+        list-style: circle;
+        li {
+            margin-left: 20px;
+            padding: 5px;
+        }
+    }
 }
+
 .fountain {
     color: #000 !important;
     font-family: 'Crimson Text', serif;
@@ -353,36 +358,8 @@ i.trash {
     }
 }
 
-.external-header {
-    min-height: 165px;
-    padding: .5em 0em;
-    background-image: url('/img/purple-space-landscape.jpg') !important;
-    background-position-y: -504px !important;
-}
 .label {
     font-weight: bold;
-}
-.masthead.segment {
-    min-height: 620px;
-    padding: .5em 0em;
-    background-image: url('/img/purple-space-landscape.jpg') !important;
-    background-position-y: -185px !important;
-}
-.masthead img.logo {
-    margin-top: 5.5em;
-}
-.masthead .ui.menu .ui.button {
-    margin-left: 0.5em;
-}
-.masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
-}
-.masthead h2 {
-    font-size: 1.7em;
-    font-weight: normal;
 }
 
 .quote.stripe.segment {
@@ -489,29 +466,6 @@ div.script-input {
     margin: 0 .5em .5em .5em;
 }
 
-@media only screen and (max-width: 700px) {
-    .ui.fixed.menu {
-        display: none !important;
-    }
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
-        display: none;
-    }
-    .secondary.pointing.menu .toc.item {
-        display: block;
-    }
-    .masthead.segment {
-        min-height: 350px;
-    }
-    .masthead h1.ui.header {
-        font-size: 2em;
-        margin-top: 1.5em;
-    }
-    .masthead h2 {
-        margin-top: 0.5em;
-        font-size: 1.5em;
-    }
-}
 .timestamp {
     font-size: 0.8em;
     color: #AAA;
