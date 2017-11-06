@@ -1,0 +1,100 @@
+canvas:
+    id: cabo
+    dimensions:
+        width: 25000
+        height: 20000
+    type: xycanvas
+elements:
+    -
+        id: sun_with_sunglasses
+        type: markdown
+        src: /img/layout/cabo/ear_herpes_center_building.png
+        markdown: |
+            Sun with sunglasses
+        position:
+            left: 550
+            top: 15
+        dimensions:
+            width: 280
+            height: 280
+        classes:
+            - element-placeholder
+    -
+        id: ear_herpes_center_building
+        type: image
+        src: /img/layout/cabo/ear_herpes_center_building.png
+        position:
+            left: 24
+            top: 87
+        dimensions:
+            width: 600
+            height: auto
+    -
+        id: ear_herpes_center_cat
+        type: image
+        src: /img/layout/cabo/ear_herpes_center_cat.png
+        position:
+            left: 78
+            top: 494
+        dimensions:
+            width: 551
+            height: auto
+    -
+        id: casa_de_miguel
+        type: markdown
+        src: /img/layout/cabo/casa_de_miguel.png
+        markdown: |
+            Casa de Miguel
+
+            - ronaldo
+            - beeramyd
+            - breakfast nachos
+        position:
+            left: 1050
+            top: 50
+        dimensions:
+            width: 560
+            height: 380
+        classes:
+            - element-placeholder
+    -
+        id: sloot_vultures
+        type: markdown
+        src: /img/layout/cabo/sloot_vultures.png
+        markdown: |
+            Sloot Vultures
+        position:
+            left: 1550
+            top: 75
+        dimensions:
+            width: 680
+            height: 140
+        classes:
+            - element-placeholder
+    -
+        id: balloon_hands_man
+        type: image
+        src: /img/layout/cabo/balloon_hands_man.png
+        position:
+            left: 850
+            top: 700
+        dimensions:
+            width: 280
+            height: auto
+    -
+        id: chi_chi_mama_man
+        type: markdown
+        src: /img/layout/cabo/chi_chi_mama_man.png
+        markdown: |
+            Chi-Chi Mama man
+
+            - restaurant
+            - see him talking to customers and spewing corona into the margarita
+        position:
+            left: 1550
+            top: 780
+        dimensions:
+            width: 680
+            height: 380
+        classes:
+            - element-placeholder

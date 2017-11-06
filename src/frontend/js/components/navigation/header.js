@@ -32,7 +32,7 @@ class NavigationHeader extends Component {
     render() {
         const { securityContext } = this.props;
         const that = this;
-        console.log(securityContext);
+        
         return (
             <div>
                 <Drawer

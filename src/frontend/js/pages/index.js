@@ -20,6 +20,7 @@ import store from 'store/store';
 
 // External
 import Index from 'components/pages/index';
+import Thing from 'components/pages/thing';
 import Pocket from 'components/pages/pocket';
 import Wunderlist from 'components/pages/wunderlist';
 import Login from 'components/pages/login';
@@ -87,13 +88,14 @@ render((
     <Router history={ history }>
         <MuiThemeProvider muiTheme={muiTheme}>
             <Provider store={ store }>
-                    <div>
-                        <NavigationHeader securityContext={securityContext} history={ history } />
-                        <Route path="/login" component={ Login } props={{ securityContext }} />
-                        <Route exact path="/pocket" component={requireAuth(securityContext, Pocket)} props={{ securityContext }} />
-                        <Route exact path="/wunderlist" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
-                        <Route exact path="/" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
-                    </div>
+                <div>
+                    <NavigationHeader securityContext={securityContext} history={ history } />
+                    <Route path="/login" component={ Login } props={{ securityContext }} />
+                    <Route exact path="/pocket" component={requireAuth(securityContext, Pocket)} props={{ securityContext }} />
+                    <Route exact path="/wunderlist" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
+                    <Route exact path="/thing/:name" component={ Thing } />
+                    <Route exact path="/" component={requireAuth(securityContext, Wunderlist)} props={{ securityContext }} />
+                </div>
             </Provider>
         </MuiThemeProvider>
     </Router>

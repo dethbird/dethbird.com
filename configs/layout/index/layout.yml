@@ -1,0 +1,64 @@
+canvas:
+    id: index
+    dimensions:
+        width: 5760
+        height: 3000
+    parallax:
+        dampen: 8
+elements:
+    -
+        id: bg_shops
+        tag: image
+        src: /img/layout/index/bg_shops.png
+        position:
+            left: 620
+            top: 110
+        dimensions:
+            width: 800
+            height: auto
+        parallax_x:
+            depth: 20
+        parallax_y:
+            depth: 20
+    -
+        id: billboard001
+        tag: image
+        src: /img/layout/index/billboard001.png
+        position:
+            left: 1610
+            top: 210
+        dimensions:
+            width: 300
+            height: auto
+        parallax_x:
+            depth: 6
+        parallax_y:
+            depth: 17
+    -
+        id: a_guy
+        tag: image
+        src: /img/layout/index/a_guy.png
+        position:
+            left: 350
+            top: 442
+        dimensions:
+            width: 300
+            height: auto
+        parallax_x:
+            depth: 3
+        parallax_y:
+            depth: 15
+    -
+        id: cartrunk
+        tag: image
+        src: /img/layout/index/cartrunk.png
+        position:
+            left: 650
+            top: 461
+        dimensions:
+            width: 780
+            height: auto
+        parallax_x:
+            depth: 2
+        parallax_y:
+            depth: 15

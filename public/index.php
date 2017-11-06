@@ -127,6 +127,21 @@ $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
         ->withJson($body);
 });
 
+
+$app->group('/data', function(){
+    $this->group('/thing', function(){
+        $this->get('/{name}', function($request, $response, $args){
+            $layoutFile = APPLICATION_PATH . "configs/layout/" . $args['name']. "/layout.yml";
+            if (!file_exists($layoutFile)) {
+                $app->halt(404);
+            }
+            $layout = Yaml::parse(file_get_contents($layoutFile));
+            return $response
+                ->withJson($layout);
+        });
+    });
+});
+
 # logout
 $app->get("/logout",  function ($request, $response) {
     $_SESSION['authToken'] = null;
