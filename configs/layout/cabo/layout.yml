@@ -96,3 +96,17 @@ elements:
             height: 380
         classes:
             - element-placeholder
+    -
+        id: el_squid_roe
+        type: markdown
+        src: /img/layout/cabo/chi_chi_mama_man.png
+        markdown: |
+            El Squid Roe
+        position:
+            left: 3000
+            top: 478
+        dimensions:
+            width: 680
+            height: 380
+        classes:
+            - element-placeholder
