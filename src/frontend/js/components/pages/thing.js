@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getThing } from 'actions/thing';
 import Container from 'components/layout/container';
-import XYCanvas from 'components/xycanvas/xycanvas';
+import XYCanvasViewer from 'components/xycanvas/xycanvas-viewer';
 
 import { UI_STATE } from 'constants/ui-state';
 import UiStateContainer from 'components/ui/ui-state-container';
@@ -22,7 +22,7 @@ class Thing extends Component {
         if (!layout)
             return <UiStateContainer uiState={ui_state} />
         return (
-            <XYCanvas layout={ layout } />
+            <XYCanvasViewer layout={ layout } />
         );
     }
 };
