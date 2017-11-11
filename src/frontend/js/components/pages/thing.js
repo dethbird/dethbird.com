@@ -19,7 +19,7 @@ class Thing extends Component {
     render() {
         const { layout, ui_state } = this.props;
         if (!layout)
-            return <UiStateContainer uiState={ui_state} />
+            return <UiStateContainer uiState={ui_state} />;
         return (
             <XYCanvasViewer layout={ layout } />
         );
