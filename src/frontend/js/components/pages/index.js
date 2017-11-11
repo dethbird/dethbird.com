@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 
 import Container from 'components/layout/container';
 
-import WunderlistList from 'components/list/wunderlist';
-import PocketList from 'components/list/pocket';
-
 
 class Index extends Component {
     render() {
         return (
             <Container>
-                <WunderlistList />
-                <PocketList />
+                hi
             </Container>
         );
     }

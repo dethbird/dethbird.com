@@ -18,7 +18,6 @@ class Thing extends Component {
 
     render() {
         const { layout, ui_state } = this.props;
-        console.log(layout);
         if (!layout)
             return <UiStateContainer uiState={ui_state} />
         return (

@@ -27,3 +27,5 @@ export const THING = {
     ERROR: "THING_ERROR",
     SUCCESS: "THING_SUCCESS"
 };
+
+export const SET_XYCANVAS_PARAM = 'SET_XYCANVAS_PARAM';

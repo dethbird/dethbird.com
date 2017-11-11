@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import { ActionHttps } from 'material-ui/svg-icons';
+import {
+    Button,
+    Container,
+    Form,
+    Menu,
+    Message
+} from 'semantic-ui-react';
 
-import Container from 'components/layout/container';
-import FormWrapper from 'components/form/form-wrapper';
-import UiStateButton from 'components/form/ui-state-button';
+import ErrorMessage from 'components/message/error-message';
+
 import { UI_STATE } from 'constants/ui-state';
 import { loginAttempt } from 'actions/login';
 import loginPostSchema from 'validation_schema/login-post.json';
@@ -41,46 +43,35 @@ class Login extends Component {
         const { ui_state, errors } = this.props;
         const { changedFields } = this.state;
         return (
-            <Container>
-                <FormWrapper onSubmit={ this.onClickSubmit } >
-                    <Card>
-                        <CardTitle title="Login, Honcho" />
-                        <CardText>
-                            <TextField 
-                                type='username'
-                                floatingLabelText='Username'
-                                name='username'
-                                id='username'
-                                fullWidth
-                                value={changedFields.username || ''}
-                                onChange={this.handleFieldChange}
-                                errorText={jsonSchema.getErrorMessageForProperty('username', errors)}
-                                hintText='joe.schmoe'
-                            />
-                            <br />
-                            <TextField
-                                type='password'
-                                floatingLabelText='Password'
-                                name='password'
-                                id='password'
-                                fullWidth
-                                value={changedFields.password || ''}
-                                onChange={this.handleFieldChange}
-                                errorText={jsonSchema.getErrorMessageForProperty('password', errors)}
-                                hintText='letmein'
-                            />
-                        </CardText>
-                        <CardActions style={ { textAlign: 'right' } }>
-                            <UiStateButton uiState={ ui_state } successMessage={ 'Login successful' } >
-                                <FlatButton icon={<ActionHttps /> } label='Login' labelPosition='before' primary onClick={ this.onClickSubmit } type='submit'/>
-                            </UiStateButton>
-                        </CardActions>
-                    </Card>
-                </FormWrapper>
+            <Container text={true}>
+                <Form
+                    inverted={true}
+                    loading={ui_state == UI_STATE.REQUESTING}
+                    error={ui_state == UI_STATE.ERROR}
+                    success={ui_state == UI_STATE.SUCCESS}
+                    onSubmit={this.onClickSubmit}
+                >
+                    <Container>
+                        <Message success={true} content="Successfully logged in, redirecting ..." />
+                        <ErrorMessage message={jsonSchema.getGlobalErrorMessage(errors)} />
+                    </Container>
+                    <Form.Group widths='equal'>
+                        <Form.Input label="Username" placeholder="Username" id="username" type="text" onChange={(e) => this.handleFieldChange(e, 'username')} value={changedFields.username || ''} />
+                        <ErrorMessage message={jsonSchema.getErrorMessageForProperty('username', errors)} />
+                        <Form.Input label="Password" placeholder="Password" id="password" type="password" onChange={(e) => this.handleFieldChange(e, 'password')} value={changedFields.password || ''} />
+                        <ErrorMessage message={jsonSchema.getErrorMessageForProperty('password', errors)} />
+                    </Form.Group>
+                    <Container textAlign="right">
+                        <Button.Group>
+                            <Button color="teal" onClick={this.onClickSubmit}>Login</Button>
+                        </Button.Group>
+                    </Container>
+                </Form>
             </Container>
         )
     }
 }
+
 const mapStateToProps = (state) => {
     const { ui_state, errors } = state.loginReducer;
     return {
