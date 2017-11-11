@@ -6,19 +6,41 @@ import { Button, Icon, Segment } from 'semantic-ui-react';
 
 import XYCanvas from 'components/xycanvas/xycanvas';
 
+import { 
+    increaseScale,
+    decreaseScale 
+} from 'actions/xycanvas';
+
 
 class XYCanvasViewer extends Component {
+    constructor(props) {
+        super(props);
+        this.zoomIn = this.zoomIn.bind(this);
+        this.zoomOut = this.zoomOut.bind(this);
+    }
+    zoomIn() {
+        const { dispatch, params } = this.props;
+        dispatch(increaseScale(params));
+    }
+    zoomOut() {
+        const { dispatch, params } = this.props;
+        dispatch(decreaseScale(params));
+    }
     render() {
         const { layout, params } = this.props;
-        console.log(params);
+        const { 
+            zoomIn,
+            zoomOut
+        } = this;
+        
         return (
             <div className="canvas-viewer" style={{}} >
                 <Segment compact textAlign='center' className='controls'>
                     <Button.Group icon>
-                        <Button>
+                        <Button onClick={ () => { zoomIn() } }>
                             <Icon name='zoom' />
                         </Button>
-                        <Button>
+                        <Button onClick={() => { zoomOut() }}>
                             <Icon name='zoom out' />
                         </Button>
                         <Button>
@@ -35,7 +57,7 @@ class XYCanvasViewer extends Component {
                         </Button>
                     </Button.Group>
                 </Segment>
-                <XYCanvas layout={layout} />
+                <XYCanvas layout={layout} params={ params } />
             </div>
         );
     }

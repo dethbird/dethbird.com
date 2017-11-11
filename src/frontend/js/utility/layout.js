@@ -14,3 +14,18 @@ export const compileStyle = (object) => {
         };
     return style;
 };
+
+
+export const computeStyleWithParams = (object, params) => {
+    let style = { ... object };
+    if (params.scale)
+        if (style.height && !isNaN(style.height))
+            style.height = style.height * params.scale;
+        if (style.width)
+            style.width = style.width * params.scale;
+        if (style.top)
+            style.top = style.top * params.scale;
+        if (style.left)
+            style.left = style.left * params.scale;
+    return style;
+};

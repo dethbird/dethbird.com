@@ -9,7 +9,7 @@ const xycanvasReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_XYCANVAS_PARAM:
             return {
-                state
+                ... action.params
             }
         default:
             return state;

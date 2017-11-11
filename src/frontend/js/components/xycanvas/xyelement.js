@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
-import { compileStyle } from 'utility/layout';
+import { compileStyle, computeStyleWithParams } from 'utility/layout';
 import Markdown from 'components/ui/markdown';
 
 class XYElement extends Component {
@@ -19,13 +19,14 @@ class XYElement extends Component {
         return null;
     }
     render() {
-        const { element } = this.props;
+        const { element, params } = this.props;
         const elementClasses = element.classes || null;
         const style = compileStyle(element);
+        const computedStyle = computeStyleWithParams(style, params);
         return (
             <div 
                 className={classNames(['element', elementClasses])}
-                style={ style }
+                style={ computedStyle }
                 id={ element.id }
             >
                 { this.renderTag() }
@@ -35,6 +36,7 @@ class XYElement extends Component {
 };
 
 XYElement.propTypes = {
+    element: PropTypes.object.isRequired,
     element: PropTypes.object.isRequired
 };
 
