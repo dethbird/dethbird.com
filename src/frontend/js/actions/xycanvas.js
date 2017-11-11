@@ -23,3 +23,14 @@ export const decreaseScale = (params) => {
         params: newParams
     }
 }
+
+export const panLeft = (params) => {
+    const newParams = {
+        ...params,
+        panLeft: params.panLeft - 100
+    }
+    return {
+        type: SET_XYCANVAS_PARAM,
+        params: newParams
+    }
+}

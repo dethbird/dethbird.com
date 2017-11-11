@@ -2,6 +2,7 @@ import { SET_XYCANVAS_PARAM } from 'constants/actions';
 
 const initialState = {
     scale: 1,
+    panLeft: 0
 };
 
 const xycanvasReducer = (state = initialState, action) => {

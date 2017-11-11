@@ -8,42 +8,49 @@ import XYCanvas from 'components/xycanvas/xycanvas';
 
 import { 
     increaseScale,
-    decreaseScale 
+    decreaseScale,
+    panLeft
 } from 'actions/xycanvas';
 
 
 class XYCanvasViewer extends Component {
     constructor(props) {
         super(props);
-        this.zoomIn = this.zoomIn.bind(this);
-        this.zoomOut = this.zoomOut.bind(this);
+        this.handleZoomIn = this.handleZoomIn.bind(this);
+        this.handleZoomOut = this.handleZoomOut.bind(this);
+        this.handlePanLeft = this.handlePanLeft.bind(this);
     }
-    zoomIn() {
+    handleZoomIn() {
         const { dispatch, params } = this.props;
         dispatch(increaseScale(params));
     }
-    zoomOut() {
+    handleZoomOut() {
         const { dispatch, params } = this.props;
         dispatch(decreaseScale(params));
+    }
+    handlePanLeft() {
+        const { dispatch, params } = this.props;
+        dispatch(panLeft(params));
     }
     render() {
         const { layout, params } = this.props;
         const { 
-            zoomIn,
-            zoomOut
+            handleZoomIn,
+            handleZoomOut,
+            handlePanLeft
         } = this;
-        
+
         return (
             <div className="canvas-viewer" style={{}} >
                 <Segment compact textAlign='center' className='controls'>
                     <Button.Group icon>
-                        <Button onClick={ () => { zoomIn() } }>
+                        <Button onClick={() => { handleZoomIn() } }>
                             <Icon name='zoom' />
                         </Button>
-                        <Button onClick={() => { zoomOut() }}>
+                        <Button onClick={() => { handleZoomOut() }}>
                             <Icon name='zoom out' />
                         </Button>
-                        <Button>
+                        <Button onClick={() => { handlePanLeft() }}>
                             <Icon name='arrow left' />
                         </Button>
                         <Button>
