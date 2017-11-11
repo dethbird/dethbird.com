@@ -34,3 +34,36 @@ export const panLeft = (params) => {
         params: newParams
     }
 }
+
+export const panRight = (params) => {
+    const newParams = {
+        ...params,
+        panLeft: params.panLeft + 100
+    }
+    return {
+        type: SET_XYCANVAS_PARAM,
+        params: newParams
+    }
+}
+
+export const panUp = (params) => {
+    const newParams = {
+        ...params,
+        panTop: params.panTop - 100
+    }
+    return {
+        type: SET_XYCANVAS_PARAM,
+        params: newParams
+    }
+}
+
+export const panDown = (params) => {
+    const newParams = {
+        ...params,
+        panTop: params.panTop + 100
+    }
+    return {
+        type: SET_XYCANVAS_PARAM,
+        params: newParams
+    }
+}

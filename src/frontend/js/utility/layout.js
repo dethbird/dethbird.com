@@ -30,5 +30,8 @@ export const computeStyleWithParams = (object, params) => {
     if (params.panLeft)
         if (style.left)
             style.left = style.left + params.panLeft; // negative value
+    if (params.panTop)
+        if (style.top)
+            style.top = style.top + params.panTop; // negative value
     return style;
 };

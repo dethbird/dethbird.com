@@ -9,7 +9,10 @@ import XYCanvas from 'components/xycanvas/xycanvas';
 import { 
     increaseScale,
     decreaseScale,
-    panLeft
+    panLeft,
+    panRight,
+    panUp,
+    panDown
 } from 'actions/xycanvas';
 
 
@@ -19,6 +22,9 @@ class XYCanvasViewer extends Component {
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.handlePanLeft = this.handlePanLeft.bind(this);
+        this.handlePanRight = this.handlePanRight.bind(this);
+        this.handlePanUp = this.handlePanUp.bind(this);
+        this.handlePanDown = this.handlePanDown.bind(this);
     }
     handleZoomIn() {
         const { dispatch, params } = this.props;
@@ -32,12 +38,27 @@ class XYCanvasViewer extends Component {
         const { dispatch, params } = this.props;
         dispatch(panLeft(params));
     }
+    handlePanRight() {
+        const { dispatch, params } = this.props;
+        dispatch(panRight(params));
+    }
+    handlePanUp() {
+        const { dispatch, params } = this.props;
+        dispatch(panUp(params));
+    }
+    handlePanDown() {
+        const { dispatch, params } = this.props;
+        dispatch(panDown(params));
+    }
     render() {
         const { layout, params } = this.props;
         const { 
             handleZoomIn,
             handleZoomOut,
-            handlePanLeft
+            handlePanLeft,
+            handlePanRight,
+            handlePanUp,
+            handlePanDown
         } = this;
 
         return (
@@ -53,13 +74,13 @@ class XYCanvasViewer extends Component {
                         <Button onClick={() => { handlePanLeft() }}>
                             <Icon name='arrow left' />
                         </Button>
-                        <Button>
+                        <Button onClick={() => { handlePanRight() }}>
                             <Icon name='arrow right' />
                         </Button>
-                        <Button>
+                        <Button onClick={() => { handlePanUp() }}>
                             <Icon name='arrow up' />
                         </Button>
-                        <Button>
+                        <Button onClick={() => { handlePanDown() }}>
                             <Icon name='arrow down' />
                         </Button>
                     </Button.Group>
