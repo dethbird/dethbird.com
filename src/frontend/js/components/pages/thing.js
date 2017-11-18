@@ -20,9 +20,13 @@ class Thing extends Component {
         const { layout, ui_state } = this.props;
         if (!layout)
             return <UiStateContainer uiState={ui_state} />;
-        return (
-            <XYCanvasViewer layout={ layout } />
-        );
+        
+        if (layout.canvas.type == 'xycanvas')
+            return <XYCanvasViewer layout={ layout } />;
+        
+        if (layout.canvas.type == 'pixicanvas')
+            return <div>farts</div>;
+            
     }
 };
 

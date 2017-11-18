@@ -1,0 +1,8 @@
+canvas:
+    id: pixitest.001
+    dimensions:
+        width: 1280
+        height: 1024
+    type: pixicanvas
+elements:
+    pizza

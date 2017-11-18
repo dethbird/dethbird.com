@@ -8,6 +8,7 @@
     "marked": "^0.3.6",
     "moment": "^2.18.1",
     "pad-left": "^2.1.0",
+    "pixi.js": "^4.6.1",
     "pluralize": "^7.0.0",
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
