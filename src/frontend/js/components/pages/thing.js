@@ -5,10 +5,13 @@ import { connect } from 'react-redux';
 import { getThing } from 'actions/thing';
 import Container from 'components/layout/container';
 import XYCanvasViewer from 'components/xycanvas/xycanvas-viewer';
+import PhaserContainer from 'components/phaser/phaser-container';
 
 import { UI_STATE } from 'constants/ui-state';
 import UiStateContainer from 'components/ui/ui-state-container';
 
+// var app = new PIXI.Application();
+// console.log(app);
 
 class Thing extends Component {
     componentDidMount() {
@@ -24,8 +27,8 @@ class Thing extends Component {
         if (layout.canvas.type == 'xycanvas')
             return <XYCanvasViewer layout={ layout } />;
         
-        if (layout.canvas.type == 'pixicanvas')
-            return <div>farts</div>;
+        if (layout.canvas.type == 'phaser')
+            return <PhaserContainer layout={layout} />;
             
     }
 };

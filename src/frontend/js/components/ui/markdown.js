@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import marked from 'marked';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 
 class Markdown extends Component {

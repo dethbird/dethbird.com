@@ -3,6 +3,6 @@ canvas:
     dimensions:
         width: 1280
         height: 1024
-    type: pixicanvas
+    type: phaser
 elements:
     pizza
