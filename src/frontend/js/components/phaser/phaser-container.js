@@ -3,8 +3,19 @@ import PropTypes from 'prop-types';
 
 
 class PhaserContainer extends Component {
+    componentDidMount() {
+        const game = new Phaser.Game(800, 400, Phaser.AUTO, "phaser-container",
+            {
+                create: () => {},
+                update: () => {}
+            }
+        );
+    }
+    shouldComponentUpdate() {
+        return false;
+    }
     render() {
-        return <div>phaser</div>;
+        return <div id='phaser-container' />;
     }
 };
 
