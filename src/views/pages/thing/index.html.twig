@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{% endblock %}
+{% block head %}
+    {{parent()}}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+    <div id="mount"></div>
+{% endblock %}
+
+
+{% block includes %}
+  <!-- js includes -->
+  <script type="text/javascript">
+    var lastRequestUri = "{{lastRequestUri}}";
+    var securityContext = {{securityContext|json_encode|raw}};
+    var layout = {{layout|json_encode|raw}};
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/phaser-ce@2.9.2"></script>
+  <script type="text/javascript" src="{{ thingJsFile }}"></script>
+{% endblock %}

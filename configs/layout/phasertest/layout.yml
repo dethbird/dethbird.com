@@ -1,0 +1,8 @@
+canvas:
+    id: phasertest
+    dimensions:
+        width: 1280
+        height: 1024
+    type: phaser
+elements:
+    pizza

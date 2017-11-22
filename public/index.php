@@ -74,6 +74,7 @@ $container['notFoundHandler'] = function ($c) {
 
 require_once APPLICATION_PATH . 'src/routes/service.php';
 
+
 # index
 $app->get('/', function ($request, $response){
     $configs = $this['configs'];
@@ -96,6 +97,44 @@ $app->get('/', function ($request, $response){
 })
 ->add( new SetSecurityContext($container) );
 
+
+# index
+$app->get('/thing/{thing}', function ($request, $response, $args){
+    $configs = $this['configs'];
+    $view = $this['view'];
+    $securityContext = isset($_SESSION['securityContext']) ? $_SESSION['securityContext'] : null;
+    $lastRequestUri = isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null;
+
+    $thingJsFile = APPLICATION_PATH . 'public/js/pages/thing/' . $args['thing'] . '.js';
+    if(!file_exists($thingJsFile)){
+        return $response->withStatus(404)->write('Nope.');
+    }
+
+    $thingLayoutFile = APPLICATION_PATH . 'configs/layout/' . $args['thing'] . '/layout.yml';
+    $layout = [];
+    if(file_exists($thingLayoutFile)){
+        $layout = Yaml::parse(file_get_contents($thingLayoutFile));
+    } else {
+        return $response->withStatus(404)->write('Nope!');
+    }
+
+    $templateVars = [
+        "configs" => $configs,
+        'securityContext' => $securityContext,
+        'lastRequestUri' => $lastRequestUri,
+        'thingJsFile' => '/js/pages/thing/' . $args['thing'] . '.js',
+        'layout' => $layout,
+    ];
+    return $this['view']->render(
+        $response,
+        'pages/thing/index.html.twig',
+        $templateVars
+    );
+
+})
+->add( new SetSecurityContext($container) );
+
+# api proxy
 $app->any('/proxy/[{path:.*}]', function($request, $response, $path = null) {
 
     $configs = $this['configs'];

@@ -8,17 +8,12 @@ import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 import { Provider } from 'react-redux';
 
-/** Material UI */
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import { grey500, grey800 } from 'material-ui/styles/colors';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
 import store from 'store/store';
 
-// External
 import Index from 'components/pages/index';
 import Thing from 'components/pages/thing';
 import Login from 'components/pages/login';
@@ -43,42 +38,6 @@ function requireAuth(securityContext, WrappedComponent) {
         }
     }
 };
-
-// const palette = {
-//     baseColor: '#3E43C9',
-//     baseButtonColor: '#F2F2F2',
-//     primaryColor: '#15A599',
-//     secondaryColor: '#A3038C'
-// }
-
-// const muiTheme = getMuiTheme({
-//     appBar: {
-//         color: palette.baseColor,
-//         textColor: '#FFFFFF'
-//     },
-//     floatingActionButton: {
-//         color: palette.baseButtonColor,
-//         primaryColor: palette.primaryColor,
-//         secondaryColor: palette.secondaryColor
-//     },
-//     flatButton: {
-//         color: palette.baseButtonColor,
-//         primaryColor: palette.primaryColor,
-//         secondaryColor: palette.secondaryColor
-//     },
-//     floatingActionButton: {
-//         color: palette.primaryColor,
-//         secondaryColor: palette.secondaryColor
-//     }, 
-//     svgIcon: {
-//         color: grey500
-//     },
-//     raisedButton: {
-//         color: palette.baseButtonColor,
-//         primaryColor: palette.primaryColor,
-//         secondaryColor: palette.secondaryColor
-//     }
-// });
 
 render((
     <Router history={ history }>
