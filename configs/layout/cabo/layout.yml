@@ -1,9 +1,10 @@
 canvas:
     id: cabo
+    background_color: '#AAA'
     dimensions:
         width: 25000
         height: 20000
-    type: xycanvas
+    type: phaser
 elements:
     -
         id: sun_with_sunglasses

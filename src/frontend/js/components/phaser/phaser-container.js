@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { 
+    createFromLayout,
+    preloadFromLayout,
+    updateFromLayout 
+} from 'utility/phaser';
+
+let game;
+let gameState = {};
 
 class PhaserContainer extends Component {
     componentDidMount() {
-        const game = new Phaser.Game(800, 400, Phaser.AUTO, "phaser-container",
+        game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, "phaser-container",
             {
-                create: () => {},
-                update: () => {}
+                preload: (game) => { preloadFromLayout(game, layout) },
+                create: (game) => { createFromLayout(game, layout, gameState) },
+                update: (game) => { updateFromLayout(game, layout, gameState) }
             }
         );
     }

@@ -30,7 +30,7 @@ function getPlugins() {
 module.exports = {
     entry: {
         phasertest: './src/frontend/js/pages/thing/phasertest.js',
-        phasertest2: './src/frontend/js/pages/thing/phasertest2.js'
+        cabo: './src/frontend/js/pages/thing/cabo.js'
     },
     output: {
         path: process.cwd() + '/public/js/pages/thing',
