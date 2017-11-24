@@ -7,6 +7,23 @@ canvas:
     type: phaser
 elements:
     -
+        id: sun_with_sunglasses_halo
+        type: image
+        src: /img/layout/cabo/sun_with_sunglasses-halo.png
+        markdown: |
+            Sun with sunglasses halo
+        position:
+            left: 550
+            top: 15
+        dimensions:
+            width: 280
+            height: 280
+        animations:
+            - 
+                type: rotation
+                properties:
+                    speed: 0.3
+    -
         id: sun_with_sunglasses
         type: image
         src: /img/layout/cabo/sun_with_sunglasses.png

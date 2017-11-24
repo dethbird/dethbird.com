@@ -1,4 +1,4 @@
-import { forEach } from 'lodash';
+import { forEach, has } from 'lodash';
 
 export const preloadFromLayout = (game, layout) => {
 
@@ -16,14 +16,30 @@ export const preloadFromLayout = (game, layout) => {
 }
 
 export const createFromLayout = (game, layout, gameState = {}) => {
-    gameState.sprites = {};
+    gameState.animations = {
+        rotations: []
+    };
     forEach(layout.elements, function (element, i) {
         if (element.type == 'image') {
             const sprite = game.add.sprite(element.position.left, element.position.top, element.id);
             const scale = parseInt(element.dimensions.width) / sprite.width;
             sprite.width = sprite.width * scale;
             sprite.height = sprite.height * scale;
-            gameState.sprites[element.id] = sprite;
+            if (has(element, 'animations')) {
+                if (element.animations.length > 0) {
+                    forEach(element.animations, function(anim, i) {
+                        if (anim.type === 'rotation') {
+                            sprite.anchor.setTo(0.5, 0.5);
+                            sprite.x = sprite.x + sprite.width / 2;
+                            sprite.y = sprite.y + sprite.height / 2;
+                            gameState.animations.rotations.push({
+                                properties: anim.properties,
+                                sprite
+                            });
+                        }
+                    });
+                }
+            }
         }
     });
 
@@ -53,4 +69,8 @@ export const updateFromLayout = (game, layout, gameState) => {
     else if (gameState.cursors.down.isDown) {
         game.camera.y += 4;
     }
+
+    forEach(gameState.animations.rotations, function(r, i) {
+        r.sprite.angle += r.properties.speed;
+    });
 }
