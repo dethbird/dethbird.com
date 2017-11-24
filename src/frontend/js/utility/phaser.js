@@ -44,30 +44,36 @@ export const createFromLayout = (game, layout, gameState = {}) => {
     });
 
     // cursor input
-    gameState.cursors = game.input.keyboard.createCursorKeys();
+    if (layout.canvas.input.includes('cursor'))
+        gameState.cursors = game.input.keyboard.createCursorKeys();
 
     // move camera with mouse flick
-    game.input.onUp.add((pointer) => {
-        game.add.tween(game.camera)
-            .to({
-                x: game.camera.x - (pointer.positionUp.x - pointer.positionDown.x),
-                y: game.camera.y - (pointer.positionUp.y - pointer.positionDown.y)
-            }, 800, Phaser.Easing.Quadratic.Out).start();
-    }, this);
+    if (layout.canvas.input.includes('flick')) {
+        game.input.onUp.add((pointer) => {
+            game.add.tween(game.camera)
+                .to({
+                    x: game.camera.x - (pointer.positionUp.x - pointer.positionDown.x),
+                    y: game.camera.y - (pointer.positionUp.y - pointer.positionDown.y)
+                }, 800, Phaser.Easing.Quadratic.Out).start();
+        }, this);
+    }
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
-    if (gameState.cursors.left.isDown) {
-        game.camera.x -= 4;
-    }
-    else if (gameState.cursors.right.isDown) {
-        game.camera.x += 4;
-    }
-    else if (gameState.cursors.up.isDown) {
-        game.camera.y -= 4;
-    }
-    else if (gameState.cursors.down.isDown) {
-        game.camera.y += 4;
+
+    if (layout.canvas.input.includes('cursor')){
+        if (gameState.cursors.left.isDown) {
+            game.camera.x -= 4;
+        }
+        else if (gameState.cursors.right.isDown) {
+            game.camera.x += 4;
+        }
+        else if (gameState.cursors.up.isDown) {
+            game.camera.y -= 4;
+        }
+        else if (gameState.cursors.down.isDown) {
+            game.camera.y += 4;
+        }
     }
 
     forEach(gameState.animations.rotations, function(r, i) {

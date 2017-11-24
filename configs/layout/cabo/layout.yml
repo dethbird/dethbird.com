@@ -1,10 +1,13 @@
 canvas:
     id: cabo
-    background_color: '#AAA'
+    background_color: '#CCC'
     dimensions:
         width: 25000
         height: 20000
     type: phaser
+    # input: cursor|flick
+    input:
+        - cursor
 elements:
     -
         id: sun_with_sunglasses_halo
