@@ -27,7 +27,17 @@ export const createFromLayout = (game, layout, gameState = {}) => {
         }
     });
 
+    // cursor input
     gameState.cursors = game.input.keyboard.createCursorKeys();
+
+    // move camera with mouse flick
+    game.input.onUp.add((pointer) => {
+        game.add.tween(game.camera)
+            .to({
+                x: game.camera.x - (pointer.positionUp.x - pointer.positionDown.x),
+                y: game.camera.y - (pointer.positionUp.y - pointer.positionDown.y)
+            }, 800, Phaser.Easing.Quadratic.Out).start();
+    }, this);
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
