@@ -50,7 +50,8 @@ export const createFromLayout = (game, layout, gameState) => {
                             if (layer !== undefined)
                                 gameState.layers.push({
                                     sprite,
-                                    layer
+                                    layer,
+                                    type: 'sprite'
                                 });
                         }
                         if (anim.type === 'sin_wobble') {
@@ -71,6 +72,12 @@ export const createFromLayout = (game, layout, gameState) => {
                                 slice.cx = game.math.wrap(y * 2, 0, (waveform.length - 1));
                                 sprites.addChild(slice);
                                 slices.push(slice);
+                                if (layer !== undefined)
+                                    gameState.layers.push({
+                                        sprite: slice,
+                                        layer,
+                                        type: 'sin_wobble'
+                                    });
                             }
                             gameState.animations.sin_wobbles.push({
                                 properties: { ... anim.properties, waveform },
@@ -87,7 +94,8 @@ export const createFromLayout = (game, layout, gameState) => {
                 if (layer !== undefined)
                     gameState.layers.push({
                         sprite,
-                        layer
+                        layer,
+                        type: 'sprite'
                     });
             }
         } else if (element.type == 'emitter') {
@@ -148,7 +156,10 @@ export const updateFromLayout = (game, layout, gameState) => {
             if (game.camera.x > 0) {
                 game.camera.x -= layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                    if (layer.type == 'sprite')
+                        layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                    if (layer.type == 'sin_wobble')
+                        layer.sprite.ox += layout.canvas.camera.speed_x * layer.layer.motion_scale;
                 });
             }
         }
@@ -156,7 +167,10 @@ export const updateFromLayout = (game, layout, gameState) => {
             if (game.camera.x < game.world.width) {
                 game.camera.x += layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                    if (layer.type == 'sprite')
+                        layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                    if (layer.type == 'sin_wobble')
+                        layer.sprite.ox -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
                 });
             }
         }

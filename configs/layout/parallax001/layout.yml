@@ -83,8 +83,14 @@ elements:
         dimensions:
             width: 400
             height: auto
+        animations:
+            - 
+                type: sin_wobble
+                properties:
+                    distance_x: 30
+                    slice_height: 4
         layer:
-          layer_id: layer003
+          layer_id: layer001
 layers:
   -
     id: layer001
