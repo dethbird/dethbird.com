@@ -1,4 +1,4 @@
-import { forEach, has } from 'lodash';
+import { forEach, find, has } from 'lodash';
 
 export const preloadFromLayout = (game, layout) => {
 
@@ -17,13 +17,20 @@ export const preloadFromLayout = (game, layout) => {
     });
 }
 
-export const createFromLayout = (game, layout, gameState = {}) => {
+export const createFromLayout = (game, layout, gameState) => {
     gameState.animations = {
         rotations: [],
         sin_wobbles: []
     };
+    gameState.layers = [],
+    gameState.cursors = {};
 
     forEach(layout.elements, function (element, i) {
+
+        let layer;
+        if (has(element, 'layer'))
+            layer = find(layout.layers, { id: element.layer.layer_id });
+
         if (element.type == 'image') {
             if (has(element, 'animations')) {
                 if (element.animations.length > 0) {
@@ -40,6 +47,11 @@ export const createFromLayout = (game, layout, gameState = {}) => {
                                 properties: anim.properties,
                                 sprite
                             });
+                            if (layer !== undefined)
+                                gameState.layers.push({
+                                    sprite,
+                                    layer
+                                });
                         }
                         if (anim.type === 'sin_wobble') {
                             const waveform = game.add.tween({ x: 0 })
@@ -72,9 +84,13 @@ export const createFromLayout = (game, layout, gameState = {}) => {
                 const scale = parseInt(element.dimensions.width) / sprite.width;
                 sprite.width = sprite.width * scale;
                 sprite.height = sprite.height * scale;
+                if (layer !== undefined)
+                    gameState.layers.push({
+                        sprite,
+                        layer
+                    });
             }
         } else if (element.type == 'emitter') {
-            console.log(element);
             const emitter = game.add.emitter(
                 element.position.left == 'world_center' ? game.world.centerX : element.position.left,
                 element.position.top,
@@ -121,22 +137,44 @@ export const createFromLayout = (game, layout, gameState = {}) => {
                 }, 800, Phaser.Easing.Quadratic.Out).start();
         }, this);
     }
+
+    game.camera.y = game.world.height / 2;
+    console.log(gameState);
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
-
     if (layout.canvas.input.includes('cursor')){
         if (gameState.cursors.left.isDown) {
-            game.camera.x -= 4; 
+            if (game.camera.x > 0) {
+                game.camera.x -= layout.canvas.camera.speed_x;
+                forEach(gameState.layers, function (layer, i) {
+                    layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                });
+            }
         }
-        else if (gameState.cursors.right.isDown) {
-            game.camera.x += 4;
+        if (gameState.cursors.right.isDown) {
+            if (game.camera.x < game.world.width) {
+                game.camera.x += layout.canvas.camera.speed_x;
+                forEach(gameState.layers, function (layer, i) {
+                    layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                });
+            }
         }
-        else if (gameState.cursors.up.isDown) {
-            game.camera.y -= 4;
+        if (gameState.cursors.up.isDown) {
+            if (game.camera.y > layout.canvas.camera.lower_bound_y) {
+                game.camera.y -= layout.canvas.camera.speed_y;
+                forEach(gameState.layers, function (layer, i) {
+                    layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale;
+                });
+            }
         }
-        else if (gameState.cursors.down.isDown) {
-            game.camera.y += 4;
+        if (gameState.cursors.down.isDown) {
+            if (game.camera.y < layout.canvas.camera.upper_bound_y) {
+                game.camera.y += layout.canvas.camera.speed_y;
+                forEach(gameState.layers, function (layer, i) {
+                    layer.sprite.y -= layout.canvas.camera.speed_y * layer.layer.motion_scale;
+                });
+            }
         }
     }
 

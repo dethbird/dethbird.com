@@ -4,6 +4,9 @@ canvas:
         width: 1280
         height: 1024
     type: phaser
+    camera:
+      speed_x: 4
+      speed_y: 4
     input:
         - cursor
 elements:

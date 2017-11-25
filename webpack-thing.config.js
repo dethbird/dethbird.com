@@ -31,7 +31,7 @@ module.exports = {
     entry: {
         rain001: './src/frontend/js/pages/thing/rain001.js',
         cabo: './src/frontend/js/pages/thing/cabo.js',
-        uncles: './src/frontend/js/pages/thing/uncles.js'
+        parallax001: './src/frontend/js/pages/thing/parallax001.js'
     },
     output: {
         path: process.cwd() + '/public/js/pages/thing',

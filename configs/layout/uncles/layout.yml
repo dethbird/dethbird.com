@@ -5,6 +5,9 @@ canvas:
         width: 5760
         height: 1080
     type: phaser
+    camera:
+      speed_x: 4
+      speed_y: 4
     # input: cursor|flick
     input:
         - cursor
