@@ -1,16 +1,17 @@
 canvas:
     id: uncles
+    background_color: '#CCC'
     dimensions:
         width: 5760
         height: 1080
-    parallax:
-        dampen: 8
+    type: phaser
+    # input: cursor|flick
     input:
         - cursor
 elements:
     -
         id: uncle001
-        tag: image
+        type: image
         src: /img/layout/uncles/uncle001.png
         position:
             left: 727
@@ -18,13 +19,9 @@ elements:
         dimensions:
             width: 150
             height: auto
-        parallax_x:
-            depth: 20
-        parallax_y:
-            depth: 20
     -
         id: uncle002
-        tag: image
+        type: image
         src: /img/layout/uncles/uncle002.png
         position:
             left: 80
@@ -32,13 +29,9 @@ elements:
         dimensions:
             width: 400
             height: auto
-        parallax_x:
-            depth: 20
-        parallax_y:
-            depth: 20
     -
         id: uncle003
-        tag: image
+        type: image
         src: /img/layout/uncles/uncle003.png
         position:
             left: 920
@@ -46,7 +39,3 @@ elements:
         dimensions:
             width: 400
             height: auto
-        parallax_x:
-            depth: 22
-        parallax_y:
-            depth: 22

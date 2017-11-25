@@ -101,6 +101,22 @@ elements:
             width: 280
             height: auto
     -
+        id: balloon_hands_man2
+        type: image
+        src: /img/layout/cabo/balloon_hands_man.png
+        position:
+            left: 1250
+            top: 400
+        dimensions:
+            width: 280
+            height: auto
+        animations:
+            - 
+                type: sin_wobble
+                properties:
+                    distance_x: 30
+                    slice_height: 4
+    -
         id: chi_chi_mama_man
         type: markdown
         src: /img/layout/cabo/chi_chi_mama_man.png
