@@ -29,7 +29,7 @@ function getPlugins() {
 
 module.exports = {
     entry: {
-        phasertest: './src/frontend/js/pages/thing/phasertest.js',
+        rain001: './src/frontend/js/pages/thing/rain001.js',
         cabo: './src/frontend/js/pages/thing/cabo.js',
         uncles: './src/frontend/js/pages/thing/uncles.js'
     },

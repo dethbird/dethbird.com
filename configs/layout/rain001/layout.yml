@@ -1,0 +1,37 @@
+canvas:
+    id: rain001
+    background_color: '#1F1538'
+    dimensions:
+        width: 3000
+        height: 1080
+    type: phaser
+    # input: cursor|flick
+    input:
+        - cursor
+elements:
+    -
+        id: raindrop
+        type: emitter
+        src: /img/layout/rain001/raindrop.png
+        position:
+            left: world_center
+            top: 0
+        dimensions:
+            width: game_width
+        emitter:
+          explode: false
+          frequency: 0.5
+          lifespan: 2000
+          quantity: 0
+          max_particles: 3000
+          min_rotation: 0
+          max_rotation: 0
+          min_particle_scale: 0.3
+          max_particle_scale: 0.9
+          min_y_speed: 300
+          max_y_speed: 500
+          min_x_speed: -10
+          max_x_speed: 10
+
+
+        

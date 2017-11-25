@@ -10,8 +10,10 @@ export const preloadFromLayout = (game, layout) => {
     );
 
     forEach(layout.elements, function(element, i) {
-        if(element.type == 'image')
+        if (element.type == 'image' || element.type == 'emitter') {
             game.load.image(element.id, element.src);
+
+        }
     });
 }
 
@@ -48,24 +50,16 @@ export const createFromLayout = (game, layout, gameState = {}) => {
                             const w = game.cache.getImage(element.id).width;
                             const h = game.cache.getImage(element.id).height;
                             const ys = anim.properties.slice_height;
-                            const scale = parseInt(element.dimensions.width) / w;
 
                             let slices = [];
                             for (var y = 0; y < Math.floor(h / ys); y++) {
                                 const slice = game.make.sprite(element.position.left, element.position.top + (y * ys), element.id);
-                                // slice.width = slice.width * scale;
-                                // slice.height = slice.height * scale;
-                                // slice.anchor.setTo(0.5, 0.5);
-                                // slice.x = slice.x + slice.width / 2;
-                                // slice.y = slice.y + slice.height / 2;
                                 slice.crop(new Phaser.Rectangle(0, y * ys, w, ys));
                                 slice.ox = slice.x;
                                 slice.cx = game.math.wrap(y * 2, 0, (waveform.length - 1));
-                                // slice.anchor.set(0.5);
                                 sprites.addChild(slice);
                                 slices.push(slice);
                             }
-                            slices.scale = scale;
                             gameState.animations.sin_wobbles.push({
                                 properties: { ... anim.properties, waveform },
                                 sprites: slices
@@ -79,6 +73,37 @@ export const createFromLayout = (game, layout, gameState = {}) => {
                 sprite.width = sprite.width * scale;
                 sprite.height = sprite.height * scale;
             }
+        } else if (element.type == 'emitter') {
+            console.log(element);
+            const emitter = game.add.emitter(
+                element.position.left == 'world_center' ? game.world.centerX : element.position.left,
+                element.position.top,
+                element.emitter.max_particles
+            );
+            emitter.width = game.world.width;
+            emitter.makeParticles(element.id);
+
+            emitter.minParticleScale = element.emitter.min_particle_scale;
+            emitter.maxParticleScale = element.emitter.max_particle_scale;
+
+            emitter.setYSpeed(
+                element.emitter.min_y_speed,
+                element.emitter.max_y_speed
+            );
+            emitter.setXSpeed(
+                element.emitter.min_x_speed,
+                element.emitter.max_x_speed
+            );
+
+            emitter.minRotation = element.emitter.min_rotation;
+            emitter.maxRotation = element.emitter.max_rotation;
+
+            emitter.start(
+                element.emitter.explode,
+                element.emitter.lifespan,
+                element.emitter.frequency,
+                element.emitter.quantity
+            );
         }
     });
 
