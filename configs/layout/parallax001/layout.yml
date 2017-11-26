@@ -3,7 +3,7 @@ canvas:
     background_color: '#CCC'
     dimensions:
         width: 5760
-        height: 1080
+        height: 2480
     type: phaser
     camera:
       speed_x: 2

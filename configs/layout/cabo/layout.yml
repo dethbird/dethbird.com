@@ -8,6 +8,8 @@ canvas:
     camera:
       speed_x: 4
       speed_y: 4
+      upper_bound_y: 50
+      lower_bound_y: 0
     # input: cursor|flick
     input:
         - cursor
@@ -29,6 +31,8 @@ elements:
                 type: rotation
                 properties:
                     speed: 0.3
+        layer:
+            layer_id: sky
     -
         id: sun_with_sunglasses
         type: image
@@ -41,6 +45,8 @@ elements:
         dimensions:
             width: 280
             height: 280
+        layer:
+            layer_id: sky
     -
         id: ear_herpes_center_building
         type: image
@@ -51,6 +57,8 @@ elements:
         dimensions:
             width: 600
             height: auto
+        layer:
+            layer_id: foreground
     -
         id: ear_herpes_center_cat
         type: image
@@ -61,6 +69,8 @@ elements:
         dimensions:
             width: 551
             height: auto
+        layer:
+            layer_id: foreground
     -
         id: casa_de_miguel
         type: markdown
@@ -103,6 +113,8 @@ elements:
         dimensions:
             width: 280
             height: auto
+        layer:
+            layer_id: foreground
     -
         id: balloon_hands_man2
         type: image
@@ -119,6 +131,8 @@ elements:
                 properties:
                     distance_x: 30
                     slice_height: 4
+        layer:
+            layer_id: foreground
     -
         id: chi_chi_mama_man
         type: markdown
@@ -150,3 +164,12 @@ elements:
             height: 380
         classes:
             - element-placeholder
+layers:
+  -
+    id: sky
+    size_scale: 1
+    motion_scale: .1
+  -
+    id: foreground
+    size_scale: 1
+    motion_scale: .8

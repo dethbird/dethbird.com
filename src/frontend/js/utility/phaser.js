@@ -145,9 +145,6 @@ export const createFromLayout = (game, layout, gameState) => {
                 }, 800, Phaser.Easing.Quadratic.Out).start();
         }, this);
     }
-
-    game.camera.y = game.world.height / 2;
-    console.log(gameState);
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
@@ -162,8 +159,7 @@ export const updateFromLayout = (game, layout, gameState) => {
                         layer.sprite.ox += layout.canvas.camera.speed_x * layer.layer.motion_scale;
                 });
             }
-        }
-        if (gameState.cursors.right.isDown) {
+        } else if (gameState.cursors.right.isDown) {
             if (game.camera.x < game.world.width) {
                 game.camera.x += layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
@@ -181,8 +177,7 @@ export const updateFromLayout = (game, layout, gameState) => {
                     layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale;
                 });
             }
-        }
-        if (gameState.cursors.down.isDown) {
+        } else if (gameState.cursors.down.isDown) {
             if (game.camera.y < layout.canvas.camera.upper_bound_y) {
                 game.camera.y += layout.canvas.camera.speed_y;
                 forEach(gameState.layers, function (layer, i) {
