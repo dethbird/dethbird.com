@@ -1,0 +1,73 @@
+canvas:
+    id: graphics001
+    background_color: '#020102'
+    dimensions:
+        width: 3840
+        height: 2160
+    type: phaser
+    camera:
+      speed_x: 10
+      speed_y: 8
+      start_x: 0
+      start_y: 600
+    # input: cursor|flick
+    input:
+        - cursor
+elements:
+    -
+        id: buildings
+        type: image
+        src: /img/layout/1stave/buildings.png
+        position:
+            left: 0
+            top: 0
+        dimensions:
+            width: 4858
+            height: auto
+        layer:
+            layer_id: background
+    -
+        id: lights001
+        type: image
+        src: /img/layout/1stave/lights001.png
+        position:
+            left: 728
+            top: 87
+        dimensions:
+            width: 358
+            height: 384
+        layer:
+            layer_id: foreground
+        animations:
+            - 
+                type: flash
+                properties:
+                    delay: 0
+                    duration: 120
+    -
+        id: lights002
+        type: image
+        src: /img/layout/1stave/lights001.png
+        position:
+            left: 150
+            top: 87
+        dimensions:
+            width: 358
+            height: 384
+        layer:
+            layer_id: foreground
+        animations:
+            - 
+                type: flash
+                properties:
+                    delay: 120
+                    duration: 120
+layers:
+  -
+    id: background
+    size_scale: 1
+    motion_scale: .1
+  -
+    id: foreground
+    size_scale: 1
+    motion_scale: .8

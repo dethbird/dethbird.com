@@ -37,9 +37,7 @@ export const createFromLayout = (game, layout, gameState) => {
                     forEach(element.animations, function(anim, i) {
                         if (anim.type === 'rotation') {
                             const sprite = game.add.sprite(element.position.left, element.position.top, element.id);
-                            const scale = parseInt(element.dimensions.width) / sprite.width;
-                            sprite.width = sprite.width * scale;
-                            sprite.height = sprite.height * scale;
+                            sprite.scale.set(parseInt(element.dimensions.width) / sprite.width);
                             sprite.anchor.setTo(0.5, 0.5);
                             sprite.x = sprite.x + sprite.width / 2;
                             sprite.y = sprite.y + sprite.height / 2;
@@ -84,13 +82,23 @@ export const createFromLayout = (game, layout, gameState) => {
                                 sprites: slices
                             });
                         }
+                        if (anim.type === 'flash') {
+                            const sprite = game.add.sprite(element.position.left, element.position.top, element.id);
+                            sprite.scale.set(parseInt(element.dimensions.width) / sprite.width);
+                            if (layer !== undefined)
+                                gameState.layers.push({
+                                    sprite,
+                                    layer,
+                                    type: 'sprite'
+                                });
+                            game.add.tween(sprite).to({ alpha: 0 }, anim.properties.duration, "Sine.easeInOut", true, anim.properties.delay, -1, true);
+                            
+                        }
                     });
                 }
             } else {
                 const sprite = game.add.sprite(element.position.left, element.position.top, element.id);
-                const scale = parseInt(element.dimensions.width) / sprite.width;
-                sprite.width = sprite.width * scale;
-                sprite.height = sprite.height * scale;
+                sprite.scale.set(parseInt(element.dimensions.width) / sprite.width);
                 if (layer !== undefined)
                     gameState.layers.push({
                         sprite,
@@ -145,6 +153,12 @@ export const createFromLayout = (game, layout, gameState) => {
                 }, 800, Phaser.Easing.Quadratic.Out).start();
         }, this);
     }
+
+    //camera initial position
+    if (has(layout.canvas.camera, 'start_x'))
+        game.camera.x = layout.canvas.camera.start_x;
+    if (has(layout.canvas.camera, 'start_y'))
+        game.camera.y = layout.canvas.camera.start_y;
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
@@ -160,7 +174,7 @@ export const updateFromLayout = (game, layout, gameState) => {
                 });
             }
         } else if (gameState.cursors.right.isDown) {
-            if (game.camera.x < game.world.width) {
+            if (game.camera.x < (layout.canvas.dimensions.width - game.camera.view.width)) {
                 game.camera.x += layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
                     if (layer.type == 'sprite')
@@ -171,14 +185,14 @@ export const updateFromLayout = (game, layout, gameState) => {
             }
         }
         if (gameState.cursors.up.isDown) {
-            if (game.camera.y > layout.canvas.camera.lower_bound_y) {
+            if (game.camera.y > 0) {
                 game.camera.y -= layout.canvas.camera.speed_y;
                 forEach(gameState.layers, function (layer, i) {
                     layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale;
                 });
             }
         } else if (gameState.cursors.down.isDown) {
-            if (game.camera.y < layout.canvas.camera.upper_bound_y) {
+            if (game.camera.y < (layout.canvas.dimensions.height - game.camera.view.height)) {
                 game.camera.y += layout.canvas.camera.speed_y;
                 forEach(gameState.layers, function (layer, i) {
                     layer.sprite.y -= layout.canvas.camera.speed_y * layer.layer.motion_scale;
