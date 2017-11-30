@@ -25,7 +25,55 @@ elements:
             width: 4858
             height: auto
         layer:
-            layer_id: background
+            layer_id: buildings
+    -
+        id: tree
+        type: image
+        src: /img/layout/1stave/tree.png
+        position:
+            left: 1616
+            top: 658
+        dimensions:
+            width: 704
+            height: 847
+        layer:
+            layer_id: back_sidewalk
+    -
+        id: people
+        type: image
+        src: /img/layout/1stave/people.png
+        position:
+            left: 664
+            top: 1160
+        dimensions:
+            width: 666
+            height: 268
+        layer:
+            layer_id: back_sidewalk
+    -
+        id: streetsign
+        type: image
+        src: /img/layout/1stave/streetsign.png
+        position:
+            left: 2981
+            top: 0
+        dimensions:
+            width: 1030
+            height: 2160
+        layer:
+            layer_id: front_sidewalk
+    -
+        id: trashcan
+        type: image
+        src: /img/layout/1stave/trashcan.png
+        position:
+            left: 2000
+            top: 0
+        dimensions:
+            width: 882
+            height: 447
+        layer:
+            layer_id: front_sidewalk
     -
         id: lights001
         type: image
@@ -64,10 +112,22 @@ elements:
                     duration: 120
 layers:
   -
-    id: background
+    id: buildings
     size_scale: 1
-    motion_scale: .1
+    motion_scale_x: .1
+    motion_scale_y: .1
+  -
+    id: back_sidewalk
+    size_scale: 1
+    motion_scale_x: .18
+    motion_scale_y: .15
+  -
+    id: front_sidewalk
+    size_scale: 1
+    motion_scale_x: 1
+    motion_scale_y: .6
   -
     id: foreground
     size_scale: 1
-    motion_scale: .8
+    motion_scale_x: .8
+    motion_scale_y: .8

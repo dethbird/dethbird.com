@@ -95,12 +95,15 @@ layers:
   -
     id: layer001
     size_scale: 1
-    motion_scale: .66
+    motion_scale_x: .66
+    motion_scale_y: .66
   -
     id: layer002
     size_scale: .66
-    motion_scale: 2
+    motion_scale_x: 2
+    motion_scale_y: 2
   -
     id: layer003
     size_scale: .33
-    motion_scale: .33
+    motion_scale_x: .33
+    motion_scale_y: .33

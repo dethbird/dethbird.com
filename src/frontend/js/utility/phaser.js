@@ -168,9 +168,9 @@ export const updateFromLayout = (game, layout, gameState) => {
                 game.camera.x -= layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
                     if (layer.type == 'sprite')
-                        layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                        layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
                     if (layer.type == 'sin_wobble')
-                        layer.sprite.ox += layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                        layer.sprite.ox += layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
                 });
             }
         } else if (gameState.cursors.right.isDown) {
@@ -178,9 +178,9 @@ export const updateFromLayout = (game, layout, gameState) => {
                 game.camera.x += layout.canvas.camera.speed_x;
                 forEach(gameState.layers, function (layer, i) {
                     if (layer.type == 'sprite')
-                        layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                        layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
                     if (layer.type == 'sin_wobble')
-                        layer.sprite.ox -= layout.canvas.camera.speed_x * layer.layer.motion_scale;
+                        layer.sprite.ox -= layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
                 });
             }
         }
@@ -188,14 +188,14 @@ export const updateFromLayout = (game, layout, gameState) => {
             if (game.camera.y > 0) {
                 game.camera.y -= layout.canvas.camera.speed_y;
                 forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale;
+                    layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
                 });
             }
         } else if (gameState.cursors.down.isDown) {
             if (game.camera.y < (layout.canvas.dimensions.height - game.camera.view.height)) {
                 game.camera.y += layout.canvas.camera.speed_y;
                 forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.y -= layout.canvas.camera.speed_y * layer.layer.motion_scale;
+                    layer.sprite.y -= layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
                 });
             }
         }

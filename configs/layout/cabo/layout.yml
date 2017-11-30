@@ -168,8 +168,10 @@ layers:
   -
     id: sky
     size_scale: 1
-    motion_scale: .1
+    motion_scale_x: .1
+    motion_scale_y: .1
   -
     id: foreground
     size_scale: 1
-    motion_scale: .8
+    motion_scale_x: .8
+    motion_scale_y: .8
