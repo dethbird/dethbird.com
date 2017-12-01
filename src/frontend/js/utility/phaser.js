@@ -24,6 +24,10 @@ export const createFromLayout = (game, layout, gameState) => {
     };
     gameState.layers = [],
     gameState.cursors = {};
+    gameState.pointer = {
+        last_x: undefined,
+        last_y: undefined
+    };
 
     forEach(layout.elements, function (element, i) {
 
@@ -143,17 +147,6 @@ export const createFromLayout = (game, layout, gameState) => {
     if (layout.canvas.input.includes('cursor'))
         gameState.cursors = game.input.keyboard.createCursorKeys();
 
-    // move camera with mouse flick
-    if (layout.canvas.input.includes('flick')) {
-        game.input.onUp.add((pointer) => {
-            game.add.tween(game.camera)
-                .to({
-                    x: game.camera.x - (pointer.positionUp.x - pointer.positionDown.x),
-                    y: game.camera.y - (pointer.positionUp.y - pointer.positionDown.y)
-                }, 800, Phaser.Easing.Quadratic.Out).start();
-        }, this);
-    }
-
     //camera initial position
     if (has(layout.canvas.camera, 'start_x'))
         game.camera.x = layout.canvas.camera.start_x;
@@ -162,6 +155,57 @@ export const createFromLayout = (game, layout, gameState) => {
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
+
+    if (layout.canvas.input.includes('flick')) {
+
+        if(game.input.activePointer.isDown) {
+        
+            if (gameState.pointer.last_x !== undefined) {
+                let delta_x = gameState.pointer.last_x - game.input.activePointer.clientX;
+                // if(delta_x > 0) {
+                //     delta_x = 1;
+                // } else {
+                //     delta_x = -1;
+                // }
+                if ((delta_x < 0 && game.camera.x > 0) || (delta_x > 0 && game.camera.x < (layout.canvas.dimensions.width - game.camera.view.width))) {
+                    game.camera.x += delta_x * layout.canvas.camera.speed_x;
+                    forEach(gameState.layers, function (layer, i) {
+                        if (layer.type == 'sprite')
+                            layer.sprite.x -= delta_x * layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
+                        if (layer.type == 'sin_wobble')
+                            layer.sprite.ox -= delta_x * layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
+                    });
+                }
+            }
+
+            if (gameState.pointer.last_y !== undefined) {
+                let delta_y = gameState.pointer.last_y - game.input.activePointer.clientY;
+                // if (delta_y > 0) {
+                //     delta_y = 1;
+                // } else {
+                //     delta_y = -1;
+                // }
+                if ((delta_y < 0 && game.camera.y > 0) || (delta_y > 0 && game.camera.y < (layout.canvas.dimensions.height - game.camera.view.height))) {
+                    game.camera.y += delta_y * layout.canvas.camera.speed_y;
+                    forEach(gameState.layers, function (layer, i) {
+                        if (layer.type == 'sprite')
+                            layer.sprite.y -= delta_y * layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
+                        if (layer.type == 'sin_wobble')
+                            layer.sprite.oy -= delta_y * layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
+                    });
+                }
+            }
+            
+
+
+            gameState.pointer.last_x = game.input.activePointer.clientX;
+            gameState.pointer.last_y = game.input.activePointer.clientY;
+        } else {
+            gameState.pointer.last_x = undefined;
+            gameState.pointer.last_y = undefined;
+        }
+    }
+
     if (layout.canvas.input.includes('cursor')){
         if (gameState.cursors.left.isDown) {
             if (game.camera.x > 0) {

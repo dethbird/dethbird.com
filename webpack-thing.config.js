@@ -29,7 +29,7 @@ function getPlugins() {
 
 module.exports = {
     entry: {
-        graphics001: './src/frontend/js/pages/thing/rain001.js',
+        graphics001: './src/frontend/js/pages/thing/graphics001.js',
         cabo: './src/frontend/js/pages/thing/cabo.js',
         parallax001: './src/frontend/js/pages/thing/parallax001.js'
     },
