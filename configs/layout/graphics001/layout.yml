@@ -115,20 +115,20 @@ layers:
   -
     id: buildings
     size_scale: 1
-    motion_scale_x: .1
-    motion_scale_y: .1
+    motion_scale_x: .55
+    motion_scale_y: .38
   -
     id: back_sidewalk
     size_scale: 1
-    motion_scale_x: .18
-    motion_scale_y: .15
-  -
-    id: front_sidewalk
-    size_scale: 1
-    motion_scale_x: 1
-    motion_scale_y: .6
+    motion_scale_x: .6
+    motion_scale_y: .4
   -
     id: foreground
     size_scale: 1
     motion_scale_x: .8
     motion_scale_y: .8
+  -
+    id: front_sidewalk
+    size_scale: 1
+    motion_scale_x: 1.2
+    motion_scale_y: 1.2

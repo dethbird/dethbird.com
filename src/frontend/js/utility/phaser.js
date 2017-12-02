@@ -160,11 +160,10 @@ export const createFromLayout = (game, layout, gameState) => {
     if (layout.canvas.input.includes('cursor'))
         gameState.cursors = game.input.keyboard.createCursorKeys();
 
-    //camera initial position
-    // if (has(layout.canvas.camera, 'start_x'))
-    //     game.camera.x = layout.canvas.camera.start_x;
-    // if (has(layout.canvas.camera, 'start_y'))
-    //     game.camera.y = layout.canvas.camera.start_y;
+    if (has(layout.canvas.camera, 'start_x'))
+        gameState.parallax.shift_x = layout.canvas.camera.start_x;
+    if (has(layout.canvas.camera, 'start_y'))
+        gameState.parallax.shift_y = layout.canvas.camera.start_y;
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
@@ -204,6 +203,9 @@ export const updateFromLayout = (game, layout, gameState) => {
     if (gameState.parallax.shift_y <= 0) {
         gameState.parallax.shift_y = 0;
     }
+
+    game.camera.x = gameState.parallax.shift_x;
+    game.camera.y = gameState.parallax.shift_y;
 
     forEach(gameState.layers, function (layer, i) {
         if (layer.type == 'sprite') {
