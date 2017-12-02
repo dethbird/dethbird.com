@@ -200,8 +200,15 @@ export const updateFromLayout = (game, layout, gameState) => {
     if (gameState.parallax.shift_x <= 0) {
         gameState.parallax.shift_x = 0;
     }
+    if (gameState.parallax.shift_x > (layout.canvas.dimensions.width - game.width)) {
+        gameState.parallax.shift_x = (layout.canvas.dimensions.width - game.width);
+    }
+
     if (gameState.parallax.shift_y <= 0) {
         gameState.parallax.shift_y = 0;
+    }
+    if (gameState.parallax.shift_y > (layout.canvas.dimensions.height - game.height)) {
+        gameState.parallax.shift_y = (layout.canvas.dimensions.height - game.height);
     }
 
     game.camera.x = gameState.parallax.shift_x;
