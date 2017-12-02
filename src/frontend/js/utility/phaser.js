@@ -28,6 +28,10 @@ export const createFromLayout = (game, layout, gameState) => {
         last_x: undefined,
         last_y: undefined
     };
+    gameState.parallax = {
+        shift_x: 0,
+        shift_y: 0
+    };
 
     forEach(layout.elements, function (element, i) {
 
@@ -53,6 +57,7 @@ export const createFromLayout = (game, layout, gameState) => {
                                 gameState.layers.push({
                                     sprite,
                                     layer,
+                                    element,
                                     type: 'sprite'
                                 });
                         }
@@ -78,6 +83,12 @@ export const createFromLayout = (game, layout, gameState) => {
                                     gameState.layers.push({
                                         sprite: slice,
                                         layer,
+                                        element: {
+                                            position: {
+                                                top: slice.y,
+                                                left: slice.x
+                                            }
+                                        },
                                         type: 'sin_wobble'
                                     });
                             }
@@ -93,6 +104,7 @@ export const createFromLayout = (game, layout, gameState) => {
                                 gameState.layers.push({
                                     sprite,
                                     layer,
+                                    element,
                                     type: 'sprite'
                                 });
                             game.add.tween(sprite).to({ alpha: 0 }, anim.properties.duration, "Sine.easeInOut", true, anim.properties.delay, -1, true);
@@ -107,6 +119,7 @@ export const createFromLayout = (game, layout, gameState) => {
                     gameState.layers.push({
                         sprite,
                         layer,
+                        element,
                         type: 'sprite'
                     });
             }
@@ -148,56 +161,22 @@ export const createFromLayout = (game, layout, gameState) => {
         gameState.cursors = game.input.keyboard.createCursorKeys();
 
     //camera initial position
-    if (has(layout.canvas.camera, 'start_x'))
-        game.camera.x = layout.canvas.camera.start_x;
-    if (has(layout.canvas.camera, 'start_y'))
-        game.camera.y = layout.canvas.camera.start_y;
+    // if (has(layout.canvas.camera, 'start_x'))
+    //     game.camera.x = layout.canvas.camera.start_x;
+    // if (has(layout.canvas.camera, 'start_y'))
+    //     game.camera.y = layout.canvas.camera.start_y;
 }
 
 export const updateFromLayout = (game, layout, gameState) => {
 
-    if (layout.canvas.input.includes('flick')) {
-
-        if(game.input.activePointer.isDown) {
-        
+    if (layout.canvas.input.includes('pan')) {
+        if (game.input.activePointer.isDown) {
             if (gameState.pointer.last_x !== undefined) {
-                let delta_x = gameState.pointer.last_x - game.input.activePointer.clientX;
-                // if(delta_x > 0) {
-                //     delta_x = 1;
-                // } else {
-                //     delta_x = -1;
-                // }
-                if ((delta_x < 0 && game.camera.x > 0) || (delta_x > 0 && game.camera.x < (layout.canvas.dimensions.width - game.camera.view.width))) {
-                    game.camera.x += delta_x * layout.canvas.camera.speed_x;
-                    forEach(gameState.layers, function (layer, i) {
-                        if (layer.type == 'sprite')
-                            layer.sprite.x -= delta_x * layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                        if (layer.type == 'sin_wobble')
-                            layer.sprite.ox -= delta_x * layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                    });
-                }
+                gameState.parallax.shift_x += gameState.pointer.last_x - game.input.activePointer.clientX;
             }
-
             if (gameState.pointer.last_y !== undefined) {
-                let delta_y = gameState.pointer.last_y - game.input.activePointer.clientY;
-                // if (delta_y > 0) {
-                //     delta_y = 1;
-                // } else {
-                //     delta_y = -1;
-                // }
-                if ((delta_y < 0 && game.camera.y > 0) || (delta_y > 0 && game.camera.y < (layout.canvas.dimensions.height - game.camera.view.height))) {
-                    game.camera.y += delta_y * layout.canvas.camera.speed_y;
-                    forEach(gameState.layers, function (layer, i) {
-                        if (layer.type == 'sprite')
-                            layer.sprite.y -= delta_y * layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
-                        if (layer.type == 'sin_wobble')
-                            layer.sprite.oy -= delta_y * layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
-                    });
-                }
+                gameState.parallax.shift_y += gameState.pointer.last_y - game.input.activePointer.clientY;
             }
-            
-
-
             gameState.pointer.last_x = game.input.activePointer.clientX;
             gameState.pointer.last_y = game.input.activePointer.clientY;
         } else {
@@ -206,44 +185,36 @@ export const updateFromLayout = (game, layout, gameState) => {
         }
     }
 
-    if (layout.canvas.input.includes('cursor')){
+    if (layout.canvas.input.includes('cursor')) {
         if (gameState.cursors.left.isDown) {
-            if (game.camera.x > 0) {
-                game.camera.x -= layout.canvas.camera.speed_x;
-                forEach(gameState.layers, function (layer, i) {
-                    if (layer.type == 'sprite')
-                        layer.sprite.x += layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                    if (layer.type == 'sin_wobble')
-                        layer.sprite.ox += layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                });
-            }
+            gameState.parallax.shift_x -= layout.canvas.camera.speed_x;
         } else if (gameState.cursors.right.isDown) {
-            if (game.camera.x < (layout.canvas.dimensions.width - game.camera.view.width)) {
-                game.camera.x += layout.canvas.camera.speed_x;
-                forEach(gameState.layers, function (layer, i) {
-                    if (layer.type == 'sprite')
-                        layer.sprite.x -= layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                    if (layer.type == 'sin_wobble')
-                        layer.sprite.ox -= layout.canvas.camera.speed_x * layer.layer.motion_scale_x;
-                });
-            }
+            gameState.parallax.shift_x += layout.canvas.camera.speed_x;
         }
         if (gameState.cursors.up.isDown) {
-            if (game.camera.y > 0) {
-                game.camera.y -= layout.canvas.camera.speed_y;
-                forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.y += layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
-                });
-            }
+            gameState.parallax.shift_y -= layout.canvas.camera.speed_y;
         } else if (gameState.cursors.down.isDown) {
-            if (game.camera.y < (layout.canvas.dimensions.height - game.camera.view.height)) {
-                game.camera.y += layout.canvas.camera.speed_y;
-                forEach(gameState.layers, function (layer, i) {
-                    layer.sprite.y -= layout.canvas.camera.speed_y * layer.layer.motion_scale_y;
-                });
-            }
+            gameState.parallax.shift_y += layout.canvas.camera.speed_y;
         }
     }
+
+    if (gameState.parallax.shift_x <= 0) {
+        gameState.parallax.shift_x = 0;
+    }
+    if (gameState.parallax.shift_y <= 0) {
+        gameState.parallax.shift_y = 0;
+    }
+
+    forEach(gameState.layers, function (layer, i) {
+        if (layer.type == 'sprite') {
+            layer.sprite.x = layer.element.position.left - (gameState.parallax.shift_x * layer.layer.motion_scale_x) + (layer.sprite.anchor.x * layer.sprite._frame.width * layer.sprite.scale.x);
+            layer.sprite.y = layer.element.position.top - (gameState.parallax.shift_y * layer.layer.motion_scale_y) + (layer.sprite.anchor.y * layer.sprite._frame.height * layer.sprite.scale.y);
+        }
+        if (layer.type == 'sin_wobble') {
+            layer.sprite.ox = layer.element.position.left - (gameState.parallax.shift_x * layer.layer.motion_scale_x);
+            layer.sprite.y = layer.element.position.top - (gameState.parallax.shift_y * layer.layer.motion_scale_y);
+        }
+    });
 
     forEach(gameState.animations.rotations, function(anim, i) {
         anim.sprite.angle += anim.properties.speed;

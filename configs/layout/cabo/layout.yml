@@ -13,7 +13,7 @@ canvas:
     # input: cursor|flick
     input:
         - cursor
-        - flick
+        - pan
 elements:
     -
         id: sun_with_sunglasses_halo
@@ -72,38 +72,38 @@ elements:
             height: auto
         layer:
             layer_id: foreground
-    -
-        id: casa_de_miguel
-        type: markdown
-        src: /img/layout/cabo/casa_de_miguel.png
-        markdown: |
-            Casa de Miguel
+    # -
+    #     id: casa_de_miguel
+    #     type: markdown
+    #     src: /img/layout/cabo/casa_de_miguel.png
+    #     markdown: |
+    #         Casa de Miguel
 
-            - ronaldo
-            - beeramyd
-            - breakfast nachos
-        position:
-            left: 1050
-            top: 50
-        dimensions:
-            width: 560
-            height: 380
-        classes:
-            - element-placeholder
-    -
-        id: sloot_vultures
-        type: markdown
-        src: /img/layout/cabo/sloot_vultures.png
-        markdown: |
-            Sloot Vultures
-        position:
-            left: 1550
-            top: 75
-        dimensions:
-            width: 680
-            height: 140
-        classes:
-            - element-placeholder
+    #         - ronaldo
+    #         - beeramyd
+    #         - breakfast nachos
+    #     position:
+    #         left: 1050
+    #         top: 50
+    #     dimensions:
+    #         width: 560
+    #         height: 380
+    #     classes:
+    #         - element-placeholder
+    # -
+    #     id: sloot_vultures
+    #     type: markdown
+    #     src: /img/layout/cabo/sloot_vultures.png
+    #     markdown: |
+    #         Sloot Vultures
+    #     position:
+    #         left: 1550
+    #         top: 75
+    #     dimensions:
+    #         width: 680
+    #         height: 140
+    #     classes:
+    #         - element-placeholder
     -
         id: balloon_hands_man
         type: image
@@ -134,37 +134,37 @@ elements:
                     slice_height: 4
         layer:
             layer_id: foreground
-    -
-        id: chi_chi_mama_man
-        type: markdown
-        src: /img/layout/cabo/chi_chi_mama_man.png
-        markdown: |
-            Chi-Chi Mama man
+    # -
+    #     id: chi_chi_mama_man
+    #     type: markdown
+    #     src: /img/layout/cabo/chi_chi_mama_man.png
+    #     markdown: |
+    #         Chi-Chi Mama man
 
-            - restaurant
-            - see him talking to customers and spewing corona into the margarita
-        position:
-            left: 1550
-            top: 780
-        dimensions:
-            width: 680
-            height: 380
-        classes:
-            - element-placeholder
-    -
-        id: el_squid_roe
-        type: markdown
-        src: /img/layout/cabo/chi_chi_mama_man.png
-        markdown: |
-            El Squid Roe
-        position:
-            left: 3000
-            top: 478
-        dimensions:
-            width: 680
-            height: 380
-        classes:
-            - element-placeholder
+    #         - restaurant
+    #         - see him talking to customers and spewing corona into the margarita
+    #     position:
+    #         left: 1550
+    #         top: 780
+    #     dimensions:
+    #         width: 680
+    #         height: 380
+    #     classes:
+    #         - element-placeholder
+    # -
+    #     id: el_squid_roe
+    #     type: markdown
+    #     src: /img/layout/cabo/chi_chi_mama_man.png
+    #     markdown: |
+    #         El Squid Roe
+    #     position:
+    #         left: 3000
+    #         top: 478
+    #     dimensions:
+    #         width: 680
+    #         height: 380
+    #     classes:
+    #         - element-placeholder
 layers:
   -
     id: sky

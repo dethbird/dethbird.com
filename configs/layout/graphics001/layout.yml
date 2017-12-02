@@ -13,7 +13,7 @@ canvas:
     # input: cursor|flick
     input:
         - cursor
-        - flick
+        - pan
 elements:
     -
         id: buildings
