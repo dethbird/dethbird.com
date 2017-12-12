@@ -18,7 +18,7 @@ elements:
     -
         id: buildings
         type: image
-        src: /img/layout/1stave/buildings.png
+        src: /img/layout/firstave/buildings.png
         position:
             left: 0
             top: 0
@@ -30,7 +30,7 @@ elements:
     -
         id: tree
         type: image
-        src: /img/layout/1stave/tree.png
+        src: /img/layout/firstave/tree.png
         position:
             left: 1616
             top: 658
@@ -42,7 +42,7 @@ elements:
     -
         id: people
         type: image
-        src: /img/layout/1stave/people.png
+        src: /img/layout/firstave/people.png
         position:
             left: 664
             top: 1160
@@ -54,7 +54,7 @@ elements:
     -
         id: streetsign
         type: image
-        src: /img/layout/1stave/streetsign.png
+        src: /img/layout/firstave/streetsign.png
         position:
             left: 2981
             top: 0
@@ -66,7 +66,7 @@ elements:
     -
         id: trashcan
         type: image
-        src: /img/layout/1stave/trashcan.png
+        src: /img/layout/firstave/trashcan.png
         position:
             left: 2000
             top: 0
@@ -78,7 +78,7 @@ elements:
     -
         id: lights001
         type: image
-        src: /img/layout/1stave/lights001.png
+        src: /img/layout/firstave/lights001.png
         position:
             left: 728
             top: 87
@@ -96,7 +96,7 @@ elements:
     -
         id: lights002
         type: image
-        src: /img/layout/1stave/lights001.png
+        src: /img/layout/firstave/lights001.png
         position:
             left: 150
             top: 87

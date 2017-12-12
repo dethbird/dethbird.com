@@ -1,0 +1,176 @@
+canvas:
+    id: graphics001
+    background_color: '#424242'
+    dimensions:
+        width: 4000
+        height: 2160
+    type: phaser
+    camera:
+      speed_x: 10
+      speed_y: 8
+      start_x: 425
+      start_y: 476
+    # input: cursor|flick
+    input:
+        - cursor
+        - pan
+elements:
+    -
+        id: buildings
+        type: image
+        src: /img/layout/firstave/buildings.png
+        position:
+            left: 0
+            top: 0
+        dimensions:
+            width: 5760
+            height: 2160
+        layer:
+            layer_id: buildings
+    -
+        id: tree
+        type: image
+        src: /img/layout/firstave/tree.png
+        position:
+            left: 2159
+            top: 100
+        dimensions:
+            width: 1342
+            height: 1617
+        layer:
+            layer_id: back_sidewalk
+    -
+        id: people
+        type: image
+        src: /img/layout/firstave/people.png
+        position:
+            left: 1200
+            top: 1242
+        dimensions:
+            width: 1135
+            height: 385
+        layer:
+            layer_id: back_sidewalk
+    -
+        id: streetsign
+        type: image
+        src: /img/layout/firstave/streetsign.png
+        position:
+            left: 5200
+            top: 0
+        dimensions:
+            width: 1964
+            height: 2160
+        layer:
+            layer_id: front_sidewalk
+    -
+        id: trashcan
+        type: image
+        src: /img/layout/firstave/trashcan.png
+        position:
+            left: 3500
+            top: 2746
+        dimensions:
+            width: 1682
+            height: 814
+        layer:
+            layer_id: front_sidewalk
+    -
+        id: branches
+        type: image
+        src: /img/layout/firstave/branches.png
+        position:
+            left: -350
+            top: 0
+        dimensions:
+            width: 1678
+            height: 999
+        layer:
+            layer_id: front_sidewalk
+    -
+        id: branches2
+        type: image
+        src: /img/layout/firstave/branches2.png
+        position:
+            left: 0
+            top: 1600
+        dimensions:
+            width: 1022
+            height: 971
+        layer:
+            layer_id: front_sidewalk
+    -
+        id: lights1
+        type: image
+        src: /img/layout/firstave/lights1.png
+        position:
+            left: 1080
+            top: 650
+        dimensions:
+            width: 1125
+            height: 798
+        layer:
+            layer_id: buildings
+        animations:
+            - 
+                type: flash
+                properties:
+                    delay: 0
+                    duration: 120
+    -
+        id: lights2
+        type: image
+        src: /img/layout/firstave/lights2.png
+        position:
+            left: 1080
+            top: 650
+        dimensions:
+            width: 1201
+            height: 795
+        layer:
+            layer_id: buildings
+        animations:
+            - 
+                type: flash
+                properties:
+                    delay: 40
+                    duration: 120
+    -
+        id: lights3
+        type: image
+        src: /img/layout/firstave/lights3.png
+        position:
+            left: 1080
+            top: 650
+        dimensions:
+            width: 1197
+            height: 749
+        layer:
+            layer_id: buildings
+        animations:
+            - 
+                type: flash
+                properties:
+                    delay: 80
+                    duration: 120
+layers:
+  -
+    id: buildings
+    size_scale: 1
+    motion_scale_x: .55
+    motion_scale_y: .38
+  -
+    id: back_sidewalk
+    size_scale: 1
+    motion_scale_x: .6
+    motion_scale_y: .4
+  -
+    id: foreground
+    size_scale: 1
+    motion_scale_x: .8
+    motion_scale_y: .8
+  -
+    id: front_sidewalk
+    size_scale: 1
+    motion_scale_x: 1.2
+    motion_scale_y: 1.2

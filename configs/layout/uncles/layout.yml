@@ -6,22 +6,50 @@ canvas:
         height: 1080
     type: phaser
     camera:
-      speed_x: 4
-      speed_y: 4
+      speed_x: 2
+      speed_y: 1
+      upper_bound_y: 50
+      lower_bound_y: 0
     # input: cursor|flick
     input:
         - cursor
+        - pan
 elements:
+    -
+        id: raindrop
+        type: emitter
+        src: /img/layout/rain001/raindrop.png
+        position:
+            left: world_center
+            top: 0
+        dimensions:
+            width: game_width
+        emitter:
+          explode: false
+          frequency: 0.5
+          lifespan: 2000
+          quantity: 0
+          max_particles: 3000
+          min_rotation: 0
+          max_rotation: 0
+          min_particle_scale: 0.3
+          max_particle_scale: 0.9
+          min_y_speed: 300
+          max_y_speed: 500
+          min_x_speed: -10
+          max_x_speed: 10
     -
         id: uncle001
         type: image
         src: /img/layout/uncles/uncle001.png
         position:
-            left: 727
+            left: 900
             top: 175
         dimensions:
             width: 150
             height: auto
+        layer:
+          layer_id: layer001
     -
         id: uncle002
         type: image
@@ -32,13 +60,51 @@ elements:
         dimensions:
             width: 400
             height: auto
+        layer:
+          layer_id: layer002
+    -
+        id: uncle002.5
+        type: image
+        src: /img/layout/uncles/uncle002.png
+        position:
+            left: 450
+            top: 208
+        dimensions:
+            width: 400
+            height: auto
+        layer:
+          layer_id: layer002
     -
         id: uncle003
         type: image
         src: /img/layout/uncles/uncle003.png
         position:
-            left: 920
+            left: 1200
             top: 208
         dimensions:
             width: 400
             height: auto
+        animations:
+            - 
+                type: sin_wobble
+                properties:
+                    distance_x: 30
+                    slice_height: 4
+        layer:
+          layer_id: layer001
+layers:
+  -
+    id: layer001
+    size_scale: 1
+    motion_scale_x: .66
+    motion_scale_y: .66
+  -
+    id: layer002
+    size_scale: .66
+    motion_scale_x: 2
+    motion_scale_y: 2
+  -
+    id: layer003
+    size_scale: .33
+    motion_scale_x: .33
+    motion_scale_y: .33

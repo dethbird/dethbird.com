@@ -214,6 +214,8 @@ export const updateFromLayout = (game, layout, gameState) => {
     game.camera.x = gameState.parallax.shift_x;
     game.camera.y = gameState.parallax.shift_y;
 
+    console.log(gameState.parallax);
+
     forEach(gameState.layers, function (layer, i) {
         if (layer.type == 'sprite') {
             layer.sprite.x = layer.element.position.left - (gameState.parallax.shift_x * layer.layer.motion_scale_x) + (layer.sprite.anchor.x * layer.sprite._frame.width * layer.sprite.scale.x);
@@ -224,6 +226,8 @@ export const updateFromLayout = (game, layout, gameState) => {
             layer.sprite.y = layer.element.position.top - (gameState.parallax.shift_y * layer.layer.motion_scale_y);
         }
     });
+
+    /** Animations  */
 
     forEach(gameState.animations.rotations, function(anim, i) {
         anim.sprite.angle += anim.properties.speed;
