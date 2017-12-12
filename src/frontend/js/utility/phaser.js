@@ -32,6 +32,9 @@ export const createFromLayout = (game, layout, gameState) => {
         shift_x: 0,
         shift_y: 0
     };
+    gameState.camera = {
+        zoom: 1
+    };
 
     forEach(layout.elements, function (element, i) {
 
@@ -160,11 +163,29 @@ export const createFromLayout = (game, layout, gameState) => {
     if (layout.canvas.input.includes('cursor'))
         gameState.cursors = game.input.keyboard.createCursorKeys();
 
+    if (layout.canvas.input.includes('zoom'))
+        game.input.mouse.mouseWheelCallback = (event) => {
+            mouseWheelCallback(event, game, layout, gameState);
+        };
+
     if (has(layout.canvas.camera, 'start_x'))
         gameState.parallax.shift_x = layout.canvas.camera.start_x;
     if (has(layout.canvas.camera, 'start_y'))
         gameState.parallax.shift_y = layout.canvas.camera.start_y;
 }
+
+export const mouseWheelCallback = (event, game, layout, gameState) => {
+    if (event.wheelDeltaY > 0) {
+        gameState.camera.zoom += layout.canvas.camera.zoom_speed;
+        if (gameState.camera.zoom > layout.canvas.camera.max_zoom)
+            gameState.camera.zoom = layout.canvas.camera.max_zoom;
+    } else {
+        gameState.camera.zoom -= layout.canvas.camera.zoom_speed;
+        if (gameState.camera.zoom < layout.canvas.camera.min_zoom)
+            gameState.camera.zoom = layout.canvas.camera.min_zoom;
+    }
+    console.log(gameState.camera.zoom);
+};
 
 export const updateFromLayout = (game, layout, gameState) => {
 
@@ -214,7 +235,8 @@ export const updateFromLayout = (game, layout, gameState) => {
     game.camera.x = gameState.parallax.shift_x;
     game.camera.y = gameState.parallax.shift_y;
 
-    console.log(gameState.parallax);
+    game.camera.scale.x = gameState.camera.zoom;
+    game.camera.scale.y = gameState.camera.zoom;
 
     forEach(gameState.layers, function (layer, i) {
         if (layer.type == 'sprite') {
@@ -228,7 +250,6 @@ export const updateFromLayout = (game, layout, gameState) => {
     });
 
     /** Animations  */
-
     forEach(gameState.animations.rotations, function(anim, i) {
         anim.sprite.angle += anim.properties.speed;
     });
