@@ -12,7 +12,6 @@ export const preloadFromLayout = (game, layout) => {
     forEach(layout.elements, function(element, i) {
         if (element.type == 'image' || element.type == 'emitter') {
             game.load.image(element.id, element.src);
-
         }
     });
 }
@@ -26,7 +25,7 @@ export const createFromLayout = (game, layout, gameState) => {
     gameState.cursors = {};
     gameState.pointer = {
         last_x: undefined,
-        last_y: undefined
+        last_pinch_coefficient: undefined
     };
     gameState.parallax = {
         shift_x: 0,
@@ -39,7 +38,7 @@ export const createFromLayout = (game, layout, gameState) => {
     forEach(layout.elements, function (element, i) {
 
         let layer;
-        if (has(element, 'layer'))
+        if (has(element, 'layer'))``
             layer = find(layout.layers, { id: element.layer.layer_id });
 
         if (element.type == 'image') {
@@ -184,10 +183,35 @@ export const mouseWheelCallback = (event, game, layout, gameState) => {
         if (gameState.camera.zoom < layout.canvas.camera.min_zoom)
             gameState.camera.zoom = layout.canvas.camera.min_zoom;
     }
-    console.log(gameState.camera.zoom);
 };
 
 export const updateFromLayout = (game, layout, gameState) => {
+
+    // game.debug.pointer(game.input.pointer1);
+    // game.debug.pointer(game.input.pointer2);
+
+    if (layout.canvas.input.includes('pinch')) {
+        if (game.input.pointer1.isDown && game.input.pointer2.isDown) {
+            const deltaY = Math.abs(game.input.pointer1.clientY - game.input.pointer2.clientY);
+            const deltaX = Math.abs(game.input.pointer1.clientX - game.input.pointer2.clientX);
+            const pinchCoefficient = (deltaY + deltaX) / 2;
+            // game.debug.text(pinchCoefficient, 10, 80);
+            if (gameState.pointer.last_pinch_coefficient !== undefined) {
+                if (pinchCoefficient > gameState.pointer.last_pinch_coefficient) {
+                    gameState.camera.zoom += layout.canvas.camera.zoom_speed;
+                    if (gameState.camera.zoom > layout.canvas.camera.max_zoom)
+                        gameState.camera.zoom = layout.canvas.camera.max_zoom;
+                } else if (pinchCoefficient < gameState.pointer.last_pinch_coefficient) {
+                    gameState.camera.zoom -= layout.canvas.camera.zoom_speed;
+                    if (gameState.camera.zoom < layout.canvas.camera.min_zoom)
+                        gameState.camera.zoom = layout.canvas.camera.min_zoom;
+                }
+            }
+            gameState.pointer.last_pinch_coefficient = pinchCoefficient;
+        } else {
+            gameState.pointer.last_pinch_coefficient = undefined;
+        }
+    }
 
     if (layout.canvas.input.includes('pan')) {
         if (game.input.activePointer.isDown) {
@@ -263,7 +287,6 @@ export const updateFromLayout = (game, layout, gameState) => {
             if (anim.sprites[i].cx > (anim.properties.waveform.length -1)) {
                 anim.sprites[i].cx = 0;
             }
-
         }
     });
 }
