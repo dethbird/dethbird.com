@@ -38,7 +38,7 @@ export const createFromLayout = (game, layout, gameState) => {
     forEach(layout.elements, function (element, i) {
 
         let layer;
-        if (has(element, 'layer'))``
+        if (has(element, 'layer'))
             layer = find(layout.layers, { id: element.layer.layer_id });
 
         if (element.type == 'image') {
