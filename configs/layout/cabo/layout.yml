@@ -75,24 +75,18 @@ elements:
             height: auto
         layer:
             layer_id: foreground
-    # -
-    #     id: casa_de_miguel
-    #     type: markdown
-    #     src: /img/layout/cabo/casa_de_miguel.png
-    #     markdown: |
-    #         Casa de Miguel
-
-    #         - ronaldo
-    #         - beeramyd
-    #         - breakfast nachos
-    #     position:
-    #         left: 1050
-    #         top: 50
-    #     dimensions:
-    #         width: 560
-    #         height: 380
-    #     classes:
-    #         - element-placeholder
+    -
+        id: casa_miguel
+        type: image
+        src: /img/layout/cabo/casa_miguel.png
+        position:
+            left: 860
+            top: 153
+        dimensions:
+            width: 800
+            height: 677
+        layer:
+            layer_id: foreground
     # -
     #     id: sloot_vultures
     #     type: markdown
