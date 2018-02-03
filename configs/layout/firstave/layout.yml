@@ -6,14 +6,19 @@ canvas:
         height: 2160
     type: phaser
     camera:
-      speed_x: 10
-      speed_y: 8
+      speed_x: 18
+      speed_y: 12
       start_x: 425
       start_y: 476
+      zoom_speed: 0.03
+      zoom_start: 0.5
+      min_zoom: 0.5
+      max_zoom: 2.5
     # input: cursor|flick
     input:
         - cursor
         - pan
+        - zoom
 elements:
     -
         id: buildings

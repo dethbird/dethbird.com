@@ -162,10 +162,13 @@ export const createFromLayout = (game, layout, gameState) => {
     if (layout.canvas.input.includes('cursor'))
         gameState.cursors = game.input.keyboard.createCursorKeys();
 
-    if (layout.canvas.input.includes('zoom'))
+    if (layout.canvas.input.includes('zoom')) {
         game.input.mouse.mouseWheelCallback = (event) => {
             mouseWheelCallback(event, game, layout, gameState);
         };
+        if (has(layout.canvas.camera, 'zoom_start'))
+            gameState.camera.zoom = layout.canvas.camera.zoom_start;
+    }
 
     if (has(layout.canvas.camera, 'start_x'))
         gameState.parallax.shift_x = layout.canvas.camera.start_x;

@@ -10,6 +10,9 @@ canvas:
       speed_y: 1
       upper_bound_y: 50
       lower_bound_y: 0
+      zoom_speed: 0.03
+      min_zoom: 0.5
+      max_zoom: 2.5
     # input: cursor|flick
     input:
         - cursor
